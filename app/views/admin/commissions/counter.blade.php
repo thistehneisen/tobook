@@ -7,6 +7,16 @@ $(function () {
     $('#months').change(function(e){
         window.location = window.location + '?date=' + $(this).val();
     });
+
+    $('.btn-change-status').click(function(e){
+        e.preventDefault();
+        $('#status').val($(this).data('status'));
+        $('#mass_action').submit();
+    });
+
+    $('.toggle-check-all-boxes').change(function(e){
+        $('.checkbox').prop('checked', this.checked);
+    });
 });
     </script>
 @stop
@@ -30,9 +40,18 @@ $(function () {
         </div>
         <div class="col-sm-3 hidden-print"><a href="{{ route('admin.users.commissions.counter', ['id'=> $user->id, 'employee'=> $employeeId, 'date'=> with(clone $current->startOfMonth())->addMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.next')) }}</a></div>
         <div class="col-sm-3 hidden-print">
-            <button class="btn btn-primary btn-sm pull-right" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
-            {{ Form::select('months', $months, $date, ['style'=>'width:70%','class' => 'form-control input-xs', 'id' => 'months']) }}
+            {{ Form::select('months', $months, $date, ['style'=>'width:70%','class' => 'form-control input-sm pull-right', 'id' => 'months']) }}
+            <button class="btn btn-primary btn-sm" onclick="frames['pdf'].print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
+        <iframe src="{{ route('admin.users.commissions.pdf', ['id' => $user->id]) }}"  style="display:none" name="pdf"></iframe>
         </div>
+</div>
+
+<form id="mass_action" name="mass_action" action="{{ route('admin.users.commissions.mass_status', ['id' => $user->id]) }}" method="POST">
+<div  class="pull-left">
+    <a href="#" data-status="suspend" class="btn-change-status btn btn-xs btn-warning" title=""><i class="fa fa-lock"></i></a>
+    <a href="#" data-status="paid" class="btn-change-status btn btn-xs btn-success" title=""><i class="fa fa-check"></i></a>
+    <a href="#" data-status="cancelled" class="btn-change-status btn btn-xs btn-danger" title=""><i class="fa fa-history"></i></a>
+    <input type="hidden" name="status" id="status" value="">
 </div>
 
 <table class="table table-hover table-crud">
@@ -52,7 +71,7 @@ $(function () {
      <tbody id="js-crud-tbody">
     @foreach ($items as $item)
         <tr @if(!empty($item->commission_status)) class="{{ $item->commission_status }}" @endif id="row-{{ $item->id }}" data-id="{{ $item->id }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
-            <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}" id="bulk-item-{{ $item->id }}"></td>
+            <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->booking_id }}" id="bulk-item-{{ $item->id }}"></td>
             <td>{{ $item->created_at->format('d.m.Y') }}</td>
             <td>{{ $item->name }}</td>
             <td class="number">{{ $item->total_price }}{{ $currencySymbol }}</td>
@@ -78,6 +97,12 @@ $(function () {
     </tbody>
 </table>
 
+<div  class="pull-left">
+    <a href="#" data-status="suspend" class="btn-change-status btn btn-xs btn-warning" title=""><i class="fa fa-lock"></i></a>
+    <a href="#" data-status="paid" class="btn-change-status btn btn-xs btn-success" title=""><i class="fa fa-check"></i></a>
+    <a href="#" data-status="cancelled" class="btn-change-status btn btn-xs btn-danger" title=""><i class="fa fa-history"></i></a>
+</div>
+</form>
 
 <div class="row">
     <div class="col-md-10 text-right">
@@ -113,10 +138,38 @@ $(function () {
 </div>
 
 <div class="center">
-    {{ Form::open(['route' => ['as.employees.upsert'], 'class' => 'center', 'role' => 'form']) }}
-    <label>{{ trans('admin.commissions.email_monthly_report') }}:</label>
-    {{ Form::text('report_email', (isset($employee)) ? $employee->account:'', ['class' => 'form-control input-sm', 'id' => 'report_email']) }}
-    <button type="submit" class="btn btn-primary btn-sm" id="btn-send-report">{{ trans('common.send') }}</button>
-    {{ Form::close() }}
+{{ Form::open(['route' => ['admin.users.commissions.send_report', $user->id], 'class' => 'center form-horizontal', 'role' => 'form']) }}
+  <div class="form-group {{ Form::errorCSS('treatment_type_id', $errors) }}">
+        <label for="email_address" class="col-sm-2 control-label">{{ trans('admin.commissions.email_monthly_report') }}:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <span class="input-group-addon">@</span>
+                {{ Form::text('email_address', (isset($employee)) ? $employee->account:'', ['class' => 'form-control input-sm', 'id' => 'email_address']) }}
+             </div>
+            {{ Form::errorText('email_address', $errors) }}
+        </div>
+    </div>
+    <div class="form-group {{ Form::errorCSS('category_id', $errors) }}">
+        <label for="email_title" class="col-sm-2 control-label">{{ trans('admin.commissions.email_title') }}:</label>
+        <div class="col-sm-5">
+             {{ Form::text('email_title', (isset($employee)) ? $employee->account:'', ['class' => 'form-control input-sm', 'id' => 'email_title']) }}
+            {{ Form::errorText('email_title', $errors) }}
+        </div>
+    </div>
+    <div class="form-group {{ Form::errorCSS('category_id', $errors) }}">
+        <label for="email_content" class="col-sm-2 control-label">{{ trans('admin.commissions.email_content') }}:</label>
+        <div class="col-sm-5">
+             {{ Form::textarea('email_content', (isset($employee)) ? $employee->account:'', ['class' => 'form-control input-sm', 'id' => 'email_content']) }}
+            {{ Form::errorText('email_content', $errors) }}
+        </div>
+    </div>
+     <div class="form-group {{ Form::errorCSS('category_id', $errors) }}">
+        <label for="email_content" class="col-sm-2 control-label"></label>
+        <div class="col-sm-5">
+        {{ Form::hidden('date', $current->format('Y.m')) }}
+        <button type="submit" class="btn btn-primary btn-sm" id="btn-send-report">{{ trans('common.send') }}</button>
+        </div>
+    </div>
+     {{ Form::close() }}
 </div>
 @stop

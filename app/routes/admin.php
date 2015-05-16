@@ -96,6 +96,21 @@ Route::group([
             'as' => 'admin.users.commissions.status',
             'uses' => 'App\Core\Controllers\Admin\Commissions@status'
         ]);
+
+        Route::post('{id}/commissions-counter/mass-status', [
+            'as' => 'admin.users.commissions.mass_status',
+            'uses' => 'App\Core\Controllers\Admin\Commissions@massStatus'
+        ]);
+
+        Route::get('{id}/commissions-pdf/{employee?}', [
+            'as' => 'admin.users.commissions.pdf',
+            'uses' => 'App\Core\Controllers\Admin\Commissions@pdf'
+        ]);
+
+        Route::post('{id}/commissions-send-report', [
+            'as' => 'admin.users.commissions.send_report',
+            'uses' => 'App\Core\Controllers\Admin\Commissions@sendReport'
+        ]);
     });
 
     //--------------------------------------------------------------------------
