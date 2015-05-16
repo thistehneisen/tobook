@@ -13,7 +13,15 @@
     <div class="col-sm-3 col-md-3">
         <div class="input-group margin-bottom-lg">
             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-            <input name="location" class="form-control input-lg" style="@if(App::getLocale() == 'lv')width:185px;@endif" type="text" placeholder="{{ trans('home.search.location') }}">
+            <input id="form-search-keyword" data-toggle="dropdown" data-target="#" name="location" class="form-control input-lg input-keyword {{ App::getLocale() }}" type="text" placeholder="{{ trans('home.search.location') }}">
+            <ul id="big-cities-dropdown" class="dropdown-menu" role="menu">
+                <li role="presentation"><a href="#">Your current location</a></li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation"><a href="#">Helsinki</a></li>
+                <li role="presentation"><a href="#">Helsinki</a></li>
+                <li role="presentation"><a href="#">Helsinki</a></li>
+                <li role="presentation"><a href="#">Helsinki</a></li>
+            </ul>
         </div>
     </div>
 

@@ -53,6 +53,22 @@
             width: 100%;
         }
     }
+    .form-control {
+        border-left: 0;
+        &:focus {
+            border: 1px solid #ccc !important;
+            border-left: 0 !important;
+        }
+    }
+
+    .input-keyword {
+        border-top-right-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+
+        &.lv {
+            width: 180px;
+        }
+    }
 
     .datetime-wrapper {
         position: relative;
