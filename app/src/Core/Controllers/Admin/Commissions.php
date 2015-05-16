@@ -129,7 +129,6 @@ class Commissions extends Base
             $userId,
             $status,
             $employeeId,
-            $perPage,
             $startOfMonth,
             $endOfMonth
         );
@@ -138,7 +137,6 @@ class Commissions extends Base
             $userId,
             $status,
             $employeeId,
-            $perPage,
             $startOfMonth,
             $endOfMonth
         );
@@ -179,28 +177,52 @@ class Commissions extends Base
             BusinessCommission::STATUS_CANCELLED
         ];
 
-        $commissionRate = Settings::get('commission_rate');
-
         if (in_array($status, $validStatuses)){
-            $booking            = Booking::findOrFail($bookingId);
-            $user               = User::find($userId);
-            $businessCommission = BusinessCommission::where('booking_id', $bookingId)->first();
-            $amount             = $booking->total_price * $commissionRate;
-
-            if (empty($businessCommission)) {
-                $businessCommission = new BusinessCommission();
-            }
-
-            $businessCommission->fill([
-                'status' => $status,
-                'amount' => $amount,
-            ]);
-
-            $businessCommission->user()->associate($user);
-            $businessCommission->booking()->associate($booking);
-            $businessCommission->save();
+            $this->changeStatus($userId, $bookingId, $status);
         }
         return Redirect::back();
+    }
+
+    public function massStatus($userId)
+    {
+        $status = Input::get('status');
+        $ids = Input::get('ids');
+
+        $validStatuses = [
+            BusinessCommission::STATUS_SUSPEND,
+            BusinessCommission::STATUS_PAID,
+            BusinessCommission::STATUS_CANCELLED
+        ];
+
+        if (in_array($status, $validStatuses)){
+            foreach ($ids as $bookingId) {
+                $this->changeStatus($userId, $bookingId, $status);
+            }
+        }
+        return Redirect::back();
+    }
+
+    private function changeStatus($userId, $bookingId, $status)
+    {
+        $booking            = Booking::findOrFail($bookingId);
+        $user               = User::find($userId);
+        $businessCommission = BusinessCommission::where('booking_id', $bookingId)->first();
+
+        $commissionRate     = Settings::get('commission_rate');
+        $amount             = $booking->total_price * $commissionRate;
+
+        if (empty($businessCommission)) {
+            $businessCommission = new BusinessCommission();
+        }
+
+        $businessCommission->fill([
+            'status' => $status,
+            'amount' => $amount,
+        ]);
+
+        $businessCommission->user()->associate($user);
+        $businessCommission->booking()->associate($booking);
+        $businessCommission->save();
     }
 
     public function pdf($userId, $employeeId = null)
@@ -227,14 +249,30 @@ class Commissions extends Base
             : Employee::STATUS_FREELANCER;
         $perPage = null;
 
-        $bookings = Booking::getBookingCommisions(
+        $employeeBookings = Booking::getBookingCommisions(
             $userId,
+            Employee::STATUS_EMPLOYEE,
             $employeeId,
-            $status,
-            $perPage,
             $startOfMonth,
             $endOfMonth
         );
+
+        $freelancers = $user->asEmployees()
+            ->where('status', '=', Employee::STATUS_FREELANCER)
+            ->get();
+
+        $freelancersBookings = [];
+
+        foreach ($freelancers as $freelancer) {
+            $freelancersBookings[$freelancer->name] = Booking::getBookingCommisions(
+                $userId,
+                Employee::STATUS_FREELANCER,
+                $freelancer->id,
+                $startOfMonth,
+                $endOfMonth
+            );
+        }
+
 
         $fields = [
             'created_at','date', 'employee', 'customer', 'price', 'booking_status', 'notes'
@@ -242,18 +280,16 @@ class Commissions extends Base
 
         $needToPay = Booking::countCommissionNeedToPay(
             $userId,
-            $status,
+            null,
             $employeeId,
-            $perPage,
             $startOfMonth,
             $endOfMonth
         );
 
         $paid = Booking::countCommissionPaid(
             $userId,
-            $status,
+            null,
             $employeeId,
-            $perPage,
             $startOfMonth,
             $endOfMonth
         );
@@ -265,17 +301,18 @@ class Commissions extends Base
         $pending   = $needToPay->total * $commissionRate;
 
         return $this->render('pdf', [
-            'items'          => $bookings,
-            'fields'         => $fields,
-            'date'           => $current->format('Y-m'),
-            'langPrefix'     => $langPrefix,
-            'current'        => $current,
-            'user'           => $user,
-            'employeeId'     => $employeeId,
-            'paid'           => $paid,
-            'pending'        => $pending,
-            'commissionRate' => $commissionRate,
-            'currencySymbol' => $currencySymbol
+            'employeeBookings'    => $employeeBookings,
+            'freelancersBookings' => $freelancersBookings,
+            'fields'              => $fields,
+            'date'                => $current->format('Y-m'),
+            'langPrefix'          => $langPrefix,
+            'current'             => $current,
+            'user'                => $user,
+            'employeeId'          => $employeeId,
+            'paid'                => $paid,
+            'pending'             => $pending,
+            'commissionRate'      => $commissionRate,
+            'currencySymbol'      => $currencySymbol
         ]);
     }
 }

@@ -7,6 +7,16 @@ $(function () {
     $('#months').change(function(e){
         window.location = window.location + '?date=' + $(this).val();
     });
+
+    $('.btn-change-status').click(function(e){
+        e.preventDefault();
+        $('#status').val($(this).data('status'));
+        $('#mass_action').submit();
+    });
+
+    $('.toggle-check-all-boxes').change(function(e){
+        $('.checkbox').prop('checked', this.checked);
+    });
 });
     </script>
 @stop
@@ -31,8 +41,17 @@ $(function () {
         <div class="col-sm-3 hidden-print"><a href="{{ route('admin.users.commissions.counter', ['id'=> $user->id, 'employee'=> $employeeId, 'date'=> with(clone $current->startOfMonth())->addMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.next')) }}</a></div>
         <div class="col-sm-3 hidden-print">
             {{ Form::select('months', $months, $date, ['style'=>'width:70%','class' => 'form-control input-sm pull-right', 'id' => 'months']) }}
-            <button class="btn btn-primary btn-sm" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
+            <button class="btn btn-primary btn-sm" onclick="frames['pdf'].print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
+        <iframe src="{{ route('admin.users.commissions.pdf', ['id' => $user->id]) }}"  style="display:none" name="pdf"></iframe>
         </div>
+</div>
+
+<form id="mass_action" name="mass_action" action="{{ route('admin.users.commissions.mass_status', ['id' => $user->id]) }}" method="POST">
+<div  class="pull-left">
+    <a href="#" data-status="suspend" class="btn-change-status btn btn-xs btn-warning" title=""><i class="fa fa-lock"></i></a>
+    <a href="#" data-status="paid" class="btn-change-status btn btn-xs btn-success" title=""><i class="fa fa-check"></i></a>
+    <a href="#" data-status="cancelled" class="btn-change-status btn btn-xs btn-danger" title=""><i class="fa fa-history"></i></a>
+    <input type="hidden" name="status" id="status" value="">
 </div>
 
 <table class="table table-hover table-crud">
@@ -52,7 +71,7 @@ $(function () {
      <tbody id="js-crud-tbody">
     @foreach ($items as $item)
         <tr @if(!empty($item->commission_status)) class="{{ $item->commission_status }}" @endif id="row-{{ $item->id }}" data-id="{{ $item->id }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
-            <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}" id="bulk-item-{{ $item->id }}"></td>
+            <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->booking_id }}" id="bulk-item-{{ $item->id }}"></td>
             <td>{{ $item->created_at->format('d.m.Y') }}</td>
             <td>{{ $item->name }}</td>
             <td class="number">{{ $item->total_price }}{{ $currencySymbol }}</td>
@@ -78,6 +97,12 @@ $(function () {
     </tbody>
 </table>
 
+<div  class="pull-left">
+    <a href="#" data-status="suspend" class="btn-change-status btn btn-xs btn-warning" title=""><i class="fa fa-lock"></i></a>
+    <a href="#" data-status="paid" class="btn-change-status btn btn-xs btn-success" title=""><i class="fa fa-check"></i></a>
+    <a href="#" data-status="cancelled" class="btn-change-status btn btn-xs btn-danger" title=""><i class="fa fa-history"></i></a>
+</div>
+</form>
 
 <div class="row">
     <div class="col-md-10 text-right">
