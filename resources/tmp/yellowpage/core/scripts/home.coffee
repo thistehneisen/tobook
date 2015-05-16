@@ -2,6 +2,13 @@ do ($ = jQuery) ->
   'use strict'
 
   $ ->
+    # When user clicks on an option in location dropdown list
+    $ '#big-cities-dropdown'
+      .on 'click', 'a.city', (e) ->
+        e.preventDefault()
+        $ '#form-search-location'
+          .val $(@).text()
+
     # When user clicks on navbar, we'll ask for the current location
     $ '#js-navbar'
       .find 'a'
