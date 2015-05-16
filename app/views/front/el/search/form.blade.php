@@ -14,8 +14,8 @@
         <div class="input-group margin-bottom-lg">
             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
             <input autocomplete="off" data-toggle="dropdown" data-target="#" name="location" class="form-control input-lg input-keyword {{ App::getLocale() }}" type="text" placeholder="{{ trans('home.search.location') }}">
-            <ul id="big-cities-dropdown" class="dropdown-menu" role="menu">
-                <li role="presentation"><a href="#">Your current location</a></li>
+            <ul id="big-cities-dropdown" class="dropdown-menu big-cities-dropdown" role="menu">
+                <li role="presentation"><a href="#">@lang('home.search.current_location')</a></li>
                 <li role="presentation" class="divider"></li>
                 @foreach ($cities as $city)
                 <li role="presentation"><a href="#">{{{ $city }}}</a></li>

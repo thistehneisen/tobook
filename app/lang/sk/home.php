@@ -55,6 +55,7 @@ return [
         'button'          => 'Hladať',
         'date'            => 'Ľubovolný čas',
         'time'            => 'ĽUbovolný dátum',
+        'current_location' => 'Your current location', // @todo
         'results'         => '<span class="keyword">&ldquo;:keyword&rdquo;</span>, <span class="location">:location</span>, :date, :time, <span class="results">:total results</span>',
         'geo'             => [
             'info' => 'Spýtame sa Vás na Vašu polohu, aby sme Vám zobrazili výsledky najbližšie k Vám.'

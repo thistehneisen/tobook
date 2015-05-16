@@ -55,6 +55,7 @@ return [
         'button'          => 'Meklēšana', // @todo
         'date'            => 'Izvēlēties datumu', // @todo
         'time'            => 'Izvēlēties laiku', // @todo
+        'current_location' => 'Your current location', // @todo
         'geo'             => [
             'info' => 'Lūdzu, norādiet savu atrašanās vietu, lai varam piemeklēt atbilstošus piedāvājumus Jūsu apkaimē.'
         ]

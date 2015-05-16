@@ -54,6 +54,7 @@ return [
         'button'          => 'Search', // @todo
         'date'            => 'Any date', // @todo
         'time'            => 'Any time', // @todo
+        'current_location' => 'Your current location', // @todo
         'geo'             => [
             'info' => 'Va vom cere locatia curenta pentru a afisa rezultate care sunt aproape de dvs.'
         ]

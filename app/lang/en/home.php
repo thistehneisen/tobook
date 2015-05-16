@@ -55,6 +55,7 @@ return [
         'button'          => 'Search',
         'date'            => 'Any date',
         'time'            => 'Any time',
+        'current_location' => 'Your current location',
         'results'         => '<span class="keyword">&ldquo;:keyword&rdquo;</span>, <span class="location">:location</span>, :date, :time, <span class="results">:total results</span>',
         'geo'             => [
             'info' => 'We will ask for your current location to display results that are close to you.'

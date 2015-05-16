@@ -54,6 +54,7 @@ return [
         'button'          => 'поиск', // @todo
         'date'            => 'Любая дата', // @todo
         'time'            => 'любое время', // @todo
+        'current_location' => 'Your current location', // @todo
         'geo'             => [
             'info' => 'Ваше местоположение нужно для того, чтобы показывать близкие к вам результаты поиска.'
         ]

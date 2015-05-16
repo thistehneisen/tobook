@@ -55,6 +55,7 @@ return [
         'button'          => 'Hae',
         'date'            => 'Valitse päivä',
         'time'            => 'Valitse aika',
+        'current_location' => 'Your current location', // @todo
         'geo'             => [
             'info' => 'Kysymme sijaintiasi jotta voimme järjestää hakutulokset sijaintisi perusteella.'
         ]
