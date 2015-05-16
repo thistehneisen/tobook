@@ -328,7 +328,7 @@ class Commissions extends Base
         $html = $this->render('pdf', $data)->render();
 
         $current = $data['current'];
-        $filename = public_path() . '/tmp/' . 'report_' . $userId . '_'  $current->format('YmdHis') . '.pdf';
+        $filename = public_path() . '/tmp/' . 'report_' . $userId . '_' . $current->format('YmdHis') . '.pdf';
 
         $pdf = App::make('dompdf');
         $pdf->loadHTML($html);
