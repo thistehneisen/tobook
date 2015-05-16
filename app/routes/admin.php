@@ -106,6 +106,11 @@ Route::group([
             'as' => 'admin.users.commissions.pdf',
             'uses' => 'App\Core\Controllers\Admin\Commissions@pdf'
         ]);
+
+        Route::post('{id}/commissions-send-report', [
+            'as' => 'admin.users.commissions.send_report',
+            'uses' => 'App\Core\Controllers\Admin\Commissions@sendReport'
+        ]);
     });
 
     //--------------------------------------------------------------------------

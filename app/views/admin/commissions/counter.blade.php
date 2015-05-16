@@ -138,10 +138,38 @@ $(function () {
 </div>
 
 <div class="center">
-    {{ Form::open(['route' => ['as.employees.upsert'], 'class' => 'center', 'role' => 'form']) }}
-    <label>{{ trans('admin.commissions.email_monthly_report') }}:</label>
-    {{ Form::text('report_email', (isset($employee)) ? $employee->account:'', ['class' => 'form-control input-sm', 'id' => 'report_email']) }}
-    <button type="submit" class="btn btn-primary btn-sm" id="btn-send-report">{{ trans('common.send') }}</button>
-    {{ Form::close() }}
+{{ Form::open(['route' => ['admin.users.commissions.send_report', $user->id], 'class' => 'center form-horizontal', 'role' => 'form']) }}
+  <div class="form-group {{ Form::errorCSS('treatment_type_id', $errors) }}">
+        <label for="email_address" class="col-sm-2 control-label">{{ trans('admin.commissions.email_monthly_report') }}:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <span class="input-group-addon">@</span>
+                {{ Form::text('email_address', (isset($employee)) ? $employee->account:'', ['class' => 'form-control input-sm', 'id' => 'email_address']) }}
+             </div>
+            {{ Form::errorText('email_address', $errors) }}
+        </div>
+    </div>
+    <div class="form-group {{ Form::errorCSS('category_id', $errors) }}">
+        <label for="email_title" class="col-sm-2 control-label">{{ trans('admin.commissions.email_title') }}:</label>
+        <div class="col-sm-5">
+             {{ Form::text('email_title', (isset($employee)) ? $employee->account:'', ['class' => 'form-control input-sm', 'id' => 'email_title']) }}
+            {{ Form::errorText('email_title', $errors) }}
+        </div>
+    </div>
+    <div class="form-group {{ Form::errorCSS('category_id', $errors) }}">
+        <label for="email_content" class="col-sm-2 control-label">{{ trans('admin.commissions.email_content') }}:</label>
+        <div class="col-sm-5">
+             {{ Form::textarea('email_content', (isset($employee)) ? $employee->account:'', ['class' => 'form-control input-sm', 'id' => 'email_content']) }}
+            {{ Form::errorText('email_content', $errors) }}
+        </div>
+    </div>
+     <div class="form-group {{ Form::errorCSS('category_id', $errors) }}">
+        <label for="email_content" class="col-sm-2 control-label"></label>
+        <div class="col-sm-5">
+        {{ Form::hidden('date', $current->format('Y.m')) }}
+        <button type="submit" class="btn btn-primary btn-sm" id="btn-send-report">{{ trans('common.send') }}</button>
+        </div>
+    </div>
+     {{ Form::close() }}
 </div>
 @stop

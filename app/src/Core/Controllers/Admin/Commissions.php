@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers\Admin;
 
-use Input, Response, Log, Settings, Config, Util, Redirect;
+use Input, Response, Log, Settings, Config, Util, Redirect, App, Mail;
 use App\Core\Models\CommissionLog;
 use App\Core\Models\BusinessCommission;
 use App\Core\Models\User;
@@ -225,7 +225,7 @@ class Commissions extends Base
         $businessCommission->save();
     }
 
-    public function pdf($userId, $employeeId = null)
+    private function report($userId, $employeeId)
     {
         $current = Carbon::now();
         $langPrefix = 'admin.commissions';
@@ -300,7 +300,7 @@ class Commissions extends Base
 
         $pending   = $needToPay->total * $commissionRate;
 
-        return $this->render('pdf', [
+        return [
             'employeeBookings'    => $employeeBookings,
             'freelancersBookings' => $freelancersBookings,
             'fields'              => $fields,
@@ -313,6 +313,39 @@ class Commissions extends Base
             'pending'             => $pending,
             'commissionRate'      => $commissionRate,
             'currencySymbol'      => $currencySymbol
-        ]);
+        ];
+    }
+
+    public function pdf($userId, $employeeId = null)
+    {
+        $data = $this->report($userId, $employeeId);
+        return $this->render('pdf', $data);
+    }
+
+    public function sendReport($userId, $employeeId = null)
+    {
+        $data = $this->report($userId, $employeeId);
+        $html = $this->render('pdf', $data)->render();
+
+        $current = $data['current'];
+        $filename = public_path() . '/tmp/' . 'report_' . $current->format('YmdHis') . '.pdf';
+
+        $pdf = App::make('dompdf');
+        $pdf->loadHTML($html);
+        $pdf->save($filename);
+
+        $address = Input::get('email_address');
+        $subject = Input::get('email_title');
+        $content = Input::get('email_content');
+
+        Mail::send('admin.commissions.mail', [
+            'title' => $subject,
+            'body' => nl2br($content)
+        ], function($message) use ($address, $filename, $subject) {
+            $message->to($address)->subject($subject);
+            $message->attach($filename, array('mime' => "application/pdf"));
+        });
+        // unlink($filename);
+        return Redirect::back();
     }
 }

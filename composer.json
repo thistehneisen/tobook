@@ -21,7 +21,8 @@
         "clowdy/laravel-raven": "0.1.0",
         "eluceo/ical": "0.6.1",
         "webtopay/libwebtopay": "dev-default#b62cb2f",
-        "maknz/slack": "1.5.0"
+        "maknz/slack": "1.5.0",
+        "barryvdh/laravel-dompdf": "0.4.*"
     },
     "repositories": [
         {
