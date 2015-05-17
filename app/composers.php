@@ -26,3 +26,5 @@ View::composer('el.multimeta', function ($view) {
 
     $view->with('meta', $result);
 });
+
+View::composer('front.el.search.form', 'App\Core\ViewComposers\BigCities');

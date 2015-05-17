@@ -80,6 +80,7 @@ return [
         'footer_contact_message' => 'Text to be included in every contact message of business',
         'social_google-plus'     => 'Google+',
         'default_paygate'        => 'The default paygate',
+        'big_cities'             => 'Big cities (One city per line)',
     ],
     'master-cats' => [
         'all'         => 'Všetky hlavné kategórie',

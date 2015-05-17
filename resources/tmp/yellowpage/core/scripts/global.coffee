@@ -17,7 +17,7 @@ unless String::routeformat
       (if args[0][key] isnt `undefined` then args[0][key] else match)
 
 # routes
-VARAA.routes = {}
+VARAA.routes = VARAA.routes || {}
 VARAA.addRoute = (routeName, url) ->
   VARAA.routes[routeName] = unescape(url)
   return
@@ -46,3 +46,48 @@ VARAA.trans = (key) ->
 # regex email validation pattern
 # http://stackoverflow.com/questions/2507030/email-validation-using-jquery
 VARAA.regex_email_validation = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/
+
+VARAA.getLocation = ->
+  q = $.Deferred()
+  success = (position) ->
+    lat = position.coords.latitude
+    lng = position.coords.longitude
+
+    # Update location values in Session, so that users won't be asked again
+    $.ajax
+      url: VARAA.routes.updateLocation
+      type: 'POST'
+      data:
+        lat: lat
+        lng: lng
+    .done ->
+      q.resolve(lat, lng)
+
+  error = (err) -> console.log err
+  navigator.geolocation.getCurrentPosition success, error, timeout: 10000
+
+  return q.promise()
+
+VARAA.initTypeahead = (selector, name) ->
+  collection = new Bloodhound
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace 'name'
+    queryTokenizer: Bloodhound.tokenizers.whitespace
+    limit: 10
+    prefetch:
+      url: selector.data('data-source')
+      filter: (list) ->
+        if (typeof list[0] == 'string')
+          return $.map list, (item) -> name: item
+        return list
+
+  collection.clearPrefetchCache()
+  collection.initialize()
+
+  selector.typeahead
+    highlight: true
+    hint: true
+  ,
+    name: name
+    displayKey: 'name'
+    source: collection.ttAdapter()
+  return
