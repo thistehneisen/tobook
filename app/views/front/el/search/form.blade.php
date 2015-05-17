@@ -8,7 +8,7 @@
         <h2 class="heading">{{ trans('home.search.tagline') }}</h2>
         <div class="input-group margin-bottom-lg">
             <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
-            <input autocomplete="off" name="q" class="form-control input-lg input-keyword" type="text" placeholder="{{ trans('home.search.query') }}">
+            <input autocomplete="off" data-data-source="{{ route('ajax.services') }}" data-trigger="manual" data-placement="bottom" title="@lang('home.search.validation.q')" name="q" class="form-control input-lg input-keyword" type="text" placeholder="{{ trans('home.search.query') }}">
         </div>
     </div>
 </div>
@@ -17,7 +17,7 @@
     <div class="col-sm-3 col-md-3">
         <div class="input-group margin-bottom-lg">
             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-            <input autocomplete="off" data-toggle="dropdown" data-target="#" name="location" class="form-control input-lg input-keyword {{ App::getLocale() }}" type="text" placeholder="{{ trans('home.search.location') }}">
+            <input autocomplete="off" data-trigger="manual" data-placement="bottom" title="@lang('home.search.validation.location')" data-toggle="dropdown" data-target="#" name="location" class="form-control input-lg input-keyword {{ App::getLocale() }}" type="text" placeholder="{{ trans('home.search.location') }}">
             <ul id="big-cities-dropdown" class="dropdown-menu big-cities-dropdown" role="menu">
                 <li role="presentation"><a href="#" class="city" id="ask-current-location"><strong>@lang('home.search.current_location')</strong></a></li>
                 <li role="presentation" class="divider"></li>

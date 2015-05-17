@@ -74,7 +74,7 @@ VARAA.initTypeahead = (selector, name) ->
     queryTokenizer: Bloodhound.tokenizers.whitespace
     limit: 10
     prefetch:
-      url: '/search/'+name+'.json'
+      url: selector.data('data-source')
       filter: (list) ->
         if (typeof list[0] == 'string')
           return $.map list, (item) -> name: item

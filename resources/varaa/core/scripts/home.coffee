@@ -2,25 +2,44 @@ do ($ = jQuery) ->
   'use strict'
 
   $ ->
-    $formSearch = $ '#form-search'
+    $formSearch              = $ '#form-search'
+    $q                       = $formSearch.find('[name=q]')
+    $location                = $formSearch.find('[name=location]')
+    $currentLocationSelected = $formSearch.find('[name=current-location-selected]')
+
+    doNotShowTooltip = (e) ->
+      $(e.target).tooltip 'hide'
+
+    $q.on 'focus', doNotShowTooltip
+    $location.on 'focus', doNotShowTooltip
+
+    $formSearch.on 'submit', (e) ->
+      # Check if all fields have input
+      emptyQ = $q.val().length is 0
+      emptyLocation = $location.val().length is 0
+
+      $q.tooltip 'show' if emptyQ
+      $location.tooltip 'show' if emptyLocation
+      e.preventDefault() if emptyLocation or emptyQ
+
     # When user clicks on an option in location dropdown list
     $ '#big-cities-dropdown'
       .on 'click', 'a.city', (e) ->
         e.preventDefault()
-        $formSearch.find('[name=location]').val $(@).text()
-        $formSearch.find('[name=current-location-selected]').val(0)
+        $location.val $(@).text()
+        $currentLocationSelected.val(0)
 
     $ '#ask-current-location'
       .on 'click', (e) ->
         e.preventDefault()
         VARAA.getLocation()
           .then (lat, lng) ->
-            $formSearch.find('[name=current-location-selected]').val(1)
+            $currentLocationSelected.val(1)
             $formSearch.find('[name=lat]').val(lat)
             $formSearch.find('[name=lng]').val(lng)
 
     # Init typeahead on search form
-    VARAA.initTypeahead $formSearch.find('[name=q]'), 'services'
+    VARAA.initTypeahead $q, 'services'
 
     # When user clicks on navbar, we'll ask for the current location
     $ '#js-navbar'
