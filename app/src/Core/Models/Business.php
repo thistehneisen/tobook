@@ -13,7 +13,6 @@ use Settings;
 use Str;
 use Util;
 use Session;
-use Log;
 
 class Business extends Base
 {
@@ -654,6 +653,11 @@ class Business extends Base
      */
     public function getSearchDocument()
     {
+        // No need to index hidden businesses
+        if ($this->is_hidden) {
+            return;
+        }
+
         $categories       = [];
         $masterCategories = [];
         $keywords         = [];
@@ -822,11 +826,11 @@ class Business extends Base
         $users = new Collection();
         foreach ($result as $row) {
             $business = Business::find($row['_id']);
-            if(empty($business)) {
+            if (empty($business)) {
                 continue;
             }
             $user = User::with('business')->find($business->user->id);
-            if(empty($user) || !empty($user->deleted_at)) {
+            if (empty($user) || !empty($user->deleted_at)) {
                 continue;
             }
             // Do not add hidden business into the result list
@@ -873,36 +877,27 @@ class Business extends Base
             //e.g: $business = Business::find($id) --> $business->user;
             $user = User::with('business')->find($row['_id']);
 
-            if(!empty($user->deleted_at)){
+            if (!empty($user->deleted_at)) {
                 continue;
             }
 
-            // Do not add hidden business into the result list
-            if ($user->business->is_hidden === true) {
-                continue;
-            }
             if (isset($row['sort'][1])) {
                 $user->distance = $row['sort'][1];
             }
             $users->push($user);
         }
-        // Sort to show business that do not disable booking widget
-        $users->sortBy(function ($item) {
-            return (bool) $item->asOptions->get('disable_booking') === true
-                ? 0
-                : 1;
-        });
-        if ($this->isSearchByLocation) {
-            // Sort by distance
-            $users->sortBy(function ($item) {
-                return $item->distance;
-            });
-        } else {
-            // Sort by address matching
-            $users->sortByDesc(function ($item) {
-                return similar_text($this->keyword, $item->business->full_address);
-            });
-        }
+
+        // if ($this->isSearchByLocation) {
+        //     // Sort by distance
+        //     $users->sortBy(function ($item) {
+        //         return $item->distance;
+        //     });
+        // } else {
+        //     // Sort by address matching
+        //     $users->sortByDesc(function ($item) {
+        //         return similar_text($this->keyword, $item->business->full_address);
+        //     });
+        // }
         return $users->lists('business');
     }
 
