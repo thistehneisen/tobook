@@ -70,6 +70,7 @@ return [
         'notes'                => 'Notes',
         'paid_this_month'      => 'Paid this month',
         'created_at'           => 'Created At',
+        'booking_date'         => 'Booking Date',
         'payment_pending'      => 'Payment pending',
         'email_monthly_report' => 'Email monthly report to',
         'email_title'          => 'Title',
