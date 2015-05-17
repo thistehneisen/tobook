@@ -12,12 +12,14 @@
 
 @endif
 
+@if(count($freelancersBookings))
 @foreach ($freelancersBookings as $name => $items)
 <center>
     <h2>{{ $name }}</h2>
 </center>
 @include($langPrefix . '.' .'pdf-table', ['items' => $items, 'fields'=> $fields, 'langPrefix' => $langPrefix])
 @endforeach
+@endif
 
 <center>
     <h2>
