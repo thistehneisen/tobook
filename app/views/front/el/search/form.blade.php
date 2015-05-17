@@ -1,5 +1,5 @@
 {{ Form::open(['route' => 'search', 'class' => 'form-search', 'method' => 'GET', 'id' => 'form-search']) }}
-<input type="hidden" name="current-location-selected" value="0">
+<input type="hidden" name="c" value="0">
 <input type="hidden" name="lat" value="{{ Session::get('lat') }}">
 <input type="hidden" name="lng" value="{{ Session::get('lng') }}">
 

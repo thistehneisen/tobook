@@ -5,7 +5,7 @@ do ($ = jQuery) ->
     $formSearch              = $ '#form-search'
     $q                       = $formSearch.find('[name=q]')
     $location                = $formSearch.find('[name=location]')
-    $currentLocationSelected = $formSearch.find('[name=current-location-selected]')
+    $currentLocationSelected = $formSearch.find('[name=c]')
     $locationDropdownWrapper = $ '#location-dropdown-wrapper'
 
     doNotShowTooltip = (e) ->
@@ -46,7 +46,7 @@ do ($ = jQuery) ->
             $formSearch.find('[name=lng]').val(lng)
 
     # Init typeahead on search form
-    VARAA.initTypeahead $q, 'services'
+    VARAA.initTypeahead $q, 'services' if $q.length > 0
 
     # When user clicks on navbar, we'll ask for the current location
     $ '#js-navbar'
