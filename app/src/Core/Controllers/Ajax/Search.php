@@ -33,7 +33,7 @@ class Search extends Base
             return array_merge([$category->name],
                 $category->treatments->lists('name'));
         })->flatten()->toArray();
-        $businesses = Business::where('name', '!=', '')->lists('name');
+        $businesses = Business::notHidden()->where('name', '!=', '')->lists('name');
 
         return array_merge($categories, $businesses);
     }
