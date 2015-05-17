@@ -72,8 +72,8 @@
                             </div>
                         </div>
 --}}
-                        {{ Form::hidden('lat', Session::get('lat')) }}
-                        {{ Form::hidden('lng', Session::get('lng')) }}
+                        {{ Form::hidden('lat') }}
+                        {{ Form::hidden('lng') }}
                     {{ Form::close() }}
                 @show
             </div>
