@@ -2,23 +2,25 @@ do ($ = jQuery) ->
   'use strict'
 
   $ ->
+    $formSearch = $ '#form-search'
     # When user clicks on an option in location dropdown list
     $ '#big-cities-dropdown'
       .on 'click', 'a.city', (e) ->
         e.preventDefault()
-        $form = $ '#form-search'
-        $form.find('[name=location]').val $(@).text()
-        $form.find('[name=current-location-selected]').val(0)
+        $formSearch.find('[name=location]').val $(@).text()
+        $formSearch.find('[name=current-location-selected]').val(0)
 
     $ '#ask-current-location'
       .on 'click', (e) ->
         e.preventDefault()
         VARAA.getLocation()
           .then (lat, lng) ->
-            $form = $ '#form-search'
-            $form.find('[name=current-location-selected]').val(1)
-            $form.find('[name=lat]').val(lat)
-            $form.find('[name=lng]').val(lng)
+            $formSearch.find('[name=current-location-selected]').val(1)
+            $formSearch.find('[name=lat]').val(lat)
+            $formSearch.find('[name=lng]').val(lng)
+
+    # Init typeahead on search form
+    VARAA.initTypeahead $formSearch.find('[name=q]'), 'services'
 
     # When user clicks on navbar, we'll ask for the current location
     $ '#js-navbar'

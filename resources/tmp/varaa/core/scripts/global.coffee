@@ -67,3 +67,27 @@ VARAA.getLocation = ->
   navigator.geolocation.getCurrentPosition success, error, timeout: 10000
 
   return q.promise()
+
+VARAA.initTypeahead = (selector, name) ->
+  collection = new Bloodhound
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace 'name'
+    queryTokenizer: Bloodhound.tokenizers.whitespace
+    limit: 10
+    prefetch:
+      url: '/search/'+name+'.json'
+      filter: (list) ->
+        if (typeof list[0] == 'string')
+          return $.map list, (item) -> name: item
+        return list
+
+  collection.clearPrefetchCache()
+  collection.initialize()
+
+  selector.typeahead
+    highlight: true
+    hint: true
+  ,
+    name: name
+    displayKey: 'name'
+    source: collection.ttAdapter()
+  return

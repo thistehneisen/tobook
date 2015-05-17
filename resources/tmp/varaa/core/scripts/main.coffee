@@ -5,36 +5,10 @@ $ ->
   $searchInput = $ '#js-queryInput'
   $locationInput = $ '#js-locationInput'
 
-  #-------------------------------------------------
-  # Typeahead
-  #-------------------------------------------------
-  initTypeahead = (selector, name) ->
-    collection = new Bloodhound
-      datumTokenizer: Bloodhound.tokenizers.obj.whitespace 'name'
-      queryTokenizer: Bloodhound.tokenizers.whitespace
-      limit: 10
-      prefetch:
-        url: '/search/'+name+'.json'
-        filter: (list) ->
-          if (typeof list[0] == 'string')
-            return $.map list, (item) -> name: item
-          return list
-
-    collection.clearPrefetchCache()
-    collection.initialize()
-
-    selector.typeahead
-      highlight: true
-      hint: true
-    ,
-      name: name
-      displayKey: 'name'
-      source: collection.ttAdapter()
-
   # Init typeahead
   if ($searchInput? and $locationInput? and $searchInput.length > 0 and $locationInput.length > 0)
-    initTypeahead $searchInput, 'services'
-    initTypeahead $locationInput, 'locations'
+    VARAA.initTypeahead $searchInput, 'services'
+    VARAA.initTypeahead $locationInput, 'locations'
 
   # Determine if we should ask for location
   $form = $ '#main-search-form'
