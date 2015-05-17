@@ -18,7 +18,7 @@ class Search extends Base
     public function __construct()
     {
         $this->beforeFilter('ajax', [
-            'except' => ['showBusiness', 'getServices']
+            'except' => ['showBusiness']
         ]);
     }
 
