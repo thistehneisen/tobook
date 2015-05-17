@@ -1088,7 +1088,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
             ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->select(DB::raw('COALESCE(SUM(varaa_business_commissions.amount),0) as total'))
+            ->select([DB::raw('COALESCE(SUM(varaa_business_commissions.amount),0) as commision_total'),
+                DB::raw('COALESCE(SUM(varaa_as_bookings.total_price),0) as total_price')])
             ->first();
 
         return $result;

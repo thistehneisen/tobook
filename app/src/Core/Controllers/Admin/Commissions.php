@@ -133,13 +133,15 @@ class Commissions extends Base
             $endOfMonth
         );
 
-        $paid = Booking::countCommissionPaid(
+        $paidObj = Booking::countCommissionPaid(
             $userId,
             $status,
             $employeeId,
             $startOfMonth,
             $endOfMonth
         );
+
+        $paid = $paidObj->total_price - $paidObj->commision_total;
 
         $commissionRate = Settings::get('commission_rate');
         $currencySymbol = Settings::get('currency');
@@ -286,13 +288,15 @@ class Commissions extends Base
             $endOfMonth
         );
 
-        $paid = Booking::countCommissionPaid(
+        $paidObj= Booking::countCommissionPaid(
             $userId,
             null,
             $employeeId,
             $startOfMonth,
             $endOfMonth
         );
+
+        $paid = $paidObj->total_price - $paidObj->commision_total;
 
         $commissionRate = Settings::get('commission_rate');
         $currencySymbol = Settings::get('currency');
