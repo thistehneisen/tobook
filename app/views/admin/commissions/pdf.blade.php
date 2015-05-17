@@ -1,6 +1,6 @@
 <center>
     <h1>{{ $user->business->name }}</h1>
-    <p>{{ $current->format('d.m')}}</p>
+    <p>{{ Str::upper(trans(strtolower('common.' . $current->format('F')))); }} {{ $current->format('Y') }} </p>
 </center>
 
 <center>
