@@ -15,14 +15,14 @@
 
 <div class="form-group row">
     <div class="col-sm-3 col-md-3">
-        <div class="input-group margin-bottom-lg">
+        <div class="input-group margin-bottom-lg" id="location-dropdown-wrapper">
             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-            <input autocomplete="off" data-trigger="manual" data-placement="bottom" title="@lang('home.search.validation.location')" data-toggle="dropdown" data-target="#" name="location" class="form-control input-lg input-keyword {{ App::getLocale() }}" type="text" placeholder="{{ trans('home.search.location') }}">
+            <input autocomplete="off" data-trigger="manual" data-placement="bottom" title="@lang('home.search.validation.location')" data-target="#" name="location" class="form-control input-lg input-keyword {{ App::getLocale() }}" type="text" placeholder="{{ trans('home.search.location') }}">
             <ul id="big-cities-dropdown" class="dropdown-menu big-cities-dropdown" role="menu">
-                <li role="presentation"><a href="#" class="city" id="ask-current-location"><strong>@lang('home.search.current_location')</strong></a></li>
+                <li role="presentation"><a href="#" class="form-search-city" id="ask-current-location"><strong>@lang('home.search.current_location')</strong></a></li>
                 <li role="presentation" class="divider"></li>
                 @foreach ($cities as $city)
-                <li role="presentation"><a href="#" class="city">{{{ $city }}}</a></li>
+                <li role="presentation"><a href="#" class="form-search-city">{{{ $city }}}</a></li>
                 @endforeach
             </ul>
         </div>

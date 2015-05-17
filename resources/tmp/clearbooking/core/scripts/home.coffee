@@ -6,12 +6,18 @@ do ($ = jQuery) ->
     $q                       = $formSearch.find('[name=q]')
     $location                = $formSearch.find('[name=location]')
     $currentLocationSelected = $formSearch.find('[name=current-location-selected]')
+    $locationDropdownWrapper = $ '#location-dropdown-wrapper'
 
     doNotShowTooltip = (e) ->
       $(e.target).tooltip 'hide'
 
     $q.on 'focus', doNotShowTooltip
     $location.on 'focus', doNotShowTooltip
+    $location
+      .on 'focus', (e) -> $locationDropdownWrapper.addClass 'open'
+      .on 'blur', (e) ->
+        shouldClose = e.relatedTarget and $(e.relatedTarget).hasClass 'form-search-city'
+        $locationDropdownWrapper.removeClass 'open' unless shouldClose
 
     $formSearch.on 'submit', (e) ->
       # Check if all fields have input
@@ -23,11 +29,12 @@ do ($ = jQuery) ->
       e.preventDefault() if emptyLocation or emptyQ
 
     # When user clicks on an option in location dropdown list
-    $ '#big-cities-dropdown'
-      .on 'click', 'a.city', (e) ->
+    $ 'a.form-search-city'
+      .on 'click', (e) ->
         e.preventDefault()
         $location.val $(@).text()
         $currentLocationSelected.val(0)
+        $locationDropdownWrapper.removeClass 'open'
 
     $ '#ask-current-location'
       .on 'click', (e) ->
