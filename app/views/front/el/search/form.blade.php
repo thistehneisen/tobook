@@ -1,7 +1,7 @@
 {{ Form::open(['route' => 'search', 'class' => 'form-search', 'method' => 'GET', 'id' => 'form-search']) }}
 <input type="hidden" name="c" value="0">
-<input type="hidden" name="lat" value="{{ Session::get('lat') }}">
-<input type="hidden" name="lng" value="{{ Session::get('lng') }}">
+<input type="hidden" name="lat">
+<input type="hidden" name="lng">
 
 <div class="form-group row">
     <div class="col-sm-4 col-md-4">
