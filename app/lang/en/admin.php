@@ -66,6 +66,7 @@ return [
         'employee'             => 'Employee',
         'employees'            => 'Employees',
         'booking_status'       => 'Paid/Booked/Deposit',
+        'commission_status'    => 'Commission Status',
         'notes'                => 'Notes',
         'paid_this_month'      => 'Paid this month',
         'created_at'           => 'Created At',
@@ -77,6 +78,8 @@ return [
             'paid'      => 'Paid',
             'confirmed' => 'Booked',
             'deposit'   => 'Deposit',
+            'suspend'   => 'Suspend',
+            'cancelled' => 'Cancelled'
         ]
     ],
     'settings' => [

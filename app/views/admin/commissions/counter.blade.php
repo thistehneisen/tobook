@@ -75,7 +75,7 @@ $(function () {
             <td>{{ $item->created_at->format('d.m.Y') }}</td>
             <td>{{ $item->name }}</td>
             <td class="number">{{ $item->total_price }}{{ $currencySymbol }}</td>
-            <td class="number">{{ $item->total_price * $commissionRate }}{{ $currencySymbol }}</td>
+            <td>@if(!empty($item->commission_status)) {{ trans($langPrefix . '.status.'. $item->commission_status) }} @endif</td>
             <td>
                 {{ trans($langPrefix . '.status.'. $item->commisionStatus) }}
             </td>
