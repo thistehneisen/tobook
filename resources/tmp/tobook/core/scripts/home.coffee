@@ -6,8 +6,9 @@ do ($ = jQuery) ->
     $ '#big-cities-dropdown'
       .on 'click', 'a.city', (e) ->
         e.preventDefault()
-        $ '#form-search-location'
-          .val $(@).text()
+        $form = $ '#form-search'
+        $form.find('[name=location]').val $(@).text()
+        $form.find('[name=current-location-selected]').val(0)
 
     $ '#ask-current-location'
       .on 'click', (e) ->
@@ -15,8 +16,9 @@ do ($ = jQuery) ->
         VARAA.getLocation()
           .then (lat, lng) ->
             $form = $ '#form-search'
-            $form.children('[name=lat]').val(lat)
-            $form.children('[name=lng]').val(lng)
+            $form.find('[name=current-location-selected]').val(1)
+            $form.find('[name=lat]').val(lat)
+            $form.find('[name=lng]').val(lng)
 
     # When user clicks on navbar, we'll ask for the current location
     $ '#js-navbar'

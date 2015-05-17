@@ -1,4 +1,5 @@
 {{ Form::open(['route' => 'search', 'class' => 'form-search', 'method' => 'GET', 'id' => 'form-search']) }}
+<input type="hidden" name="current-location-selected" value="0">
 <input type="hidden" name="lat" value="{{ Session::get('lat') }}">
 <input type="hidden" name="lng" value="{{ Session::get('lng') }}">
 
@@ -16,9 +17,9 @@
     <div class="col-sm-3 col-md-3">
         <div class="input-group margin-bottom-lg">
             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-            <input id="form-search-location" autocomplete="off" data-toggle="dropdown" data-target="#" name="location" class="form-control input-lg input-keyword {{ App::getLocale() }}" type="text" placeholder="{{ trans('home.search.location') }}">
+            <input autocomplete="off" data-toggle="dropdown" data-target="#" name="location" class="form-control input-lg input-keyword {{ App::getLocale() }}" type="text" placeholder="{{ trans('home.search.location') }}">
             <ul id="big-cities-dropdown" class="dropdown-menu big-cities-dropdown" role="menu">
-                <li role="presentation"><a href="#" id="ask-current-location">@lang('home.search.current_location')</a></li>
+                <li role="presentation"><a href="#" class="city" id="ask-current-location">@lang('home.search.current_location')</a></li>
                 <li role="presentation" class="divider"></li>
                 @foreach ($cities as $city)
                 <li role="presentation"><a href="#" class="city">{{{ $city }}}</a></li>
