@@ -144,8 +144,8 @@ class Commissions extends Base
         $commissionRate = Settings::get('commission_rate');
         $currencySymbol = Settings::get('currency');
 
-
-        $pending   = $needToPay->total * $commissionRate;
+        $bookingCommision = $needToPay->total * $commissionRate;
+        $pending   = $needToPay->total - $bookingCommision;
 
         return $this->render('counter', [
             'items'          => $bookings,
@@ -298,7 +298,8 @@ class Commissions extends Base
         $currencySymbol = Settings::get('currency');
 
 
-        $pending   = $needToPay->total * $commissionRate;
+        $bookingCommision = $needToPay->total * $commissionRate;
+        $pending   = $needToPay->total - $bookingCommision;
 
         return [
             'employeeBookings'    => $employeeBookings,
