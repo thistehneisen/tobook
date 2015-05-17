@@ -1,5 +1,4 @@
 {{ Form::open(['route' => 'search', 'class' => 'form-search', 'method' => 'GET', 'id' => 'form-search']) }}
-<input type="hidden" name="c" value="0">
 <input type="hidden" name="lat">
 <input type="hidden" name="lng">
 
