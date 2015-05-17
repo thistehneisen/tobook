@@ -5,7 +5,12 @@
     <script>
 $(function () {
     $('#months').change(function(e){
-        window.location = window.location + '?date=' + $(this).val();
+        var url = window.location;
+        if(url.href.indexOf('date') !=-1 ){
+            window.location = url.href.replace($('#date').val(), $(this).val());
+        } else {
+            window.location = window.location + '?date=' + $(this).val();
+        }
     });
 
     $('.btn-change-status').click(function(e){
@@ -43,6 +48,7 @@ $(function () {
             {{ Form::select('months', $months, $date, ['style'=>'width:70%','class' => 'form-control input-sm pull-right', 'id' => 'months']) }}
             <button class="btn btn-primary btn-sm" onclick="frames['pdf'].print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
         <iframe src="{{ route('admin.users.commissions.pdf', ['id' => $user->id]) }}"  style="display:none" name="pdf"></iframe>
+        <inp
         </div>
 </div>
 
@@ -166,7 +172,7 @@ $(function () {
      <div class="form-group {{ Form::errorCSS('category_id', $errors) }}">
         <label for="email_content" class="col-sm-2 control-label"></label>
         <div class="col-sm-5">
-        {{ Form::hidden('date', $current->format('Y.m')) }}
+        {{ Form::hidden('date', $current->format('Y-m'), ['id' => 'date']) }}
         <button type="submit" class="btn btn-primary btn-sm" id="btn-send-report">{{ trans('common.send') }}</button>
         </div>
     </div>
