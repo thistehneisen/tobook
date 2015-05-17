@@ -51,24 +51,11 @@ $ ->
       # Show the information panel
       $info.show() if shouldAskGeolocation
 
-      success = (position) ->
-        lat = position.coords.latitude
-        lng = position.coords.longitude
-        # Update hidden inputs
-        $latInput.val lat
-        $lngInput.val lng
-        # Update location values in Session, so that users won't be asked again
-        $.ajax
-          url: $form.data 'update-location-url'
-          type: 'POST'
-          data:
-            lat: lat
-            lng: lng
+      VARAA.getLocation()
+        .then (lat, lng) ->
+          $latInput.val lat
+          $lngInput.val lng
 
-      error = (err) ->
-        console.log err
-
-      navigator.geolocation.getCurrentPosition success, error, timeout: 10000
       # We only ask for once
       shouldAskGeolocation = false
 
