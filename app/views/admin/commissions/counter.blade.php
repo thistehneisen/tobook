@@ -47,7 +47,7 @@ $(function () {
         <div class="col-sm-3 hidden-print">
             {{ Form::select('months', $months, $date, ['style'=>'width:70%','class' => 'form-control input-sm pull-right', 'id' => 'months']) }}
             <button class="btn btn-primary btn-sm" onclick="frames['pdf'].print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
-        <iframe src="{{ route('admin.users.commissions.pdf', ['id' => $user->id]) }}"  style="display:none" name="pdf"></iframe>
+        <iframe src="{{ route('admin.users.commissions.pdf', ['id' => $user->id, 'employee' => $employeeId]) }}"  style="display:none" name="pdf"></iframe>
         <inp
         </div>
 </div>
