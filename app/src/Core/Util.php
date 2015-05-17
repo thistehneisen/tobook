@@ -211,25 +211,23 @@ class Util
      */
     public static function getCoordinates()
     {
-        $lat = Input::get('lat');
-        $lng = Input::get('lng');
+        $lat      = Input::get('lat');
+        $lng      = Input::get('lng');
+        $location = Input::get('location');
+        $currentLocation = trans('home.search.current_location');
 
-        // If there is lat and lng values, we'll store in Session so that we
-        // don't need to as again
-        if ($lat && $lng) {
+        if ($location !== $currentLocation) {
+            try {
+                list($lat, $lng) = self::geocoder($location);
+            } catch (Exception $ex) {
+                Log::error('Cannot geodecode '.$location);
+            }
+        } elseif ($lat && $lng) {
             Session::set('lat', $lat);
             Session::set('lng', $lng);
         } elseif (Session::has('lat') && Session::has('lng')) {
             $lat = Session::get('lat');
             $lng = Session::get('lng');
-        // Try to decode location passed in query string
-        } elseif (($location = Input::get('location'))) {
-            try {
-                list($lat, $lng) = self::geocoder($location);
-            } catch (\Exception $ex) {
-                // Silently failed
-                Log::error('Cannot geodecode '.$location);
-            }
         } else {
             // Try to get location based on IP
             $data = static::decodeIp();
@@ -244,7 +242,6 @@ class Util
                 // Maybe Helsinki, Stockholm, Tallinn, etc.
                 list($lat, $lng) = Config::get('varaa.default_coords');
             }
-
         }
 
         return [$lat, $lng];

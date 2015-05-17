@@ -105,6 +105,7 @@ return [
         'default_paygate'        => 'The default paygate',
         'deposit_rate'           => 'Deposit rate',
         'deposit_payment'        => 'Deposit payment',
+        'big_cities'             => 'Big cities (One city per line)',
     ],
     'master-cats' => [
         'all'         => 'All master category',

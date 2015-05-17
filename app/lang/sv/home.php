@@ -54,6 +54,11 @@ return [
         'button'          => 'Sök',
         'date'            => 'Any date', // @todo
         'time'            => 'Any time', // @todo
+        'current_location' => 'Your current location', // @todo
+        'validation'      => [
+            'q'        => 'Please enter or select a service', // @todo
+            'location' => 'Please enter or select a location', // @todo
+        ],
         'geo'             => [
             'info' => 'Genom att ange din position kan vi presentera företag som är verksamma i ditt närområde.'
         ]
