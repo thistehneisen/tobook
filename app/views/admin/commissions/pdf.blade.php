@@ -1,6 +1,6 @@
 <center>
     <h1>{{ $user->business->name }}</h1>
-    <p>{{ $current->format('d.m.Y')}}</p>
+    <p>{{ $current->format('d.m')}}</p>
 </center>
 
 <center>

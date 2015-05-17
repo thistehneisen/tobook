@@ -50,7 +50,7 @@ $(function () {
 <div  class="pull-left">
     <a href="#" data-status="suspend" class="btn-change-status btn btn-xs btn-warning" title=""><i class="fa fa-lock"></i></a>
     <a href="#" data-status="paid" class="btn-change-status btn btn-xs btn-success" title=""><i class="fa fa-check"></i></a>
-    <a href="#" data-status="cancelled" class="btn-change-status btn btn-xs btn-danger" title=""><i class="fa fa-history"></i></a>
+    <a href="#" data-status="cancelled" class="btn-change-status btn btn-xs btn-danger" title=""><i class="fa fa-undo"></i></a>
     <input type="hidden" name="status" id="status" value="">
 </div>
 
@@ -75,7 +75,7 @@ $(function () {
             <td>{{ $item->created_at->format('d.m.Y') }}</td>
             <td>{{ $item->name }}</td>
             <td class="number">{{ $item->total_price }}{{ $currencySymbol }}</td>
-            <td class="number">{{ $item->total_price * $commissionRate }}{{ $currencySymbol }}</td>
+            <td>@if(!empty($item->commission_status)) {{ trans($langPrefix . '.status.'. $item->commission_status) }} @endif</td>
             <td>
                 {{ trans($langPrefix . '.status.'. $item->commisionStatus) }}
             </td>
@@ -84,7 +84,7 @@ $(function () {
                 <div  class="pull-right">
                     <a href="{{ route('admin.users.commissions.status', ['id' => $user->id, 'booking' => $item->booking_id, 'status'=> 'suspend']) }}" class="btn btn-xs btn-warning" title=""><i class="fa fa-lock"></i></a>
                     <a href="{{ route('admin.users.commissions.status', ['id' => $user->id, 'booking' => $item->booking_id, 'status'=> 'paid']) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-check"></i></a>
-                    <a href="{{ route('admin.users.commissions.status', ['id' => $user->id, 'booking' => $item->booking_id, 'status'=> 'cancelled']) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-history"></i></a>
+                    <a href="{{ route('admin.users.commissions.status', ['id' => $user->id, 'booking' => $item->booking_id, 'status'=> 'cancelled']) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-undo"></i></a>
                 </div>
             </td>
         </tr>
@@ -100,7 +100,7 @@ $(function () {
 <div  class="pull-left">
     <a href="#" data-status="suspend" class="btn-change-status btn btn-xs btn-warning" title=""><i class="fa fa-lock"></i></a>
     <a href="#" data-status="paid" class="btn-change-status btn btn-xs btn-success" title=""><i class="fa fa-check"></i></a>
-    <a href="#" data-status="cancelled" class="btn-change-status btn btn-xs btn-danger" title=""><i class="fa fa-history"></i></a>
+    <a href="#" data-status="cancelled" class="btn-change-status btn btn-xs btn-danger" title=""><i class="fa fa-undo"></i></a>
 </div>
 </form>
 

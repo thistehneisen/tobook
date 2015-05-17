@@ -116,7 +116,7 @@ class Commissions extends Base
         );
 
         $fields = [
-            'date', 'name', 'price', 'commission', 'booking_status', 'notes'
+            'created_at', 'name', 'price', 'commission_status', 'booking_status', 'notes'
         ];
 
         $months = Util::getMonthsSelection($current);
@@ -144,8 +144,8 @@ class Commissions extends Base
         $commissionRate = Settings::get('commission_rate');
         $currencySymbol = Settings::get('currency');
 
-
-        $pending   = $needToPay->total * $commissionRate;
+        $bookingCommision = $needToPay->total * $commissionRate;
+        $pending   = $needToPay->total - $bookingCommision;
 
         return $this->render('counter', [
             'items'          => $bookings,
@@ -298,7 +298,8 @@ class Commissions extends Base
         $currencySymbol = Settings::get('currency');
 
 
-        $pending   = $needToPay->total * $commissionRate;
+        $bookingCommision = $needToPay->total * $commissionRate;
+        $pending   = $needToPay->total - $bookingCommision;
 
         return [
             'employeeBookings'    => $employeeBookings,
