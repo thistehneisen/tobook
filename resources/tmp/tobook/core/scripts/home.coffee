@@ -5,7 +5,6 @@ do ($ = jQuery) ->
     $formSearch              = $ '#form-search'
     $q                       = $formSearch.find('[name=q]')
     $location                = $formSearch.find('[name=location]')
-    $currentLocationSelected = $formSearch.find('[name=c]')
     $locationDropdownWrapper = $ '#location-dropdown-wrapper'
 
     doNotShowTooltip = (e) ->
@@ -33,7 +32,6 @@ do ($ = jQuery) ->
       .on 'click', (e) ->
         e.preventDefault()
         $location.val $(@).text()
-        $currentLocationSelected.val(0)
         $locationDropdownWrapper.removeClass 'open'
 
     $ '#ask-current-location'
@@ -41,7 +39,6 @@ do ($ = jQuery) ->
         e.preventDefault()
         VARAA.getLocation()
           .then (lat, lng) ->
-            $currentLocationSelected.val(1)
             $formSearch.find('[name=lat]').val(lat)
             $formSearch.find('[name=lng]').val(lng)
 
