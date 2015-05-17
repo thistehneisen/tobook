@@ -29,15 +29,13 @@ class Search extends Base
      */
     public function getServices()
     {
-        $categories = MasterCategory::getAll();
-        $result = $categories->map(function ($category) {
-            return array_merge(
-                [$category->name],
-                $category->treatments->lists('name')
-            );
-        })->flatten();
+        $categories = MasterCategory::getAll()->map(function ($category) {
+            return array_merge([$category->name],
+                $category->treatments->lists('name'));
+        })->flatten()->toArray();
+        $businesses = Business::where('name', '!=', '')->lists('name');
 
-        return $result;
+        return array_merge($categories, $businesses);
     }
 
     /**
