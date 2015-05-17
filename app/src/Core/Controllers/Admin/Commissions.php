@@ -116,7 +116,7 @@ class Commissions extends Base
         );
 
         $fields = [
-            'created_at', 'name', 'price', 'commission_status', 'booking_status', 'notes'
+            'created_at', 'booking_date', 'name', 'price', 'commission_status', 'booking_status', 'notes'
         ];
 
         $months = Util::getMonthsSelection($current);
