@@ -55,6 +55,10 @@ return [
         'date'            => 'Любая дата', // @todo
         'time'            => 'любое время', // @todo
         'current_location' => 'Your current location', // @todo
+        'validation'      => [
+            'q'        => 'Please enter or select a service', // @todo
+            'location' => 'Please enter or select a location', // @todo
+        ],
         'geo'             => [
             'info' => 'Ваше местоположение нужно для того, чтобы показывать близкие к вам результаты поиска.'
         ]

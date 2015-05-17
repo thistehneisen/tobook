@@ -56,6 +56,10 @@ return [
         'date'            => 'Izvēlēties datumu', // @todo
         'time'            => 'Izvēlēties laiku', // @todo
         'current_location' => 'Your current location', // @todo
+        'validation'      => [
+            'q'        => 'Please enter or select a service', // @todo
+            'location' => 'Please enter or select a location', // @todo
+        ],
         'geo'             => [
             'info' => 'Lūdzu, norādiet savu atrašanās vietu, lai varam piemeklēt atbilstošus piedāvājumus Jūsu apkaimē.'
         ]
