@@ -1091,6 +1091,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 $consumerPaid = $booking->total_price * $depositRate;
             } else if((int)$booking->status === Booking::STATUS_CONFIRM) {
                 $consumerPaid = 0;
+                $commision = 0;
             } else {
                 continue;
             }
