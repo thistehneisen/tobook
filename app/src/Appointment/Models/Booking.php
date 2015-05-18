@@ -197,8 +197,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         ];
 
         $status = isset($map[$this->booking_status]) ? $map[$this->booking_status] : null;
-
-        if($this->booking_status === static::STATUS_CONFIRM && ($this->deposit > 0)){
+        if(((int)$this->booking_status === static::STATUS_CONFIRM) && ((int)$this->deposit > 0)){
             $status = 'deposit';
         }
         return $status;
