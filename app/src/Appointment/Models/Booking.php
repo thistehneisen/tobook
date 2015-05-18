@@ -1062,7 +1062,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $result = $query->leftJoin('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
             ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status','business_commissions.status as commission_status'])
+            ->leftJoin('consumers', 'consumers.id', '=', 'as_bookings.consumer_id')
+            ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status','business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")])
             ->paginate($perPage);
 
         return $result;
