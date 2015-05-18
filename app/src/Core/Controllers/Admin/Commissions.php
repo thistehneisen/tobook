@@ -251,6 +251,7 @@ class Commissions extends Base
         $status = (empty($employeeId))
             ? Employee::STATUS_EMPLOYEE
             : Employee::STATUS_FREELANCER;
+
         $perPage = null;
 
         $employeeBookings = Booking::getBookingCommisions(
@@ -277,14 +278,9 @@ class Commissions extends Base
             );
         }
 
-
-        $fields = [
-            'created_at','date', 'employee', 'customer', 'price', 'booking_status', 'notes'
-        ];
-
         $pending = Booking::countCommissionPending(
             $userId,
-            null,
+            $status,
             $employeeId,
             $startOfMonth,
             $endOfMonth
@@ -292,7 +288,7 @@ class Commissions extends Base
 
         $paidObj= Booking::countCommissionPaid(
             $userId,
-            null,
+            $status,
             $employeeId,
             $startOfMonth,
             $endOfMonth
@@ -300,9 +296,12 @@ class Commissions extends Base
 
         $paid = $paidObj->total_price - $paidObj->commision_total;
 
+        $fields = [
+            'created_at','date', 'employee', 'customer', 'price', 'booking_status', 'notes'
+        ];
+
         $commissionRate = Settings::get('commission_rate');
         $currencySymbol = Settings::get('currency');
-
 
         return [
             'employeeBookings'    => $employeeBookings,

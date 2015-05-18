@@ -107,18 +107,16 @@ $(function () {
     </tbody>
 </table>
 
-<div  class="pull-left">
-    <a href="#" data-status="suspend" class="btn-change-status btn btn-xs btn-warning" title=""><i class="fa fa-lock"></i></a>
-    <a href="#" data-status="paid" class="btn-change-status btn btn-xs btn-success" title=""><i class="fa fa-check"></i></a>
-    <a href="#" data-status="cancelled" class="btn-change-status btn btn-xs btn-danger" title=""><i class="fa fa-undo"></i></a>
-</div>
-</form>
 
 <div class="row">
-    <div class="col-md-10 text-right">
+    <div class="col-md-2 text-left">
+       <a href="#" data-status="suspend" class="btn-change-status btn btn-xs btn-warning" title=""><i class="fa fa-lock"></i></a>
+        <a href="#" data-status="paid" class="btn-change-status btn btn-xs btn-success" title=""><i class="fa fa-check"></i></a>
+        <a href="#" data-status="cancelled" class="btn-change-status btn btn-xs btn-danger" title=""><i class="fa fa-undo"></i></a>
+    </div>
+    <div class="col-md-8 text-right">
         {{  $items->appends(Input::only('perPage'))->links() }}
     </div>
-
     <div class="col-md-2 text-right">
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
@@ -133,7 +131,7 @@ $(function () {
         </div>
     </div>
 </div>
-
+</form>
 <div class="center">
     <h2>
         {{ trans('admin.commissions.paid_this_month') }}:<br/>
