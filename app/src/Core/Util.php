@@ -216,7 +216,7 @@ class Util
         $location = Input::get('location');
         $currentLocation = trans('home.search.current_location');
 
-        if ($location !== $currentLocation) {
+        if (!empty($location) && $location !== $currentLocation) {
             try {
                 list($lat, $lng) = self::geocoder($location);
             } catch (Exception $ex) {
