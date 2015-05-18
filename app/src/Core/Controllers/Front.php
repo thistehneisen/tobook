@@ -167,8 +167,8 @@ class Front extends Base
         $instance = $model::findOrFail($id);
 
         $paginator = Business::parentSearch('', $instance, [
-                'isSearchByLocation' => true,
-            ]);
+            'isSearchByLocation' => true,
+        ]);
 
         // Extract list of businesses
         $items = $paginator->getCollection();
