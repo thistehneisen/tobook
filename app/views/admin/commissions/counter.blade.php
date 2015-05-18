@@ -85,7 +85,9 @@ $(function () {
             @endif
             <td>{{ $item->consumer_name }}</td>
             <td class="number">{{ $item->total_price }}{{ $currencySymbol }}</td>
-            <td>@if(!empty($item->commission_status)) {{ trans($langPrefix . '.status.'. $item->commission_status) }} @endif</td>
+            <td>
+                @if(!empty($item->commission_status)) {{ trans($langPrefix . '.status.'. $item->commission_status) }} @endif
+            </td>
             <td>
                 {{ trans($langPrefix . '.status.'. $item->commisionStatus) }}
             </td>
@@ -146,7 +148,7 @@ $(function () {
 </div>
 
 <div class="center">
-{{ Form::open(['route' => ['admin.users.commissions.send_report', $user->id], 'class' => 'center form-horizontal', 'role' => 'form']) }}
+{{ Form::open(['route' => ['admin.users.commissions.send_report', $user->id, 'employee' => ((!empty($employeeId) ? $employeeId : 0))], 'class' => 'center form-horizontal', 'role' => 'form']) }}
   <div class="form-group {{ Form::errorCSS('treatment_type_id', $errors) }}">
         <label for="email_address" class="col-sm-2 control-label">{{ trans('admin.commissions.email_monthly_report') }}:</label>
         <div class="col-sm-5">
