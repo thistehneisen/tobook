@@ -61,9 +61,9 @@ VARAA.getLocation = ->
         lat: lat
         lng: lng
     .done ->
-      q.resolve(lat, lng)
+      q.resolve lat, lng
 
-  error = (err) -> console.log err
+  error = (err) -> q.reject err
   navigator.geolocation.getCurrentPosition success, error, timeout: 10000
 
   return q.promise()
