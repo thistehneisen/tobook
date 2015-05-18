@@ -203,7 +203,7 @@ trait ElasticSearchTrait
             'size'  => Config::get('view.perPage'),
         ];
 
-        if(!empty($keywords)) {
+        if (!empty($keywords)) {
             // Attach filter and query
             $params['body']['query']['filtered'] = [
                 'filter' => $this->buildSearchFilter(),
@@ -211,7 +211,7 @@ trait ElasticSearchTrait
             ];
         } else {
             $params['body']['query'] = [
-                'match_all' => new \stdClass,
+                'match_all' => new \stdClass(),
             ];
         }
 
@@ -341,7 +341,6 @@ trait ElasticSearchTrait
         return $this->getTable();
     }
 
-
     /**
      * Unlike getSearchIndexName, this method return
      * the name of index that contains index of its child elements
@@ -398,8 +397,10 @@ trait ElasticSearchTrait
      */
     public function updateSearchIndex()
     {
+        $body = $this->getSearchDocument();
+
         // If this model is not searchable, return as soon as possible
-        if ($this->isSearchable === false) {
+        if (empty($body) || $this->isSearchable === false) {
             return;
         }
 
@@ -407,7 +408,7 @@ trait ElasticSearchTrait
         $params['index'] = $this->getSearchIndexName();
         $params['type']  = $this->getSearchIndexType();
         $params['id']    = $this->getSearchDocumentId();
-        $params['body']  = $this->getSearchDocument();
+        $params['body']  = $body;
 
         $provider = App::make('App\Search\ProviderInterface');
 

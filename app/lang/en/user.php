@@ -43,6 +43,8 @@ return [
     'business_name'          => 'Business name',
     'activation'             => 'Activated?',
     'payments'               => 'Payments',
+    'business_id'            => 'Business ID',
+    'account'                => 'Bank account',
     'business' => [
         'auto_confirm'        => 'Auto confirm this business?',
         'is_activated'        => 'Activated',

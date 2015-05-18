@@ -211,25 +211,23 @@ class Util
      */
     public static function getCoordinates()
     {
-        $lat = Input::get('lat');
-        $lng = Input::get('lng');
+        $lat      = Input::get('lat');
+        $lng      = Input::get('lng');
+        $location = Input::get('location');
+        $currentLocation = trans('home.search.current_location');
 
-        // If there is lat and lng values, we'll store in Session so that we
-        // don't need to as again
-        if ($lat && $lng) {
+        if (!empty($location) && $location !== $currentLocation) {
+            try {
+                list($lat, $lng) = self::geocoder($location);
+            } catch (Exception $ex) {
+                Log::error('Cannot geodecode '.$location);
+            }
+        } elseif ($lat && $lng) {
             Session::set('lat', $lat);
             Session::set('lng', $lng);
         } elseif (Session::has('lat') && Session::has('lng')) {
             $lat = Session::get('lat');
             $lng = Session::get('lng');
-        // Try to decode location passed in query string
-        } elseif (($location = Input::get('location'))) {
-            try {
-                list($lat, $lng) = self::geocoder($location);
-            } catch (\Exception $ex) {
-                // Silently failed
-                Log::error('Cannot geodecode '.$location);
-            }
         } else {
             // Try to get location based on IP
             $data = static::decodeIp();
@@ -244,7 +242,6 @@ class Util
                 // Maybe Helsinki, Stockholm, Tallinn, etc.
                 list($lat, $lng) = Config::get('varaa.default_coords');
             }
-
         }
 
         return [$lat, $lng];
@@ -339,5 +336,32 @@ class Util
         // If cannot get location from those two criteria, return the default
         // location
         return Settings::get('default_location');
+    }
+
+    public static function getMonthsSelection(Carbon $current)
+    {
+        $labels = [
+            trans('common.january'),
+            trans('common.february'),
+            trans('common.march'),
+            trans('common.april'),
+            trans('common.may'),
+            trans('common.june'),
+            trans('common.july'),
+            trans('common.august'),
+            trans('common.september'),
+            trans('common.october'),
+            trans('common.november'),
+            trans('common.december'),
+        ];
+
+        $months = [];
+
+        for ($i=0; $i<12; $i++) {
+            $month = $i + 1;
+            $months[Carbon::createFromFormat('Y-m', $current->year . '-' . $month)->format('Y-m')] = $labels[$i];
+        }
+
+        return $months;
     }
 }

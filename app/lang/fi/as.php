@@ -189,7 +189,7 @@ return [
         'is_received_calendar_invitation'  => 'Is received calendar invitation',
         'services'                         => 'Palvelut',
         'status'                           => 'Tila',
-        'is_active'                        => 'Tila',
+        'is_active'                        => 'Activation',//@todo
         'avatar'                           => 'Kuva',
         'default_time'                     => 'Oletustyöajat',
         'custom_time'                      => 'Räätälöidyt ajat',
@@ -215,6 +215,10 @@ return [
         'to_date'                          => 'Päättyen',
         'weekday'                          => 'Viikonpäivä',
         'employee'                         => 'Työntekijä',
+        'freelancer'                       => 'Freelancer',//@todo
+        'business_id'                      => 'Y-tunnus',
+        'account'                          => 'Account',//@todo
+        'activation'                       => 'Activation',//@todo
         'saturday_hours'                   => 'Lauantaitunnit',
         'sunday_hours'                     => 'Sununtaitunnit',
         'monthly_hours'                    => 'Kuukauden tunnit',
