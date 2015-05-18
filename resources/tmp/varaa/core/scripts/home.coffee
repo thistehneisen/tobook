@@ -44,6 +44,9 @@ do ($ = jQuery) ->
 
     # Init typeahead on search form
     VARAA.initTypeahead $q, 'services' if $q.length > 0
+    $q.bind 'typeahead:selected', (e, selection) ->
+      console.log selection
+      window.location = selection.url if typeof selection.url isnt 'undefined'
 
     # When user clicks on navbar, we'll ask for the current location
     $ '#js-navbar'

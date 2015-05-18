@@ -75,10 +75,6 @@ VARAA.initTypeahead = (selector, name) ->
     limit: 10
     prefetch:
       url: selector.data('data-source')
-      filter: (list) ->
-        if (typeof list[0] == 'string')
-          return $.map list, (item) -> name: item
-        return list
 
   collection.clearPrefetchCache()
   collection.initialize()
@@ -90,4 +86,6 @@ VARAA.initTypeahead = (selector, name) ->
     name: name
     displayKey: 'name'
     source: collection.ttAdapter()
-  return
+    templates:
+      suggestion: (item) ->
+        "<div data-url=#{item.url}>#{item.name}</div>"
