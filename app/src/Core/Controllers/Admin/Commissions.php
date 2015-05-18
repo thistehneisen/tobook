@@ -116,8 +116,13 @@ class Commissions extends Base
         );
 
         $fields = [
-            'created_at', 'booking_date', 'name', 'price', 'commission_status', 'booking_status', 'notes'
+            'created_at', 'booking_date', 'employee', 'name', 'price', 'commission_status', 'booking_status', 'notes'
         ];
+
+        //in freelancer tab, hide employee column and change to customer name
+        if(!empty($employeeId)){
+            unset($fields[2]);
+        }
 
         $months = Util::getMonthsSelection($current);
 

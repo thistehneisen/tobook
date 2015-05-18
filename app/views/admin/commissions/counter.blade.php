@@ -80,7 +80,10 @@ $(function () {
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->booking_id }}" id="bulk-item-{{ $item->id }}"></td>
             <td>{{ $item->created_at->format('d.m.Y') }}</td>
             <td>{{ with(new Carbon\Carbon($item->date))->format('d.m.Y') }}</td>
+            @if(empty($employeeId))
             <td>{{ $item->name }}</td>
+            @endif
+            <td>{{ $item->consumer_name }}</td>
             <td class="number">{{ $item->total_price }}{{ $currencySymbol }}</td>
             <td>@if(!empty($item->commission_status)) {{ trans($langPrefix . '.status.'. $item->commission_status) }} @endif</td>
             <td>
