@@ -143,7 +143,7 @@ class Users extends Base
                 'size'             => ['type' => false],
                 'lat'              => ['type' => false],
                 'lng'              => ['type' => false],
-                'note'             => ['type' => 'textarea'      , 'hidden' => !$isAdmin],
+                'note'             => ['type' => false],
                 'bank_account'     => ['type' => 'text'          , 'hidden' => !$isAdmin],
                 'meta_title'       => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
                 'meta_description' => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
