@@ -2,50 +2,46 @@
 
 //---------------------------- Confirmation ----------------------------//
 $confirmEmailConsumer = <<< HTML
-Hi!
+Sveicināti!
 
-Thank you for booking an appointment!
+Paldies par veikto rezervāciju!
 
-Service: {Services}
+Pakalpojums: {Services}
 
-Welcome!
-
-This service is provided by Tobook.lv
+Esiet laipni aicināti!
 HTML;
 
 $confirmEmailEmployee = <<< HTML
-Hi!
+Sveiki!
 
-You have a new booking:
+Jums ir jauna rezervācija:
 
-Service:
-{Services}
+Pakalpojums: {Services}
 
-Consumer information:
-Name: {Name}
-Phone: {Phone}
-Email: {Email}
+Klienta informācija:
 
-Notes:
+Vārds: {Name}
+
+Telefos: {Phone}
+
+Epasts: {Email}
+
+Piezīmes:
 {Notes}
 HTML;
 
 $confirmSmsEmployee = <<< HTML
-Hei,
-
-Sinulle on uusi varaus asiakkaalta {Consumer} palveluun {Services}
-
-Terveisin,
+Sveiki,
+Jums ir jauna rezervācija {Consumer} pakalpojums {Services}
 HTML;
 
 $confirmSmsConsumer = <<< HTML
-Hi!
+Sveicināti!
 
-Thank you for booking an appointment!
-
+Paldies par veikto rezervāciju!
 {Services}
 
-Best Regards.
+Ar cieņu.
 HTML;
 
 //---------------------------- Reminder ----------------------------//
@@ -97,7 +93,7 @@ return [
             'confirmations' => [
                 'confirm_subject_client' => [
                     'type' => 'Text',
-                    'default' => 'Tack för din bokning'
+                    'default' => 'Paldies par rezervāciju!'
                 ],
                 'confirm_tokens_client' => [
                     'type' => 'Textarea',
@@ -105,7 +101,7 @@ return [
                 ],
                 'confirm_subject_employee' => [
                     'type' => 'Text',
-                    'default' => 'Ny bokning'
+                    'default' => 'Jauna rezervācija!'
                 ],
                 'confirm_tokens_employee' => [
                     'type' => 'Textarea',
