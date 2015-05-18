@@ -1069,16 +1069,34 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $result;
     }
 
-    public static function countCommissionNeedToPay($userId, $status, $employeeId, $start, $end)
+    public static function countCommissionPending($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->whereNull('business_commissions.id');
 
-        $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
+        $result = 0;
+        $bookings = $query->leftJoin('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
             ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->select(DB::raw('COALESCE(SUM(varaa_as_bookings.total_price),0) as total'))
-            ->first();
+            ->select(['as_bookings.*'])
+            ->get();
 
+        $commissionRate = Settings::get('commission_rate');
+        $depositRate = 0.1;
+        $consumerPaid = 0;
+        foreach ($bookings  as $booking) {
+            //we always take commision from booking
+            $commission = $booking->total_price * $commissionRate;
+            if((int)$booking->status === Booking::STATUS_PAID) {
+                $consumerPaid = $booking->total_price;
+            } else if((int)$booking->status === Booking::STATUS_CONFIRM && ($booking->deposit > 0)) {
+                $consumerPaid = $booking->total_price * $depositRate;
+            } else if((int)$booking->status === Booking::STATUS_CONFIRM) {
+                $consumerPaid = 0;
+            } else {
+                continue;
+            }
+            $result += $consumerPaid - $commission;
+        }
         return $result;
     }
 

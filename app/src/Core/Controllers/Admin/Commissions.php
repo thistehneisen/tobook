@@ -130,7 +130,7 @@ class Commissions extends Base
             ->where('status', '=', Employee::STATUS_FREELANCER)
             ->get();
 
-        $needToPay = Booking::countCommissionNeedToPay(
+        $pending = Booking::countCommissionPending(
             $userId,
             $status,
             $employeeId,
@@ -150,9 +150,6 @@ class Commissions extends Base
 
         $commissionRate = Settings::get('commission_rate');
         $currencySymbol = Settings::get('currency');
-
-        $bookingCommision = $needToPay->total * $commissionRate;
-        $pending   = $needToPay->total - $bookingCommision;
 
         return $this->render('counter', [
             'items'          => $bookings,
@@ -285,7 +282,7 @@ class Commissions extends Base
             'created_at','date', 'employee', 'customer', 'price', 'booking_status', 'notes'
         ];
 
-        $needToPay = Booking::countCommissionNeedToPay(
+        $pending = Booking::countCommissionPending(
             $userId,
             null,
             $employeeId,
@@ -306,9 +303,6 @@ class Commissions extends Base
         $commissionRate = Settings::get('commission_rate');
         $currencySymbol = Settings::get('currency');
 
-
-        $bookingCommision = $needToPay->total * $commissionRate;
-        $pending   = $needToPay->total - $bookingCommision;
 
         return [
             'employeeBookings'    => $employeeBookings,
