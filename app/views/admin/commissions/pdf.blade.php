@@ -12,7 +12,7 @@
 
 @endif
 
-@if(count($freelancersBookings))
+@if(!empty($employeeId))
 @foreach ($freelancersBookings as $name => $items)
 <center>
     <h2>{{ $name }}</h2>
