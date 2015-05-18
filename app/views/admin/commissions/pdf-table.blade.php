@@ -15,9 +15,14 @@
         <tr @if(!empty($item->commission_status)) class="{{ $item->commission_status }}" @endif id="row-{{ $item->id }}" data-id="{{ $item->id }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
             <td>{{ $item->created_at->format('d.m.Y') }}</td>
             <td>{{ with(new Carbon\Carbon($item->date))->format('d.m.Y') }}</td>
+            @if(empty($employeeId))
             <td>{{ $item->name }}</td>
+            @endif
             <td>{{ $item->consumer_name }}</td>
             <td class="number">{{ $item->total_price }}{{ $currencySymbol }}</td>
+            <td>
+                @if(!empty($item->commission_status)) {{ trans($langPrefix . '.status.'. $item->commission_status) }} @endif
+            </td>
             <td>
                 {{ trans($langPrefix . '.status.'. $item->commisionStatus) }}
             </td>

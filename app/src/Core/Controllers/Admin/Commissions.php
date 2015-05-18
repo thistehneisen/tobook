@@ -229,7 +229,7 @@ class Commissions extends Base
         $businessCommission->save();
     }
 
-    private function report($userId, $employeeId)
+    private function report($userId, $employeeId = null)
     {
         $current = Carbon::now();
         $langPrefix = 'admin.commissions';
@@ -248,9 +248,14 @@ class Commissions extends Base
 
         $user = User::findOrFail($userId);
 
-        $status = (empty($employeeId))
-            ? Employee::STATUS_EMPLOYEE
-            : Employee::STATUS_FREELANCER;
+        $status = null;
+
+        if($employeeId == null || $employeeId > 0) {
+            $status = (empty($employeeId))
+                ? Employee::STATUS_EMPLOYEE
+                : Employee::STATUS_FREELANCER;
+        }
+
         $perPage = null;
 
         $employeeBookings = Booking::getBookingCommisions(
@@ -277,14 +282,9 @@ class Commissions extends Base
             );
         }
 
-
-        $fields = [
-            'created_at','date', 'employee', 'customer', 'price', 'booking_status', 'notes'
-        ];
-
         $pending = Booking::countCommissionPending(
             $userId,
-            null,
+            $status,
             $employeeId,
             $startOfMonth,
             $endOfMonth
@@ -292,7 +292,7 @@ class Commissions extends Base
 
         $paidObj= Booking::countCommissionPaid(
             $userId,
-            null,
+            $status,
             $employeeId,
             $startOfMonth,
             $endOfMonth
@@ -300,9 +300,17 @@ class Commissions extends Base
 
         $paid = $paidObj->total_price - $paidObj->commision_total;
 
+        $fields = [
+            'created_at','date', 'employee', 'customer', 'price', 'commission_status', 'booking_status', 'notes'
+        ];
+
+        //in freelancer tab, hide employee column and change to customer name
+        if(!empty($employeeId)){
+            unset($fields[2]);
+        }
+
         $commissionRate = Settings::get('commission_rate');
         $currencySymbol = Settings::get('currency');
-
 
         return [
             'employeeBookings'    => $employeeBookings,
@@ -326,8 +334,9 @@ class Commissions extends Base
         return $this->render('pdf', $data);
     }
 
-    public function sendReport($userId, $employeeId = null)
+    public function sendReport($userId)
     {
+        $employeeId = Input::get('employee');
         $data = $this->report($userId, $employeeId);
         $html = $this->render('pdf', $data)->render();
 
@@ -349,7 +358,7 @@ class Commissions extends Base
             $message->to($address)->subject($subject);
             $message->attach($filename, array('mime' => "application/pdf"));
         });
-        // unlink($filename);
+        unlink($filename);
         return Redirect::back();
     }
 }

@@ -85,7 +85,9 @@ $(function () {
             @endif
             <td>{{ $item->consumer_name }}</td>
             <td class="number">{{ $item->total_price }}{{ $currencySymbol }}</td>
-            <td>@if(!empty($item->commission_status)) {{ trans($langPrefix . '.status.'. $item->commission_status) }} @endif</td>
+            <td>
+                @if(!empty($item->commission_status)) {{ trans($langPrefix . '.status.'. $item->commission_status) }} @endif
+            </td>
             <td>
                 {{ trans($langPrefix . '.status.'. $item->commisionStatus) }}
             </td>
@@ -107,18 +109,16 @@ $(function () {
     </tbody>
 </table>
 
-<div  class="pull-left">
-    <a href="#" data-status="suspend" class="btn-change-status btn btn-xs btn-warning" title=""><i class="fa fa-lock"></i></a>
-    <a href="#" data-status="paid" class="btn-change-status btn btn-xs btn-success" title=""><i class="fa fa-check"></i></a>
-    <a href="#" data-status="cancelled" class="btn-change-status btn btn-xs btn-danger" title=""><i class="fa fa-undo"></i></a>
-</div>
-</form>
 
 <div class="row">
-    <div class="col-md-10 text-right">
+    <div class="col-md-2 text-left">
+       <a href="#" data-status="suspend" class="btn-change-status btn btn-xs btn-warning" title=""><i class="fa fa-lock"></i></a>
+        <a href="#" data-status="paid" class="btn-change-status btn btn-xs btn-success" title=""><i class="fa fa-check"></i></a>
+        <a href="#" data-status="cancelled" class="btn-change-status btn btn-xs btn-danger" title=""><i class="fa fa-undo"></i></a>
+    </div>
+    <div class="col-md-8 text-right">
         {{  $items->appends(Input::only('perPage'))->links() }}
     </div>
-
     <div class="col-md-2 text-right">
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
@@ -133,7 +133,7 @@ $(function () {
         </div>
     </div>
 </div>
-
+</form>
 <div class="center">
     <h2>
         {{ trans('admin.commissions.paid_this_month') }}:<br/>
@@ -148,7 +148,7 @@ $(function () {
 </div>
 
 <div class="center">
-{{ Form::open(['route' => ['admin.users.commissions.send_report', $user->id], 'class' => 'center form-horizontal', 'role' => 'form']) }}
+{{ Form::open(['route' => ['admin.users.commissions.send_report', $user->id, 'employee' => ((!empty($employeeId) ? $employeeId : 0))], 'class' => 'center form-horizontal', 'role' => 'form']) }}
   <div class="form-group {{ Form::errorCSS('treatment_type_id', $errors) }}">
         <label for="email_address" class="col-sm-2 control-label">{{ trans('admin.commissions.email_monthly_report') }}:</label>
         <div class="col-sm-5">
