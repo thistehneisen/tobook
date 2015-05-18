@@ -131,6 +131,7 @@ return array(
         'Indatus\Dispatcher\ServiceProvider',
         'Clowdy\Raven\RavenServiceProvider',
         'Maknz\Slack\SlackServiceProvider',
+        'Barryvdh\DomPDF\ServiceProvider',
 
         // Homemade
         'App\Hashids\HashidsServiceProvider',
@@ -216,6 +217,7 @@ return array(
         'Imagine'  => 'Orchestra\Imagine\Facade',
         'Raven'    => 'Clowdy\Raven\Facades\Raven',
         'Slack'    => 'Maknz\Slack\Facades\Slack',
+        'PDF'      => 'Barryvdh\DomPDF\Facade',
 
         // Homemade
         'AppController' => 'App\Core\Controllers\Base',

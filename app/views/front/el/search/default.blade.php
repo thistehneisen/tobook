@@ -37,12 +37,12 @@
                         <div class="form-group row">
                             <div class="input-group margin-bottom-md">
                                 <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
-                                <input style="width: 250px;" class="form-control" type="text" id="js-queryInput" name="q" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('q') }}}">
+                                <input style="width: 250px;" class="form-control" type="text" data-data-source="{{ route('ajax.services') }}" id="js-queryInput" name="q" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('q') }}}">
                             </div>
 
                             <div class="input-group margin-bottom-md">
                                 <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                                <input type="text" class="form-control" id="js-locationInput" name="location" placeholder="{{ trans('home.search.location') }}" value="{{{ Input::get('location') }}}">
+                                <input type="text" class="form-control" data-data-source="{{ route('ajax.locations') }}" id="js-locationInput" name="location" placeholder="{{ trans('home.search.location') }}" value="{{{ Input::get('location') }}}">
                             </div>
 
                             <button type="submit" class="btn btn-success btn-square">{{ trans('common.search') }}</button>
@@ -72,8 +72,8 @@
                             </div>
                         </div>
 --}}
-                        {{ Form::hidden('lat', Session::get('lat')) }}
-                        {{ Form::hidden('lng', Session::get('lng')) }}
+                        {{ Form::hidden('lat') }}
+                        {{ Form::hidden('lng') }}
                     {{ Form::close() }}
                 @show
             </div>

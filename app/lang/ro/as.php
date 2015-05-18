@@ -186,7 +186,7 @@ return [
         'is_received_calendar_invitation'  => 'A primit invitatia pe calendar?',
         'services'                         => 'Servicii',
         'status'                           => 'Stare',
-        'is_active'                        => 'Stare',
+        'is_active'                        => 'Activation',//@todo
         'avatar'                           => 'Avatar',
         'default_time'                     => 'Timp implicit',
         'custom_time'                      => 'Timp personalizat',
@@ -212,6 +212,10 @@ return [
         'to_date'                          => 'Pana la',
         'weekday'                          => 'Zi de lucru',
         'employee'                         => 'Angajat',
+        'freelancer'                       => 'Freelancer',//@todo
+        'business_id'                      => 'Business ID',//@todo
+        'account'                          => 'Account',//@todo
+        'activation'                       => 'Activation',//@todo
         'saturday_hours'                   => 'Ore sambata',
         'sunday_hours'                     => 'Ore duminica',
         'monthly_hours'                    => 'Ore lunare',

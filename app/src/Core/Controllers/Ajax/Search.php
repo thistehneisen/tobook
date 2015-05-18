@@ -1,12 +1,15 @@
 <?php namespace App\Core\Controllers\Ajax;
 
-use App\Core\Models\Business;
-use DB, Carbon\Carbon, Request, View, Input;
-use Illuminate\Support\Collection;
-use App\Core\Models\BusinessCategory;
-use App\Core\Models\User;
+use App;
 use App\Appointment\Controllers\Embed\Layout;
+use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\Service;
+use App\Core\Models\Business;
+use App\Core\Models\User;
+use DB;
+use Input;
+use Request;
+use View;
 
 class Search extends Base
 {
@@ -26,18 +29,25 @@ class Search extends Base
      */
     public function getServices()
     {
-        $categories = BusinessCategory::getAll();
-        $result = [];
-        foreach ($categories as $cat) {
-            $result[] = $cat->name;
-            $result = array_merge($result, $cat->keywords);
-            foreach ($cat->children as $subCat) {
-                $result[] = $subCat->name;
-                $result = array_merge($result, $subCat->keywords);
+        $data = [];
+
+        $categories = MasterCategory::getAll();
+        foreach ($categories as $category) {
+            $data[] = ['name' => $category->name, 'url' => $category->url];
+            foreach ($category->treatments as $treament) {
+                $data[] = ['name' => $treament->name, 'url' => $treament->url];
             }
+
         }
 
-        return $this->json($result);
+        $businesses = Business::notHidden()
+            ->where('name', '!=', '')
+            ->get();
+        foreach ($businesses as $business) {
+            $data[] = ['name' => $business->name, 'url' => $business->business_url];
+        }
+
+        return $data;
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Core\Models\User;
 use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Observer\SmsObserver;
 use Watson\Validating\ValidationException;
+use App\Core\Models\BusinessCommission;
 
 class Booking extends \App\Appointment\Models\Base implements \SplSubject
 {
@@ -151,7 +152,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public function getEndTimeAttribute()
     {
-        if ($this->start_at instanceof Carbon) {
+        if ($this->end_at instanceof Carbon) {
             return $this->end_at;
         }
 
@@ -177,6 +178,43 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         // For bookings from layout 1/2/3 embeded in customer's website
         return 'fa-globe';
+    }
+
+    /**
+     * Get the commision status used in /en/xandar/users/{id}}/commissions-counter
+     * @see getBookingsByEmployeeStatus
+     * @return string $status
+     */
+    public function getCommisionStatusAttribute()
+    {
+         $map = [
+            static::STATUS_CONFIRM     => 'confirmed',
+            static::STATUS_PENDING     => 'pending',
+            static::STATUS_CANCELLED   => 'cancelled',
+            static::STATUS_ARRIVED     => 'arrived',
+            static::STATUS_PAID        => 'paid',
+            static::STATUS_NOT_SHOW_UP => 'not_show_up',
+        ];
+
+        $status = isset($map[$this->booking_status]) ? $map[$this->booking_status] : null;
+        if(((int)$this->booking_status === static::STATUS_CONFIRM) && ((int)$this->deposit > 0)){
+            $status = 'deposit';
+        }
+        return $status;
+    }
+
+    /**
+     * Only get 9 words to display on table
+     * @return string ingress
+     */
+    public function getIngressAttribute()
+    {
+        $ingress = explode(' ', $this->notes);
+        if(count($ingress) > 9) {
+            $ingress = array_slice($ingress, 9);
+            $ingress[] = '...';
+        }
+        return implode($ingress, ' ');
     }
 
     /**
@@ -1002,4 +1040,100 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         return $filename;
     }
+
+    public static function getBookingCommisions($userId, $status, $employeeId, $start, $end)
+    {
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+
+        $query = $query->leftJoin('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
+            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->leftJoin('consumers', 'consumers.id', '=', 'as_bookings.consumer_id')
+            ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.date', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status','business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")]);
+
+
+        $result = $query->get();
+        return $result;
+    }
+
+    public static function getBookingsByEmployeeStatus($userId, $status, $employeeId, $perPage, $start, $end)
+    {
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+
+        $result = $query->leftJoin('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
+            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->leftJoin('consumers', 'consumers.id', '=', 'as_bookings.consumer_id')
+            ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status','business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")])
+            ->paginate($perPage);
+
+        return $result;
+    }
+
+    public static function countCommissionPending($userId, $status, $employeeId, $start, $end)
+    {
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+        $query = $query->whereNull('business_commissions.id');
+
+        $result = 0;
+        $bookings = $query->leftJoin('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
+            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->select(['as_bookings.*'])
+            ->get();
+
+        $commissionRate = Settings::get('commission_rate');
+        $depositRate = 0.1;
+        $consumerPaid = 0;
+        foreach ($bookings  as $booking) {
+            //we always take commision from booking
+            $commission = $booking->total_price * $commissionRate;
+            if((int)$booking->status === Booking::STATUS_PAID) {
+                $consumerPaid = $booking->total_price;
+            } else if((int)$booking->status === Booking::STATUS_CONFIRM && ($booking->deposit > 0)) {
+                $consumerPaid = $booking->total_price * $depositRate;
+            } else if((int)$booking->status === Booking::STATUS_CONFIRM) {
+                $consumerPaid = 0;
+                $commision = 0;
+            } else {
+                continue;
+            }
+            $result += $consumerPaid - $commission;
+        }
+        return $result;
+    }
+
+    public static function countCommissionPaid($userId, $status, $employeeId, $start, $end)
+    {
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+        $query = $query->where('business_commissions.status','=', BusinessCommission::STATUS_PAID);
+
+        $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
+            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->select([DB::raw('COALESCE(SUM(varaa_business_commissions.amount),0) as commision_total'),
+                DB::raw('COALESCE(SUM(varaa_as_bookings.total_price),0) as total_price')])
+            ->first();
+
+        return $result;
+    }
+
+    protected static function getCommissionQuery($userId, $status, $employeeId, $start, $end)
+    {
+        $query = self::where('as_bookings.created_at', '>', $start)
+            ->where('as_bookings.created_at', '<', $end)
+            ->whereNull('as_bookings.deleted_at')
+            ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
+            ->where('as_bookings.status','!=', self::STATUS_PENDING)
+            ->where('as_bookings.status','!=', self::STATUS_NOT_SHOW_UP)
+            ->where('as_bookings.user_id', '=', $userId);
+
+        //status == 0 mean empty
+        if(isset($status)){
+            $query = $query->where('as_employees.status', '=', $status);
+        }
+
+        if(!empty($employeeId)) {
+            $query = $query->where('as_bookings.employee_id', '=', $employeeId);
+        }
+
+        return $query;
+    }
+
 }

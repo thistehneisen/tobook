@@ -146,14 +146,16 @@ class User extends Base
         }
 
         $data = [
-            'email'      => Input::get('email'),
-            'first_name' => Input::get('first_name'),
-            'last_name'  => Input::get('last_name'),
-            'phone'      => Input::get('phone'),
-            'address'    => Input::get('address'),
-            'city'       => Input::get('city'),
-            'postcode'   => Input::get('postcode'),
-            'country'    => Input::get('country'),
+            'email'       => Input::get('email'),
+            'business_id' => Input::get('business_id'),
+            'account'     => Input::get('account'),
+            'first_name'  => Input::get('first_name'),
+            'last_name'   => Input::get('last_name'),
+            'phone'       => Input::get('phone'),
+            'address'     => Input::get('address'),
+            'city'        => Input::get('city'),
+            'postcode'    => Input::get('postcode'),
+            'country'     => Input::get('country'),
         ];
 
         $errors = null;

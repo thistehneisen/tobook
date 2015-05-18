@@ -56,6 +56,11 @@ return [
         'date'            => 'Ľubovolný čas',
         'time'            => 'ĽUbovolný dátum',
         'results'         => '<span class="keyword">&ldquo;:keyword&rdquo;</span>, <span class="location">:location</span>, :date, :time, <span class="results">:total results</span>',
+        'current_location' => 'Your current location', // @todo
+        'validation'      => [
+            'q'        => 'Please enter or select a service', // @todo
+            'location' => 'Please enter or select a location', // @todo
+        ],
         'geo'             => [
             'info' => 'Spýtame sa Vás na Vašu polohu, aby sme Vám zobrazili výsledky najbližšie k Vám.'
         ]

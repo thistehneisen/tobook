@@ -1,3 +1,4 @@
+<div id="as-overlay-message" class="as-overlay-message"></div>
 <div class="list-group">
     @if ($errors->any())
     <div class="alert alert-warning">
