@@ -914,8 +914,9 @@ class Business extends Base
 
     public function updateSearchIndex($searchIndexName = null)
     {
+        $body = $this->getSearchDocument();
         // If this model is not searchable, return as soon as possible
-        if ($this->isSearchable === false) {
+        if (empty($body) || $this->isSearchable === false) {
             return;
         }
 
@@ -923,7 +924,7 @@ class Business extends Base
         $params['index'] = (!empty($searchIndexName)) ? $searchIndexName : $this->getSearchIndexName();
         $params['type']  = (!empty($searchIndexName)) ? str_singular($searchIndexName) : $this->getSearchIndexType();
         $params['id']    = $this->getSearchDocumentId();
-        $params['body']  = $this->getSearchDocument();
+        $params['body']  = $body;
         $provider = App::make('App\Search\ProviderInterface');
 
         return $provider->index($params);
