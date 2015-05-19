@@ -57,10 +57,10 @@ class User extends Base
                 'langPrefix'        => 'user.business',
                 'fields'            => [
                     'description'      => ['type' => 'html_multilang', 'default' => $business->description_html],
-                    'size'             => ['type' => false],
                     'lat'              => ['type' => false],
                     'lng'              => ['type' => false],
-                    'note'             => ['type' => 'textarea'      , 'hidden' => !$isAdmin],
+                    'size'             => ['type' => false],
+                    'note'             => ['type' => false],
                     'bank_account'     => ['type' => 'text'          , 'hidden' => !$isAdmin],
                     'meta_title'       => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
                     'meta_description' => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
