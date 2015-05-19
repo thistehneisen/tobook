@@ -14,9 +14,6 @@ do ($ = jQuery) ->
     $location.on 'focus', doNotShowTooltip
     $location
       .on 'focus', (e) -> $locationDropdownWrapper.addClass 'open'
-      .on 'blur', (e) ->
-        shouldClose = e.relatedTarget and $(e.relatedTarget).hasClass 'form-search-city'
-        $locationDropdownWrapper.removeClass 'open' unless shouldClose
 
     $formSearch.on 'submit', (e) ->
       return true if $formSearch.data('bypass') is true
