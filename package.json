@@ -16,7 +16,15 @@
     "gulp-rev": "^2.0.1",
     "gulp-uglify": "^1.0.1",
     "gulp-chmod": "^1.2.0",
+    "gulp-remember": "^0.3.0",
+    "gulp-cached": "^1.0.4",
+    "gulp-if": "^1.2.5",
+    "yargs": "^3.7.2",
+    "merge-stream": "^0.1.7",
     "lodash": "^2.4.1",
     "streamqueue": "^0.1.1"
+  },
+  "scripts": {
+    "build": "mkdir -p resources/$ENV && cp -u -r resources/varaa/* resources/$ENV && gulp --env $ENV"
   }
 }
