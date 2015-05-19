@@ -17,6 +17,13 @@ do ($ = jQuery) ->
 
     $formSearch.on 'submit', (e) ->
       return true if $formSearch.data('bypass') is true
+      # If the action has been modified by selecting MC/TM
+      if $formSearch.data 'old-action'
+        if $q.val() isnt $formSearch.data('suggestion')
+          # Revert old action, submit as normal
+          $formSearch.attr('action', $formSearch.data('old-action'))
+        return true
+
       e.preventDefault()
 
       bypassAndSubmit = ->
@@ -54,7 +61,13 @@ do ($ = jQuery) ->
     # Init typeahead on search form
     VARAA.initTypeahead $q, 'services' if $q.length > 0
     $q.bind 'typeahead:selected', (e, selection) ->
-      window.location = selection.url if typeof selection.url isnt 'undefined'
+      if selection.type is 'category'
+        $formSearch.data 'suggestion', $q.val()
+        $formSearch.data('old-action', $formSearch.attr('action'))
+        $formSearch.attr('action', selection.url)
+      else
+        window.location = selection.url if typeof selection.url isnt 'undefined'
+
 
     # When user clicks on navbar, we'll ask for the current location
     $ '#js-navbar'
