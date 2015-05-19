@@ -4,14 +4,6 @@
     @foreach ($businessLomake->fields as $field)
         @include('varaa-lomake::fields.group')
     @endforeach
-
-    <div class="form-group {{ Form::errorCSS('size', $errors) }}">
-        <label for="size" class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.business.size') }}</label>
-        <div class="col-sm-6">
-            {{ Form::select('size', trans('user.business.sizes'), $business->size, ['class' => 'form-control']) }}
-            {{ Form::errorText('size', $errors) }}
-        </div>
-    </div>
 {{--
     <div class="form-group">
         <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.profile.business_categories.index') }}</label>

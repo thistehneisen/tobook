@@ -33,9 +33,9 @@ class Search extends Base
 
         $categories = MasterCategory::getAll();
         foreach ($categories as $category) {
-            $data[] = ['name' => $category->name, 'url' => $category->url];
+            $data[] = ['type' => 'category', 'name' => $category->name, 'url' => $category->url];
             foreach ($category->treatments as $treament) {
-                $data[] = ['name' => $treament->name, 'url' => $treament->url];
+                $data[] = ['type' => 'category', 'name' => $treament->name, 'url' => $treament->url];
             }
 
         }
@@ -44,7 +44,7 @@ class Search extends Base
             ->where('name', '!=', '')
             ->get();
         foreach ($businesses as $business) {
-            $data[] = ['name' => $business->name, 'url' => $business->business_url];
+            $data[] = ['type' => 'business', 'name' => $business->name, 'url' => $business->business_url];
         }
 
         return $data;

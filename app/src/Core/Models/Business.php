@@ -251,16 +251,16 @@ class Business extends Base
     public function updateInformation($input, $user)
     {
         $this->fill([
-            'name'                => $input['name'],
-            'size'                => $input['size'],
-            'address'             => $input['address'],
-            'city'                => $input['city'],
-            'postcode'            => $input['postcode'],
-            'country'             => $input['country'],
-            'phone'               => $input['phone'],
-            'is_booking_disabled' => $input['is_booking_disabled'],
-            'note'                => isset($input['note'])             ? $input['note'] : '',
-            'is_hidden'           => isset($input['is_hidden'])        ? $input['is_hidden'] : '',
+            'name'                => array_get($input, 'name', ''),
+            'size'                => array_get($input, 'size', ''),
+            'address'             => array_get($input, 'address', ''),
+            'city'                => array_get($input, 'city', ''),
+            'postcode'            => array_get($input, 'postcode', ''),
+            'country'             => array_get($input, 'country', ''),
+            'phone'               => array_get($input, 'phone', ''),
+            'is_booking_disabled' => array_get($input, 'is_booking_disabled', true),
+            'note'                => array_get($input, 'note', ''),
+            'is_hidden'           => array_get($input, 'is_hidden', false),
         ]);
         $this->user()->associate($user);
         $this->saveOrFail();
@@ -914,8 +914,9 @@ class Business extends Base
 
     public function updateSearchIndex($searchIndexName = null)
     {
+        $body = $this->getSearchDocument();
         // If this model is not searchable, return as soon as possible
-        if ($this->isSearchable === false) {
+        if (empty($body) || $this->isSearchable === false) {
             return;
         }
 
@@ -923,7 +924,7 @@ class Business extends Base
         $params['index'] = (!empty($searchIndexName)) ? $searchIndexName : $this->getSearchIndexName();
         $params['type']  = (!empty($searchIndexName)) ? str_singular($searchIndexName) : $this->getSearchIndexType();
         $params['id']    = $this->getSearchDocumentId();
-        $params['body']  = $this->getSearchDocument();
+        $params['body']  = $body;
         $provider = App::make('App\Search\ProviderInterface');
 
         return $provider->index($params);
