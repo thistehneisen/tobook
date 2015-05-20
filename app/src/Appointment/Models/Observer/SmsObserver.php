@@ -105,8 +105,10 @@ class SmsObserver implements \SplObserver {
             $body = str_replace('{Deposit}', $subject->depositAmount(), $msg);
         }
 
-        Queue::push(function($job) use($subject, $msg){
-            Sms::send(Config::get('sms.from'), $subject->consumer->phone, $msg, $this->code);
+        $code = $this->code;
+
+        Queue::push(function($job) use($subject, $msg, $code){
+            Sms::send(Config::get('sms.from'), $subject->consumer->phone, $msg, $code);
         });
     }
 
@@ -121,8 +123,9 @@ class SmsObserver implements \SplObserver {
         $msg = str_replace('{Services}', $this->serviceInfo, $msg);
         $msg = str_replace('{Consumer}', $subject->consumer->name, $msg);
 
-        Queue::push(function($job) use($subject, $msg){
-            Sms::send(Config::get('sms.from'), $subject->employee->phone, $msg, $this->code);
+        $code = $this->code;
+        Queue::push(function($job) use($subject, $msg, $code){
+            Sms::send(Config::get('sms.from'), $subject->employee->phone, $msg, $code);
         });
     }
 }
