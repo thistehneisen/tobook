@@ -10,26 +10,16 @@ if (!function_exists('asset_path')) {
      */
     function asset_path($filename)
     {
-        $env = App::environment();
-        $folder = 'built/';
-
-        // Check the instance folder, if there's no folder existing, fallback
-        // to the default one, which is `varaa`
-        $instance = $env;
-        if (!file_exists(public_path($folder.$env))) {
-            $instance = 'varaa';
+        if (App::environment() === 'local') {
+            return asset('assets/'.$filename);
         }
-
-        // @TODO: Think about caching of reading file
-        $path = base_path('rev-manifest.json');
+        $path = base_path('rev.json');
         $manifest = file_exists($path)
             ? json_decode(file_get_contents($path), true)
             : [];
 
-        $filepath = $instance.'/'.$filename;
-
-        return array_key_exists($filepath, $manifest)
-            ? asset($folder.$manifest[$filepath])
-            : asset($folder.$filepath);
+        return array_key_exists($filename, $manifest)
+            ? asset('assets/'.$manifest[$filename])
+            : asset('assets/'.$filename);
     }
 }
