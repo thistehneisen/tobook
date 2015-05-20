@@ -150,7 +150,7 @@ class FrontBookings extends Bookings
         }
 
         //TODO maybe change to use Event instead of Observer
-        if ($source !== 'inhouse' && !empty($booking)) {
+        if (!empty($consumer->email)) {
             //Send notification email and SMSs
             try {
                 $booking->attach(new EmailObserver());
