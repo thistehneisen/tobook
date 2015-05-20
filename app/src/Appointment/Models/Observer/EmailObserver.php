@@ -87,7 +87,7 @@ class EmailObserver implements \SplObserver
         $emailSubject = $subject->user->asOptions['confirm_subject_client'];
         $body = $subject->user->asOptions['confirm_tokens_client'];
         $body = $this->getEmailBody($subject, $body);
-        Log::info('Sending out email ######');
+
         Mail::send('modules.as.emails.confirm', [
             'title' => $emailSubject,
             'body' => nl2br($body)
@@ -108,7 +108,7 @@ class EmailObserver implements \SplObserver
             $emailSubject = $subject->user->asOptions['confirm_subject_employee'];
             $body = $subject->user->asOptions['confirm_tokens_employee'];
             $body = $this->getEmailBody($subject, $body);
-            Log::info('Sending out email ######');
+
             Mail::send('modules.as.emails.confirm', [
                 'title' => $emailSubject,
                 'body' => nl2br($body)
