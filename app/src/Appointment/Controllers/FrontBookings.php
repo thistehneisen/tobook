@@ -93,7 +93,7 @@ class FrontBookings extends Bookings
             $layout              = Input::get('l', '');
             $cart                = Cart::find($cartId);
             $isRequestedEmployee = Input::get('is_requested_employee', false);
-            $consumer            = $cart->consumer;
+            $consumer            = (!empty($cart->consumer))  ? $cart->consumer : null;
 
             if ($consumer === null) {
                 $consumer    = Consumer::handleConsumer(Input::all());
