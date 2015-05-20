@@ -80,7 +80,7 @@ class EmailObserver implements \SplObserver
 
     public function sendConsumerEmail($subject)
     {
-        if (empty($subject->consumer->email) || (!$subject->consumer->receive_email)) {
+        if (empty($subject->consumer->email) || ((bool)$subject->consumer->receive_email === false)) {
             return;
         }
 
