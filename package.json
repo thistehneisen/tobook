@@ -17,11 +17,18 @@
     "gulp-uglify": "^1.0.1",
     "less": "^2.5.0",
     "lodash": "^2.4.1",
-    "merge-stream": "^0.1.7",
+    "url-loader": "^0.5.5",
+    "webpack": "^1.8.11",
+    "css-loader": "^0.12.0",
+    "extract-text-webpack-plugin": "^0.7.1",
+    "file-loader": "^0.8.1",
+    "imports-loader": "^0.6.3",
+    "style-loader": "^0.12.2",
+    "url-loader": "^0.5.5",
     "yargs": "^3.7.2"
   },
   "scripts": {
-    "clean-build": "rm rev.json && rm public/assets/* -r",
-    "build": "mkdir -p resources/$ENV && cp -u -r resources/varaa/* resources/$ENV && npm run clean-build && gulp --env $ENV --production"
+    "clean-build": "mkdir -p resources/$ENV && cp -u -r resources/varaa/* resources/$ENV && rm rev.json && rm public/assets/* -r",
+    "build": "npm run clean-build && webpack && gulp --env $ENV --production"
   }
 }
