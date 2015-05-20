@@ -2,7 +2,7 @@
 
 use App, View, Confide, Sms, Log, Config, Settings;
 use Carbon\Carbon;
-
+use Queue;
 class SmsObserver implements \SplObserver {
 
     /**
@@ -105,7 +105,9 @@ class SmsObserver implements \SplObserver {
             $body = str_replace('{Deposit}', $subject->depositAmount(), $msg);
         }
 
-        Sms::send(Config::get('sms.from'), $subject->consumer->phone, $msg, $this->code);
+        Queue::push(function($job) use($subject, $msg){
+            Sms::send(Config::get('sms.from'), $subject->consumer->phone, $msg, $this->code);
+        });
     }
 
     protected function sendToEmployee($subject)
@@ -118,6 +120,9 @@ class SmsObserver implements \SplObserver {
         $msg = $subject->user->asOptions['confirm_employee_sms_message'];
         $msg = str_replace('{Services}', $this->serviceInfo, $msg);
         $msg = str_replace('{Consumer}', $subject->consumer->name, $msg);
-        Sms::send(Config::get('sms.from'), $subject->employee->phone, $msg, $this->code);
+
+        Queue::push(function($job) use($subject, $msg){
+            Sms::send(Config::get('sms.from'), $subject->employee->phone, $msg, $this->code);
+        });
     }
 }
