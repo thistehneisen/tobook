@@ -62,7 +62,7 @@ class EmailTemplate extends \App\Core\Models\Base
                 continue;
             }
 
-            Mail::queue('modules.co.email_templates.email', [
+            Mail::send('modules.co.email_templates.email', [
                 'subject' => $campaign->subject,
                 'content' => $campaign->content,
             ], function ($message) use ($campaign, $consumer, $group) {
