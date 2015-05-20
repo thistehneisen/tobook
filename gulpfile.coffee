@@ -10,10 +10,11 @@ cached   = require 'gulp-cached'
 gulpif   = require 'gulp-if'
 args     = require 'yargs'
 
-env = args.argv.env
+env = if args.argv.env then args.argv.env else 'varaa'
 root = "#{__dirname}/resources/#{env}"
 
 paths =
+  rev: "#{__dirname}/rev.json"
   dest: 'public/a'
   coffee: ["#{root}/**/scripts/**/*.coffee"]
   less: ["#{root}/**/styles/**/*.less", "!#{root}/**/styles/**/*.import.less"]
@@ -30,7 +31,10 @@ gulp.task 'coffee', ->
     .pipe coffee()
     .pipe remember 'scripts'
     .pipe gulpif !!env, uglify()
+    .pipe rev()
     .pipe gulp.dest paths.dest
+    .pipe rev.manifest path: paths.rev, merge: true
+    .pipe gulp.dest __dirname
 
 gulp.task 'less', ->
   gulp.src paths.less
@@ -39,6 +43,10 @@ gulp.task 'less', ->
     .pipe remember 'styles'
     .pipe gulpif !!env, cssmin()
     .pipe gulp.dest paths.dest
+    .pipe rev()
+    .pipe gulp.dest paths.dest
+    .pipe rev.manifest path: paths.rev, merge: true
+    .pipe gulp.dest __dirname
 
 gulp.task 'default', ['coffee', 'less', 'static']
 

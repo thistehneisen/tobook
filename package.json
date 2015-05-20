@@ -13,7 +13,7 @@
     "gulp-if": "^1.2.5",
     "gulp-less": "^3.0.3",
     "gulp-remember": "^0.3.0",
-    "gulp-rev": "^2.0.1",
+    "gulp-rev": "^3.0.1",
     "gulp-uglify": "^1.0.1",
     "less": "^2.5.0",
     "lodash": "^2.4.1",

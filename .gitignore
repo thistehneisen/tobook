@@ -70,4 +70,4 @@ composer.phar
 
 # Node.js module
 node_modules/
-
+rev.json
