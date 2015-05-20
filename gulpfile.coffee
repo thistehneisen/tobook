@@ -11,6 +11,7 @@ gulpif   = require 'gulp-if'
 args     = require 'yargs'
 
 env = if args.argv.env then args.argv.env else 'varaa'
+production = !!args.argv.production
 root = "#{__dirname}/resources/#{env}"
 
 paths =
@@ -31,7 +32,7 @@ gulp.task 'js', ->
     .pipe cached 'js'
     .pipe rev()
     .pipe remember 'js'
-    .pipe gulpif !!env, uglify()
+    .pipe gulpif production, uglify()
     .pipe gulp.dest paths.dest
     .pipe rev.manifest path: paths.rev, merge: true
     .pipe gulp.dest __dirname
@@ -41,23 +42,22 @@ gulp.task 'coffee', ['js'], ->
     .pipe cached 'coffee'
     .pipe coffee()
     .pipe remember 'coffee'
-    .pipe gulpif !!env, uglify()
-    .pipe rev()
+    .pipe gulpif production, uglify()
+    .pipe gulpif production, rev()
     .pipe gulp.dest paths.dest
-    .pipe rev.manifest path: paths.rev, merge: true
-    .pipe gulp.dest __dirname
+    .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
+    .pipe gulpif production, gulp.dest(__dirname)
 
 gulp.task 'less', ->
   gulp.src paths.less
     .pipe cached 'less'
     .pipe less()
     .pipe remember 'less'
-    .pipe gulpif !!env, cssmin()
+    .pipe gulpif production, cssmin()
+    .pipe gulpif production, rev()
     .pipe gulp.dest paths.dest
-    .pipe rev()
-    .pipe gulp.dest paths.dest
-    .pipe rev.manifest path: paths.rev, merge: true
-    .pipe gulp.dest __dirname
+    .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
+    .pipe gulpif production, gulp.dest(__dirname)
 
 gulp.task 'default', ['coffee', 'less', 'static']
 
