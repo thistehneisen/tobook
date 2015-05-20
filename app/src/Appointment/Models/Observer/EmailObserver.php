@@ -80,15 +80,17 @@ class EmailObserver implements \SplObserver
 
     public function sendConsumerEmail($subject)
     {
-        // if (empty($subject->consumer->email) || ((bool)$subject->consumer->receive_email === false)) {
-        //     return;
-        // }
+        if (empty($subject->consumer->email)
+                || (!empty($subject->consumer->receive_email)
+                    && (!(bool)$subject->consumer->receive_email)) {
+            return;
+        }
 
         $emailSubject = $subject->user->asOptions['confirm_subject_client'];
         $body = $subject->user->asOptions['confirm_tokens_client'];
         $body = $this->getEmailBody($subject, $body);
 
-        Mail::send('modules.as.emails.confirm', [
+        Mail::queue('modules.as.emails.confirm', [
             'title' => $emailSubject,
             'body' => nl2br($body)
         ], function ($message) use ($subject, $emailSubject) {
