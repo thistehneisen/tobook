@@ -18,18 +18,29 @@ paths =
   dest: 'public/a'
   coffee: ["#{root}/**/scripts/**/*.coffee"]
   less: ["#{root}/**/styles/**/*.less", "!#{root}/**/styles/**/*.import.less"]
-  static: ['/**/img/**/*.*', '/**/fonts/**/*.*']
+  js: ["#{root}/**/scripts/**/*.js", "!#{root}/**/scripts/**/*.min.js"]
+  static: ["#{root}/**/img/**/*.*", "#{root}/**/fonts/**/*.*"]
 
 gulp.task 'static', ->
   paths.static.forEach (path) ->
-    gulp.src root+path
+    gulp.src path
       .pipe gulp.dest paths.dest
 
-gulp.task 'coffee', ->
+gulp.task 'js', ->
+  gulp.src paths.js
+    .pipe cached 'js'
+    .pipe rev()
+    .pipe remember 'js'
+    .pipe gulpif !!env, uglify()
+    .pipe gulp.dest paths.dest
+    .pipe rev.manifest path: paths.rev, merge: true
+    .pipe gulp.dest __dirname
+
+gulp.task 'coffee', ['js'], ->
   gulp.src paths.coffee
-    .pipe cached 'scripts'
+    .pipe cached 'coffee'
     .pipe coffee()
-    .pipe remember 'scripts'
+    .pipe remember 'coffee'
     .pipe gulpif !!env, uglify()
     .pipe rev()
     .pipe gulp.dest paths.dest
@@ -38,9 +49,9 @@ gulp.task 'coffee', ->
 
 gulp.task 'less', ->
   gulp.src paths.less
-    .pipe cached 'styles'
+    .pipe cached 'less'
     .pipe less()
-    .pipe remember 'styles'
+    .pipe remember 'less'
     .pipe gulpif !!env, cssmin()
     .pipe gulp.dest paths.dest
     .pipe rev()
@@ -51,8 +62,9 @@ gulp.task 'less', ->
 gulp.task 'default', ['coffee', 'less', 'static']
 
 gulp.task 'watch', ['default'], ->
-  watcher = gulp.watch p, ['default']
-  watcher.on 'change', (e) ->
-    if e.type is 'deleted'
-      delete cached.caches.scripts[e.path]
-      remember.forget 'scripts', e.path
+  ['coffee', 'less', 'js'].forEach (task) ->
+    watcher = gulp.watch paths[task], [task]
+    watcher.on 'change', (e) ->
+      if e.type is 'deleted'
+        delete cached.caches[task][e.path] if cached.caches[task][e.path]
+        remember.forget task, e.path
