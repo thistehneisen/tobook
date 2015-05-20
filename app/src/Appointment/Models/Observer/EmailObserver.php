@@ -48,7 +48,7 @@ class EmailObserver implements \SplObserver
         $this->init($subject);
         if ($this->isEnabled) {
             $this->sendConsumerEmail($subject);
-            $this->sendEmployeeEmail($subject);
+            //$this->sendEmployeeEmail($subject);
         }
     }
 
