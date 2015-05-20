@@ -82,7 +82,7 @@ class EmailObserver implements \SplObserver
     {
         if (empty($subject->consumer->email)
                 || (!empty($subject->consumer->receive_email)
-                    && (!(bool)$subject->consumer->receive_email)) {
+                    && !(bool)$subject->consumer->receive_email)) {
             return;
         }
 
