@@ -29,6 +29,7 @@
   },
   "scripts": {
     "clean-build": "mkdir -p resources/$ENV && cp -u -r resources/varaa/* resources/$ENV && rm rev.json && rm public/assets/* -r",
-    "build": "npm run clean-build && webpack && gulp --env $ENV --production"
+    "build-dev": "npm run clean-build && webpack && gulp --env $ENV",
+    "build": "npm run clean-build && webpack --production && gulp --env $ENV --production"
   }
 }
