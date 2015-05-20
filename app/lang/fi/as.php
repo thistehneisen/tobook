@@ -252,7 +252,9 @@ return [
         'sv_version'       => 'Ruotsiksi',
         'book'             => 'Varaa',
         'success'          => 'Kiitos varauksestasi! Sinut ohjataan takaisin alkuun <span id="as-counter">10</span> -sekunnin kuluttua.',
-        'success_simple'   => 'Kiitos varauksestasi!',
+        'success_line1'    => '<h2>Kiitos!</h2>',
+        'success_line2'    => '<h3>Varauksesi luotiin onnistuneesti.</h3>',
+        'success_line3'    => '<h3>Sinut ohjataan takaisin alkuun <span id="as-counter">10</span> -sekunnin kuluttua.</h3>',
         'confirm'          => 'Vahvista varaus',
         'layout_2'         => [
             'select_service'      => 'Valitse palvelu ja päivämäärä',
