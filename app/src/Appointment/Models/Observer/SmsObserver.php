@@ -109,6 +109,7 @@ class SmsObserver implements \SplObserver {
 
         Queue::push(function($job) use($subject, $msg, $code){
             Sms::send(Config::get('sms.from'), $subject->consumer->phone, $msg, $code);
+            $job->delete();
         });
     }
 
@@ -126,6 +127,7 @@ class SmsObserver implements \SplObserver {
         $code = $this->code;
         Queue::push(function($job) use($subject, $msg, $code){
             Sms::send(Config::get('sms.from'), $subject->employee->phone, $msg, $code);
+            $job->delete();
         });
     }
 }
