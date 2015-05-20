@@ -16,7 +16,7 @@ root = "#{__dirname}/resources/#{env}"
 
 paths =
   rev: "#{__dirname}/rev.json"
-  dest: 'public/a'
+  dest: 'public/assets'
   coffee: ["#{root}/**/scripts/**/*.coffee"]
   less: ["#{root}/**/styles/**/*.less", "!#{root}/**/styles/**/*.import.less"]
   js: ["#{root}/**/scripts/**/*.js", "!#{root}/**/scripts/**/*.min.js"]
