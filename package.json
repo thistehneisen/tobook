@@ -28,7 +28,7 @@
     "yargs": "^3.7.2"
   },
   "scripts": {
-    "clean-build": "mkdir -p resources/$ENV && cp -u -r resources/varaa/* resources/$ENV && rm rev.json && rm public/assets/* -r",
+    "clean-build": "mkdir -p resources/$ENV && cp -u -r resources/varaa/* resources/$ENV && rm -f rev.json && mkdir public/assets -p && rm public/assets/* -r",
     "build-dev": "npm run clean-build && webpack && gulp --env $ENV",
     "build": "npm run clean-build && webpack --production && gulp --env $ENV --production"
   }
