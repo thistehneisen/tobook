@@ -88,7 +88,7 @@ class EmailObserver implements \SplObserver
         $body = $subject->user->asOptions['confirm_tokens_client'];
         $body = $this->getEmailBody($subject, $body);
 
-        Mail::send('modules.as.emails.confirm', [
+        Mail::queue('modules.as.emails.confirm', [
             'title' => $emailSubject,
             'body' => nl2br($body)
         ], function ($message) use ($subject, $emailSubject) {
@@ -109,7 +109,7 @@ class EmailObserver implements \SplObserver
             $body = $subject->user->asOptions['confirm_tokens_employee'];
             $body = $this->getEmailBody($subject, $body);
 
-            Mail::send('modules.as.emails.confirm', [
+            Mail::queue('modules.as.emails.confirm', [
                 'title' => $emailSubject,
                 'body' => nl2br($body)
             ], function($message) use ($employee, $emailSubject) {
