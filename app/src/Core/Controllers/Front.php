@@ -1,5 +1,6 @@
 <?php namespace App\Core\Controllers;
 
+use App;
 use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\TreatmentType;
 use App\Core\Models\Business;
@@ -11,6 +12,7 @@ use Request;
 use Response;
 use Settings;
 use Util;
+use View;
 
 class Front extends Base
 {
@@ -228,5 +230,22 @@ class Front extends Base
     public function intro()
     {
         return $this->render('intro');
+    }
+
+    /**
+     * Show content as static pages
+     *
+     * @return View
+     */
+    public function staticPage()
+    {
+        $file = Request::segment(App::environment() !== 'tobook' ? 1 : 2);
+        $view = 'front.pages.'.$file;
+
+        if ($file && View::exists($view)) {
+            return View::make($view);
+        }
+
+        App::abort(404);
     }
 }
