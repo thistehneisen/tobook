@@ -5,6 +5,16 @@
 |--------------------------------------------------------------------------
 */
 
+Route::get('terms', [
+    'as'    => 'terms',
+    'uses'  => 'App\Core\Controllers\Front@staticPage'
+]);
+
+Route::get('policy', [
+    'as'    => 'policy',
+    'uses'  => 'App\Core\Controllers\Front@staticPage'
+]);
+
 Route::get('/about', [
     'as'    => 'home',
     'uses'  => 'App\Core\Controllers\Front@about'
