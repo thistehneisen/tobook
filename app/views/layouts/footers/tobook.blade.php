@@ -42,8 +42,8 @@
                 </div>
                 <div class="col-sm-6">
                     <h2 class="heading">Informācija pircējiem</h2>
-                    <p>Noteikumi un nosacījumi</p>
-                    <p>Sīkdatņu izmantošana</p>
+                    <p><a href="{{ route('terms') }}">Noteikumi un nosacījumi</a></p>
+                    <p><a href="{{ route('policy') }}">Sīkdatņu izmantošana</a></p>
                 </div>
             </div>
         </div>
