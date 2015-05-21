@@ -80,7 +80,9 @@ class EmailObserver implements \SplObserver
 
     public function sendConsumerEmail($subject)
     {
-        if (empty($subject->consumer->email) || (!$subject->consumer->receive_email)) {
+        if (empty($subject->consumer->email)
+                || (!empty($subject->consumer->receive_email)
+                    && !(bool)$subject->consumer->receive_email)) {
             return;
         }
 
@@ -88,7 +90,7 @@ class EmailObserver implements \SplObserver
         $body = $subject->user->asOptions['confirm_tokens_client'];
         $body = $this->getEmailBody($subject, $body);
 
-        Mail::send('modules.as.emails.confirm', [
+        Mail::queue('modules.as.emails.confirm', [
             'title' => $emailSubject,
             'body' => nl2br($body)
         ], function ($message) use ($subject, $emailSubject) {
@@ -109,7 +111,7 @@ class EmailObserver implements \SplObserver
             $body = $subject->user->asOptions['confirm_tokens_employee'];
             $body = $this->getEmailBody($subject, $body);
 
-            Mail::send('modules.as.emails.confirm', [
+            Mail::queue('modules.as.emails.confirm', [
                 'title' => $emailSubject,
                 'body' => nl2br($body)
             ], function($message) use ($employee, $emailSubject) {
