@@ -1045,7 +1045,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
 
-        $query = $query->leftJoin('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
+        $query = $query->leftJoin('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
             ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->leftJoin('consumers', 'consumers.id', '=', 'as_bookings.consumer_id')
             ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.date', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status','business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")]);
@@ -1059,8 +1059,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
 
-        $result = $query->leftJoin('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
-            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->leftJoin('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
             ->leftJoin('consumers', 'consumers.id', '=', 'as_bookings.consumer_id')
             ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status','business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")])
             ->paginate($perPage);
@@ -1074,8 +1074,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = $query->whereNull('business_commissions.id');
 
         $result = 0;
-        $bookings = $query->leftJoin('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
-            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+        $bookings = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->leftJoin('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
             ->select(['as_bookings.*','business_commissions.deposit_rate as deposit_rate'])
             ->get();
 
@@ -1122,6 +1122,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
             ->where('as_bookings.status','!=', self::STATUS_PENDING)
             ->where('as_bookings.status','!=', self::STATUS_NOT_SHOW_UP)
+            ->where('as_bookings.source','=', 'inhouse')
             ->where('as_bookings.user_id', '=', $userId);
 
         //status == 0 mean empty
@@ -1130,7 +1131,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         }
 
         if(!empty($employeeId)) {
-            $query = $query->where('as_bookings.employee_id', '=', $employeeId);
+            $query = $query->where('business_commissions.employee_id', '=', $employeeId);
         }
 
         return $query;
