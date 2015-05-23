@@ -1076,13 +1076,13 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $result = 0;
         $bookings = $query->leftJoin('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
             ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->select(['as_bookings.*'])
+            ->select(['as_bookings.*','business_commissions.deposit_rate as deposit_rate'])
             ->get();
 
         $commissionRate = Settings::get('commission_rate');
-        $depositRate = 0.1;
         $consumerPaid = 0;
         foreach ($bookings  as $booking) {
+            $depositRate = (!empty($booking->deposit_rate)) ?  $booking->deposit_rate : 0.1;
             //we always take commision from booking
             $commission = $booking->total_price * $commissionRate;
             if((int)$booking->status === Booking::STATUS_PAID) {
