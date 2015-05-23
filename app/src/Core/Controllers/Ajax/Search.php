@@ -29,13 +29,25 @@ class Search extends Base
      */
     public function getServices()
     {
-        $categories = MasterCategory::getAll()->map(function ($category) {
-            return array_merge([$category->name],
-                $category->treatments->lists('name'));
-        })->flatten()->toArray();
-        $businesses = Business::notHidden()->where('name', '!=', '')->lists('name');
+        $data = [];
 
-        return array_merge($categories, $businesses);
+        $categories = MasterCategory::getAll();
+        foreach ($categories as $category) {
+            $data[] = ['type' => 'category', 'name' => $category->name, 'url' => $category->url];
+            foreach ($category->treatments as $treament) {
+                $data[] = ['type' => 'category', 'name' => $treament->name, 'url' => $treament->url];
+            }
+
+        }
+
+        $businesses = Business::notHidden()
+            ->where('name', '!=', '')
+            ->get();
+        foreach ($businesses as $business) {
+            $data[] = ['type' => 'business', 'name' => $business->name, 'url' => $business->business_url];
+        }
+
+        return $data;
     }
 
     /**

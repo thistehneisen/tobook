@@ -14,36 +14,60 @@ do ($ = jQuery) ->
     $location.on 'focus', doNotShowTooltip
     $location
       .on 'focus', (e) -> $locationDropdownWrapper.addClass 'open'
-      .on 'blur', (e) ->
-        shouldClose = e.relatedTarget and $(e.relatedTarget).hasClass 'form-search-city'
-        $locationDropdownWrapper.removeClass 'open' unless shouldClose
 
     $formSearch.on 'submit', (e) ->
+      return true if $formSearch.data('bypass') is true
+      # If the action has been modified by selecting MC/TM
+      if $formSearch.data 'old-action'
+        if $q.val() isnt $formSearch.data('suggestion')
+          # Revert old action, submit as normal
+          $formSearch.attr('action', $formSearch.data('old-action'))
+        return true
+
+      e.preventDefault()
+
+      bypassAndSubmit = ->
+        $formSearch.data 'bypass', true
+        $formSearch.submit()
+
       # Check if all fields have input
       emptyQ = $q.val().length is 0
       emptyLocation = $location.val().length is 0
 
       $q.tooltip 'show' if emptyQ
       $location.tooltip 'show' if emptyLocation
-      e.preventDefault() if emptyLocation or emptyQ
+      return if emptyLocation or emptyQ
+
+      # Should ask for location
+      if $location.data 'current-location' == '1'
+        VARAA.getLocation()
+          .then (lat, lng) ->
+            $formSearch.find('[name=lat]').val(lat)
+            $formSearch.find('[name=lng]').val(lng)
+          .always bypassAndSubmit
+      else
+        bypassAndSubmit()
 
     # When user clicks on an option in location dropdown list
     $ 'a.form-search-city'
       .on 'click', (e) ->
         e.preventDefault()
-        $location.val $(@).text()
-        $locationDropdownWrapper.removeClass 'open'
+        $me = $ @
 
-    $ '#ask-current-location'
-      .on 'click', (e) ->
-        e.preventDefault()
-        VARAA.getLocation()
-          .then (lat, lng) ->
-            $formSearch.find('[name=lat]').val(lat)
-            $formSearch.find('[name=lng]').val(lng)
+        $location.attr 'data-current-location', $me.data('current-location')
+        $location.val $me.text()
+        $locationDropdownWrapper.removeClass 'open'
 
     # Init typeahead on search form
     VARAA.initTypeahead $q, 'services' if $q.length > 0
+    $q.bind 'typeahead:selected', (e, selection) ->
+      if selection.type is 'category'
+        $formSearch.data 'suggestion', $q.val()
+        $formSearch.data('old-action', $formSearch.attr('action'))
+        $formSearch.attr('action', selection.url)
+      else
+        window.location = selection.url if typeof selection.url isnt 'undefined'
+
 
     # When user clicks on navbar, we'll ask for the current location
     $ '#js-navbar'

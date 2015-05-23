@@ -4,6 +4,8 @@ use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\Observer\SmsObserver;
+use App\Appointment\Models\Observer\EmailObserver;
 use Exception;
 
 class FrontendReceptionist extends Receptionist

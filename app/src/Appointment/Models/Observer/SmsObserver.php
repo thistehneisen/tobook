@@ -2,7 +2,7 @@
 
 use App, View, Confide, Sms, Log, Config, Settings;
 use Carbon\Carbon;
-
+use Queue;
 class SmsObserver implements \SplObserver {
 
     /**
@@ -85,7 +85,8 @@ class SmsObserver implements \SplObserver {
 
     protected function sendToConsumer($subject)
     {
-        if (empty($subject->consumer->phone) || (!$subject->consumer->receive_sms)) {
+        if (empty($subject->consumer->phone) || (isset($subject->consumer->receive_sms)
+            && $subject->consumer->receive_sms === false)) {
             return;
         }
 
@@ -105,7 +106,12 @@ class SmsObserver implements \SplObserver {
             $body = str_replace('{Deposit}', $subject->depositAmount(), $msg);
         }
 
-        Sms::send(Config::get('sms.from'), $subject->consumer->phone, $msg, $this->code);
+        $code = $this->code;
+
+        Queue::push(function($job) use($subject, $msg, $code){
+            Sms::send(Config::get('sms.from'), $subject->consumer->phone, $msg, $code);
+            $job->delete();
+        });
     }
 
     protected function sendToEmployee($subject)
@@ -118,6 +124,11 @@ class SmsObserver implements \SplObserver {
         $msg = $subject->user->asOptions['confirm_employee_sms_message'];
         $msg = str_replace('{Services}', $this->serviceInfo, $msg);
         $msg = str_replace('{Consumer}', $subject->consumer->name, $msg);
-        Sms::send(Config::get('sms.from'), $subject->employee->phone, $msg, $this->code);
+
+        $code = $this->code;
+        Queue::push(function($job) use($subject, $msg, $code){
+            Sms::send(Config::get('sms.from'), $subject->employee->phone, $msg, $code);
+            $job->delete();
+        });
     }
 }
