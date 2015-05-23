@@ -8,7 +8,9 @@ class BusinessCommission extends Base
 
     public $fillable = [
         'status',
-        'amount'
+        'amount',
+        'deposit_rate',
+        'total_price'
     ];
 
     public $rulesets = [
@@ -37,6 +39,11 @@ class BusinessCommission extends Base
     public function booking()
     {
         return $this->belongsTo('App\Appointment\Models\Booking');
+    }
+
+    public function employeee()
+    {
+        return $this->belongsTo('App\Appointment\Models\Employee');
     }
 
 }

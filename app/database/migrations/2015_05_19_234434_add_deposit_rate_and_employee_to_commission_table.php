@@ -17,7 +17,7 @@ class AddDepositRateAndEmployeeToCommissionTable extends Migration {
             $table->double('deposit_rate');
             $table->double('total_price');// booking total price
             $table->unsignedInteger('employee_id')
-                ->after('booking_id');
+                ->after('booking_id')->nullable();
             $table->foreign('employee_id')
                 ->references('id')
                 ->on('as_employees');
@@ -34,7 +34,8 @@ class AddDepositRateAndEmployeeToCommissionTable extends Migration {
 		Schema::table('business_commissions', function(Blueprint $table)
         {
             $table->dropForeign('business_commissions_employee_id_foreign');
-            $table->dropColumn(['deposit_rate', 'total_price', 'employee_id']);
+            $table->dropColumn('employee_id');
+            $table->dropColumn(['deposit_rate', 'total_price']);
         });
 	}
 
