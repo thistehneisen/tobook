@@ -7,7 +7,6 @@ use App\Core\Models\BusinessCommission;
 use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Observer\SmsObserver;
 use Watson\Validating\ValidationException;
-use App\Core\Models\BusinessCommission;
 
 class Booking extends \App\Appointment\Models\Base implements \SplSubject
 {
@@ -1139,14 +1138,14 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public function saveCommission()
     {
-        $commissionRate     = Settings::get('commission_rate');
-        $depositRate        = 0.1;//gonna change in the future;
-        $amount             = $this->total_price * $commissionRate;
+        $commissionRate = Settings::get('commission_rate');
+        $depositRate = 0.1;//gonna change in the future
+        $commission = $this->total_price * $commissionRate;
 
         $businessCommission = new BusinessCommission();
         $businessCommission->fill([
             'status'       => BusinessCommission::STATUS_INITIAL,
-            'amount'       => 0,
+            'amount'       => $commission,
             'deposit_rate' => $depositRate,
             'total_price'  => $this->total_price
         ]);

@@ -100,6 +100,10 @@ class FrontendReceptionist extends Receptionist
             $booking->consumer()->associate($this->consumer);
         }
 
+        if ($this->getSource() === 'inhouse') {
+            $booking->saveCommission();
+        }
+
         $booking->user()->associate($this->user);
         $booking->employee()->associate($this->bookingService->employee);
         $booking->save();
