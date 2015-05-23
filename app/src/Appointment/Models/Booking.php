@@ -3,6 +3,7 @@
 use Request, Carbon\Carbon, NAT, Util, Config, DB;
 use Settings;
 use App\Core\Models\User;
+use App\Core\Models\BusinessCommission;
 use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Observer\SmsObserver;
 use Watson\Validating\ValidationException;
@@ -1134,6 +1135,27 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         }
 
         return $query;
+    }
+
+    public function saveCommission()
+    {
+        $commissionRate     = Settings::get('commission_rate');
+        $depositRate        = 0.1;//gonna change in the future;
+        $amount             = $this->total_price * $commissionRate;
+
+        $businessCommission = new BusinessCommission();
+        $businessCommission->fill([
+            'status'       => BusinessCommission::STATUS_INITIAL,
+            'amount'       => 0,
+            'deposit_rate' => $depositRate,
+            'total_price'  => $this->total_price
+        ]);
+
+        $businessCommission->booking()->associate($this);
+        $businessCommission->user()->associate($this->user);
+        $businessCommission->employee()->associate($this->employee);
+
+        return $businessCommission->save();
     }
 
 }

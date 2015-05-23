@@ -2,6 +2,7 @@
 
 class BusinessCommission extends Base
 {
+    const STATUS_INITIAL   = 'initial';
     const STATUS_SUSPEND   = 'suspend';
     const STATUS_PAID      = 'paid';
     const STATUS_CANCELLED = 'cancelled';
