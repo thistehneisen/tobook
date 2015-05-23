@@ -2,13 +2,16 @@
 
 class BusinessCommission extends Base
 {
+    const STATUS_INITIAL   = 'initial';
     const STATUS_SUSPEND   = 'suspend';
     const STATUS_PAID      = 'paid';
     const STATUS_CANCELLED = 'cancelled';
 
     public $fillable = [
         'status',
-        'amount'
+        'amount',
+        'deposit_rate',
+        'total_price'
     ];
 
     public $rulesets = [
@@ -37,6 +40,11 @@ class BusinessCommission extends Base
     public function booking()
     {
         return $this->belongsTo('App\Appointment\Models\Booking');
+    }
+
+    public function employeee()
+    {
+        return $this->belongsTo('App\Appointment\Models\Employee');
     }
 
 }
