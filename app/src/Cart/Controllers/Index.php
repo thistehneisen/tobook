@@ -1,7 +1,15 @@
 <?php namespace App\Cart\Controllers;
 
-use Cart, Response, Lang, Confide, Redirect, Session, Payment, Event, Settings;
-use Log, Input;
+use App\Core\Models\User;
+use Cart;
+use Confide;
+use Event;
+use Input;
+use Lang;
+use Log;
+use Payment;
+use Redirect;
+use Response;
 
 class Index extends \AppController
 {
@@ -34,23 +42,9 @@ class Index extends \AppController
      */
     public function checkout()
     {
-        // We will force use to register as consumer or login at this point
         if (!Confide::user()) {
-            // Put the URL of cart checkout, so that when user logins/registers,
-            // he/she will continue checking out process
-            Session::put('url.intended', route('cart.checkout'));
-
-            return Redirect::route('consumer.auth.register')
-                ->with(
-                    'messages',
-                    $this->successMessageBag(
-                        trans('home.cart.why_content'),
-                        trans('home.cart.why_heading')
-                    )
-                )
-                // Because we're thirsty for money, so the easier checkout
-                // process, the more money will come
-                ->with('fromCheckout', true);
+            // Redirect to form to enter consumer information
+            return Redirect::route('cart.consumer');
         }
 
         return $this->render('checkout', [
@@ -91,12 +85,13 @@ class Index extends \AppController
         // Attach the current consumer to the cart
         try {
             $cart->consumer()->associate($user->consumer);
-        } catch (\Exception $ex){
+        } catch (\Exception $ex) {
             Log::info('Cannot associate cart with consumer', [$user]);
         }
         $cart->save();
 
         $goToPaygate = true;
+
         return Payment::redirect($cart, $total, $goToPaygate);
     }
 
