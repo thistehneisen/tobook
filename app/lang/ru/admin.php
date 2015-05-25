@@ -80,7 +80,8 @@ return [
         'default_paygate'        => 'The default paygate', // @todo
         'deposit_rate'           => 'Deposit rate', // @todo
         'deposit_payment'        => 'Deposit payment', // @todo
-        'big_cities'             => 'Big cities (One city per line)',
+        'big_cities'             => 'Big cities (One city per line)', // @todo
+        'contact_email'          => 'Contact email', // @todo
     ],
     'master-cats' => [
         'all'         => 'All master category',// @todo

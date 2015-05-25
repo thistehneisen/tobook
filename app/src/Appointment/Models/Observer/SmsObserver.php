@@ -85,7 +85,8 @@ class SmsObserver implements \SplObserver {
 
     protected function sendToConsumer($subject)
     {
-        if (empty($subject->consumer->phone) || (!$subject->consumer->receive_sms)) {
+        if (empty($subject->consumer->phone) || (isset($subject->consumer->receive_sms)
+            && $subject->consumer->receive_sms === false)) {
             return;
         }
 

@@ -107,6 +107,7 @@ return [
         'deposit_rate'           => 'Deposit rate',
         'deposit_payment'        => 'Deposit payment',
         'big_cities'             => 'Big cities (One city per line)',
+        'contact_email'          => 'Contact email',
     ],
     'master-cats' => [
         'all'         => 'All master category',
