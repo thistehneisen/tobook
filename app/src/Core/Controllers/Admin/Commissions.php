@@ -3,6 +3,7 @@
 use Input, Response, Log, Settings, Config, Util, Redirect, App, Mail;
 use App\Core\Models\CommissionLog;
 use App\Core\Models\BusinessCommission;
+use App\Core\Models\Commission\Counter;
 use App\Core\Models\User;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\Employee;
@@ -84,88 +85,22 @@ class Commissions extends Base
      */
     public function counter($userId, $employeeId = null)
     {
-        $current = Carbon::now();
+        $current    = Carbon::now();
         $langPrefix = 'admin.commissions';
-        $date = Input::get('date');
+        $date       = Input::get('date');
+        $perPage    = (int) Input::get('perPage', Config::get('view.perPage'));
 
-        if (!empty($date)) {
-            try {
-                $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
-            } catch (\Exception $ex) {
-                $current = Carbon::now();
-            }
-        }
-
-        $startOfMonth    = $current->startOfMonth()->toDateString();
-        $endOfMonth      = $current->endOfMonth()->toDateString();
-
-        $user = User::findOrFail($userId);
-        $status = (empty($employeeId))
-            ? Employee::STATUS_EMPLOYEE
-            : Employee::STATUS_FREELANCER;
-
-        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-
-        $bookings = Booking::getBookingsByEmployeeStatus(
-            $userId,
-            $status,
-            $employeeId,
+        $counter = new Counter();
+        $data = $counter->counterData(
+            $current,
             $perPage,
-            $startOfMonth,
-            $endOfMonth
-        );
-
-        $fields = [
-            'created_at', 'booking_date', 'employee', 'name', 'price', 'commission_status', 'booking_status', 'notes'
-        ];
-
-        //in freelancer tab, hide employee column and change to customer name
-        if(!empty($employeeId)){
-            unset($fields[2]);
-        }
-
-        $months = Util::getMonthsSelection($current);
-
-        $freelancers = $user->asEmployees()
-            ->where('status', '=', Employee::STATUS_FREELANCER)
-            ->get();
-
-        $pending = Booking::countCommissionPending(
+            $langPrefix,
+            $date,
             $userId,
-            $status,
-            $employeeId,
-            $startOfMonth,
-            $endOfMonth
+            $employeeId
         );
 
-        $paidObj = Booking::countCommissionPaid(
-            $userId,
-            $status,
-            $employeeId,
-            $startOfMonth,
-            $endOfMonth
-        );
-
-        $paid = $paidObj->total_price - $paidObj->commision_total;
-
-        $commissionRate = Settings::get('commission_rate');
-        $currencySymbol = Settings::get('currency');
-
-        return $this->render('counter', [
-            'items'          => $bookings,
-            'fields'         => $fields,
-            'months'         => $months,
-            'date'           => $current->format('Y-m'),
-            'langPrefix'     => $langPrefix,
-            'current'        => $current,
-            'user'           => $user,
-            'freelancers'    => $freelancers,
-            'employeeId'     => $employeeId,
-            'paid'           => $paid,
-            'pending'        => $pending,
-            'commissionRate' => $commissionRate,
-            'currencySymbol' => $currencySymbol
-        ]);
+        return $this->render('counter', $data);
     }
 
     /**
@@ -231,101 +166,20 @@ class Commissions extends Base
 
     private function report($userId, $employeeId = null)
     {
-        $current = Carbon::now();
+        $current    = Carbon::now();
         $langPrefix = 'admin.commissions';
-        $date = Input::get('date');
+        $date       = Input::get('date');
 
-        if (!empty($date)) {
-            try {
-                $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
-            } catch (\Exception $ex) {
-                $current = Carbon::now();
-            }
-        }
-
-        $startOfMonth    = $current->startOfMonth()->toDateString();
-        $endOfMonth      = $current->endOfMonth()->toDateString();
-
-        $user = User::findOrFail($userId);
-
-        $status = null;
-
-        if($employeeId == null || $employeeId > 0) {
-            $status = (empty($employeeId))
-                ? Employee::STATUS_EMPLOYEE
-                : Employee::STATUS_FREELANCER;
-        }
-
-        $perPage = null;
-
-        $employeeBookings = Booking::getBookingCommisions(
+        $counter = new Counter();
+        $data = $counter->reportData(
+            $current,
+            $langPrefix,
+            $date,
             $userId,
-            Employee::STATUS_EMPLOYEE,
-            $employeeId,
-            $startOfMonth,
-            $endOfMonth
+            $employeeId
         );
 
-        $freelancers = $user->asEmployees()
-            ->where('status', '=', Employee::STATUS_FREELANCER)
-            ->get();
-
-        $freelancersBookings = [];
-
-        foreach ($freelancers as $freelancer) {
-            $freelancersBookings[$freelancer->name] = Booking::getBookingCommisions(
-                $userId,
-                Employee::STATUS_FREELANCER,
-                $freelancer->id,
-                $startOfMonth,
-                $endOfMonth
-            );
-        }
-
-        $pending = Booking::countCommissionPending(
-            $userId,
-            $status,
-            $employeeId,
-            $startOfMonth,
-            $endOfMonth
-        );
-
-        $paidObj= Booking::countCommissionPaid(
-            $userId,
-            $status,
-            $employeeId,
-            $startOfMonth,
-            $endOfMonth
-        );
-
-        $paid = $paidObj->total_price - $paidObj->commision_total;
-
-        $fields = [
-            'created_at','date', 'employee', 'customer', 'price', 'commission_status', 'booking_status', 'notes'
-        ];
-
-        //in freelancer tab, hide employee column and change to customer name
-        if(!empty($employeeId)){
-            unset($fields[2]);
-        }
-
-        $commissionRate = Settings::get('commission_rate');
-        $currencySymbol = Settings::get('currency');
-
-        return [
-            'employeeBookings'    => $employeeBookings,
-            'freelancersBookings' => $freelancersBookings,
-            'fields'              => $fields,
-            'date'                => $current->format('Y-m'),
-            'langPrefix'          => $langPrefix,
-            'current'             => $current,
-            'user'                => $user,
-            'employeeId'          => $employeeId,
-            'paid'                => $paid,
-            'pending'             => $pending,
-            'commissionRate'      => $commissionRate,
-            'currencySymbol'      => $currencySymbol
-        ];
+        return $data;
     }
 
     public function pdf($userId, $employeeId = null)
