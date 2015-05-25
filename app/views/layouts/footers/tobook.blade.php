@@ -57,10 +57,10 @@
                     </div>
                     <div class="form-group">
                         <label for="name" class="sr-only">Jūsu e-pasta adrese</label>
-                        <input name="email" type="text" class="form-control" placeholder="Jūsu e-pasta adrese *">
+                        <input required name="email" type="email" class="form-control" placeholder="Jūsu e-pasta adrese *">
                     </div>
                     <div class="form-group">
-                        <textarea name="message" placeholder="Ierakstiet, lūdzu, savu jautājumu vai ierosinājumu šeit *" cols="30" rows="10" class="form-control"></textarea>
+                        <textarea required name="message" placeholder="Ierakstiet, lūdzu, savu jautājumu vai ierosinājumu šeit *" cols="30" rows="10" class="form-control"></textarea>
                     </div>
                     <button type="submit" class="btn btn-orange btn-lg pull-right">NOSŪTĪT</button>
                 {{ Form::close() }}
