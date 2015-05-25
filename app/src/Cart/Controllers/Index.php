@@ -42,7 +42,7 @@ class Index extends \AppController
      */
     public function checkout()
     {
-        if (!Confide::user()) {
+        if (Cart::current()->consumer === null) {
             // Redirect to form to enter consumer information
             return Redirect::route('cart.consumer');
         }
