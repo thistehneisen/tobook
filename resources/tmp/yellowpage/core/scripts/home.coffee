@@ -68,6 +68,38 @@ do ($ = jQuery) ->
       else
         window.location = selection.url if typeof selection.url isnt 'undefined'
 
+    # Contact form submit
+    $formContact = $ '#form-contact'
+    if $formContact.length > 0
+      $formContact.on 'submit', (e) ->
+        e.preventDefault()
+        $me = $ @
+        $success = $me.find '.alert-success'
+        $danger = $me.find '.alert-danger'
+        $submit = $me.find '[type=submit]'
+
+        $.ajax
+          url: $me.attr 'action'
+          method: 'POST'
+          dataType: 'JSON'
+          data: $me.serialize()
+        .then ->
+          $danger.hide()
+          $success.show()
+          $submit.attr 'disabled', true
+        .fail (e) ->
+          data = e.responseJSON
+
+          if e.status is 422
+            # Validation error
+            $danger.empty()
+            for name, errors of data
+              do (errors) ->
+                $danger.append($('<p/>').html(errors.join('<br>')))
+          else
+            $danger.html data.message
+
+          $danger.show()
 
     # When user clicks on navbar, we'll ask for the current location
     $ '#js-navbar'

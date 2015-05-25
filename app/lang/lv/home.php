@@ -19,6 +19,16 @@ $requestMail = <<< HTML
 <p>Start using it now! It's FREE!</p>
 HTML;
 
+$homeContactEmail = <<< HTML
+<p>Hello,</p>
+
+<p>Visitor from :email sent you a message:</p>
+
+<p>------------------</p>
+<p>:content</p>
+<p>------------------</p>
+HTML;
+
 return [
     'customer_websites'     => 'Klientu lapas',
     'description'           => 'Izveidojiet efektīvu un skaistu lapu!',
@@ -134,5 +144,11 @@ return [
             'subject' => 'Tev Kontakta ziņu', // @todo
             'mail'    => $contactEmail, // @todo
         ]
+    ],
+    // Contact form
+    'contact' => [
+        'subject' => 'Visitor contact message received',
+        'body'    => $homeContactEmail,
+        'sent'    => 'Thank you, we have received your message.',
     ],
 ];
