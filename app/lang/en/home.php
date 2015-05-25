@@ -19,6 +19,16 @@ $requestMail = <<< HTML
 <p>Start using it now! It's FREE!</p>
 HTML;
 
+$homeContactEmail = <<< HTML
+<p>Hello,</p>
+
+<p>Visitor from :email sent you a message:</p>
+
+<p>------------------</p>
+<p>:content</p>
+<p>------------------</p>
+HTML;
+
 return [
     'customer_websites'     => 'Customer homepages',
     'description'           => 'Create a stunning looking responsive websites!',
@@ -135,5 +145,11 @@ return [
             'subject' => 'You got a contact message',
             'mail'    => $contactEmail,
         ]
+    ],
+    // Contact form
+    'contact' => [
+        'subject' => 'Visitor contact message received',
+        'body'    => $homeContactEmail,
+        'sent'    => 'Thank you, we have received your message.',
     ],
 ];
