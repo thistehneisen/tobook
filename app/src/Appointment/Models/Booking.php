@@ -1107,7 +1107,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
-            ->select([DB::raw('COALESCE(SUM(varaa_business_commissions.amount),0) as commision_total'),
+            ->select([DB::raw('COALESCE(SUM(varaa_business_commissions.commission),0) as commision_total'),
                 DB::raw('COALESCE(SUM(varaa_as_bookings.total_price),0) as total_price')])
             ->first();
 
@@ -1146,7 +1146,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $businessCommission = new BusinessCommission();
         $businessCommission->fill([
             'status'          => BusinessCommission::STATUS_INITIAL,
-            'amount'          => $commission,
+            'commission'      => $commission,
             'deposit_rate'    => $depositRate,
             'total_price'     => $this->total_price,
             'consumer_status' => (($this->consumer->isNew) ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST)
