@@ -20,11 +20,11 @@ Route::group([
 
     Route::get('consumer', [
         'as' => 'cart.consumer',
-        'uses' => 'App\Cart\Controllers\Consumer@index'
+        'uses' => 'App\Cart\Controllers\Consumers@index'
     ]);
 
     Route::post('consumer', [
-        'uses' => 'App\Cart\Controllers\Consumer@submit'
+        'uses' => 'App\Cart\Controllers\Consumers@submit'
     ]);
 
     Route::get('remove/{id}', [

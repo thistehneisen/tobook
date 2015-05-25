@@ -1,8 +1,14 @@
 <?php namespace App\Cart\Controllers;
 
 use App\Core\Models\User;
+use Cart;
+use Consumer;
+use Input;
+use Log;
+use Redirect;
+use Validator;
 
-class Consumer extends \AppController
+class Consumers extends \AppController
 {
     protected $viewPath = 'front.cart';
 
@@ -47,5 +53,38 @@ class Consumer extends \AppController
             // 'showTerms' => $user->asOptions->get('terms_enabled', 1) > 1
             'showTerms' => false,
         ]);
+    }
+
+    /**
+     * Collect consumer data
+     *
+     * @return Redirect
+     */
+    public function submit()
+    {
+        $v = Validator::make(Input::all(), [
+            'first_name' => 'required',
+            'last_name'  => 'required',
+            'phone'      => 'required',
+            'email'      => 'required|email',
+        ]);
+
+        if ($v->fails()) {
+            return Redirect::route('cart.consumer')->withErrors($v);
+        }
+
+        try {
+            $cart = Cart::current();
+            // Make consumer from input
+            $consumer = Consumer::make(Input::all(), $cart->user);
+            // Attach consumer to the current cart
+            $cart->consumer()->associate($consumer);
+            $cart->save();
+
+            // And redirect to checkout
+            return Redirect::route('cart.checkout');
+        } catch (\Exception $ex) {
+            Log::error($ex->getMessage(), ['cartId' => Cart::current()->id]);
+        }
     }
 }
