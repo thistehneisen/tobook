@@ -4,6 +4,10 @@
 | Front page
 |--------------------------------------------------------------------------
 */
+Route::post('contact', [
+    'as'    => 'contact',
+    'uses'  => 'App\Core\Controllers\Contact@send'
+]);
 
 Route::get('terms', [
     'as'    => 'terms',
