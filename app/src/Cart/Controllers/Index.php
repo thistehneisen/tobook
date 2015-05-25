@@ -6,7 +6,6 @@ use Confide;
 use Event;
 use Input;
 use Lang;
-use Log;
 use Payment;
 use Redirect;
 use Response;
@@ -48,8 +47,7 @@ class Index extends \AppController
         }
 
         return $this->render('checkout', [
-            'cart' => Cart::current(),
-            'user' => Confide::user()
+            'cart' => Cart::current()
         ]);
     }
 
@@ -72,23 +70,13 @@ class Index extends \AppController
         }
 
         $user = Confide::user();
-        if ($user->is_business) {
+        if ($user && $user->is_business) {
             return Redirect::route('cart.checkout')
                 ->withErrors($this->errorMessageBag(trans('home.cart.err.business')), 'top');
         }
 
         // Fire the payment.process so that cart details could update themselves
         Event::fire('payment.process', [$cart]);
-
-        //@todo: create new consumer for new user
-        //hung: if there is no consumer attaching with this user, errors will happend
-        // Attach the current consumer to the cart
-        try {
-            $cart->consumer()->associate($user->consumer);
-        } catch (\Exception $ex) {
-            Log::info('Cannot associate cart with consumer', [$user]);
-        }
-        $cart->save();
 
         $goToPaygate = true;
 

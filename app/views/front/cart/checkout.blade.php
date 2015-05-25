@@ -14,12 +14,6 @@
         {{ Form::open(['route' => 'cart.payment', 'role' => 'form']) }}
         <div class="form-group row">
             <div class="col-sm-8 col-sm-offset-2">
-                @if ($user->is_business)
-                <div class="alert alert-warning">
-                    <p><strong>{{ trans('common.notice') }}</strong></p>
-                    <p>{{ trans('home.cart.err.business') }}</p>
-                </div>
-                @endif
 
                 @include ('el.messages')
 
@@ -29,7 +23,7 @@
                     @include('front.cart.el.details-deposit', ['cart' => $cart])
                 @endif
 
-                @if ($cart && $cart->isEmpty() === false && $user->is_business === false)
+                @if ($cart && $cart->isEmpty() === false)
                     <div class="text-center">
                     @if((bool) Settings::get('deposit_payment'))
                         <button type="submit" name="submit" class="btn btn-lg btn-success text-uppercase comfortaa" id="btn-submit" value="deposit_payment">{{ trans('home.cart.pay_deposit') }} <i class="fa fa-check-circle"></i></button>
