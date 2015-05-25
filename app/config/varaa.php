@@ -144,5 +144,9 @@ return [
         // Big cities that appear in the search form in front page
         //----------------------------------------------------------------------
         'big_cities' => ['type' => 'Textarea',  'default' => ''],
+        //----------------------------------------------------------------------
+        // Email receving messages from contact form
+        //----------------------------------------------------------------------
+        'contact_email' => ['type' => 'Text',  'default' => ''],
     ]
 ];

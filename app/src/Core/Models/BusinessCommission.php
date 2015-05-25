@@ -42,7 +42,7 @@ class BusinessCommission extends Base
         return $this->belongsTo('App\Appointment\Models\Booking');
     }
 
-    public function employeee()
+    public function employee()
     {
         return $this->belongsTo('App\Appointment\Models\Employee');
     }

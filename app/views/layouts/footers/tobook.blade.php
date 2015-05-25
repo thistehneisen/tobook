@@ -50,16 +50,20 @@
         <div class="col-sm-3">
             <div class="contact-form">
                 <h2 class="heading">Kontaktu forma</h2>
-                <form action="#">
+                {{ Form::open(['route' => 'contact', 'id' => 'form-contact']) }}
+                    <div class="alert alert-danger" style="display: none;"></div>
+                    <div class="alert alert-success" style="display: none;">
+                        <p>@lang('home.contact.sent')</p>
+                    </div>
                     <div class="form-group">
                         <label for="name" class="sr-only">Jūsu e-pasta adrese</label>
-                        <input type="text" class="form-control" placeholder="Jūsu e-pasta adrese">
+                        <input required name="email" type="email" class="form-control" placeholder="Jūsu e-pasta adrese *">
                     </div>
                     <div class="form-group">
-                        <textarea name="message" placeholder="Ierakstiet, lūdzu, savu jautājumu vai ierosinājumu šeit" cols="30" rows="10" class="form-control"></textarea>
+                        <textarea required name="message" placeholder="Ierakstiet, lūdzu, savu jautājumu vai ierosinājumu šeit *" cols="30" rows="10" class="form-control"></textarea>
                     </div>
                     <button type="submit" class="btn btn-orange btn-lg pull-right">NOSŪTĪT</button>
-                </form>
+                {{ Form::close() }}
             </div>
         </div>
     </div>
