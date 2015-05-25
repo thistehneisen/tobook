@@ -78,7 +78,8 @@ return [
         'footer_contact_message' => 'Text to be included in every contact message of business', // @todo
         'social_google-plus'     => 'Google+', // @todo
         'default_paygate'        => 'The default paygate', // @todo
-        'big_cities'             => 'Big cities (One city per line)',
+        'big_cities'             => 'Big cities (One city per line)', // @todo
+        'contact_email'          => 'Contact email', // @todo
     ],
     'master-cats' => [
         'all'         => 'All master category',// @todo
