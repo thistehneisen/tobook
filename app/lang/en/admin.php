@@ -108,6 +108,8 @@ return [
         'deposit_payment'        => 'Deposit payment',
         'big_cities'             => 'Big cities (One city per line)',
         'contact_email'          => 'Contact email',
+        'constant_commission'    => 'Constant commission taken from businesses (&euro;)',
+        'new_consumer_commission'=> 'New consumer commission, e.g. 30% = 0.3',
     ],
     'master-cats' => [
         'all'         => 'All master category',
