@@ -1,7 +1,14 @@
 <?php namespace App\Cart\Controllers;
 
-use Cart, Response, Lang, Confide, Redirect, Session, Payment, Event, Settings;
-use Log, Input;
+use App\Core\Models\User;
+use Cart;
+use Confide;
+use Event;
+use Input;
+use Lang;
+use Payment;
+use Redirect;
+use Response;
 
 class Index extends \AppController
 {
@@ -34,28 +41,13 @@ class Index extends \AppController
      */
     public function checkout()
     {
-        // We will force use to register as consumer or login at this point
-        if (!Confide::user()) {
-            // Put the URL of cart checkout, so that when user logins/registers,
-            // he/she will continue checking out process
-            Session::put('url.intended', route('cart.checkout'));
-
-            return Redirect::route('consumer.auth.register')
-                ->with(
-                    'messages',
-                    $this->successMessageBag(
-                        trans('home.cart.why_content'),
-                        trans('home.cart.why_heading')
-                    )
-                )
-                // Because we're thirsty for money, so the easier checkout
-                // process, the more money will come
-                ->with('fromCheckout', true);
+        if (Cart::current()->consumer === null) {
+            // Redirect to form to enter consumer information
+            return Redirect::route('cart.consumer');
         }
 
         return $this->render('checkout', [
-            'cart' => Cart::current(),
-            'user' => Confide::user()
+            'cart' => Cart::current()
         ]);
     }
 
@@ -78,7 +70,7 @@ class Index extends \AppController
         }
 
         $user = Confide::user();
-        if ($user->is_business) {
+        if ($user && $user->is_business) {
             return Redirect::route('cart.checkout')
                 ->withErrors($this->errorMessageBag(trans('home.cart.err.business')), 'top');
         }
@@ -86,17 +78,8 @@ class Index extends \AppController
         // Fire the payment.process so that cart details could update themselves
         Event::fire('payment.process', [$cart]);
 
-        //@todo: create new consumer for new user
-        //hung: if there is no consumer attaching with this user, errors will happend
-        // Attach the current consumer to the cart
-        try {
-            $cart->consumer()->associate($user->consumer);
-        } catch (\Exception $ex){
-            Log::info('Cannot associate cart with consumer', [$user]);
-        }
-        $cart->save();
-
         $goToPaygate = true;
+
         return Payment::redirect($cart, $total, $goToPaygate);
     }
 

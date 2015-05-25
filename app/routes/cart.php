@@ -18,6 +18,15 @@ Route::group([
         'uses' => 'App\Cart\Controllers\Index@checkout'
     ]);
 
+    Route::get('consumer', [
+        'as' => 'cart.consumer',
+        'uses' => 'App\Cart\Controllers\Consumers@index'
+    ]);
+
+    Route::post('consumer', [
+        'uses' => 'App\Cart\Controllers\Consumers@submit'
+    ]);
+
     Route::get('remove/{id}', [
         'as' => 'cart.remove',
         'uses' => 'App\Cart\Controllers\Index@remove'
