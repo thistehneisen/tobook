@@ -1145,10 +1145,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $businessCommission = new BusinessCommission();
         $businessCommission->fill([
-            'status'       => BusinessCommission::STATUS_INITIAL,
-            'amount'       => $commission,
-            'deposit_rate' => $depositRate,
-            'total_price'  => $this->total_price
+            'status'          => BusinessCommission::STATUS_INITIAL,
+            'amount'          => $commission,
+            'deposit_rate'    => $depositRate,
+            'total_price'     => $this->total_price,
+            'consumer_status' => (($this->consumer->isNew) ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST)
         ]);
 
         $businessCommission->booking()->associate($this);

@@ -11,7 +11,8 @@ class BusinessCommission extends Base
         'status',
         'amount',
         'deposit_rate',
-        'total_price'
+        'total_price',
+        'consumer_status'
     ];
 
     public $rulesets = [
