@@ -9,15 +9,20 @@ class BusinessCommission extends Base
 
     public $fillable = [
         'status',
-        'amount',
+        'commission',
+        'constant_commission',
+        'new_consumer_commission',
         'deposit_rate',
-        'total_price'
+        'total_price',
+        'consumer_status'
     ];
 
     public $rulesets = [
         'saving' => [
-            'status' => 'required',
-            'amount' => 'required|numeric',
+            'status'                  => 'required',
+            'commission'              => 'required|numeric',
+            'constant_commission'     => 'numeric',
+            'new_consumer_commission' => 'numeric',
         ]
     ];
 

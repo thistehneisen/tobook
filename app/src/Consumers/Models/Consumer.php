@@ -35,6 +35,17 @@ class Consumer extends \App\Core\Models\Base
      */
     public $isSearchable = false;
 
+
+    /**
+     * Use to calculate commission cost for Latvia instance
+     *
+     * @var boolean
+     */
+    public $isNew = false;
+
+    public const STATUS_NEW = 'new';
+    public const STATUS_EXIST = 'exist';
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
@@ -127,6 +138,7 @@ class Consumer extends \App\Core\Models\Base
         // if can't find any match then return the draft consumer
         if ($consumer === null) {
             $consumer = $draft;
+            $consumer->isNew = true;
         } else {
         // otherwise, remove the draft for good
             $draft->forceDelete();
