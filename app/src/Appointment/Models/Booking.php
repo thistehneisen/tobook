@@ -1054,7 +1054,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     /**
      * For holy Latvia
      */
-    public static function countSteadyCommission()
+    public static function countSteadyCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         if ($status === 'booked')  {
@@ -1063,7 +1063,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         }
 
         $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('SUM(varaa_business_commissions.constant_commission) as total_constant_commission')])
+            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.constant_commission),0) as commision_total')])
             ->first();
 
         return $result;
@@ -1072,7 +1073,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     /**
      * For holy Latvia
      */
-    public static function countPaidDepositCommission()
+    public static function countPaidDepositCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where('as_bookings.status','=', self::STATUS_PAID)->orWhere(function($query){
@@ -1081,7 +1082,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 });
 
         $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('SUM(varaa_business_commissions.constant_commission) as total_constant_commission')])
+            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.constant_commission),0) as commision_total')])
             ->first();
 
         return $result;
@@ -1090,12 +1092,13 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     /**
      * For holy Latvia
      */
-    public static function countNewConsumerCommission()
+    public static function countNewConsumerCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
 
         $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->whereNotNull('business_commissions.new_consumer_commission')
+            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->where('business_commissions.consumer_status', '=' , Consumer::STATUS_NEW)
             ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.commission+varaa_business_commissions.constant_commission+varaa_business_commissions.new_consumer_commission),0) as commision_total')])
             ->first();
         return $result;
