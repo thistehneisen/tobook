@@ -162,6 +162,19 @@ class Business extends Base
     //--------------------------------------------------------------------------
     // CUSTOM METHODS
     //--------------------------------------------------------------------------
+
+    /**
+     * Check if a payment option is enabled
+     *
+     * @param string $option
+     *
+     * @return boolean
+     */
+    public function isPaymentOptionEnabled($option)
+    {
+        return in_array($option, $this->payment_options);
+    }
+
     /**
      * Update latitude and longitude of the current address
      *
@@ -367,6 +380,16 @@ class Business extends Base
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
+
+    public function getPaymentOptionsAttribute()
+    {
+        return json_decode(array_get($this->attributes, 'payment_options', []), true);
+    }
+
+    public function setPaymentOptionsAttribute($value)
+    {
+        $this->attributes['payment_options'] = json_encode($value);
+    }
 
     public function getWorkingHoursArrayAttribute()
     {
