@@ -134,6 +134,8 @@ $(function () {
     </div>
 </div>
 </form>
+
+@if(App::environment() !== 'tobook')
 <div class="center">
     <h2>
         {{ trans('admin.commissions.paid_this_month') }}:<br/>
@@ -146,7 +148,13 @@ $(function () {
         {{ number_format($pending, 2) }}{{ $currencySymbol }}
     </h2>
 </div>
+@endif
 
+@if(App::environment() === 'tobook')
+    @include($langPrefix . '.' .'pdf-footer-tobook', [])
+@endif
+
+<br/>
 <div class="center">
 {{ Form::open(['route' => ['admin.users.commissions.send_report', $user->id, 'employee' => ((!empty($employeeId) ? $employeeId : 0))], 'class' => 'center form-horizontal', 'role' => 'form']) }}
   <div class="form-group {{ Form::errorCSS('treatment_type_id', $errors) }}">

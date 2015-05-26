@@ -1,7 +1,7 @@
 <center>
     <h2>{{ trans('admin.commissions.commission_calculation')}}</h2>
 </center>
-<table style="width: 100%" border="1" cellspacing="0" cellpadding="5">
+<table style="width: 100%" border="0" cellspacing="0" cellpadding="5">
     <tr>
         <td colspan="4"><b>{{ trans('admin.commissions.payment_for_online_order')}}</b></td>
     </tr>
@@ -42,15 +42,15 @@
         <td>0</td>
     </tr>
     <tr>
-        <td colspan="2">{{ trans('admin.commissions.domain_commission_total')}}</td>
+        <td colspan="2">{{ sprintf(trans('admin.commissions.domain_commission_total'), 'ToBook')}}</td>
         <td colspan="2">0</td>
     </tr>
     <tr>
-        <td colspan="2">{{ trans('admin.commissions.domain_charged_from_visitor')}}</td>
+        <td colspan="2">{{ sprintf(trans('admin.commissions.domain_charged_from_visitor'), 'ToBook')}}</td>
         <td colspan="2">0</td>
     </tr>
     <tr>
-        <td colspan="2">{{ trans('admin.commissions.domain_amount_transfered_to_cusomter')}}</td>
+        <td colspan="2">{{ sprintf(trans('admin.commissions.domain_amount_transfered_to_cusomter'), 'ToBook')}}</td>
         <td colspan="2">0</td>
     </tr>
 </table>
