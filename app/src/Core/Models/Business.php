@@ -172,7 +172,9 @@ class Business extends Base
      */
     public function isPaymentOptionEnabled($option)
     {
-        return in_array($option, $this->payment_options);
+        $opts = $this->payment_options;
+
+        return in_array($option, $opts !== null ? $opts : []);
     }
 
     /**
