@@ -94,7 +94,7 @@ return [
             'confirmed' => 'Booked',
             'deposit'   => 'Deposit',
             'suspend'   => 'Suspend',
-            'cancelled' => 'Cancelled'
+            'cancelled' => 'Cancelled',
             'initial'   => 'Initial',
         ]
     ],
