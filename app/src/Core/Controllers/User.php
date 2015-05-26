@@ -179,6 +179,14 @@ class User extends Base
             $errors = $user->errors();
         }
 
+        if ($user->is_business) {
+            $business = $user->business;
+            $business->payment_options = Input::get('payment_options', []);
+            $business->deposit_rate = Input::get('deposit_rate');
+
+            $business->save();
+        }
+
         if ($errors !== null) {
             return Redirect::back()
                 ->with('tab', 'business')
