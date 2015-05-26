@@ -37,7 +37,6 @@ def _deploy(environment, host):
             #-------------------------------------------------------------------
             # restart supervisor processes
             run('supervisorctl restart all')
-            run('echo "\e[31m\e[1mRemember to delete all ES indices and rebuild them again for this release.\e[31m\e[1m"')
             # set it to live mode again
             run('php artisan up')
             # notify everyone for fun
