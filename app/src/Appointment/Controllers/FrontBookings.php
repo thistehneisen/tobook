@@ -1,17 +1,24 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Event;
-use Carbon\Carbon, Cart, Session, Request;
-use Consumer;
-use App\Core\Models\User;
-use App\Core\Models\Business;
+use App;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\Service;
 use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
 use App\Appointment\Models\Reception\FrontendReceptionist;
+use App\Appointment\Models\Service;
+use App\Core\Models\Business;
+use App\Core\Models\User;
+use Cart;
+use Consumer;
+use Event;
+use Hashids;
+use Input;
+use Log;
+use Request;
+use Response;
+use Util;
 
 class FrontBookings extends Bookings
 {
@@ -143,6 +150,8 @@ class FrontBookings extends Bookings
             $data['message'] = $messages;
 
         } catch (\Exception $ex) {
+            Log::error($ex->getMessage(), Input::all());
+
             $data['success'] = false;
             $data['message'] = trans('common.err.unexpected');
 
@@ -159,7 +168,7 @@ class FrontBookings extends Bookings
                 //Send calendar invitation to employee
                 Event::fire('employee.calendar.invitation.send', [$booking]);
             } catch (\Exception $ex) {
-                \Log::warning('Could not send sms or email:' . $ex->getMessage());
+                Log::warning('Could not send sms or email:' . $ex->getMessage());
             }
         }
 
@@ -205,6 +214,8 @@ class FrontBookings extends Bookings
 
             $data['booking_id'] = $booking->id;
         } catch (\Exception $ex) {
+            Log::error($ex->getMessage());
+
             $data['success'] = false;
             $data['message'] = ($ex instanceof \Watson\Validating\ValidationException)
                 ? Util::getHtmlListError($ex)
