@@ -95,6 +95,7 @@ return [
             'deposit'   => 'Deposit',
             'suspend'   => 'Suspend',
             'cancelled' => 'Cancelled'
+            'initial'   => 'Initial',
         ]
     ],
     'settings' => [
