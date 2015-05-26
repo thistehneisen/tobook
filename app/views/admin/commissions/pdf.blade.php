@@ -33,3 +33,8 @@
         {{ number_format($pending, 2) }}{{ $currencySymbol }}
     </h2>
 </center>
+
+
+@if(App::environment() === 'tobook')
+    @include($langPrefix . '.' .'pdf-footer-tobook', [])
+@endif
