@@ -35,6 +35,6 @@
 </center>
 
 
-{{-- @if(App::environment() === 'tobook') --}}
+@if(App::environment() === 'tobook')
     @include($langPrefix . '.' .'pdf-footer-tobook', [])
-{{-- @endif --}}
+@endif
