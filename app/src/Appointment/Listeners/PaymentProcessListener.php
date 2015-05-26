@@ -36,7 +36,7 @@ class PaymentProcessListener
                 if ($item->booking !== null) {
                     // There is a possibility that this current user is not
                     // a consumer, who knows
-                    $consumer = Confide::user()->consumer;
+                    $consumer = $cart->consumer;
                     if ($consumer !== null) {
                         // Update consumer information
                         $item->booking->consumer()->associate($consumer);

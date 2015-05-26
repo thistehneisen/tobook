@@ -87,10 +87,12 @@ return [
         'why_content'     => 'As a registered user, you could easily manage your bookings, as well as other functionalities providede by Varaa.',
         'process'         => 'Process to payment',
         'total_deposit'   => 'Total deposit',//@todo
-        'pay_deposit'     => 'Process to deposit',//@todo
-        'pay_whole'       => 'Process to payment',//@todo
+        'pay_deposit'     => 'Deposit payment',//@todo
+        'pay_full'        => 'Full payment',//@todo
+        'pay_venue'       => 'Pay at the venue',//@todo
+        'terms'           => 'Please be aware that by not showing up at the place by the booked time, you might cause severe harm to the salon owner. <br/> By doing so you\'ll also lose your permission to book times without paying in advance.',
         'deposit_message' => 'You can choose to pay the deposit, or the total sum of the booking in order to continue.',//@todo
-        'err'         => [
+        'err'             => [
             'business' => 'Currently we are not support for business account to checkout. Please login with your consumer account.',
             'zero_amount' => 'Unable to make payment since the amount of your cart is zero',
         ]

@@ -165,3 +165,17 @@ Route::filter('only.consumer', function () {
         return Redirect::route('home');
     }
 });
+
+/*
+|--------------------------------------------------------------------------
+| Cart filter
+|--------------------------------------------------------------------------
+|
+| Cart must exist before processing
+|
+*/
+Route::filter('cart.existed', function () {
+    if (Cart::current() === null) {
+        return Redirect::route('home');
+    }
+});

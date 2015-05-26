@@ -2,19 +2,27 @@
 
 class BusinessCommission extends Base
 {
+    const STATUS_INITIAL   = 'initial';
     const STATUS_SUSPEND   = 'suspend';
     const STATUS_PAID      = 'paid';
     const STATUS_CANCELLED = 'cancelled';
 
     public $fillable = [
         'status',
-        'amount'
+        'commission',
+        'constant_commission',
+        'new_consumer_commission',
+        'deposit_rate',
+        'total_price',
+        'consumer_status'
     ];
 
     public $rulesets = [
         'saving' => [
-            'status' => 'required',
-            'amount' => 'required|numeric',
+            'status'                  => 'required',
+            'commission'              => 'required|numeric',
+            'constant_commission'     => 'numeric',
+            'new_consumer_commission' => 'numeric',
         ]
     ];
 
@@ -37,6 +45,11 @@ class BusinessCommission extends Base
     public function booking()
     {
         return $this->belongsTo('App\Appointment\Models\Booking');
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo('App\Appointment\Models\Employee');
     }
 
 }
