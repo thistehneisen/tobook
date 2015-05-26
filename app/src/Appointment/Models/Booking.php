@@ -1107,8 +1107,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
-            ->select([DB::raw('COALESCE(SUM(varaa_business_commissions.commission),0) as commision_total'),
-                DB::raw('COALESCE(SUM(varaa_as_bookings.total_price),0) as total_price')])
+            ->select([DB::raw('COALESCE(SUM(varaa_business_commissions.commission+varaa_business_commissions.constant_commission+varaa_business_commissions.new_consumer_commission),0) as commision_total'),
+                DB::raw('COALESCE(SUM(varaa_business_commissions.total_price),0) as total_price')])
             ->first();
 
         return $result;
@@ -1148,8 +1148,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         if(App::environment() === 'tobook') {
             $constantCommission    = Settings::get('constant_commission');
             $newConsumerRate       = Settings::get('new_consumer_commission_rate');
-            $newConsumerCommission = (($this->consumer->isNew)
-                    ? $newConsumerRate * $this->total_price
+            $newConsumerCommission = ($this->consumer->isNew)
+                    ? ($newConsumerRate * $this->total_price)
                     : 0;
         }
 
