@@ -90,7 +90,7 @@ return [
         'pay_deposit'     => 'Deposit payment',//@todo
         'pay_full'        => 'Full payment',//@todo
         'pay_venue'       => 'Pay at the venue',//@todo
-        'terms'           => 'Term of Service will be here', // @todo
+        'terms'           => 'Please be aware that by not showing up at the place by the booked time, you might cause severe harm to the salon owner. <br/> By doing so you\'ll also lose your permission to book times without paying in advance.',
         'deposit_message' => 'You can choose to pay the deposit, or the total sum of the booking in order to continue.',//@todo
         'err'             => [
             'business' => 'Currently we are not support for business account to checkout. Please login with your consumer account.',
