@@ -1,12 +1,18 @@
 <?php namespace App\Appointment\Models;
 
-use Request, Carbon\Carbon, NAT, Util, Config, DB;
-use Settings;
-use App\Core\Models\User;
-use App\Core\Models\BusinessCommission;
-use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Observer\SmsObserver;
+use App\Consumers\Models\Consumer;
+use App\Core\Models\BusinessCommission;
+use App\Core\Models\User;
+use Carbon\Carbon;
+use Config;
+use DB;
+use NAT;
+use Request;
+use Settings;
+use Util;
 use Watson\Validating\ValidationException;
+use App;
 
 class Booking extends \App\Appointment\Models\Base implements \SplSubject
 {
@@ -197,9 +203,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         ];
 
         $status = isset($map[$this->booking_status]) ? $map[$this->booking_status] : null;
-        if(((int)$this->booking_status === static::STATUS_CONFIRM) && ((int)$this->deposit > 0)){
+        if (((int) $this->booking_status === static::STATUS_CONFIRM) && ((int) $this->deposit > 0)) {
             $status = 'deposit';
         }
+
         return $status;
     }
 
@@ -210,10 +217,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function getIngressAttribute()
     {
         $ingress = explode(' ', $this->notes);
-        if(count($ingress) > 9) {
+        if (count($ingress) > 9) {
             $ingress = array_slice($ingress, 9);
             $ingress[] = '...';
         }
+
         return implode($ingress, ' ');
     }
 
@@ -264,6 +272,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $service = $this->bookingServices()->first()->service;
             $description = $service->description;
         }
+
         return $description;
     }
 
@@ -282,6 +291,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 $deposit += $service->price * $rate;
             }
         }
+
         return $deposit;
     }
 
@@ -1050,8 +1060,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->leftJoin('consumers', 'consumers.id', '=', 'as_bookings.consumer_id')
             ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.date', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status','business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")]);
 
-
         $result = $query->get();
+
         return $result;
     }
 
@@ -1085,11 +1095,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $depositRate = (!empty($booking->deposit_rate)) ?  $booking->deposit_rate : 0.1;
             //we always take commision from booking
             $commission = $booking->total_price * $commissionRate;
-            if((int)$booking->status === Booking::STATUS_PAID) {
+            if ((int) $booking->status === Booking::STATUS_PAID) {
                 $consumerPaid = $booking->total_price;
-            } else if((int)$booking->status === Booking::STATUS_CONFIRM && ($booking->deposit > 0)) {
+            } elseif ((int) $booking->status === Booking::STATUS_CONFIRM && ($booking->deposit > 0)) {
                 $consumerPaid = $booking->total_price * $depositRate;
-            } else if((int)$booking->status === Booking::STATUS_CONFIRM) {
+            } elseif ((int) $booking->status === Booking::STATUS_CONFIRM) {
                 $consumerPaid = 0;
                 $commision = 0;
             } else {
@@ -1097,6 +1107,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             }
             $result += $consumerPaid - $commission;
         }
+
         return $result;
     }
 
@@ -1126,11 +1137,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->where('as_bookings.user_id', '=', $userId);
 
         //status == 0 mean empty
-        if(isset($status)){
+        if (isset($status)) {
             $query = $query->where('as_employees.status', '=', $status);
         }
 
-        if(!empty($employeeId)) {
+        if (!empty($employeeId)) {
             $query = $query->where('business_commissions.employee_id', '=', $employeeId);
         }
 
@@ -1145,7 +1156,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $constantCommission    = 0;
         $newConsumerCommission = 0;
 
-        if(App::environment() === 'tobook') {
+        if (App::environment() === 'tobook') {
             $constantCommission    = Settings::get('constant_commission');
             $newConsumerRate       = Settings::get('new_consumer_commission_rate');
             $newConsumerCommission = ($this->consumer->isNew)
