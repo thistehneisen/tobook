@@ -36,6 +36,18 @@ $(function () {
         format: 'HH:mm',
         language: '{{ App::getLocale() }}'
     });
+
+    var $deposit = $('#js-payment-options-deposit'),
+    $rate = $('#js-deposit-rate');
+    $deposit.prop('checked') && ($rate.show());
+
+    $deposit.on('change', function () {
+        if ($(this).prop('checked')) {
+            $rate.show();
+        } else {
+            $rate.hide();
+        }
+    });
 });
     </script>
 @stop

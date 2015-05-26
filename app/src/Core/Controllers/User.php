@@ -61,6 +61,8 @@ class User extends Base
                     'lng'              => ['type' => false],
                     'size'             => ['type' => false],
                     'note'             => ['type' => false],
+                    'payment_options'  => ['type' => false],
+                    'deposit_rate'     => ['type' => false],
                     'bank_account'     => ['type' => 'text'          , 'hidden' => !$isAdmin],
                     'meta_title'       => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
                     'meta_description' => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
@@ -175,6 +177,14 @@ class User extends Base
         $user->fill($data);
         if (!$user->updateUniques()) {
             $errors = $user->errors();
+        }
+
+        if ($user->is_business) {
+            $business = $user->business;
+            $business->payment_options = Input::get('payment_options', []);
+            $business->deposit_rate = Input::get('deposit_rate');
+
+            $business->save();
         }
 
         if ($errors !== null) {
