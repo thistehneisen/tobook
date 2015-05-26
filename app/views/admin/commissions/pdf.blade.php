@@ -35,6 +35,10 @@
 </center>
 
 
-@if(App::environment() === 'tobook')
-    @include($langPrefix . '.' .'pdf-footer-tobook', [])
+@if(App::environment() === 'tobook' || Config::get('varaa.commission_style') === 'tobook')
+    @include($langPrefix . '.' .'pdf-footer-tobook', [
+        'steadyCommision'       => $steadyCommision,
+        'paidDepositCommission' => $paidDepositCommission,
+        'newConsumerCommission' => $newConsumerCommission
+    ])
 @endif

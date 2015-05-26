@@ -172,6 +172,10 @@ class Commissions extends Base
         $date       = Input::get('date');
 
         $counter = new Counter();
+        if(App::environment() === 'tobook' || Config::get('varaa.commission_style') === 'tobook') {
+            $counter = new ToBookCounter();
+        }
+
         $data = $counter->reportData(
             $current,
             $langPrefix,
