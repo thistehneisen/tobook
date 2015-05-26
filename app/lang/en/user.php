@@ -158,5 +158,5 @@ return [
         'full'        => 'Full payment',
         'rate'        => 'Deposit rate',
         'placeholder' => 'Enter deposit rate in decimal, e.g. 0.3 for 30%',
-    ]
+    ],
 ];
