@@ -1057,8 +1057,6 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function countSteadyCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->where('as_bookings.status','=', self::STATUS_CONFIRM)
-                ->where('as_bookings.deposit', '=', '0');
 
         $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
