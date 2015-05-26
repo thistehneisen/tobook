@@ -1,7 +1,7 @@
 <center>
     <h2>{{ trans('admin.commissions.commission_calculation')}}</h2>
 </center>
-<table style="width: 100%" border="0" cellspacing="0" cellpadding="5">
+<table style="width: 100%" border="0" cellspacing="5" cellpadding="5">
     <tr>
         <td colspan="4"><b>{{ trans('admin.commissions.payment_for_online_order')}}</b></td>
     </tr>
@@ -13,9 +13,9 @@
     </tr>
     <tr>
         <td></td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
+        <td>{{ $steadyCommision->total }}</td>
+        <td>{{ Settings::get('constant_commission') }}</td>
+        <td>{{ $steadyCommision->commision_total }}</td>
     </tr>
      <tr>
         <td colspan="4"><b>{{ trans('admin.commissions.payment_for_money_transfer')}}</b></td>
@@ -25,6 +25,12 @@
         <td>{{ trans('admin.commissions.sum')}}</td>
         <td>{{ trans('admin.commissions.percentage')}}</td>
         <td>{{ trans('admin.commissions.total')}}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>{{ $paidDepositCommission->total }}</td>
+        <td>{{ Settings::get('commission_rate') }}</td>
+        <td>{{ $paidDepositCommission->commision_total }}</td>
     </tr>
     <tr>
         <td colspan="4"><b>{{ trans('admin.commissions.payment_for_new_consumers')}}</b></td>
@@ -37,9 +43,9 @@
     </tr>
     <tr>
         <td></td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
+        <td>{{ $newConsumerCommission->total }}</td>
+        <td>{{ Settings::get('new_consumer_commission_rate') }}</td>
+        <td>{{ $newConsumerCommission->commision_total }}</td>
     </tr>
     <tr>
         <td colspan="2">{{ sprintf(trans('admin.commissions.domain_commission_total'), 'ToBook')}}</td>

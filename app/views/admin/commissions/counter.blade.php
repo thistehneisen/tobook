@@ -135,7 +135,7 @@ $(function () {
 </div>
 </form>
 
-@if(App::environment() !== 'tobook')
+@if(App::environment() !== 'tobook' && Config::get('varaa.commission_style') !== 'tobook')
 <div class="center">
     <h2>
         {{ trans('admin.commissions.paid_this_month') }}:<br/>
@@ -150,8 +150,12 @@ $(function () {
 </div>
 @endif
 
-@if(App::environment() === 'tobook')
-    @include($langPrefix . '.' .'pdf-footer-tobook', [])
+@if(App::environment() === 'tobook' || Config::get('varaa.commission_style') === 'tobook')
+    @include($langPrefix . '.' .'pdf-footer-tobook', [
+        'steadyCommision'       => $steadyCommision,
+        'paidDepositCommission' => $paidDepositCommission,
+        'newConsumerCommission' => $newConsumerCommission
+    ])
 @endif
 
 <br/>

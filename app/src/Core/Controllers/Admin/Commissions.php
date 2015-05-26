@@ -4,6 +4,7 @@ use Input, Response, Log, Settings, Config, Util, Redirect, App, Mail;
 use App\Core\Models\CommissionLog;
 use App\Core\Models\BusinessCommission;
 use App\Core\Models\Commission\Counter;
+use App\Core\Models\Commission\ToBookCounter;
 use App\Core\Models\User;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\Employee;
@@ -91,6 +92,10 @@ class Commissions extends Base
         $perPage    = (int) Input::get('perPage', Config::get('view.perPage'));
 
         $counter = new Counter();
+        if(App::environment() === 'tobook' || Config::get('varaa.commission_style') === 'tobook') {
+            $counter = new ToBookCounter();
+        }
+
         $data = $counter->counterData(
             $current,
             $perPage,

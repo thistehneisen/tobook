@@ -85,10 +85,11 @@ return [
         'payment_for_new_consumers'            => 'Payment for new consumers',
         'percentage'                           => '%',
         'total'                                => 'Total',
-        'sum'                                => 'Sum',
+        'sum'                                  => 'Sum',
         'domain_commission_total'              => '%s commission total',
         'domain_charged_from_visitor'          => '%s charged from visitors',
         'domain_amount_transfered_to_cusomter' => 'Amount tranfered to customer',
+        'commission_calculation'               => 'Commission calculation',
         'status' => [
             'paid'      => 'Paid',
             'confirmed' => 'Booked',
