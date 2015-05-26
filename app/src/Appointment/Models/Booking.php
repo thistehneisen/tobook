@@ -1,12 +1,18 @@
 <?php namespace App\Appointment\Models;
 
-use Request, Carbon\Carbon, NAT, Util, Config, DB;
-use Settings;
-use App\Core\Models\User;
-use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Observer\SmsObserver;
-use Watson\Validating\ValidationException;
+use App\Consumers\Models\Consumer;
 use App\Core\Models\BusinessCommission;
+use App\Core\Models\User;
+use Carbon\Carbon;
+use Config;
+use DB;
+use NAT;
+use Request;
+use Settings;
+use Util;
+use Watson\Validating\ValidationException;
+use App;
 
 class Booking extends \App\Appointment\Models\Base implements \SplSubject
 {
@@ -197,9 +203,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         ];
 
         $status = isset($map[$this->booking_status]) ? $map[$this->booking_status] : null;
-        if(((int)$this->booking_status === static::STATUS_CONFIRM) && ((int)$this->deposit > 0)){
+        if (((int) $this->booking_status === static::STATUS_CONFIRM) && ((int) $this->deposit > 0)) {
             $status = 'deposit';
         }
+
         return $status;
     }
 
@@ -210,10 +217,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function getIngressAttribute()
     {
         $ingress = explode(' ', $this->notes);
-        if(count($ingress) > 9) {
+        if (count($ingress) > 9) {
             $ingress = array_slice($ingress, 9);
             $ingress[] = '...';
         }
+
         return implode($ingress, ' ');
     }
 
@@ -264,6 +272,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $service = $this->bookingServices()->first()->service;
             $description = $service->description;
         }
+
         return $description;
     }
 
@@ -282,6 +291,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 $deposit += $service->price * $rate;
             }
         }
+
         return $deposit;
     }
 
@@ -1041,17 +1051,68 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $filename;
     }
 
+    /**
+     * For holy Latvia
+     */
+    public static function countSteadyCommission($userId, $status, $employeeId, $start, $end)
+    {
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+        $query = $query->where('as_bookings.status','=', self::STATUS_CONFIRM)
+                ->where('as_bookings.deposit', '=', '0');
+
+        $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.constant_commission),0) as commision_total')])
+            ->first();
+
+        return $result;
+    }
+
+    /**
+     * For holy Latvia
+     */
+    public static function countPaidDepositCommission($userId, $status, $employeeId, $start, $end)
+    {
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+        $query = $query->where('as_bookings.status','=', self::STATUS_PAID)->orWhere(function($query){
+                    $query->where('as_bookings.status', '=', self::STATUS_CONFIRM)
+                        ->where('as_bookings.deposit', '>', '0');
+                });
+
+        $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.commission+varaa_business_commissions.constant_commission+varaa_business_commissions.new_consumer_commission),0) as commision_total')])
+            ->first();
+
+        return $result;
+    }
+
+    /**
+     * For holy Latvia
+     */
+    public static function countNewConsumerCommission($userId, $status, $employeeId, $start, $end)
+    {
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+
+        $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->where('business_commissions.consumer_status', '=' , Consumer::STATUS_NEW)
+            ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.commission+varaa_business_commissions.constant_commission+varaa_business_commissions.new_consumer_commission),0) as commision_total')])
+            ->first();
+        return $result;
+    }
+
     public static function getBookingCommisions($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
 
-        $query = $query->leftJoin('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
-            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+        $query = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
             ->leftJoin('consumers', 'consumers.id', '=', 'as_bookings.consumer_id')
             ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.date', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status','business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")]);
 
-
         $result = $query->get();
+
         return $result;
     }
 
@@ -1059,8 +1120,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
 
-        $result = $query->leftJoin('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
-            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
             ->leftJoin('consumers', 'consumers.id', '=', 'as_bookings.consumer_id')
             ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status','business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")])
             ->paginate($perPage);
@@ -1074,22 +1135,22 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = $query->whereNull('business_commissions.id');
 
         $result = 0;
-        $bookings = $query->leftJoin('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
-            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->select(['as_bookings.*'])
+        $bookings = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->select(['as_bookings.*','business_commissions.deposit_rate as deposit_rate'])
             ->get();
 
         $commissionRate = Settings::get('commission_rate');
-        $depositRate = 0.1;
         $consumerPaid = 0;
         foreach ($bookings  as $booking) {
+            $depositRate = (!empty($booking->deposit_rate)) ?  $booking->deposit_rate : 0.1;
             //we always take commision from booking
             $commission = $booking->total_price * $commissionRate;
-            if((int)$booking->status === Booking::STATUS_PAID) {
+            if ((int) $booking->status === Booking::STATUS_PAID) {
                 $consumerPaid = $booking->total_price;
-            } else if((int)$booking->status === Booking::STATUS_CONFIRM && ($booking->deposit > 0)) {
+            } elseif ((int) $booking->status === Booking::STATUS_CONFIRM && ($booking->deposit > 0)) {
                 $consumerPaid = $booking->total_price * $depositRate;
-            } else if((int)$booking->status === Booking::STATUS_CONFIRM) {
+            } elseif ((int) $booking->status === Booking::STATUS_CONFIRM) {
                 $consumerPaid = 0;
                 $commision = 0;
             } else {
@@ -1097,6 +1158,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             }
             $result += $consumerPaid - $commission;
         }
+
         return $result;
     }
 
@@ -1105,10 +1167,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where('business_commissions.status','=', BusinessCommission::STATUS_PAID);
 
-        $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
-            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->select([DB::raw('COALESCE(SUM(varaa_business_commissions.amount),0) as commision_total'),
-                DB::raw('COALESCE(SUM(varaa_as_bookings.total_price),0) as total_price')])
+        $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->select([DB::raw('COALESCE(SUM(varaa_business_commissions.commission+varaa_business_commissions.constant_commission+varaa_business_commissions.new_consumer_commission),0) as commision_total'),
+                DB::raw('COALESCE(SUM(varaa_business_commissions.total_price),0) as total_price')])
             ->first();
 
         return $result;
@@ -1122,18 +1184,56 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
             ->where('as_bookings.status','!=', self::STATUS_PENDING)
             ->where('as_bookings.status','!=', self::STATUS_NOT_SHOW_UP)
+            ->where('as_bookings.source','=', 'inhouse')
             ->where('as_bookings.user_id', '=', $userId);
 
         //status == 0 mean empty
-        if(isset($status)){
+        if (isset($status)) {
             $query = $query->where('as_employees.status', '=', $status);
         }
 
-        if(!empty($employeeId)) {
-            $query = $query->where('as_bookings.employee_id', '=', $employeeId);
+        if (!empty($employeeId)) {
+            $query = $query->where('business_commissions.employee_id', '=', $employeeId);
         }
 
         return $query;
+    }
+
+    public function saveCommission()
+    {
+        $commissionRate = Settings::get('commission_rate');
+        $depositRate    = 0.1;//gonna change in the future
+        $commission  = $this->total_price * $commissionRate;
+
+        if($this->deposit > 0) {
+            $commission  = $commission * $depositRate;
+        }
+
+        $constantCommission    = 0;
+        $newConsumerCommission = 0;
+
+        if (App::environment() === 'tobook') {
+            $constantCommission    = Settings::get('constant_commission');
+            $newConsumerRate       = Settings::get('new_consumer_commission_rate');
+            $newConsumerCommission = (!empty($this->consumer->isNew) && $this->consumer->isNew) ? ($newConsumerRate * $this->total_price) : 0;
+        }
+
+        $businessCommission = new BusinessCommission();
+        $businessCommission->fill([
+            'status'                  => BusinessCommission::STATUS_INITIAL,
+            'commission'              => $commission,
+            'constant_commission'     => $constantCommission,
+            'new_consumer_commission' => $newConsumerCommission,
+            'deposit_rate'            => $depositRate,
+            'total_price'             => $this->total_price,
+            'consumer_status'         => ((!empty($this->consumer->isNew) && $this->consumer->isNew) ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST)
+        ]);
+
+        $businessCommission->booking()->associate($this);
+        $businessCommission->user()->associate($this->user);
+        $businessCommission->employee()->associate($this->employee);
+
+        return $businessCommission->save();
     }
 
 }

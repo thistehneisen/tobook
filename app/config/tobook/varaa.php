@@ -76,7 +76,9 @@ return [
         //  Deposit payment feature for booking from CP
         //  Default reate is 30%
         //----------------------------------------------------------------------
-        'deposit_payment'    => ['type' => 'Radio', 'default' => false],
-        'deposit_rate'       => ['type' => 'Text',  'default' => 0.3],
+        'deposit_payment'                => ['type' => 'Radio', 'default' => false],
+        'deposit_rate'                   => ['type' => 'Text',  'default' => 0.3],
+        'constant_commission'            => ['type' => 'Text',  'default' => 0],
+        'new_consumer_commission_rate'   => ['type' => 'Text',  'default' => 0.3],
     ]
 ];
