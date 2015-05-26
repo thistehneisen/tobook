@@ -9,6 +9,7 @@ use Lang;
 use Payment;
 use Redirect;
 use Response;
+use Request;
 
 class Index extends \AppController
 {
@@ -60,8 +61,9 @@ class Index extends \AppController
     public function payment()
     {
         $cart = Cart::current();
+        $action = Input::get('submit');
 
-        $depositPayment = (Input::get('submit') === 'deposit');
+        $depositPayment = ($action === 'deposit');
         $total = ($depositPayment) ? $cart->depositTotal : $cart->total;
         $cart->is_deposit_payment = $depositPayment;
 
@@ -78,6 +80,16 @@ class Index extends \AppController
 
         // Fire the payment.process so that cart details could update themselves
         Event::fire('payment.process', [$cart]);
+
+        if ($action === 'venue' && Request::ajax()) {
+            $messages = [
+                trans('as.embed.success_line1'),
+                trans('as.embed.success_line2'),
+                trans('as.embed.success_line3'),
+            ];
+
+            return Response::json(['message' => $messages]);
+        }
 
         $goToPaygate = true;
 
