@@ -34,6 +34,8 @@ class Business extends Base
         'meta_description',
         'is_hidden',
         'note',
+        'payment_options',
+        'deposit_rate',
     ];
 
     public $rulesets = [
