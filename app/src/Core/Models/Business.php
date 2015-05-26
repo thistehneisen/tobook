@@ -386,7 +386,9 @@ class Business extends Base
 
     public function getPaymentOptionsAttribute()
     {
-        return json_decode(array_get($this->attributes, 'payment_options', []), true);
+        $opts = array_get($this->attributes, 'payment_options');
+
+        return $opts ? json_decode($opts, true) : ['full'];
     }
 
     public function setPaymentOptionsAttribute($value)
