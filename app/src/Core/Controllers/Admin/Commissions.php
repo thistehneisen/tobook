@@ -147,16 +147,12 @@ class Commissions extends Base
         $user               = User::find($userId);
         $businessCommission = BusinessCommission::where('booking_id', $bookingId)->first();
 
-        $commissionRate     = Settings::get('commission_rate');
-        $commission             = $booking->total_price * $commissionRate;
-
         if (empty($businessCommission)) {
             $businessCommission = new BusinessCommission();
         }
 
         $businessCommission->fill([
-            'status'     => $status,
-            'commission' => $commission,
+            'status'     => $status
         ]);
 
         $businessCommission->user()->associate($user);

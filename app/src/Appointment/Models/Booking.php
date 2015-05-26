@@ -1139,17 +1139,29 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public function saveCommission()
     {
-        $commissionRate = Settings::get('commission_rate');
-        $depositRate = 0.1;//gonna change in the future
-        $commission = $this->total_price * $commissionRate;
+        $commissionRate        = Settings::get('commission_rate');
+        $depositRate           = 0.1;//gonna change in the future
+        $commission            = $this->total_price * $commissionRate;
+        $constantCommission    = 0;
+        $newConsumerCommission = 0;
+
+        if(App::environment() === 'tobook') {
+            $constantCommission    = Settings::get('constant_commission');
+            $newConsumerRate       = Settings::get('new_consumer_commission_rate');
+            $newConsumerCommission = (($this->consumer->isNew)
+                    ? $newConsumerRate * $this->total_price
+                    : 0;
+        }
 
         $businessCommission = new BusinessCommission();
         $businessCommission->fill([
-            'status'          => BusinessCommission::STATUS_INITIAL,
-            'commission'      => $commission,
-            'deposit_rate'    => $depositRate,
-            'total_price'     => $this->total_price,
-            'consumer_status' => (($this->consumer->isNew) ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST)
+            'status'                  => BusinessCommission::STATUS_INITIAL,
+            'commission'              => $commission,
+            'constant_commission'     => $constantCommission,
+            'new_consumer_commission' => $newConsumerCommission,
+            'deposit_rate'            => $depositRate,
+            'total_price'             => $this->total_price,
+            'consumer_status'         => (($this->consumer->isNew) ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST)
         ]);
 
         $businessCommission->booking()->associate($this);
