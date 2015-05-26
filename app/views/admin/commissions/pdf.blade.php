@@ -21,6 +21,7 @@
 @endforeach
 @endif
 
+@if(App::environment() !== 'tobook' && Config::get('varaa.commission_style') !== 'tobook')
 <center>
     <h2>
         {{ trans('admin.commissions.paid_this_month') }}:<br/>
@@ -33,7 +34,7 @@
         {{ number_format($pending, 2) }}{{ $currencySymbol }}
     </h2>
 </center>
-
+@endif
 
 @if(App::environment() === 'tobook' || Config::get('varaa.commission_style') === 'tobook')
     @include($langPrefix . '.' .'pdf-footer-tobook', [

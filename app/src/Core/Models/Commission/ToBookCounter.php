@@ -193,8 +193,6 @@ class ToBookCounter extends Counter
             'current'               => $current,
             'user'                  => $user,
             'employeeId'            => $employeeId,
-            'paid'                  => $paid,
-            'pending'               => $pending,
             'commissionRate'        => $commissionRate,
             'currencySymbol'        => $currencySymbol,
             'steadyCommision'       => $steadyCommision,
