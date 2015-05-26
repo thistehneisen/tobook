@@ -25,10 +25,9 @@
 
                 @if ($cart && $cart->isEmpty() === false)
                     <div class="text-center">
-                    @if((bool) Settings::get('deposit_payment'))
-                        <button type="submit" name="submit" class="btn btn-lg btn-success text-uppercase comfortaa" id="btn-submit" value="deposit_payment">{{ trans('home.cart.pay_deposit') }} <i class="fa fa-check-circle"></i></button>
-                    @endif
-                        <button type="submit" name="submit" class="btn btn-lg btn-success text-uppercase comfortaa" id="btn-submit" value="payment">{{ trans('home.cart.pay_whole') }} <i class="fa fa-check-circle"></i></button>
+                    @foreach ($business->payment_options as $option)
+                        <button id="btn-payment-{{ $option }}" type="submit" name="submit" class="btn btn-lg btn-success text-uppercase comfortaa" value="{{ $option }}">{{ trans('home.cart.pay_'.$option) }} <i class="fa fa-check-circle"></i></button>
+                    @endforeach
                     </div>
                 @endif
             </div>

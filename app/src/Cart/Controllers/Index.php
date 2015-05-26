@@ -47,7 +47,8 @@ class Index extends \AppController
         }
 
         return $this->render('checkout', [
-            'cart' => Cart::current()
+            'cart'     => Cart::current(),
+            'business' => Cart::current()->user->business
         ]);
     }
 
@@ -60,7 +61,7 @@ class Index extends \AppController
     {
         $cart = Cart::current();
 
-        $depositPayment = (Input::get('submit') === 'deposit_payment');
+        $depositPayment = (Input::get('submit') === 'deposit');
         $total = ($depositPayment) ? $cart->depositTotal : $cart->total;
         $cart->is_deposit_payment = $depositPayment;
 
