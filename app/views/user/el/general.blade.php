@@ -25,6 +25,29 @@
         </div>
     </div>
 
+    <div class="form-group">
+        {{ Form::label('payment_options', trans('user.payment_options.index'), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
+        <div class="col-sm-6">
+            <div class="checkbox">
+                <label><input type="checkbox" name="payment_options" value="venue"> @lang('user.payment_options.venue')</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="payment_options" value="deposit"> @lang('user.payment_options.deposit')</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="payment_options" value="full"> @lang('user.payment_options.full')</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group {{ Form::errorCSS('deposite_rate', $errors) }} soft-hidden">
+        {{ Form::label('deposite_rate', trans('user.payment_options.rate'), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
+        <div class="col-sm-6">
+            {{ Form::text('deposite_rate', Input::get('deposite_rate', $user->deposite_rate), ['class' => 'form-control']) }}
+            {{ Form::errorText('deposite_rate', $errors) }}
+        </div>
+    </div>
+
 @if ($consumer)
 @foreach (['first_name', 'last_name', 'phone', 'address', 'city', 'postcode', 'country'] as $field)
     <div class="form-group {{ Form::errorCSS($field, $errors) }}">
