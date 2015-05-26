@@ -43,7 +43,7 @@
     <div class="form-group {{ Form::errorCSS('deposit_rate', $errors) }} soft-hidden" id="js-deposit-rate">
         {{ Form::label('deposit_rate', trans('user.payment_options.rate'), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
         <div class="col-sm-6">
-            {{ Form::text('deposit_rate', Input::get('deposit_rate', $business->deposit_rate), ['class' => 'form-control']) }}
+            {{ Form::text('deposit_rate', Input::get('deposit_rate', $business->deposit_rate), ['class' => 'form-control', 'placeholder' => trans('user.payment_options.placeholder')]) }}
             {{ Form::errorText('deposit_rate', $errors) }}
         </div>
     </div>

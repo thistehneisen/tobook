@@ -152,10 +152,11 @@ return [
         ],
     ],
     'payment_options' => [
-        'index'   => 'Payment options',
-        'venue'   => 'Pay at the venue',
-        'deposit' => 'Deposit payment',
-        'full'    => 'Full payment',
-        'rate'    => 'Deposit rate',
+        'index'       => 'Payment options',
+        'venue'       => 'Pay at the venue',
+        'deposit'     => 'Deposit payment',
+        'full'        => 'Full payment',
+        'rate'        => 'Deposit rate',
+        'placeholder' => 'Enter deposit rate in decimal, e.g. 0.3 for 30%',
     ]
 ];
