@@ -582,6 +582,12 @@ class Employee extends \App\Appointment\Models\Base
         return (isset($this->attributes['is_active'])) ? (bool) $this->attributes['is_active'] : true;
     }
 
+    public function getIsReceivedCalendarInvitationAttribute()
+    {
+        return (isset($this->attributes['is_received_calendar_invitation']))
+            ? (bool) $this->attributes['is_received_calendar_invitation'] : true;
+    }
+
 
     public function getAvatarPath()
     {
