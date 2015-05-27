@@ -119,7 +119,7 @@ class Consumer extends \App\Core\Models\Base
         // since users don't want to share consumers with other businesses
         // consumer should be unique within 1 user based only
         // duplicated consumers DB-wise is fine
-        $similarConsumers = self::ofCurrentUser()
+        $similarConsumers = self::ofUser($userId)
             ->where('first_name', trim($data['first_name']))
             ->where('last_name', trim($data['last_name']))
             ->get();
