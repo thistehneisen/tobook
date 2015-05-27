@@ -117,7 +117,7 @@ class SmsObserver implements \SplObserver {
     protected function sendToEmployee($subject)
     {
         // Does not send sms for employee in backend
-        if ($this->isBackend || (!$subject->employee->is_subscribed_sms)) {
+        if ($this->isBackend || (!$subject->employee->is_subscribed_sms) || empty($subject->employee->phone)) {
             return;
         }
 
