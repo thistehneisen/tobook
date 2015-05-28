@@ -16,8 +16,7 @@ class Consumer extends \App\Core\Models\Base
         'postcode',
         'country',
         'receive_email',
-        'receive_sms',
-        'is_new'
+        'receive_sms'
     ];
 
     protected $rulesets = [
