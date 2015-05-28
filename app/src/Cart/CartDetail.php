@@ -1,7 +1,6 @@
 <?php namespace App\Cart;
 
 use App;
-use Settings;
 
 class CartDetail extends \AppModel
 {
@@ -19,7 +18,7 @@ class CartDetail extends \AppModel
      */
     public static function make(CartDetailInterface $item)
     {
-        $instance = new static;
+        $instance = new static();
         $instance->quantity   = $item->getCartDetailQuantity();
         $instance->price      = $item->getCartDetailPrice();
         $instance->model      = $item->getCartDetailOriginal();
@@ -45,7 +44,8 @@ class CartDetail extends \AppModel
 
     public function getDepositAttribute()
     {
-        $depositRate  = (double) Settings::get('deposit_rate');
+        $depositRate  = $this->cart->user->business->getDepositRate();
+
         return $this->price * $depositRate;
     }
 
@@ -60,6 +60,7 @@ class CartDetail extends \AppModel
                 $this->delete();
             }
         }
+
         return $this->model;
     }
 
@@ -76,6 +77,7 @@ class CartDetail extends \AppModel
                 $this->name = $model->instance->getCartDetailName();
             }
         }
+
         return $this->name;
     }
 
