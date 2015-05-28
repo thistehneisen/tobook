@@ -43,6 +43,7 @@ class PaymentProcessListener
                     }
 
                     $item->booking->save();
+                    $item->booking->saveCommission();
                 }
             }
         }
