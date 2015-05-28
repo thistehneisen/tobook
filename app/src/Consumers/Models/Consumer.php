@@ -17,6 +17,7 @@ class Consumer extends \App\Core\Models\Base
         'country',
         'receive_email',
         'receive_sms',
+        'is_new'
     ];
 
     protected $rulesets = [
@@ -34,13 +35,6 @@ class Consumer extends \App\Core\Models\Base
      * @var boolean
      */
     public $isSearchable = false;
-
-    /**
-     * Use to calculate commission cost for Latvia instance
-     *
-     * @var boolean
-     */
-    public $isNew = false;
 
     const STATUS_NEW = 'new';
     const STATUS_EXIST = 'exist';
@@ -65,6 +59,11 @@ class Consumer extends \App\Core\Models\Base
         //Remove + and spaces since phone is numberic value
         $value =  str_replace([' ', '+'], '', $value);
         $this->attributes['phone'] = $value;
+    }
+
+    public funciton getIsNewAttribute()
+    {
+        return (bool) $this->attributes['is_new'];
     }
 
     public function getServiceAttribute()
@@ -137,10 +136,12 @@ class Consumer extends \App\Core\Models\Base
         // if can't find any match then return the draft consumer
         if ($consumer === null) {
             $consumer = $draft;
-            $consumer->isNew = true;
         } else {
         // otherwise, remove the draft for good
             $draft->forceDelete();
+            //consumer is_new default is true
+            $consumer->is_new = false;
+            $consumer->save();
         }
 
         try {
