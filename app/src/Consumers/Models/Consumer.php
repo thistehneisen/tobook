@@ -61,7 +61,7 @@ class Consumer extends \App\Core\Models\Base
         $this->attributes['phone'] = $value;
     }
 
-    public funciton getIsNewAttribute()
+    public function getIsNewAttribute()
     {
         return (bool) $this->attributes['is_new'];
     }
