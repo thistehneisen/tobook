@@ -339,6 +339,21 @@ class Business extends Base
     }
 
     /**
+     * Get custom deposit rate of this business
+     * If not set, use the system default
+     *
+     * @return double
+     */
+    public function getDepositRate()
+    {
+        if (empty($this->deposit_rate)) {
+            return (double) Settings::get('deposit_rate');
+        }
+
+        return $this->deposit_rate;
+    }
+
+    /**
      * Get value of an attribute in multilanguages
      *
      * @param string $attribute
