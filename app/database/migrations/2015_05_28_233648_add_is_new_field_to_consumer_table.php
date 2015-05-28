@@ -17,7 +17,7 @@ class AddIsNewFieldToConsumerTable extends Migration {
             $table->boolean('is_new')->default(true);
         });
 
-        DB::statement('UPDATE varaa_as_consumers SET is_new = FALSE');
+        DB::statement('UPDATE varaa_consumers SET is_new = FALSE');
 	}
 
 	/**
