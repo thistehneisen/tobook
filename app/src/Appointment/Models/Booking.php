@@ -283,7 +283,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public function depositAmount()
     {
-        $rate = Settings::get('deposit_rate');
+        $rate = $this->user->business->getDepositRate();
         $deposit = 0;
         if (!empty($rate)) {
             $services = $this->bookingServices();
@@ -1072,7 +1072,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function countPaidDepositCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->where('as_bookings.status','=', self::STATUS_PAID)->orWhere(function($query){
+        $query = $query->where('as_bookings.status','=', self::STATUS_PAID)->orWhere(function ($query) {
                     $query->where('as_bookings.status', '=', self::STATUS_CONFIRM)
                         ->where('as_bookings.deposit', '>', '0');
                 });
@@ -1097,6 +1097,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->where('business_commissions.consumer_status', '=' , Consumer::STATUS_NEW)
             ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.commission+varaa_business_commissions.constant_commission+varaa_business_commissions.new_consumer_commission),0) as commision_total')])
             ->first();
+
         return $result;
     }
 
@@ -1200,12 +1201,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function saveCommission()
     {
         $commissionRate = Settings::get('commission_rate');
-        $depositRate    = 0.1;//gonna change in the future
-        $commission  = $this->total_price * $commissionRate;
-
-        if($this->deposit > 0) {
-            $commission  = $commission * $depositRate;
-        }
+        $depositRate    = $this->user->business->deposit_rate;
+        $commission     = $this->total_price * $commissionRate;
 
         $constantCommission    = 0;
         $newConsumerCommission = 0;
@@ -1214,6 +1211,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $constantCommission    = Settings::get('constant_commission');
             $newConsumerRate       = Settings::get('new_consumer_commission_rate');
             $newConsumerCommission = (!empty($this->consumer->isNew) && $this->consumer->isNew) ? ($newConsumerRate * $this->total_price) : 0;
+
+            if ($this->deposit > 0) {
+                $commission  = $commission * $depositRate;
+            }
         }
 
         $businessCommission = new BusinessCommission();

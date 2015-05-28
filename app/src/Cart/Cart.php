@@ -202,8 +202,9 @@ class Cart extends \AppModel
 
     public function getDepositTotalAttribute()
     {
-        $depositRate  = (double) Settings::get('deposit_rate');
+        $depositRate  = $this->user->business->getDepositRate();
         $depositTotal = $this->total * $depositRate;
+
         return round($depositTotal, 2);
     }
 
