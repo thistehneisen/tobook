@@ -1201,12 +1201,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function saveCommission()
     {
         $commissionRate = Settings::get('commission_rate');
-        $depositRate    = 0.1;//gonna change in the future
-        $commission  = $this->total_price * $commissionRate;
-
-        if ($this->deposit > 0) {
-            $commission  = $commission * $depositRate;
-        }
+        $depositRate    = $this->user->business->deposit_rate;
+        $commission     = $this->total_price * $commissionRate;
 
         $constantCommission    = 0;
         $newConsumerCommission = 0;
@@ -1215,6 +1211,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $constantCommission    = Settings::get('constant_commission');
             $newConsumerRate       = Settings::get('new_consumer_commission_rate');
             $newConsumerCommission = (!empty($this->consumer->isNew) && $this->consumer->isNew) ? ($newConsumerRate * $this->total_price) : 0;
+
+            if ($this->deposit > 0) {
+                $commission  = $commission * $depositRate;
+            }
         }
 
         $businessCommission = new BusinessCommission();
