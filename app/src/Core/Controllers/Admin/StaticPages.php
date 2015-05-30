@@ -1,6 +1,9 @@
 <?php namespace App\Core\Controllers\Admin;
 
 use App;
+use App\Core\Models\Setting;
+use Input;
+use Redirect;
 use Settings;
 
 class StaticPages extends Base
@@ -17,5 +20,15 @@ class StaticPages extends Base
         return $this->render('index', [
             'pages' => $pages
         ]);
+    }
+
+    public function save()
+    {
+        $setting = Setting::findOrNew(Input::get('name'));
+        $setting->key   = Input::get('name');
+        $setting->value = Input::get('content');
+        $setting->save();
+
+        return Redirect::route('admin.pages');
     }
 }

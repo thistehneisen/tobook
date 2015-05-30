@@ -24,12 +24,13 @@ $(function () {
     <div class="tab-content">
     @foreach ($pages as $id => $content)
         <div role="tabpanel" class="tab-pane" id="tab-{{ $id }}">
-            {{ Form::open(['class' => 'form-horizontal well']) }}
+            {{ Form::open(['route' => ['admin.pages'], 'class' => 'form-horizontal well']) }}
 
             <div class="form-group">
                 <label for="{{ $id }}" class="col-sm-1 control-label">Content</label>
                 <div class="col-sm-11">
-                    <textarea class="form-control ckeditor" name="{{ $id }}" id="{{ $id }}" rows="30">{{ $content }}</textarea>
+                    <input type="hidden" name="name" value="{{ $id }}">
+                    <textarea class="form-control ckeditor" name="content" id="{{ $id }}" rows="30">{{ $content }}</textarea>
                 </div>
             </div>
 

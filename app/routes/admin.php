@@ -154,6 +154,10 @@ Route::group([
         'uses' => 'App\Core\Controllers\Admin\StaticPages@index'
     ]);
 
+    Route::post('pages', [
+        'uses' => 'App\Core\Controllers\Admin\StaticPages@save'
+    ]);
+
     //--------------------------------------------------------------------------
     // SEO
     //--------------------------------------------------------------------------
