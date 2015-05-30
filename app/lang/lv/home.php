@@ -151,4 +151,9 @@ return [
         'body'    => $homeContactEmail,
         'sent'    => 'Thank you, we have received your message.',
     ],
+    // Static pages
+    'pages' => [
+        'terms_conditions' => 'Nosacījumi un noteikumi',
+        'privacy_cookies'  => 'Noteikumi un konfidenciāla politika',
+    ],
 ];

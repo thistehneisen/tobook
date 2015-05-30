@@ -239,11 +239,17 @@ class Front extends Base
      */
     public function staticPage()
     {
-        $file = Request::segment(App::environment() !== 'tobook' ? 1 : 2);
-        $view = 'front.pages.'.$file;
+        $id = Request::segment(App::environment() !== 'tobook' ? 1 : 2);
+        $page = array_get([
+            'terms'  => 'terms_conditions',
+            'policy' => 'privacy_cookies',
+        ], $id, null);
 
-        if ($file && View::exists($view)) {
-            return View::make($view);
+        if ($page && ($content = Settings::get($page, null))) {
+            return $this->render('pages', [
+                'title'   => trans('home.pages.'.$page),
+                'content' => $content
+            ]);
         }
 
         App::abort(404);
