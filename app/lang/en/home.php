@@ -154,4 +154,9 @@ return [
         'body'    => $homeContactEmail,
         'sent'    => 'Thank you, we have received your message.',
     ],
+    // Static pages
+    'pages' => [
+        'terms_conditions' => 'Terms &amp; Conditions',
+        'privacy_cookies'  => 'Privacy &amp; Cookies',
+    ],
 ];
