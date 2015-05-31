@@ -11,6 +11,8 @@ return [
         'master_categories' => 'Master categories',
         'treatment_types'   => 'Treatment types',
         'seo'               => 'SEO',
+        'pages'             => 'Static pages',
+        'misc'              => 'Misc.',
     ],
     'edit_heading'       => 'Edit :model #:id',
     'create_heading'     => 'Create a new :model',
