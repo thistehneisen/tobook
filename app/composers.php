@@ -16,3 +16,4 @@ View::composer('el.multimeta', function ($view) {
 
 View::composer('layouts.default', 'App\Core\ViewComposers\DefaultLayout');
 View::composer('front.el.search.form', 'App\Core\ViewComposers\BigCities');
+View::composer('front.el.search.default', 'App\Core\ViewComposers\BigCities');

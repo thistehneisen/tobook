@@ -33,7 +33,7 @@ def _deploy(environment, host):
             #-------------------------------------------------------------------
             # These commands are run once and will be removed in next release
             #-------------------------------------------------------------------
-
+            run('echo "Remember to seed terms & policy on ToBook"')
             #-------------------------------------------------------------------
             # restart supervisor processes
             run('supervisorctl restart all')

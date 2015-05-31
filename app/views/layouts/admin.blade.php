@@ -34,8 +34,14 @@
                         <li><a href="{{ route('admin.stats.fd') }}"><i class="fa fa-flash"></i> {{ trans('admin.nav.flash_deals') }}</a></li>
                     </ul>
                 </li>
-                <li><a href="{{ route('admin.settings') }}"><i class="fa fa-cog"></i> {{ trans('admin.nav.settings') }}</a></li>
-                <li><a href="{{ route('admin.seo') }}"><i class="fa fa-sitemap"></i> {{ trans('admin.nav.seo') }}</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cubes"></i> @lang('admin.nav.misc') <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ route('admin.settings') }}"><i class="fa fa-cog"></i> {{ trans('admin.nav.settings') }}</a></li>
+                        <li><a href="{{ route('admin.seo') }}"><i class="fa fa-sitemap"></i> {{ trans('admin.nav.seo') }}</a></li>
+                        <li><a href="{{ route('admin.pages') }}"><i class="fa fa-file-text"></i> @lang('admin.nav.pages')</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

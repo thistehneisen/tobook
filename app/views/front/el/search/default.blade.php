@@ -33,47 +33,32 @@
                         </div>
                     </div>
 
-                    {{ Form::open(['route' => 'search', 'method' => 'GET', 'class' => 'form-inline default-search-form', 'id' => 'main-search-form', 'data-update-location-url' => route('search.location')]) }}
+                    {{ Form::open(['route' => 'search', 'class' => 'form-inline default-search-form', 'method' => 'GET', 'id' => 'form-search']) }}
+                        <input type="hidden" name="lat">
+                        <input type="hidden" name="lng">
+
                         <div class="form-group row">
+                            <div class="alert alert-warning force-selection" style="display: none;">@lang('home.search.force_selection')</div>
                             <div class="input-group margin-bottom-md">
                                 <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
-                                <input style="width: 250px;" class="form-control" type="text" data-data-source="{{ route('ajax.services') }}" id="js-queryInput" name="q" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('q') }}}">
+                                <input autocomplete="off" data-data-source="{{ route('ajax.services') }}" data-trigger="manual" data-placement="bottom" title="@lang('home.search.validation.q')" name="q" class="form-control input-keyword" type="text" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('q') }}}" style="width: 250px;" >
                             </div>
 
-                            <div class="input-group margin-bottom-md">
+                            <div class="input-group margin-bottom-md" id="location-dropdown-wrapper">
                                 <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                                <input type="text" class="form-control" data-data-source="{{ route('ajax.locations') }}" id="js-locationInput" name="location" placeholder="{{ trans('home.search.location') }}" value="{{{ Input::get('location') }}}">
+                                <input autocomplete="off" data-current-location="1" data-trigger="manual" data-placement="bottom" title="@lang('home.search.validation.location')" data-target="#" name="location" class="form-control input-keyword {{ App::getLocale() }}" type="text" placeholder="{{ trans('home.search.location') }}"  value="{{{ Input::get('location', trans('home.search.current_location')) }}}">
+
+                                <ul id="big-cities-dropdown" class="dropdown-menu big-cities-dropdown" role="menu">
+                                    <li role="presentation"><a href="#" data-current-location="1" class="form-search-city"><strong>@lang('home.search.current_location')</strong></a></li>
+                                    <li role="presentation" class="divider"></li>
+                                    @foreach ($cities as $city)
+                                    <li role="presentation"><a href="#" data-current-location="0" class="form-search-city">{{{ $city }}}</a></li>
+                                    @endforeach
+                                </ul>
                             </div>
 
                             <button type="submit" class="btn btn-success btn-square">{{ trans('common.search') }}</button>
                         </div>
-{{--
-                        <div class="row datetime-selector">
-                            <div class="col-sm-12">
-                                <div class="datetime-wrapper">
-                                    <a href="#" class="datetime-link">
-                                        <i class="fa fa-calendar fa-big"></i> {{ trans('home.search.date') }}
-                                        <i class="fa fa-chevron-down fa-small"></i>
-                                    </a>
-                                    <div class="datetime-control" data-format="YYYY-MM-DD" id="search-select-date">
-                                        <input type="hidden" name="date">
-                                    </div>
-                                </div>
-
-                                <div class="datetime-wrapper">
-                                    <a href="#" class="datetime-link">
-                                        <i class="fa fa-clock-o fa-big"></i> {{ trans('home.search.time') }}
-                                        <i class="fa fa-chevron-down fa-small"></i>
-                                    </a>
-                                    <div class="datetime-control" data-format="HH:mm" id="search-select-time">
-                                        <input type="hidden" name="time">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
---}}
-                        {{ Form::hidden('lat') }}
-                        {{ Form::hidden('lng') }}
                     {{ Form::close() }}
                 @show
             </div>
