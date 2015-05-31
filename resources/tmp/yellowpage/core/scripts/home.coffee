@@ -3,19 +3,51 @@ do ($ = jQuery) ->
 
   $ ->
     $formSearch              = $ '#form-search'
-    $q                       = $formSearch.find('[name=q]')
-    $location                = $formSearch.find('[name=location]')
+    $q                       = $formSearch.find '[name=q]'
+    $location                = $formSearch.find '[name=location]'
+    $forceSelection          = $formSearch.find '.force-selection'
     $locationDropdownWrapper = $ '#location-dropdown-wrapper'
+
+    # Init typeahead on search form
+    VARAA.initTypeahead $q, 'services' if $q.length > 0
+    $q.bind 'typeahead:selected', (e, selection) ->
+      $formSearch.data 'disableSubmission', false
+      if selection.type is 'category'
+        $formSearch.data 'suggestion', $q.val()
+        $formSearch.data('old-action', $formSearch.attr('action'))
+        $formSearch.attr('action', selection.url)
+      else
+        window.location = selection.url if typeof selection.url isnt 'undefined'
 
     doNotShowTooltip = (e) ->
       $(e.target).tooltip 'hide'
 
     $q.on 'focus', doNotShowTooltip
+      .on 'blur', (e) ->
+        $me = $ @
+        val = $me.val()
+
+        bloodhound = $q.data 'bloodhound'
+        bloodhound.get val, (results) ->
+          results = results.filter (result) ->
+            return result.name is val
+
+          if results.length is 0
+            $forceSelection.show()
+            $formSearch.data 'disableSubmission', true
+          else
+            $forceSelection.hide()
+            $formSearch.data 'disableSubmission', false
+
     $location.on 'focus', doNotShowTooltip
     $location
       .on 'focus', (e) -> $locationDropdownWrapper.addClass 'open'
 
     $formSearch.on 'submit', (e) ->
+      if $formSearch.data('disableSubmission') is true
+        e.preventDefault()
+        return;
+
       return true if $formSearch.data('bypass') is true
       # If the action has been modified by selecting MC/TM
       if $formSearch.data 'old-action'
@@ -57,16 +89,6 @@ do ($ = jQuery) ->
         $location.attr 'data-current-location', $me.data('current-location')
         $location.val $me.text()
         $locationDropdownWrapper.removeClass 'open'
-
-    # Init typeahead on search form
-    VARAA.initTypeahead $q, 'services' if $q.length > 0
-    $q.bind 'typeahead:selected', (e, selection) ->
-      if selection.type is 'category'
-        $formSearch.data 'suggestion', $q.val()
-        $formSearch.data('old-action', $formSearch.attr('action'))
-        $formSearch.attr('action', selection.url)
-      else
-        window.location = selection.url if typeof selection.url isnt 'undefined'
 
     # Contact form submit
     $formContact = $ '#form-contact'
