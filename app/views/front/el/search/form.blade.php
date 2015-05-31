@@ -31,29 +31,4 @@
         <button type="submit" class="btn btn-lg btn-success btn-search">{{ trans('home.search.button') }}</button>
     </div>
 </div>
-{{--
-<div class="form-group row">
-    <div class="col-sm-4 col-md-4">
-        <div class="datetime-wrapper">
-            <a href="#" class="datetime-link">
-                <i class="fa fa-calendar fa-big"></i> {{ trans('home.search.date') }}
-                <i class="fa fa-chevron-down fa-small"></i>
-            </a>
-            <div class="datetime-control" data-format="YYYY-MM-DD" id="search-select-date">
-                <input type="hidden" name="d">
-            </div>
-        </div>
-
-        <div class="datetime-wrapper">
-            <a href="#" class="datetime-link">
-                <i class="fa fa-clock-o fa-big"></i> {{ trans('home.search.time') }}
-                <i class="fa fa-chevron-down fa-small"></i>
-            </a>
-            <div class="datetime-control" data-format="HH:mm" id="search-select-time">
-                <input type="hidden" name="t">
-            </div>
-        </div>
-    </div>
-</div>
---}}
 {{ Form::close() }}
