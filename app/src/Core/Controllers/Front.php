@@ -162,7 +162,7 @@ class Front extends Base
     public function category($id, $slug)
     {
         // Get the correct model based on first URL segment
-        $model = strpos(Request::path(), 'categories')
+        $model = strpos(Request::path(), 'categories') !== false
             ? '\App\Appointment\Models\MasterCategory'
             : '\App\Appointment\Models\TreatmentType';
 
