@@ -108,7 +108,7 @@ return [
         ],
     ],
     // Business
-    'business' => 
+    'business' => [
         'about'          => 'Om oss',
         'openning_hours' => 'Öppettider',
         'map'            => 'Här finns vi',
