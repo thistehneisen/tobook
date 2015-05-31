@@ -34,6 +34,22 @@ class MergeComsumersCommand extends Command
             return;
         }
 
+        if ($userId === 'all') {
+            $users =  DB::table('users')->join('businesses', 'businesses.user_id', '=','users.id')
+                ->select('users.id')
+                ->whereNull('users.deleted_at')->get();
+
+            foreach ($users as $user) {
+                $this->merge($user->id);
+            }
+
+        } else {
+            $this->merge($userId);
+        }
+    }
+
+    protected function merge($userId)
+    {
         $user = User::findOrFail($userId);
         $this->mergeConsumersHavingPhone($user);
         $this->mergeConsumersHavingNoPhone($user);
