@@ -132,15 +132,6 @@ do ($ = jQuery) ->
 
           navigator.geolocation.getCurrentPosition success, failed, timeout: 10000
 
-    # Prepare datetime picker for search form
-    $ 'div.datetime-control'
-      .each (_, item) ->
-        $ item
-        .datetimepicker
-          format: $(@).data 'format'
-          inline: true
-          stepping: 15
-
     $ '.datetime-link'
       .on 'click', (e) ->
         e.preventDefault()
