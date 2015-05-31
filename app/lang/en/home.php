@@ -67,6 +67,7 @@ return [
         'time'            => 'Any time',
         'current_location' => 'Your current location',
         'results'         => '<span class="keyword">&ldquo;:keyword&rdquo;</span>, <span class="location">:location</span>, :date, :time, <span class="results">:total results</span>',
+        'force_selection' => 'Please select from the suggestion list.',
         'validation'      => [
             'q'        => 'Please enter or select a service',
             'location' => 'Please enter or select a location',

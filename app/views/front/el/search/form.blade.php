@@ -5,6 +5,7 @@
 <div class="form-group row">
     <div class="col-sm-4 col-md-4">
         <h2 class="heading">{{ trans('home.search.tagline') }}</h2>
+        <div class="alert alert-warning force-selection" style="display: none;">@lang('home.search.force_selection')</div>
         <div class="input-group margin-bottom-lg">
             <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
             <input autocomplete="off" data-data-source="{{ route('ajax.services') }}" data-trigger="manual" data-placement="bottom" title="@lang('home.search.validation.q')" name="q" class="form-control input-lg input-keyword" type="text" placeholder="{{ trans('home.search.query') }}">

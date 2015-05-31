@@ -36,7 +36,9 @@
                     {{ Form::open(['route' => 'search', 'class' => 'form-inline default-search-form', 'method' => 'GET', 'id' => 'form-search']) }}
                         <input type="hidden" name="lat">
                         <input type="hidden" name="lng">
+
                         <div class="form-group row">
+                            <div class="alert alert-warning force-selection" style="display: none;">@lang('home.search.force_selection')</div>
                             <div class="input-group margin-bottom-md">
                                 <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
                                 <input autocomplete="off" data-data-source="{{ route('ajax.services') }}" data-trigger="manual" data-placement="bottom" title="@lang('home.search.validation.q')" name="q" class="form-control input-keyword" type="text" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('q') }}}" style="width: 250px;" >
