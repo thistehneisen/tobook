@@ -79,6 +79,8 @@ VARAA.initTypeahead = (selector, name) ->
   collection.clearPrefetchCache()
   collection.initialize()
 
+  selector.data 'bloodhound', collection
+
   selector.typeahead
     highlight: true
     hint: true
