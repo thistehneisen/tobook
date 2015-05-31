@@ -52,12 +52,12 @@ return [
         'buy'             => 'Köp',
         'book'            => 'Boka',
         'button'          => 'Sök',
-        'date'            => 'Any date', // @todo
-        'time'            => 'Any time', // @todo
-        'current_location' => 'Your current location', // @todo
+        'date'            => 'Alla dagar',
+        'time'            => 'Alla tider',
+        'current_location' => 'Min nuvarande position',
         'validation'      => [
-            'q'        => 'Please enter or select a service', // @todo
-            'location' => 'Please enter or select a location', // @todo
+            'q'        => 'Sök efter en tjänst',
+            'location' => 'Ange plats eller område',
         ],
         'geo'             => [
             'info' => 'Genom att ange din position kan vi presentera företag som är verksamma i ditt närområde.'
@@ -84,7 +84,7 @@ return [
         ]
     ],
     'choose_category'     => 'Välj kategori',
-    'how_does_it_work'    => 'How does it work?', // @todo
+    'how_does_it_work'    => 'Hur gör jag?',
     'businesses'          => 'Alla företag',
     'businesses_category' => 'Resultat: <strong>:category</strong>',
     'more'                => 'Mer',
@@ -108,13 +108,13 @@ return [
         ],
     ],
     // Business
-    'business' => [
-        'about'          => 'About', // @todo
-        'openning_hours' => 'Openning hours', // @todo
-        'map'            => 'Map', // @todo
-        'phone'          => 'Phone', // @todo
-        'email'          => 'Email', // @todo
-        'online_booking' => 'Online booking', // @todo
+    'business' => 
+        'about'          => 'Om oss',
+        'openning_hours' => 'Öppettider',
+        'map'            => 'Här finns vi',
+        'phone'          => 'Tel',
+        'email'          => 'E-post',
+        'online_booking' => 'Boka online',
         'request'        => [
             'link'    => 'Ask for online booking', // @todo
             'info'    => 'The shop owner will be asked to use our online booking system.', // @todo
