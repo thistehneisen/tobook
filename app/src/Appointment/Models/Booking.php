@@ -1101,6 +1101,46 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $result;
     }
 
+
+    /**
+     * For holy Latvia
+     * Sum all total commission of all bookings
+     */
+    public static function totalCommission($userId, $status, $employeeId, $start, $end)
+    {
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+
+        $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.new_consumer_commission+varaa_business_commissions.commission+varaa_business_commissions.constant_commission),0) as commision_total')])
+            ->first();
+
+        return $result;
+    }
+
+    /**
+     * For holy Latvia
+     * Sum all totcal commission of PAID and DEPOSIT bookings
+     */
+    public static function totalPaidDepositCommission($userId, $status, $employeeId, $start, $end)
+    {
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+        $query = $query->where('as_bookings.status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                    $query->where('as_bookings.status', '=', self::STATUS_CONFIRM)
+                        ->where('as_bookings.deposit', '>', '0');
+                });
+
+        $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.new_consumer_commission+varaa_business_commissions.commission+varaa_business_commissions.constant_commission),0) as commision_total')])
+            ->first();
+
+        return $result;
+    }
+
+
+
+
     public static function getBookingCommisions($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
