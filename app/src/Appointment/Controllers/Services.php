@@ -113,6 +113,7 @@ class Services extends AsBase
             if(!empty($masterCategoryId) && $masterCategoryId > 0) {
                 $masterCategory = MasterCategory::find($masterCategoryId);
                 $service->masterCategory()->associate($masterCategory);
+                $this->user->business->updateSearchIndex($masterCategory->getParentSearchIndexName());
             } else {
                 //Don't know why cannot use detatch method here, fix later
                 $service->master_category_id = null;
@@ -121,6 +122,7 @@ class Services extends AsBase
             if(!empty($treatmentTypeId) && $treatmentTypeId > 0) {
                 $treatmentType = TreatmentType::find($treatmentTypeId);
                 $service->treatmentType()->associate($treatmentType);
+                $this->user->business->updateSearchIndex($treatmentType->getParentSearchIndexName());
             } else {
                 //Don't know why cannot use detatch method here, fix later
                 $service->treatment_type_id = null;
