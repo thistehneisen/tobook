@@ -217,9 +217,8 @@ a {
 .footer {
     padding-top: 20px;
     padding-bottom: 20px;
-    background: @light_black;
+    background-color: @light_black;
     color: #fff;
-    position: absolute;
 
     i {
         color: #fff;
@@ -252,6 +251,10 @@ a {
     }
 
     &.lv {
+        background-color: #333;
+        z-index: 2;
+        position: relative;
+
         .upper {
             padding-bottom: 30px;
             border-bottom: 1px solid #3d3d3d;
