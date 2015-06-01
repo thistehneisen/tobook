@@ -55,10 +55,10 @@ return [
         'button'          => 'Hae',
         'date'            => 'Valitse päivä',
         'time'            => 'Valitse aika',
-        'current_location' => 'Your current location', // @todo
+        'current_location' => 'Sijaintisi',
         'validation'      => [
-            'q'        => 'Please enter or select a service', // @todo
-            'location' => 'Please enter or select a location', // @todo
+            'q'        => 'Etsi palveluita',
+            'location' => 'Valitse sijainti',
         ],
         'geo'             => [
             'info' => 'Kysymme sijaintiasi jotta voimme järjestää hakutulokset sijaintisi perusteella.'
@@ -75,9 +75,9 @@ return [
         'why_heading'     => 'Miksi rekisteröityisin?',
         'why_content'     => 'Rekisteröityessäsi palvelu käyttäjäksi voit helposti seurata varauksiasi ja hyödyntää muita varaa.com:in tarjoamia etuja.',
         'process'         => 'Maksua prosessoidaan',
-        'total_deposit'   => 'Total deposit',//@todo
-        'pay_deposit'     => 'Process to deposit',//@todo
-        'pay_whole'       => 'Process to payment',//@todo
+        'total_deposit'   => 'Varausmaksu',
+        'pay_deposit'     => 'Maksa varausmaksu',
+        'pay_whole'       => 'Siirry maksamaan',
         'deposit_message' => 'You can choose to pay the deposit, or the total sum of the booking in order to continue.',//@todo
         'err'         => [
             'business' => 'Valitettavasti emme tue maksuja yrityskäyttäjätunnuksen kautta. Ole ystävällinen ja rekisteröidy palveluun kuluttajana.',
