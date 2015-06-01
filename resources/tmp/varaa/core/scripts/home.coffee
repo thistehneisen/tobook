@@ -39,9 +39,11 @@ do ($ = jQuery) ->
             $forceSelection.hide()
             $formSearch.data 'disableSubmission', false
 
-    $location.on 'focus', doNotShowTooltip
     $location
-      .on 'focus', (e) -> $locationDropdownWrapper.addClass 'open'
+      .on 'focus', (e) ->
+        doNotShowTooltip e
+        $locationDropdownWrapper.addClass 'open'
+        @value = ''
 
     $formSearch.on 'submit', (e) ->
       if $formSearch.data('disableSubmission') is true
