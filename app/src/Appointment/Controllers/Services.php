@@ -111,6 +111,11 @@ class Services extends AsBase
             }
 
             if(!empty($masterCategoryId) && $masterCategoryId > 0) {
+                 //Delete old index
+                if(!empty($service->masterCategory->id)) {
+                    $this->user->business->deleteOldIndex($service->masterCategory->getParentSearchIndexName());
+                }
+
                 $masterCategory = MasterCategory::find($masterCategoryId);
                 $service->masterCategory()->associate($masterCategory);
                 $this->user->business->updateSearchIndex($masterCategory->getParentSearchIndexName());
@@ -120,6 +125,11 @@ class Services extends AsBase
             }
 
             if(!empty($treatmentTypeId) && $treatmentTypeId > 0) {
+                //Delete old index
+                if(!empty($service->treatmentType->id)) {
+                    $this->user->business->deleteOldIndex($service->treatmentType->getParentSearchIndexName());
+                }
+
                 $treatmentType = TreatmentType::find($treatmentTypeId);
                 $service->treatmentType()->associate($treatmentType);
                 $this->user->business->updateSearchIndex($treatmentType->getParentSearchIndexName());
