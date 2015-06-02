@@ -30,7 +30,7 @@
         <td></td>
         <td>{{ $paidDepositCommission->total }}</td>
         <td>{{ Settings::get('commission_rate') }}</td>
-        <td>{{ $paidDepositCommission->commision_total }}</td>
+        <td>{{ $paidDepositCommission->commision_paid_deposit_total }}</td>
     </tr>
     <tr>
         <td colspan="4"><b>{{ trans('admin.commissions.payment_for_new_consumers')}}</b></td>
