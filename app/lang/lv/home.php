@@ -62,13 +62,13 @@ return [
         'business_hours'  => 'Darba laiks',
         'buy'             => 'Pirkt',
         'book'            => 'Rezervēt',
-        'button'          => 'Meklēšana', // @todo
-        'date'            => 'Izvēlēties datumu', // @todo
-        'time'            => 'Izvēlēties laiku', // @todo
-        'current_location' => 'Your current location', // @todo
+        'button'          => 'Meklēšana',
+        'date'            => 'Izvēlēties datumu',
+        'time'            => 'Izvēlēties laiku',
+        'current_location' => 'Atrašanās vieta',
         'validation'      => [
-            'q'        => 'Please enter or select a service', // @todo
-            'location' => 'Please enter or select a location', // @todo
+            'q'        => 'Lūdzu ievadiet uzņēmumu, vai pakalpojumu',
+            'location' => 'Lūdzu izvēlieties vietu',
         ],
         'geo'             => [
             'info' => 'Lūdzu, norādiet savu atrašanās vietu, lai varam piemeklēt atbilstošus piedāvājumus Jūsu apkaimē.'
@@ -94,18 +94,18 @@ return [
             'zero_amount' => 'Maksājums nav iespējams, jo Jūsu rezervāciju sarakstā nav pasūtījumu.',
         ]
     ],
-    'choose_category'     => 'Izvēlēties kategoriju', // @todo
-    'how_does_it_work'    => 'Kā tas darbojas?', // @todo
-    'businesses'          => 'Visiem uzņēmumiem', // @todo
-    'businesses_category' => 'Komersanti <strong>:Kategorijas</strong>', // @todo
-    'more'                => 'Vairāk', // @todo
-    'less'                => 'Mazāk', // @todo
-    'companies_offers'    => 'Uzņēmumi ar piedāvājumiem', // @todo
-    'categories'          => 'Kategorijas', // @todo
-    'best_offers'         => 'Labākie piedāvājumi', // @todo
-    'no_offers'           => 'Nav piedāvājumu pieejama', // @todo
-    'map'                 => 'Karte', // @todo
-    'show_more'           => 'Parādīt vairāk', // @todo
+    'choose_category'     => 'Izvēlēties kategoriju',
+    'how_does_it_work'    => 'Kā tas darbojas?',
+    'businesses'          => 'Visiem uzņēmumiem',
+    'businesses_category' => 'Komersanti <strong>:Kategorijas</strong>',
+    'more'                => 'Vairāk',
+    'less'                => 'Mazāk',
+    'companies_offers'    => 'Uzņēmumi ar piedāvājumiem',
+    'categories'          => 'Kategorijas',
+    'best_offers'         => 'Labākie piedāvājumi',
+    'no_offers'           => 'Nav piedāvājumu pieejama',
+    'map'                 => 'Karte',
+    'show_more'           => 'Parādīt vairāk',
     // How it works?
     'hiw' => [
         'heading' => 'How it works?', // @todo
