@@ -1219,7 +1219,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     protected static function getCommissionQuery($userId, $status, $employeeId, $start, $end)
     {
         $query = self::where('as_bookings.created_at', '>=', $start)
-            ->where('as_bookings.created_at', '=<', $end)
+            ->where('as_bookings.created_at', '<=', $end)
             ->whereNull('as_bookings.deleted_at')
             ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
             ->where('as_bookings.status','!=', self::STATUS_PENDING)
