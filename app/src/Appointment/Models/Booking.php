@@ -1082,7 +1082,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
-            ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.commission),0) as commision_paid_deposit_total')])
+            ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.commission),0) as commision_total')])
             ->first();
 
         return $result;
@@ -1128,9 +1128,12 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function totalPaidDepositCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->where('as_bookings.status','=', self::STATUS_PAID)->orWhere(function ($query) {
-                    $query->where('as_bookings.status', '=', self::STATUS_CONFIRM)
-                        ->where('as_bookings.deposit', '>', '0');
+        $query = $query->where(function($query){
+                    $query->where('as_bookings.status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                        $query->where('as_bookings.status', '=', self::STATUS_CONFIRM)->where(function($query){
+                            $query->whereNotNull('as_bookings.deposit')->where('as_bookings.deposit', '>', 0);
+                        });
+                    });
                 });
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
