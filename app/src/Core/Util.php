@@ -364,4 +364,18 @@ class Util
 
         return $months;
     }
+
+    /**
+     * Convert real number to percentage format
+     * e.g: 0.3 --> 30%
+     */
+    public static function formatPercentage($percent)
+    {
+        return ($percent * 100);
+    }
+
+    public static function formatMoney($amount)
+    {
+        return number_format($amount, 2);
+    }
 }
