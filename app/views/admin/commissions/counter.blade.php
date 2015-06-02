@@ -60,7 +60,7 @@ $(function () {
     <input type="hidden" name="status" id="status" value="">
 </div>
 
-<table class="table table-hover table-crud">
+<table class="table table-hover table-crud pull-left">
     <thead>
         <tr>
             <th><input type="checkbox" class="toggle-check-all-boxes check-all" data-checkbox-class="checkbox"></th>
