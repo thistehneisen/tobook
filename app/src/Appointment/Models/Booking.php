@@ -1074,7 +1074,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where('as_bookings.status','=', self::STATUS_PAID)->orWhere(function ($query) {
                     $query->where('as_bookings.status', '=', self::STATUS_CONFIRM)->where(function($query){
-                            $query->whereNotNull('as_bookings.deposit')->where('as_bookings.deposit', '>', '0');
+                            $query->whereNotNull('as_bookings.deposit')->where('as_bookings.deposit', '>', 0);
                         });
                 });
 
@@ -1218,12 +1218,13 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     protected static function getCommissionQuery($userId, $status, $employeeId, $start, $end)
     {
-        $query = self::where('as_bookings.created_at', '>', $start)
-            ->where('as_bookings.created_at', '<', $end)
+        $query = self::where('as_bookings.created_at', '>=', $start)
+            ->where('as_bookings.created_at', '=<', $end)
             ->whereNull('as_bookings.deleted_at')
             ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
             ->where('as_bookings.status','!=', self::STATUS_PENDING)
             ->where('as_bookings.status','!=', self::STATUS_NOT_SHOW_UP)
+            ->where('as_bookings.status','!=', self::STATUS_ARRIVED)
             ->where('as_bookings.source','=', 'inhouse')
             ->where('as_bookings.user_id', '=', $userId);
 
