@@ -49,14 +49,14 @@
     </tr>
     <tr>
         <td colspan="2">{{ sprintf(trans('admin.commissions.domain_commission_total'), 'ToBook')}}</td>
-        <td colspan="2">{{ $totalCommission->commision_total }}</td>
+        <td colspan="2">{{ Util::formatMoney($totalCommission->commision_total) }}&euro;</td>
     </tr>
     <tr>
         <td colspan="2">{{ sprintf(trans('admin.commissions.domain_charged_from_visitor'), 'ToBook')}}</td>
-        <td colspan="2">{{ $totalPaidDepositCommission->commision_total }}</td>
+        <td colspan="2">{{ Util::formatMoney($totalPaidDepositCommission->commision_total) }}&euro;</td>
     </tr>
     <tr>
         <td colspan="2">{{ sprintf(trans('admin.commissions.domain_amount_transfered_to_cusomter'), 'ToBook')}}</td>
-        <td colspan="2">{{ $totalPaidDepositCommission->commision_total -  $totalCommission->commision_total}}</td>
+        <td colspan="2">{{ Util::formatMoney($totalPaidDepositCommission->commision_total -  $totalCommission->commision_total)}}&euro;</td>
     </tr>
 </table>
