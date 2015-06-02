@@ -77,24 +77,42 @@ class ToBookCounter extends Counter
             $endOfMonth
         );
 
+        $totalCommission = Booking::totalCommission(
+            $userId,
+            $status,
+            $employeeId,
+            $startOfMonth,
+            $endOfMonth
+        );
+
+        $totalPaidDepositCommission = Booking::totalPaidDepositCommission(
+            $userId,
+            $status,
+            $employeeId,
+            $startOfMonth,
+            $endOfMonth
+        );
+
         $commissionRate = Settings::get('commission_rate');
         $currencySymbol = Settings::get('currency');
 
         return [
-            'items'                 => $bookings,
-            'fields'                => $fields,
-            'months'                => $months,
-            'date'                  => $current->format('Y-m'),
-            'langPrefix'            => $langPrefix,
-            'current'               => $current,
-            'user'                  => $user,
-            'freelancers'           => $freelancers,
-            'employeeId'            => $employeeId,
-            'commissionRate'        => $commissionRate,
-            'currencySymbol'        => $currencySymbol,
-            'steadyCommision'       => $steadyCommision,
-            'paidDepositCommission' => $paidDepositCommission,
-            'newConsumerCommission' => $newConsumerCommission,
+            'items'                      => $bookings,
+            'fields'                     => $fields,
+            'months'                     => $months,
+            'date'                       => $current->format('Y-m'),
+            'langPrefix'                 => $langPrefix,
+            'current'                    => $current,
+            'user'                       => $user,
+            'freelancers'                => $freelancers,
+            'employeeId'                 => $employeeId,
+            'commissionRate'             => $commissionRate,
+            'currencySymbol'             => $currencySymbol,
+            'steadyCommision'            => $steadyCommision,
+            'paidDepositCommission'      => $paidDepositCommission,
+            'newConsumerCommission'      => $newConsumerCommission,
+            'totalCommission'            => $totalCommission,
+            'totalPaidDepositCommission' => $totalPaidDepositCommission,
         ];
     }
 
@@ -172,6 +190,22 @@ class ToBookCounter extends Counter
             $endOfMonth
         );
 
+        $totalCommission = Booking::totalCommission(
+            $userId,
+            $status,
+            $employeeId,
+            $startOfMonth,
+            $endOfMonth
+        );
+
+        $totalPaidDepositCommission = Booking::totalPaidDepositCommission(
+            $userId,
+            $status,
+            $employeeId,
+            $startOfMonth,
+            $endOfMonth
+        );
+
         $fields = [
             'created_at','date', 'employee', 'customer', 'price', 'commission_status', 'booking_status', 'notes'
         ];
@@ -185,19 +219,21 @@ class ToBookCounter extends Counter
         $currencySymbol = Settings::get('currency');
 
         return [
-            'employeeBookings'      => $employeeBookings,
-            'freelancersBookings'   => $freelancersBookings,
-            'fields'                => $fields,
-            'date'                  => $current->format('Y-m'),
-            'langPrefix'            => $langPrefix,
-            'current'               => $current,
-            'user'                  => $user,
-            'employeeId'            => $employeeId,
-            'commissionRate'        => $commissionRate,
-            'currencySymbol'        => $currencySymbol,
-            'steadyCommision'       => $steadyCommision,
-            'paidDepositCommission' => $paidDepositCommission,
-            'newConsumerCommission' => $newConsumerCommission,
+            'employeeBookings'           => $employeeBookings,
+            'freelancersBookings'        => $freelancersBookings,
+            'fields'                     => $fields,
+            'date'                       => $current->format('Y-m'),
+            'langPrefix'                 => $langPrefix,
+            'current'                    => $current,
+            'user'                       => $user,
+            'employeeId'                 => $employeeId,
+            'commissionRate'             => $commissionRate,
+            'currencySymbol'             => $currencySymbol,
+            'steadyCommision'            => $steadyCommision,
+            'paidDepositCommission'      => $paidDepositCommission,
+            'newConsumerCommission'      => $newConsumerCommission,
+            'totalCommission'            => $totalCommission,
+            'totalPaidDepositCommission' => $totalPaidDepositCommission,
         ];
     }
 }
