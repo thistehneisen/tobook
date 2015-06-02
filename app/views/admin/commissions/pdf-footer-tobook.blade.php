@@ -14,8 +14,8 @@
     <tr>
         <td></td>
         <td>{{ $steadyCommision->total }}</td>
-        <td>{{ Settings::get('constant_commission') }}</td>
-        <td>{{ $steadyCommision->commision_total }}</td>
+        <td>{{ Util::formatMoney(Settings::get('constant_commission')) }}&euro;</td>
+        <td>{{ Util::formatMoney($steadyCommision->commision_total) }}&euro;</td>
     </tr>
      <tr>
         <td colspan="4"><b>{{ trans('admin.commissions.payment_for_money_transfer')}}</b></td>
@@ -29,8 +29,8 @@
     <tr>
         <td></td>
         <td>{{ $paidDepositCommission->total }}</td>
-        <td>{{ Settings::get('commission_rate') }}</td>
-        <td>{{ $paidDepositCommission->commision_total }}</td>
+        <td>{{ Util::formatPercentage(Settings::get('commission_rate')) }}%</td>
+        <td>{{ Util::formatMoney($paidDepositCommission->commision_total) }}&euro;</td>
     </tr>
     <tr>
         <td colspan="4"><b>{{ trans('admin.commissions.payment_for_new_consumers')}}</b></td>
@@ -44,8 +44,8 @@
     <tr>
         <td></td>
         <td>{{ $newConsumerCommission->total }}</td>
-        <td>{{ Settings::get('new_consumer_commission_rate') }}</td>
-        <td>{{ $newConsumerCommission->commision_total }}</td>
+        <td>{{ Util::formatPercentage(Settings::get('new_consumer_commission_rate')) }}%</td>
+        <td>{{ Util::formatMoney($newConsumerCommission->commision_total) }}&euro;</td>
     </tr>
     <tr>
         <td colspan="2">{{ sprintf(trans('admin.commissions.domain_commission_total'), 'ToBook')}}</td>
