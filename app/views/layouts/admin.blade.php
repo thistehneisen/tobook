@@ -38,6 +38,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cubes"></i> @lang('admin.nav.misc') <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('admin.settings') }}"><i class="fa fa-cog"></i> {{ trans('admin.nav.settings') }}</a></li>
+                        <li><a href="{{ route('admin.booking.terms') }}"><i class="fa fa-clipboard"></i> {{ trans('admin.nav.booking_terms') }}</a></li>
                         <li><a href="{{ route('admin.seo') }}"><i class="fa fa-sitemap"></i> {{ trans('admin.nav.seo') }}</a></li>
                         <li><a href="{{ route('admin.pages') }}"><i class="fa fa-file-text"></i> @lang('admin.nav.pages')</a></li>
                     </ul>

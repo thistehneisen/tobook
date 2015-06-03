@@ -148,5 +148,6 @@ return [
         // Email receving messages from contact form
         //----------------------------------------------------------------------
         'contact_email' => ['type' => 'Text',  'default' => ''],
-    ]
+        'booking_terms' => ['type' => 'Textarea',  'default' => '', 'options' => ['rows'=> 30, 'class' => 'form-control ckeditor'] ],
+    ],
 ];
