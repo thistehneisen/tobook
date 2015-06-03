@@ -80,5 +80,6 @@ return [
         'deposit_rate'                   => ['type' => 'Text',  'default' => 0.3],
         'constant_commission'            => ['type' => 'Text',  'default' => 0],
         'new_consumer_commission_rate'   => ['type' => 'Text',  'default' => 0.3],
+        'booking_terms' => ['type' => 'Textarea',  'default' => '', 'options' => ['rows'=> 30, 'class' => 'form-control ckeditor'] ],
     ]
 ];
