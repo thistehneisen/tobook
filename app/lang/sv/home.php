@@ -89,12 +89,12 @@ return [
     'businesses_category' => 'Resultat: <strong>:category</strong>',
     'more'                => 'Mer',
     'less'                => 'Mindre',
-    'companies_offers'    => 'Companies with offers', // @todo
-    'categories'          => 'Categories', // @todo
+    'companies_offers'    => 'Företag med erbjudanden',
+    'categories'          => 'Kategorier',
     'best_offers'         => 'Erbjudanden',
     'no_offers'           => 'Det finns inga erbjudanden',
-    'map'                 => 'Map', // @todo
-    'show_more'           => 'Show more', // @todo
+    'map'                 => 'Karta',
+    'show_more'           => 'Visa mer',
     // How it works?
     'hiw' => [
         'heading' => 'Hur gör jag?',
@@ -116,21 +116,21 @@ return [
         'email'          => 'E-post',
         'online_booking' => 'Boka online',
         'request'        => [
-            'link'    => 'Ask for online booking', // @todo
+            'link'    => 'Begäran om online bokning',
             'info'    => 'The shop owner will be asked to use our online booking system.', // @todo
-            'subject' => 'Request to use online booking system', // @todo
+            'subject' => 'Begäran om att använda online-bokningssystem',
             'mail'    => $requestMail, // @todo
         ],
         'contact'        => [
-            'index'   => 'Contact', // @todo
-            'heading' => 'Contact us', // @todo
-            'name'    => 'Name*', // @todo
-            'email'   => 'Email*', // @todo
-            'phone'   => 'Phone', // @todo
+            'index'   => 'Kontakt',
+            'heading' => 'Kontakt oss',
+            'name'    => 'Namn*',
+            'email'   => 'Email*',
+            'phone'   => 'Tel',
             'captcha' => 'Please enter the characters below*', // @todo
-            'message' => 'Message*', // @todo
-            'sent'    => 'Your message has been sent', // @todo
-            'subject' => 'You got a contact message', // @todo
+            'message' => 'Meddelande*',
+            'sent'    => 'Ditt meddelande har skickats!',
+            'subject' => 'Du har ett meddelande',
             'mail'    => $contactEmail, // @todo
         ]
     ],
