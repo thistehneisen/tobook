@@ -3,6 +3,8 @@
 use Session, Config, Carbon\Carbon, Log, Event, Settings;
 use App\Core\Models\User;
 use Illuminate\Support\Collection;
+use App\Appointment\Models\BookingService;
+use App\Appointment\Models\Booking;
 
 class Cart extends \AppModel
 {
@@ -181,6 +183,23 @@ class Cart extends \AppModel
         $this->save();
 
         return $this;
+    }
+
+    public function completePayAtVenue()
+    {
+         // Find all booking service IDs
+        $bookingServiceIds = $this->details->lists('model_id');
+        $bookingServices = BookingService::whereIn('id', $bookingServiceIds)
+            ->with('booking')
+            ->get();
+
+        // Update related bookings
+        foreach ($bookingServices as $item) {
+            if ($item->booking !== null) {
+                $item->booking->status = Booking::STATUS_CONFIRM;
+                $item->booking->save();
+            }
+        }
     }
 
     //--------------------------------------------------------------------------
