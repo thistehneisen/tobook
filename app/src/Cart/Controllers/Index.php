@@ -68,14 +68,22 @@ class Index extends \AppController
         $cart->is_deposit_payment = $depositPayment;
 
         if ($cart === null || $total <= 0) {
-            return Redirect::route('cart.checkout')
-                ->withErrors($this->errorMessageBag(trans('home.cart.err.zero_amount')), 'top');
+             if ($action === 'venue' && Request::ajax()) {
+                return Response::json(['message' => trans('home.cart.err.zero_amount')]);
+            } else {
+                return Redirect::route('cart.checkout')
+                    ->withErrors($this->errorMessageBag(trans('home.cart.err.zero_amount')), 'top');
+            }
         }
 
         $user = Confide::user();
         if ($user && $user->is_business) {
-            return Redirect::route('cart.checkout')
-                ->withErrors($this->errorMessageBag(trans('home.cart.err.business')), 'top');
+            if ($action === 'venue' && Request::ajax()) {
+                return Response::json(['message' => trans('home.cart.err.business')]);
+            } else {
+                return Redirect::route('cart.checkout')
+                    ->withErrors($this->errorMessageBag(trans('home.cart.err.business')), 'top');
+            }
         }
 
         // Fire the payment.process so that cart details could update themselves
