@@ -146,6 +146,15 @@ Route::group([
         'uses' => 'App\Core\Controllers\Admin\Settings@save'
     ]);
 
+    Route::get('booking-terms', [
+        'as' => 'admin.booking.terms',
+        'uses' => 'App\Core\Controllers\Admin\Settings@bookingTerms'
+    ]);
+
+    Route::post('booking-terms', [
+        'uses' => 'App\Core\Controllers\Admin\Settings@saveBookingTerms'
+    ]);
+
     //--------------------------------------------------------------------------
     // Static Pages
     //--------------------------------------------------------------------------
