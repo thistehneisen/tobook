@@ -67,23 +67,15 @@ class Index extends \AppController
         $total = ($depositPayment) ? $cart->depositTotal : $cart->total;
         $cart->is_deposit_payment = $depositPayment;
 
-        if ($cart === null || $total <= 0) {
-             if ($action === 'venue' && Request::ajax()) {
-                return Response::json(['message' => trans('home.cart.err.zero_amount')]);
-            } else {
-                return Redirect::route('cart.checkout')
+        if ($cart === null || $total <= 0 && ($action !== 'venue' && !Request::ajax())) {
+            return Redirect::route('cart.checkout')
                     ->withErrors($this->errorMessageBag(trans('home.cart.err.zero_amount')), 'top');
-            }
         }
 
         $user = Confide::user();
-        if ($user && $user->is_business) {
-            if ($action === 'venue' && Request::ajax()) {
-                return Response::json(['message' => trans('home.cart.err.business')]);
-            } else {
-                return Redirect::route('cart.checkout')
+        if ($user && $user->is_business  && ($action !== 'venue' && !Request::ajax())) {
+            return Redirect::route('cart.checkout')
                     ->withErrors($this->errorMessageBag(trans('home.cart.err.business')), 'top');
-            }
         }
 
         // Fire the payment.process so that cart details could update themselves
@@ -96,6 +88,7 @@ class Index extends \AppController
                 trans('as.embed.success_line3'),
             ];
 
+            $cart->completePayAtVenue();
             return Response::json(['message' => $messages]);
         }
 
