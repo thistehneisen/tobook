@@ -105,6 +105,8 @@ return [
     'discount'              => 'Discount',
     'book'                  => 'Book',
     'submit'                => 'Submit',
+    'accept'                => 'Accept',
+    'decline'               => 'Decline',
     'short' => [
         'week'  => 'week',
         'hour'  => 'hr',

@@ -5,6 +5,7 @@ return [
         'admin'             => 'New admin',
         'users'             => 'Businesses',
         'settings'          => 'Settings',
+        'booking_terms'     => 'Booking terms',
         'modules'           => 'Modules',
         'stats'             => 'Statistics',
         'flash_deals'       => 'Flash Deals',
@@ -127,6 +128,7 @@ return [
         'contact_email'                => 'Contact email',
         'constant_commission'          => 'Constant commission taken from businesses (&euro;)',
         'new_consumer_commission_rate' => 'New consumer commission, e.g. 30% =0.3',
+        'booking_terms'                => 'Booking terms',
     ],
     'master-cats' => [
         'all'         => 'All master category',
