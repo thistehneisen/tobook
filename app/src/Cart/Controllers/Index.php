@@ -88,6 +88,7 @@ class Index extends \AppController
                 trans('as.embed.success_line3'),
             ];
 
+            $cart->completePayAtVenue();
             return Response::json(['message' => $messages]);
         }
 
