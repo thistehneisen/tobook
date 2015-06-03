@@ -62,7 +62,9 @@ class Consumer extends \App\Core\Models\Base
 
     public function getIsNewAttribute()
     {
-        return (bool) $this->attributes['is_new'];
+        return (isset($this->attributes['is_new']))
+            ? (bool) $this->attributes['is_new']
+            : false;
     }
 
     public function getServiceAttribute()
