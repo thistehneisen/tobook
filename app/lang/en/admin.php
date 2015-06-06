@@ -161,5 +161,6 @@ return [
         'treatment_type'  => 'Treatment type',
         'keyword'         => 'Keyword',
         'keywords'        => 'Keywords',
+        'duplicated'      => 'The keyword has already existed for the selected treatment type',
     ],
 ];

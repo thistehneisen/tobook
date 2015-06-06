@@ -98,6 +98,15 @@ class Keywords extends Base
         $keyword     = Input::get('keyword');
         $treatmentId = Input::get('treatment_type_id');
 
+        $duplicated =KeywordTreatmentType::where('treatment_type_id', '=', $treatmentId)
+            ->where('keyword', '=', $keyword)->get();
+
+        if($duplicated->count()) {
+            $error = trans('admin.keywords.duplicated');
+            return Redirect::route(static::$crudRoutes['upsert'])
+                ->withInput()->withErrors([$error], 'top');
+        }
+
         try{
             $treatmentType = TreatmentType::find($treatmentId);
             $keywordTreatmentType->fill([
@@ -106,7 +115,9 @@ class Keywords extends Base
             $keywordTreatmentType->treatmentType()->associate($treatmentType);
             $keywordTreatmentType->save();
         } catch(\Exception $ex){
-            throw $ex;
+            $errors = $ex->getMessage();
+            return Redirect::route(static::$crudRoutes['index'])
+                ->withInput()->withErrors([$errors], 'top');
         }
         return $keywordTreatmentType;
     }
