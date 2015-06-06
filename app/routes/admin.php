@@ -122,7 +122,14 @@ Route::group([
     // Treatment types
     //--------------------------------------------------------------------------
     App\Core\Controllers\Admin\TreatmentTypes::crudRoutes('treatment-types', 'admin.treatment-types');
+    Route::group(['prefix' => 'treatment-types'], function () {
 
+        Route::get('keywords', [
+            'as' => 'admin.treatment-types.keywords',
+            'uses' => 'App\Core\Controllers\Admin\TreatmentTypes@keywords'
+        ]);
+
+    });
     //--------------------------------------------------------------------------
     // Statistics
     //--------------------------------------------------------------------------

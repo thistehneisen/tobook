@@ -122,5 +122,9 @@ class TreatmentTypes extends Base
         return $treatmentType;
     }
 
+    public function keywords()
+    {
+
+    }
 
 }

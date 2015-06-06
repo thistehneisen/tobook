@@ -11,6 +11,7 @@ return [
         'flash_deals'       => 'Flash Deals',
         'master_categories' => 'Master categories',
         'treatment_types'   => 'Treatment types',
+        'keywords'          => 'Keywords',
         'seo'               => 'SEO',
         'pages'             => 'Static pages',
         'misc'              => 'Misc.',
@@ -148,5 +149,6 @@ return [
         'language'        => 'Language',
         'master_category' => 'Master category',
         'translation_not_found' => 'Not available in current language',
+        'keywords'        => 'Keywords',
     ],
 ];
