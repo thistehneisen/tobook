@@ -13,6 +13,7 @@ use Response;
 use Settings;
 use Util;
 use View;
+use Input;
 
 class Front extends Base
 {
@@ -174,7 +175,18 @@ class Front extends Base
 
         // Extract list of businesses
         $items = $paginator->getCollection();
+
         $heading = $instance->name;
+
+        $q = Input::get('q');
+
+        if(strpos(Request::path(), 'treatments') !== false) {
+            $keyword = $instance->keywords()->where('keyword', '=', $q)->get();
+            if($keyword->count()) {
+                $heading = $q;
+            }
+        }
+
 
         // Add meta data to this page
         $meta['description'] = $instance->description;
