@@ -8,6 +8,7 @@ use App\Core\Models\Setting;
 use App\Core\Models\Multilanguage;
 use App\Olut\Olut;
 use Carbon\Carbon;
+use Request;
 
 class Keywords extends Base
 {
@@ -51,6 +52,7 @@ class Keywords extends Base
         // Don't know why model User doesn't take SoftDeleteTrait, so this
         // would fix temporarily.
         $query = $query->whereNull('deleted_at');
+        $query = $query->orderBy('treatment_type_id', 'asc');
 
         // Pagination please
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
@@ -98,8 +100,7 @@ class Keywords extends Base
         $keyword     = Input::get('keyword');
         $treatmentId = Input::get('treatment_type_id');
 
-        $duplicated =KeywordTreatmentType::where('treatment_type_id', '=', $treatmentId)
-            ->where('keyword', '=', $keyword)->get();
+        $duplicated =KeywordTreatmentType::where('keyword', '=', $keyword)->get();
 
         if($duplicated->count()) {
             $error = trans('admin.keywords.duplicated');
@@ -120,5 +121,28 @@ class Keywords extends Base
                 ->withInput()->withErrors([$errors], 'top');
         }
         return $keywordTreatmentType;
+    }
+
+    /**
+     * Delete a category
+     *
+     * @param int $id
+     *
+     * @return Redirect
+     */
+    public function delete($id)
+    {
+        $item = $this->getModel()->findOrFail($id);
+        $item->forceDelete();
+
+        if (Request::ajax() === true) {
+            return Response::json(['success' => true]);
+        }
+
+        $referer = Request::instance()->header('referer');
+
+        return Redirect::to(!empty($referer) ? $referer : static::$crudRoutes['index'])
+            ->with('messages',
+                $this->successMessageBag(trans('olut::olut.success_delete')));
     }
 }

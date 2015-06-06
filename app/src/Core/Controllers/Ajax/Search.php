@@ -36,7 +36,7 @@ class Search extends Base
             $data[] = ['type' => 'category', 'name' => $category->name, 'url' => $category->url];
             foreach ($category->treatments as $treament) {
                 $data[] = ['type' => 'category', 'name' => $treament->name, 'url' => $treament->url];
-
+                //Append keyword<->treatment to typehead json
                 foreach ($treament->keywords as $keyword) {
                     $data[] = ['type' => 'category', 'name' => $keyword->keyword, 'url' => $treament->url];
                 }
