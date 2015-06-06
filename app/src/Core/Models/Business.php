@@ -22,6 +22,7 @@ class Business extends Base
         'description',
         'size',
         'address',
+        'district',
         'city',
         'postcode',
         'country',
@@ -481,12 +482,24 @@ class Business extends Base
      */
     public function getFullAddressAttribute()
     {
-        return $this->getFullAddress(
-            $this->attributes['address'],
-            $this->attributes['postcode'],
-            $this->attributes['city'],
-            $this->attributes['country']
-        );
+        if (empty ($this->address)) {
+            return '';
+        }
+
+        if (!empty($this->district)) {
+            return sprintf('%s, %s, %s %s, %s',
+                $this->address,
+                $this->district,
+                $this->postcode,
+                $this->city,
+                $this->country);
+        }
+
+        return sprintf('%s, %s %s, %s',
+                $this->address,
+                $this->postcode,
+                $this->city,
+                $this->country);
     }
 
     /**
