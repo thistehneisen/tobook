@@ -151,4 +151,15 @@ return [
         'translation_not_found' => 'Not available in current language',
         'keywords'        => 'Keywords',
     ],
+    'keywords' => [
+        'all'             => 'All keywords',
+        'edit'            => 'Edit',
+        'add'             => 'Add',
+        'name'            => 'Name',
+        'description'     => 'Description',
+        'language'        => 'Language',
+        'treatment_type'  => 'Treatment type',
+        'keyword'         => 'Keyword',
+        'keywords'        => 'Keywords',
+    ],
 ];

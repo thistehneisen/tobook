@@ -17,6 +17,8 @@ class CreateTableKeywordTreatmentTypeTable extends Migration {
             $table->increments('id');
             $table->string('keyword');
             $table->unsignedInteger('treatment_type_id');
+            $table->softDeletes();
+            $table->timestamps();
             $table->foreign('treatment_type_id')
                 ->references('id')
                 ->on('as_treatment_types')

@@ -14,6 +14,7 @@ class KeywordTreatmentType extends \App\Core\Models\Base
 
     public $fillable = ['keyword'];
 
+    protected $softDelete = false;
     /**
      * @{@inheritdoc}
      */
@@ -24,7 +25,7 @@ class KeywordTreatmentType extends \App\Core\Models\Base
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
 
-    public function treatment()
+    public function treatmentType()
     {
         return $this->belongsTo('App\Appointment\Models\TreatmentType');
     }

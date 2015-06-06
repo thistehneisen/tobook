@@ -3,22 +3,34 @@
 use Config, View, Input, Redirect, DB, App;
 use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\TreatmentType;
+use App\Appointment\Models\KeywordTreatmentType;
 use App\Core\Models\Setting;
 use App\Core\Models\Multilanguage;
 use App\Olut\Olut;
 use Carbon\Carbon;
 
-class TreatmentTypes extends Base
+class Keywords extends Base
 {
     use \CRUD;
-    protected $viewPath = 'admin.treatment-types';
+    protected $viewPath = 'admin.keywords';
 
     protected $crudOptions = [
-        'modelClass'  => 'App\Appointment\Models\TreatmentType',
+        'modelClass'  => 'App\Appointment\Models\KeywordTreatmentType',
         'layout'      => 'layouts.admin',
-        'langPrefix'  => 'admin.treatment-types',
-        'indexFields' => ['name', 'description']
+        'langPrefix'  => 'admin.keywords',
+        'indexFields' => ['keyword', 'treatment_type'],
+        'presenters'  => [
+            'treatment_type' => ['App\Core\Controllers\Admin\Keywords', 'presentTreatmentType'],
+        ]
     ];
+
+    public static function presentTreatmentType($value, $item)
+    {
+        if ($item->treatment_type !== null) {
+            return $item->treatment_type->name;
+        }
+        return $value;
+    }
 
     /**
      * @{@inheritdoc}
@@ -43,11 +55,10 @@ class TreatmentTypes extends Base
         // Pagination please
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $items = $query->paginate($perPage);
-
         return $this->renderList($items);
     }
 
-     /**
+    /**
      * Show the form to insert or update a master category
      *
      * @param int $id
@@ -56,24 +67,9 @@ class TreatmentTypes extends Base
      */
     public function upsert($id = null)
     {
-        $treatmentType  = TreatmentType::find($id);
-        $items = TreatmentType::where('as_treatment_types.id', '=', $id)
-            ->join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . TreatmentType::getContext() . "', `varaa_as_treatment_types`.`id`)"))->get();
+        $keyword  = KeywordTreatmentType::find($id);
 
-        $masterCategories = MasterCategory::get()->lists('name', 'id');
-
-        $data = [];
-        foreach (Config::get('varaa.languages') as $locale){
-            foreach ($items as $item) {
-                if($locale == $item->lang) {
-                    $data[$locale][$item->key] = $item->value;
-                }
-            }
-        }
-        // user can overwrite default CRUD tabs template
-        $tabsView = View::exists($this->getViewPath().'.tabs')
-            ? $this->getViewPath().'.tabs'
-            : 'olut::tabs';
+        $treatmentTypes = TreatmentType::get()->lists('name', 'id');
 
         $langPrefix = (string) $this->getOlutOptions('langPrefix');
 
@@ -83,11 +79,9 @@ class TreatmentTypes extends Base
             ? $this->getViewPath().'.form_scripts'
             : '';
 
-        return View::make('admin.treatment-types.form', [
-            'item'             => $treatmentType,
-            'masterCategories' => $masterCategories,
-            'data'             => $data,
-            'tabsView'         => $tabsView,
+        return View::make('admin.keywords.form', [
+            'item'             => $keyword,
+            'treatmentTypes'   => $treatmentTypes,
             'routes'           => static::$crudRoutes,
             'scripts'          => $scriptsView,
             'langPrefix'       => $langPrefix,
@@ -99,27 +93,21 @@ class TreatmentTypes extends Base
     /**
      * @{@inheritdoc}
      */
-    public function upsertHandler($treatmentType)
+    public function upsertHandler($keywordTreatmentType)
     {
-        $names = Input::get('name');
-        $descriptions = Input::get('description');
-        $masterCategoryId = Input::get('master_category_id');
-        $default_language = Config::get('varaa.default_language');
+        $keyword     = Input::get('keyword');
+        $treatmentId = Input::get('treatment_type_id');
 
         try{
-            $masterCategory = MasterCategory::find($masterCategoryId);
-            $treatmentType->fill([
-                'order'       => 1,
-                'name'        => $names[$default_language],
-                'description' => $descriptions[$default_language],
+            $treatmentType = TreatmentType::find($treatmentId);
+            $keywordTreatmentType->fill([
+                'keyword' => $keyword
             ]);
-            $treatmentType->masterCategory()->associate($masterCategory);
-            $treatmentType->save();
-            $treatmentType->saveMultilanguage($names, $descriptions);
+            $keywordTreatmentType->treatmentType()->associate($treatmentType);
+            $keywordTreatmentType->save();
         } catch(\Exception $ex){
             throw $ex;
         }
-        return $treatmentType;
+        return $keywordTreatmentType;
     }
-
 }
