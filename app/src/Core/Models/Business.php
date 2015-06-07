@@ -22,6 +22,7 @@ class Business extends Base
         'description',
         'size',
         'address',
+        'district',
         'city',
         'postcode',
         'country',
@@ -271,6 +272,7 @@ class Business extends Base
             'name'                => array_get($input, 'name', ''),
             'size'                => array_get($input, 'size', ''),
             'address'             => array_get($input, 'address', ''),
+            'district'            => array_get($input, 'district', ''),
             'city'                => array_get($input, 'city', ''),
             'postcode'            => array_get($input, 'postcode', ''),
             'country'             => array_get($input, 'country', ''),
@@ -481,12 +483,24 @@ class Business extends Base
      */
     public function getFullAddressAttribute()
     {
-        return $this->getFullAddress(
-            $this->attributes['address'],
-            $this->attributes['postcode'],
-            $this->attributes['city'],
-            $this->attributes['country']
-        );
+        if (empty ($this->address)) {
+            return '';
+        }
+
+        if (!empty($this->district)) {
+            return sprintf('%s, %s, %s %s, %s',
+                $this->address,
+                $this->district,
+                $this->postcode,
+                $this->city,
+                $this->country);
+        }
+
+        return sprintf('%s, %s %s, %s',
+                $this->address,
+                $this->postcode,
+                $this->city,
+                $this->country);
     }
 
     /**
@@ -729,6 +743,7 @@ class Business extends Base
             'master_categories' => $masterCategories,
             'keywords'          => $keywords,
             'address'           => $this->address ?: '',
+            'district'          => $this->district ?: '',
             'postcode'          => $this->postcode ?: '',
             'city'              => $this->city ?: '',
             'country'           => $this->country ?: '',
@@ -752,6 +767,7 @@ class Business extends Base
             'master_categories' => ['type' => 'string', 'index_name' => 'master_category'],
             'keywords'          => ['type' => 'string', 'index_name' => 'keyword'],
             'address'           => ['type' => 'string'],
+            'district'          => ['type' => 'string'],
             'postcode'          => ['type' => 'string'],
             'city'              => ['type' => 'string'],
             'country'           => ['type' => 'string'],

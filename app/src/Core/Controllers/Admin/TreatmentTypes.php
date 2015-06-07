@@ -122,5 +122,4 @@ class TreatmentTypes extends Base
         return $treatmentType;
     }
 
-
 }

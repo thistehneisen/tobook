@@ -50,6 +50,7 @@ return [
         'size'             => 'Размер бизнеса',
         'phone'            => 'Телефон',
         'address'          => 'Адрес',
+        'district'         => 'District', // @todo
         'city'             => 'Город',
         'postcode'         => 'Почтовый код',
         'country'          => 'Страна',

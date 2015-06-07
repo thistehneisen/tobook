@@ -26,6 +26,7 @@
                      <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('admin.master-cats.index') }}"><i class="fa fa-book"></i> {{ trans('admin.nav.master_categories') }}</a></li>
                         <li><a href="{{ route('admin.treatment-types.index') }}"><i class="fa fa-tags"></i> {{ trans('admin.nav.treatment_types') }}</a></li>
+                        <li><a href="{{ route('admin.keywords.index') }}"><i class="fa fa-key"></i> {{ trans('admin.nav.keywords') }}</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

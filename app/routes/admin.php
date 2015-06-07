@@ -124,6 +124,11 @@ Route::group([
     App\Core\Controllers\Admin\TreatmentTypes::crudRoutes('treatment-types', 'admin.treatment-types');
 
     //--------------------------------------------------------------------------
+    // Keywords
+    //--------------------------------------------------------------------------
+    App\Core\Controllers\Admin\Keywords::crudRoutes('keywords', 'admin.keywords');
+
+    //--------------------------------------------------------------------------
     // Statistics
     //--------------------------------------------------------------------------
 

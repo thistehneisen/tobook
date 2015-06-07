@@ -104,6 +104,11 @@ class TreatmentType extends \App\Core\Models\Base
         return $this->hasMany('App\Appointment\Models\Service');
     }
 
+    public function keywords()
+    {
+        return $this->hasMany('App\Appointment\Models\KeywordTreatmentType');
+    }
+
     public function masterCategory()
     {
         return $this->belongsTo('App\Appointment\Models\Service');
