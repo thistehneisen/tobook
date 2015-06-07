@@ -17,9 +17,14 @@ abstract class AbstractSearcher implements SearcherInterface
             throw new \InvalidArgumentException('There must be a `keyword` member in parameter array');
         }
 
-        $this->params = $params;
+        $this->setParams($params);
         $this->params['from'] = array_get($params, 'from', 0);
         $this->params['size'] = array_get($params, 'size', 15);
+    }
+
+    public function setParams($params)
+    {
+        $this->params = $params;
     }
 
     /**

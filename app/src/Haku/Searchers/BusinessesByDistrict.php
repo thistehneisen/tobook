@@ -21,6 +21,11 @@ class BusinessesByDistrict extends AbstractSearcher
     {
         return [
             'filtered' => [
+                'query' => [
+                    'match' => [
+                        'master_categories' => $this->params['category']
+                    ]
+                ],
                 'filter' => [
                     'term' => [
                         'district' => mb_strtolower($this->params['keyword'])
