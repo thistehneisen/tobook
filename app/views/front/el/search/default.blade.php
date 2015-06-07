@@ -51,10 +51,12 @@
 
                                 <ul id="big-cities-dropdown" class="dropdown-menu big-cities-dropdown" role="menu">
                                     <li role="presentation"><a href="#" data-current-location="1" class="form-search-city"><strong>@lang('home.search.current_location')</strong></a></li>
+                                @if (!empty($districts))
                                     <li role="presentation" class="divider"></li>
                                     @foreach ($districts as $district)
                                     <li role="presentation"><a href="#" data-current-location="0" class="form-search-city" data-type="district">{{{ $district }}}</a></li>
                                     @endforeach
+                                @endif
                                     <li role="presentation" class="divider"></li>
                                     @foreach ($cities as $city)
                                     <li role="presentation"><a href="#" data-current-location="0" class="form-search-city" data-type="city">{{{ $city }}}</a></li>
