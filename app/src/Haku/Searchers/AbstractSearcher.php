@@ -18,19 +18,8 @@ abstract class AbstractSearcher implements SearcherInterface
         }
 
         $this->params = $params;
-    }
-
-    /**
-     * Return a pair of $from, $size for pagination
-     *
-     * @param integer $from
-     * @param integer $size
-     *
-     * @return array
-     */
-    public function getPagination($from = 0, $size = 15)
-    {
-        return [$from, $size];
+        $this->params['from'] = array_get($params, 'from', 0);
+        $this->params['size'] = array_get($params, 'size', 15);
     }
 
     /**
@@ -46,6 +35,17 @@ abstract class AbstractSearcher implements SearcherInterface
     }
 
     /**
+     * Should include _source data from ES result. Since we only need _id to
+     * lookup in database, _source may be not required by default.
+     *
+     * @return bool
+     */
+    protected function shouldReturnSource()
+    {
+        return false;
+    }
+
+    /**
      * Perform search on ES with provided parameters
      *
      * @return array ES result
@@ -53,16 +53,16 @@ abstract class AbstractSearcher implements SearcherInterface
     public function search()
     {
         $client = App::make('elasticsearch');
-        list($from, $size) = $this->getPagination();
 
         $results = $client->search([
             'index' => $this->getIndexName(),
             'type' => $this->getType(),
             'body' => [
-                'from' => $from,
-                'size' => $size,
+                'from' => array_get($this->params, 'from'),
+                'size' => array_get($this->params, 'size'),
                 'sort' => $this->getSort(),
                 'query' => $this->getQuery(),
+                '_source' => $this->shouldReturnSource(),
             ]
         ]);
 
