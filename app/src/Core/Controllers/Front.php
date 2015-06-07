@@ -175,7 +175,7 @@ class Front extends Base
             $s = new BusinessesByDistrict([
                 'keyword' => Input::get('location'),
                 'category' => $instance->name,
-                'location' => [],
+                'location' => Util::getCoordinates(),
             ]);
             $paginator = $s->search();
         } else {

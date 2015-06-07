@@ -37,11 +37,16 @@ class BusinessesByDistrict extends AbstractSearcher
 
     public function getSort()
     {
+        if (empty($this->params['location'])) {
+            // Return empty object
+            return new \sdtClass();
+        }
+
         return [
             '_geo_distance' => [
                 'unit' => 'km',
                 'mode' => 'min',
-                'order' => 'asc',
+                'order' => 'desc',
                 'location' => $this->params['location'],
                 'distance_type' => 'sloppy_arc',
             ],
