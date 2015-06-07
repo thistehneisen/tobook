@@ -50,6 +50,7 @@ return [
         'size'             => 'Numar angajati',
         'phone'            => 'Telefon',
         'address'          => 'Adresa',
+        'district'         => 'District', // @todo
         'city'             => 'Oras',
         'postcode'         => 'Cod postal',
         'country'          => 'Tara',

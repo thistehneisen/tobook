@@ -51,6 +51,7 @@ return [
         'size'                => 'Business Size',
         'phone'               => 'Telefón',
         'address'             => 'Adresa',
+        'district'         => 'District', // @todo
         'city'                => 'Mesto',
         'postcode'            => 'PSČ',
         'country'             => 'Krajina',
