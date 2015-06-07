@@ -1,6 +1,7 @@
 {{ Form::open(['route' => 'search', 'class' => 'form-search', 'method' => 'GET', 'id' => 'form-search']) }}
 <input type="hidden" name="lat">
 <input type="hidden" name="lng">
+<input type="hidden" name="type">
 
 <div class="form-group row">
     <div class="col-sm-4 col-md-4">
