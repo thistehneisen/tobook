@@ -14,7 +14,7 @@ interface IndexerInterface
      *
      * @return string
      */
-    public function getIndexType();
+    public function getType();
 
     /**
      * Document ID
@@ -44,6 +44,7 @@ interface IndexerInterface
      * @param mixed $document
      */
     public function setDocument($document);
+    public function getDocument();
 
     /**
      * Send data to ES to be indexed

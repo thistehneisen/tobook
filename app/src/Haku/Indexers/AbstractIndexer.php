@@ -1,0 +1,68 @@
+<?php namespace App\Haku\Indexers;
+
+use App;
+use Log;
+use Exception;
+
+abstract class AbstractIndexer implements IndexerInterface
+{
+    protected $document;
+    protected $client;
+
+    abstract public function getIndexName();
+    abstract public function getType();
+    abstract public function getBody();
+    abstract public function getMapping();
+
+    public function __construct($document)
+    {
+        $this->setDocument($document);
+        $this->client = App::make('elasticsearch');
+    }
+
+    public function getId()
+    {
+        return $this->document->id;
+    }
+
+    public function setDocument($document)
+    {
+        $this->document = $document;
+    }
+
+    public function getDocument()
+    {
+        return $this->document;
+    }
+
+    public function index()
+    {
+        $params = [
+            'id' => $this->getId(),
+            'body' => $this->getBody(),
+            'type' => $this->getType(),
+            'index' => $this->getIndexName(),
+        ];
+
+        try {
+            return $this->client->index($params);
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage(), $params);
+        }
+    }
+
+    public function delete()
+    {
+        $params = [
+            'id' => $this->getId(),
+            'type' => $this->getType(),
+            'index' => $this->getIndexName(),
+        ];
+
+        try {
+            return $this->client->delete($params);
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage(), $params);
+        }
+    }
+}

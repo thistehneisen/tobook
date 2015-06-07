@@ -1,6 +1,7 @@
 <?php namespace App\Haku\Searchers;
 
 use App\Haku\Transformers\BusinessTransformer;
+use App\Haku\Indexers\BusinessIndexer;
 
 class BusinessesByDistrict extends AbstractSearcher
 {
@@ -8,12 +9,12 @@ class BusinessesByDistrict extends AbstractSearcher
 
     public function getIndexName()
     {
-        return 'businesses';
+        return BusinessIndexer::INDEX_NAME;
     }
 
     public function getType()
     {
-        return 'business';
+        return BusinessIndexer::INDEX_TYPE;
     }
 
     public function getQuery()
