@@ -92,4 +92,23 @@ class BusinessIndexer extends AbstractIndexer
 
         parent::setDocument($document);
     }
+
+    public function index()
+    {
+        // If this business is hidden, don't index and remove existing index
+        if ($this->getDocument()->is_hidden) {
+            $params = [
+                'id' => $this->getId(),
+                'type' => $this->getType(),
+                'index' => $this->getIndexName(),
+            ];
+
+            $this->delete();
+
+            return;
+        }
+
+        // Otherwise, just index as normal
+        parent::index();
+    }
 }
