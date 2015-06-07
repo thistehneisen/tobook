@@ -47,6 +47,7 @@ return [
         'size'             => 'Företagets storlek',
         'phone'            => 'Telefon',
         'address'          => 'Adress',
+        'district'         => 'District', // @todo
         'city'             => 'Ort',
         'postcode'         => 'Postnummer',
         'country'          => 'Land',

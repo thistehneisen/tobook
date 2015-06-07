@@ -50,6 +50,7 @@ return [
         'size'             => 'Darbinieku skaits',
         'phone'            => 'Tālrunis',
         'address'          => 'Adrese',
+        'district'         => 'District', // @todo
         'city'             => 'Pilsēta',
         'postcode'         => 'Pasta indekss',
         'country'          => 'Valsts',

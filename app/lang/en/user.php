@@ -53,6 +53,7 @@ return [
         'size'                => 'Business Size',
         'phone'               => 'Phone',
         'address'             => 'Address',
+        'district'            => 'District', // @todo
         'city'                => 'City',
         'postcode'            => 'Postcode',
         'country'             => 'Country',
