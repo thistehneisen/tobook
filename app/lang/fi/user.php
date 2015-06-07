@@ -59,6 +59,7 @@ return [
         'size'             => 'Henkilömäärä',
         'phone'            => 'Puhelin',
         'address'          => 'Osoite',
+        'district'         => 'District', // @todo
         'city'             => 'Kaupunki',
         'postcode'         => 'Postinumero',
         'country'          => 'Maa',

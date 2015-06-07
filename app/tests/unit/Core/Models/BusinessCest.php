@@ -66,19 +66,17 @@ class BusinessCest
 
     public function testGetFullAddress(UnitTester $I)
     {
-        $input = [
+        $business = new Business([
             'address'   => 'abc',
             'postcode'  => '00100',
             'city'      => 'Helsinki',
             'country'   => 'Finland',
-        ];
+        ]);
 
-        $business = new Business($input);
-        $business->user()->associate($this->user);
-        $business->save();
+        $I->assertEquals($business->full_address, 'abc, 00100 Helsinki, Finland');
 
-        $fullAddress = sprintf('%s, %s %s, %s', $input['address'], $input['postcode'], $input['city'], $input['country']);
-        $I->assertEquals($fullAddress, $business->full_address, '$business->full_address');
+        $business->district = 'Punavuori';
+        $I->assertEquals($business->full_address, 'abc, Punavuori, 00100 Helsinki, Finland');
     }
 
     public function testCategories(UnitTester $I)

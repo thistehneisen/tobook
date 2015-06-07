@@ -88,6 +88,7 @@ do ($ = jQuery) ->
         e.preventDefault()
         $me = $ @
 
+        $formSearch.find('[name=type]').val($me.data('type'))
         $location.attr 'data-current-location', $me.data('current-location')
         $location.val $me.text()
         $locationDropdownWrapper.removeClass 'open'

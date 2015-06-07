@@ -36,6 +36,7 @@
                     {{ Form::open(['route' => 'search', 'class' => 'form-inline default-search-form', 'method' => 'GET', 'id' => 'form-search']) }}
                         <input type="hidden" name="lat">
                         <input type="hidden" name="lng">
+                        <input type="hidden" name="type">
 
                         <div class="form-group row">
                             <div class="alert alert-warning force-selection" style="display: none;">@lang('home.search.force_selection')</div>
@@ -51,8 +52,12 @@
                                 <ul id="big-cities-dropdown" class="dropdown-menu big-cities-dropdown" role="menu">
                                     <li role="presentation"><a href="#" data-current-location="1" class="form-search-city"><strong>@lang('home.search.current_location')</strong></a></li>
                                     <li role="presentation" class="divider"></li>
+                                    @foreach ($districts as $district)
+                                    <li role="presentation"><a href="#" data-current-location="0" class="form-search-city" data-type="district">{{{ $district }}}</a></li>
+                                    @endforeach
+                                    <li role="presentation" class="divider"></li>
                                     @foreach ($cities as $city)
-                                    <li role="presentation"><a href="#" data-current-location="0" class="form-search-city">{{{ $city }}}</a></li>
+                                    <li role="presentation"><a href="#" data-current-location="0" class="form-search-city" data-type="city">{{{ $city }}}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
