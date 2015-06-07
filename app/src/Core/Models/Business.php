@@ -272,6 +272,7 @@ class Business extends Base
             'name'                => array_get($input, 'name', ''),
             'size'                => array_get($input, 'size', ''),
             'address'             => array_get($input, 'address', ''),
+            'district'            => array_get($input, 'district', ''),
             'city'                => array_get($input, 'city', ''),
             'postcode'            => array_get($input, 'postcode', ''),
             'country'             => array_get($input, 'country', ''),
