@@ -9,11 +9,6 @@ abstract class AbstractIndexer implements IndexerInterface
     protected $document;
     protected $client;
 
-    abstract public function getIndexName();
-    abstract public function getType();
-    abstract public function getBody();
-    abstract public function getMapping();
-
     public function __construct($document)
     {
         $this->setDocument($document);

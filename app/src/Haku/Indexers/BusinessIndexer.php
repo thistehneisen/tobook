@@ -66,7 +66,7 @@ class BusinessIndexer extends AbstractIndexer
         ];
     }
 
-    public function getMapping()
+    public static function getMapping()
     {
         return [
             'name'              => ['type' => 'string'],

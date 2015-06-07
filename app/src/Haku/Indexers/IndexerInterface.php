@@ -35,7 +35,7 @@ interface IndexerInterface
      *
      * @return array
      */
-    public function getMapping();
+    public static function getMapping();
 
     /**
      * The the source document that data should be extracted from.
