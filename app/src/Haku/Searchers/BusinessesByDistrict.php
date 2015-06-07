@@ -1,21 +1,12 @@
 <?php namespace App\Haku\Searchers;
 
 use App\Haku\Transformers\BusinessTransformer;
-use App\Haku\Indexers\BusinessIndexer;
 
 class BusinessesByDistrict extends AbstractSearcher
 {
+    use Traits\Business;
+    use Traits\SortByLocation;
     use BusinessTransformer;
-
-    public function getIndexName()
-    {
-        return BusinessIndexer::INDEX_NAME;
-    }
-
-    public function getType()
-    {
-        return BusinessIndexer::INDEX_TYPE;
-    }
 
     public function getQuery()
     {
@@ -32,24 +23,6 @@ class BusinessesByDistrict extends AbstractSearcher
                     ]
                 ]
             ]
-        ];
-    }
-
-    public function getSort()
-    {
-        if (empty($this->params['location'])) {
-            // Return empty object
-            return new \sdtClass();
-        }
-
-        return [
-            '_geo_distance' => [
-                'unit' => 'km',
-                'mode' => 'min',
-                'order' => 'desc',
-                'location' => $this->params['location'],
-                'distance_type' => 'sloppy_arc',
-            ],
         ];
     }
 }
