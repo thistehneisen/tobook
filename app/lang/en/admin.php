@@ -125,6 +125,7 @@ return [
         'deposit_rate'                 => 'Deposit rate',
         'deposit_payment'              => 'Deposit payment',
         'big_cities'                   => 'Big cities (One city per line)',
+        'districts'                    => 'Districts (One per line)',
         'contact_email'                => 'Contact email',
         'constant_commission'          => 'Constant commission taken from businesses (&euro;)',
         'new_consumer_commission_rate' => 'New consumer commission, e.g. 30% =0.3',
