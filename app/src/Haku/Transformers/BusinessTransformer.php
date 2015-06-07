@@ -9,7 +9,7 @@ trait BusinessTransformer
     {
         $items = [];
         foreach ($results['hits']['hits'] as $item) {
-            $business = Business::find($item['_id']);
+            $business = Business::ofUser($item['_id'])->first();
             if ($business !== null) {
                 $items[] = ($business);
             }
