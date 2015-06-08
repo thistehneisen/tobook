@@ -23,13 +23,13 @@ class KeywordMap extends \App\Core\Models\Base
      //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
-    public function getSelectedAtrribute()
+    public function getSelectedAttribute()
     {
         $selected = '';
-        if (!empty($this->treatmentType->id)) {
-            $selected =  'tm:' . $this->treatmentType->id;
-        } else if(!empty($this->masterCategory->id)){
-            $selected = 'mc:' . $this->masterCategory->id;
+        if (!empty($this->attributes['treatment_type_id'])) {
+            $selected =  'tm:' . $this->attributes['treatment_type_id'];
+        } else if(!empty($this->attributes['master_category_id'])){
+            $selected = 'mc:' . $this->attributes['master_category_id'];
         }
 
         return $selected;
