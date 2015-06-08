@@ -3,7 +3,7 @@
 use Config, View, Input, Redirect, DB, App;
 use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\TreatmentType;
-use App\Appointment\Models\KeywordTreatmentType;
+use App\Appointment\Models\KeywordMap;
 use App\Core\Models\Setting;
 use App\Core\Models\Multilanguage;
 use App\Olut\Olut;
@@ -16,12 +16,13 @@ class Keywords extends Base
     protected $viewPath = 'admin.keywords';
 
     protected $crudOptions = [
-        'modelClass'  => 'App\Appointment\Models\KeywordTreatmentType',
+        'modelClass'  => 'App\Appointment\Models\KeywordMap',
         'layout'      => 'layouts.admin',
         'langPrefix'  => 'admin.keywords',
-        'indexFields' => ['keyword', 'treatment_type'],
+        'indexFields' => ['keyword', 'treatment_type', 'master_category'],
         'presenters'  => [
             'treatment_type' => ['App\Core\Controllers\Admin\Keywords', 'presentTreatmentType'],
+            'master_category' => ['App\Core\Controllers\Admin\Keywords', 'presentMasterCategory'],
         ]
     ];
 
@@ -29,6 +30,14 @@ class Keywords extends Base
     {
         if ($item->treatment_type !== null) {
             return $item->treatment_type->name;
+        }
+        return $value;
+    }
+
+    public static function presentMasterCategory($value, $item)
+    {
+        if ($item->master_category !== null) {
+            return $item->master_category->name;
         }
         return $value;
     }

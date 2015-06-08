@@ -7,10 +7,10 @@ use DB;
 use Input;
 use Str;
 
-class KeywordTreatmentType extends \App\Core\Models\Base
+class KeywordMap extends \App\Core\Models\Base
 {
 
-    protected $table = 'as_keyword_treatment_type';
+    protected $table = 'as_keyword_map';
 
     public $fillable = ['keyword'];
 
@@ -28,5 +28,10 @@ class KeywordTreatmentType extends \App\Core\Models\Base
     public function treatmentType()
     {
         return $this->belongsTo('App\Appointment\Models\TreatmentType');
+    }
+
+    public function masterCategory()
+    {
+        return $this->belongsTo('App\Appointment\Models\MasterCategory');
     }
 }
