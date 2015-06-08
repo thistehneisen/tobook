@@ -3,7 +3,7 @@
 use Config, View, Input, Redirect, DB, App;
 use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\TreatmentType;
-use App\Appointment\Models\KeywordTreatmentType;
+use App\Appointment\Models\KeywordMap;
 use App\Core\Models\Setting;
 use App\Core\Models\Multilanguage;
 use App\Olut\Olut;
@@ -16,12 +16,13 @@ class Keywords extends Base
     protected $viewPath = 'admin.keywords';
 
     protected $crudOptions = [
-        'modelClass'  => 'App\Appointment\Models\KeywordTreatmentType',
+        'modelClass'  => 'App\Appointment\Models\KeywordMap',
         'layout'      => 'layouts.admin',
         'langPrefix'  => 'admin.keywords',
-        'indexFields' => ['keyword', 'treatment_type'],
+        'indexFields' => ['keyword', 'treatment_type', 'master_category'],
         'presenters'  => [
             'treatment_type' => ['App\Core\Controllers\Admin\Keywords', 'presentTreatmentType'],
+            'master_category' => ['App\Core\Controllers\Admin\Keywords', 'presentMasterCategory'],
         ]
     ];
 
@@ -29,7 +30,20 @@ class Keywords extends Base
     {
         if ($item->treatment_type !== null) {
             return $item->treatment_type->name;
+        } else {
+            return '-';
         }
+        return $value;
+    }
+
+    public static function presentMasterCategory($value, $item)
+    {
+        if ($item->master_category !== null) {
+            return $item->master_category->name;
+        } else {
+            return '-';
+        }
+
         return $value;
     }
 
@@ -69,9 +83,20 @@ class Keywords extends Base
      */
     public function upsert($id = null)
     {
-        $keyword  = KeywordTreatmentType::find($id);
+        $keyword  = KeywordMap::find($id);
 
-        $treatmentTypes = TreatmentType::get()->lists('name', 'id');
+        $mappedObjects = array();
+
+        $treatmentTypes = TreatmentType::whereNull('deleted_at')->get();
+        foreach ($treatmentTypes as $treatment) {
+            $mappedObjects[trans('admin.keywords.treatment_type')]['tm:'.$treatment->id] = $treatment->name;
+        }
+
+        $masterCategories = MasterCategory::whereNull('deleted_at')->get();
+
+        foreach ($masterCategories as $category) {
+            $mappedObjects[trans('admin.keywords.master_category')]['mc:'.$category->id] = $category->name;
+        }
 
         $langPrefix = (string) $this->getOlutOptions('langPrefix');
 
@@ -83,7 +108,7 @@ class Keywords extends Base
 
         return View::make('admin.keywords.form', [
             'item'             => $keyword,
-            'treatmentTypes'   => $treatmentTypes,
+            'mappedObjects'    => $mappedObjects,
             'routes'           => static::$crudRoutes,
             'scripts'          => $scriptsView,
             'langPrefix'       => $langPrefix,
@@ -95,32 +120,49 @@ class Keywords extends Base
     /**
      * @{@inheritdoc}
      */
-    public function upsertHandler($keywordTreatmentType)
+    public function upsertHandler($keywordMap)
     {
-        $keyword     = Input::get('keyword');
-        $treatmentId = Input::get('treatment_type_id');
+        $keyword  = Input::get('keyword');
+        $mappedId = Input::get('mapped_id');
+        $parts = explode(":", $mappedId);
+        $id = (!empty($parts[1])) ? (int) $parts[1] : null;
 
-        $duplicated =KeywordTreatmentType::where('keyword', '=', $keyword)->get();
+        if(empty($keywordMap->id)) {
+            $query = KeywordMap::where('keyword', '=', $keyword);
+            $duplicated = $query->get();
 
-        if($duplicated->count()) {
-            $error = trans('admin.keywords.duplicated');
-            return Redirect::route(static::$crudRoutes['upsert'])
-                ->withInput()->withErrors([$error], 'top');
+            if($duplicated->count()) {
+                $error = trans('admin.keywords.duplicated');
+                return Redirect::route(static::$crudRoutes['upsert'])
+                    ->withInput()->withErrors([$error], 'top');
+            }
         }
 
         try{
-            $treatmentType = TreatmentType::find($treatmentId);
-            $keywordTreatmentType->fill([
+
+            $keywordMap->fill([
                 'keyword' => $keyword
             ]);
-            $keywordTreatmentType->treatmentType()->associate($treatmentType);
-            $keywordTreatmentType->save();
+
+            $mappedObject = null;
+
+            if ($parts[0] === 'tm') {
+                $mappedObject = TreatmentType::find($id);
+                $keywordMap->treatmentType()->associate($mappedObject);
+                $keywordMap->master_category_id = null;
+            } else if($parts[0] === 'mc') {
+                $mappedObject = MasterCategory::find($id);
+                $keywordMap->masterCategory()->associate($mappedObject);
+                $keywordMap->treatment_type_id = null;
+            }
+
+            $keywordMap->save();
         } catch(\Exception $ex){
             $errors = $ex->getMessage();
             return Redirect::route(static::$crudRoutes['index'])
                 ->withInput()->withErrors([$errors], 'top');
         }
-        return $keywordTreatmentType;
+        return $keywordMap;
     }
 
     /**
