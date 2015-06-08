@@ -1,6 +1,9 @@
 @extends ('layouts.admin')
 
 @section('content')
+@if ($showTab === true)
+    @include($tabsView, ['routes' => $routes, 'langPrefix' => $langPrefix])
+@endif
 
 <div id="form-olut-upsert" class="modal-form">
     @include ('el.messages')

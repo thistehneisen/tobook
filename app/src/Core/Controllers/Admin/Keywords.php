@@ -106,9 +106,15 @@ class Keywords extends Base
             ? $this->getViewPath().'.form_scripts'
             : '';
 
+        // user can overwrite default CRUD tabs template
+        $tabsView = View::exists($this->getViewPath().'.tabs')
+            ? $this->getViewPath().'.tabs'
+            : 'olut::tabs';
+
         return View::make('admin.keywords.form', [
             'item'             => $keyword,
             'mappedObjects'    => $mappedObjects,
+            'tabsView'         => $tabsView,
             'routes'           => static::$crudRoutes,
             'scripts'          => $scriptsView,
             'langPrefix'       => $langPrefix,
