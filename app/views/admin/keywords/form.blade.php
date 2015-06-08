@@ -21,9 +21,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="keyword" class="col-sm-2 control-label">{{ trans('admin.keywords.treatment_type') }}</label>
+                <label for="keyword" class="col-sm-2 control-label">{{ trans('admin.keywords.mapped') }}</label>
                 <div class="col-sm-5">
-                   {{ Form::select('treatment_type_id', [trans('common.options_select')]+$treatmentTypes, isset($item->treatment_type_id) ? $item->treatment_type_id :0, ['class' => 'form-control input-sm', 'id' => 'treatment_type_id']) }}
+                   {{ Form::select('mapped_id', [trans('common.options_select')]+$mappedObjects, isset($item->selected) ? $item->selected : '', ['class' => 'form-control input-sm', 'id' => 'mapped_id']) }}
                 </div>
             </div>
             <div class="form-group">

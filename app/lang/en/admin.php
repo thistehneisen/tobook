@@ -160,8 +160,10 @@ return [
         'description'     => 'Description',
         'language'        => 'Language',
         'treatment_type'  => 'Treatment type',
+        'master_category' => 'Master category',
         'keyword'         => 'Keyword',
         'keywords'        => 'Keywords',
+        'mapped'          => 'Mapping to',
         'duplicated'      => 'The keyword has already existed. Keyword must be unique.',
     ],
 ];

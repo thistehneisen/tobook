@@ -20,6 +20,20 @@ class KeywordMap extends \App\Core\Models\Base
      */
     public $isSearchable = false;
 
+     //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    public function getSelectedAtrribute()
+    {
+        $selected = '';
+        if (!empty($this->treatmentType->id)) {
+            $selected =  'tm:' . $this->treatmentType->id;
+        } else if(!empty($this->masterCategory->id)){
+            $selected = 'mc:' . $this->masterCategory->id;
+        }
+
+        return $selected;
+    }
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
