@@ -161,8 +161,6 @@ class Util
             return $pair;
         }
 
-        $location = sprintf("%s %s", $location, self::getCountryOfInstance());
-
         try {
             $geocode = Geocoder::geocode($location);
             $pair = [
@@ -179,29 +177,6 @@ class Util
             // We don't want to handle this, just logging and throw it away
             throw $ex;
         }
-    }
-
-    /**
-     * Return the operating country of the environment
-     * for more geocoder easier to find a location
-     *
-     * @return string
-     */
-    public static function getCountryOfInstance()
-    {
-        $data = [
-            'prod'         => 'Finland',
-            'stag'         => 'Finland',
-            'testing'      => 'Finland',
-            'tobook'       => 'Latvia',
-            'clearbooking' => 'Sweden'
-        ];
-
-        $language = (!empty($data[App::environment()]))
-            ? $data[App::environment()]
-            : 'Finland';
-
-        return $language;
     }
 
     /**
