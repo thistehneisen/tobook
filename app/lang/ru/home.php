@@ -65,7 +65,7 @@ return [
     ],
     'cart' => [
         'add'             => 'В корзину',
-        'items'           => 'item|items',
+        'items'           => 'пункт|пункты',
         'empty'           => 'Пусто!',
         'empty_long'      => 'Ваша корзина пуста.',
         'checkout'        => 'Виды оплаты',
