@@ -249,6 +249,9 @@ return [
         'book'             => 'Rezervēt',
         'loading'          => 'Now loading&hellip;',
         'success'          => 'Paldies par rezervāciju! Rezervācijas apstiprinājums tiks nosūtīts uz Jūsu norādīto e-pastu.',
+        'success_line1'    => '<h2>Paldies!</h2>',
+        'success_line2'    => '<h3>Jūsu rezervācija ir veiksmīgi pievienota</h3>',
+        'success_line3'    => '<h3>Jūs automātiski tiksiet novirzīti uz sākuma lapu pēc <span id="as-counter">10</span> sekundēm.</h3>',
         'confirm'          => 'Apstiprināt rezervāciju',
         'layout_2'         => [
             'select_service'      => 'Izvēlieties pakalpojumu un datumu',
