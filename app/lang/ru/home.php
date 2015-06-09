@@ -54,7 +54,7 @@ return [
         'button'          => 'поиск', // @todo
         'date'            => 'Любая дата', // @todo
         'time'            => 'любое время', // @todo
-        'current_location' => 'Your current location', // @todo
+        'current_location' => 'Ваше местоположение',
         'validation'      => [
             'q'        => 'Please enter or select a service', // @todo
             'location' => 'Please enter or select a location', // @todo
