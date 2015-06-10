@@ -190,9 +190,21 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/mithril/0.2.0/mithril.min.js') }}
     <script>
-var VARAA = VARAA || {};
-VARAA.routes = VARAA.routes || {};
-VARAA.routes.updateLocation = '{{ route('search.location') }}';
+var VARAA = VARAA || {}
+VARAA.routes = VARAA.routes || {}
+VARAA.routes.updateLocation = '{{ route('search.location') }}'
+
+var app =  app || {}
+app.prefetch = app.prefetch || {}
+app.prefetch.cities = {{ json_encode($cities) }}
+app.prefetch.districts = {{ json_encode($districts) }}
+
+app.lang = app.lang || {}
+app.lang.home = {
+    search: {
+        current_location: '@lang('home.search.current_location')'
+    }
+}
     </script>
     {{ HTML::script(asset_path('core/scripts/global.js')) }}
     {{ HTML::script(asset_path('core/scripts/main.js')) }}
