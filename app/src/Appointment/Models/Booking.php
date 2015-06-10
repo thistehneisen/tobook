@@ -678,7 +678,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function getBookingResources($keyOnly = false)
     {
         if (empty($this->resources)) {
-            if (empty($this->firstBookingService()) || empty($this->firstBookingService()->service)) {
+            if (empty($this->firstBookingService()) || empty($this->firstBookingService()->service->id)) {
                 return [];
             }
             $service = $this->firstBookingService()->service;
