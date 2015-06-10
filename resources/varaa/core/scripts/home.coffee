@@ -8,6 +8,36 @@ do ($ = jQuery) ->
     $forceSelection          = $formSearch.find '.force-selection'
     $locationDropdownWrapper = $ '#location-dropdown-wrapper'
 
+    # --------------------------------------------------------------------------
+    # Use MithrilJS to write the location dropdown
+    # --------------------------------------------------------------------------
+    LocationDropdown = {}
+
+    LocationDropdown.controller = (args) ->
+      @cities = args.cities
+      @districts = args.districts
+      @locations = @cities.map (name) -> type: 'city', name: name
+        .concat @districts.map (name) -> type: 'district', name: name
+      return
+
+    LocationDropdown.view = (ctrl) ->
+      return [
+        m('li[role=presentation]', [m('a.form-search-city[data-current-location=1][href=#]', [m('strong', '@lang(home.search.current_location)')])])
+        m('li.divider[role=presentation]')
+        ctrl.districts.map (name) ->
+          return m 'li[role=presentation]',
+            m("a.form-search-city[data-current-location=0][data-type=district][href=#]", name)
+        m('li.divider[role=presentation]')
+        ctrl.cities.map (name) ->
+          return m 'li[role=presentation]',
+            m("a.form-search-city[data-current-location=0][data-type=city][href=#]", name)
+      ]
+
+    m.mount document.getElementById('big-cities-dropdown'),
+      m.component LocationDropdown, app.prefetch
+    # --------------------------------------------------------------------------
+
+
     # Init typeahead on search form
     VARAA.initTypeahead $q, 'services' if $q.length > 0
     $q.bind 'typeahead:selected', (e, selection) ->
