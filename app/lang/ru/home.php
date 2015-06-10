@@ -54,7 +54,7 @@ return [
         'button'          => 'поиск', // @todo
         'date'            => 'Любая дата', // @todo
         'time'            => 'любое время', // @todo
-        'current_location' => 'Your current location', // @todo
+        'current_location' => 'Ваше местоположение',
         'validation'      => [
             'q'        => 'Please enter or select a service', // @todo
             'location' => 'Please enter or select a location', // @todo
@@ -65,19 +65,21 @@ return [
     ],
     'cart' => [
         'add'             => 'В корзину',
-        'items'           => 'item|items',
+        'items'           => 'пункт|пункты',
         'empty'           => 'Пусто!',
         'empty_long'      => 'Ваша корзина пуста.',
-        'checkout'        => 'Купить',
-        'total'           => 'Итого',
+        'checkout'        => 'Виды оплаты',
+        'total'           => 'Сумма заказа',
         'heading'         => 'Вы выбрали',
         'why_heading'     => 'Зачем регистрироваться перед оплатой?',
         'why_content'     => 'Зарегистрированные пользователи могут легко управлять своими заказами и другими возможностями системы Todo.',
         'process'         => 'Заплатить',
-        'total_deposit'   => 'Total deposit',//@todo
-        'pay_deposit'     => 'Process to deposit',//@todo
-        'pay_whole'       => 'Process to payment',//@todo
-        'deposit_message' => 'You can choose to pay the deposit, or the total sum of the booking in order to continue.',//@todo
+        'total_deposit'   => 'Сумма депозита',
+        'pay_deposit'     => 'Оплатить депозит',
+        'pay_full'        => 'Оплатить всю сумму',
+        'pay_venue'       => 'Оплатить на месте',
+        'terms'           => 'Пожалуйста, учтите, что если вы не появитесь в зарезервированное для вас время, вы причините салону убытки. Если вы сделаете это снова, салон может внести вас в "черный список" и не будет принимать от вас резервацию.',
+        'deposit_message' => 'Выберите вид оплаты',
         'err'         => [
             'business' => 'Мы пока не поддерживаем бизнес-профили при облате. Покдлючитесь, пожалуйста, как клиент.',
             'zero_amount' => 'Покупка невозможна, поскольку в вашей корзине ничего нет',
