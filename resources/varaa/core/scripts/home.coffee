@@ -11,26 +11,30 @@ do ($ = jQuery) ->
     # --------------------------------------------------------------------------
     # Use MithrilJS to write the location dropdown
     # --------------------------------------------------------------------------
+
+    # Simple i18n method
+    __ = (path) ->
+      val = app.lang
+      path.split '.'
+        .forEach (key) -> val = if val[key]? then val[key] else null
+      return if val? then val else path
+
     LocationDropdown = {}
 
     LocationDropdown.controller = (args) ->
       @cities = args.cities
       @districts = args.districts
-      @locations = @cities.map (name) -> type: 'city', name: name
-        .concat @districts.map (name) -> type: 'district', name: name
+      @locations = @districts.map (name) -> type: 'district', name: name
+        .concat @cities.map (name) -> type: 'city', name: name
       return
 
     LocationDropdown.view = (ctrl) ->
       return [
-        m('li[role=presentation]', [m('a.form-search-city[data-current-location=1][href=#]', [m('strong', '@lang(home.search.current_location)')])])
+        m('li[role=presentation]', [m('a.form-search-city[data-current-location=1][href=#]', [m('strong', __('home.search.current_location'))])])
         m('li.divider[role=presentation]')
-        ctrl.districts.map (name) ->
+        ctrl.locations.map (location) ->
           return m 'li[role=presentation]',
-            m("a.form-search-city[data-current-location=0][data-type=district][href=#]", name)
-        m('li.divider[role=presentation]')
-        ctrl.cities.map (name) ->
-          return m 'li[role=presentation]',
-            m("a.form-search-city[data-current-location=0][data-type=city][href=#]", name)
+            m("a.form-search-city[href=#][data-current-location=0][data-type=#{location.type}]", location.name)
       ]
 
     m.mount document.getElementById('big-cities-dropdown'),

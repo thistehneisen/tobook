@@ -19,6 +19,13 @@ var app =  app || {}
 app.prefetch = app.prefetch || {}
 app.prefetch.cities = {{ json_encode($cities) }}
 app.prefetch.districts = {{ json_encode($districts) }}
+
+app.lang = app.lang || {}
+app.lang.home = {
+    search: {
+        current_location: '@lang('home.search.current_location')'
+    }
+}
     </script>
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
 @stop
