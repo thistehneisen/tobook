@@ -182,29 +182,6 @@ class Util
     }
 
     /**
-     * Return the operating country of the environment
-     * for more geocoder easier to find a location
-     *
-     * @return string
-     */
-    public static function getCountryOfInstance()
-    {
-        $data = [
-            'prod'         => 'Finland',
-            'stag'         => 'Finland',
-            'testing'      => 'Finland',
-            'tobook'       => 'Latvia',
-            'clearbooking' => 'Sweden'
-        ];
-
-        $language = (!empty($data[App::environment()]))
-            ? $data[App::environment()]
-            : 'Finland';
-
-        return $language;
-    }
-
-    /**
      * Get current coordinates
      *
      * @return array: [$lat, $lng]
