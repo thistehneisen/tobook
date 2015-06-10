@@ -8,6 +8,58 @@ do ($ = jQuery) ->
     $forceSelection          = $formSearch.find '.force-selection'
     $locationDropdownWrapper = $ '#location-dropdown-wrapper'
 
+    # --------------------------------------------------------------------------
+    # Use MithrilJS to write the location dropdown
+    # --------------------------------------------------------------------------
+
+    # Simple i18n method
+    __ = (path) ->
+      val = app.lang
+      path.split '.'
+        .forEach (key) -> val = if val[key]? then val[key] else null
+      return if val? then val else path
+
+    # Ugly variable to keep track of visible locations in the dropdown
+    locations = app.prefetch.districts.map (name) -> type: 'district', name: name
+        .concat app.prefetch.cities.map (name) -> type: 'city', name: name
+    visible = locations
+
+    LocationDropdown = {}
+
+    LocationDropdown.view = (ctrl, args) ->
+      return [
+        m('li[role=presentation]', [m('a.form-search-city[data-current-location=1][href=#]', [m('strong', __('home.search.current_location'))])])
+        m('li.divider[role=presentation]')
+        m('li[role=presentation]', {class: if visible.length then 'soft-hidden' else 'disabled'}, [m('a[href=#]', [m('em', 'Empty')])])
+        visible.map (location) ->
+          return m 'li[role=presentation]',
+            m("a.form-search-city[href=#][data-current-location=0][data-type=#{location.type}]", location.name)
+      ]
+
+    m.mount document.getElementById('big-cities-dropdown'),
+      m.component LocationDropdown
+    # --------------------------------------------------------------------------
+
+    engine = new Bloodhound
+      queryTokenizer: Bloodhound.tokenizers.whitespace
+      local: locations
+      datumTokenizer: (i) -> Bloodhound.tokenizers.whitespace i.name
+    engine.initialize()
+
+    $location.on 'keyup', (e) ->
+      keyword = e.target.value
+      if keyword.length is 0
+        visible = locations
+        m.redraw()
+        return
+
+      engine.get keyword, (results) ->
+        visible = results
+        m.redraw()
+
+    # --------------------------------------------------------------------------
+
+
     # Init typeahead on search form
     VARAA.initTypeahead $q, 'services' if $q.length > 0
     $q.bind 'typeahead:selected', (e, selection) ->
@@ -83,8 +135,8 @@ do ($ = jQuery) ->
         bypassAndSubmit()
 
     # When user clicks on an option in location dropdown list
-    $ 'a.form-search-city'
-      .on 'click', (e) ->
+    $ '#big-cities-dropdown'
+      .on 'click', 'a.form-search-city', (e) ->
         e.preventDefault()
         $me = $ @
 

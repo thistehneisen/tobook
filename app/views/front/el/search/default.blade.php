@@ -49,19 +49,7 @@
                                 <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
                                 <input autocomplete="off" data-current-location="1" data-trigger="manual" data-placement="bottom" title="@lang('home.search.validation.location')" data-target="#" name="location" class="form-control input-keyword {{ App::getLocale() }}" type="text" placeholder="{{ trans('home.search.location') }}"  value="{{{ Input::get('location', trans('home.search.current_location')) }}}">
 
-                                <ul id="big-cities-dropdown" class="dropdown-menu big-cities-dropdown" role="menu">
-                                    <li role="presentation"><a href="#" data-current-location="1" class="form-search-city"><strong>@lang('home.search.current_location')</strong></a></li>
-                                @if (!empty($districts))
-                                    <li role="presentation" class="divider"></li>
-                                    @foreach ($districts as $district)
-                                    <li role="presentation"><a href="#" data-current-location="0" class="form-search-city" data-type="district">{{{ $district }}}</a></li>
-                                    @endforeach
-                                @endif
-                                    <li role="presentation" class="divider"></li>
-                                    @foreach ($cities as $city)
-                                    <li role="presentation"><a href="#" data-current-location="0" class="form-search-city" data-type="city">{{{ $city }}}</a></li>
-                                    @endforeach
-                                </ul>
+                                <ul id="big-cities-dropdown" class="dropdown-menu big-cities-dropdown" role="menu"></ul>
                             </div>
 
                             <button type="submit" class="btn btn-success btn-square">{{ trans('common.search') }}</button>
