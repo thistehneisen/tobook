@@ -190,6 +190,11 @@ class MasterCategory extends \App\Core\Models\Base
         return ($this->services->isEmpty()) ? true : false;
     }
 
+    public function keywords()
+    {
+        return $this->hasMany('App\Appointment\Models\KeywordMap');
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
