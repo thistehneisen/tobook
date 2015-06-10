@@ -106,7 +106,7 @@ class TreatmentType extends \App\Core\Models\Base
 
     public function keywords()
     {
-        return $this->hasMany('App\Appointment\Models\KeywordTreatmentType');
+        return $this->hasMany('App\Appointment\Models\KeywordMap');
     }
 
     public function masterCategory()

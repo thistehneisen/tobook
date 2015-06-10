@@ -191,7 +191,8 @@ class Front extends Base
 
         $q = Input::get('q');
 
-        if (strpos(Request::path(), 'treatments') !== false) {
+        if (strpos(Request::path(), 'treatments') !== false
+            || strpos(Request::path(), 'categories') !== false) {
             $keyword = $instance->keywords()->where('keyword', '=', $q)->get();
             if ($keyword->count()) {
                 $heading = $q;

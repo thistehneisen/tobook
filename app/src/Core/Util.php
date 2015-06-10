@@ -148,6 +148,8 @@ class Util
     {
 
         $location = trim($location);
+        //Remove all country part before append default country
+        $location = self::cleanupCountryName($location);
 
         if (empty($location)) {
             throw new InvalidArgumentException('A location must be provided to be geo-located');
@@ -179,6 +181,29 @@ class Util
             // We don't want to handle this, just logging and throw it away
             throw $ex;
         }
+    }
+
+    public static function cleanupCountryName($location)
+    {
+        $countries = [
+            'Latvia',
+            'Latvija',
+            'Латвия',
+            'Finland',
+            'Suomi',
+            'Russia',
+            'Россия',
+            'Sweden',
+            'Sverige'
+        ];
+
+        $location = mb_strtolower($location);
+        foreach ($countries as $country) {
+            $name = mb_strtolower($country);
+            $location = mb_ereg_replace($name, '', $location);
+        }
+
+        return $location;
     }
 
     /**
@@ -215,11 +240,11 @@ class Util
         $currentLocation = trans('home.search.current_location');
 
         if (!empty($location) && $location !== $currentLocation) {
-            try {
+            // try {
                 list($lat, $lng) = self::geocoder($location);
-            } catch (Exception $ex) {
-                Log::error('Cannot geodecode '.$location);
-            }
+            // } catch (Exception $ex) {
+            //     Log::error('Cannot geodecode '.$location);
+            // }
         } elseif ($lat && $lng) {
             Session::set('lat', $lat);
             Session::set('lng', $lng);
