@@ -153,6 +153,8 @@ class Util
             throw new InvalidArgumentException('A location must be provided to be geo-located');
         }
 
+        $location = sprintf("%s, %s", $location, self::getCountryOfInstance());
+
         // I don't want to have whitespaces and/or other special characters as
         // cache key
         $key = 'geocoder.'.md5($location);
@@ -160,8 +162,6 @@ class Util
         if (!empty($pair)) {
             return $pair;
         }
-
-        $location = sprintf("%s %s", $location, self::getCountryOfInstance());
 
         try {
             $geocode = Geocoder::geocode($location);
