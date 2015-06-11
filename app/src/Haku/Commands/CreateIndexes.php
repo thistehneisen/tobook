@@ -1,7 +1,9 @@
 <?php namespace App\Haku\Commands;
 
-use Illuminate\Console\Command;
 use App;
+use App\Core\Models\Business;
+use App\Haku\Indexers\BusinessIndexer;
+use Illuminate\Console\Command;
 
 class CreateIndexes extends Command
 {
@@ -52,14 +54,27 @@ class CreateIndexes extends Command
                             'analyzer' => $this->getAnalyzer(),
                             'tokenizer' => $this->getTokenizer(),
                         ],
-                        'mappings' => $this->getMapping($indexer::getMapping()),
-                    ]
+                    ],
+                    'mappings' => [
+                        $indexer::INDEX_TYPE => $this->getMapping($indexer::getMapping())
+                    ],
                 ],
             ];
 
             $this->client->indices()->create($params);
             $this->info('Index ['.$indexer::INDEX_NAME.'] created.');
         }
+
+        $this->line('Indexing business data');
+        $businesses = Business::notHidden()->get();
+        foreach ($businesses as $business) {
+            $indexer = new BusinessIndexer($business);
+            $indexer->index();
+
+            $this->output->write('.');
+        }
+
+        $this->line('');
     }
 
     protected function getAnalyzer()
