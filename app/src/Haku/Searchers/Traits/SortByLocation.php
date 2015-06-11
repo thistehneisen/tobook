@@ -10,13 +10,16 @@ trait SortByLocation
         }
 
         $location = array_map('doubleval', $this->params['location']);
+        list($lat, $lng) = $location;
 
         return [
             '_geo_distance' => [
                 'unit' => 'km',
                 'mode' => 'min',
-                'order' => 'asc',
-                'location' => $location,
+                'location' => [
+                    'lat' => $lat,
+                    'lon' => $lng,
+                ],
                 'distance_type' => 'sloppy_arc',
             ],
         ];
