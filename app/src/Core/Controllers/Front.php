@@ -165,7 +165,8 @@ class Front extends Base
     public function category($id, $slug)
     {
         // Get the correct model based on first URL segment
-        $model = strpos(Request::path(), 'categories') !== false
+        $isMasterCategory = strpos(Request::path(), 'categories') !== false;
+        $model = $isMasterCategory
             ? '\App\Appointment\Models\MasterCategory'
             : '\App\Appointment\Models\TreatmentType';
 
@@ -180,11 +181,13 @@ class Front extends Base
                 'location' => $location,
             ]);
         } else {
+            $keyword = $isMasterCategory ? 'mc_'.$id : 'tm_'.$id;
             $s = new BusinessesByCategory([
-                'keyword' => $instance->name,
+                'keyword' => $keyword,
                 'location' => $location,
             ]);
         }
+
         $paginator = $s->search();
 
         // Extract list of businesses

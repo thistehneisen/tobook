@@ -25,9 +25,9 @@ class BusinessIndexer extends AbstractIndexer
 
     public function getBody()
     {
-        $categories       = [];
+        $keywords = [];
+        $categories = [];
         $masterCategories = [];
-        $keywords         = [];
 
         $document = $this->getDocument();
 
@@ -38,11 +38,11 @@ class BusinessIndexer extends AbstractIndexer
 
         foreach ($document->user->asServices as $asService) {
             if (!empty($asService->masterCategory->id)) {
-                $masterCategories[] = $asService->masterCategory->getAllMultilingualAttributes();
+                $masterCategories['mc_'.$asService->masterCategory->id] = true;
             }
 
             if (!empty($asService->treatmentType->id)) {
-                $masterCategories[] = $asService->treatmentType->getAllMultilingualAttributes();
+                $masterCategories['tm_'.$asService->treatmentType->id] = true;
             }
         }
 
@@ -50,7 +50,7 @@ class BusinessIndexer extends AbstractIndexer
             // Filter exists only works with null value, so let it be null
             'name'              => $document->name,
             'categories'        => $categories,
-            'master_categories' => $masterCategories,
+            'master_categories' => array_keys($masterCategories),
             'keywords'          => $keywords,
             'address'           => $document->address ?: '',
             'district'          => $document->district ?: '',
@@ -71,7 +71,7 @@ class BusinessIndexer extends AbstractIndexer
         return [
             'name'              => ['type' => 'string'],
             'categories'        => ['type' => 'string', 'index_name' => 'category'],
-            'master_categories' => ['type' => 'string', 'index_name' => 'master_category'],
+            'master_categories' => ['type' => 'string', 'index_name' => 'master_category', 'analyzer' => 'standard'],
             'keywords'          => ['type' => 'string', 'index_name' => 'keyword'],
             'address'           => ['type' => 'string'],
             'district'          => ['type' => 'string'],
