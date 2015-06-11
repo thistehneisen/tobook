@@ -98,7 +98,7 @@ $(function () {
                     @if ($cart && $cart->isEmpty() === false)
                         <div class="text-center">
                         @foreach ($business->payment_options as $option)
-                            <button id="btn-payment-{{ $option }}" type="submit" name="submit" class="btn btn-lg btn-success text-uppercase comfortaa" value="{{ $option }}">{{ trans('home.cart.pay_'.$option) }} <i class="fa fa-check-circle"></i></button>
+                            <button id="btn-payment-{{ $option }}" type="submit" name="submit" class="btn btn-default btn-success text-uppercase comfortaa" value="{{ $option }}">{{ trans('home.cart.pay_'.$option) }} <i class="fa fa-check-circle"></i></button>
                         @endforeach
                         </div>
                     @endif
