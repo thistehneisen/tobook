@@ -34,7 +34,7 @@ class DeleteIndexes extends Command
     public function fire()
     {
         $this->client = App::make('elasticsearch');
-        if ($this->confirm('This will delete all indexes in the system. Continue? [yes|no]')) {
+        if ($this->confirm('This will delete all indexes in ElasticSearch. Continue? [yes|no]')) {
             $this->client->indices()->delete(['index' => '_all']);
         }
     }
