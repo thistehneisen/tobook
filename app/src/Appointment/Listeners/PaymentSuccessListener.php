@@ -1,5 +1,6 @@
 <?php namespace App\Appointment\Listeners;
-
+use Event;
+use Log;
 use Cart;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Booking;
