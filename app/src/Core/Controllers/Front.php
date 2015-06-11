@@ -166,10 +166,11 @@ class Front extends Base
     {
         // Get the correct model based on first URL segment
         $isMasterCategory = strpos(Request::path(), 'categories') !== false;
+        $categoryKeyword = $isMasterCategory ? 'mc_'.$id : 'tm_'.$id;
+
         $model = $isMasterCategory
             ? '\App\Appointment\Models\MasterCategory'
             : '\App\Appointment\Models\TreatmentType';
-
         $instance = $model::findOrFail($id);
 
         $searchType = Input::get('type');
@@ -177,13 +178,12 @@ class Front extends Base
         if (!empty($searchType) && $searchType === 'district') {
             $s = new BusinessesByDistrict([
                 'keyword' => Input::get('location'),
-                'category' => $instance->name,
+                'category' => $categoryKeyword,
                 'location' => $location,
             ]);
         } else {
-            $keyword = $isMasterCategory ? 'mc_'.$id : 'tm_'.$id;
             $s = new BusinessesByCategory([
-                'keyword' => $keyword,
+                'keyword' => $categoryKeyword,
                 'location' => $location,
             ]);
         }
