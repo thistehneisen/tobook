@@ -3,6 +3,8 @@
 use Cart;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\Observer\EmailObserver;
+use App\Appointment\Models\Observer\SmsObserver;
 
 class PaymentSuccessListener
 {
@@ -43,6 +45,16 @@ class PaymentSuccessListener
                 }
 
                 $item->booking->save();
+                 //Send notification email and SMSs
+                try {
+                    $item->booking->attach(new EmailObserver());
+                    $item->booking->attach(new SmsObserver());
+                    $item->booking->notify();
+                    //Send calendar invitation to employee
+                    Event::fire('employee.calendar.invitation.send', [$item->booking]);
+                } catch (\Exception $ex) {
+                    Log::warning('Could not send sms or email:' . $ex->getMessage());
+                }
             }
         }
 
