@@ -53,7 +53,7 @@ class BusinessIndexer extends AbstractIndexer
             'master_categories' => $masterCategories,
             'keywords'          => $keywords,
             'address'           => $document->address ?: '',
-            'district'          => $document->district ?: 'Oulu',
+            'district'          => $document->district ?: '',
             'postcode'          => $document->postcode ?: '',
             'city'              => $document->city ?: '',
             'country'           => $document->country ?: '',

@@ -8,6 +8,7 @@ use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
 use App\FlashDeal\Models\FlashDeal;
 use App\Haku\Searchers\BusinessesByDistrict;
+use App\Haku\Searchers\BusinessesByCategory;
 use Illuminate\Support\Collection;
 use Input;
 use Request;
@@ -171,18 +172,20 @@ class Front extends Base
         $instance = $model::findOrFail($id);
 
         $searchType = Input::get('type');
+        $location = Util::getCoordinates();
         if (!empty($searchType) && $searchType === 'district') {
             $s = new BusinessesByDistrict([
                 'keyword' => Input::get('location'),
                 'category' => $instance->name,
-                'location' => Util::getCoordinates(),
+                'location' => $location,
             ]);
-            $paginator = $s->search();
         } else {
-            $paginator = Business::parentSearch('', $instance, [
-                'isSearchByLocation' => true,
+            $s = new BusinessesByCategory([
+                'keyword' => $instance->name,
+                'location' => $location,
             ]);
         }
+        $paginator = $s->search();
 
         // Extract list of businesses
         $items = $paginator->getCollection();

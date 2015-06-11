@@ -9,12 +9,14 @@ trait SortByLocation
             return new \sdtClass();
         }
 
+        $location = array_map('doubleval', $this->params['location']);
+
         return [
             '_geo_distance' => [
                 'unit' => 'km',
                 'mode' => 'min',
-                'order' => 'desc',
-                'location' => $this->params['location'],
+                'order' => 'asc',
+                'location' => $location,
                 'distance_type' => 'sloppy_arc',
             ],
         ];
