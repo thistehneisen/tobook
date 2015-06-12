@@ -24,7 +24,7 @@
             {{ Form::errorText('account', $errors) }}
         </div>
     </div>
-
+@if (Confide::user()->is_admin || Session::has('stealthMode'))
     <div class="form-group">
         {{ Form::label('payment_options', trans('user.payment_options.index'), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
         <div class="col-sm-6">
@@ -39,7 +39,6 @@
             </div>
         </div>
     </div>
-
     <div class="form-group {{ Form::errorCSS('deposit_rate', $errors) }} soft-hidden" id="js-deposit-rate">
         {{ Form::label('deposit_rate', trans('user.payment_options.rate'), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
         <div class="col-sm-6">
@@ -47,6 +46,7 @@
             {{ Form::errorText('deposit_rate', $errors) }}
         </div>
     </div>
+@endif
 
 @if ($consumer)
 @foreach (['first_name', 'last_name', 'phone', 'address', 'city', 'postcode', 'country'] as $field)
