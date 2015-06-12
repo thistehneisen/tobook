@@ -2,6 +2,7 @@
 
 use App\Core\Models\Business;
 use InvalidArgumentException;
+use Log;
 
 class BusinessIndexer extends AbstractIndexer
 {
@@ -109,6 +110,7 @@ class BusinessIndexer extends AbstractIndexer
         }
 
         // Otherwise, just index as normal
+        Log::info('Index business', ['id' => $this->getId()]);
         parent::index();
     }
 }

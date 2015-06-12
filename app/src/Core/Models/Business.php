@@ -108,8 +108,7 @@ class Business extends Base
         });
 
         static::saved(function ($model) {
-            $i = new BusinessIndexer($model);
-            $i->index();
+            $model->updateIndex();
         });
 
         static::deleted(function ($model) {
@@ -118,8 +117,7 @@ class Business extends Base
         });
 
         static::restored(function ($model) {
-            $i = new BusinessIndexer($model);
-            $i->index();
+            $model->updateIndex();
         });
     }
 
@@ -982,14 +980,14 @@ class Business extends Base
         return $provider->index($params);
     }
 
-    public function deleteOldIndex($searchIndexName = null)
+    /**
+     * Update ES index of this business
+     *
+     * @return void
+     */
+    public function updateIndex()
     {
-        $provider = App::make('App\Search\ProviderInterface');
-
-        $deleteParam['index'] = (!empty($searchIndexName)) ? $searchIndexName : $this->getSearchIndexName();
-        $deleteParam['type']  = (!empty($searchIndexName)) ? str_singular($searchIndexName) : $this->getSearchIndexType();
-        $deleteParam['id']    = $this->getSearchDocumentId();
-        //delete before create new index
-        $provider->delete($deleteParam);
+        $indexer = new BusinessIndexer($this);
+        $indexer->index();
     }
 }
