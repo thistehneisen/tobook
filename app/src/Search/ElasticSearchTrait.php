@@ -24,20 +24,20 @@ trait ElasticSearchTrait
             return;
         }
 
-        // Send data of this model to ES for indexing
-        static::saved(function ($model) {
-            $model->updateSearchIndex();
-        });
+        // // Send data of this model to ES for indexing
+        // static::saved(function ($model) {
+        //     $model->updateSearchIndex();
+        // });
 
-        // Remove the document index when the model was deleted
-        static::deleted(function ($model) {
-            $model->deleteSearchIndex();
-        });
+        // // Remove the document index when the model was deleted
+        // static::deleted(function ($model) {
+        //     $model->deleteSearchIndex();
+        // });
 
-        // When a trashed model is restored, update its index
-        static::restored(function ($model) {
-            $model->updateSearchIndex();
-        });
+        // // When a trashed model is restored, update its index
+        // static::restored(function ($model) {
+        //     $model->updateSearchIndex();
+        // });
     }
 
     /**

@@ -146,7 +146,9 @@ class Util
      */
     public static function geocoder($location)
     {
-
+        if (\App::environment() === 'local') {
+            return;
+        }
         $location = trim($location);
         //Remove all country part before append default country
         $location = self::cleanupCountryName($location);

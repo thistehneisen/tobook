@@ -35,3 +35,6 @@ Artisan::add(new App\Search\Commands\BuildSearchIndecesCommand());
 Artisan::add(new App\Consumers\Commands\MergeComsumersCommand());
 
 Artisan::add(new App\LoyaltyCard\Commands\MoveLcCommand());
+
+Artisan::add(new App\Haku\Commands\DeleteIndexes());
+Artisan::add(new App\Haku\Commands\CreateIndexes());

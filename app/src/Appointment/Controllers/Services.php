@@ -1,21 +1,26 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Request, Input, Config, DB;
-use Carbon\Carbon;
+use App;
+use App\Appointment\Models\Booking;
+use App\Appointment\Models\Employee;
+use App\Appointment\Models\EmployeeService;
+use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\MasterCategory;
+use App\Appointment\Models\Resource;
+use App\Appointment\Models\ResourceService;
+use App\Appointment\Models\Room;
 use App\Appointment\Models\Service;
-use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ServiceExtraService;
-use App\Appointment\Models\ExtraService;
-use App\Appointment\Models\Booking;
-use App\Appointment\Models\Resource;
-use App\Appointment\Models\Room;
-use App\Appointment\Models\ResourceService;
-use App\Appointment\Models\EmployeeService;
-use App\Appointment\Models\Employee;
-use App\Appointment\Models\MasterCategory;
+use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\TreatmentType;
-use App\Core\Models\Multilanguage;
+use Carbon\Carbon;
+use Config;
+use DB;
+use Input;
+use Redirect;
+use Request;
+use View;
 
 class Services extends AsBase
 {
@@ -87,7 +92,7 @@ class Services extends AsBase
      */
     public function upsertHandler($service)
     {
-        try{
+        try {
             $names = Input::get('names');
             $descriptions = Input::get('descriptions');
 
@@ -110,29 +115,19 @@ class Services extends AsBase
                 $service->category()->associate($category);
             }
 
-            if(!empty($masterCategoryId) && $masterCategoryId > 0) {
-                 //Delete old index
-                if(!empty($service->masterCategory->id)) {
-                    $this->user->business->deleteOldIndex($service->masterCategory->getParentSearchIndexName());
-                }
-
+            if (!empty($masterCategoryId) && $masterCategoryId > 0) {
                 $masterCategory = MasterCategory::find($masterCategoryId);
                 $service->masterCategory()->associate($masterCategory);
-                $this->user->business->updateSearchIndex($masterCategory->getParentSearchIndexName());
+                $this->user->business->updateIndex();
             } else {
                 //Don't know why cannot use detatch method here, fix later
                 $service->master_category_id = null;
             }
 
-            if(!empty($treatmentTypeId) && $treatmentTypeId > 0) {
-                //Delete old index
-                if(!empty($service->treatmentType->id)) {
-                    $this->user->business->deleteOldIndex($service->treatmentType->getParentSearchIndexName());
-                }
-
+            if (!empty($treatmentTypeId) && $treatmentTypeId > 0) {
                 $treatmentType = TreatmentType::find($treatmentTypeId);
                 $service->treatmentType()->associate($treatmentType);
-                $this->user->business->updateSearchIndex($treatmentType->getParentSearchIndexName());
+                $this->user->business->updateIndex();
             } else {
                 //Don't know why cannot use detatch method here, fix later
                 $service->treatment_type_id = null;
@@ -170,7 +165,7 @@ class Services extends AsBase
 
             foreach ($extraServices as $extraServiceId) {
                 $extraService = ExtraService::find($extraServiceId);
-                $serviceExtraService = new ServiceExtraService;
+                $serviceExtraService = new ServiceExtraService();
                 $serviceExtraService->service()->associate($service);
                 $serviceExtraService->extraService()->associate($extraService);
                 $serviceExtraService->save();
@@ -183,16 +178,17 @@ class Services extends AsBase
 
             foreach ($resources as $resourceId) {
                 $resource = Resource::find($resourceId);
-                $resourceService = new ResourceService;
+                $resourceService = new ResourceService();
                 $resourceService->service()->associate($service);
                 $resourceService->resource()->associate($resource);
                 $resourceService->save();
             }
             Room::associateWithService($rooms, $service);
 
-        } catch(\Watson\Validating\ValidationException $ex) {
+        } catch (\Watson\Validating\ValidationException $ex) {
            throw $ex;
         }
+
         return $service;
     }
 
@@ -208,6 +204,7 @@ class Services extends AsBase
         if (!$service->isDeletable()) {
             //if there are bookings, redirect back
             $errors = $this->errorMessageBag(trans('as.services.error.service_current_in_use'));
+
             return Redirect::route(static::$crudRoutes['index'])
                 ->withInput()->withErrors($errors, 'top');
         }
@@ -232,7 +229,7 @@ class Services extends AsBase
     public function customTime($serviceId)
     {
         $perPage      = (int) Input::get('perPage', Config::get('view.perPage'));
-        $fields       = with(new ServiceTime)->fillable;
+        $fields       = with(new ServiceTime())->fillable;
         $service      = Service::ofCurrentUser()->find($serviceId);
         $serviceTimes = ServiceTime::where('service_id', $serviceId)
             ->orderBy('id', 'desc')
