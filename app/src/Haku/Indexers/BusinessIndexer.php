@@ -74,7 +74,7 @@ class BusinessIndexer extends AbstractIndexer
             'master_categories' => ['type' => 'string', 'index_name' => 'master_category', 'analyzer' => 'standard'],
             'keywords'          => ['type' => 'string', 'index_name' => 'keyword'],
             'address'           => ['type' => 'string'],
-            'district'          => ['type' => 'string'],
+            'district'          => ['type' => 'string', 'analyzer' => 'standard'],
             'postcode'          => ['type' => 'string'],
             'city'              => ['type' => 'string'],
             'country'           => ['type' => 'string'],

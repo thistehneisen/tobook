@@ -12,6 +12,10 @@ trait SortByLocation
         $location = array_map('doubleval', $this->params['location']);
         list($lat, $lng) = $location;
 
+        if ($lat === 0.0 && $lng === 0.0) {
+            return ['_score'];
+        }
+
         return [
             '_geo_distance' => [
                 'unit' => 'km',
