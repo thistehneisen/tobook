@@ -1,5 +1,5 @@
 from fabric.api import cd, run, local, task, hosts, env, settings
-from fabric.colors import red
+from fabric.colors import red, blue
 from fabric import utils
 import os
 import subprocess
@@ -34,7 +34,8 @@ def _deploy(environment, host):
             #-------------------------------------------------------------------
             # These commands are run once and will be removed in next release
             #-------------------------------------------------------------------
-            print(red('Release notes:'))
+            print(red('Release notes:', True))
+            print(blue('Delete ES business indexes and rebuild using Haku'))
             #-------------------------------------------------------------------
             # restart supervisor processes
             run('supervisorctl restart all')
