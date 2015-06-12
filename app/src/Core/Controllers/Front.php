@@ -173,19 +173,22 @@ class Front extends Base
             : '\App\Appointment\Models\TreatmentType';
         $instance = $model::findOrFail($id);
 
+        $perPage = 15;
+        $params = [
+            'location' => Util::getCoordinates(),
+            'from' => (Input::get('page', 1) - 1) * $perPage,
+            'size' => $perPage
+        ];
         $searchType = Input::get('type');
-        $location = Util::getCoordinates();
         if (!empty($searchType) && $searchType === 'district') {
-            $s = new BusinessesByDistrict([
-                'keyword' => Input::get('location'),
-                'category' => $categoryKeyword,
-                'location' => $location,
-            ]);
+            $params['keyword'] = Input::get('location');
+            $params['category'] = $categoryKeyword;
+
+            $s = new BusinessesByDistrict($params);
         } else {
-            $s = new BusinessesByCategory([
-                'keyword' => $categoryKeyword,
-                'location' => $location,
-            ]);
+            $params['keyword'] = $categoryKeyword;
+
+            $s = new BusinessesByCategory($params);
         }
 
         $paginator = $s->search();
