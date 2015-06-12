@@ -38,6 +38,7 @@ class BuildSearchIndecesCommand extends Command
         $this->client = new Client();
 
         $default = [
+            'App\Core\Models\User',
             'App\Core\Models\Business',
         ];
 
