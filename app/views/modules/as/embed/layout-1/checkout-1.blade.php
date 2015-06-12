@@ -83,7 +83,7 @@
     <div class="form-group row">
         <div class="col-sm-6"><a href="{{ route('as.embed.embed', ['hash' => $hash]) }}" class="btn btn-default">{{ trans('common.cancel') }}</a></div>
         <div class="col-sm-6">
-            <button type="submit" class="btn btn-success pull-right">{{ trans('as.bookings.confirm_booking') }}</button>
+            <button type="submit" id="btn-submit-confirm-booking" class="btn btn-success pull-right">{{ trans('as.bookings.confirm_booking') }}</button>
         </div>
     </div>
     </form>
