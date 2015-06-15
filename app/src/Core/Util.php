@@ -13,9 +13,7 @@ use InvalidArgumentException;
 use Log;
 use Request;
 use Session;
-use Settings;
 use Str;
-
 /**
  * Providing a set of utility functions
  */
@@ -95,6 +93,21 @@ class Util
     public static function getHtmlListError(\Watson\Validating\ValidationException $ex)
     {
         return '<ul>'.implode('', $ex->getErrors()->all('<li>:message</li>')).'</ul>';
+    }
+
+    /**
+     * Get MessageBag errors as a HTML list
+     *
+     * @return string
+     */
+    public static function getHtmlListMessageBagError(\Illuminate\Support\MessageBag $messageBag)
+    {
+        $message = "<ul>";
+        foreach ($messageBag->toArray() as $key => $value) {
+            $message .= sprintf("<li>%s</li>", $value[0]);
+        }
+        $message .= "</ul>";
+        return $message;
     }
 
     /**

@@ -1,12 +1,14 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, Confide, Util, Hashids;
+use App, Confide, Util, Hashids, Input, Validator;
 use App\Core\Models\User;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\NAT\CalendarKeeper;
 
 class AsBase extends \App\Core\Controllers\Base
 {
+    use App\Appointment\Controllers\Embed\Layout;
+
     public function __construct()
     {
         parent::__construct();
