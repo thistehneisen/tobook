@@ -52,6 +52,8 @@ def deploy(instance=''):
         'stag': '46.101.49.100',
         'prod': '178.62.37.23',
         'clearbooking': '178.62.52.193',
+        # New server for tobook, old one will die very soon
+        # 'tobook': '178.62.41.125',
         'tobook': '188.166.43.60',
         'yellowpage': '178.62.123.243'
     }

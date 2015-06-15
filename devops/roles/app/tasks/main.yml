@@ -6,11 +6,11 @@
 #  git: repo={{ repository }} dest={{ webapps_dir }}/{{ app_name }}/src accept_hostkey=yes
 
 - name: chmod storage folder
-  shell: chmod -Rf 777 {{ webapps_dir }}/{{ app_name }}/src/app/storage
+  file: group=www-data owner=www-data recurse=yes path={{ webapps_dir }}/{{ app_name }}/src/app/storage
   tags: templated_settings
 
 - name: chown tmp folder
-  shell: chown www-data {{ webapps_dir }}/{{ app_name }}/src/public/tmp
+  file: group=www-data owner=www-data state=directory recurse=yes path={{ webapps_dir }}/{{ app_name }}/src/public/tmp
   tags: templated_settings
 
 - include: sync_settings.yml
