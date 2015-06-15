@@ -19,6 +19,7 @@ use Log;
 use Request;
 use Response;
 use Util;
+use Validator;
 
 class FrontBookings extends Bookings
 {
@@ -93,6 +94,14 @@ class FrontBookings extends Bookings
 
     public function addFrontEndBooking()
     {
+        //Validate the consumer info before adding booking
+        $validation = $this->getConfirmationValidator();
+        if ( $validation->fails() ) {
+            $data['success'] = false;
+            $data['message'] = Util::getHtmlListMessageBagError($validation->messages());
+            return Response::json($data, 500);
+        }
+
         try {
             $hash                = Input::get('hash');
             $cartId              = Input::get('cart_id');
