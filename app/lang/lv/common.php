@@ -104,6 +104,7 @@ return [
     'discount'              => 'Atlaide',
     'book'                  => 'Rezervēt',
     'submit'                => 'Iesniegt',
+    'history'               => 'Arhīvs',
     'short' => [
         'week'  => 'nedēļa',
         'hour'  => 'stunda',
