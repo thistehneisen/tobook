@@ -253,6 +253,11 @@ Route::group([
             'as' => 'as.bookings.add',
             'uses' => 'App\Appointment\Controllers\Bookings@upsertBooking'
         ]);
+
+        Route::get('ajax/booking-history', [
+            'as' => 'bookings.history',
+            'uses' => 'App\Appointment\Controllers\Ajax\Bookings@getHistory',
+        ]);
     });
 
     Route::group([

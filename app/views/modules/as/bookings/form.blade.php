@@ -87,6 +87,13 @@
                                     </label>
                                 </div>
                             </div>
+                            @if(!empty($booking->consumer->id))
+                            <div class="form-group row">
+                                <div class="col-sm-offset-4 col-sm-8">
+                                    <a class="js-showHistory" href="{{ route('bookings.history') }}" data-consumerid="{{$booking->consumer->id}}" data-service="as">{{ trans('common.history')}}</a>
+                                </div>
+                            </div>
+                            @endif
                         </div>
                     </div>
                     <!-- endrow -->
@@ -325,6 +332,22 @@
 </form>
 </div>
 <input type="hidden" value="" id="consumer_data"/>
+<!-- History Modal Dialog -->
+<div class="modal" id="js-historyModal" role="dialog" aria-labelledby="js-historyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{ trans('History') }}</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('OK') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
 @if(!isset($upsert))
     @include ('modules.as.bookings.formScript')
 @endif
