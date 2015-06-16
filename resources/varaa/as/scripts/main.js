@@ -575,5 +575,24 @@
                 // console.log($(item).offset().left);
             });
         });
+        //@see resources/varaa/co/scripts/main.coffee
+        $doc.on('click', 'a.js-showHistory', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            $.ajax({
+                type: 'GET',
+                url: $this.prop('href'),
+                data: {
+                    id : $this.data('consumerid'),
+                    service: $this.data('service')
+                },
+                dataType: 'html'
+            }).done(function (data) {
+                console.log(data);
+                $('#js-historyModal').find('.modal-body').html(data);
+                $('#js-historyModal').modal('show');
+            });
+            return false;
+        });
     });
 }(jQuery));
