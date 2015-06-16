@@ -107,6 +107,7 @@ return [
     'submit'                => 'Submit',
     'accept'                => 'Accept',
     'decline'               => 'Decline',
+    'history'               => 'History',
     'short' => [
         'week'  => 'week',
         'hour'  => 'hr',
