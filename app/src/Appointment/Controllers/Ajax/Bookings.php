@@ -131,7 +131,7 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
             ->distinct()
             ->orderBy('as_bookings.date', 'DESC');
 
-        $perPage = Config::get('view.perPage');
+        $perPage = 10;
         $items  = $history->paginate($perPage);
 
         return View::make('modules.as.bookings.history', [
