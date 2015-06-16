@@ -3,6 +3,7 @@
 use App, View, Confide, Redirect, Input, Config, NAT, Closure;
 use App\Lomake\FieldFactory;
 use App\Appointment\Models\Option;
+use Illuminate\Support\MessageBag;
 
 class Options extends AsBase
 {
@@ -114,6 +115,25 @@ class Options extends AsBase
         // Check if the current value was changed
         $new = Input::get('working_time');
         $old = $this->user->as_options->get('working_time');
+
+        //Prevent user input crazy data.
+        $invalidData = [];
+        foreach ($new as $weekday) {
+            foreach ($weekday as $key => $value) {
+                $dateTimeObj1 = \DateTime::createFromFormat('d.m.Y H:i:s', '1.1.1970 ' . $value);
+                $dateTimeObj2 = \DateTime::createFromFormat('d.m.Y H:i', '1.1.1970 ' . $value);
+                if($dateTimeObj1 === false && $dateTimeObj2 === false) {
+                    $invalidData[] = $value;
+                }
+            }
+        }
+
+        if(!empty($invalidData)) {
+            $errors = $this->errorMessageBag([trans('as.options.invalid_data')]);
+
+            return Redirect::back()->withInput()->withErrors($errors, 'top');
+        }
+
         if ($old !== $new) {
             // We need to check if there's already a record in database
             $option = $this->user->asOptions()

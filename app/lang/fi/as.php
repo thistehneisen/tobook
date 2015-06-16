@@ -291,6 +291,7 @@ return [
     'options' => [
         'heading' => 'Asetukset',
         'updated' => 'Asetukset päivitetty onnistuneesti!',
+        'invalid_data' => 'Invalid input data',
         'general' => [
             'index'           => 'Yleinen',
             'heading'         => 'Yleisasetukset',
