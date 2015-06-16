@@ -588,7 +588,6 @@
                 },
                 dataType: 'html'
             }).done(function (data) {
-                console.log(data);
                 $('#js-historyModal').find('.modal-body').html(data);
                 $('#js-historyModal').modal('show');
             });

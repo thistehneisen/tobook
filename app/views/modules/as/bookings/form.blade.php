@@ -90,7 +90,7 @@
                             @if(!empty($booking->consumer->id))
                             <div class="form-group row">
                                 <div class="col-sm-offset-4 col-sm-8">
-                                    <a class="js-showHistory" href="http://varaa.dev/en/consumer-hub/history" data-consumerid="{{$booking->consumer->id}}" data-service="as">{{ trans('common.history')}}</a>
+                                    <a class="js-showHistory" href="{{ route('bookings.history') }}" data-consumerid="{{$booking->consumer->id}}" data-service="as">{{ trans('common.history')}}</a>
                                 </div>
                             </div>
                             @endif
@@ -333,7 +333,7 @@
 </div>
 <input type="hidden" value="" id="consumer_data"/>
 <!-- History Modal Dialog -->
-<div class="modal fade" id="js-historyModal" role="dialog" aria-labelledby="js-historyModalLabel" aria-hidden="true">
+<div class="modal" id="js-historyModal" role="dialog" aria-labelledby="js-historyModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
