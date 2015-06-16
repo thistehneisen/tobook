@@ -292,6 +292,7 @@ return [
      'options' => [
         'heading' => 'Options',
         'updated' => 'Options updated',
+        'invalid_data' => 'Invalid input data',
         'general' => [
             'index'           => 'General',
             'heading'         => 'General options',
