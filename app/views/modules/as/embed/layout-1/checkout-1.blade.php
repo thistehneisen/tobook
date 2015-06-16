@@ -14,7 +14,7 @@
                 <div class="col-sm-10"> {{ Form::text('first_name', (isset($booking_info['first_name'])) ? $booking_info['first_name'] : ''  , ['class' => 'form-control input-sm', 'id' => 'first_name']) }}</div>
             </div>
             <div class="form-group row">
-                <div class="col-sm-2">{{ trans('as.bookings.last_name') }}</div>
+                <div class="col-sm-2">{{ trans('as.bookings.last_name') }} (*)</div>
                 <div class="col-sm-10"> {{ Form::text('last_name', (isset($booking_info['last_name'])) ? $booking_info['last_name'] : ''  , ['class' => 'form-control input-sm', 'id' => 'last_name']) }}</div>
             </div>
             @if((int)$user->asOptions['email'] >= 2)
