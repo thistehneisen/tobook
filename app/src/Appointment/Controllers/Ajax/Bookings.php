@@ -12,6 +12,8 @@ use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Reception\Rescheduler;
 use Carbon\Carbon;
+use DB;
+use Confide;
 
 class Bookings extends \App\Core\Controllers\Ajax\Base
 {
@@ -109,6 +111,33 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
                 'message' => $ex->getMessage()
             ]);
         }
+    }
+
+    /**
+     * Return booking history of specific consumer
+     *
+     * @return View
+     */
+    public function getHistory()
+    {
+        $consumerId = Input::get('id');
+        $page = Input::get('page');
+
+        $history = Booking::ofCurrentUser()
+            ->join('as_booking_services', 'as_bookings.id', '=', 'as_booking_services.booking_id')
+            ->join('as_services', 'as_booking_services.service_id', '=', 'as_services.id')
+            ->where('as_bookings.consumer_id', $consumerId)
+            ->select('as_bookings.id', 'as_bookings.uuid', 'as_booking_services.date', 'as_bookings.start_at', 'as_bookings.end_at', 'as_services.name', 'as_bookings.notes', 'as_bookings.created_at')
+            ->distinct()
+            ->orderBy('as_bookings.date', 'DESC');
+
+        $perPage = 5;
+        $items  = $history->paginate($perPage);
+
+        return View::make('modules.as.bookings.history', [
+            'consumer_id' => $consumerId,
+            'history'     => $items,
+        ]);
     }
 
 }
