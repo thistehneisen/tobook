@@ -12,7 +12,7 @@
             showBookingServiceResult,
             fixedCalendarHeader;
 
-        $('.customer-tooltip').tooltip({
+        $('.backend-tooltip').tooltip({
             selector: '',
             placement: 'top',
             container: 'body',
