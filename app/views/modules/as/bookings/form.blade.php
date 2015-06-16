@@ -90,7 +90,7 @@
                             @if(!empty($booking->consumer->id))
                             <div class="form-group row">
                                 <div class="col-sm-offset-4 col-sm-8">
-                                    <a class="js-showHistory" href="{{ route('bookings.history') }}" data-consumerid="{{$booking->consumer->id}}" data-service="as">{{ trans('common.history')}}</a>
+                                    <a class="js-showHistory btn btn-primary" href="{{ route('bookings.history') }}" data-consumerid="{{$booking->consumer->id}}" data-service="as">{{ trans('common.history')}}</a>
                                 </div>
                             </div>
                             @endif
