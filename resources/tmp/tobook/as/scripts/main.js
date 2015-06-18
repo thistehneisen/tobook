@@ -593,5 +593,12 @@
             });
             return false;
         });
+
+        $doc.keyup(function(e) {
+          if (e.keyCode == 27) {
+            $('.modal-backdrop').remove();
+          }
+        });
+
     });
 }(jQuery));
