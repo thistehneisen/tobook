@@ -6,6 +6,7 @@ use App\Lomake\FieldFactory;
 use Config;
 use Input;
 use Redirect;
+use Settings as SettingsModel;
 use App\Core\Models\Multilanguage;
 
 class Settings extends Base
@@ -79,9 +80,7 @@ class Settings extends Base
         // Get all booking terms in multi-language then create a map for each
         // language
         $text = [];
-        $items = Multilanguage::ofContext('settings')
-            ->ofKey('booking_terms')
-            ->get();
+        $items = SettingsModel::getBookingTerms();
         foreach ($items as $item) {
             $text[$item->lang] = $item->value;
         }

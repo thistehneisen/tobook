@@ -10,7 +10,8 @@
     <style>
         #js-terms {
             max-height: 400px;
-            overflow: scroll;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
         .alertify .ajs-body .ajs-content {
             padding: 5px 0px;
@@ -29,7 +30,7 @@ $(function () {
         alertify.confirm()
             .set('title', '{{ trans('common.notice') }}')
             .set('message', dom)
-            .set('onok', function(){
+            .set('onok', function () {
                 $('#confirm-consumer').submit();
             }).set('labels', {ok:'{{ trans('common.accept') }}', cancel:'{{ trans('common.decline') }}'})
             .show();
@@ -70,7 +71,7 @@ $(function () {
                 </div>
             </div>
         {{ Form::close() }}
-        <div id="js-terms" class="soft-hidden">{{ Settings::get('booking_terms')}}</div>
+        <div id="js-terms" class="soft-hidden">{{ $terms }}</div>
     </div>
 </div>
 @stop
