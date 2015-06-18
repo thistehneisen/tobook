@@ -36,7 +36,8 @@ class Multilanguage extends \Eloquent
     {
         $multilang = Multilanguage::where('lang', '=', $lang)
                 ->where('context','=', $context . $object_id)
-                ->where('key', '=' , $key)->first();
+                ->where('key', '=' , $key)
+                ->first();
 
         if (empty($multilang)) {
             $multilang = new Multilanguage();
@@ -75,6 +76,25 @@ class Multilanguage extends \Eloquent
         foreach ($multilangs as $multilang) {
             $multilang->forceDelete();
         }
+    }
+
+    //--------------------------------------------------------------------------
+    // SCOPES
+    //--------------------------------------------------------------------------
+
+    public function scopeOfLang($q, $lang)
+    {
+        $q->where('lang', $lang);
+    }
+
+    public function scopeOfContext($q, $context)
+    {
+        $q->where('context', $context);
+    }
+
+    public function scopeOfKey($q, $key)
+    {
+        $q->where('key', $key);
     }
 
     //--------------------------------------------------------------------------

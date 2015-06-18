@@ -21,7 +21,7 @@
                 <div class="tab-content">
                 @foreach ($terms as $lang => $term)
                     <div role="tabpanel" class="tab-pane {{ $term->active }}" id="tab-html-multilang-{{ $lang }}">
-                        <textarea name="content[{{ $lang }}]" rows="10" class="form-control">{{ $term->content }}</textarea>
+                        <textarea name="terms[{{ $lang }}]" rows="10" class="form-control">{{ $term->content }}</textarea>
                     </div>
                 @endforeach
                 </div>

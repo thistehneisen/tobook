@@ -79,11 +79,11 @@ class Settings extends Base
         // Get all booking terms in multi-language then create a map for each
         // language
         $text = [];
-        $items = Multilanguage::where('context', 'settings')
-            ->where('key', 'booking_terms')
+        $items = Multilanguage::ofContext('settings')
+            ->ofKey('booking_terms')
             ->get();
         foreach ($items as $item) {
-            $text[$item->lang] = $text->value;
+            $text[$item->lang] = $item->value;
         }
 
         // Make a map to generate textareas
@@ -102,15 +102,25 @@ class Settings extends Base
 
     public function saveBookingTerms()
     {
-         // Don't use CSRF token
-        $input = Input::except('_token');
+        $input = Input::get('terms');
 
-        // Save all input as
-        foreach ($input as $key => $value) {
-            $setting = Setting::findOrNew($key);
-            $setting->key   = $key;
-            $setting->value = $value;
-            $setting->save();
+        foreach ($input as $lang => $content) {
+            $row = Multilanguage::ofContext('settings')
+                ->ofKey('booking_terms')
+                ->ofLang($lang)
+                ->first();
+
+            if ($row === null) {
+                $row = new Multilanguage();
+            }
+
+            $row->fill([
+                'key' => 'booking_terms',
+                'lang' => $lang,
+                'value' => $content,
+                'context' => 'settings',
+            ]);
+            $row->save();
         }
 
         return Redirect::route('admin.booking.terms');
