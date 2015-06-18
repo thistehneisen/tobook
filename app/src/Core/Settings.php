@@ -94,4 +94,27 @@ class Settings
 
         return $query->get();
     }
+
+    public static function saveBookingTerms(array $input)
+    {
+        foreach ($input as $lang => $content) {
+            $row = Multilanguage::ofContext('settings')
+                ->ofKey('booking_terms')
+                ->ofLang($lang)
+                ->first();
+
+            if ($row === null) {
+                $row = new Multilanguage();
+            }
+
+            $row->fill([
+                'key' => 'booking_terms',
+                'lang' => $lang,
+                'value' => $content,
+                'context' => 'settings',
+            ]);
+
+            $row->save();
+        }
+    }
 }

@@ -7,7 +7,6 @@ use Config;
 use Input;
 use Redirect;
 use Settings as SettingsModel;
-use App\Core\Models\Multilanguage;
 
 class Settings extends Base
 {
@@ -102,25 +101,7 @@ class Settings extends Base
     public function saveBookingTerms()
     {
         $input = Input::get('terms');
-
-        foreach ($input as $lang => $content) {
-            $row = Multilanguage::ofContext('settings')
-                ->ofKey('booking_terms')
-                ->ofLang($lang)
-                ->first();
-
-            if ($row === null) {
-                $row = new Multilanguage();
-            }
-
-            $row->fill([
-                'key' => 'booking_terms',
-                'lang' => $lang,
-                'value' => $content,
-                'context' => 'settings',
-            ]);
-            $row->save();
-        }
+        SettingsModel::saveBookingTerms($input);
 
         return Redirect::route('admin.booking.terms');
     }
