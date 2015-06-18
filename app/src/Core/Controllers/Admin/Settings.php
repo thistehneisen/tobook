@@ -1,10 +1,12 @@
 <?php namespace App\Core\Controllers\Admin;
 
+use App;
 use App\Core\Models\Setting;
 use App\Lomake\FieldFactory;
 use Config;
 use Input;
 use Redirect;
+use Settings as SettingsModel;
 
 class Settings extends Base
 {
@@ -63,42 +65,43 @@ class Settings extends Base
         return Redirect::route('admin.settings');
     }
 
+    /**
+     * Show form to edit the booking terms
+     *
+     * @return View
+     */
     public function bookingTerms()
     {
-        $definitions = Config::get('varaa.settings');
-        $controls = [];
+        $terms = [];
+        $languages = Config::get('varaa.languages');
+        $currentLocale = App::getLocale();
 
-        $name = 'booking_terms';
+        // Get all booking terms in multi-language then create a map for each
+        // language
+        $text = [];
+        $items = SettingsModel::getBookingTerms();
+        foreach ($items as $item) {
+            $text[$item->lang] = $item->value;
+        }
 
-        $definitions[$name]['name'] = $name;
-        $definitions[$name]['default'] = isset($definitions[$name]['default'])
-            ? $definitions[$name]['default']
-            : '';
-
-        // Overwrite with settings in database
-        $definitions[$name]['default'] = \Settings::get($name) !== null
-            ? \Settings::get($name)
-            : $definitions[$name]['default'];
-
-        $controls[] = FieldFactory::create($definitions[$name]);
+        // Make a map to generate textareas
+        foreach ($languages as $lang) {
+            $terms[$lang] = (object) [
+                'title' => strtoupper($lang),
+                'active' => $lang === $currentLocale ? 'active' : '',
+                'content' => isset($text[$lang]) ? $text[$lang] : '',
+            ];
+        }
 
         return $this->render('booking-terms', [
-            'controls' => $controls
+            'terms' => $terms,
         ]);
     }
 
     public function saveBookingTerms()
     {
-         // Don't use CSRF token
-        $input = Input::except('_token');
-
-        // Save all input as
-        foreach ($input as $key => $value) {
-            $setting = Setting::findOrNew($key);
-            $setting->key   = $key;
-            $setting->value = $value;
-            $setting->save();
-        }
+        $input = Input::get('terms');
+        SettingsModel::saveBookingTerms($input);
 
         return Redirect::route('admin.booking.terms');
     }
