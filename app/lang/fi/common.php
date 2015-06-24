@@ -103,6 +103,8 @@ return [
     'normal'                => 'Normaali',
     'discount'              => 'Alennus',
     'book'                  => 'Varaa',
+    'accept'                => 'Hyväksy',
+    'decline'               => 'Peruuta',
     'submit'                => 'Hyväksy',
     'short' => [
         'week'  => 'vko',
