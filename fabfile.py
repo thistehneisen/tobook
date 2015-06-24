@@ -13,12 +13,12 @@ def _deploy(environment, host):
             # set it to maintenance mode
             run('php artisan down')
             # pull latest source
-            # branch = 'develop' if environment == 'stag' else 'master'
             branch = 'develop' if environment == 'stag' else 'master'
+            run('git pull')
             run('git checkout {}'.format(branch))
-            run('git pull origin {}'.format(branch))
             # install dependencies
             run('composer install')
+            run('ENV={} npm run build'.format(environment))
             # run migration
             run('php artisan migrate --env={}'.format(environment))
             # run seeder

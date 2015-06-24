@@ -1,103 +1,70 @@
-gulp = require 'gulp'
-del = require 'del'
-_ = require 'lodash'
-fs = require 'fs'
-chmod = require 'gulp-chmod'
-streamqueue = require 'streamqueue'
-gulpLoadPlugins = require 'gulp-load-plugins'
-plugins = gulpLoadPlugins()
+gulp     = require 'gulp'
+coffee   = require 'gulp-coffee'
+concat   = require 'gulp-concat'
+less     = require 'gulp-less'
+cssmin   = require 'gulp-cssmin'
+rev      = require 'gulp-rev'
+uglify   = require 'gulp-uglify'
+remember = require 'gulp-remember'
+cached   = require 'gulp-cached'
+gulpif   = require 'gulp-if'
+args     = require 'yargs'
+
+env = if args.argv.env then args.argv.env else 'varaa'
+production = !!args.argv.production
+root = "#{__dirname}/resources/#{env}"
 
 paths =
-  dest: 'public/built/'
-  base: __dirname + '/resources'
-  tmp: __dirname + '/resources/tmp'
-  img: ['resources/tmp/**/img/**/*.*']
-  fonts: ['resources/tmp/**/fonts/**/*.*']
-  js: ['resources/tmp/**/scripts/**/*.js', '!resources/tmp/**/scripts/**/*.min.js']
-  coffee: ['resources/tmp/**/scripts/**/*.coffee']
-  less: ['resources/tmp/**/styles/**/*.less', '!resources/tmp/**/styles/**/*.import.less']
+  rev: "#{__dirname}/rev.json"
+  dest: 'public/assets'
+  coffee: ["#{root}/**/scripts/**/*.coffee"]
+  less: ["#{root}/**/styles/**/*.less", "!#{root}/**/styles/**/*.import.less"]
+  js: ["#{root}/**/scripts/**/*.js", "!#{root}/**/scripts/**/*.min.js"]
+  static: ["#{root}/**/img/**/*.*", "#{root}/**/fonts/**/*.*"]
 
-# Rev JS files
+gulp.task 'static', ->
+  paths.static.forEach (path) ->
+    gulp.src path
+      .pipe gulp.dest paths.dest
+
 gulp.task 'js', ->
-  gulp.src paths.js, base: paths.tmp
-    .pipe plugins.rev()
-    .pipe chmod 755
+  gulp.src paths.js
+    .pipe cached 'js'
+    .pipe remember 'js'
+    .pipe gulpif production, uglify()
+    .pipe gulpif production, rev()
     .pipe gulp.dest paths.dest
-    .pipe plugins.rev.manifest path: 'js-manifest.json'
-    .pipe gulp.dest paths.dest
+    .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
+    .pipe gulpif production, gulp.dest(__dirname)
 
-# Compile CoffeeScript
 gulp.task 'coffee', ['js'], ->
-  gulp.src paths.coffee, base: paths.tmp
-    .pipe plugins.coffee()
-    .pipe plugins.uglify()
-    .pipe plugins.rev()
-    .pipe chmod 755
+  gulp.src paths.coffee
+    .pipe cached 'coffee'
+    .pipe coffee()
+    .pipe remember 'coffee'
+    .pipe gulpif production, uglify()
+    .pipe gulpif production, rev()
     .pipe gulp.dest paths.dest
-    .pipe plugins.rev.manifest path: 'script-manifest.json'
-    .pipe gulp.dest paths.dest
+    .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
+    .pipe gulpif production, gulp.dest(__dirname)
 
-# Compile LESS
 gulp.task 'less', ->
-  gulp.src paths.less, base: paths.tmp
-    .pipe plugins.less()
-    .pipe plugins.cssmin()
-    .pipe plugins.rev()
-    .pipe chmod 755
+  gulp.src paths.less
+    .pipe cached 'less'
+    .pipe less()
+    .pipe remember 'less'
+    .pipe gulpif production, cssmin()
+    .pipe gulpif production, rev()
     .pipe gulp.dest paths.dest
-    .pipe plugins.rev.manifest path: 'style-manifest.json'
-    .pipe gulp.dest paths.dest
+    .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
+    .pipe gulpif production, gulp.dest(__dirname)
 
-# Clone the resources to every instance
-gulp.task 'clone', ->
-  files = fs.readdirSync paths.base
-  for folder in files
-    do ->
-      # Skip tmp folder
-      return if folder is 'tmp'
+gulp.task 'default', ['coffee', 'less', 'static']
 
-      target = "#{paths.base}/tmp/#{folder}"
-      base   = gulp.src "#{paths.base}/varaa/**/*.*"
-      ext    = gulp.src "#{paths.base}/#{folder}/**/*.*"
-      streamqueue objectMode: true, base, ext
-        .pipe chmod 755
-        .pipe gulp.dest target
-
-# Handful function to copy resources
-copy = (from, to) ->
-  gulp.src from, base: paths.tmp
-    .pipe chmod 755
-    .pipe gulp.dest to
-
-gulp.task 'clean', ['clone'], ->
-  # Use del.sync to make sure that built directory is empty
-  del.sync [paths.dest]
-
-  # Since there is no process for fonts/images, just copy them to target folder
-  copy paths.fonts, paths.dest
-  copy paths.img, paths.dest
-
-# Build assets to be ready for production
-gulp.task 'build', ['less', 'coffee'], ->
-  # Folder `resources` has this structure
-  # ```
-  #   varaa            <---------------- Based assets
-  #   clearbooking     <------|
-  #   foo              <------|--------- Other instances
-  #   bar              <------|
-  # ```
-  # Folder `varaa` acts as the root folder and other folders just need to make
-  # changes that are not presenting in `varaa`. While building, assets in
-  # `varaa` will be cloned to all instances
-  #
-  # The build process is, clean the target folder first, clone resources from
-  # `varaa` to other instances, then build from clone folders.
-
-  # After building, we'll merge all manifest files into one
-  manifests = {}
-  for type in ['js', 'script', 'style']
-    do ->
-      _.merge manifests, require "./#{paths.dest}#{type}-manifest.json"
-
-  # Write the file
-  fs.writeFile "#{__dirname}/rev-manifest.json", JSON.stringify manifests, null, '  '
+gulp.task 'watch', ['default'], ->
+  ['coffee', 'less', 'js'].forEach (task) ->
+    watcher = gulp.watch paths[task], [task]
+    watcher.on 'change', (e) ->
+      if e.type is 'deleted'
+        delete cached.caches[task][e.path] if cached.caches[task][e.path]
+        remember.forget task, e.path
