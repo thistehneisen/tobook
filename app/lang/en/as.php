@@ -73,7 +73,7 @@ return [
         'during'       => 'Duration',
         'before'       => 'Before',
         'after'        => 'After',
-        'total'        => 'Total',
+        'total'        => 'Total time',
         'category'     => 'Category',
         'is_active'    => 'Active',
         'resource'     => 'Resource',
