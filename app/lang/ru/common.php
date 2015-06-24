@@ -90,7 +90,7 @@ return [
     'close'                 => 'Закрыть',
     'search'                => 'Поиск',
     'for_business'          => 'Для бизнеса',
-    'minutes'               => 'Минуты',
+    'minutes'               => 'Минут',
     'are_you_sure'          => 'Вы уверены?',
     'type'                  => 'Тип',
     'create'                => 'Создать',
