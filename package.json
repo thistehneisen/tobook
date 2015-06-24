@@ -20,6 +20,7 @@
     "url-loader": "^0.5.5",
     "webpack": "^1.8.11",
     "css-loader": "^0.12.0",
+    "expose-loader": "^0.6.0",
     "extract-text-webpack-plugin": "^0.7.1",
     "file-loader": "^0.8.1",
     "imports-loader": "^0.6.3",
@@ -28,8 +29,8 @@
     "yargs": "^3.7.2"
   },
   "scripts": {
-    "clean-build": "mkdir -p resources/$ENV && cp -u -r resources/varaa/* resources/$ENV && rm -f rev.json && mkdir public/assets -p && rm public/assets/* -r",
-    "build-dev": "npm run clean-build && webpack && gulp --env $ENV",
-    "build": "npm run clean-build && webpack --production && gulp --env $ENV --production"
+    "clean-build": "mkdir -p resources/$ENV && cp -u -r resources/varaa/* resources/$ENV && rm -f rev.json && mkdir public/assets -p && rm public/assets/ -r",
+    "build-dev": "npm run clean-build && gulp --env $ENV",
+    "build": "npm run clean-build && gulp --env $ENV --production"
   }
 }

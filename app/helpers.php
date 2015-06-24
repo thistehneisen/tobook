@@ -10,9 +10,12 @@ if (!function_exists('asset_path')) {
      */
     function asset_path($filename)
     {
+        // In development environment, just use the file with no hash
         if (App::environment() === 'local') {
             return asset('assets/'.$filename);
         }
+
+        // In other environments, assets come with hashes
         $path = base_path('rev.json');
         $manifest = file_exists($path)
             ? json_decode(file_get_contents($path), true)

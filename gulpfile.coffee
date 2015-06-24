@@ -30,12 +30,12 @@ gulp.task 'static', ->
 gulp.task 'js', ->
   gulp.src paths.js
     .pipe cached 'js'
-    .pipe rev()
     .pipe remember 'js'
     .pipe gulpif production, uglify()
+    .pipe gulpif production, rev()
     .pipe gulp.dest paths.dest
-    .pipe rev.manifest path: paths.rev, merge: true
-    .pipe gulp.dest __dirname
+    .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
+    .pipe gulpif production, gulp.dest(__dirname)
 
 gulp.task 'coffee', ['js'], ->
   gulp.src paths.coffee

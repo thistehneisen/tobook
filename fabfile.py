@@ -19,6 +19,7 @@ def _deploy(environment, host):
             run('git pull origin {}'.format(branch))
             # install dependencies
             run('composer install')
+            run('ENV={} npm run build'.format(environment))
             # run migration
             run('php artisan migrate --env={}'.format(environment))
             # run seeder
