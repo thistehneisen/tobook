@@ -80,3 +80,7 @@ Feel free to add more features (sending email, storing cache, etc.) to that Brid
 - Use TDD as much as possible when developing new features
 - Whenever you receive a bug report, write test to replicate that bug first then fix it and run the test suite for that module / group again to verify everything works
 - Code without tests is considered incomplete
+
+## Setup new server automatically
+
+Run `fab new_server:<hostname> -H root@<new server IP>`
