@@ -305,8 +305,13 @@ class Bookings extends AsBase
         $extras = $extraServices->lists('name', 'id');
         $resources = $booking->getBookingResources();
 
+        $totalPrice = (!empty($booking->businessCommission->total_price))
+            ? $booking->businessCommission->total_price
+            : $booking->total_price;
+
         return View::make('modules.as.bookings.modifyForm', [
             'booking'              => $booking,
+            'totalPrice'           => $totalPrice,
             'extraServices'        => $extras,
             'resources'            => $resources,
             'bookingStatuses'      => $bookingStatuses,
