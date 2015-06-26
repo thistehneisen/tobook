@@ -39,11 +39,11 @@
         <label for="deposit" class="col-sm-4">{{ trans('as.bookings.paid') }}</label>
         @if($booking->deposit > 0 && (int) $booking->status !== App\Appointment\Models\Booking::STATUS_PAID)
             <div class="col-sm-8">
-                <p>{{ Util::formatMoney($booking->deposit) }}&euro; / {{ Util::formatMoney($booking->total_price) }}&euro;</p>
+                <p>{{ Util::formatMoney($booking->deposit) }}&euro; / {{ Util::formatMoney($totalPrice) }}&euro;</p>
             </div>
         @elseif((int)$booking->status === App\Appointment\Models\Booking::STATUS_PAID)
             <div class="col-sm-8">
-                <p>{{ Util::formatMoney($booking->total_price) }}&euro; / {{ Util::formatMoney($booking->total_price) }}&euro;</p>
+                <p>{{ Util::formatMoney($totalPrice) }}&euro; / {{ Util::formatMoney($totalPrice) }}&euro;</p>
             </div>
         @endif
     </div>

@@ -715,6 +715,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $this->belongsTo('App\Appointment\Models\Employee');
     }
 
+    public function businessCommission()
+    {
+        return $this->hasOne('App\Core\Models\BusinessCommission');
+    }
+
     public function bookingServices()
     {
         return $this->hasMany('App\Appointment\Models\BookingService');
