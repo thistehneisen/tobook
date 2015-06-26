@@ -121,8 +121,11 @@ class Statistics extends Base
                     DB::raw('COUNT(varaa_as_bookings.id) AS total'),
                     'as_bookings.employee_id',
                     'as_bookings.source'
-                )
-            ->groupBy('employee_id', 'source')->get();
+                )->where('as_bookings.status','!=', Booking::STATUS_CANCELLED)
+                ->where('as_bookings.status','!=', Booking::STATUS_PENDING)
+                ->where('as_bookings.status','!=', Booking::STATUS_NOT_SHOW_UP)
+                ->where('as_bookings.status','!=', Booking::STATUS_ARRIVED)
+                ->groupBy('employee_id', 'source')->get();
         } else {
             $count = $count->select(
                     DB::raw('COUNT(varaa_as_bookings.id) AS total'),
