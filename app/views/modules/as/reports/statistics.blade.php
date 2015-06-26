@@ -61,8 +61,8 @@ new Morris.Bar({
             <tr>
                 <th>{{ trans('as.employees.name') }}</th>
                 <th>{{ trans('as.reports.booking.total') }}</th>
-                <th>{{ trans('as.reports.booking.confirmed') }}</th>
-                <th>{{ trans('as.reports.booking.unconfirmed') }}</th>
+                <th>{{ trans('as.reports.booking.inhouse') }}</th>
+                <th>{{ trans('as.reports.booking.front-end') }}</th>
                 <th>{{ trans('as.reports.booking.cancelled') }}</th>
             </tr>
         </thead>
@@ -71,8 +71,8 @@ new Morris.Bar({
             <tr>
                 <td>{{ $item['employee'] }}</td>
                 <td>{{ $item['total'] }}</td>
-                <td>{{ isset($item['confirmed']) ? $item['confirmed'] : 0 }}</td>
-                <td>{{ isset($item['pending']) ? $item['pending'] : 0 }}</td>
+                <td>{{ isset($item['inhouse']) ? $item['inhouse'] : 0 }}</td>
+                <td>{{ isset($item['frontend']) ? $item['frontend'] : 0 }}</td>
                 <td>{{ isset($item['cancelled']) ? $item['cancelled'] : 0 }}</td>
             </tr>
         @endforeach
