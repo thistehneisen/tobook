@@ -390,6 +390,8 @@ return [
             'confirmed'   => 'Confirmed bookings',
             'unconfirmed' => 'Unconfirmed bookings',
             'cancelled'   => 'Cancelled bookings',
+            'inhouse'     => 'In-house bookings',
+            'front-end'   => 'Bookings from AS FEs',
         ],
         'statistics'=> 'Statistics',
         'monthly'   => 'Monthly report',
