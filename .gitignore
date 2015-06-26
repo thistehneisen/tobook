@@ -70,4 +70,8 @@ composer.phar
 
 # Node.js module
 node_modules/
+rev.json
+
+# Bower
+bower_components/
 
