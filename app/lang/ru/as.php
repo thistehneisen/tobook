@@ -71,7 +71,7 @@ return [
         'during'       => 'Длительность',
         'before'       => 'До',
         'after'        => 'После',
-        'total'        => 'Всего',
+        'total'        => 'Bремя визитa',
         'category'     => 'Категория',
         'is_active'    => 'Активно',
         'resource'     => 'Ресурс',

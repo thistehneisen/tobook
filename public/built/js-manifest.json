@@ -1,22 +1,42 @@
 {
+<<<<<<< HEAD
   "tobook/as/scripts/layout-1.js": "tobook/as/scripts/layout-1-de5a11bd.js",
+=======
+  "clearbooking/as/scripts/layout-1.js": "clearbooking/as/scripts/layout-1-31381e2f.js",
+  "clearbooking/as/scripts/layout-2.js": "clearbooking/as/scripts/layout-2-18a40704.js",
+  "clearbooking/as/scripts/layout-3.js": "clearbooking/as/scripts/layout-3-eb6f892c.js",
+  "clearbooking/as/scripts/main.js": "clearbooking/as/scripts/main-1d56a099.js",
+  "clearbooking/core/scripts/jquery.fixedTableHeader.js": "clearbooking/core/scripts/jquery.fixedTableHeader-9301fea0.js",
+  "tobook/as/scripts/layout-1.js": "tobook/as/scripts/layout-1-31381e2f.js",
+>>>>>>> employees-group-commission-counter
   "tobook/as/scripts/layout-2.js": "tobook/as/scripts/layout-2-18a40704.js",
   "tobook/as/scripts/layout-3.js": "tobook/as/scripts/layout-3-eb6f892c.js",
-  "tobook/as/scripts/main.js": "tobook/as/scripts/main-e1a6777b.js",
+  "tobook/as/scripts/main.js": "tobook/as/scripts/main-1d56a099.js",
   "tobook/core/scripts/jquery.fixedTableHeader.js": "tobook/core/scripts/jquery.fixedTableHeader-9301fea0.js",
+<<<<<<< HEAD
   "clearbooking/as/scripts/layout-1.js": "clearbooking/as/scripts/layout-1-de5a11bd.js",
   "clearbooking/as/scripts/layout-2.js": "clearbooking/as/scripts/layout-2-18a40704.js",
   "clearbooking/as/scripts/layout-3.js": "clearbooking/as/scripts/layout-3-eb6f892c.js",
   "clearbooking/as/scripts/main.js": "clearbooking/as/scripts/main-e1a6777b.js",
   "clearbooking/core/scripts/jquery.fixedTableHeader.js": "clearbooking/core/scripts/jquery.fixedTableHeader-9301fea0.js",
   "varaa/as/scripts/layout-1.js": "varaa/as/scripts/layout-1-de5a11bd.js",
+=======
+  "varaa/as/scripts/layout-1.js": "varaa/as/scripts/layout-1-31381e2f.js",
+>>>>>>> employees-group-commission-counter
   "varaa/as/scripts/layout-2.js": "varaa/as/scripts/layout-2-18a40704.js",
   "varaa/as/scripts/layout-3.js": "varaa/as/scripts/layout-3-eb6f892c.js",
-  "varaa/as/scripts/main.js": "varaa/as/scripts/main-e1a6777b.js",
+  "varaa/as/scripts/main.js": "varaa/as/scripts/main-1d56a099.js",
   "varaa/core/scripts/jquery.fixedTableHeader.js": "varaa/core/scripts/jquery.fixedTableHeader-9301fea0.js",
+<<<<<<< HEAD
   "yellowpage/as/scripts/layout-1.js": "yellowpage/as/scripts/layout-1-de5a11bd.js",
   "yellowpage/as/scripts/layout-2.js": "yellowpage/as/scripts/layout-2-18a40704.js",
   "yellowpage/as/scripts/layout-3.js": "yellowpage/as/scripts/layout-3-eb6f892c.js",
   "yellowpage/as/scripts/main.js": "yellowpage/as/scripts/main-e1a6777b.js",
+=======
+  "yellowpage/as/scripts/layout-1.js": "yellowpage/as/scripts/layout-1-31381e2f.js",
+  "yellowpage/as/scripts/layout-2.js": "yellowpage/as/scripts/layout-2-18a40704.js",
+  "yellowpage/as/scripts/layout-3.js": "yellowpage/as/scripts/layout-3-eb6f892c.js",
+  "yellowpage/as/scripts/main.js": "yellowpage/as/scripts/main-1d56a099.js",
+>>>>>>> employees-group-commission-counter
   "yellowpage/core/scripts/jquery.fixedTableHeader.js": "yellowpage/core/scripts/jquery.fixedTableHeader-9301fea0.js"
 }

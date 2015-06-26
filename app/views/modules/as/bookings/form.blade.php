@@ -333,12 +333,12 @@
 </div>
 <input type="hidden" value="" id="consumer_data"/>
 <!-- History Modal Dialog -->
-<div class="modal" id="js-historyModal" role="dialog" aria-labelledby="js-historyModalLabel" aria-hidden="true">
+<div class="modal fade" id="js-historyModal" role="dialog" aria-labelledby="js-historyModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">{{ trans('History') }}</h4>
+                <h4 class="modal-title">{{ trans('common.history') }}</h4>
             </div>
             <div class="modal-body">
             </div>

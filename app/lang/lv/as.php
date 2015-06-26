@@ -71,7 +71,7 @@ return [
         'during'       => 'Ilgums',
         'before'       => 'Pirms',
         'after'        => 'Pēc',
-        'total'        => 'Kopā',
+        'total'        => 'Pakalpojuma laiks',
         'category'     => 'Kategorija',
         'is_active'    => 'Aktīva',
         'resource'     => 'Resurss',

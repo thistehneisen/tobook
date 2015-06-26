@@ -103,6 +103,8 @@ return [
     'normal'                => 'Normaali',
     'discount'              => 'Alennus',
     'book'                  => 'Varaa',
+    'accept'                => 'Hyväksy',
+    'decline'               => 'Peruuta',
     'submit'                => 'Hyväksy',
     'short' => [
         'week'  => 'vko',
@@ -147,7 +149,7 @@ return [
     'october'   => 'Lokakuu',
     'november'  => 'Marraskuu',
     'december'  => 'Joulukuu',
-    'history'   => 'History',
+    'history'   => 'Historia',
     'err' => [
         'unexpected'   => 'Odottamaton virhe, yritä myöhemmin uudestaan.',
         'not_found'    => 'Hakemaasi tietoa ei löytynyt. Tarkista URL uudestaan.',

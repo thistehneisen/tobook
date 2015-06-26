@@ -73,7 +73,7 @@ return [
         'during'       => 'Duration',
         'before'       => 'Before',
         'after'        => 'After',
-        'total'        => 'Total',
+        'total'        => 'Total time',
         'category'     => 'Category',
         'is_active'    => 'Active',
         'resource'     => 'Resource',
@@ -292,6 +292,7 @@ return [
      'options' => [
         'heading' => 'Options',
         'updated' => 'Options updated',
+        'invalid_data' => 'Invalid input data',
         'general' => [
             'index'           => 'General',
             'heading'         => 'General options',
