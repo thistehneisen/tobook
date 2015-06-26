@@ -78,7 +78,7 @@ $(function () {
     @foreach ($items as $item)
         <tr @if(!empty($item->commission_status)) class="{{ $item->commission_status }}" @endif id="row-{{ $item->id }}" data-id="{{ $item->id }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->booking_id }}" id="bulk-item-{{ $item->id }}"></td>
-            <td>{{ $item->created_at->format('d.m.Y') }}</td>
+            <td>{{ with(new Carbon\Carbon($item->created))->format('d.m.Y') }}</td>
             <td>{{ with(new Carbon\Carbon($item->date))->format('d.m.Y') }}</td>
             @if(empty($employeeId))
             <td>{{ $item->name }}</td>
