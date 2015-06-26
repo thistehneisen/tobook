@@ -136,4 +136,28 @@ return [
             'mail'    => $contactEmail, // @todo
         ]
     ],
+    // Contact form
+    'contact' => [
+        'subject' => 'контакт / Tobook.lv',
+        'body'    => $homeContactEmail,
+        'sent'    => 'Спасибо, мы получили ваше сообщение.',
+    ],
+    // Static pages
+    'pages' => [
+        'terms_conditions' => 'Правила и условия',
+        'privacy_cookies'  => 'Использование cookies',
+    ],
+    'footer' => [
+        'subscribe' => 'Подписаться на новости',
+        'email' => 'Ваш e-mail',
+        'btn_subscribe' => 'ПОДПИСАТЬСЯ',
+        'about' => 'O :site',
+        'about_content' => $footerAbout,
+        'info' => 'Информация для покупателей',
+        'terms' => 'Правила и условия',
+        'policy' => 'Использование cookies',
+        'contact' => 'Контактная форма',
+        'message' => 'Напишите здесь, пожалуйста, свой вопрос или предложение',
+        'send' => 'ОТПРАВИТЬ',
+    ]
 ];
