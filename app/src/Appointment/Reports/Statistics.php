@@ -69,6 +69,15 @@ class Statistics extends Base
             $data[$item->employee_id][$status] = $item->total;
         }
 
+        $result = $this->countTotalBookings(false, true);
+        foreach ($result as $item) {
+            if ($item->source === 'inhouse') {
+                $data[$item->employee_id]['inhouse'] = $item->total;
+            } else if($item->source !== 'backend') {
+                $data[$item->employee_id]['frontend'] = $item->total;
+            }
+        }
+
         $employees = EmployeeModel::ofCurrentUser()->lists('name', 'id');
         foreach ($employees as $id => $name) {
             if (isset($data[$id])) {
@@ -86,11 +95,12 @@ class Statistics extends Base
         return $ret;
     }
 
-    protected function countTotalBookings($groupByStatus = false)
+    protected function countTotalBookings($groupByStatus = false, $groupBySource = false)
     {
         $count = Booking::ofCurrentUser()
             ->where('as_bookings.date', '>=', $this->start)
-            ->where('as_bookings.date', '<=', $this->end);
+            ->where('as_bookings.date', '<=', $this->end)
+            ->whereNull('as_bookings.deleted_at');
 
         if ($this->serviceId !== 0) {
             $count = $count->join('as_booking_services', function ($join) {
@@ -106,6 +116,14 @@ class Statistics extends Base
                     'as_bookings.status'
                 )
                 ->groupBy('employee_id', 'status')->get();
+        } elseif ($groupBySource && !$groupByStatus) {
+            $count = $count->select(
+                    DB::raw('COUNT(varaa_as_bookings.id) AS total'),
+                    'as_bookings.employee_id',
+                    'as_bookings.source'
+                )->where('as_bookings.status','!=', Booking::STATUS_CANCELLED)
+                ->whereNotNull('as_bookings.deleted_at')
+                ->groupBy('employee_id', 'source')->get();
         } else {
             $count = $count->select(
                     DB::raw('COUNT(varaa_as_bookings.id) AS total'),
@@ -113,6 +131,8 @@ class Statistics extends Base
                 )
                 ->groupBy('employee_id')->get();
         }
+
+
 
         return $count;
     }

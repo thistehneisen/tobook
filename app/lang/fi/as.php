@@ -387,6 +387,8 @@ return [
             'confirmed'   => 'Vahvistetut varaukset',
             'unconfirmed' => 'Vahvistamattomat varaukset',
             'cancelled'   => 'Peruutetut varaukset',
+            'inhouse'     => 'Varaa.comin kautta tulleet',
+            'front-end'   => 'Netistä varanneet',
         ],
         'statistics'=> 'Statistiikka',
         'monthly'   => 'Kuukausiraportti',
