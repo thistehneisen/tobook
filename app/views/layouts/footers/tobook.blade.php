@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-7 col-sm-offset-1">
-                <h2 class="heading">Pieteikties jaunumiem</h2>
+                <h2 class="heading">@lang('home.footer.subscribe')</h2>
 
                 <div class="upper">
                     <div class="row">
@@ -12,11 +12,11 @@
                                 <form action="//tobook.us11.list-manage.com/subscribe/post?u=70f4e6554b0f5f56638d31c0f&amp;id=fb962672f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form-inline" target="_blank" novalidate>
                                     <div class="form-group" id="mc_embed_signup_scroll">
                                         <label class="sr-only" for="mce-EMAIL">Subscribe to our mailing list</label>
-                                        <input type="email" value="" name="EMAIL" class="form-control" id="mce-EMAIL" placeholder="Jūsu e-pasta adrese" required>
+                                        <input type="email" value="" name="EMAIL" class="form-control" id="mce-EMAIL" placeholder="@lang('home.footer.email')" required>
                                         <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
                                         <div style="position: absolute; left: -5000px;"><input type="text" name="b_70f4e6554b0f5f56638d31c0f_fb962672f0" tabindex="-1" value=""></div>
                                     </div>
-                                    <input type="submit" value="PASAŪTĪT" name="subscribe" id="mc-embedded-subscribe" class="btn btn-orange">
+                                    <input type="submit" value="@lang('home.footer.btn_subscribe')" name="subscribe" id="mc-embedded-subscribe" class="btn btn-orange">
                                 </form>
                             </div>
 
@@ -36,34 +36,32 @@
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2 class="heading">Par ToBook.lv</h2>
-                        <p>Tiešsaistes skaistumkopšanas salonu pakalpojumu rezervējumu servisu nodrošina AS DELFI, kas ir pakļauta Latvijas likumdošanai. Uzņēmuma birojs atrodas Mūkusalas 41B-8 Rīgā, Latvijā. Uzņēmuma reģistrācijas numurs ir 40003504352.</p>
-                        <p>Tālrunis kontaktiem: 67784050</p>
-                        <p>e-pasts: <a href="mailto:info@tobook.lv">info@tobook.lv</a></p>
+                        <h2 class="heading">@lang('home.footer.about', ['site' => 'ToBook.lv'])</h2>
+                        @lang('home.footer.about_content')
                     </div>
                     <div class="col-sm-6">
-                        <h2 class="heading">Informācija pircējiem</h2>
-                        <p><a href="{{ route('terms') }}">Noteikumi un nosacījumi</a></p>
-                        <p><a href="{{ route('policy') }}">Sīkdatņu izmantošana</a></p>
+                        <h2 class="heading">@lang('home.footer.info')</h2>
+                        <p><a href="{{ route('terms') }}">@lang('home.footer.terms')</a></p>
+                        <p><a href="{{ route('policy') }}">@lang('home.footer.policy')</a></p>
                     </div>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="contact-form">
-                    <h2 class="heading">Kontaktu forma</h2>
+                    <h2 class="heading">@lang('home.footer.contact')</h2>
                     {{ Form::open(['route' => 'contact', 'id' => 'form-contact']) }}
                         <div class="alert alert-danger" style="display: none;"></div>
                         <div class="alert alert-success" style="display: none;">
                             <p>@lang('home.contact.sent')</p>
                         </div>
                         <div class="form-group">
-                            <label for="name" class="sr-only">Jūsu e-pasta adrese</label>
-                            <input required name="email" type="email" class="form-control" placeholder="Jūsu e-pasta adrese *">
+                            <label for="name" class="sr-only"></label>
+                            <input required name="email" type="email" class="form-control" placeholder="@lang('home.footer.email') *">
                         </div>
                         <div class="form-group">
-                            <textarea required name="message" placeholder="Ierakstiet, lūdzu, savu jautājumu vai ierosinājumu šeit *" cols="30" rows="10" class="form-control"></textarea>
+                            <textarea required name="message" placeholder="@lang('home.footer.message') *" cols="30" rows="10" class="form-control"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-orange btn-lg pull-right">NOSŪTĪT</button>
+                        <button type="submit" class="btn btn-orange btn-lg pull-right">@lang('home.footer.send')</button>
                     {{ Form::close() }}
                 </div>
             </div>
