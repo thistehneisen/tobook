@@ -177,5 +177,5 @@ return [
         'contact' => 'Kontaktu forma',
         'message' => 'Ierakstiet, lūdzu, savu jautājumu vai ierosinājumu šeit',
         'send' => 'NOSŪTĪT',
-    ]
+    ],
 ];
