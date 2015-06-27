@@ -333,7 +333,7 @@
 </div>
 <input type="hidden" value="" id="consumer_data"/>
 <!-- History Modal Dialog -->
-<div class="modal fade" id="js-historyModal" role="dialog" aria-labelledby="js-historyModalLabel" aria-hidden="true">
+<div class="modal fade" id="js-historyModal" role="dialog" aria-labelledby="js-historyModalLabel" aria-hidden="true" style="z-index: 99999">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
