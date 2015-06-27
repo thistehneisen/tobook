@@ -2,6 +2,7 @@
 
 use App;
 use Config;
+use App\Core\Models\Multilanguage;
 
 class Settings
 {
@@ -23,6 +24,7 @@ class Settings
         if (!self::$instance) {
             self::$instance = new self();
         }
+
         return self::$instance;
     }
 
@@ -35,6 +37,7 @@ class Settings
             if ($default === null) {
                 $default = Config::get('varaa.settings.'.$key.'.default', null);
             }
+
             return $default;
         }
 
@@ -44,7 +47,7 @@ class Settings
     /**
      * Get a group of settings having the same prefix
      *
-     * @param  string $name Group's name
+     * @param string $name Group's name
      *
      * @return array
      */
@@ -71,5 +74,47 @@ class Settings
         }
 
         return $group;
+    }
+
+    /**
+     * Get booking terms in a desired language, or all languages
+     *
+     * @param string|null $lang
+     *
+     * @return string|array
+     */
+    public static function getBookingTerms($lang = null)
+    {
+        $query = Multilanguage::ofContext('settings')
+            ->ofKey('booking_terms');
+
+        if ($lang !== null) {
+            return $query->ofLang($lang)->pluck('value');
+        }
+
+        return $query->get();
+    }
+
+    public static function saveBookingTerms(array $input)
+    {
+        foreach ($input as $lang => $content) {
+            $row = Multilanguage::ofContext('settings')
+                ->ofKey('booking_terms')
+                ->ofLang($lang)
+                ->first();
+
+            if ($row === null) {
+                $row = new Multilanguage();
+            }
+
+            $row->fill([
+                'key' => 'booking_terms',
+                'lang' => $lang,
+                'value' => $content,
+                'context' => 'settings',
+            ]);
+
+            $row->save();
+        }
     }
 }

@@ -19,6 +19,12 @@ $requestMail = <<< HTML
 <p>Start using it now! It's FREE!</p>
 HTML;
 
+$footerAbout = <<< HTML
+<p>Прямой сервис бронирования и резервации услуг в салонах красоты обеспечивается АО DELFI, которое подчиняется латвийскому законодательству. Офис фирмы находится по адресу: Рига, ул. Мукусалас, 41b-8.Регистрационный номер предприятия 40003504352.</p>
+<p>Контактный телефон: 67784050</p>
+<p>E-mail: <a href="mailto:info@tobook.lv">info@tobook.lv</a></p>
+HTML;
+
 return [
     'customer_websites'     => 'Сайт клиента',
     'description'           => 'Создавайте великолепный вебсайты!',
@@ -136,4 +142,28 @@ return [
             'mail'    => $contactEmail, // @todo
         ]
     ],
+    // Contact form
+    'contact' => [
+        'subject' => 'контакт / Tobook.lv',
+        'body'    => $homeContactEmail,
+        'sent'    => 'Спасибо, мы получили ваше сообщение.',
+    ],
+    // Static pages
+    'pages' => [
+        'terms_conditions' => 'Правила и условия',
+        'privacy_cookies'  => 'Использование cookies',
+    ],
+    'footer' => [
+        'subscribe' => 'Подписаться на новости',
+        'email' => 'Ваш e-mail',
+        'btn_subscribe' => 'ПОДПИСАТЬСЯ',
+        'about' => 'O :site',
+        'about_content' => $footerAbout,
+        'info' => 'Информация для покупателей',
+        'terms' => 'Правила и условия',
+        'policy' => 'Использование cookies',
+        'contact' => 'Контактная форма',
+        'message' => 'Напишите здесь, пожалуйста, свой вопрос или предложение',
+        'send' => 'ОТПРАВИТЬ',
+    ]
 ];

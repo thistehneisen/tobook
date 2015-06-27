@@ -2,6 +2,7 @@
 
 use App\Core\Models\Business;
 use InvalidArgumentException;
+use Log;
 
 class BusinessIndexer extends AbstractIndexer
 {
@@ -25,9 +26,9 @@ class BusinessIndexer extends AbstractIndexer
 
     public function getBody()
     {
-        $categories       = [];
+        $keywords = [];
+        $categories = [];
         $masterCategories = [];
-        $keywords         = [];
 
         $document = $this->getDocument();
 
@@ -38,11 +39,11 @@ class BusinessIndexer extends AbstractIndexer
 
         foreach ($document->user->asServices as $asService) {
             if (!empty($asService->masterCategory->id)) {
-                $masterCategories[] = $asService->masterCategory->getAllMultilingualAttributes();
+                $masterCategories['mc_'.$asService->masterCategory->id] = true;
             }
 
             if (!empty($asService->treatmentType->id)) {
-                $masterCategories[] = $asService->treatmentType->getAllMultilingualAttributes();
+                $masterCategories['tm_'.$asService->treatmentType->id] = true;
             }
         }
 
@@ -50,10 +51,10 @@ class BusinessIndexer extends AbstractIndexer
             // Filter exists only works with null value, so let it be null
             'name'              => $document->name,
             'categories'        => $categories,
-            'master_categories' => $masterCategories,
+            'master_categories' => array_keys($masterCategories),
             'keywords'          => $keywords,
             'address'           => $document->address ?: '',
-            'district'          => $document->district ?: 'Oulu',
+            'district'          => $document->district ?: '',
             'postcode'          => $document->postcode ?: '',
             'city'              => $document->city ?: '',
             'country'           => $document->country ?: '',
@@ -66,15 +67,15 @@ class BusinessIndexer extends AbstractIndexer
         ];
     }
 
-    public function getMapping()
+    public static function getMapping()
     {
         return [
             'name'              => ['type' => 'string'],
             'categories'        => ['type' => 'string', 'index_name' => 'category'],
-            'master_categories' => ['type' => 'string', 'index_name' => 'master_category'],
+            'master_categories' => ['type' => 'string', 'index_name' => 'master_category', 'analyzer' => 'standard'],
             'keywords'          => ['type' => 'string', 'index_name' => 'keyword'],
             'address'           => ['type' => 'string'],
-            'district'          => ['type' => 'string'],
+            'district'          => ['type' => 'string', 'analyzer' => 'standard'],
             'postcode'          => ['type' => 'string'],
             'city'              => ['type' => 'string'],
             'country'           => ['type' => 'string'],
@@ -91,5 +92,25 @@ class BusinessIndexer extends AbstractIndexer
         }
 
         parent::setDocument($document);
+    }
+
+    public function index()
+    {
+        // If this business is hidden, don't index and remove existing index
+        if ($this->getDocument()->is_hidden) {
+            $params = [
+                'id' => $this->getId(),
+                'type' => $this->getType(),
+                'index' => $this->getIndexName(),
+            ];
+
+            $this->delete();
+
+            return;
+        }
+
+        // Otherwise, just index as normal
+        Log::info('Index business', ['id' => $this->getId()]);
+        parent::index();
     }
 }

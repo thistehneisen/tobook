@@ -74,3 +74,6 @@ rev.json
 
 # Bower
 bower_components/
+
+# Built assets
+public/assets

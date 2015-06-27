@@ -1,0 +1,21 @@
+{
+  "name": "varaa/varaa",
+  "version": "1.0.0",
+  "homepage": "https://github.com/varaa/varaa",
+  "authors": [
+    "An Cao <an@varaa.com>",
+    "Hung Nguyen <hung@varaa.com>"
+  ],
+  "description": "Varaa main website",
+  "license": "Proprietary",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "3.3.4"
+  }
+}

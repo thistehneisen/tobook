@@ -3,16 +3,17 @@
 use App;
 use App\Appointment\Models\Booking;
 use App\Core\Models\Relations\BusinessBusinessCategory;
+use App\Haku\Indexers\BusinessIndexer;
 use Carbon\Carbon;
 use Config;
 use Exception;
 use Illuminate\Support\Collection;
 use Input;
 use NAT;
+use Session;
 use Settings;
 use Str;
 use Util;
-use Session;
 
 class Business extends Base
 {
@@ -104,6 +105,19 @@ class Business extends Base
             $business->updateGeo();
 
             return true;
+        });
+
+        static::saved(function ($model) {
+            $model->updateIndex();
+        });
+
+        static::deleted(function ($model) {
+            $i = new BusinessIndexer($model);
+            $i->delete();
+        });
+
+        static::restored(function ($model) {
+            $model->updateIndex();
         });
     }
 
@@ -966,14 +980,14 @@ class Business extends Base
         return $provider->index($params);
     }
 
-    public function deleteOldIndex($searchIndexName = null)
+    /**
+     * Update ES index of this business
+     *
+     * @return void
+     */
+    public function updateIndex()
     {
-        $provider = App::make('App\Search\ProviderInterface');
-
-        $deleteParam['index'] = (!empty($searchIndexName)) ? $searchIndexName : $this->getSearchIndexName();
-        $deleteParam['type']  = (!empty($searchIndexName)) ? str_singular($searchIndexName) : $this->getSearchIndexType();
-        $deleteParam['id']    = $this->getSearchDocumentId();
-        //delete before create new index
-        $provider->delete($deleteParam);
+        $indexer = new BusinessIndexer($this);
+        $indexer->index();
     }
 }

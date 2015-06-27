@@ -29,6 +29,12 @@ $homeContactEmail = <<< HTML
 <p>------------------</p>
 HTML;
 
+$footerAbout = <<< HTML
+<p>Tiešsaistes skaistumkopšanas salonu pakalpojumu rezervējumu servisu nodrošina AS DELFI, kas ir pakļauta Latvijas likumdošanai. Uzņēmuma birojs atrodas Mūkusalas 41B-8 Rīgā, Latvijā. Uzņēmuma reģistrācijas numurs ir 40003504352.</p>
+<p>Tālrunis kontaktiem: 67784050</p>
+<p>e-pasts: <a href="mailto:info@tobook.lv">info@tobook.lv</a></p>
+HTML;
+
 return [
     'customer_websites'     => 'Klientu lapas',
     'description'           => 'Izveidojiet efektīvu un skaistu lapu!',
@@ -159,4 +165,17 @@ return [
         'terms_conditions' => 'Nosacījumi un noteikumi',
         'privacy_cookies'  => 'Noteikumi un konfidenciāla politika',
     ],
+    'footer' => [
+        'subscribe' => 'Pieteikties jaunumiem',
+        'email' => 'Jūsu e-pasta adrese',
+        'btn_subscribe' => 'PASAŪTĪT',
+        'about' => 'Par :site',
+        'about_content' => $footerAbout,
+        'info' => 'Informācija pircējiem',
+        'terms' => 'Noteikumi un nosacījumi',
+        'policy' => 'Sīkdatņu izmantošana',
+        'contact' => 'Kontaktu forma',
+        'message' => 'Ierakstiet, lūdzu, savu jautājumu vai ierosinājumu šeit',
+        'send' => 'NOSŪTĪT',
+    ]
 ];

@@ -24,7 +24,7 @@ class Layout2 extends Base
 
         $serviceTime = null;
         if (Input::has('serviceTimeId')) {
-            if(Input::get('serviceTimeId') !== 'default') {
+            if (Input::get('serviceTimeId') !== 'default') {
                 $serviceTime = $service->serviceTimes()
                     ->findOrFail(Input::get('serviceTimeId'));
             }
@@ -37,6 +37,9 @@ class Layout2 extends Base
         // Withdrawal time feature
         list($start, $final, $maxWeeks) = $this->getMinMaxDistanceDay($hash);
 
+        // Move to the start of week, so that Monday is always shown
+        $date->startOfWeek();
+        $start->startOfWeek();
         // if the selected day is not inside the fourth week in the list then use today
         if ($date->copy()->subDays(21) >= $today) {
             $start = $date->copy();
@@ -45,7 +48,7 @@ class Layout2 extends Base
 
         while ($i++ <= $maxWeeks) {
             $j = 0;
-            while ($j++ <= 5){
+            while ($j++ <= 5) {
                 $end = $start->copy()->addDays($j);
                 if ($end >= $final) {
                     break;
@@ -137,12 +140,12 @@ class Layout2 extends Base
         if ($v->fails()) {
             // Flash old input
             Input::flash();
-            $viewErrorBag = new ViewErrorBag;
+            $viewErrorBag = new ViewErrorBag();
             $viewErrorBag->put('errors', $v->errors());
+
             return $this->render('form', $this->getCheckoutData())
                 ->with('errors', $viewErrorBag );
         }
-
 
         $data = Input::all();
         // Handle consumer

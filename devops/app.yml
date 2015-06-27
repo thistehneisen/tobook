@@ -2,3 +2,6 @@
   hosts: webservers
   roles:
     - app
+    - williamyeh.nodejs
+  vars:
+    - nodejs_version: 0.12

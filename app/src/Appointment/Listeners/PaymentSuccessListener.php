@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Listeners;
-use Event;
+
 use Log;
+use Event;
 use Cart;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Booking;
@@ -54,6 +55,7 @@ class PaymentSuccessListener
                     //Send calendar invitation to employee
                     Event::fire('employee.calendar.invitation.send', [$item->booking]);
                 } catch (\Exception $ex) {
+                    //Log error info to laravel.log
                     Log::warning('Could not send sms or email:' . $ex->getMessage());
                 }
             }

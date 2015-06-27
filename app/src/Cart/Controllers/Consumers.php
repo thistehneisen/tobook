@@ -1,11 +1,13 @@
 <?php namespace App\Cart\Controllers;
 
+use App;
 use App\Core\Models\User;
 use Cart;
 use Consumer;
 use Input;
 use Log;
 use Redirect;
+use Settings;
 use Validator;
 
 class Consumers extends \AppController
@@ -19,9 +21,6 @@ class Consumers extends \AppController
      */
     public function index()
     {
-        // $user = User::find(70);
-
-        // Must-have fields
         $fields = [
             'first_name' => ['required' => true],
             'last_name'  => ['required' => true],
@@ -29,28 +28,12 @@ class Consumers extends \AppController
             'email'      => ['required' => true],
         ];
 
-        // There is possibility that user puts services of different businesses
-        // inside the cart, so we need to merge their booking form settings and
-        // ask for additional data
-        // @TODO
-        // $keys = [
-        //     'email',
-        //     'address',
-        //     'city',
-        //     'postcode',
-        //     'country',
-        //     'notes',
-        // ];
+        // Get booking terms in the current language
+        $terms = Settings::getBookingTerms(App::getLocale());
 
-        // foreach ($keys as $key) {
-        //     $value = (int) $user->asOptions->get($key, 1);
-        //     if ($value && $value > 1) {
-        //         $fields[$key] = ['required' => $value === 3];
-        //     }
-        // }
         return $this->render('consumer', [
-            'fields'    => $fields,
-            // 'showTerms' => $user->asOptions->get('terms_enabled', 1) > 1
+            'terms' => $terms,
+            'fields' => $fields,
             'showTerms' => false,
         ]);
     }

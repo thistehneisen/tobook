@@ -1,4 +1,15 @@
 {
+  "tobook/as/styles/layout-1.css": "tobook/as/styles/layout-1-91852bc0.css",
+  "tobook/as/styles/layout-2.css": "tobook/as/styles/layout-2-4e77c1a1.css",
+  "tobook/as/styles/layout-3.css": "tobook/as/styles/layout-3-2d488c21.css",
+  "tobook/as/styles/main.css": "tobook/as/styles/main-08bbcfa8.css",
+  "tobook/fd/styles/main.css": "tobook/fd/styles/main-836b957d.css",
+  "tobook/core/styles/about.css": "tobook/core/styles/about-7940b80b.css",
+  "tobook/core/styles/business.css": "tobook/core/styles/business-b9094101.css",
+  "tobook/core/styles/business2.css": "tobook/core/styles/business2-598fc5ed.css",
+  "tobook/core/styles/main.css": "tobook/core/styles/main-4fb68934.css",
+  "tobook/core/styles/register.css": "tobook/core/styles/register-55912a7e.css",
+  "tobook/lc/styles/main.css": "tobook/lc/styles/main-352af372.css",
   "clearbooking/as/styles/layout-1.css": "clearbooking/as/styles/layout-1-91852bc0.css",
   "clearbooking/as/styles/layout-2.css": "clearbooking/as/styles/layout-2-4e77c1a1.css",
   "clearbooking/as/styles/layout-3.css": "clearbooking/as/styles/layout-3-2d488c21.css",
@@ -8,8 +19,10 @@
   "clearbooking/core/styles/business2.css": "clearbooking/core/styles/business2-598fc5ed.css",
   "clearbooking/core/styles/main.css": "clearbooking/core/styles/main-e4c3f744.css",
   "clearbooking/core/styles/register.css": "clearbooking/core/styles/register-55912a7e.css",
-  "clearbooking/fd/styles/main.css": "clearbooking/fd/styles/main-836b957d.css",
   "clearbooking/lc/styles/main.css": "clearbooking/lc/styles/main-bb234393.css",
+<<<<<<< HEAD
+  "clearbooking/fd/styles/main.css": "clearbooking/fd/styles/main-836b957d.css",
+=======
   "tobook/as/styles/layout-1.css": "tobook/as/styles/layout-1-91852bc0.css",
   "tobook/as/styles/layout-2.css": "tobook/as/styles/layout-2-4e77c1a1.css",
   "tobook/as/styles/layout-3.css": "tobook/as/styles/layout-3-2d488c21.css",
@@ -21,6 +34,7 @@
   "tobook/core/styles/register.css": "tobook/core/styles/register-55912a7e.css",
   "tobook/fd/styles/main.css": "tobook/fd/styles/main-836b957d.css",
   "tobook/lc/styles/main.css": "tobook/lc/styles/main-352af372.css",
+>>>>>>> employees-group-commission-counter
   "varaa/as/styles/layout-1.css": "varaa/as/styles/layout-1-91852bc0.css",
   "varaa/as/styles/layout-2.css": "varaa/as/styles/layout-2-4e77c1a1.css",
   "varaa/as/styles/layout-3.css": "varaa/as/styles/layout-3-2d488c21.css",

@@ -8,6 +8,7 @@ use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
 use App\FlashDeal\Models\FlashDeal;
 use App\Haku\Searchers\BusinessesByDistrict;
+use App\Haku\Searchers\BusinessesByCategory;
 use Illuminate\Support\Collection;
 use Input;
 use Request;
@@ -164,25 +165,33 @@ class Front extends Base
     public function category($id, $slug)
     {
         // Get the correct model based on first URL segment
-        $model = strpos(Request::path(), 'categories') !== false
+        $isMasterCategory = strpos(Request::path(), 'categories') !== false;
+        $categoryKeyword = $isMasterCategory ? 'mc_'.$id : 'tm_'.$id;
+
+        $model = $isMasterCategory
             ? '\App\Appointment\Models\MasterCategory'
             : '\App\Appointment\Models\TreatmentType';
-
         $instance = $model::findOrFail($id);
 
+        $perPage = 15;
+        $params = [
+            'location' => Util::getCoordinates(),
+            'from' => (Input::get('page', 1) - 1) * $perPage,
+            'size' => $perPage
+        ];
         $searchType = Input::get('type');
         if (!empty($searchType) && $searchType === 'district') {
-            $s = new BusinessesByDistrict([
-                'keyword' => Input::get('location'),
-                'category' => $instance->name,
-                'location' => Util::getCoordinates(),
-            ]);
-            $paginator = $s->search();
+            $params['keyword'] = Input::get('location');
+            $params['category'] = $categoryKeyword;
+
+            $s = new BusinessesByDistrict($params);
         } else {
-            $paginator = Business::parentSearch('', $instance, [
-                'isSearchByLocation' => true,
-            ]);
+            $params['keyword'] = $categoryKeyword;
+
+            $s = new BusinessesByCategory($params);
         }
+
+        $paginator = $s->search();
 
         // Extract list of businesses
         $items = $paginator->getCollection();

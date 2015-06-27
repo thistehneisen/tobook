@@ -1,10 +1,17 @@
 from fabric.api import cd, run, local, task, hosts, env, settings
-from fabric.colors import red
+from fabric.colors import red, blue
+from fabric.contrib import files
 from fabric import utils
 import os
 import subprocess
 import threading
+import random
 
+def get_random_word(wordLen):
+    word = ''
+    for i in range(wordLen):
+        word += random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789')
+    return word
 
 def _deploy(environment, host):
     env.user = 'root'
@@ -13,12 +20,13 @@ def _deploy(environment, host):
             # set it to maintenance mode
             run('php artisan down')
             # pull latest source
-            # branch = 'develop' if environment == 'stag' else 'master'
             branch = 'develop' if environment == 'stag' else 'master'
+            run('git pull')
             run('git checkout {}'.format(branch))
-            run('git pull origin {}'.format(branch))
             # install dependencies
             run('composer install')
+            run('npm install')
+            run('ENV={} npm run build'.format(environment))
             # run migration
             run('php artisan migrate --env={}'.format(environment))
             # run seeder
@@ -34,7 +42,8 @@ def _deploy(environment, host):
             #-------------------------------------------------------------------
             # These commands are run once and will be removed in next release
             #-------------------------------------------------------------------
-            print(red('Release notes:'))
+            print(red('Release notes:', True))
+            print(blue('Delete ES business indexes and rebuild using Haku'))
             #-------------------------------------------------------------------
             # restart supervisor processes
             run('supervisorctl restart all')
@@ -51,6 +60,8 @@ def deploy(instance=''):
         'stag': '46.101.49.100',
         'prod': '178.62.37.23',
         'clearbooking': '178.62.52.193',
+        # New server for tobook, old one will die very soon
+        # 'tobook': '178.62.41.125',
         'tobook': '188.166.43.60',
         'yellowpage': '178.62.123.243'
     }
@@ -60,6 +71,75 @@ def deploy(instance=''):
         for inst in instance_dict:
             _deploy(inst, instance_dict[inst])
 
+@task
+def new_server(name):
+    print(red('We will run mysql_secure_installation. Take note of the MySQL root password below.'))
+    mysql_root_password = get_random_word(16)
+    print(red('Copy this new MySQL password: {}'.format(mysql_root_password)))
+    run('cat /etc/motd.tail')
+    run('mysql_secure_installation')
+    if files.exists('~/.ssh/id_rsa.pub') == False:
+        run('ssh-keygen')
+        run('cat ~/.ssh/id_rsa.pub')
+
+    print('Add that SSH key as deployment key on Github.')
+    done = None
+    while done != 'done':
+        print(red('Enter [done] to continue:'))
+        done = raw_input()
+
+    print(blue('(Optional) Create a new API key in Mandrill'))
+    # Add new host into the list
+    replace = '{} ansible_ssh_host={} ansible_ssh_user={}'.format(name, env.host, env.user)
+    hosts_path = 'devops/hosts'
+    local("sed -i.bak 's:\[webservers\]:[webservers]\\n{}:g' {}".format(replace, hosts_path))
+    local("sed -i.bak 's:\[dbservers\]:[dbservers]\\n{}:g' {}".format(replace, hosts_path))
+
+    # Create ansible vault
+    print("""
+---------------------------------------------------------------------
+We are going to create a new vault for the new server.
+You will be asked a several questions.
+So don't panic.
+---------------------------------------------------------------------
+""")
+    print('Enter host name, e.g. tobook.lv')
+    host_name = raw_input()
+    print('Enter Mandrill API key')
+    mandrill_api_key = raw_input()
+    print('Enter secret key. Leave blank to auto-generate. ' + red('Be careful if you reinstall old server, better to keep the old secret key'))
+    secret_key = raw_input()
+    if secret_key == '': secret_key = get_random_word(32)
+
+    vault = '''
+Here is your vault configuration. You'll need it to create ansible vault, so copy it.
+#--------------------------------------------------------------------
+host_name: {}  # domain of new instance
+env: {} # name of the new instance
+mysql_user: root # keep this root
+mysql_pw: {}
+dbname: {}_db # db name
+dbuser: {}_db_user # auto-generated
+dbpassword: {} # auto-generated
+mandrill_password: {}
+secret_key: {}
+#--------------------------------------------------------------------
+'''.format(host_name, name, mysql_root_password, name, name, get_random_word(32), mandrill_api_key, secret_key)
+    print(vault)
+    done = None
+    while done != 'done':
+        print('Enter [done] when you copied it.')
+        done = raw_input()
+
+    local('ansible-vault create devops/host_vars/{}'.format(name))
+    local('cp -r app/config/prod app/config/{}'.format(name))
+    print('Configuration files were copied at app/config/{}'.format(name))
+    local('ANSIBLE_NOCOWS=1 ansible-playbook devops/site.yml -i devops/hosts --ask-vault-pass --limit {}'.format(name))
+    with cd('/srv/varaa'):
+        run('git clone git@github.com:varaa/varaa.git src')
+        run('cd src')
+        run('composer install --no-scripts')
+    local('ANSIBLE_NOCOWS=1 ansible-playbook devops/app.yml -i devops/hosts --ask-vault-pass --limit {}'.format(name))
 
 @task(alias='rc')
 @hosts('dev.varaa.co')
