@@ -412,4 +412,5 @@ return [
         'success_bulk'   => 'Item was deleted successfully.',
         'sortable'       => 'Drag to reorder',
     ],
+    'nothing_selected' => 'Nothing selected',
 ];

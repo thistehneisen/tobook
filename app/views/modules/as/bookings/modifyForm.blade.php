@@ -30,7 +30,7 @@
     @if (!empty($extraServices))
         <label for="extra_services" class="col-sm-4">{{ trans('as.bookings.extra_service') }}</label>
         <div class="col-sm-8">
-            {{ Form::select('extra_services[]', $extraServices, 0 , array('class'=> 'selectpicker form-control input-sm', 'multiple' => true)); }}
+            {{ Form::select('extra_services[]', $extraServices, 0 , array('class'=> 'selectpicker form-control input-sm', 'multiple' => true, 'title' => trans('as.nothing_selected'))) }}
         </div>
     @endif
     </div>
