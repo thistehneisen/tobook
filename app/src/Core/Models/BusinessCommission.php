@@ -9,6 +9,7 @@ class BusinessCommission extends Base
 
     public $fillable = [
         'status',
+        'booking_status',
         'commission',
         'constant_commission',
         'new_consumer_commission',
@@ -20,6 +21,7 @@ class BusinessCommission extends Base
     public $rulesets = [
         'saving' => [
             'status'                  => 'required',
+            'booking_status'          => 'required',
             'commission'              => 'required|numeric',
             'constant_commission'     => 'numeric',
             'new_consumer_commission' => 'numeric',

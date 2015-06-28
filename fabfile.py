@@ -6,6 +6,7 @@ import os
 import subprocess
 import threading
 import random
+import semver
 
 def get_random_word(wordLen):
     word = ''
@@ -23,6 +24,8 @@ def _deploy(environment, host):
             branch = 'develop' if environment == 'stag' else 'master'
             run('git pull')
             run('git checkout {}'.format(branch))
+            # update composer
+            run('composer self-update')
             # install dependencies
             run('composer install')
             run('npm install')
@@ -68,6 +71,39 @@ def deploy(instance=''):
     elif instance == 'all':
         for inst in instance_dict:
             _deploy(inst, instance_dict[inst])
+
+@task
+def quick_fix(branch):
+    '''
+    Merge the branch into `master` and develop and bump current release version
+    '''
+    f = open('VERSION')
+    version = f.read().strip('\n')
+    f.close()
+    # Bump version
+    bumped_version = semver.bump_patch(version)
+    msg = 'Release v{}'.format(bumped_version)
+    # Merge into `master`
+    # local('git checkout master')
+    # local('git merge --no-ff {} -m "{}"'.format(branch, msg))
+    # Merge into `develop`
+    local('git checkout develop')
+    local('git merge --no-ff {} -m "Merge branch `{}`.\n{}"'.format(branch, branch, msg))
+    # Create a tag
+    local('git tag -a v{} -m "{}"'.format(bumped_version, msg))
+    # Write it
+    bump_version(bumped_version)
+
+    print('Current version: '+red(bumped_version, True))
+
+@task
+def bump_version(version = None):
+    f = open('VERSION')
+    if version == None:
+        version = f.read().strip('\n')
+        version = semver.bump_patch(version)
+    f.write(version)
+    f.close()
 
 @task
 def new_server(name):
@@ -217,14 +253,6 @@ def fix(path='app'):
     local('./vendor/bin/php-cs-fixer fix {}'.format(path))
 
 
-@task(alias='i')
-def index_business(command='index'):
-    '''
-    Shortcut for command index business
-    '''
-    local('php artisan varaa:es-index-business {}'.format(command))
-
-
 def _which(bin):
     path, err = subprocess.Popen(
         ['which', bin], stdout=subprocess.PIPE
@@ -288,20 +316,3 @@ def test_acceptance_prepare(headless=1):
         local('Xvfb {} -ac &'.format(os.getenv('DISPLAY')))
 
     local('java -jar {}'.format(output))
-
-
-@task(alias='r')
-def run_all():
-    threads = map(
-        lambda x: threading.Thread(target=x), (
-            lambda: local('gulp'),
-            lambda: local('elasticsearch'),
-            lambda: local('php artisan queue:listen --tries=5'),
-            lambda: local('redis-server'),
-            test_acceptance_prepare
-        )
-    )
-    # Start
-    [x.start() for x in threads]
-    # Wait for Ctrl+C
-    [x.join() for x in threads]
