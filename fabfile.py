@@ -24,6 +24,8 @@ def _deploy(environment, host):
             branch = 'develop' if environment == 'stag' else 'master'
             run('git pull')
             run('git checkout {}'.format(branch))
+            # update composer
+            run('composer self-update')
             # install dependencies
             run('composer install')
             run('npm install')
