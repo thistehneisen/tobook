@@ -310,7 +310,7 @@
                 var $this = $(this);
 
                 //Prevent user double click to the submit button
-                $('#btn-submit-confirm-booking').attr('disabled','disabled');
+                $this.attr('disabled','disabled');
 
                 //yes and required
                 var term = $this.find('input[name=terms]');
@@ -347,7 +347,7 @@
                     }
                 }).fail(function (data) {
                     alert(data.responseJSON.message);
-                    $('#btn-submit-confirm-booking').removeAttr('disabled');
+                    $this.removeAttr('disabled');
                 });
             });
         }
