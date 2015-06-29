@@ -1,10 +1,13 @@
 <?php namespace App\Appointment\Models\Observer;
 
-use App, View, Confide, Sms, Log, Config, Settings;
-use Carbon\Carbon;
+use App;
+use Config;
 use Queue;
-class SmsObserver implements \SplObserver {
+use Settings;
+use Sms;
 
+class SmsObserver implements \SplObserver
+{
     /**
      * Use to distinguish between front end and backend booking
      *
@@ -41,6 +44,7 @@ class SmsObserver implements \SplObserver {
     public function setIsBackend($value)
     {
         $this->isBackend = (bool) $value;
+
         return $this;
     }
 
@@ -54,18 +58,21 @@ class SmsObserver implements \SplObserver {
     public function setIsEnabled($subject)
     {
         $this->isEnabled = (bool) $subject->user->asOptions['confirm_sms_enable'];
+
         return $this;
     }
 
     public function setCode($subject)
     {
-       $this->code = $subject->user->asOptions['confirm_sms_country_code'];
+       $this->code = Settings::get('phone_country_code');
+
        return $this;
     }
 
     protected function setServiceInfo($subject)
     {
         $this->serviceInfo = $subject->getServiceInfo();
+
         return $this;
     }
 
@@ -108,7 +115,7 @@ class SmsObserver implements \SplObserver {
 
         $code = $this->code;
 
-        Queue::push(function($job) use($subject, $msg, $code){
+        Queue::push(function ($job) use ($subject, $msg, $code) {
             Sms::send(Config::get('sms.from'), $subject->consumer->phone, $msg, $code);
             $job->delete();
         });
@@ -126,7 +133,7 @@ class SmsObserver implements \SplObserver {
         $msg = str_replace('{Consumer}', $subject->consumer->name, $msg);
 
         $code = $this->code;
-        Queue::push(function($job) use($subject, $msg, $code){
+        Queue::push(function ($job) use ($subject, $msg, $code) {
             Sms::send(Config::get('sms.from'), $subject->employee->phone, $msg, $code);
             $job->delete();
         });
