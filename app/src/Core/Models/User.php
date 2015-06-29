@@ -5,14 +5,11 @@ use Consumer, Log, NAT;
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Entrust\HasRole;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use App\Search\SearchableInterface;
-use App\Search\ElasticSearchTrait;
 
-class User extends ConfideUser implements SearchableInterface
+class User extends ConfideUser
 {
     use SoftDeletingTrait;
     use HasRole;
-    use ElasticSearchTrait;
 
     public $visible = [
         'id',
@@ -408,67 +405,5 @@ class User extends ConfideUser implements SearchableInterface
     public function getIsAdminAttribute()
     {
         return $this->hasRole(Role::ADMIN);
-    }
-
-    //--------------------------------------------------------------------------
-    // SEARCH
-    //--------------------------------------------------------------------------
-
-    /**
-     * @{@inheritdoc}
-     */
-    public function getSearchDocument()
-    {
-        $data = ['email' => $this->email];
-
-        // Check if this user is a business user
-        // Pull out business information
-        if ($this->is_business && $this->business !== null) {
-            $data['business'] = $this->business->name;
-        } elseif ($this->is_consumer && $this->consumer !== null) {
-            $data['consumer'] = $this->consumer->name;
-        }
-
-        return $data;
-    }
-
-    /**
-     * @{@inheritdoc}
-     */
-    public function getSearchMapping()
-    {
-        return [
-            'email'    => ['type' => 'string'],
-            'business' => ['type' => 'string'],
-            'consumer' => ['type' => 'string'],
-        ];
-    }
-
-    /**
-     * @{@inheritdoc}
-     */
-    protected function buildSearchQuery($keyword, $fields = null)
-    {
-        $query = [];
-        $query['bool']['should'][]['match']['email'] = $keyword;
-        $query['bool']['should'][]['match']['business'] = $keyword;
-
-        return $query;
-    }
-
-    /**
-     * @{@inheritdoc}
-     */
-    public function transformSearchResult($results)
-    {
-        $data = [];
-        foreach ($results as $result) {
-            $item = static::find($result['_id']);
-            if ($item !== null && $item->is_business) {
-                $data[] = $item;
-            }
-        }
-
-        return $data;
     }
 }
