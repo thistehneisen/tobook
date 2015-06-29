@@ -307,11 +307,10 @@
 
             $elCheckout.on('submit', '#frm-customer-info', function (e) {
                 e.preventDefault();
+                var $this = $(this);
 
                 //Prevent user double click to the submit button
                 $('#btn-submit-confirm-booking').attr('disabled','disabled');
-
-                var $this = $(this);
 
                 //yes and required
                 var term = $this.find('input[name=terms]');
