@@ -27,6 +27,11 @@ abstract class AbstractSearcher implements SearcherInterface
         $this->params = $params;
     }
 
+    public function getParam($key)
+    {
+        return array_get($this->params, $key);
+    }
+
     /**
      * The abstract transformer do nothing, just return the raw result
      *

@@ -15,12 +15,12 @@ class BusinessesByDistrict extends AbstractSearcher
                 'must' => [
                     [
                         'match' => [
-                            'master_categories' => $this->params['category']
+                            'master_categories' => $this->getParam('category')
                         ]
                     ],
                     [
                         'match' => [
-                            'district' => $this->params['keyword']
+                            'district' => $this->getParam('keyword')
                         ]
                     ],
                 ]
