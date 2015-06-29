@@ -5,6 +5,7 @@ use Config;
 use Queue;
 use Settings;
 use Sms;
+use Log;
 
 class SmsObserver implements \SplObserver
 {
@@ -114,7 +115,9 @@ class SmsObserver implements \SplObserver
         }
 
         $code = $this->code;
-
+        Log::info('Enqueue to send SMS to consumer', [
+            'to' => $subject->consumer->phone,
+        ]);
         Queue::push(function ($job) use ($subject, $msg, $code) {
             Sms::send(Config::get('sms.from'), $subject->consumer->phone, $msg, $code);
             $job->delete();
@@ -133,6 +136,9 @@ class SmsObserver implements \SplObserver
         $msg = str_replace('{Consumer}', $subject->consumer->name, $msg);
 
         $code = $this->code;
+        Log::info('Enqueue to send SMS to employee', [
+            'to' => $subject->employee->phone,
+        ]);
         Queue::push(function ($job) use ($subject, $msg, $code) {
             Sms::send(Config::get('sms.from'), $subject->employee->phone, $msg, $code);
             $job->delete();

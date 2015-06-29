@@ -1,7 +1,10 @@
 <?php namespace App\OneApi;
 require __DIR__.'/lib/oneapi/client.php';
 
-use Config, Log, Queue, Settings;
+use Config;
+use Log;
+use Queue;
+use Settings;
 
 class OneApi
 {
@@ -52,6 +55,9 @@ class OneApi
             $smsMessage->message = $message;
 
             // Send
+            Log::info('Start to send SMS', [
+                'to' => $phone,
+            ]);
             $smsMessageSendResult = $smsClient->sendSMS($smsMessage);
         } catch (\Exception $ex) {
             Log::error('Cannot send SMS: '.$ex->getMessage(), [
