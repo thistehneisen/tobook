@@ -160,22 +160,28 @@ class ConsumerCSVImporter extends Command {
             $first_name = mb_convert_case(trim($first_name), MB_CASE_TITLE, "UTF-8");
             $last_name  = mb_convert_case(trim($last_name), MB_CASE_TITLE, "UTF-8");
 
-            $consumer = new Consumer();
-            $consumer->fill([
-                'first_name' => $first_name,
-                'last_name'  => $last_name,
-                'email'      => $email,
-                'phone'      => $phone
-            ]);
+            try{
+                $consumer = new Consumer();
+                $consumer->fill([
+                    'first_name' => $first_name,
+                    'last_name'  => $last_name,
+                    'email'      => $email,
+                    'phone'      => $phone
+                ]);
+                $consumer->saveOrFail();
+                $consumer->users()->attach($user->id);
+             } catch(\Exception $ex){
+                Log::info('Exception: ' . $ex->getMessage());
+                Log::info(sprintf('email : %s - phone : %s', $email, $phone));
+            }
             Log::info(sprintf("New consumer : %s \n", $email));
         }
 
         printf("email : %s - phone : %s \n", $email, $phone);
 
         try{
-            $consumer->saveOrFail();
-            $consumer->users()->attach($user->id);
             $group->consumers()->attach($consumer->id);
+            $consumer->saveOrFail();
         } catch(\Exception $ex){
             Log::info('Exception: ' . $ex->getMessage());
             Log::info(sprintf('email : %s - phone : %s', $email, $phone));
