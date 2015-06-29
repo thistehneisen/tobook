@@ -74,7 +74,7 @@
     <div class="row">
         <div class="col-sm-12">
             <a href="#" class="btn btn-default btn-as-cancel">{{ trans('as.embed.back') }}</a>
-            <button type="submit" class="btn btn-success pull-right">{{ trans('as.embed.book') }}</button>
+            <button type="submit" id="btn-submit-confirm-booking" class="btn btn-success pull-right">{{ trans('as.embed.book') }}</button>
         </div>
     </div>
 {{ Form::close() }}

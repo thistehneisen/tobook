@@ -307,6 +307,10 @@
 
             $elCheckout.on('submit', '#frm-customer-info', function (e) {
                 e.preventDefault();
+
+                //Prevent user double click to the submit button
+                $('#btn-submit-confirm-booking').attr('disabled','disabled');
+
                 var $this = $(this);
 
                 //yes and required
@@ -344,6 +348,7 @@
                     }
                 }).fail(function (data) {
                     alert(data.responseJSON.message);
+                    $('#btn-submit-confirm-booking').removeAttr('disabled');
                 });
             });
         }
