@@ -282,8 +282,7 @@
                 e.preventDefault();
 
                  //Prevent user double click to the submit button
-                $(this).attr('disabled','disabled');
-
+                $this.attr('disabled','disabled');
                 var $this = $(this),
                     data = $this.serialize(),
                     loading = $this.find('.as-loading'),
