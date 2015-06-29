@@ -2,7 +2,7 @@
 
 use App\Haku\Transformers\BusinessTransformer;
 
-class BusinessesByDistrict extends AbstractSearcher
+class BusinessesByDistrict extends Businesses
 {
     use Traits\Business;
     use Traits\SortByLocation;
