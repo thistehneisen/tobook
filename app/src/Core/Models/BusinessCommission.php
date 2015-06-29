@@ -1,5 +1,7 @@
 <?php namespace App\Core\Models;
 
+use App\App\Appointment\Models\Booking;
+
 class BusinessCommission extends Base
 {
     const STATUS_INITIAL   = 'initial';
@@ -27,6 +29,24 @@ class BusinessCommission extends Base
             'new_consumer_commission' => 'numeric',
         ]
     ];
+
+    public static function releaseCommission(Carbon $cutoff) {
+        Log::info('Started to unlock commissions items');
+
+        $commissions = static::where('booking_status', '=', Booking::STATUS_PENDING)
+            ->where('created_at', '<=', $cutoff)
+            ->orderBy('id', 'desc')
+            ->get();
+
+        Log::info('Found ' . $commissions->count() . ' commissions');
+
+        // Go through all cart details and release them
+        foreach ($commissions as $commission) {
+            $commission->delete();
+        }
+
+        Log::info('Release commissions are done');
+    }
 
     //--------------------------------------------------------------------------
     // ATTRIBUTES
