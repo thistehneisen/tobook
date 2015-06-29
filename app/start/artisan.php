@@ -33,6 +33,7 @@ Artisan::add(new App\Appointment\NAT\Commands\ScheduledBuild());
 Artisan::add(new App\Search\Commands\BuildSearchIndecesCommand());
 
 Artisan::add(new App\Consumers\Commands\MergeComsumersCommand());
+Artisan::add(new App\Consumers\Commands\ConsumerCSVImporter());
 
 Artisan::add(new App\LoyaltyCard\Commands\MoveLcCommand());
 
