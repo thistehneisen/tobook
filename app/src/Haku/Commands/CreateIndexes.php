@@ -2,7 +2,9 @@
 
 use App;
 use App\Core\Models\Business;
+use App\Core\Models\User;
 use App\Haku\Indexers\BusinessIndexer;
+use App\Haku\Indexers\UserIndexer;
 use Illuminate\Console\Command;
 
 class CreateIndexes extends Command
@@ -38,14 +40,17 @@ class CreateIndexes extends Command
         $this->client = App::make('elasticsearch');
 
         $indexers = [
-            'App\Haku\Indexers\BusinessIndexer'
+            'App\Haku\Indexers\BusinessIndexer',
+            'App\Haku\Indexers\UserIndexer',
         ];
 
         foreach ($indexers as $indexer) {
+            // If there is already an index, skip it
             if ($this->client->indices()->exists(['index' => $indexer::INDEX_NAME])) {
                 continue;
             }
 
+            // Create index
             $params = [
                 'index' => $indexer::INDEX_NAME,
                 'body' => [
@@ -75,6 +80,17 @@ class CreateIndexes extends Command
         }
 
         $this->line('');
+        $this->line('Indexing user data');
+        $users = User::all();
+        foreach ($users as $user) {
+            $indexer = new UserIndexer($user);
+            $indexer->index();
+
+            $this->output->write('.');
+        }
+
+        $this->line('');
+        $this->info('Done!');
     }
 
     protected function getAnalyzer()
