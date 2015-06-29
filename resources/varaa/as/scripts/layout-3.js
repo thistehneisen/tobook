@@ -280,9 +280,6 @@
             // When user submits the confirmation form
             $form.on('submit', '#as-form-checkout', function (e) {
                 e.preventDefault();
-
-                 //Prevent user double click to the submit button
-                $this.attr('disabled','disabled');
                 var $this = $(this),
                     data = $this.serialize(),
                     loading = $this.find('.as-loading'),
@@ -306,6 +303,8 @@
                             .addClass('text-danger')
                             .text(message);
                     };
+                 //Prevent user double click to the submit button
+                $this.attr('disabled','disabled');
 
                 loading.show();
                 submit.prop('disabled', true);
