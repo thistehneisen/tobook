@@ -308,6 +308,9 @@
             $elCheckout.on('submit', '#frm-customer-info', function (e) {
                 e.preventDefault();
                 var $this = $(this);
+                var $submit = $('#btn-submit-confirm-booking');
+                //Prevent user double click to the submit button
+                $submit.attr('disabled','disabled');
 
                 //yes and required
                 var term = $this.find('input[name=terms]');
@@ -344,6 +347,7 @@
                     }
                 }).fail(function (data) {
                     alert(data.responseJSON.message);
+                    $submit.removeAttr('disabled');
                 });
             });
         }

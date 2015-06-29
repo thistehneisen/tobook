@@ -201,10 +201,11 @@
                 return alertify.alert($(this).data('term-error-msg'));
             }
 
-            //Prevent user double click to the submit button
-            $('#btn-submit-confirm-booking').attr('disabled','disabled');
-
             var $this = $(this);
+            var $submit = $('#btn-submit-confirm-booking');
+            //Prevent user double click to the submit button
+            $submit.attr('disabled','disabled');
+
             $.ajax({
                 type: 'POST',
                 url: $this.attr('action'),
@@ -230,7 +231,7 @@
                 }
             }).fail(function (data) {
                 alertify.alert('Error', data.responseJSON.message);
-                $('#btn-submit-confirm-booking').removeAttr('disabled');
+                $submit.removeAttr('disabled');
             });
         });
 

@@ -280,12 +280,18 @@
             // When user submits the confirmation form
             $form.on('submit', '#as-form-checkout', function (e) {
                 e.preventDefault();
+
+                 //Prevent user double click to the submit button
+                $this.attr('disabled','disabled');
                 var $this = $(this),
                     data = $this.serialize(),
                     loading = $this.find('.as-loading'),
                     submit = $this.find('button[type=submit]'),
                     src = $this.find('input[name=source]').val(),
                     fnFail = function (e) {
+
+                        $this.removeAttr('disabled');
+
                         var res = e.responseJSON,
                             message = $this.find('div.error-msg').text();
 
