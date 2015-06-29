@@ -81,7 +81,8 @@ class CreateIndexes extends Command
 
         $this->line('');
         $this->line('Indexing user data');
-        $users = User::all();
+        // Leave consumer accounts alone
+        $users = User::whereNull('consumer_id')->get();
         foreach ($users as $user) {
             $indexer = new UserIndexer($user);
             $indexer->index();
