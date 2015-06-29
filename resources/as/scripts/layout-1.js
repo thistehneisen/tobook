@@ -202,8 +202,9 @@
             }
 
             var $this = $(this);
+            var $submit = $('#btn-submit-confirm-booking');
             //Prevent user double click to the submit button
-            $this.attr('disabled','disabled');
+            $submit.attr('disabled','disabled');
 
             $.ajax({
                 type: 'POST',
@@ -230,7 +231,7 @@
                 }
             }).fail(function (data) {
                 alertify.alert('Error', data.responseJSON.message);
-                $this.removeAttr('disabled');
+                $submit.removeAttr('disabled');
             });
         });
 
