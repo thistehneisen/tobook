@@ -1,27 +1,19 @@
 <?php namespace App\Core\Models;
 
-use Confide, App, Log, Input, Config, DB;
-use Watson\Validating\ValidatingTrait;
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use App\Search\SearchableInterface;
-use App\Search\ElasticSearchTrait;
-use App\Core\Models\Multilanguage;
+use App;
 use App\Core\Traits\MultilanguageTrait;
+use Confide;
+use Config;
+use DB;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Input;
+use Watson\Validating\ValidatingTrait;
 
-class Base extends \Eloquent implements SearchableInterface
+class Base extends \Eloquent
 {
     use ValidatingTrait;
     use SoftDeletingTrait;
-    use ElasticSearchTrait;
     use MultilanguageTrait;
-
-    /**
-     * By default we'll disable ES index in all models and only enable in some
-     * specific models manually
-     *
-     * @var boolean
-     */
-    public $isSearchable = false;
 
     /**
      * Using to create dynamically all multilingual attributes based on this array
@@ -35,7 +27,8 @@ class Base extends \Eloquent implements SearchableInterface
      * Use to get translation context for multilanguage table
      *
      */
-    public static function getContext() {
+    public static function getContext()
+    {
        return '';
     }
 
@@ -109,18 +102,19 @@ class Base extends \Eloquent implements SearchableInterface
      */
     public function getAttribute($key)
     {
-        if(in_array($key, $this->multilingualAtrributes)) {
+        if (in_array($key, $this->multilingualAtrributes)) {
             $attribute = $this->translate($key, static::getContext() . $this->id, App::getLocale());
             if (empty($attribute)) {
                 $attribute = $this->translate($key, static::getContext() . $this->id, Config::get('varaa.default_language'));
             }
 
-            if(!empty($this->attributes[$key])) {
+            if (!empty($this->attributes[$key])) {
                 return (!empty($attribute)) ? $attribute : $this->attributes[$key];
             }
 
             return (!empty($attribute)) ? $attribute : '';
         }
+
         return parent::getAttribute($key);
     }
 
@@ -138,15 +132,15 @@ class Base extends \Eloquent implements SearchableInterface
             ->join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . static::getContext() . "', `varaa_" . $this->table . "`.`id`)"))->get();
 
         $data = [];
-        foreach (Config::get('varaa.languages') as $locale){
+        foreach (Config::get('varaa.languages') as $locale) {
             foreach ($items as $item) {
-                if($locale == $item->lang) {
+                if ($locale == $item->lang) {
                     $data[$locale][$item->key] = $item->value;
                 }
             }
         }
 
-        if(empty($data[$defaultLanguage])) {
+        if (empty($data[$defaultLanguage])) {
             foreach ($this->multilingualAtrributes as $key) {
                 $data[$defaultLanguage][$key] = $this->$key;
             }
@@ -158,7 +152,7 @@ class Base extends \Eloquent implements SearchableInterface
     /**
      * Return data for making search index of all languages of given key
      *
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     public function getTranslations($key)
@@ -191,6 +185,7 @@ class Base extends \Eloquent implements SearchableInterface
                 $data[] = $value;
             }
         }
+
         return (!empty($data)) ? implode(",", $data) : '';
     }
 
@@ -203,11 +198,11 @@ class Base extends \Eloquent implements SearchableInterface
     {
         $requiredFields = [];
 
-        if(!empty($this->rulesets['saving'])){
+        if (!empty($this->rulesets['saving'])) {
             $savingRules = $this->rulesets['saving'];
             foreach ($savingRules as $field => $ruleset) {
                 $rules = explode("|", $ruleset);
-                if(in_array('required', $rules)) {
+                if (in_array('required', $rules)) {
                     $requiredFields[] = $field;
                 }
             }
@@ -232,9 +227,9 @@ class Base extends \Eloquent implements SearchableInterface
         $requiredFields = $this->getRequiredAttributes();
 
         foreach ($requiredFields as $field) {
-            if(empty($data[$field]) && !empty($data[$field.'s'])) {
+            if (empty($data[$field]) && !empty($data[$field.'s'])) {
                 foreach ($data[$field.'s'] as $lang => $name) {
-                    if(!empty($name)) {
+                    if (!empty($name)) {
                         $data[$field] = $name;
                         break;
                     }

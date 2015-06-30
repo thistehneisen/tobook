@@ -1,11 +1,6 @@
 <?php namespace App\Appointment\Models;
 
 use App;
-use App\Core\Models\Multilanguage;
-use Config;
-use DB;
-use Input;
-use Str;
 
 class KeywordMap extends \App\Core\Models\Base
 {
@@ -15,10 +10,6 @@ class KeywordMap extends \App\Core\Models\Base
     public $fillable = ['keyword'];
 
     protected $softDelete = false;
-    /**
-     * @{@inheritdoc}
-     */
-    public $isSearchable = false;
 
      //--------------------------------------------------------------------------
     // ATTRIBUTES
@@ -28,7 +19,7 @@ class KeywordMap extends \App\Core\Models\Base
         $selected = '';
         if (!empty($this->attributes['treatment_type_id'])) {
             $selected =  'tm:' . $this->attributes['treatment_type_id'];
-        } else if(!empty($this->attributes['master_category_id'])){
+        } elseif (!empty($this->attributes['master_category_id'])) {
             $selected = 'mc:' . $this->attributes['master_category_id'];
         }
 

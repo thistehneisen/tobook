@@ -28,13 +28,6 @@ class Consumer extends \App\Core\Models\Base
         ]
     ];
 
-    /**
-     * Temporarily disable search using ES on model Consumer
-     *
-     * @var boolean
-     */
-    public $isSearchable = false;
-
     const STATUS_NEW = 'new';
     const STATUS_EXIST = 'exist';
 

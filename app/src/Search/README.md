@@ -1,3 +1,5 @@
+## Deprecated. Use `App\Haku` instead.
+----------
 ## Search
 
 The search module of Varaa is powered by [ElasticSearch](http://www.elasticsearch.org).

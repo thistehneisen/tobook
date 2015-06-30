@@ -23,11 +23,6 @@ class User extends ConfideUser
     ];
 
     /**
-     * @{@inheritdoc}
-     */
-    public $isSearchable = true;
-
-    /**
      * List of enabled premium modules for this user
      *
      * @var array
