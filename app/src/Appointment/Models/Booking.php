@@ -195,7 +195,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
          $map = [
             static::STATUS_CONFIRM     => 'confirmed',
-            static::STATUS_PAID        => 'paid'
+            static::STATUS_PAID        => 'paid',
+            static::STATUS_PENDING     => 'pending'
         ];
 
         $status = isset($map[$this->original_booking_status]) ? $map[$this->original_booking_status] : null;
