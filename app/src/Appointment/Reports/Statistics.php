@@ -122,7 +122,7 @@ class Statistics extends Base
                     'as_bookings.employee_id',
                     'as_bookings.source'
                 )->where('as_bookings.status','!=', Booking::STATUS_CANCELLED)
-                ->whereNotNull('as_bookings.deleted_at')
+                ->whereNull('as_bookings.deleted_at')
                 ->groupBy('employee_id', 'source')->get();
         } else {
             $count = $count->select(
