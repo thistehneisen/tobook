@@ -1,8 +1,6 @@
 <?php namespace App\FlashDeal\Models;
 
 use App\Core\Models\Base;
-use Carbon\Carbon;
-use DB;
 use Illuminate\Support\Collection;
 
 class FlashDeal extends Base
@@ -21,11 +19,6 @@ class FlashDeal extends Base
             'quantity'         => 'required|numeric',
         ]
     ];
-
-    /**
-     * @{@inheritdoc}
-     */
-    public $isSearchable = true;
 
     //--------------------------------------------------------------------------
     // ATTRIBUTES
@@ -67,8 +60,8 @@ class FlashDeal extends Base
     /**
      * Get flash deals of a business
      *
-     * @param  Illuminate\Database\Eloquent\Builder $query
-     * @param  App\Core\Models\Business $business
+     * @param Illuminate\Database\Eloquent\Builder $query
+     * @param App\Core\Models\Business             $business
      *
      * @return Illuminate\Support\Collection
      */
@@ -77,6 +70,7 @@ class FlashDeal extends Base
         $id = $business instanceof \App\Core\Models\Business
             ? $business->user_id
             : $business->id;
+
         return $query->where('user_id', $id);
     }
 
@@ -124,7 +118,7 @@ class FlashDeal extends Base
      */
     public static function getActiveDeals()
     {
-        return static::whereHas('dates', function($query) {
+        return static::whereHas('dates', function ($query) {
             return $query->active()->orderBy('expire');
         })
         ->with(['user.business', 'service', 'service.businessCategory'])

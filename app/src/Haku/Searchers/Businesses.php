@@ -1,7 +1,22 @@
-<?php namespace App\Haku\Searchers\Traits;
+<?php namespace App\Haku\Searchers;
 
-trait SortByLocation
+use App\Haku\Transformers\BusinessTransformer;
+use App\Haku\Indexers\BusinessIndexer;
+
+abstract class Businesses extends AbstractSearcher
 {
+    use BusinessTransformer;
+
+    public function getIndexName()
+    {
+        return BusinessIndexer::INDEX_NAME;
+    }
+
+    public function getType()
+    {
+        return BusinessIndexer::INDEX_TYPE;
+    }
+
     public function getSort()
     {
         if (empty($this->params['location'])) {

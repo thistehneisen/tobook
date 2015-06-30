@@ -40,6 +40,11 @@ abstract class AbstractIndexer implements IndexerInterface
         ];
 
         try {
+            Log::info('Indexing data', [
+                'id' => $this->getId(),
+                'endpoint' => $this->getIndexName().'/'.$this->getType(),
+            ]);
+
             return $this->client->index($params);
         } catch (Exception $ex) {
             Log::error($ex->getMessage(), $params);

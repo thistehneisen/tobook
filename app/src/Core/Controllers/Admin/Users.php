@@ -5,6 +5,7 @@ use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\Role;
 use App\Core\Models\User;
+use App\Haku\Searchers\Users as UsersSearcher;
 use Auth;
 use Confide;
 use Config;
@@ -435,5 +436,22 @@ class Users extends Base
     {
         User::whereIn('id', $ids)
             ->update(['deleted_at' => null]);
+    }
+
+    /**
+     * Overwritten default method to use new Haku search
+     *
+     * @return View
+     */
+    public function search()
+    {
+        $keyword = Input::get('q');
+        $searcher = new UsersSearcher(['keyword' => $keyword]);
+        $items = $searcher->search();
+
+        // Disable sorting items
+        $this->crudSortable = false;
+
+        return $this->renderList($items);
     }
 }
