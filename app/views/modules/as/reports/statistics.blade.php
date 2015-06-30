@@ -55,7 +55,7 @@ new Morris.Bar({
     {{ Form::close() }}
 
     <div id="employees-chart" style="height: 350px; padding-bottom: 50px"></div>
-<?php var_dump($report->get());?>
+
     <table class="table table-stripped table-bordered">
         <thead>
             <tr>
