@@ -1,7 +1,15 @@
 <?php namespace App\Olut;
 
-use App, Input, Config, Redirect, Route, View, Validator, Request, Response, DB;
+use App;
+use Config;
+use Input;
 use Lomake;
+use Redirect;
+use Request;
+use Response;
+use Route;
+use Validator;
+use View;
 
 trait Olut
 {
@@ -421,7 +429,23 @@ trait Olut
 
         // Call static search method of this model
         $className = $this->getModelClass();
-        $items = $className::search($keyword);
+        $instance = new $className();
+        $query = $instance->newQuery();
+        if (method_exists($instance, 'scopeOfCurrentUser')) {
+            $query->ofCurrentUser();
+        }
+
+        $query->where(function ($q) use ($instance, $keyword) {
+            foreach ($instance->fillable as $key) {
+                if (starts_with($key, 'is_')) {
+                    continue;
+                }
+
+                $q->orWhere($key, 'LIKE', '%'.$keyword.'%');
+            }
+        });
+
+        $items = $query->paginate();
 
         // Disable sorting items
         $this->crudSortable = false;
