@@ -8,7 +8,7 @@ use App\Search\ElasticSearchTrait;
 use App\Core\Models\Multilanguage;
 use App\Core\Traits\MultilanguageTrait;
 
-class Base extends \Eloquent implements SearchableInterface
+class Base extends \Eloquent
 {
     use ValidatingTrait;
     use SoftDeletingTrait;
