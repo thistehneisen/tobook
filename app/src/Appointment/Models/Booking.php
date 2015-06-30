@@ -1263,7 +1263,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $newConsumerCommission = (!empty($this->consumer->isNew) && $this->consumer->isNew) ? ($newConsumerRate * $this->total_price) : 0;
 
             if ($this->deposit > 0) {
-                $commission  = $commission * $depositRate;
+                $commission  = $this->deposit * $commissionRate;
             }
         }
 
