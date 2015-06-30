@@ -16,11 +16,6 @@ class MasterCategory extends \App\Core\Models\Base
     public $fillable = ['name', 'description', 'order'];
 
     /**
-     * @{@inheritdoc}
-     */
-    public $isSearchable = true;
-
-    /**
      * @see \App\Core\Models\Base
      */
     public $multilingualAtrributes = ['name', 'description'];

@@ -3,10 +3,7 @@
 use Carbon\Carbon;
 use App\Cart\CartDetailInterface;
 use App\Cart\CartDetail;
-use App\Appointment\Models\Booking;
-use App\Appointment\Models\BookingExtraService;
 use Watson\Validating\ValidationException;
-use App\Appointment\Models\Reception\ReceptionistInterface;
 
 class BookingService extends Base implements CartDetailInterface
 {
@@ -113,6 +110,7 @@ class BookingService extends Base implements CartDetailInterface
         $length = $this->getServiceBaseLength();
         $length += $this->getEmployeePlustime();
         $length += $this->modify_time;
+
         return $length;
     }
 
@@ -146,7 +144,7 @@ class BookingService extends Base implements CartDetailInterface
         $length += $this->getEmployeePlustime();
 
         //Add extra service time
-        if($accountExtraService) {
+        if ($accountExtraService) {
             $length += $this->getExtraServiceTime();
         }
 
@@ -163,7 +161,7 @@ class BookingService extends Base implements CartDetailInterface
     {
         $price  = $this->calculateServicePrice();
 
-        if($accountExtraService) {
+        if ($accountExtraService) {
             $price += $this->getExtraServicePrice();
         }
 
@@ -445,37 +443,5 @@ class BookingService extends Base implements CartDetailInterface
         $bookingService->saveOrFail();
 
         return $bookingService;
-    }
-
-    //--------------------------------------------------------------------------
-    // SEARCH
-    //--------------------------------------------------------------------------
-    public function getSearchDocument()
-    {
-        $data = [
-            'tmp_uuid'     => $this->tmp_uuid,
-            'date'         => $this->date instanceof Carbon ? $this->date->toDateString() : $this->date,
-            'start_at'     => $this->start_at instanceof Carbon ? $this->start_at->toDateTimeString() : $this->start_at,
-            'end_at'       => $this->end_at instanceof Carbon ? $this->end_at->toDateTimeString() : $this->end_at,
-            'modify_time'  => $this->modify_time
-        ];
-
-        if ($this->serviceTime !== null) {
-            $data['service_time'] = $this->serviceTime->description;
-        }
-
-        return $data;
-    }
-
-    public function getSearchMapping()
-    {
-        return [
-            'tmp_uuid'     => ['type' => 'string'],
-            'date'         => ['type' => 'date'],
-            'start_at'     => ['type' => 'date'],
-            'end_at'       => ['type' => 'date'],
-            'modify_time'  => ['type' => 'integer'],
-            'service_time' => ['type' => 'string'],
-        ];
     }
 }

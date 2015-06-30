@@ -20,8 +20,8 @@ class ToBookCounter extends Counter
             }
         }
 
-        $startOfMonth    = $current->startOfMonth()->toDateString();
-        $endOfMonth      = $current->endOfMonth()->toDateString();
+        $startOfMonth    = $current->startOfMonth()->toDateTimeString();
+        $endOfMonth      = $current->endOfMonth()->toDateTimeString();
 
         $user = User::findOrFail($userId);
         $status = (empty($employeeId))

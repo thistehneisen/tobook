@@ -7,6 +7,7 @@ use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
+use App\Core\Models\BusinessCommission;
 
 class PaymentSuccessListener
 {
@@ -52,6 +53,9 @@ class PaymentSuccessListener
                     $item->booking->attach(new EmailObserver());
                     $item->booking->attach(new SmsObserver());
                     $item->booking->notify();
+
+                    BusinessCommission::updateStatus($item->booking);
+
                     //Send calendar invitation to employee
                     Event::fire('employee.calendar.invitation.send', [$item->booking]);
                 } catch (\Exception $ex) {

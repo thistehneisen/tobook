@@ -195,7 +195,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
          $map = [
             static::STATUS_CONFIRM     => 'confirmed',
-            static::STATUS_PAID        => 'paid'
+            static::STATUS_PAID        => 'paid',
+            static::STATUS_PENDING     => 'pending'
         ];
 
         $status = isset($map[$this->original_booking_status]) ? $map[$this->original_booking_status] : null;
@@ -1262,7 +1263,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $newConsumerCommission = (!empty($this->consumer->isNew) && $this->consumer->isNew) ? ($newConsumerRate * $this->total_price) : 0;
 
             if ($this->deposit > 0) {
-                $commission  = $commission * $depositRate;
+                $commission  = $this->deposit * $commissionRate;
             }
         }
 

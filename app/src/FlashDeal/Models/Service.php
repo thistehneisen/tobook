@@ -1,8 +1,6 @@
 <?php namespace App\FlashDeal\Models;
 
 use App\Core\Models\Base;
-use Config;
-use Illuminate\Support\Collection;
 use Settings;
 
 class Service extends Base
@@ -22,11 +20,6 @@ class Service extends Base
             'price'                => 'required|numeric',
         ]
     ];
-
-    /**
-     * @{@inheritdoc}
-     */
-    public $isSearchable = true;
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
