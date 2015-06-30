@@ -168,7 +168,7 @@ return [
     'footer' => [
         'subscribe' => 'Pieteikties jaunumiem',
         'email' => 'Jūsu e-pasta adrese',
-        'btn_subscribe' => 'PASAŪTĪT',
+        'btn_subscribe' => 'PASŪTĪT',
         'about' => 'Par :site',
         'about_content' => $footerAbout,
         'info' => 'Informācija pircējiem',
