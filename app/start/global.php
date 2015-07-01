@@ -46,13 +46,19 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 |
 */
 
-App::error(function (Exception $exception, $code) {
-    if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
-        Log::warning($exception->getMessage(), ['url' => URL::current()]);
-        return Response::view('errors.missing', [], 404);
-    } else {
-        Log::error($exception);
-    }
+App::error(function (\Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException $exception, $code) {
+    Log::warning('Wrong HTTP method accessing', [
+        'url' => URL::current(),
+        'method' => Request::method(),
+    ]);
+
+    return Redirect::to('/');
+});
+
+App::error(function (\Illuminate\Database\Eloquent\ModelNotFoundException $exception, $code) {
+    Log::warning($exception->getMessage(), ['url' => URL::current()]);
+
+    return Response::view('errors.missing', [], 404);
 });
 
 /*
@@ -149,7 +155,8 @@ App::before(function ($request) {
 require app_path().'/events.php';
 
 // use varaa-legacy auth driver for old password support
-Auth::extend('varaa-legacy', function($app) {
+Auth::extend('varaa-legacy', function ($app) {
     $model = $app['config']['auth.model'];
+
     return new App\Core\UserProvider($app['hash'], $model);
 });
