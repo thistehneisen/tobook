@@ -4,6 +4,12 @@
     404
 @stop
 
+@section('scripts')
+    {{ HTML::script(asset_path('core/scripts/home.js')) }}
+    {{ HTML::script(asset_path('core/scripts/business.js')) }}
+    {{ HTML::script(asset_path('core/scripts/search.js')) }}
+@stop
+
 @section ('content')
 <div class="row">
     <div class="col-xs-12">
