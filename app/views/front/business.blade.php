@@ -43,8 +43,12 @@
 
     <script>
 $(function () {
-    new GMaps({
+    var map = new GMaps({
       div: '#js-map-{{ $business->user_id }}',
+      lat: {{ $lat }},
+      lng: {{ $lng }}
+    });
+    map.addMarker({
       lat: {{ $lat }},
       lng: {{ $lng }}
     });
