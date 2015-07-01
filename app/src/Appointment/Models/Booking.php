@@ -1165,7 +1165,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
-            ->select(['varaa_business_commissions.total_price', 'varaa_business_commissions.commission','varaa_as_bookings.deposit'])->get();
+            ->select(['business_commissions.total_price', 'business_commissions.commission','as_bookings.deposit'])->get();
 
         $receivedFromPaygate = 0;
         foreach ($result as $row) {

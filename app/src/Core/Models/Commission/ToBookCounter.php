@@ -87,7 +87,7 @@ class ToBookCounter extends Counter
         );
 
         //Total received amount from paygate (paid + deposit)
-        $totalPaidDepositCommission = Booking::totalPaidDepositCommission(
+        $totalReceiveFromPaygate = Booking::totalReceiveFromPaygate(
             $userId,
             $status,
             $employeeId,
@@ -114,7 +114,7 @@ class ToBookCounter extends Counter
             'paidDepositCommission'      => $paidDepositCommission,
             'newConsumerCommission'      => $newConsumerCommission,
             'totalCommission'            => $totalCommission,
-            'totalPaidDepositCommission' => $totalPaidDepositCommission,
+            'totalReceiveFromPaygate'    => $totalReceiveFromPaygate,
         ];
     }
 

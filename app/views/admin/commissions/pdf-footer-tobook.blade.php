@@ -53,7 +53,7 @@
     </tr>
     <tr>
         <td colspan="2">{{ sprintf(trans('admin.commissions.domain_charged_from_visitor'), 'ToBook')}}</td>
-        <td colspan="2">{{ Util::formatMoney($totalPaidDepositCommission->commision_total) }}&euro;</td>
+        <td colspan="2">{{ Util::formatMoney($totalReceiveFromPaygate) }}&euro;</td>
     </tr>
     <tr>
         <td colspan="2">{{ sprintf(trans('admin.commissions.domain_amount_transfered_to_cusomter'), 'ToBook')}}</td>
