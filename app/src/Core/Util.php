@@ -107,6 +107,7 @@ class Util
             $message .= sprintf("<li>%s</li>", $value[0]);
         }
         $message .= "</ul>";
+
         return $message;
     }
 
@@ -239,6 +240,7 @@ class Util
         $language = (!empty($data[App::environment()]))
             ? $data[App::environment()]
             : 'Finland';
+
         return $language;
     }
 
@@ -255,11 +257,7 @@ class Util
         $currentLocation = trans('home.search.current_location');
 
         if (!empty($location) && $location !== $currentLocation) {
-            // try {
-                list($lat, $lng) = self::geocoder($location);
-            // } catch (Exception $ex) {
-            //     Log::error('Cannot geodecode '.$location);
-            // }
+            list($lat, $lng) = self::geocoder($location);
         } elseif ($lat && $lng) {
             Session::set('lat', $lat);
             Session::set('lng', $lng);

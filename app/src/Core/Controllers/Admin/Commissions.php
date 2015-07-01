@@ -132,6 +132,11 @@ class Commissions extends Base
         $status = Input::get('status');
         $ids = Input::get('ids');
 
+        //Redirect back when no row or status is selected
+        if (empty($ids) || empty($status)) {
+            return Redirect::back();
+        }
+
         $validStatuses = [
             BusinessCommission::STATUS_SUSPEND,
             BusinessCommission::STATUS_PAID,

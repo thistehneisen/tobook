@@ -5,6 +5,7 @@ use App\Core\Models\User;
 use Illuminate\Support\Collection;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Booking;
+use App\Core\Models\BusinessCommission;
 
 class Cart extends \AppModel
 {
@@ -198,6 +199,7 @@ class Cart extends \AppModel
             if ($item->booking !== null) {
                 $item->booking->status = Booking::STATUS_CONFIRM;
                 $item->booking->save();
+                BusinessCommission::updateStatus($item->booking, 'venue');
             }
         }
     }
