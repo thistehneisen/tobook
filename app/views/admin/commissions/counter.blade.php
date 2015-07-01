@@ -156,7 +156,7 @@ $(function () {
         'paidDepositCommission'      => $paidDepositCommission,
         'newConsumerCommission'      => $newConsumerCommission,
         'totalCommission'            => $totalCommission,
-        'totalPaidDepositCommission' => $totalPaidDepositCommission
+        'totalPaidDepositCommission' => $totalReceiveFromPaygate
     ])
 @endif
 

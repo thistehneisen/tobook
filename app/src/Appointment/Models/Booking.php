@@ -1130,7 +1130,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     /**
      * For holy Latvia
-     * Sum all totcal commission of PAID and DEPOSIT bookings
+     * Sum all total commission of PAID and DEPOSIT bookings
      */
     public static function totalPaidDepositCommission($userId, $status, $employeeId, $start, $end)
     {
@@ -1149,6 +1149,40 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->first();
 
         return $result;
+    }
+
+    /**
+     * For holy Latvia
+     * Sum all total money receive from paygate
+     */
+    public static function totalReceiveFromPaygate($userId, $status, $employeeId, $start, $end) {
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+        $query = $query->where(function($query){
+                    $query->where('as_bookings.status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                        $query->where('as_bookings.status', '=', self::STATUS_CONFIRM);
+                    });
+                });
+
+        $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->select(['business_commissions.total_price', 'business_commissions.commission','as_bookings.deposit'])->get();
+
+        $receivedFromPaygate = 0;
+        foreach ($result as $row) {
+            //pay at venue
+            if(empty($row->commission)){
+                continue;
+            }
+
+            //full payment
+            if($row->deposit <= 0) {
+                $receivedFromPaygate += $row->total_price;
+            } else {
+                $receivedFromPaygate += $row->deposit;
+            }
+        }
+
+        return $receivedFromPaygate;
     }
 
 

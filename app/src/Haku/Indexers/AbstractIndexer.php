@@ -62,7 +62,9 @@ abstract class AbstractIndexer implements IndexerInterface
         try {
             return $this->client->delete($params);
         } catch (Exception $ex) {
-            Log::error($ex->getMessage(), $params);
+            // Because delete action is idempotent, so silently failed
+            $params['message'] = $ex->getMessage();
+            Log::info('Cannot delete search index', $params);
         }
     }
 }

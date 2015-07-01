@@ -52,8 +52,10 @@ Route::group(array('prefix' => $prefix), function() {
 });
 
 
+
 if(App::environment() === 'tobook' && !empty($prefix)) {
     Route::get('/', function(){
         echo "Under construction";
     });
 }
+

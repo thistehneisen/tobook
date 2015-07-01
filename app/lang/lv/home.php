@@ -83,7 +83,7 @@ return [
     ],
     'cart' => [
         'add'             => 'Pievienot grozam',
-        'items'           => '|pakalpojumi|pakalpojums',
+        'items'           => '|pakalpojumi|pakalpojums', // Must begin with | or will cause errors
         'empty'           => 'Tukšs',
         'empty_long'      => 'Jūsu rezervāciju saraksts ir tukšs.',
         'checkout'        => 'Apmaksas veidi',

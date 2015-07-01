@@ -97,12 +97,6 @@ class BusinessIndexer extends AbstractIndexer
     {
         // If this business is hidden, don't index and remove existing index
         if ($this->getDocument()->is_hidden) {
-            $params = [
-                'id' => $this->getId(),
-                'type' => $this->getType(),
-                'index' => $this->getIndexName(),
-            ];
-
             $this->delete();
 
             return;

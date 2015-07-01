@@ -77,6 +77,7 @@ class ToBookCounter extends Counter
             $endOfMonth
         );
 
+        //Total not received commission
         $totalCommission = Booking::totalCommission(
             $userId,
             $status,
@@ -85,7 +86,8 @@ class ToBookCounter extends Counter
             $endOfMonth
         );
 
-        $totalPaidDepositCommission = Booking::totalPaidDepositCommission(
+        //Total received amount from paygate (paid + deposit)
+        $totalReceiveFromPaygate = Booking::totalReceiveFromPaygate(
             $userId,
             $status,
             $employeeId,
@@ -112,7 +114,7 @@ class ToBookCounter extends Counter
             'paidDepositCommission'      => $paidDepositCommission,
             'newConsumerCommission'      => $newConsumerCommission,
             'totalCommission'            => $totalCommission,
-            'totalPaidDepositCommission' => $totalPaidDepositCommission,
+            'totalReceiveFromPaygate'    => $totalReceiveFromPaygate,
         ];
     }
 
@@ -198,7 +200,7 @@ class ToBookCounter extends Counter
             $endOfMonth
         );
 
-        $totalPaidDepositCommission = Booking::totalPaidDepositCommission(
+        $totalReceiveFromPaygate = Booking::totalReceiveFromPaygate(
             $userId,
             $status,
             $employeeId,
@@ -233,7 +235,7 @@ class ToBookCounter extends Counter
             'paidDepositCommission'      => $paidDepositCommission,
             'newConsumerCommission'      => $newConsumerCommission,
             'totalCommission'            => $totalCommission,
-            'totalPaidDepositCommission' => $totalPaidDepositCommission,
+            'totalReceiveFromPaygate'    => $totalReceiveFromPaygate,
         ];
     }
 }
