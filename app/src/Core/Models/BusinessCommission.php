@@ -48,12 +48,17 @@ class BusinessCommission extends Base
         Log::info('Release commissions are done');
     }
 
-    public static function updateStatus($booking) {
+    public static function updateStatus($booking, $action = '') {
         $commission = static::where('booking_id', '=', $booking->id)->first();
 
         if (!empty($commission)) {
             try{
                 $commission->booking_status = $booking->status;
+
+                if ($action === 'venue') {
+                    $commission->commission = 0;
+                }
+
                 $commission->save();
             } catch(\Exception $ex){
                 Log::info('Exception : ' . $ex->getMessage());

@@ -199,7 +199,7 @@ class Cart extends \AppModel
             if ($item->booking !== null) {
                 $item->booking->status = Booking::STATUS_CONFIRM;
                 $item->booking->save();
-                BusinessCommission::updateStatus($item->booking);
+                BusinessCommission::updateStatus($item->booking, 'venue');
             }
         }
     }
