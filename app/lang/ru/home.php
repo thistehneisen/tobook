@@ -81,7 +81,7 @@ return [
     ],
     'cart' => [
         'add'             => 'В корзину',
-        'items'           => 'пункт|пункты',
+        'items'           => 'пункт|пункты|', // Must end with a | or will cause errors
         'empty'           => 'Пусто!',
         'empty_long'      => 'Ваша корзина пуста.',
         'checkout'        => 'Виды оплаты',
