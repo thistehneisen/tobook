@@ -50,3 +50,10 @@ Route::group(array('prefix' => $prefix), function() {
         'uses'  => 'App\Core\Controllers\Ajax\JsLocale@getJsLocale'
     ]);
 });
+
+
+if(App::environment() === 'tobook' && !empty($prefix)) {
+    Route::get('/', function(){
+        echo "Under construction";
+    });
+}
