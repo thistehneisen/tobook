@@ -4,8 +4,6 @@ use App\Haku\Transformers\BusinessTransformer;
 
 class BusinessesByDistrict extends Businesses
 {
-    use Traits\Business;
-    use Traits\SortByLocation;
     use BusinessTransformer;
 
     public function getQuery()

@@ -4,6 +4,7 @@ use App\Core\Models\Business;
 use Input;
 use Session;
 use Util;
+use App\Haku\Searchers\BusinessesByName;
 
 class Search extends Front
 {
@@ -25,11 +26,15 @@ class Search extends Front
             ? $location
             : $q;
 
-        $isSearchByLocation = (empty($q) && !empty($location)) ? true : false;
+        $searchParams = [
+            'keyword' => $keyword,
+            'location' => Util::getCoordinates(),
+        ];
 
+        $searcher = new BusinessesByName($searchParams);
         $paginator = empty($keyword)
             ? Business::getAll()
-            : Business::search(e($keyword), ['isSearchByLocation' => $isSearchByLocation]);
+            : $searcher->search();
 
         // Extract list of businesses
         $items = $paginator->getItems();
