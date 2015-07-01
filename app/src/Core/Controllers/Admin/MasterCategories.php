@@ -1,7 +1,5 @@
 <?php namespace App\Core\Controllers\Admin;
 
-use App\Core\Models\Setting;
-use App\Lomake\FieldFactory;
 use App\Appointment\Models\MasterCategory;
 use App\Core\Models\Multilanguage;
 use Config, View, Input, Redirect, DB, App;
@@ -62,9 +60,9 @@ class MasterCategories extends Base
             ->join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . MasterCategory::getContext() . "', `varaa_as_master_categories`.`id`)"))->get();
 
         $data = [];
-        foreach (Config::get('varaa.languages') as $locale){
+        foreach (Config::get('varaa.languages') as $locale) {
             foreach ($items as $item) {
-                if($locale == $item->lang) {
+                if ($locale == $item->lang) {
                     $data[$locale][$item->key] = $item->value;
                 }
             }
@@ -103,7 +101,7 @@ class MasterCategories extends Base
         $descriptions = Input::get('description');
         $default_language = Config::get('varaa.default_language');
 
-        try{
+        try {
             $masterCat->fill([
                 'order'       => 1,
                 'name'        => $names[$default_language],
@@ -111,10 +109,24 @@ class MasterCategories extends Base
             ]);
             $masterCat->save();
             $masterCat->saveMultilanguage($names, $descriptions);
-        } catch(\Exception $ex){
+        } catch (\Exception $ex) {
             throw $ex;
         }
+
         return $masterCat;
+    }
+
+    /**
+     * Search for master categories. A little different since it's multi-lingual
+     *
+     * @return View
+     */
+    public function search()
+    {
+        $keyword = Input::get('q');
+        $items = with(new MasterCategory())->search($keyword);
+
+        return $this->renderList($items);
     }
 
 }

@@ -3,7 +3,6 @@
 use Config, View, Input, Redirect, DB, App;
 use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\TreatmentType;
-use App\Core\Models\Setting;
 use App\Core\Models\Multilanguage;
 use App\Olut\Olut;
 use Carbon\Carbon;
@@ -63,9 +62,9 @@ class TreatmentTypes extends Base
         $masterCategories = MasterCategory::get()->lists('name', 'id');
 
         $data = [];
-        foreach (Config::get('varaa.languages') as $locale){
+        foreach (Config::get('varaa.languages') as $locale) {
             foreach ($items as $item) {
-                if($locale == $item->lang) {
+                if ($locale == $item->lang) {
                     $data[$locale][$item->key] = $item->value;
                 }
             }
@@ -106,7 +105,7 @@ class TreatmentTypes extends Base
         $masterCategoryId = Input::get('master_category_id');
         $default_language = Config::get('varaa.default_language');
 
-        try{
+        try {
             $masterCategory = MasterCategory::find($masterCategoryId);
             $treatmentType->fill([
                 'order'       => 1,
@@ -116,10 +115,24 @@ class TreatmentTypes extends Base
             $treatmentType->masterCategory()->associate($masterCategory);
             $treatmentType->save();
             $treatmentType->saveMultilanguage($names, $descriptions);
-        } catch(\Exception $ex){
+        } catch (\Exception $ex) {
             throw $ex;
         }
+
         return $treatmentType;
+    }
+
+    /**
+     * Search for treatment types.
+     *
+     * @return View
+     */
+    public function search()
+    {
+        $keyword = Input::get('q');
+        $items = with(new TreatmentType())->search($keyword);
+
+        return $this->renderList($items);
     }
 
 }

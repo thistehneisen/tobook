@@ -36,7 +36,7 @@ class TreatmentType extends \App\Core\Models\Base
      *
      * @return Illuminate\Pagination\Paginator
      */
-    public function databaseSearch($keyword, array $options = array())
+    public function search($keyword, array $options = array())
     {
         $query =  self::join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . TreatmentType::getContext() . "', `varaa_as_treatment_types`.`id`)"))
             ->where(function ($query) {
