@@ -61,7 +61,7 @@ class Services extends AsBase
     public function upsert($id = null)
     {
         $service = ($id !== null)
-            ? Service::findOrFail($id)
+            ? Service::ofCurrentUser()->findOrFail($id)
             : new Service();
 
         $data = $service->getMultilingualData();
