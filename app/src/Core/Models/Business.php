@@ -299,11 +299,6 @@ class Business extends Base
         $this->updateMultiligualAttribute('meta_keywords', $input['meta_keywords']);
         $this->updateMultiligualAttribute('meta_description', $input['meta_description']);
 
-        // We will remove hidden businesses from indexing
-        if ($this->is_hidden) {
-            $this->deleteSearchIndex();
-        }
-
         if (!empty($input['categories'])) {
             $this->updateBusinessCategories($input['categories']);
         }
