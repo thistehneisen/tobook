@@ -1,10 +1,15 @@
 <?php namespace App\Payment\Gateways;
 
 use Omnipay\Omnipay;
-use Config, App, Validator, Input, Log, Event;
+use Config;
+use App;
+use Validator;
+use Input;
+use Log;
+use Event;
 use App\Payment\Models\Transaction;
 
-class Skrill extends Base
+class Skrill extends AbstractGateway
 {
     /**
      * Predefined status constants

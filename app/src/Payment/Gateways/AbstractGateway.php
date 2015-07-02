@@ -1,6 +1,6 @@
 <?php namespace App\Payment\Gateways;
 
-abstract class Base
+abstract class AbstractGateway
 {
     protected $gateway;
 
