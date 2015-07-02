@@ -1,5 +1,7 @@
 <?php namespace App\Payment\Gateways;
 
+use App\Payment\Models\Transaction;
+
 abstract class AbstractGateway
 {
     protected $gateway;
@@ -34,7 +36,7 @@ abstract class AbstractGateway
      *
      * @return void
      */
-    abstract public function purchase(\App\Payment\Models\Transaction $transaction, $args = []);
+    abstract public function purchase(Transaction $transaction, $args = []);
 
     /**
      * When a successful payment was made
