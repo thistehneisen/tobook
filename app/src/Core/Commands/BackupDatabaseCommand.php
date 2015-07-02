@@ -57,7 +57,12 @@ class BackupDatabaseCommand extends ScheduledCommand
         $db_name = Config::get('database.connections.mysql.database');
         $db_user = escapeshellarg(Config::get('database.connections.mysql.username'));
         $db_pwd  = escapeshellarg(Config::get('database.connections.mysql.password'));
-        $backup_name = sprintf('%s-%s.sql.gz', $db_name, date('Ymd.His'));
+
+        $command="/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'";
+        $server_ip = exec($command);
+        $server_ip = str_replace('.', '', $server_ip);
+
+        $backup_name = sprintf('%s_%s-%s.sql.gz', $db_name, $server_ip, date('Ymd.His'));
         //Dump and compress data to a gzip file
         $backup_command = sprintf("/usr/bin/mysqldump -u%s -p%s %s | gzip > %s", $db_user, $db_pwd, $db_name, $backup_name);
         exec($backup_command);
