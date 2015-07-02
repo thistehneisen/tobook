@@ -5,6 +5,7 @@ use App\Core\Models\Setting;
 use Input;
 use Redirect;
 use Settings;
+use Config;
 
 class StaticPages extends Base
 {
@@ -12,22 +13,35 @@ class StaticPages extends Base
 
     public function index()
     {
+        $currentLocale = App::getLocale();
+        $languages = [];
+        foreach (Config::get('varaa.languages') as $lang) {
+            $languages[$lang] = [
+                'title' => strtoupper($lang),
+                'active' => $lang === $currentLocale ? 'active' : '',
+                'content' => '',
+            ];
+        }
         $pages = [
-            'terms_conditions' => Settings::get('terms_conditions'),
-            'privacy_cookies' => Settings::get('privacy_cookies'),
+            'terms_conditions' => $languages,
+            'privacy_cookies' => $languages,
         ];
 
+        foreach (['terms_conditions', 'privacy_cookies'] as $key) {
+            $settings = Settings::getByLanguage($key);
+            foreach ($settings as $setting) {
+                $pages[$key][$setting->lang]['content'] = $setting->value;
+            }
+        }
+
         return $this->render('index', [
-            'pages' => $pages
+            'pages' => $pages,
         ]);
     }
 
     public function save()
     {
-        $setting = Setting::findOrNew(Input::get('name'));
-        $setting->key   = Input::get('name');
-        $setting->value = Input::get('content');
-        $setting->save();
+        Settings::saveMultilingual(Input::get('name'), Input::get('content'));
 
         return Redirect::route('admin.pages');
     }
