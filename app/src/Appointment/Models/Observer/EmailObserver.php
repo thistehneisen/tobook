@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Models\Observer;
 
 use App, View, Confide, Mail, Log, Settings;
+use Queue;
 use Carbon\Carbon;
 
 class EmailObserver implements \SplObserver
@@ -87,37 +88,59 @@ class EmailObserver implements \SplObserver
         }
 
         $emailSubject = $subject->user->asOptions['confirm_subject_client'];
-        $body = $subject->user->asOptions['confirm_tokens_client'];
-        $body = $this->getEmailBody($subject, $body);
+        $body         = $subject->user->asOptions['confirm_tokens_client'];
+        $body         = $this->getEmailBody($subject, $body);
+        $receiver     = $subject->consumer->email;
+        $receiverName = $subject->consumer->name;
 
-        Mail::queue('modules.as.emails.confirm', [
-            'title' => $emailSubject,
-            'body' => nl2br($body)
-        ], function ($message) use ($subject, $emailSubject) {
-            $message->subject($emailSubject);
-            $message->to($subject->consumer->email, $subject->consumer->name);
+        Queue::push(function ($job) use ($emailSubject, $body, $receiver, $receiverName) {
+            Mail::send('modules.as.emails.confirm', [
+                'title' => $emailSubject,
+                'body' => nl2br($body)
+            ], function($message) use ($emailSubject, $receiver, $receiverName){
+                $message->subject($emailSubject);
+                $message->to($receiver, $receiverName);
+            });
+            $job->delete();
         });
+
+        Log::info('Enqueue to send email to consumer', [
+            'to' => $subject->consumer->email,
+        ]);
     }
 
     public function sendEmployeeEmail($subject)
     {
         $employee = $subject->bookingServices()->first()->employee;
         if (!$employee->isReceivedCalendarInvitation) {
+
             if (empty($employee->email) || (!$employee->is_subscribed_email)) {
                 return;
             }
 
-            $emailSubject = $subject->user->asOptions['confirm_subject_employee'];
-            $body = $subject->user->asOptions['confirm_tokens_employee'];
-            $body = $this->getEmailBody($subject, $body);
+            //@see http://laravel.com/docs/4.2/queues#queueing-closures
 
-            Mail::queue('modules.as.emails.confirm', [
-                'title' => $emailSubject,
-                'body' => nl2br($body)
-            ], function($message) use ($employee, $emailSubject) {
-                $message->subject($emailSubject);
-                $message->to($employee->email, $employee->name);
+            $emailSubject = $subject->user->asOptions['confirm_subject_employee'];
+            $body         = $subject->user->asOptions['confirm_tokens_employee'];
+            $body         = $this->getEmailBody($subject, $body);
+            $receiver     = $employee->email;
+            $receiverName = $employee->name;
+
+
+            Queue::push(function ($job) use ($emailSubject, $body, $receiver, $receiverName) {
+                Mail::send('modules.as.emails.confirm', [
+                    'title' => $emailSubject,
+                    'body' => nl2br($body)
+                ], function($message) use ($emailSubject, $receiver, $receiverName){
+                    $message->subject($emailSubject);
+                    $message->to($receiver, $receiverName);
+                });
+                $job->delete();
             });
+
+            Log::info('Enqueue to send email to employee', [
+                'to' => $employee->email,
+            ]);
         }
     }
 }
