@@ -109,7 +109,7 @@ class SmsObserver implements \SplObserver
         $msg = str_replace('{CancelURL}', $cancelURL, $msg);
         $msg = str_replace('{Address}', $address, $msg);
 
-        $depositAmount = (!empty($subject->depositAmount())) ? $subject->depositAmount() : 0;
+        $depositAmount = (!empty($subject->deposit)) ? $subject->deposit : 0;
         $msg = str_replace('{Deposit}', $depositAmount, $msg);
 
         $code = $this->code;
@@ -137,8 +137,12 @@ class SmsObserver implements \SplObserver
         Log::info('Enqueue to send SMS to employee', [
             'to' => $subject->employee->phone,
         ]);
-        Queue::push(function ($job) use ($subject, $msg, $code) {
-            Sms::send(Config::get('sms.from'), $subject->employee->phone, $msg, $code);
+
+        //@see http://laravel.com/docs/4.2/queues#queueing-closures
+        $phone = $subject->employee->phone;
+
+        Queue::push(function ($job) use ($phone, $msg, $code) {
+            Sms::send(Config::get('sms.from'), $phone, $msg, $code);
             $job->delete();
         });
     }
