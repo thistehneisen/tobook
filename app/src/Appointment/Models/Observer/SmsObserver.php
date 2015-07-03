@@ -109,7 +109,7 @@ class SmsObserver implements \SplObserver
         $msg = str_replace('{CancelURL}', $cancelURL, $msg);
         $msg = str_replace('{Address}', $address, $msg);
 
-        $depositAmount = (!empty($subject->depositAmount())) ? $subject->depositAmount() : 0;
+        $depositAmount = (!empty($subject->deposit)) ? $subject->deposit : 0;
         $msg = str_replace('{Deposit}', $depositAmount, $msg);
 
         $code = $this->code;
