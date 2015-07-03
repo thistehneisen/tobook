@@ -109,10 +109,8 @@ class SmsObserver implements \SplObserver
         $msg = str_replace('{CancelURL}', $cancelURL, $msg);
         $msg = str_replace('{Address}', $address, $msg);
 
-        $depositPayment = (bool) Settings::get('deposit_payment');
-        if ($depositPayment && !empty($subject->depositAmount())) {
-            $body = str_replace('{Deposit}', $subject->depositAmount(), $msg);
-        }
+        $depositAmount = (!empty($subject->depositAmount())) ? $subject->depositAmount() : 0;
+        $msg = str_replace('{Deposit}', $depositAmount, $msg);
 
         $code = $this->code;
         Log::info('Enqueue to send SMS to consumer', [
