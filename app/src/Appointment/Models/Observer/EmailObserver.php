@@ -71,9 +71,9 @@ class EmailObserver implements \SplObserver
         $body = str_replace('{Address}', $address, $body);
 
         $depositPayment = (bool) Settings::get('deposit_payment');
-        if ($depositPayment && !empty($subject->depositAmount())) {
-            $body = str_replace('{Deposit}', $subject->depositAmount(), $body);
-        }
+
+        $depositAmount = (!empty($subject->depositAmount())) ? $subject->depositAmount() : 0;
+        $body = str_replace('{Deposit}', $depositAmount, $body);
 
         return $body;
     }
