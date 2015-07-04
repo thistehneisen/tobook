@@ -133,7 +133,7 @@ return [
         //----------------------------------------------------------------------
         // Default paygate for the system
         //----------------------------------------------------------------------
-        'default_paygate' => ['type' => 'Dropdown', 'values' => ['Paysera', 'Skrill'], 'default' => 'Skrill'],
+        'default_paygate' => ['type' => 'Dropdown', 'values' => ['Paysera', 'Skrill', 'Checkout'], 'default' => 'Skrill'],
         //----------------------------------------------------------------------
         //  Deposit payment feature for booking from CP
         //  Default reate is 30%

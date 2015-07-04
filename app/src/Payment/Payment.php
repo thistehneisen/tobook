@@ -63,8 +63,7 @@ class Payment
      */
     public static function purchase()
     {
-        // $gateway = GatewayFactory::make(Input::get('gateway', Settings::get('default_paygate')));
-        $gateway = GatewayFactory::make('checkout');
+        $gateway = GatewayFactory::make(Input::get('gateway', Settings::get('default_paygate')));
 
         $card        = static::extractCardData(Input::all());
         $transaction = static::current();
