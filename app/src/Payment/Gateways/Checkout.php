@@ -80,16 +80,15 @@ class Checkout extends AbstractGateway
      */
     public function notify()
     {
-        Log::debug('Incoming Checkout request', Input::all());
+        Log::debug('Incoming Checkout notify request', Input::all());
         $merchantSecret = Config::get('services.checkout.secret');
         $response = new Response($merchantSecret);
         $response->setRequestParams(Input::all());
-        $status_string = '';
 
         try {
             if ($response->validate()) {
-                // we have a valid response, now check the status
-                // the status codes are listed in the api documentation of Checkout Finland
+                // We have a valid response, now check the status
+                // The status codes are listed in the api documentation of Checkout Finland
                 switch ($response->getStatus()) {
                     case '2':
                     case '5':
@@ -98,32 +97,45 @@ class Checkout extends AbstractGateway
                     case '9':
                     case '10':
                         // These are paid and we can ship the product
-                        $status_string = 'PAID';
-                        break;
+                        $transaction = Transaction::findOrFail($response->reference);
+                        $transaction->status = Transaction::STATUS_SUCCESS;
+                        $transaction->paygate = 'Checkout';
+                        $transaction->save();
+
+                        // Fire success event, so that related data know how to update
+                        // themselves
+                        Event::fire('payment.success', [$transaction]);
+
+                        Log::info('Payment from Checkout succeeded');
+
+                        return Redirect::route('payment.success');
                     case '7':
                     case '3':
                     case '4':
                         // Payment delayed or it is not known yet if the payment was completed
-                         $status_string = 'DELAYED';
+                        Log::info('Checkout payment was delayed', Input::all());
                         break;
                     case '-1':
-                         $status_string = 'CANCELLED BY USER';
-                         break;
+                        // Cancelled by user
+                        return Redirect::route('payment.cancel', ['id' => $response->reference]);
                     case '-2':
                     case '-3':
                     case '-4':
                     case '-10':
                         // Cancelled by banks, Checkout Finland, time out e.g.
-                         $status_string = 'CANCELLED';
+                        Log::info('Checkout payment was cancelled by banks, paygate, etc.', Input::all());
                         break;
                 }
             } else {
-                // something went wrong with the validation, perhaps the user changed the return parameters
+                // Something went wrong with the validation, perhaps the user changed the return parameters
+                Log::error('Invalid data from Checkout', Input::all());
             }
         } catch (MacMismatchException $ex) {
-            echo 'Mac mismatch';
+            Log::error('MAC value from Checkout mismatched');
         } catch (UnsupportedAlgorithmException $ex) {
-            echo 'Unsupported algorithm';
+            Log::error('Checkout: Unsupported algorithm');
         }
+
+        exit;
     }
 }
