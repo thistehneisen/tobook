@@ -70,6 +70,12 @@ class Checkout extends AbstractGateway
         $xml = simplexml_load_string($response);
         Log::debug('Payment URL', ['url' => (string) $xml->paymentURL]);
 
+        // Update transation ID of Checkout
+        $transaction->paygate = 'Checkout';
+        $transaction->code = (string) $xml->status;
+        $transaction->reference = (string) $xml->id;
+        $transaction->save();
+
         return Redirect::to((string) $xml->paymentURL);
     }
 
