@@ -63,23 +63,19 @@ class Payment
      */
     public static function purchase()
     {
-        // $v = Validator::make(Input::all(), [
-        //     'number' => 'required|numeric',
-        //     'exp'    => 'required',
-        //     'cvv'    => 'required|numeric',
-        // ]);
-        // if ($v->fails()) {
-        //     return Redirect::route('payment.index')
-        //         ->withInput()
-        //         ->withErrors($v);
-        // }
-
-        $gateway = GatewayFactory::make(Input::get('gateway', Settings::get('default_paygate')));
+        // $gateway = GatewayFactory::make(Input::get('gateway', Settings::get('default_paygate')));
+        $gateway = GatewayFactory::make('checkout');
 
         $card        = static::extractCardData(Input::all());
         $transaction = static::current();
         $response = $gateway->purchase($transaction, ['card' => $card]);
 
+        // If this is a redirect, just follow it
+        if ($response instanceof \Illuminate\Http\RedirectResponse) {
+            return $response;
+        }
+
+        // Hard-coded. Should be instance of Omnipay\Common\Message\AbstractResponse?
         if (!($response instanceof \Omnipay\Skrill\Message\PaymentResponse)) {
             return;
         }
@@ -142,5 +138,4 @@ class Payment
 
         return $gateway->notify();
     }
-
 }

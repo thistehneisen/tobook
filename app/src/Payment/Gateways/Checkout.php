@@ -66,9 +66,11 @@ class Checkout extends AbstractGateway
 
         $client = new Client();
         $response = $client->sendPayment($payment);
-        $response_xml = @simplexml_load_string($response);
+        Log::debug('Response receive from Checkout', ['response' => $response]);
+        $xml = simplexml_load_string($response);
+        Log::debug('Payment URL', ['url' => (string) $xml->paymentURL]);
 
-        return Redirect::to($response_xml->paymentURL);
+        return Redirect::to((string) $xml->paymentURL);
     }
 
     /**
@@ -78,6 +80,7 @@ class Checkout extends AbstractGateway
      */
     public function notify()
     {
+        Log::debug('Incoming Checkout request', Input::all());
         $merchantSecret = Config::get('services.checkout.secret');
         $response = new Response($merchantSecret);
         $response->setRequestParams(Input::all());
