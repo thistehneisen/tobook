@@ -103,27 +103,33 @@ class Checkout extends AbstractGateway
                     case '9':
                     case '10':
                         // These are paid and we can ship the product
-                        $transaction = Transaction::findOrFail($response->reference);
-                        $transaction->status = Transaction::STATUS_SUCCESS;
-                        $transaction->paygate = 'Checkout';
-                        $transaction->save();
+                        $transaction = Transaction::find($response->getReference());
+                        if ($transaction !== null) {
+                            $transaction->status = Transaction::STATUS_SUCCESS;
+                            $transaction->save();
 
-                        // Fire success event, so that related data know how to update
-                        // themselves
-                        Event::fire('payment.success', [$transaction]);
+                            // Fire success event, so that related data know how to update
+                            // themselves
+                            Event::fire('payment.success', [$transaction]);
 
-                        Log::info('Payment from Checkout succeeded');
+                            Log::info('Payment from Checkout succeeded');
 
-                        return Redirect::route('payment.success');
+                            return Redirect::route('payment.success');
+                        }
                     case '7':
                     case '3':
                     case '4':
                         // Payment delayed or it is not known yet if the payment was completed
                         Log::info('Checkout payment was delayed', Input::all());
-                        break;
+
+                        $transaction = Transaction::find($response->getReference());
+                        if ($transaction !== null) {
+                            $transaction->status = Transaction::STATUS_DELAYED;
+                            $transaction->save();
+                        }
                     case '-1':
                         // Cancelled by user
-                        return Redirect::route('payment.cancel', ['id' => $response->reference]);
+                        return Redirect::route('payment.cancel', ['id' => $response->getReference()]);
                     case '-2':
                     case '-3':
                     case '-4':
@@ -134,7 +140,7 @@ class Checkout extends AbstractGateway
                 }
             } else {
                 // Something went wrong with the validation, perhaps the user changed the return parameters
-                Log::error('Invalid data from Checkout', Input::all());
+                Log::error('Invalid data from Checkout');
             }
         } catch (MacMismatchException $ex) {
             Log::error('MAC value from Checkout mismatched');
@@ -142,6 +148,6 @@ class Checkout extends AbstractGateway
             Log::error('Checkout: Unsupported algorithm');
         }
 
-        exit;
+        return Redirect::to('/');
     }
 }
