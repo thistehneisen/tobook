@@ -1,6 +1,8 @@
 <?php namespace App\Core\Models;
 
-use App\App\Appointment\Models\Booking;
+use App\Appointment\Models\Booking;
+use Carbon\Carbon;
+use Log;
 
 class BusinessCommission extends Base
 {
