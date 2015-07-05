@@ -9,7 +9,7 @@ use Log;
 use WebToPay;
 use Input;
 
-class Paysera extends Base
+class Paysera extends AbstractGateway
 {
     /**
      * @{@inheritdoc}

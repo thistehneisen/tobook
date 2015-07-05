@@ -22,7 +22,8 @@
         "eluceo/ical": "0.6.1",
         "webtopay/libwebtopay": "dev-default#b62cb2f",
         "maknz/slack": "1.5.0",
-        "barryvdh/laravel-dompdf": "0.4.*"
+        "barryvdh/laravel-dompdf": "0.4.*",
+        "rkioski/checkout-finland-api-client": "dev-master#7b39baf"
     },
     "repositories": [
         {
@@ -33,7 +34,7 @@
     "require-dev": {
         "codeception/codeception": "2.0.*",
         "squizlabs/php_codesniffer": "1.*",
-        "fabpot/php-cs-fixer": "0.5.*",
+        "fabpot/php-cs-fixer": "1.9",
         "mockery/mockery": "0.9.2"
     },
     "autoload": {
