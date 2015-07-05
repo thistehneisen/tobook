@@ -43,7 +43,7 @@ return [
         'password' => 'e6e9d37a0f6a79c25564cade197a8e3c',
     ],
     'checkout' => [
-        'id' => '559400',
-        'secret' => 'cFzXQFhaik9JpZzEzkfPPXchgJybnE1elEq2f5XJjIBtb8VHK9vR6jfwYMiGdrRwTFTXa94qJrMK8HIW5x'
+        'id' => '375917',
+        'secret' => 'SAIPPUAKAUPPIAS'
     ],
 ];
