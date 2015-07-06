@@ -1262,7 +1262,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = self::where('as_bookings.created_at', '>=', $start)
             ->where('as_bookings.created_at', '<=', $end)
             ->where('as_bookings.source','=', 'inhouse')
-            ->where('as_bookings.user_id', '=', $userId);
+            ->where('as_bookings.user_id', '=', $userId)
+            ->whereNull('business_commissions.deleted_at');
 
         //status == 0 mean empty
         if (isset($status)) {
