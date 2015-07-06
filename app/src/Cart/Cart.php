@@ -5,6 +5,8 @@ use App\Core\Models\User;
 use Illuminate\Support\Collection;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\Observer\EmailObserver;
+use App\Appointment\Models\Observer\SmsObserver;
 use App\Core\Models\BusinessCommission;
 
 class Cart extends \AppModel
@@ -199,6 +201,15 @@ class Cart extends \AppModel
             if ($item->booking !== null) {
                 $item->booking->status = Booking::STATUS_CONFIRM;
                 $item->booking->save();
+
+                try {
+                    $item->booking->attach(new EmailObserver());
+                    $item->booking->attach(new SmsObserver());
+                    $item->booking->notify();
+                } catch(\Exception $ex) {
+                    Log::info("Send sms and email exception: ", [ 'messsage' => $ex->getMessage() ]);
+                }
+
                 BusinessCommission::updateStatus($item->booking, 'venue');
             }
         }
