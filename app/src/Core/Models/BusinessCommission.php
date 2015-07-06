@@ -37,6 +37,7 @@ class BusinessCommission extends Base
 
         $commissions = static::where('booking_status', '=', Booking::STATUS_PENDING)
             ->where('created_at', '<=', $cutoff)
+            ->whereNull('deleted_at')
             ->orderBy('id', 'desc')
             ->get();
 
