@@ -277,7 +277,7 @@ class Front extends Base
             'policy' => 'privacy_cookies',
         ], $id, null);
 
-        if ($page && ($content = Settings::get($page, null))) {
+        if ($page && ($content = Settings::getByLanguage($page, App::getLocale()))) {
             return $this->render('pages', [
                 'title'   => trans('home.pages.'.$page),
                 'content' => $content
