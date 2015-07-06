@@ -52,9 +52,9 @@ class BusinessCommission extends Base
     }
 
     public static function updateStatus($booking, $action = '') {
-        $commission = static::where('booking_id', '=', $booking->id)->first();
+        $commission = self::where('booking_id', '=', $booking->id)->first();
 
-        if (!empty($commission)) {
+        if (!empty($commission->id)) {
             try{
                 $commission->booking_status = $booking->status;
 
