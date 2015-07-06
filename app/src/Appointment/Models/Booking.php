@@ -1135,13 +1135,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function totalPaidDepositCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->where(function($query){
-                    $query->where('as_bookings.status','=', self::STATUS_PAID)->orWhere(function ($query) {
-                        $query->where('as_bookings.status', '=', self::STATUS_CONFIRM)->where(function($query){
-                            $query->whereNotNull('as_bookings.deposit')->where('as_bookings.deposit', '>', 0);
-                        });
-                    });
-                });
+
+        $query = $query->where('business_commissions.booking_status', '!=', self::STATUS_PENDING);
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
@@ -1158,8 +1153,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function totalReceiveFromPaygate($userId, $status, $employeeId, $start, $end) {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where(function($query){
-                    $query->where('as_bookings.status','=', self::STATUS_PAID)->orWhere(function ($query) {
-                        $query->where('as_bookings.status', '=', self::STATUS_CONFIRM);
+                    $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                        $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
                 });
 
@@ -1232,11 +1227,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $depositRate = (!empty($booking->deposit_rate)) ?  $booking->deposit_rate : 0.1;
             //we always take commision from booking
             $commission = $booking->total_price * $commissionRate;
-            if ((int) $booking->status === Booking::STATUS_PAID) {
+            if ((int) $booking->booking_status === Booking::STATUS_PAID) {
                 $consumerPaid = $booking->total_price;
-            } elseif ((int) $booking->status === Booking::STATUS_CONFIRM && ($booking->deposit > 0)) {
+            } elseif ((int) $booking->booking_status === Booking::STATUS_CONFIRM && ($booking->deposit > 0)) {
                 $consumerPaid = $booking->total_price * $depositRate;
-            } elseif ((int) $booking->status === Booking::STATUS_CONFIRM) {
+            } elseif ((int) $booking->booking_status === Booking::STATUS_CONFIRM) {
                 $consumerPaid = 0;
                 $commision = 0;
             } else {
@@ -1266,7 +1261,6 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = self::where('as_bookings.created_at', '>=', $start)
             ->where('as_bookings.created_at', '<=', $end)
-            ->whereNull('as_bookings.deleted_at')
             ->where('as_bookings.source','=', 'inhouse')
             ->where('as_bookings.user_id', '=', $userId);
 
