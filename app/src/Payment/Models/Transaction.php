@@ -3,6 +3,8 @@
 class Transaction extends \AppModel
 {
     const STATUS_SUCCESS = 'success';
+    const STATUS_DELAYED = 'delayed';
+    const STATUS_CANCELLED = 'cancelled';
 
     public $fillable = [
         'amount',
@@ -85,5 +87,4 @@ class Transaction extends \AppModel
     {
         return (double) $this->attributes['amount'];
     }
-
 }

@@ -3,16 +3,16 @@
 return [
 
     /*
-	|--------------------------------------------------------------------------
-	| Third Party Services
-	|--------------------------------------------------------------------------
-	|
-	| This file is for storing the credentials for third party services such
-	| as Stripe, Mailgun, Mandrill, and others. This file provides a sane
-	| default location for this type of information, allowing packages
-	| to have a conventional place to find your various credentials.
-	|
-	*/
+    |--------------------------------------------------------------------------
+    | Third Party Services
+    |--------------------------------------------------------------------------
+    |
+    | This file is for storing the credentials for third party services such
+    | as Stripe, Mailgun, Mandrill, and others. This file provides a sane
+    | default location for this type of information, allowing packages
+    | to have a conventional place to find your various credentials.
+    |
+    */
 
     'mailgun' => [
         'domain' => '',
@@ -41,5 +41,9 @@ return [
     'paysera' => [
         'id'       => 63548,
         'password' => 'e6e9d37a0f6a79c25564cade197a8e3c',
+    ],
+    'checkout' => [
+        'id' => '375917',
+        'secret' => 'SAIPPUAKAUPPIAS'
     ],
 ];

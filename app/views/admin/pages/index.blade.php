@@ -22,7 +22,7 @@ $(function () {
     <br>
 
     <div class="tab-content">
-    @foreach ($pages as $id => $content)
+    @foreach ($pages as $id => $settings)
         <div role="tabpanel" class="tab-pane" id="tab-{{ $id }}">
             {{ Form::open(['route' => ['admin.pages'], 'class' => 'form-horizontal well']) }}
 
@@ -30,7 +30,19 @@ $(function () {
                 <label for="{{ $id }}" class="col-sm-1 control-label">Content</label>
                 <div class="col-sm-11">
                     <input type="hidden" name="name" value="{{ $id }}">
-                    <textarea class="form-control ckeditor" name="content" id="{{ $id }}" rows="30">{{ $content }}</textarea>
+                    <ul class="nav nav-tabs" role="tablist">
+                    @foreach ($settings as $lang => $content)
+                        <li role="presentation" class="{{ $content['active'] }}"><a href="#tab-html-multilang-{{ $id }}-{{ $lang }}" role="tab" data-toggle="tab">{{ $content['title'] }}</a></li>
+                    @endforeach
+                    </ul>
+
+                    <div class="tab-content">
+                    @foreach ($settings as $lang => $content)
+                        <div role="tabpanel" class="tab-pane {{ $content['active'] }}" id="tab-html-multilang-{{ $id }}-{{ $lang }}">
+                            <textarea name="content[{{ $lang }}]" rows="10" class="form-control ckeditor">{{ $content['content'] }}</textarea>
+                        </div>
+                    @endforeach
+                    </div>
                 </div>
             </div>
 

@@ -30,7 +30,6 @@ class Settings
 
     public static function get($key, $default = null)
     {
-
         $instance = self::getInstance();
         if (!isset($instance->settings[$key])) {
             // Get default value from configuration file
@@ -77,16 +76,18 @@ class Settings
     }
 
     /**
-     * Get booking terms in a desired language, or all languages
+     * Get value of a multi-lingual setting
      *
-     * @param string|null $lang
+     * @param  string $key
+     * @param  string $lang
+     * @param  mixed  $default
      *
-     * @return string|array
+     * @return mixed
      */
-    public static function getBookingTerms($lang = null)
+    public static function getByLanguage($key, $lang = null)
     {
         $query = Multilanguage::ofContext('settings')
-            ->ofKey('booking_terms');
+            ->ofKey($key);
 
         if ($lang !== null) {
             return $query->ofLang($lang)->pluck('value');
@@ -95,11 +96,11 @@ class Settings
         return $query->get();
     }
 
-    public static function saveBookingTerms(array $input)
+    public static function saveMultilingual($key, array $input)
     {
         foreach ($input as $lang => $content) {
             $row = Multilanguage::ofContext('settings')
-                ->ofKey('booking_terms')
+                ->ofKey($key)
                 ->ofLang($lang)
                 ->first();
 
@@ -108,7 +109,7 @@ class Settings
             }
 
             $row->fill([
-                'key' => 'booking_terms',
+                'key' => $key,
                 'lang' => $lang,
                 'value' => $content,
                 'context' => 'settings',
@@ -116,5 +117,18 @@ class Settings
 
             $row->save();
         }
+    }
+
+    //--------------------------------------------------------------------------
+    // For Booking Terms
+    //--------------------------------------------------------------------------
+    public static function getBookingTerms($lang = null)
+    {
+        return static::getByLanguage('booking_terms', $lang);
+    }
+
+    public static function saveBookingTerms(array $input)
+    {
+        return static::saveMultilingual('booking_terms', $input);
     }
 }
