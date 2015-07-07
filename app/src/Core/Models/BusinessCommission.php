@@ -55,7 +55,7 @@ class BusinessCommission extends Base
     public static function updateCommission($bookingId, $action = '') {
         $commission = BusinessCommission::where('booking_id', '=', $bookingId)->first();
 
-        if (!empty($commission->id)) {
+        if (!empty($commission)) {
             try{
                 $booking = Booking::find($bookingId);
                 $commissionRate = Settings::get('commission_rate');
@@ -77,7 +77,7 @@ class BusinessCommission extends Base
 
                 $commission->save();
             } catch(\Exception $ex){
-                Log::info('Exception : ' . $ex->getMessage());
+                Log::info('Update Commission Exception : ' . $ex->getMessage());
             }
         }
     }
