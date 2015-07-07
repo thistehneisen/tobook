@@ -37,7 +37,7 @@ class BusinessCommission extends Base
     public static function releaseCommission(Carbon $cutoff) {
         Log::info('Started to unlock commissions items');
 
-        $commissions = BusinessCommission::where('booking_status', '=', Booking::STATUS_PENDING)
+        $commissions = self::where('booking_status', '=', Booking::STATUS_PENDING)
             ->where('created_at', '<=', $cutoff)
             ->whereNull('deleted_at')
             ->orderBy('id', 'desc')
@@ -54,7 +54,7 @@ class BusinessCommission extends Base
     }
 
     public static function updateCommission($booking, $action = '') {
-        $commission = BusinessCommission::where('booking_id', '=', $booking->id)->first();
+        $commission = self::where('booking_id', '=', $booking->id)->first();
 
         if (!empty($commission)) {
             try{
