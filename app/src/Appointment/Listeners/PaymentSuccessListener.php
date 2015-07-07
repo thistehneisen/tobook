@@ -55,6 +55,7 @@ class PaymentSuccessListener
                     $item->booking->attach(new SmsObserver());
                     $item->booking->notify();
 
+                    Log::info('Update business commission');
                     BusinessCommission::updateCommission($item->booking);
 
                     //Send calendar invitation to employee
