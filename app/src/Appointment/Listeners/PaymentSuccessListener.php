@@ -56,7 +56,7 @@ class PaymentSuccessListener
                     $item->booking->notify();
 
                     Log::info('Update business commission');
-                    BusinessCommission::updateCommission($item->booking->id);
+                    BusinessCommission::updateCommission($item->booking);
 
                     //Send calendar invitation to employee
                     Event::fire('employee.calendar.invitation.send', [$item->booking]);

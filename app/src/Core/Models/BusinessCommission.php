@@ -4,6 +4,7 @@ use App\Appointment\Models\Booking;
 use Carbon\Carbon;
 use Log;
 use Settings;
+use Config, App;
 
 class BusinessCommission extends Base
 {
@@ -52,23 +53,24 @@ class BusinessCommission extends Base
         Log::info('Release commissions are done');
     }
 
-    public static function updateCommission($bookingId, $action = '') {
-        $commission = BusinessCommission::where('booking_id', '=', $bookingId)->first();
+    public static function updateCommission($booking, $action = '') {
+        $commission = BusinessCommission::where('booking_id', '=', $booking->id)->first();
 
         if (!empty($commission)) {
             try{
-                $booking = Booking::find($bookingId);
-                $commissionRate = Settings::get('commission_rate');
-                $commission     = $booking->total_price * $commissionRate;
+                $commissionRate   = Settings::get('commission_rate');
+                $commissionAmount = $booking->total_price * $commissionRate;
+
                 Log::info('Deposit: ', [$booking->deposit]);
+
                 if (App::environment() === 'tobook' || Config::get('varaa.commission_style') === 'tobook') {
                     if ($booking->deposit > 0) {
                         Log::info('Update deposit commission');
-                        $commission  = $booking->deposit * $commissionRate;
+                        $commissionAmount  = $booking->deposit * $commissionRate;
                     }
                 }
 
-                $commission->commission = $commission;
+                $commission->commission     = $commissionAmount;
                 $commission->booking_status = $booking->status;
 
                 if ($action === 'venue') {
