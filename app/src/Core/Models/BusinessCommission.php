@@ -36,7 +36,7 @@ class BusinessCommission extends Base
     public static function releaseCommission(Carbon $cutoff) {
         Log::info('Started to unlock commissions items');
 
-        $commissions = static::where('booking_status', '=', Booking::STATUS_PENDING)
+        $commissions = BusinessCommission::where('booking_status', '=', Booking::STATUS_PENDING)
             ->where('created_at', '<=', $cutoff)
             ->whereNull('deleted_at')
             ->orderBy('id', 'desc')
@@ -52,16 +52,15 @@ class BusinessCommission extends Base
         Log::info('Release commissions are done');
     }
 
-    public static function updateCommission($booking, $action = '') {
-        $commission = static::where('booking_id', '=', $booking->id)->first();
+    public static function updateCommission($bookingId, $action = '') {
+        $commission = BusinessCommission::where('booking_id', '=', $bookingId)->first();
 
         if (!empty($commission->id)) {
             try{
-
+                $booking = Booking::find($bookingId);
                 $commissionRate = Settings::get('commission_rate');
-                $depositRate    = $booking->user->business->deposit_rate;
                 $commission     = $booking->total_price * $commissionRate;
-
+                Log::info('Deposit: ', [$booking->deposit]);
                 if (App::environment() === 'tobook' || Config::get('varaa.commission_style') === 'tobook') {
                     if ($booking->deposit > 0) {
                         Log::info('Update deposit commission');
