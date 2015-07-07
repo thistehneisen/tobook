@@ -140,14 +140,17 @@ class Paysera extends Base
     protected function isValidAmount($amount, $currency, $transaction)
     {
         $expected = $transaction->amount * 100;
+        // Maybe comparing double values is not redundant, since the amount
+        // posted in cents => integer is fine
         $result = $currency === $transaction->currency
-            && (double) $amount === $expected;
+            && doubleval($amount) === doubleval($expected);
 
         if (!$result) {
             Log::warning('Abort due to invalid amount', [
                 'context'  => 'Paysera post-back',
                 'receive'  => $amount,
                 'expected' => $expected,
+                'currencies' => [$currency, $transaction->currency],
             ]);
         }
 
