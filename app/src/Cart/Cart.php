@@ -210,7 +210,7 @@ class Cart extends \AppModel
                     Log::info("Send sms and email exception: ", [ 'messsage' => $ex->getMessage() ]);
                 }
 
-                BusinessCommission::updateStatus($item->booking, 'venue');
+                BusinessCommission::updateCommission($item->booking, 'venue');
             }
         }
     }
