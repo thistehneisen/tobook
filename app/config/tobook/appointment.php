@@ -6,25 +6,24 @@ Sveicināti!
 
 Paldies par veikto rezervāciju!
 
-Pakalpojums: {Services}
+Pakalpojums:
+{Services}
+
+Depozīts jāmaksā: {Deposit}
 
 Esiet laipni aicināti!
 HTML;
 
 $confirmEmailEmployee = <<< HTML
-Sveiki!
+Jums ir jauna rezervācija !
 
-Jums ir jauna rezervācija:
 
-Pakalpojums: {Services}
+{Services}
+{Name}
+{Phone}
+{Email}
+Depozīts jāmaksā: {Deposit}
 
-Klienta informācija:
-
-Vārds: {Name}
-
-Telefos: {Phone}
-
-Epasts: {Email}
 
 Piezīmes:
 {Notes}
@@ -33,6 +32,7 @@ HTML;
 $confirmSmsEmployee = <<< HTML
 Sveiki,
 Jums ir jauna rezervācija {Consumer} pakalpojums {Services}
+Depozīts jāmaksā: {Deposit}
 HTML;
 
 $confirmSmsConsumer = <<< HTML
@@ -40,6 +40,7 @@ Sveicināti!
 
 Paldies par veikto rezervāciju!
 {Services}
+Depozīts jāmaksā: {Deposit}
 
 Ar cieņu.
 HTML;
