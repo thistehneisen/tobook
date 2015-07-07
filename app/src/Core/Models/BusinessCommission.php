@@ -62,7 +62,7 @@ class BusinessCommission extends Base
                 $depositRate    = $booking->business->deposit_rate;
                 $commission     = $booking->total_price * $commissionRate;
 
-                if (App::environment() === 'tobook') {
+                if (App::environment() === 'tobook' || Config::get('varaa.commission_style') === 'tobook') {
                     if ($booking->deposit > 0) {
                         $commission  = $booking->deposit * $commissionRate;
                     }
