@@ -53,17 +53,18 @@ class BusinessCommission extends Base
     }
 
     public static function updateCommission($booking, $action = '') {
-        $commission = self::where('booking_id', '=', $booking->id)->first();
+        $commission = static::where('booking_id', '=', $booking->id)->first();
 
         if (!empty($commission->id)) {
             try{
 
                 $commissionRate = Settings::get('commission_rate');
-                $depositRate    = $booking->business->deposit_rate;
+                $depositRate    = $booking->user->business->deposit_rate;
                 $commission     = $booking->total_price * $commissionRate;
 
                 if (App::environment() === 'tobook' || Config::get('varaa.commission_style') === 'tobook') {
                     if ($booking->deposit > 0) {
+                        Log::info('Update deposit commission');
                         $commission  = $booking->deposit * $commissionRate;
                     }
                 }
