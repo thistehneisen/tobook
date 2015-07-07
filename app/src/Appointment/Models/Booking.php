@@ -1188,7 +1188,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
 
-        $query = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+        $query = $query->rightJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
             ->leftJoin('consumers', 'consumers.id', '=', 'as_bookings.consumer_id')
             ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.date', 'as_bookings.status as booking_status', 'as_bookings.created_at as created', 'as_employees.*', 'as_employees.status as employee_status', 'business_commissions.total_price as total_price', 'business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")]);
@@ -1260,7 +1260,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     protected static function getCommissionQuery($userId, $status, $employeeId, $start, $end)
     {
-        $query = self::where('as_bookings.created_at', '>=', $start)
+        $query = self::withTrashed()->where('as_bookings.created_at', '>=', $start)
             ->where('as_bookings.created_at', '<=', $end)
             ->where('as_bookings.source','=', 'inhouse')
             ->where('as_bookings.user_id', '=', $userId)
