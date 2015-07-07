@@ -208,7 +208,7 @@ class Cart extends \AppModel
                     $item->booking->notify();
                     //Employee will either receive calendar invitation or confirmation email
                     //Send calendar invitation to employee
-                    Event::fire('employee.calendar.invitation.send', [$booking]);
+                    Event::fire('employee.calendar.invitation.send', [$item->booking]);
                 } catch(\Exception $ex) {
                     Log::info("Send sms and email exception: ", [ 'messsage' => $ex->getMessage() ]);
                 }
