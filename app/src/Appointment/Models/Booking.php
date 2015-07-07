@@ -1035,6 +1035,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $body  = str_replace('{Phone}', $this->consumer->phone, $body);
         $body  = str_replace('{Email}', $this->consumer->email, $body);
         $body  = str_replace('{Notes}', $this->notes, $body);
+        $body  = str_replace('{Deposit}', $this->deposit, $body);
 
         return $body;
     }
