@@ -3,6 +3,7 @@
 use App\Appointment\Models\Booking;
 use Carbon\Carbon;
 use Log;
+use Settings;
 
 class BusinessCommission extends Base
 {
@@ -51,11 +52,23 @@ class BusinessCommission extends Base
         Log::info('Release commissions are done');
     }
 
-    public static function updateStatus($booking, $action = '') {
+    public static function updateCommission($booking, $action = '') {
         $commission = self::where('booking_id', '=', $booking->id)->first();
 
         if (!empty($commission->id)) {
             try{
+
+                $commissionRate = Settings::get('commission_rate');
+                $depositRate    = $booking->business->deposit_rate;
+                $commission     = $booking->total_price * $commissionRate;
+
+                if (App::environment() === 'tobook') {
+                    if ($booking->deposit > 0) {
+                        $commission  = $booking->deposit * $commissionRate;
+                    }
+                }
+
+                $commission->commission = $commission;
                 $commission->booking_status = $booking->status;
 
                 if ($action === 'venue') {
