@@ -25,7 +25,7 @@ class Paysera extends AbstractGateway
      */
     public function purchase(\App\Payment\Models\Transaction $transaction, $args = [])
     {
-        $request = WebToPay::redirectToPayment([
+        $params = [
             'projectid'     => Config::get('services.paysera.id'),
             'sign_password' => Config::get('services.paysera.password'),
             'orderid'       => $transaction->id,
@@ -35,7 +35,15 @@ class Paysera extends AbstractGateway
             'cancelurl'     => route('payment.cancel', ['id' => $transaction->id]),
             'callbackurl'   => route('payment.notify', ['gateway' => 'paysera']),
             'test'          => Config::get('services.paysera.test', 0),
-        ], true);
+        ];
+
+        if (isset($transaction->cart->consumer)) {
+            $params['p_firstname'] = $transaction->cart->consumer->first_name;
+            $params['p_lastname'] = $transaction->cart->consumer->last_name;
+            $params['p_email'] = $transaction->cart->consumer->email;
+        }
+
+        $request = WebToPay::redirectToPayment($params, true);
     }
 
     /**
