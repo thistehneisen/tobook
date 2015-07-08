@@ -147,11 +147,9 @@ class Paysera extends AbstractGateway
      */
     protected function isValidAmount($amount, $currency, $transaction)
     {
-        $expected = $transaction->amount * 100;
-        // Maybe comparing double values is not redundant, since the amount
-        // posted in cents => integer is fine
-        $result = $currency === $transaction->currency
-            && doubleval($amount) === doubleval($expected);
+        $expected = (integer) $transaction->amount * 100;
+        $amount = (integer) $amount;
+        $result = $currency === $transaction->currency && $amount === $expected;
 
         if (!$result) {
             Log::warning('Abort due to invalid amount', [
