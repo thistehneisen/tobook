@@ -70,7 +70,7 @@ return [
         'add'           => 'Adauga sablon de email',
         'edit'          => 'Modifica sablon de email',
         'sent_at'       => 'Trimis la',
-        'sent_to_x_of_y'=> 'Email trimis la :sent din :total clienti',
+        'sent_to_x_of_y'=> 'Email trimis la :total clienti',
     ],
     'sms_templates' => [
         'all'           => 'Sabloane SMS',
@@ -81,7 +81,7 @@ return [
         'add'           => 'Adauga sablon de SMS',
         'edit'          => 'Modifica sablon de SMS',
         'sent_at'       => 'Trimis la',
-        'sent_to_x_of_y'=> 'SMS trimis la :sent din :total clienti',
+        'sent_to_x_of_y'=> 'SMS trimis la :total clienti',
     ],
     'history' => [
         'index'         => 'Istoric',
