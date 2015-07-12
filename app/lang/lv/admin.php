@@ -55,7 +55,7 @@ return [
         'fail'                                 => 'Nevarēja saglabāt datus. Lūdzu, pārbaudiet informāciju, izlabojiet to un mēģiniet vēlreiz.',
         'amount'                               => 'Apjoms',
         'note'                                 => 'Piezīme (pēc izvēles)',
-        'date'                                 => 'Datums'
+        'date'                                 => 'Datums',
         'name'                                 => 'Vārds',
         'price'                                => 'Cena',
         'customer'                             => 'Klients',
