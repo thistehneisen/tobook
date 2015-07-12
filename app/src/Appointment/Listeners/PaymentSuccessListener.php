@@ -48,13 +48,15 @@ class PaymentSuccessListener
                 }
 
                 $item->booking->save();
+
                  //Send notification email and SMSs
                 try {
                     $item->booking->attach(new EmailObserver());
                     $item->booking->attach(new SmsObserver());
                     $item->booking->notify();
 
-                    BusinessCommission::updateStatus($item->booking);
+                    Log::info('Update business commission');
+                    BusinessCommission::updateCommission($item->booking);
 
                     //Send calendar invitation to employee
                     Event::fire('employee.calendar.invitation.send', [$item->booking]);

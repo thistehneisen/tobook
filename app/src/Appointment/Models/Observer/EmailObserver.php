@@ -114,7 +114,8 @@ class EmailObserver implements \SplObserver
         $employee = $subject->bookingServices()->first()->employee;
         if (!$employee->isReceivedCalendarInvitation) {
 
-            if (empty($employee->email) || (!$employee->is_subscribed_email)) {
+            if (empty($employee->email) ||
+                (!empty($employee->is_subscribed_email) && !(bool)$employee->is_subscribed_email)) {
                 return;
             }
 

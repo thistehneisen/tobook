@@ -26,6 +26,8 @@ Artisan::add(new App\Core\Commands\DeployedNotificationCommand());
 Artisan::add(new App\Core\Commands\BuildNewIndexForBusinesses());
 Artisan::add(new App\Core\Commands\SimpleReportCommand());
 Artisan::add(new App\Core\Commands\RecuseOldDataFromBackupImporter());
+Artisan::add(new App\Core\Commands\ReleasePendingCommisions());
+Artisan::add(new App\Core\Commands\BroadcastConfirmationSettings());
 
 Artisan::add(new App\Cart\Commands\UnlockCartItemsCommand());
 

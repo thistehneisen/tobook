@@ -132,6 +132,8 @@ class SmsObserver implements \SplObserver
         $msg = $subject->user->asOptions['confirm_employee_sms_message'];
         $msg = str_replace('{Services}', $this->serviceInfo, $msg);
         $msg = str_replace('{Consumer}', $subject->consumer->name, $msg);
+        $depositAmount = (!empty($subject->deposit)) ? $subject->deposit : 0;
+        $msg = str_replace('{Deposit}', $depositAmount, $msg);
 
         $code = $this->code;
         Log::info('Enqueue to send SMS to employee', [

@@ -1,6 +1,10 @@
 <?php namespace App\Core\Models;
 
-use App\App\Appointment\Models\Booking;
+use App\Appointment\Models\Booking;
+use Carbon\Carbon;
+use Log;
+use Settings;
+use Config, App;
 
 class BusinessCommission extends Base
 {
@@ -33,8 +37,9 @@ class BusinessCommission extends Base
     public static function releaseCommission(Carbon $cutoff) {
         Log::info('Started to unlock commissions items');
 
-        $commissions = static::where('booking_status', '=', Booking::STATUS_PENDING)
+        $commissions = self::where('booking_status', '=', Booking::STATUS_PENDING)
             ->where('created_at', '<=', $cutoff)
+            ->whereNull('deleted_at')
             ->orderBy('id', 'desc')
             ->get();
 
@@ -48,11 +53,24 @@ class BusinessCommission extends Base
         Log::info('Release commissions are done');
     }
 
-    public static function updateStatus($booking, $action = '') {
-        $commission = static::where('booking_id', '=', $booking->id)->first();
+    public static function updateCommission($booking, $action = '') {
+        $commission = self::where('booking_id', '=', $booking->id)->first();
 
         if (!empty($commission)) {
             try{
+                $commissionRate   = Settings::get('commission_rate');
+                $commissionAmount = $booking->total_price * $commissionRate;
+
+                Log::info('Deposit: ', [$booking->deposit]);
+
+                if (App::environment() === 'tobook' || Config::get('varaa.commission_style') === 'tobook') {
+                    if ($booking->deposit > 0) {
+                        Log::info('Update deposit commission');
+                        $commissionAmount  = $booking->deposit * $commissionRate;
+                    }
+                }
+
+                $commission->commission     = $commissionAmount;
                 $commission->booking_status = $booking->status;
 
                 if ($action === 'venue') {
@@ -61,7 +79,7 @@ class BusinessCommission extends Base
 
                 $commission->save();
             } catch(\Exception $ex){
-                Log::info('Exception : ' . $ex->getMessage());
+                Log::info('Update Commission Exception : ' . $ex->getMessage());
             }
         }
     }
