@@ -70,7 +70,7 @@ return [
         'add'           => 'Pievienot e-pasta šablonu',
         'edit'          => 'Rediģēt e-pasta šablonu',
         'sent_at'       => 'Sūtīt plkst.',
-        'sent_to_x_of_y'=> 'Nosūtīti e-pasti :sent no :total klientiem',
+        'sent_to_x_of_y'=> 'Nosūtīti e-pasti :total klientiem',
     ],
     'sms_templates' => [
         'all'           => 'SMS šabloni',
@@ -81,7 +81,7 @@ return [
         'add'           => 'Pievienot SMS šablonu',
         'edit'          => 'Rediģēt SMS šablonu',
         'sent_at'       => 'Sūtīt plkst.',
-        'sent_to_x_of_y'=> 'Nosūtītas SMS :sent no :total klientiem',
+        'sent_to_x_of_y'=> 'Nosūtītas SMS :total klientiem',
     ],
     'history' => [
         'index'         => 'Arhīvs',

@@ -4,7 +4,10 @@ use App\Consumers\Models\EmailTemplate;
 use App\Consumers\Models\SmsTemplate;
 use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
-use Input, Config, Redirect, View;
+use Input;
+use Config;
+use Redirect;
+use View;
 use Lomake;
 
 trait Marketing
@@ -41,11 +44,12 @@ trait Marketing
             $campaignPairs[$campaign->id] = $campaign->subject;
         }
 
-        $targets = $sendGroup
-            ? Group::ofCurrentUser()->whereIn('id', $ids)->get()
-            : $sendAll
-                ? []
-                : Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
+        $targets = [];
+        if ($sendGroup) {
+            $targets = Group::ofCurrentUser()->whereIn('id', $ids)->get();
+        } elseif (!$sendAll) {
+            $targets = Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
+        }
 
         return [
             'campaignPairs' => $campaignPairs,

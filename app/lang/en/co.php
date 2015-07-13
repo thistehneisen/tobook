@@ -70,7 +70,7 @@ return [
         'add'           => 'Add email template',
         'edit'          => 'Edit email template',
         'sent_at'       => 'Sent at',
-        'sent_to_x_of_y'=> 'Sent email to :sent out of :total consumers',
+        'sent_to_x_of_y'=> 'Sent email to :total consumers',
     ],
     'sms_templates' => [
         'all'           => 'SMS templates',
@@ -81,7 +81,7 @@ return [
         'add'           => 'Add SMS template',
         'edit'          => 'Edit SMS template',
         'sent_at'       => 'Sent at',
-        'sent_to_x_of_y'=> 'Sent SMS to :sent out of :total consumers',
+        'sent_to_x_of_y'=> 'Sent SMS to :total consumers',
     ],
     'history' => [
         'index'         => 'History',

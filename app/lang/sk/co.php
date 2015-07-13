@@ -70,7 +70,7 @@ return [
         'add'           => 'Pridať email šablónu',
         'edit'          => 'Upraviť email sablónu',
         'sent_at'       => 'Sent at',
-        'sent_to_x_of_y'=> 'Email bol poslaný :sent z :total zákazníkom',
+        'sent_to_x_of_y'=> 'Email bol poslaný :total zákazníkom',
     ],
     'sms_templates' => [
         'all'           => 'SMS šablóny',
@@ -81,7 +81,7 @@ return [
         'add'           => 'Pridať SMS šablónu',
         'edit'          => 'Upraviť SMS šablónu',
         'sent_at'       => 'Sent at',
-        'sent_to_x_of_y'=> 'SMS bola poslaná :sent z :total zákazníkom',
+        'sent_to_x_of_y'=> 'SMS bola poslaná :total zákazníkom',
     ],
     'history' => [
         'index'         => 'História',

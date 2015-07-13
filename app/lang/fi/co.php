@@ -72,7 +72,7 @@ return [
         'add'           => 'Lisää email kampanja',
         'edit'          => 'Muokkaa sähköpostikampanjaa',
         'sent_at'       => 'Lähetetty',
-        'sent_to_x_of_y'=> 'Sähköposteja lähetetty onnistuneesti :sent / :total consumers ',
+        'sent_to_x_of_y'=> 'Sähköposteja lähetetty onnistuneesti :total consumers ',
     ],
     'sms_templates' => [
         'all'           => 'SMS kampanjat',
@@ -83,7 +83,7 @@ return [
         'add'           => 'Uusi SMS kampanja',
         'edit'          => 'Muokkaa SMS kampanjaa',
         'sent_at'       => 'Lähetetty',
-        'sent_to_x_of_y'=> 'Tekstiviestejä lähetetty onnistuneesti :sent / :total consumers ',
+        'sent_to_x_of_y'=> 'Tekstiviestejä lähetetty onnistuneesti :total consumers ',
     ],
     'history' => [
         'index'         => 'Historia',
