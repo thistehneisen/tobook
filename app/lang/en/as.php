@@ -171,6 +171,7 @@ return [
             'delete_last_booking_service' => 'You cannot delete the last booking service',
             'before_min_distance'         => 'You cannot make a booking before the min distance day',
             'after_max_distance'          => 'You cannot make a booking after the max distance day',
+            'missing_services'            => 'Add a service to continue!',
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',

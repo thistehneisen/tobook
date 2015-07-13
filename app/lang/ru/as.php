@@ -169,6 +169,7 @@ return [
             'delete_last_booking_service' => 'Вы не можете удалить последний заказ услуги',
             'before_min_distance'         => 'Вы не можете сделать заказ до min distance day',
             'after_max_distance'          => 'Вы не можете сделать заказ после min distance day',
+            'missing_services'            => 'Add a service to continue!',//@todo
         ],
         'warning'      => [
             'existing_user'   => 'В нашей системе есть пользователь, связанный с этим адресом. Хотите использовать эту информацию?',
