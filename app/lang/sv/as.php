@@ -162,7 +162,8 @@ return [
             'not_enough_resources'     => 'En resurs som krävs för den här bokningen är inte tillgänglig!',
             'empty_start_time'         => 'Vänligen ange starttid för bokningen',
             'booking_not_found'        => 'Kunde inte hitta bokningen!',
-            'past_booking'             => 'Tiden eller datumet för bokningen har passerat!'
+            'past_booking'             => 'Tiden eller datumet för bokningen har passerat!',
+            'missing_services'         => 'Add a service to continue!',//@todo
         ],
         'warning'      => [
             'existing_user'   => 'Det finns redan en användare med den här e-postadressen. Vill du använda den istället?',
