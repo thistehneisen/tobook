@@ -43,9 +43,10 @@
                 <td>{{ $item['date']->toDateString() }}</td>
                 @foreach ($employees as $employee)
                 <td>
-                    @if (!empty($item['employees'][$employee->id]->customTime)) {{ $item['employees'][$employee->id]->customTime->name }}
+                    @if (!empty($item['employees'][$employee->id]->customTime))
+                    <span class="workshift-editable" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">{{ $item['employees'][$employee->id]->customTime->name }}</span>
                     @else
-                    --
+                    <span class="workshift-editable" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">--</span>
                     @endif
                 </td>
                 @endforeach
@@ -91,4 +92,5 @@
         </tr>
     </tfoot>
 </table>
+<input type="hidden" id="get_workshifts_url" value=" {{ route('as.employees.employeeCustomTime.work-shifts') }}">
 @stop

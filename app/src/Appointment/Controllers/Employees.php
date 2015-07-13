@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, Util, Response, Validator, DB, NAT;
+use App, View, Confide, Redirect, Input, Config, Util, Response, Request, Validator, DB, NAT;
 use Carbon\Carbon;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeDefaultTime;
@@ -513,6 +513,32 @@ class Employees extends AsBase
             'startOfMonth'    => $startOfMonth,
             'endOfMonth'      => $endOfMonth
         ]);
+    }
+
+    /**
+     * Get list of custom time only for ajax request
+     * @return array
+     */
+    public function getCustomTimes()
+    {
+        $data = [];
+        if (Request::ajax() === true) {
+            $data = CustomTime::ofCurrentUser()
+                ->orderBy('start_at')
+                ->orderBy('end_at')
+                ->select(
+                    DB::raw(
+                        'CONCAT(name, " (",
+                        TIME_FORMAT(start_at, "%H:%i"), " - ",
+                        TIME_FORMAT(end_at, "%H:%i"),")") AS name'
+                    ),
+                    'id'
+                    )
+                ->lists('name', 'id');
+
+            $data = [0 => trans('common.options_select')] + $data;
+        }
+        return Response::json($data);
     }
 
     /**
