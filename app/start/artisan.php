@@ -31,7 +31,8 @@ Artisan::add(new App\Core\Commands\BroadcastConfirmationSettings());
 
 Artisan::add(new App\Cart\Commands\UnlockCartItemsCommand());
 
-Artisan::add(new App\Appointment\NAT\Commands\ScheduledBuild());
+// Temporarily disable NAT builder
+// Artisan::add(new App\Appointment\NAT\Commands\ScheduledBuild());
 
 Artisan::add(new App\Search\Commands\BuildSearchIndecesCommand());
 
