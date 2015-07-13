@@ -171,6 +171,7 @@ return [
             'delete_last_booking_service' => 'You cannot delete the last booking service',//@todo
             'before_min_distance'         => 'You cannot make a booking before the min distance day',//@todo
             'after_max_distance'          => 'You cannot make a booking after the max distance day',//@todo
+            'missing_services'            => 'Add a service to continue!',//@todo
         ],
         'warning'      => [
             'existing_user'   => 'Järjestelmästä löytyy käyttäjäprofiili antamallesi sähköpostiosoitteelle. Ovatko nämä sinun tietosi?',

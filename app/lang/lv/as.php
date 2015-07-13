@@ -169,6 +169,7 @@ return [
             'delete_last_booking_service' => 'Pēdējās rezervācijas pakalpojumu nevar izdzēst. ',
             'before_min_distance'         => 'Rezervācija, kas agrāka par min distance dienām, nav iespējama',
             'after_max_distance'          => 'Rezervācija, kas vēlāka par max distance dienām, nav iespējama',
+            'missing_services'            => 'Add a service to continue!',//@todo
         ],
         'warning'      => [
             'existing_user'   => 'Sistēmā jau ir reģistrēts lietotājs ar šo e-pasta adresi. Vai vēlaties izmantot šos datus?',
@@ -380,10 +381,12 @@ return [
         'start'     => 'Sākuma datums',
         'end'       => 'Beigu datums',
         'booking'   => [
-            'total'       => 'Visas rezervācijas',
-            'confirmed'   => 'Apstiprinātās rezervācijas',
-            'unconfirmed' => 'Neapstiprinātās rezervācijas',
-            'cancelled'   => 'Atceltās rezervācijas',
+            'total'       => 'Kopā rezervācijas',
+            'confirmed'   => 'Apstiprināts rezervācijas',
+            'unconfirmed' => 'Neapstiprinātas rezervācijas',
+            'cancelled'   => 'Atceltie rezervācijas',
+            'inhouse'     => 'Rezervācijas',
+            'front-end'   => 'Rezervācijas no Jūsu mājas lapas',
         ],
         'statistics'=> 'Statistika',
         'monthly'   => 'Mēneša atskaite',
