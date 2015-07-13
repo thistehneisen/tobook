@@ -98,14 +98,8 @@ require app_path().'/filters.php';
 |
 */
 App::before(function ($request) {
-    // Get default browser language
-    $language = substr($request->server->get('HTTP_ACCEPT_LANGUAGE'), 0, 2);
-
-    if (empty($language)) {
-        // curl or command line tools don't send Accept-Language header
-        // our devs don't speak Finnish so... let's just use English for those requests
-        $language = 'en';
-    }
+    // Get default locale of this instance, and fallback to `en`
+    $language = Config::get('app.locale', 'en');
 
     // Get current request URI
     $uri = $request->server->get('REQUEST_URI');
