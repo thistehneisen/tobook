@@ -428,6 +428,21 @@ class Employees extends AsBase
         $sundayHours     = [];
         $montlyHours     = [];
 
+        $customTimes = CustomTime::ofCurrentUser()
+            ->orderBy('start_at')
+            ->orderBy('end_at')
+            ->select(
+                DB::raw(
+                    'CONCAT(name, " (",
+                    TIME_FORMAT(start_at, "%H:%i"), " - ",
+                    TIME_FORMAT(end_at, "%H:%i"),")") AS name'
+                ),
+                'id'
+                )
+            ->lists('name', 'id');
+
+        $customTimes = [0 => trans('common.options_select')] + $customTimes;
+
         foreach ($employees as $employee) {
             $items = $employee->employeeCustomTimes()
                 ->with('customTime')
@@ -475,6 +490,7 @@ class Employees extends AsBase
             'sarturdayHours'  => $sarturdayHours,
             'sundayHours'     => $sundayHours,
             'montlyHours'     => $montlyHours,
+            'customTimes'     => json_encode($customTimes)
         ]);
     }
 
@@ -615,6 +631,35 @@ class Employees extends AsBase
         }
 
         return Response::json($data);
+    }
+
+    /**
+     * Update employee workshift on workshift summary table via ajax request
+     * @return array
+     */
+    public function updateEmployeeWorkshift()
+    {
+        $customTimeId       = Input::get('custom_time_id');
+        $employeeId         = Input::get('employee_id');
+        $date               = Input::get('date');
+        try {
+            $employee           = Employee::findOrFail($employeeId);
+            $customTime         = (intval($customTimeId) !== 0)  ? CustomTime::find($customTimeId) : null;
+            $employeeCustomTime = EmployeeCustomTime::getUpsertModel($employeeId, $date);
+            $employeeCustomTime->fill([
+                'date' =>  $date
+            ]);
+            $employeeCustomTime->employee()->associate($employee);
+            $employeeCustomTime->customTime()->associate($customTime);
+            $employeeCustomTime->save();
+
+            return Response::json(['success' => true]);
+        } catch(\Exception $ex){
+            return Response::json([
+                'success' => false,
+                'message' => $ex->getMessage()
+            ]);
+        }
     }
 
     /**

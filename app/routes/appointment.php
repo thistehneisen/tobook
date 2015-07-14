@@ -134,6 +134,11 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Employees@getCustomTimes'
         ]);
 
+        Route::post('ajax/update-work-shift', [
+            'as' => 'as.employees.employeeCustomTime.updateWorkshift',
+            'uses' => 'App\Appointment\Controllers\Employees@updateEmployeeWorkshift'
+        ]);
+
         Route::post('update-work-shift-plan/{employeedId}', [
             'as' => 'as.employees.employeeCustomTime.massUpdate',
             'uses' => 'App\Appointment\Controllers\Employees@massUpdateWorkShift'
