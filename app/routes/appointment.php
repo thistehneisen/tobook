@@ -129,11 +129,6 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Employees@employeeCustomTimeSummary'
         ]);
 
-        Route::get('ajax/work-shifts', [
-            'as' => 'as.employees.employeeCustomTime.work-shifts',
-            'uses' => 'App\Appointment\Controllers\Employees@getCustomTimes'
-        ]);
-
         Route::post('ajax/update-work-shift', [
             'as' => 'as.employees.employeeCustomTime.updateWorkshift',
             'uses' => 'App\Appointment\Controllers\Employees@updateEmployeeWorkshift'
