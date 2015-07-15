@@ -442,7 +442,8 @@ class Employees extends AsBase
             ->lists('name', 'id');
 
         $customTimes = [0 => trans('common.options_select')] + $customTimes;
-
+        $customTimeWeekSummary = [];
+        $customTimeMonthSummary = [];
         foreach ($employees as $employee) {
             $items = $employee->employeeCustomTimes()
                 ->with('customTime')
@@ -456,7 +457,22 @@ class Employees extends AsBase
 
             foreach ($items as $item) {
                 $customTimesList[$item->date][$employee->id] = $item;
+                $carbonDate = new Carbon($item->date);
+
+                if(empty($customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id])) {
+                    $customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id] = $item->getWorkingHours();
+                } else {
+                    $customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id] += $item->getWorkingHours();
+                }
+
+                if(empty($customTimeMonthSummary[$carbonDate->month][$employee->id])) {
+                    $customTimeMonthSummary[$carbonDate->month][$employee->id] = $item->getWorkingHours();
+                } else {
+                    $customTimeMonthSummary[$carbonDate->month][$employee->id] += $item->getWorkingHours();
+                }
+
                 $dayOfWeek = $item->getDayOfWeek();
+
                 if ($dayOfWeek == Carbon::SATURDAY) {
                     $sarturdayHours[$employee->id] += $item->getWorkingHours();
                 } elseif ($dayOfWeek == Carbon::SUNDAY) {
@@ -481,16 +497,18 @@ class Employees extends AsBase
         }
 
         return $this->render('customTimeSummary', [
-            'customTimesList' => $customTimesList,//custom time of the employee
-            'employees'       => $employees,
-            'current'         => $current,
-            'currentMonths'   => $currentMonths,
-            'startOfMonth'    => $startOfMonth,
-            'endOfMonth'      => $endOfMonth,
-            'sarturdayHours'  => $sarturdayHours,
-            'sundayHours'     => $sundayHours,
-            'montlyHours'     => $montlyHours,
-            'customTimes'     => json_encode($customTimes)
+            'customTimesList'        => $customTimesList,//custom time of the employee
+            'employees'              => $employees,
+            'current'                => $current,
+            'currentMonths'          => $currentMonths,
+            'startOfMonth'           => $startOfMonth,
+            'endOfMonth'             => $endOfMonth,
+            'sarturdayHours'         => $sarturdayHours,
+            'sundayHours'            => $sundayHours,
+            'montlyHours'            => $montlyHours,
+            'customTimeWeekSummary'  => $customTimeWeekSummary,
+            'customTimeMonthSummary' => $customTimeMonthSummary,
+            'customTimes'            => json_encode($customTimes)
         ]);
     }
 

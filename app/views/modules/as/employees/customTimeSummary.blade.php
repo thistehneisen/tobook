@@ -47,7 +47,7 @@
                 <td>
                     @if (!empty($item['employees'][$employee->id]->customTime))
                     <div class="workshift-editable" data-editable="true" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">
-                        {{ $item['employees'][$employee->id]->customTime->name }} ({{$item['employees'][$employee->id]->customTime->getStartAt()->format('H:i')}} - {{$item['employees'][$employee->id]->customTime->getEndAt()->format('H:i')}}})
+                        {{ $item['employees'][$employee->id]->customTime->name }} ({{$item['employees'][$employee->id]->customTime->getStartAt()->format('H:i')}} - {{$item['employees'][$employee->id]->customTime->getEndAt()->format('H:i')}})
                     </div>
                     @else
                     <div class="workshift-editable" data-editable="true" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">--</div>
@@ -55,46 +55,34 @@
                 </td>
                 @endforeach
             </tr>
+            @if($item['date']->dayOfWeek === \Carbon\Carbon::SUNDAY)
+            <tr>
+                <td>{{ trans('as.employees.weekly_hours') }}</td>
+                <td>&nbsp;</td>
+                @foreach ($employees as $employee)
+                @if(isset($customTimeWeekSummary[$item['date']->weekOfYear][$employee->id]))
+                <td>{{ $customTimeWeekSummary[$item['date']->weekOfYear][$employee->id]}}</td>
+                @else
+                <td>0</td>
+                @endif
+                @endforeach
+            </tr>
+            @endif
+            @if($item['date']->toDateString() === $item['date']->endOfMonth()->toDateString())
+            <tr>
+                <td>{{ trans('as.employees.monthly_hours') }}</td>
+                <td>&nbsp;</td>
+                @foreach ($employees as $employee)
+                @if(isset($customTimeMonthSummary[$item['date']->month][$employee->id]))
+                <td>{{ $customTimeMonthSummary[$item['date']->month][$employee->id]}}</td>
+                @else
+                <td>0</td>
+                @endif
+                @endforeach
+            </tr>
+            @endif
         @endforeach
     </tbody>
-    <tfoot>
-        <tr>
-            <td>{{ trans('as.employees.saturday_hours') }}</td>
-            <td>&nbsp;</td>
-            @foreach ($employees as $employee)
-            <td>
-                @if (isset($sarturdayHours[$employee->id])) {{ $sarturdayHours[$employee->id] }}
-                @else
-                --
-                @endif
-            </td>
-            @endforeach
-        </tr>
-        <tr>
-            <td>{{ trans('as.employees.sunday_hours') }}</td>
-            <td>&nbsp;</td>
-            @foreach ($employees as $employee)
-            <td>
-                @if (isset($sundayHours[$employee->id])) {{ $sundayHours[$employee->id] }}
-                @else
-                --
-                @endif
-            </td>
-            @endforeach
-        </tr>
-        <tr>
-            <td>{{ trans('as.employees.monthly_hours') }}</td>
-            <td>&nbsp;</td>
-            @foreach ($employees as $employee)
-            <td>
-                @if (isset($montlyHours[$employee->id])) {{ $montlyHours[$employee->id] }}
-                @else
-                --
-                @endif
-            </td>
-            @endforeach
-        </tr>
-    </tfoot>
 </table>
 <input type="hidden" id="update_workshift_url" value="{{ route('as.employees.employeeCustomTime.updateWorkshift') }}"/>
 @stop

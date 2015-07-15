@@ -220,6 +220,7 @@ return [
         'saturday_hours'                   => 'Рабочие часы в субботу',
         'sunday_hours'                     => 'Рабочие часы в воскресенье',
         'monthly_hours'                    => 'Рабочие часы за месяц',
+        'weekly_hours'                     => 'Weekly hours',//@todo
         'error'                            => [
         'freetime_overlapped_with_booking' => 'Свободное время совпадает с заказами',
         ],

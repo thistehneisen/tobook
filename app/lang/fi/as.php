@@ -222,6 +222,7 @@ return [
         'saturday_hours'                   => 'Lauantaitunnit',
         'sunday_hours'                     => 'Sununtaitunnit',
         'monthly_hours'                    => 'Kuukauden tunnit',
+        'weekly_hours'                     => 'Weekly hours',//@todo
         'error'                            => [
         'freetime_overlapped_with_booking' => 'Vapaa-aika menossa varauksen päälle!'
         ],
