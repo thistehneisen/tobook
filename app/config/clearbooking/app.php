@@ -5,4 +5,5 @@ return [
     'url' => 'http://clearbooking.se',
     'key' => $_ENV['SECRET_KEY'],
     'timezone' => 'Europe/Stockholm',
+    'locale' => 'sv',
 ];
