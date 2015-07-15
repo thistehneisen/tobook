@@ -5,10 +5,15 @@
 @stop
 
 @section ('scripts')
+{{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
+@if (App::getLocale() !== 'en') {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
+@endif
 {{ HTML::script(asset_path('core/scripts/jquery.fixedTableHeader.js')) }}
+{{ HTML::script(asset_path('as/scripts/workshift.js')) }}
 <script type="text/javascript">
     $(window).load(function () {
         $('#workshift-summary').fixedTableHeader();
+        CUSTOM_TIME = {{ $customTimes }};
     });
 </script>
 @stop
@@ -18,16 +23,16 @@
 @stop
 
 @section ('content')
- <div class="form-group row">
-        <div class="col-sm-3 hidden-print"><a href="{{ route('as.employees.employeeCustomTime.summary', ['date'=> with(clone $current->startOfMonth())->subMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.prev')) }}</a></div>
-        <div class="col-sm-3 hidden-print">
-           {{ Str::upper(trans(strtolower('common.' . $current->format('F')))); }}
-        </div>
-        <div class="col-sm-3 hidden-print"><a href="{{ route('as.employees.employeeCustomTime.summary', ['date'=> with(clone $current->startOfMonth())->addMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.next')) }}</a></div>
-        <div class="col-sm-3 hidden-print">
-             <button class="btn btn-primary pull-right" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
-        </div>
-</div>
+{{ Form::open(['class' => 'form-inline', 'role' => 'form', 'method' => 'GET']) }}
+    <div class="input-daterange input-group date-picker">
+        <input type="text" class="input-sm form-control" name="start" placeholder="{{ trans('as.reports.start') }}" value="{{{ $startOfMonth->toDateString() }}}">
+        <span class="input-group-addon">&ndash;</span>
+        <input type="text" class="input-sm form-control" name="end" placeholder="{{ trans('as.reports.end') }}" value="{{{ $endOfMonth->toDateString() }}}">
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm hidden-print">{{ trans('as.reports.generate') }}</button>
+    <button class="btn btn-primary btn-sm pull-right hidden-print" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
+{{ Form::close() }}
+<br/>
 <table id="workshift-summary" class="table table-striped table-bordered">
     <thead>
         <th>{{ trans('as.employees.weekday')}}</th>
@@ -43,52 +48,45 @@
                 <td>{{ $item['date']->toDateString() }}</td>
                 @foreach ($employees as $employee)
                 <td>
-                    @if (!empty($item['employees'][$employee->id]->customTime)) {{ $item['employees'][$employee->id]->customTime->name }}
+                    @if (!empty($item['employees'][$employee->id]->customTime))
+                    <div class="workshift-editable" data-editable="true" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">
+                        {{ $item['employees'][$employee->id]->customTime->name }} ({{$item['employees'][$employee->id]->customTime->getStartAt()->format('H:i')}} - {{$item['employees'][$employee->id]->customTime->getEndAt()->format('H:i')}})
+                    </div>
                     @else
-                    --
+                    <div class="workshift-editable" data-editable="true" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">--</div>
                     @endif
                 </td>
                 @endforeach
             </tr>
+            @if($item['date']->dayOfWeek === \Carbon\Carbon::SUNDAY)
+            <tr class="weekly-row">
+                <td>{{ trans('as.employees.weekly_hours') }}</td>
+                <td>&nbsp;</td>
+                @foreach ($employees as $employee)
+                @if(isset($customTimeWeekSummary[$item['date']->weekOfYear][$employee->id]))
+                <td>{{ $customTimeWeekSummary[$item['date']->weekOfYear][$employee->id]}}</td>
+                @else
+                <td>0</td>
+                @endif
+                @endforeach
+            </tr>
+            @endif
+            @if(($item['date']->toDateString() === $item['date']->copy()->endOfMonth()->toDateString())
+            || ($item['date']->toDateString() === $endOfMonth->toDateString()))
+            <tr class="monthly-row">
+                <td>{{ trans('as.employees.monthly_hours') }}</td>
+                <td>&nbsp;</td>
+                @foreach ($employees as $employee)
+                @if(isset($customTimeMonthSummary[$item['date']->month][$employee->id]))
+                <td>{{ $customTimeMonthSummary[$item['date']->month][$employee->id]}}</td>
+                @else
+                <td>0</td>
+                @endif
+                @endforeach
+            </tr>
+            @endif
         @endforeach
     </tbody>
-    <tfoot>
-        <tr>
-            <td>{{ trans('as.employees.saturday_hours') }}</td>
-            <td>&nbsp;</td>
-            @foreach ($employees as $employee)
-            <td>
-                @if (isset($sarturdayHours[$employee->id])) {{ $sarturdayHours[$employee->id] }}
-                @else
-                --
-                @endif
-            </td>
-            @endforeach
-        </tr>
-        <tr>
-            <td>{{ trans('as.employees.sunday_hours') }}</td>
-            <td>&nbsp;</td>
-            @foreach ($employees as $employee)
-            <td>
-                @if (isset($sundayHours[$employee->id])) {{ $sundayHours[$employee->id] }}
-                @else
-                --
-                @endif
-            </td>
-            @endforeach
-        </tr>
-        <tr>
-            <td>{{ trans('as.employees.monthly_hours') }}</td>
-            <td>&nbsp;</td>
-            @foreach ($employees as $employee)
-            <td>
-                @if (isset($montlyHours[$employee->id])) {{ $montlyHours[$employee->id] }}
-                @else
-                --
-                @endif
-            </td>
-            @endforeach
-        </tr>
-    </tfoot>
 </table>
+<input type="hidden" id="update_workshift_url" value="{{ route('as.employees.employeeCustomTime.updateWorkshift') }}"/>
 @stop
