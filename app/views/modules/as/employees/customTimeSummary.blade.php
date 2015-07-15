@@ -46,11 +46,11 @@
                 @foreach ($employees as $employee)
                 <td>
                     @if (!empty($item['employees'][$employee->id]->customTime))
-                    <span class="workshift-editable" data-editable="true" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">
+                    <div class="workshift-editable" data-editable="true" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">
                         {{ $item['employees'][$employee->id]->customTime->name }} ({{$item['employees'][$employee->id]->customTime->getStartAt()->format('H:i')}} - {{$item['employees'][$employee->id]->customTime->getEndAt()->format('H:i')}}})
-                    </span>
+                    </div>
                     @else
-                    <span class="workshift-editable" data-editable="true" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">--</span>
+                    <div class="workshift-editable" data-editable="true" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">--</div>
                     @endif
                 </td>
                 @endforeach

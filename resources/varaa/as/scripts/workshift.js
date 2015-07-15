@@ -33,7 +33,7 @@
         $(document).on('click', '.btn-change-workshift', function(e) {
             e.preventDefault();
             var $this = $(this);
-            var parentSpan = $this.closest('span');
+            var parentSpan = $this.closest('div');
             var workshiftSelect  = $this.prev('select');
             var custom_time_id   = workshiftSelect.val();
             var custom_time_text = workshiftSelect.find("option:selected").text()
@@ -45,7 +45,7 @@
             }).done(function(data){
                 parentSpan.data('editable', true);
                 parentSpan.empty();
-                var text = (custom_time_id !== 0) ? '--' : custom_time_text;
+                var text = (custom_time_id === 0) ? '--' : custom_time_text;
                 parentSpan.text(text);
             });
         });
