@@ -467,14 +467,14 @@ class Employees extends AsBase
         }
 
         $currentMonths = [];
-        $startDay      = with(clone $current->startOfMonth());
+        $startDay      = $current->startOfMonth()->copy();
 
         foreach (range(1, $current->daysInMonth) as $day) {
             if (!empty($customTimesList[$startDay->toDateString()])) {
-                $currentMonths[$startDay->toDateString()]['date'] = with(clone $startDay);
+                $currentMonths[$startDay->toDateString()]['date'] = $startDay->copy();
                 $currentMonths[$startDay->toDateString()]['employees'] = $customTimesList[$startDay->toDateString()];
             } else {
-                $currentMonths[$startDay->toDateString()]['date'] = with(clone $startDay);
+                $currentMonths[$startDay->toDateString()]['date'] = $startDay->copy();
                 $currentMonths[$startDay->toDateString()]['employees'] = [];
             }
             $startDay->addDay();

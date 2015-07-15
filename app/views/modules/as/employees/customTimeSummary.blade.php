@@ -6,54 +6,11 @@
 
 @section ('scripts')
 {{ HTML::script(asset_path('core/scripts/jquery.fixedTableHeader.js')) }}
+{{ HTML::script(asset_path('as/scripts/workshift.js')) }}
 <script type="text/javascript">
     $(window).load(function () {
         $('#workshift-summary').fixedTableHeader();
-
-        $('.workshift-editable').click(function(){
-            var $this = $(this);
-            var custom_time = {{ $customTimes }};
-            if($this.data('editable') === true) {
-                $this.data('editable', false);
-                var dropdown = $('<select/>', {
-                    class: 'form-control',
-                    style: 'max-width:70%; display:inline'
-                });
-                for(var val in custom_time) {
-                    $('<option />', {
-                        value: val,
-                        text: custom_time[val]
-                    }).appendTo(dropdown);
-                }
-                var btnOk = $('<input/>', {
-                    value: 'OK',
-                    type: 'button',
-                    class: 'btn btn-primary btn-change-workshift',
-                });
-                $this.empty();
-                dropdown.appendTo($this);
-                btnOk.appendTo($this);
-            }
-        });
-
-        $(document).on('click', '.btn-change-workshift', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            var parentSpan = $this.closest('span');
-            var workshiftSelect  = $this.prev('select');
-            var custom_time_id   = workshiftSelect.val();
-            var custom_time_text = workshiftSelect.find("option:selected").text()
-            var url = $('#update_workshift_url').val();
-            $.post(url, {
-                'custom_time_id': custom_time_id,
-                'employee_id'   : parentSpan.data('employee-id'),
-                'date'          : parentSpan.data('date'),
-            }).done(function(data){
-                parentSpan.data('editable', true);
-                parentSpan.empty();
-                parentSpan.text(custom_time_text);
-            });
-        });
+        CUSTOM_TIME = {{ $customTimes }};
     });
 </script>
 @stop
@@ -89,7 +46,9 @@
                 @foreach ($employees as $employee)
                 <td>
                     @if (!empty($item['employees'][$employee->id]->customTime))
-                    <span class="workshift-editable" data-editable="true" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">{{ $item['employees'][$employee->id]->customTime->name }}</span>
+                    <span class="workshift-editable" data-editable="true" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">
+                        {{ $item['employees'][$employee->id]->customTime->name }} ({{$item['employees'][$employee->id]->customTime->getStartAt()->format('H:i')}} - {{$item['employees'][$employee->id]->customTime->getEndAt()->format('H:i')}}})
+                    </span>
                     @else
                     <span class="workshift-editable" data-editable="true" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">--</span>
                     @endif
