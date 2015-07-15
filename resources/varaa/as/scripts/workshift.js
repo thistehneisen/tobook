@@ -45,7 +45,8 @@
             }).done(function(data){
                 parentSpan.data('editable', true);
                 parentSpan.empty();
-                parentSpan.text(custom_time_text);
+                var text = (custom_time_id !== 0) ? '--' : custom_time_text;
+                parentSpan.text(text);
             });
         });
     });

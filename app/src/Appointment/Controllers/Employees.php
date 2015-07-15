@@ -620,12 +620,19 @@ class Employees extends AsBase
             $employee           = Employee::findOrFail($employeeId);
             $customTime         = (intval($customTimeId) !== 0)  ? CustomTime::find($customTimeId) : null;
             $employeeCustomTime = EmployeeCustomTime::getUpsertModel($employeeId, $date);
-            $employeeCustomTime->fill([
-                'date' =>  $date
-            ]);
-            $employeeCustomTime->employee()->associate($employee);
-            $employeeCustomTime->customTime()->associate($customTime);
-            $employeeCustomTime->save();
+            if (!empty($customTime)) {
+                $employeeCustomTime->fill([
+                    'date' =>  $date
+                ]);
+                $employeeCustomTime->employee()->associate($employee);
+                $employeeCustomTime->customTime()->associate($customTime);
+                $employeeCustomTime->save();
+            } else {
+                //Delete existing row in db, otherwise do nothing
+                if (!empty($employeeCustomTime->date)) {
+                    $employeeCustomTime->delete();
+                }
+            }
 
             return Response::json(['success' => true]);
         } catch(\Exception $ex){
