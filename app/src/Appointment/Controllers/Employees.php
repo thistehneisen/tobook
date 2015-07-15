@@ -409,19 +409,17 @@ class Employees extends AsBase
      *
      * @return view
      */
-    public function employeeCustomTimeSummary($date = null)
+    public function employeeCustomTimeSummary()
     {
         $current = Carbon::now();
 
-        if (!empty($date)) {
-            try {
-                $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
-            } catch (\Exception $ex) {
-                $current = Carbon::now();
-            }
-        }
-        $startOfMonth    = $current->startOfMonth()->toDateString();
-        $endOfMonth      = $current->endOfMonth()->toDateString();
+        $startOfMonth = Input::has('start')
+            ? new Carbon(Input::get('start'))
+            : $current->copy()->startOfMonth();
+        $endOfMonth = Input::has('end')
+            ? new Carbon(Input::get('end'))
+            : $current->copy()->endOfMonth();
+
         $employees       = Employee::ofCurrentUser()->get();
         $customTimesList = [];
         $sarturdayHours  = [];
@@ -459,12 +457,14 @@ class Employees extends AsBase
                 $customTimesList[$item->date][$employee->id] = $item;
                 $carbonDate = new Carbon($item->date);
 
+                //Collect weekly summary data for each employee
                 if(empty($customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id])) {
                     $customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id] = $item->getWorkingHours();
                 } else {
                     $customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id] += $item->getWorkingHours();
                 }
 
+                //Collect monthly summary data for each employee
                 if(empty($customTimeMonthSummary[$carbonDate->month][$employee->id])) {
                     $customTimeMonthSummary[$carbonDate->month][$employee->id] = $item->getWorkingHours();
                 } else {
@@ -483,9 +483,10 @@ class Employees extends AsBase
         }
 
         $currentMonths = [];
-        $startDay      = $current->startOfMonth()->copy();
+        $startDay      = $startOfMonth->copy();
+        $days = $startDay->copy()->diffInDays($endOfMonth);
 
-        foreach (range(1, $current->daysInMonth) as $day) {
+        foreach (range(1, $days+1) as $day) {
             if (!empty($customTimesList[$startDay->toDateString()])) {
                 $currentMonths[$startDay->toDateString()]['date'] = $startDay->copy();
                 $currentMonths[$startDay->toDateString()]['employees'] = $customTimesList[$startDay->toDateString()];

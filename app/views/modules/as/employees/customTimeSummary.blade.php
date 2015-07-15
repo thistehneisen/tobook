@@ -5,6 +5,9 @@
 @stop
 
 @section ('scripts')
+{{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
+@if (App::getLocale() !== 'en') {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
+@endif
 {{ HTML::script(asset_path('core/scripts/jquery.fixedTableHeader.js')) }}
 {{ HTML::script(asset_path('as/scripts/workshift.js')) }}
 <script type="text/javascript">
@@ -20,16 +23,16 @@
 @stop
 
 @section ('content')
- <div class="form-group row">
-        <div class="col-sm-3 hidden-print"><a href="{{ route('as.employees.employeeCustomTime.summary', ['date'=> with(clone $current->startOfMonth())->subMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.prev')) }}</a></div>
-        <div class="col-sm-3 hidden-print">
-           {{ Str::upper(trans(strtolower('common.' . $current->format('F')))); }}
-        </div>
-        <div class="col-sm-3 hidden-print"><a href="{{ route('as.employees.employeeCustomTime.summary', ['date'=> with(clone $current->startOfMonth())->addMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.next')) }}</a></div>
-        <div class="col-sm-3 hidden-print">
-             <button class="btn btn-primary pull-right" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
-        </div>
-</div>
+{{ Form::open(['class' => 'form-inline', 'role' => 'form', 'method' => 'GET']) }}
+    <div class="input-daterange input-group date-picker">
+        <input type="text" class="input-sm form-control" name="start" placeholder="{{ trans('as.reports.start') }}" value="{{{ $startOfMonth->toDateString() }}}">
+        <span class="input-group-addon">&ndash;</span>
+        <input type="text" class="input-sm form-control" name="end" placeholder="{{ trans('as.reports.end') }}" value="{{{ $endOfMonth->toDateString() }}}">
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm hidden-print">{{ trans('as.reports.generate') }}</button>
+    <button class="btn btn-primary btn-sm pull-right hidden-print" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
+{{ Form::close() }}
+<br/>
 <table id="workshift-summary" class="table table-striped table-bordered">
     <thead>
         <th>{{ trans('as.employees.weekday')}}</th>
@@ -56,7 +59,7 @@
                 @endforeach
             </tr>
             @if($item['date']->dayOfWeek === \Carbon\Carbon::SUNDAY)
-            <tr>
+            <tr class="weekly-row">
                 <td>{{ trans('as.employees.weekly_hours') }}</td>
                 <td>&nbsp;</td>
                 @foreach ($employees as $employee)
@@ -68,8 +71,9 @@
                 @endforeach
             </tr>
             @endif
-            @if($item['date']->toDateString() === $item['date']->endOfMonth()->toDateString())
-            <tr>
+            @if(($item['date']->toDateString() === $item['date']->copy()->endOfMonth()->toDateString())
+            || ($item['date']->toDateString() === $endOfMonth->toDateString()))
+            <tr class="monthly-row">
                 <td>{{ trans('as.employees.monthly_hours') }}</td>
                 <td>&nbsp;</td>
                 @foreach ($employees as $employee)

@@ -124,7 +124,7 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Employees@upsertEmployeeCustomTime'
         ]);
 
-        Route::get('work-shift-summary/{date?}', [
+        Route::get('work-shift-summary', [
             'as' => 'as.employees.employeeCustomTime.summary',
             'uses' => 'App\Appointment\Controllers\Employees@employeeCustomTimeSummary'
         ]);

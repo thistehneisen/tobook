@@ -4,6 +4,14 @@
 
 (function ($) {
     $(function () {
+        $(document).on('focus', '.date-picker', function () {
+            $(this).datepicker({
+                format: 'yyyy-mm-dd',
+                weekStart: 1,
+                autoclose: true,
+                language: $('body').data('locale')
+            });
+        });
         $('.workshift-editable').click(function(){
             var $this = $(this);
             var custom_time = CUSTOM_TIME;
@@ -45,7 +53,7 @@
             }).done(function(data){
                 parentSpan.data('editable', true);
                 parentSpan.empty();
-                var text = (custom_time_id === 0) ? '--' : custom_time_text;
+                var text = (parseInt(custom_time_id) === 0) ? '--' : custom_time_text;
                 parentSpan.text(text);
             });
         });
