@@ -497,7 +497,7 @@ class Employees extends AsBase
             $startDay->addDay();
         }
 
-        return $this->render('customTimeSummary', [
+        return $this->render('workshiftPlanning', [
             'customTimesList'        => $customTimesList,//custom time of the employee
             'employees'              => $employees,
             'current'                => $current,
