@@ -13,6 +13,7 @@ return [
         'today'         => 'Today',
         'tomorrow'      => 'Tomorrow',
         'print'         => 'Print',
+        'refresh'       => 'Refresh',
         'calendar'      => 'Calendar',
     ],
     'services' => [

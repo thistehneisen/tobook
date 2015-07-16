@@ -15,6 +15,7 @@
         $('.workshift-editable').click(function(){
             var $this = $(this);
             var custom_time = CUSTOM_TIME;
+            var current_custom_time_id = parseInt($this.data('custom-time-id'), 10);
             if($this.data('editable') === true) {
                 $this.data('editable', false);
                 var dropdown = $('<select/>', {
@@ -32,6 +33,11 @@
                     type: 'button',
                     class: 'btn btn-primary btn-change-workshift',
                 });
+
+                if(current_custom_time_id) {
+                    dropdown.val(current_custom_time_id);
+                }
+
                 $this.empty();
                 dropdown.appendTo($this);
                 btnOk.appendTo($this);

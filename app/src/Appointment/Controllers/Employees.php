@@ -409,7 +409,7 @@ class Employees extends AsBase
      *
      * @return view
      */
-    public function employeeCustomTimeSummary()
+    public function workshiftPlanning()
     {
         $current = Carbon::now();
 
@@ -497,7 +497,7 @@ class Employees extends AsBase
             $startDay->addDay();
         }
 
-        return $this->render('customTimeSummary', [
+        return $this->render('workshiftPlanning', [
             'customTimesList'        => $customTimesList,//custom time of the employee
             'employees'              => $employees,
             'current'                => $current,
@@ -511,119 +511,6 @@ class Employees extends AsBase
             'customTimeMonthSummary' => $customTimeMonthSummary,
             'customTimes'            => json_encode($customTimes)
         ]);
-    }
-
-    public function employeeCustomTime($employeeId = null, $date = null)
-    {
-        $customTimes = CustomTime::ofCurrentUser()
-            ->orderBy('start_at')
-            ->orderBy('end_at')
-            ->select(
-                DB::raw(
-                    'CONCAT(name, " (",
-                    TIME_FORMAT(start_at, "%H:%i"), " - ",
-                    TIME_FORMAT(end_at, "%H:%i"),")") AS name'
-                ),
-                'id'
-                )
-            ->lists('name', 'id');
-
-        $customTimes = [0 => trans('common.options_select')] + $customTimes;
-
-        $employee =  (!empty($employeeId))
-            ? Employee::ofCurrentUser()->find($employeeId)
-            : Employee::ofCurrentUser()->first();
-
-        $employees = Employee::ofCurrentUser()->get();
-        list($current, $startOfMonth, $endOfMonth) = $employee->getWorkshiftDate($date);
-        list($customTimesList, $currentMonths)     = $employee->getWorkshiftPlan($date);
-
-        return $this->render('customTime', [
-            'customTimes'     => $customTimes,
-            'customTimesList' => $customTimesList,//custom time of the employee
-            'employee'        => $employee,
-            'employees'       => $employees,
-            'current'         => $current,
-            'currentMonths'   => $currentMonths,
-            'startOfMonth'    => $startOfMonth,
-            'endOfMonth'      => $endOfMonth
-        ]);
-    }
-
-    /**
-     * Obsoleted, temporary is not used
-     */
-    public function upsertEmployeeCustomTime()
-    {
-        $customTimeId = Input::get('custom_times');
-        $fromDateStr  = Input::get('from_date');
-        $toDateStr    = Input::get('to_date');
-        $employeeId   = Input::get('employees');
-        $message      = trans('as.crud.success_add');
-
-        try {
-            $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
-            $customTime = CustomTime::ofCurrentUser()->findOrFail($customTimeId);
-
-            $fromDate     = new Carbon($fromDateStr);
-            $toDate       = (!empty($toDateStr)) ? (new Carbon($toDateStr)) : $fromDate;
-
-            if ($fromDate > $toDate) {
-                return Redirect::back()->withInput()->withErrors(trans('as.employees.error.invalid_date_range'));
-            }
-
-            $dateRange = ($fromDate->diffInDays($toDate))
-                        ? $fromDate->diffInDays($toDate) + 1
-                        : 0;
-
-            if ($dateRange) {
-                while ($dateRange) {
-                    $employeeCustomTime =  EmployeeCustomTime::getUpsertModel($employeeId, $fromDate->toDateString());
-                    $employeeCustomTime->fill([
-                        'date' =>  $fromDate->toDateString()
-                    ]);
-                    $employeeCustomTime->employee()->associate($employee);
-                    $employeeCustomTime->customTime()->associate($customTime);
-                    $employeeCustomTime->save();
-                    $fromDate->addDay();
-                    $dateRange--;
-                }
-            } else {
-                $employeeCustomTime = EmployeeCustomTime::getUpsertModel($employeeId, $fromDate->toDateString());
-                $employeeCustomTime->fill([
-                    'date' =>  $fromDate->toDateString()
-                ]);
-                $employeeCustomTime->employee()->associate($employee);
-                $employeeCustomTime->customTime()->associate($customTime);
-                $employeeCustomTime->save();
-            }
-
-           return Redirect::route('as.employees.employeeCustomTime', ['employeeId' => $employeeId, 'date' => $toDate->format('Y-m')])
-                ->with(
-                    'messages',
-                    $this->successMessageBag($message)
-                );
-
-        } catch (\Watson\Validating\ValidationException $ex) {
-             return Redirect::back()->withInput()->withErrors($ex->getErrors());
-        }
-
-    }
-
-    public function deleteEmployeeCustomTime($employeeId)
-    {
-        $empCustomTimeId = Input::get('employee_custom_time_id');
-        try {
-            //for checking permission
-            $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
-            $customTime = EmployeeCustomTime::find($empCustomTimeId)->delete();
-            $data['success'] = true;
-        } catch (\Exception $ex) {
-            $data['success'] = false;
-            $data['message'] = $ex->getMessage();
-        }
-
-        return Response::json($data);
     }
 
     /**

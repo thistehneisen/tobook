@@ -13,6 +13,7 @@ return [
         'today'         => 'Šodien',
         'tomorrow'      => 'Rīt',
         'print'         => 'Izdrukāt',
+        'refresh'       => 'Refresh',//@todo
         'calendar'      => 'Kalendārs',
     ],
     'services' => [
