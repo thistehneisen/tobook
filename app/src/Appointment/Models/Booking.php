@@ -1221,7 +1221,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $result = 0;
         $bookings = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
-            ->select(['as_bookings.*','business_commissions.deposit_rate as deposit_rate'])
+            ->select(['business_commissions.*'])
             ->get();
 
         foreach ($bookings as $booking) {
