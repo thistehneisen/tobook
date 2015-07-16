@@ -53,7 +53,7 @@
                 @foreach ($employees as $employee)
                 <td>
                     @if (!empty($item['employees'][$employee->id]->customTime))
-                    <div class="workshift-editable" data-editable="true" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">
+                    <div class="workshift-editable" data-custom-time-id="{{$item['employees'][$employee->id]->customTime->id}}" data-editable="true" data-employee-id="{{$employee->id}}" data-date="{{$item['date']->toDateString()}}">
                         {{ $item['employees'][$employee->id]->customTime->name }} ({{$item['employees'][$employee->id]->customTime->getStartAt()->format('H:i')}} - {{$item['employees'][$employee->id]->customTime->getEndAt()->format('H:i')}})
                     </div>
                     @else
