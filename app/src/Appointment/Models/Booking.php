@@ -1181,9 +1181,6 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $receivedFromPaygate;
     }
 
-
-
-
     public static function getBookingCommisions($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
@@ -1211,10 +1208,15 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $result;
     }
 
+    /**
+     * Basically commission pending is amount we owe businesses
+     * when we take commission money from CP bookings
+     * @return int
+     */
     public static function countCommissionPending($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->whereNull('business_commissions.id');
+        $query = $query->where('business_commissions.status', '=', BusinessCommission::STATUS_INITIAL);
 
         $result = 0;
         $bookings = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
@@ -1222,23 +1224,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->select(['as_bookings.*','business_commissions.deposit_rate as deposit_rate'])
             ->get();
 
-        $commissionRate = Settings::get('commission_rate');
-        $consumerPaid = 0;
-        foreach ($bookings  as $booking) {
-            $depositRate = (!empty($booking->deposit_rate)) ?  $booking->deposit_rate : 0.1;
-            //we always take commision from booking
-            $commission = $booking->total_price * $commissionRate;
-            if ((int) $booking->booking_status === Booking::STATUS_PAID) {
-                $consumerPaid = $booking->total_price;
-            } elseif ((int) $booking->booking_status === Booking::STATUS_CONFIRM && ($booking->deposit > 0)) {
-                $consumerPaid = $booking->total_price * $depositRate;
-            } elseif ((int) $booking->booking_status === Booking::STATUS_CONFIRM) {
-                $consumerPaid = 0;
-                $commision = 0;
-            } else {
-                continue;
-            }
-            $result += $consumerPaid - $commission;
+        foreach ($bookings as $booking) {
+            $result += $booking->total_price - $booking->commission;
         }
 
         return $result;
