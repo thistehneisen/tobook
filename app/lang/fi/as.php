@@ -13,6 +13,7 @@ return [
         'today'         => 'Tänään',
         'tomorrow'      => 'Huomenna',
         'print'         => 'Tulosta',
+        'refresh'       => 'Refresh',//@todo
         'calendar'      => 'Kalenteri',
     ],
     'services' => [

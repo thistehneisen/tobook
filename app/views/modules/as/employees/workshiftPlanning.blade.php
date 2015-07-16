@@ -30,7 +30,11 @@
         <input type="text" class="input-sm form-control" name="end" placeholder="{{ trans('as.reports.end') }}" value="{{{ $endOfMonth->toDateString() }}}">
     </div>
     <button type="submit" class="btn btn-primary btn-sm hidden-print">{{ trans('as.reports.generate') }}</button>
-    <button class="btn btn-primary btn-sm pull-right hidden-print" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
+    <div class="from-control pull-right hidden-print">
+    <button class="btn btn-primary btn-sm" onclick="location.reload();"><i class="fa fa-refresh"> {{ trans('as.index.refresh') }}</i></button>
+    &nbsp;
+    <button class="btn btn-primary btn-sm" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
+    </div>
 {{ Form::close() }}
 <br/>
 <table id="workshift-summary" class="table table-striped table-bordered">

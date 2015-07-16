@@ -13,6 +13,7 @@ return [
         'today'         => 'Сегодня',
         'tomorrow'      => 'Завтра',
         'print'         => 'Печатать',
+        'refresh'       => 'Refresh',//@todo
         'calendar'      => 'Календарь',
     ],
     'services' => [

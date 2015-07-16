@@ -13,6 +13,7 @@ return [
         'today'         => 'Idag',
         'tomorrow'      => 'Imorgon',
         'print'         => 'Skriv ut',
+        'refresh'       => 'Refresh',//@todo
         'calendar'      => 'Kalender',
     ],
     'services' => [
