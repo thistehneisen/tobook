@@ -2,7 +2,7 @@
 return [
     'languages' => ['fi', 'sv', 'en'],
     'default_language' => 'fi',
-    'commission_style' => 'tobook',
+    'commission_style' => '',
 
     //--------------------------------------------------------------------------
     // Admin Setting Form
@@ -45,7 +45,5 @@ return [
         //----------------------------------------------------------------------
         'deposit_payment'                => ['type' => 'Radio', 'default' => false],
         'deposit_rate'                   => ['type' => 'Text',  'default' => 0.3],
-        'constant_commission'            => ['type' => 'Text',  'default' => 0],
-        'new_consumer_commission_rate'   => ['type' => 'Text',  'default' => 0.3],
     ]
 ];
