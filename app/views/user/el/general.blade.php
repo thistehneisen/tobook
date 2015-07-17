@@ -31,9 +31,11 @@
             <div class="checkbox">
                 <label>{{ Form::checkbox('payment_options[]', 'venue', $business->isPaymentOptionEnabled('venue')) }} @lang('user.payment_options.venue')</label>
             </div>
+            @if((bool) Settings::get('deposit_payment') && (App::environment() === 'tobook'))
             <div class="checkbox">
                 <label>{{ Form::checkbox('payment_options[]', 'deposit', $business->isPaymentOptionEnabled('deposit'), ['id' => 'js-payment-options-deposit']) }} @lang('user.payment_options.deposit')</label>
             </div>
+            @endif
             <div class="checkbox">
                 <label>{{ Form::checkbox('payment_options[]', 'full', $business->isPaymentOptionEnabled('full')) }} @lang('user.payment_options.full')</label>
             </div>

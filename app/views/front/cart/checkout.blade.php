@@ -89,10 +89,10 @@ $(function () {
 
                     @include ('el.messages')
 
-                    @if(!(bool) Settings::get('deposit_payment') || (App::environment() !== 'tobook'))
-                        @include('front.cart.el.details', ['cart' => $cart])
-                    @else
+                    @if((bool) Settings::get('deposit_payment') && (App::environment() === 'tobook'))
                         @include('front.cart.el.details-deposit', ['cart' => $cart])
+                    @else
+                        @include('front.cart.el.details', ['cart' => $cart])
                     @endif
 
                     @if ($cart && $cart->isEmpty() === false)
