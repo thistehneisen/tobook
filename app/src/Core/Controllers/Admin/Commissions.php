@@ -122,7 +122,7 @@ class Commissions extends Base
         ];
 
         if (in_array($status, $validStatuses)){
-            $this->changeStatus($userId, $bookingId, $status);
+            $this->changeStatus($bookingId, $status);
         }
         return Redirect::back();
     }
@@ -130,7 +130,7 @@ class Commissions extends Base
     public function massStatus($userId)
     {
         $status = Input::get('status');
-        $ids = Input::get('ids');
+        $ids    = Input::get('ids');
 
         //Redirect back when no row or status is selected
         if (empty($ids) || empty($status)) {
@@ -145,28 +145,16 @@ class Commissions extends Base
 
         if (in_array($status, $validStatuses)){
             foreach ($ids as $bookingId) {
-                $this->changeStatus($userId, $bookingId, $status);
+                $this->changeStatus($bookingId, $status);
             }
         }
         return Redirect::back();
     }
 
-    private function changeStatus($userId, $bookingId, $status)
+    private function changeStatus($bookingId, $status)
     {
-        $booking            = Booking::findOrFail($bookingId);
-        $user               = User::find($userId);
         $businessCommission = BusinessCommission::where('booking_id', $bookingId)->first();
-
-        if (empty($businessCommission)) {
-            $businessCommission = new BusinessCommission();
-        }
-
-        $businessCommission->fill([
-            'status'     => $status
-        ]);
-
-        $businessCommission->user()->associate($user);
-        $businessCommission->booking()->associate($booking);
+        $businessCommission->status = $status
         $businessCommission->save();
     }
 
