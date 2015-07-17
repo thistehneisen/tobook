@@ -154,7 +154,7 @@ class Commissions extends Base
     private function changeStatus($bookingId, $status)
     {
         $businessCommission = BusinessCommission::where('booking_id', $bookingId)->first();
-        $businessCommission->status = $status
+        $businessCommission->status = $status;
         $businessCommission->save();
     }
 
