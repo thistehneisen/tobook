@@ -135,12 +135,6 @@ return [
         //----------------------------------------------------------------------
         'default_paygate' => ['type' => 'Dropdown', 'values' => ['Paysera', 'Skrill', 'Checkout'], 'default' => 'Skrill'],
         //----------------------------------------------------------------------
-        //  Deposit payment feature for booking from CP
-        //  Default reate is 30%
-        //----------------------------------------------------------------------
-        'deposit_payment'    => ['type' => 'Radio', 'default' => false],
-        'deposit_rate'       => ['type' => 'Text',  'default' => 0.3],
-        //----------------------------------------------------------------------
         // Big cities that appear in the search form in front page
         //----------------------------------------------------------------------
         'big_cities' => ['type' => 'Textarea',  'default' => ''],
