@@ -74,7 +74,14 @@ class BusinessCommission extends Base
                 $commission->booking_status = $booking->status;
 
                 if ($action === 'venue') {
-                    $commission->commission = 0;
+                    if (App::environment() === 'tobook') {
+                        $commission->commission = 0;
+                    } else {
+                        //payment pending = total price - commission price
+                        //to depict business owe we -$commisionAmount
+                        //we need to add total price to commission amount
+                        $commission->commission = $booking->total_price + $commissionAmount;
+                    }
                 }
 
                 $commission->save();
