@@ -408,7 +408,9 @@ class Business extends Base
     {
         $opts = array_get($this->attributes, 'payment_options');
 
-        return $opts ? json_decode($opts, true) : ['full'];
+        $default = (App::environment() === 'tobook') ? ['full'] : ['venue'];
+
+        return $opts ? json_decode($opts, true) : $default;
     }
 
     public function setPaymentOptionsAttribute($value)
