@@ -386,13 +386,12 @@
             if (selected_action === 'book') {
                 $.fancybox.open({
                     padding: 5,
-                    width: 850,
                     title: '',
-                    autoSize: false,
+                    autoSize: true,
                     autoScale: true,
-                    autoWidth: false,
+                    autoWidth: true,
                     autoHeight: true,
-                    fitToView: false,
+                    fitToView: true,
                     href: $('#get_booking_form_url').val(),
                     type: 'ajax',
                     ajax: {
