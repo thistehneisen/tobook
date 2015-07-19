@@ -3,7 +3,7 @@
 <input type="hidden" name="lng">
 <input type="hidden" name="type">
 
-<div class="form-group row">
+<div class="form-group navbar-form-group">
     <div class="col-sm-4 col-md-4">
         <h2 class="heading">{{ trans('home.search.tagline') }}</h2>
         <div class="alert alert-warning force-selection" style="display: none;">@lang('home.search.force_selection')</div>
