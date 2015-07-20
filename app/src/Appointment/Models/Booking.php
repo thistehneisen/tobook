@@ -1078,8 +1078,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where(function($query){
-                    $query->where('as_bookings.status','=', self::STATUS_PAID)->orWhere(function ($query) {
-                        $query->where('as_bookings.status', '=', self::STATUS_CONFIRM)->where(function($query){
+                    $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                        $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function($query){
                             $query->whereNotNull('as_bookings.deposit')->where('as_bookings.deposit', '>', 0);
                         });
                     });
