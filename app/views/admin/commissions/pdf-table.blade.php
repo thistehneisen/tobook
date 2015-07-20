@@ -25,6 +25,7 @@
             </td>
             <td>
                 {{ trans($langPrefix . '.status.'. $item->commisionStatus) }}
+                }
             </td>
             <td>{{ nl2br($item->ingress) }}</td>
         </tr>

@@ -194,18 +194,14 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function getCommisionStatusAttribute()
     {
          $map = [
-            static::STATUS_CONFIRM     => 'confirmed',
-            static::STATUS_PAID        => 'paid',
-            static::STATUS_PENDING     => 'pending'
+            self::STATUS_CONFIRM     => 'confirmed',
+            self::STATUS_PAID        => 'paid',
+            self::STATUS_PENDING     => 'pending'
         ];
 
-        $status = isset($map[$this->original_booking_status]) ? $map[$this->original_booking_status] : null;
+        $status = isset($map[$this->booking_status]) ? $map[$this->booking_status] : null;
 
-        if (empty($status)) {
-            $status = isset($map[$this->booking_status]) ? $map[$this->booking_status] : null;
-        }
-
-        if (((int) $this->booking_status === static::STATUS_CONFIRM) && ((int) $this->deposit > 0)) {
+        if (((int) $this->booking_status === self::STATUS_CONFIRM) && ((double) $this->deposit > 0.0)) {
             $status = 'deposit';
         }
 
@@ -1188,7 +1184,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = $query->rightJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
             ->leftJoin('consumers', 'consumers.id', '=', 'as_bookings.consumer_id')
-            ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.date', 'as_bookings.status as booking_status', 'as_bookings.created_at as created', 'as_employees.*', 'as_employees.status as employee_status', 'business_commissions.total_price as total_price', 'business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")]);
+            ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.date', 'as_bookings.created_at as created', 'as_employees.*', 'as_employees.status as employee_status', 'business_commissions.booking_status as booking_status', 'business_commissions.total_price as total_price', 'business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")]);
 
         $result = $query->get();
 
