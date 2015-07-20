@@ -1215,6 +1215,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public static function countCommissionPending($userId, $status, $employeeId, $start, $end)
     {
+        //status  = Employee status
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where('business_commissions.status', '=', BusinessCommission::STATUS_INITIAL);
         $query = $query->where(function($query){
@@ -1240,7 +1241,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public static function countCommissionPaid($userId, $status, $employeeId, $start, $end)
     {
+        //status  = Employee status
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+        $query = $query->where('business_commissions.status', '=', BusinessCommission::STATUS_PAID);
         $query = $query->where(function($query){
             $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
                 $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function($query){
