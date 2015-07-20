@@ -62,6 +62,12 @@ class User extends ConfideUser
                 $i->delete();
             }
         });
+
+        static::restoring(function ($model) {
+            if ($model->business !== null) {
+                $model->business->updateIndex();
+            }
+        });
     }
 
     /**
