@@ -1061,7 +1061,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function countSteadyCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->where('business_commissions.booking_status', '!=', self::STATUS_PENDING);
+        $query = $query->where(function($query){
+                    $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                        $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
+                    });
+                });
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
@@ -1099,7 +1103,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function countNewConsumerCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->where('business_commissions.booking_status', '!=', self::STATUS_PENDING);
+        $query = $query->where(function($query){
+                    $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                        $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
+                    });
+                });
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
@@ -1136,7 +1144,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
 
-        $query = $query->where('business_commissions.booking_status', '!=', self::STATUS_PENDING);
+        $query = $query->where(function($query){
+                    $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                        $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
+                    });
+                });
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
@@ -1183,6 +1195,12 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function getBookingCommisions($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+
+        $query = $query->where(function($query){
+                    $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                        $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
+                    });
+                });
 
         $query = $query->rightJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
@@ -1243,6 +1261,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         //status  = Employee status
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where('business_commissions.status', '=', BusinessCommission::STATUS_PAID);
+
         $query = $query->where(function($query){
             $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
                 $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function($query){
