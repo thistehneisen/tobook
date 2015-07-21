@@ -43,7 +43,7 @@ class BusinessCommission extends Base
         Log::info('Started to unlock commissions items');
 
         $commissions = self::where(function($query){
-            $query->where('business_commissions.booking_status','!=', Booking::STATUS_PAID)->orWhere(function ($query) {
+            $query->where('business_commissions.booking_status','!=', Booking::STATUS_PAID)->where(function ($query) {
                         $query->where('business_commissions.booking_status', '!=', Booking::STATUS_CONFIRM);
                     });
         })->where('created_at', '<=', $cutoff)
