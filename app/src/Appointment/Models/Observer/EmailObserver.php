@@ -112,6 +112,13 @@ class EmailObserver implements \SplObserver
     public function sendEmployeeEmail($subject)
     {
         $employee = $subject->bookingServices()->first()->employee;
+
+        //Don't send employee confirmation email in backend calendar
+        if($subject->source === 'backend') {
+            Log::info("Don't send employee confirmation email from backend calendar");
+            return;
+        }
+
         if (!$employee->isReceivedCalendarInvitation) {
 
             if (empty($employee->email) ||

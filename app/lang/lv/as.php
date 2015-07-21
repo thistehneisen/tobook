@@ -169,6 +169,7 @@ return [
             'delete_last_booking_service' => 'Pēdējās rezervācijas pakalpojumu nevar izdzēst. ',
             'before_min_distance'         => 'Rezervācija, kas agrāka par min distance dienām, nav iespējama',
             'after_max_distance'          => 'Rezervācija, kas vēlāka par max distance dienām, nav iespējama',
+            'missing_services'            => 'Add a service to continue!',//@todo
         ],
         'warning'      => [
             'existing_user'   => 'Sistēmā jau ir reģistrēts lietotājs ar šo e-pasta adresi. Vai vēlaties izmantot šos datus?',
@@ -187,7 +188,7 @@ return [
         'is_received_calendar_invitation'  => 'Vai saņem kalendāra uzaicinājumus?',
         'services'                         => 'Pakalpojumi',
         'status'                           => 'Statuss',
-        'is_active'                        => 'Activation',//@todo
+        'is_active'                        => 'Aktivizācija',
         'avatar'                           => 'Attēls',
         'default_time'                     => 'Definētais laiks',
         'custom_time'                      => 'Brīvi izvēlēts laiks',
@@ -227,7 +228,7 @@ return [
     'embed' => [
         'heading'          => 'Virsraksts',
         'description'      => 'Teksts',
-        'embed'            => 'Embed',
+        'embed'            => 'Ievietot',
         'preview'          => 'Priekšskats',
         'back_to_services' => 'Atgriezties pie pakalpojumiem',
         'select_date'      => 'Izvēlēties datumu',
@@ -308,6 +309,7 @@ return [
         'booking'   => [
             'heading'                                        => '',
             'info'                                           => '',
+            'disable_booking'                                => 'Atslēgt rezervēšanas kalendāru',
             'index'                                          => 'Rezervācijas',
             'booking_form'                                   => 'Rezervāciju forma',
             'reminders'                                      => 'Atgādinājums',
@@ -339,8 +341,8 @@ return [
             'terms_body'                                     => 'Rezervācijas noteikumu teksts',
             'confirm_subject_client'                         => 'Klienta apstiprinājuma uzruna',
             'confirm_tokens_client'                          => 'E-pasta teksts',
-            'confirm_email_enable'                           => 'Iespējot e-pastu',
-            'confirm_sms_enable'                             => 'Iespējot SMS',
+            'confirm_email_enable'                           => 'Saņemt e-pastu',
+            'confirm_sms_enable'                             => 'Saņemt SMS',
             'confirm_sms_country_code'                       => 'Kods',
             'confirm_consumer_sms_message'                   => 'Klienta SMS',
             'confirm_employee_sms_message'                   => 'Darbinieka SMS',
@@ -380,10 +382,12 @@ return [
         'start'     => 'Sākuma datums',
         'end'       => 'Beigu datums',
         'booking'   => [
-            'total'       => 'Visas rezervācijas',
-            'confirmed'   => 'Apstiprinātās rezervācijas',
-            'unconfirmed' => 'Neapstiprinātās rezervācijas',
+            'total'       => 'Kopā rezervācijas',
+            'confirmed'   => 'Apstiprināts rezervācijas',
+            'unconfirmed' => 'Neapstiprinātas rezervācijas',
             'cancelled'   => 'Atceltās rezervācijas',
+            'inhouse'     => 'Rezervācijas',
+            'front-end'   => 'Rezervācijas no Jūsu mājas lapas',
         ],
         'statistics'=> 'Statistika',
         'monthly'   => 'Mēneša atskaite',

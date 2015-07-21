@@ -170,6 +170,7 @@ return [
             'delete_last_booking_service' => 'Nemôžete vymazať poslenú rezervovanú službu',
             'before_min_distance'         => 'Nemôžete spraviť rezerváciu pred časom nastavným na rezerváciu',
             'after_max_distance'          => 'Nemôžete spraviť rezerváviu po čase nastavenom na rezerváciu',
+            'missing_services'            => 'Add a service to continue!',//@todo
         ],
         'warning'      => [
             'existing_user'   => 'V systéme už je registrovaný užívateľ s týmto emailom. Chcete radšej použiť tieto údaje?',
