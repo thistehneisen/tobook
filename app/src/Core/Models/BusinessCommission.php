@@ -42,11 +42,14 @@ class BusinessCommission extends Base
     public static function releaseCommission(Carbon $cutoff) {
         Log::info('Started to unlock commissions items');
 
-        $commissions = self::where('booking_status', '=', Booking::STATUS_PENDING)
-            ->where('created_at', '<=', $cutoff)
-            ->whereNull('deleted_at')
-            ->orderBy('id', 'desc')
-            ->get();
+        $commissions = self::where(function($query){
+            $query->where('business_commissions.booking_status','!=', Booking::STATUS_PAID)->orWhere(function ($query) {
+                        $query->where('business_commissions.booking_status', '!=', Booking::STATUS_CONFIRM);
+                    });
+        })->where('created_at', '<=', $cutoff)
+        ->whereNull('deleted_at')
+        ->orderBy('id', 'desc')
+        ->get();
 
         Log::info('Found ' . $commissions->count() . ' commissions');
 
