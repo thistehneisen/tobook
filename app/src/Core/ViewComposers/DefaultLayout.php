@@ -14,7 +14,7 @@ class DefaultLayout
             ? 'layouts.footers.'.$env
             : 'layouts.footers.default';
 
-        if(($view['routeName'] === 'as.index' || $view['routeName'] === 'as.employee')
+        if(!empty($view['routeName']) && ($view['routeName'] === 'as.index' || $view['routeName'] === 'as.employee')
             && App::environment() === 'tobook') {
             $footerView = 'layouts.footers.blank';
         }
