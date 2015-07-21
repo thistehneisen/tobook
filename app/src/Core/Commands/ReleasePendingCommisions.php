@@ -25,6 +25,18 @@ class ReleasePendingCommisions extends ScheduledCommand {
 	 */
 	protected $description = 'Release pending commissions';
 
+    /**
+     * When a command should run
+     *
+     * @param Scheduler $scheduler
+     *
+     * @return Scheduler
+     */
+    public function schedule(Schedulable $scheduler)
+    {
+        return $scheduler;
+    }
+
 	/**
 	 * Create a new command instance.
 	 *
