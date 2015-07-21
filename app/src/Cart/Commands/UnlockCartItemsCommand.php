@@ -57,7 +57,6 @@ class UnlockCartItemsCommand extends ScheduledCommand {
         if (App::environment() !== 'local') {
             $cutoff = Carbon::now()->subMinutes(Config::get('varaa.cart.hold_time'));
             Cart::scheduledUnlock($cutoff);
-            BusinessCommission::releaseCommission($cutoff);
         }
 	}
 

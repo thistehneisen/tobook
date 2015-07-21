@@ -1,13 +1,15 @@
 <?php namespace App\Core\Commands;
 
-use Illuminate\Console\Command;
+use Indatus\Dispatcher\Scheduling\ScheduledCommand;
+use Indatus\Dispatcher\Scheduling\Schedulable;
+use Indatus\Dispatcher\Drivers\Cron\Scheduler;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use App\Core\Models\BusinessCommission;
 use Carbon\Carbon;
 use App, Config;
 
-class ReleasePendingCommisions extends Command {
+class ReleasePendingCommisions extends ScheduledCommand {
 
 	/**
 	 * The console command name.
