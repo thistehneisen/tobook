@@ -184,6 +184,11 @@ class Auth extends Base
      */
     public function register()
     {
+        //Temporary fix for tobook
+        if (App::environment() === 'tobook') {
+           return Redirect::route('home');
+        }
+
         $fields = [
             'name'                  => ['label' => trans('user.business.name'), 'type' => 'text'],
             'email'                 => ['label' => trans('user.email'), 'type' => 'email'],
