@@ -1250,7 +1250,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 });
             });
         });
-        $query = $query->where(DB::raw('varaa_business_commissions.commission'), '<=', DB::raw('varaa_business_commissions.total_price'));
+        // $query = $query->where(DB::raw('varaa_business_commissions.commission'), '<=', DB::raw('varaa_business_commissions.total_price'));
 
         $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
