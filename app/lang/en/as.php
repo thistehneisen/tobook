@@ -13,6 +13,7 @@ return [
         'today'         => 'Today',
         'tomorrow'      => 'Tomorrow',
         'print'         => 'Print',
+        'refresh'       => 'Refresh',
         'calendar'      => 'Calendar',
     ],
     'services' => [
@@ -223,6 +224,7 @@ return [
         'saturday_hours'                   => 'Saturdays hours',
         'sunday_hours'                     => 'Sunday hours',
         'monthly_hours'                    => 'Monthly hours',
+        'weekly_hours'                     => 'Weekly hours',
         'error'                            => [
         'freetime_overlapped_with_booking' => 'Freetime is overlapped with with booking(s)',
         ],

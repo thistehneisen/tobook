@@ -114,19 +114,14 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Employees@deleteCustomTime'
         ]);
 
-        Route::get('work-shift-planning/{employeedId?}/{date?}', [
+        Route::get('work-shift-planning', [
             'as' => 'as.employees.employeeCustomTime',
-            'uses' => 'App\Appointment\Controllers\Employees@employeeCustomTime'
+            'uses' => 'App\Appointment\Controllers\Employees@workshiftPlanning'
         ]);
 
-        Route::post('work-shift-planning/{employeedId?}/{date?}', [
-            'as' => 'as.employees.employeeCustomTime.upsert',
-            'uses' => 'App\Appointment\Controllers\Employees@upsertEmployeeCustomTime'
-        ]);
-
-        Route::get('work-shift-summary/{date?}', [
-            'as' => 'as.employees.employeeCustomTime.summary',
-            'uses' => 'App\Appointment\Controllers\Employees@employeeCustomTimeSummary'
+        Route::post('ajax/update-work-shift', [
+            'as' => 'as.employees.employeeCustomTime.updateWorkshift',
+            'uses' => 'App\Appointment\Controllers\Employees@updateEmployeeWorkshift'
         ]);
 
         Route::post('update-work-shift-plan/{employeedId}', [

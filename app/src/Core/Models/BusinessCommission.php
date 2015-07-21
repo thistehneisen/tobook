@@ -13,6 +13,10 @@ class BusinessCommission extends Base
     const STATUS_PAID      = 'paid';
     const STATUS_CANCELLED = 'cancelled';
 
+    const PAYMENT_FULL    = 'full';
+    const PAYMENT_DEPOSIT = 'deposit';
+    const PAYMENT_VENUE   = 'venue';
+
     public $fillable = [
         'status',
         'booking_status',
@@ -21,7 +25,8 @@ class BusinessCommission extends Base
         'new_consumer_commission',
         'deposit_rate',
         'total_price',
-        'consumer_status'
+        'consumer_status',
+        'payment_type',
     ];
 
     public $rulesets = [
@@ -53,7 +58,7 @@ class BusinessCommission extends Base
         Log::info('Release commissions are done');
     }
 
-    public static function updateCommission($booking, $action = '') {
+    public static function updateCommission($booking, $paymentType = '') {
         $commission = self::where('booking_id', '=', $booking->id)->first();
 
         if (!empty($commission)) {
@@ -72,9 +77,17 @@ class BusinessCommission extends Base
 
                 $commission->commission     = $commissionAmount;
                 $commission->booking_status = $booking->status;
+                $commission->payment_type   = $paymentType;
 
-                if ($action === 'venue') {
-                    $commission->commission = 0;
+                if ($paymentType === self::PAYMENT_VENUE) {
+                    if (App::environment() === 'tobook') {
+                        $commission->commission = 0;
+                    } else {
+                        //payment pending = total price - commission price
+                        //to depict business owe we -$commisionAmount
+                        //we need to add total price to commission amount
+                        $commission->commission = $booking->total_price + $commissionAmount;
+                    }
                 }
 
                 $commission->save();

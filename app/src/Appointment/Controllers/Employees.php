@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, Util, Response, Validator, DB, NAT;
+use App, View, Confide, Redirect, Input, Config, Util, Response, Request, Validator, DB, NAT;
 use Carbon\Carbon;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeDefaultTime;
@@ -409,77 +409,23 @@ class Employees extends AsBase
      *
      * @return view
      */
-    public function employeeCustomTimeSummary($date = null)
+    public function workshiftPlanning()
     {
         $current = Carbon::now();
 
-        if (!empty($date)) {
-            try {
-                $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
-            } catch (\Exception $ex) {
-                $current = Carbon::now();
-            }
-        }
-        $startOfMonth    = $current->startOfMonth()->toDateString();
-        $endOfMonth      = $current->endOfMonth()->toDateString();
+        $startOfMonth = Input::has('start')
+            ? new Carbon(Input::get('start'))
+            : $current->copy()->startOfMonth();
+        $endOfMonth = Input::has('end')
+            ? new Carbon(Input::get('end'))
+            : $current->copy()->endOfMonth();
+
         $employees       = Employee::ofCurrentUser()->get();
         $customTimesList = [];
         $sarturdayHours  = [];
         $sundayHours     = [];
         $montlyHours     = [];
 
-        foreach ($employees as $employee) {
-            $items = $employee->employeeCustomTimes()
-                ->with('customTime')
-                ->where('date','>=', $startOfMonth)
-                ->where('date','<=', $endOfMonth)
-                ->orderBy('date','asc')->get();
-
-            $sarturdayHours[$employee->id] = 0;
-            $sundayHours[$employee->id]    = 0;
-            $montlyHours[$employee->id]    = 0;
-
-            foreach ($items as $item) {
-                $customTimesList[$item->date][$employee->id] = $item;
-                $dayOfWeek = $item->getDayOfWeek();
-                if ($dayOfWeek == Carbon::SATURDAY) {
-                    $sarturdayHours[$employee->id] += $item->getWorkingHours();
-                } elseif ($dayOfWeek == Carbon::SUNDAY) {
-                    $sundayHours[$employee->id] += $item->getWorkingHours();
-                }
-                $montlyHours[$employee->id] += $item->getWorkingHours();
-            }
-        }
-
-        $currentMonths = [];
-        $startDay      = with(clone $current->startOfMonth());
-
-        foreach (range(1, $current->daysInMonth) as $day) {
-            if (!empty($customTimesList[$startDay->toDateString()])) {
-                $currentMonths[$startDay->toDateString()]['date'] = with(clone $startDay);
-                $currentMonths[$startDay->toDateString()]['employees'] = $customTimesList[$startDay->toDateString()];
-            } else {
-                $currentMonths[$startDay->toDateString()]['date'] = with(clone $startDay);
-                $currentMonths[$startDay->toDateString()]['employees'] = [];
-            }
-            $startDay->addDay();
-        }
-
-        return $this->render('customTimeSummary', [
-            'customTimesList' => $customTimesList,//custom time of the employee
-            'employees'       => $employees,
-            'current'         => $current,
-            'currentMonths'   => $currentMonths,
-            'startOfMonth'    => $startOfMonth,
-            'endOfMonth'      => $endOfMonth,
-            'sarturdayHours'  => $sarturdayHours,
-            'sundayHours'     => $sundayHours,
-            'montlyHours'     => $montlyHours,
-        ]);
-    }
-
-    public function employeeCustomTime($employeeId = null, $date = null)
-    {
         $customTimes = CustomTime::ofCurrentUser()
             ->orderBy('start_at')
             ->orderBy('end_at')
@@ -494,101 +440,113 @@ class Employees extends AsBase
             ->lists('name', 'id');
 
         $customTimes = [0 => trans('common.options_select')] + $customTimes;
+        $customTimeWeekSummary = [];
+        $customTimeMonthSummary = [];
+        foreach ($employees as $employee) {
+            $items = $employee->employeeCustomTimes()
+                ->with('customTime')
+                ->where('date','>=', $startOfMonth)
+                ->where('date','<=', $endOfMonth)
+                ->orderBy('date','asc')->get();
 
-        $employee =  (!empty($employeeId))
-            ? Employee::ofCurrentUser()->find($employeeId)
-            : Employee::ofCurrentUser()->first();
+            $sarturdayHours[$employee->id] = 0;
+            $sundayHours[$employee->id]    = 0;
+            $montlyHours[$employee->id]    = 0;
 
-        $employees = Employee::ofCurrentUser()->get();
-        list($current, $startOfMonth, $endOfMonth) = $employee->getWorkshiftDate($date);
-        list($customTimesList, $currentMonths)     = $employee->getWorkshiftPlan($date);
+            foreach ($items as $item) {
+                $customTimesList[$item->date][$employee->id] = $item;
+                $carbonDate = new Carbon($item->date);
 
-        return $this->render('customTime', [
-            'customTimes'     => $customTimes,
-            'customTimesList' => $customTimesList,//custom time of the employee
-            'employee'        => $employee,
-            'employees'       => $employees,
-            'current'         => $current,
-            'currentMonths'   => $currentMonths,
-            'startOfMonth'    => $startOfMonth,
-            'endOfMonth'      => $endOfMonth
+                //Collect weekly summary data for each employee
+                if(empty($customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id])) {
+                    $customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id] = $item->getWorkingHours();
+                } else {
+                    $customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id] += $item->getWorkingHours();
+                }
+
+                //Collect monthly summary data for each employee
+                if(empty($customTimeMonthSummary[$carbonDate->month][$employee->id])) {
+                    $customTimeMonthSummary[$carbonDate->month][$employee->id] = $item->getWorkingHours();
+                } else {
+                    $customTimeMonthSummary[$carbonDate->month][$employee->id] += $item->getWorkingHours();
+                }
+
+                $dayOfWeek = $item->getDayOfWeek();
+
+                if ($dayOfWeek == Carbon::SATURDAY) {
+                    $sarturdayHours[$employee->id] += $item->getWorkingHours();
+                } elseif ($dayOfWeek == Carbon::SUNDAY) {
+                    $sundayHours[$employee->id] += $item->getWorkingHours();
+                }
+                $montlyHours[$employee->id] += $item->getWorkingHours();
+            }
+        }
+
+        $currentMonths = [];
+        $startDay      = $startOfMonth->copy();
+        $days = $startDay->copy()->diffInDays($endOfMonth);
+
+        foreach (range(1, $days+1) as $day) {
+            if (!empty($customTimesList[$startDay->toDateString()])) {
+                $currentMonths[$startDay->toDateString()]['date'] = $startDay->copy();
+                $currentMonths[$startDay->toDateString()]['employees'] = $customTimesList[$startDay->toDateString()];
+            } else {
+                $currentMonths[$startDay->toDateString()]['date'] = $startDay->copy();
+                $currentMonths[$startDay->toDateString()]['employees'] = [];
+            }
+            $startDay->addDay();
+        }
+
+        return $this->render('workshiftPlanning', [
+            'customTimesList'        => $customTimesList,//custom time of the employee
+            'employees'              => $employees,
+            'current'                => $current,
+            'currentMonths'          => $currentMonths,
+            'startOfMonth'           => $startOfMonth,
+            'endOfMonth'             => $endOfMonth,
+            'sarturdayHours'         => $sarturdayHours,
+            'sundayHours'            => $sundayHours,
+            'montlyHours'            => $montlyHours,
+            'customTimeWeekSummary'  => $customTimeWeekSummary,
+            'customTimeMonthSummary' => $customTimeMonthSummary,
+            'customTimes'            => json_encode($customTimes)
         ]);
     }
 
     /**
-     * Obsoleted, temporary is not used
+     * Update employee workshift on workshift summary table via ajax request
+     * @return array
      */
-    public function upsertEmployeeCustomTime()
+    public function updateEmployeeWorkshift()
     {
-        $customTimeId = Input::get('custom_times');
-        $fromDateStr  = Input::get('from_date');
-        $toDateStr    = Input::get('to_date');
-        $employeeId   = Input::get('employees');
-        $message      = trans('as.crud.success_add');
-
+        $customTimeId       = Input::get('custom_time_id');
+        $employeeId         = Input::get('employee_id');
+        $date               = Input::get('date');
         try {
-            $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
-            $customTime = CustomTime::ofCurrentUser()->findOrFail($customTimeId);
-
-            $fromDate     = new Carbon($fromDateStr);
-            $toDate       = (!empty($toDateStr)) ? (new Carbon($toDateStr)) : $fromDate;
-
-            if ($fromDate > $toDate) {
-                return Redirect::back()->withInput()->withErrors(trans('as.employees.error.invalid_date_range'));
-            }
-
-            $dateRange = ($fromDate->diffInDays($toDate))
-                        ? $fromDate->diffInDays($toDate) + 1
-                        : 0;
-
-            if ($dateRange) {
-                while ($dateRange) {
-                    $employeeCustomTime =  EmployeeCustomTime::getUpsertModel($employeeId, $fromDate->toDateString());
-                    $employeeCustomTime->fill([
-                        'date' =>  $fromDate->toDateString()
-                    ]);
-                    $employeeCustomTime->employee()->associate($employee);
-                    $employeeCustomTime->customTime()->associate($customTime);
-                    $employeeCustomTime->save();
-                    $fromDate->addDay();
-                    $dateRange--;
-                }
-            } else {
-                $employeeCustomTime = EmployeeCustomTime::getUpsertModel($employeeId, $fromDate->toDateString());
+            $employee           = Employee::findOrFail($employeeId);
+            $customTime         = (intval($customTimeId) !== 0)  ? CustomTime::find($customTimeId) : null;
+            $employeeCustomTime = EmployeeCustomTime::getUpsertModel($employeeId, $date);
+            if (!empty($customTime)) {
                 $employeeCustomTime->fill([
-                    'date' =>  $fromDate->toDateString()
+                    'date' =>  $date
                 ]);
                 $employeeCustomTime->employee()->associate($employee);
                 $employeeCustomTime->customTime()->associate($customTime);
                 $employeeCustomTime->save();
+            } else {
+                //Delete existing row in db, otherwise do nothing
+                if (!empty($employeeCustomTime->date)) {
+                    $employeeCustomTime->delete();
+                }
             }
 
-           return Redirect::route('as.employees.employeeCustomTime', ['employeeId' => $employeeId, 'date' => $toDate->format('Y-m')])
-                ->with(
-                    'messages',
-                    $this->successMessageBag($message)
-                );
-
-        } catch (\Watson\Validating\ValidationException $ex) {
-             return Redirect::back()->withInput()->withErrors($ex->getErrors());
+            return Response::json(['success' => true]);
+        } catch(\Exception $ex){
+            return Response::json([
+                'success' => false,
+                'message' => $ex->getMessage()
+            ]);
         }
-
-    }
-
-    public function deleteEmployeeCustomTime($employeeId)
-    {
-        $empCustomTimeId = Input::get('employee_custom_time_id');
-        try {
-            //for checking permission
-            $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
-            $customTime = EmployeeCustomTime::find($empCustomTimeId)->delete();
-            $data['success'] = true;
-        } catch (\Exception $ex) {
-            $data['success'] = false;
-            $data['message'] = $ex->getMessage();
-        }
-
-        return Response::json($data);
     }
 
     /**

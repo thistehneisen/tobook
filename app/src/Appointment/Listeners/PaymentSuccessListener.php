@@ -39,12 +39,14 @@ class PaymentSuccessListener
         // Update related bookings
         foreach ($bookingServices as $item) {
             if ($item->booking !== null) {
-
+                $paymentType = '';
                 if(!$cart->isDepositPayment) {
                     $item->booking->status = Booking::STATUS_PAID;
+                    $paymentType           = BusinessCommission::PAYMENT_FULL;
                 } else {
-                    $item->booking->status = Booking::STATUS_CONFIRM;
+                    $item->booking->status  = Booking::STATUS_CONFIRM;
                     $item->booking->deposit = $cart->depositTotal;
+                    $paymentType            = BusinessCommission::PAYMENT_DEPOSIT;
                 }
 
                 $item->booking->save();
@@ -56,7 +58,7 @@ class PaymentSuccessListener
                     $item->booking->notify();
 
                     Log::info('Update business commission');
-                    BusinessCommission::updateCommission($item->booking);
+                    BusinessCommission::updateCommission($item->booking, $paymentType);
 
                     //Send calendar invitation to employee
                     Event::fire('employee.calendar.invitation.send', [$item->booking]);

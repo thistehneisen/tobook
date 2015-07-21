@@ -100,6 +100,7 @@ return [
             'suspend'   => 'Suspend',
             'cancelled' => 'Cancelled',
             'initial'   => 'Initial',
+            'pending'   => 'Pending',
         ]
     ],
     'settings' => [

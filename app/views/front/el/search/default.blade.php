@@ -38,7 +38,7 @@
                         <input type="hidden" name="lng">
                         <input type="hidden" name="type">
 
-                        <div class="form-group row">
+                        <div class="form-group navbar-form-group">
                             <div class="alert alert-warning force-selection" style="display: none;">@lang('home.search.force_selection')</div>
                             <div class="input-group margin-bottom-md">
                                 <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>

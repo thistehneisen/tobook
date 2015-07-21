@@ -194,18 +194,14 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function getCommisionStatusAttribute()
     {
          $map = [
-            static::STATUS_CONFIRM     => 'confirmed',
-            static::STATUS_PAID        => 'paid',
-            static::STATUS_PENDING     => 'pending'
+            self::STATUS_CONFIRM     => 'confirmed',
+            self::STATUS_PAID        => 'paid',
+            self::STATUS_PENDING     => 'pending'
         ];
 
-        $status = isset($map[$this->original_booking_status]) ? $map[$this->original_booking_status] : null;
+        $status = isset($map[$this->booking_status]) ? $map[$this->booking_status] : null;
 
-        if (empty($status)) {
-            $status = isset($map[$this->booking_status]) ? $map[$this->booking_status] : null;
-        }
-
-        if (((int) $this->booking_status === static::STATUS_CONFIRM) && ((int) $this->deposit > 0)) {
+        if (((int) $this->booking_status === self::STATUS_CONFIRM) && ((double) $this->deposit > 0.0)) {
             $status = 'deposit';
         }
 
@@ -1065,6 +1061,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function countSteadyCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+        $query = $query->where('business_commissions.booking_status', '!=', self::STATUS_PENDING);
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
@@ -1081,8 +1078,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where(function($query){
-                    $query->where('as_bookings.status','=', self::STATUS_PAID)->orWhere(function ($query) {
-                        $query->where('as_bookings.status', '=', self::STATUS_CONFIRM)->where(function($query){
+                    $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                        $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function($query){
                             $query->whereNotNull('as_bookings.deposit')->where('as_bookings.deposit', '>', 0);
                         });
                     });
@@ -1102,6 +1099,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function countNewConsumerCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+        $query = $query->where('business_commissions.booking_status', '!=', self::STATUS_PENDING);
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
@@ -1120,6 +1118,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function totalCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+        $query = $query->where('business_commissions.booking_status', '!=', self::STATUS_PENDING);
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
@@ -1181,9 +1180,6 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $receivedFromPaygate;
     }
 
-
-
-
     public static function getBookingCommisions($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
@@ -1191,7 +1187,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = $query->rightJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
             ->leftJoin('consumers', 'consumers.id', '=', 'as_bookings.consumer_id')
-            ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.date', 'as_bookings.status as booking_status', 'as_bookings.created_at as created', 'as_employees.*', 'as_employees.status as employee_status', 'business_commissions.total_price as total_price', 'business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")]);
+            ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.date', 'as_bookings.created_at as created', 'as_employees.*', 'as_employees.status as employee_status', 'business_commissions.booking_status as booking_status', 'business_commissions.total_price as total_price', 'business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")]);
 
         $result = $query->get();
 
@@ -1211,34 +1207,32 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $result;
     }
 
+    /**
+     * Basically commission pending is amount we owe businesses
+     * when we take commission money from CP bookings
+     * @return int
+     */
     public static function countCommissionPending($userId, $status, $employeeId, $start, $end)
     {
+        //status  = Employee status
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->whereNull('business_commissions.id');
+        $query = $query->where('business_commissions.status', '=', BusinessCommission::STATUS_INITIAL);
+        $query = $query->where(function($query){
+            $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function($query){
+                    $query->where('business_commissions.commission', '>', '0');
+                });
+            });
+        });
 
         $result = 0;
         $bookings = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
-            ->select(['as_bookings.*','business_commissions.deposit_rate as deposit_rate'])
+            ->select(['business_commissions.*'])
             ->get();
 
-        $commissionRate = Settings::get('commission_rate');
-        $consumerPaid = 0;
-        foreach ($bookings  as $booking) {
-            $depositRate = (!empty($booking->deposit_rate)) ?  $booking->deposit_rate : 0.1;
-            //we always take commision from booking
-            $commission = $booking->total_price * $commissionRate;
-            if ((int) $booking->booking_status === Booking::STATUS_PAID) {
-                $consumerPaid = $booking->total_price;
-            } elseif ((int) $booking->booking_status === Booking::STATUS_CONFIRM && ($booking->deposit > 0)) {
-                $consumerPaid = $booking->total_price * $depositRate;
-            } elseif ((int) $booking->booking_status === Booking::STATUS_CONFIRM) {
-                $consumerPaid = 0;
-                $commision = 0;
-            } else {
-                continue;
-            }
-            $result += $consumerPaid - $commission;
+        foreach ($bookings as $booking) {
+            $result += $booking->total_price - $booking->commission;
         }
 
         return $result;
@@ -1246,12 +1240,21 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public static function countCommissionPaid($userId, $status, $employeeId, $start, $end)
     {
+        //status  = Employee status
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->where('business_commissions.status','=', BusinessCommission::STATUS_PAID);
+        $query = $query->where('business_commissions.status', '=', BusinessCommission::STATUS_PAID);
+        $query = $query->where(function($query){
+            $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function($query){
+                    $query->where('business_commissions.commission', '>', '0');
+                });
+            });
+        });
+        // $query = $query->where(DB::raw('varaa_business_commissions.commission'), '<=', DB::raw('varaa_business_commissions.total_price'));
 
         $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
-            ->select([DB::raw('COALESCE(SUM(varaa_business_commissions.commission+varaa_business_commissions.constant_commission+varaa_business_commissions.new_consumer_commission),0) as commision_total'),
+            ->select([DB::raw('COALESCE(SUM(varaa_business_commissions.commission),0) as commision_total'),
                 DB::raw('COALESCE(SUM(varaa_business_commissions.total_price),0) as total_price')])
             ->first();
 

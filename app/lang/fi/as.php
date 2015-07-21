@@ -13,6 +13,7 @@ return [
         'today'         => 'Tänään',
         'tomorrow'      => 'Huomenna',
         'print'         => 'Tulosta',
+        'refresh'       => 'Refresh',//@todo
         'calendar'      => 'Kalenteri',
     ],
     'services' => [
@@ -223,6 +224,7 @@ return [
         'saturday_hours'                   => 'Lauantaitunnit',
         'sunday_hours'                     => 'Sununtaitunnit',
         'monthly_hours'                    => 'Kuukauden tunnit',
+        'weekly_hours'                     => 'Weekly hours',//@todo
         'error'                            => [
         'freetime_overlapped_with_booking' => 'Vapaa-aika menossa varauksen päälle!'
         ],

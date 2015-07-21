@@ -13,6 +13,7 @@ return [
         'today'         => 'Šodien',
         'tomorrow'      => 'Rīt',
         'print'         => 'Izdrukāt',
+        'refresh'       => 'Refresh',//@todo
         'calendar'      => 'Kalendārs',
     ],
     'services' => [
@@ -221,6 +222,7 @@ return [
         'saturday_hours'                   => 'Darba laiks sestdienā',
         'sunday_hours'                     => 'Darba laiks svētdienā',
         'monthly_hours'                    => 'Mēneša darba laiks',
+        'weekly_hours'                     => 'Weekly hours',//@todo
         'error'                            => [
         'freetime_overlapped_with_booking' => 'Brīvdienas pārklājas ar rezervāciju (-ām)',
         ],
