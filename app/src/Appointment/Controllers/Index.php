@@ -34,14 +34,14 @@ class Index extends AsBase
         $cutId = Session::get('cutId', 0);
 
         $workingTimes = $this->getDefaultWorkingTimes($date);
-        //TODO settings for day off such as Sunday
 
+        //TODO settings for day off such as Sunday
         return View::make('modules.as.index.index', [
                 'employeeId'   => null, //because use the same view with employee
                 'employees'    => $employees,
                 'workingTimes' => $workingTimes,
                 'date'         => $date,
-                'cutId'        => $cutId
+                'cutId'        => $cutId,
             ]);
     }
 

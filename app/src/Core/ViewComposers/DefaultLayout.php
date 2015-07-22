@@ -14,8 +14,12 @@ class DefaultLayout
             ? 'layouts.footers.'.$env
             : 'layouts.footers.default';
 
-        $categories = MasterCategory::getAll();
+        if(!empty($view['routeName']) && ($view['routeName'] === 'as.index' || $view['routeName'] === 'as.employee')
+            && App::environment() === 'tobook') {
+            $footerView = 'layouts.footers.blank';
+        }
 
+        $categories = MasterCategory::getAll();
         $view->with('masterCategories', $categories);
         // We will use those coordinates to see if we should ask for current
         // location of user

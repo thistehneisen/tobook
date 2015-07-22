@@ -67,7 +67,6 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('as.employees.index') }}">{{ trans('as.employees.all') }}</a></li>
                         <li><a href="{{ route('as.employees.customTime') }}">{{ trans('as.employees.workshift_planning') }}</a></li>
-                        <li><a href="{{ route('as.employees.employeeCustomTime.summary') }}">{{ trans('as.employees.workshift_summary') }}</a></li>
                     </ul>
                 </li>
                 <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">

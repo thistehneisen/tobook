@@ -31,6 +31,7 @@
   "scripts": {
     "clean-build": "mkdir -p resources/$ENV && cp -u -r resources/varaa/* resources/$ENV && rm -f rev.json && mkdir public/assets -p && rm public/assets/ -r",
     "build-dev": "npm run clean-build && gulp --env $ENV",
-    "build": "npm run clean-build && gulp --env $ENV --production"
+    "build": "npm run clean-build && gulp --env $ENV --production",
+    "watch": "gulp watch --env $ENV"
   }
 }

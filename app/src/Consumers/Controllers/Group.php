@@ -1,7 +1,9 @@
 <?php namespace App\Consumers\Controllers;
 
 use App\Core\Controllers\Base;
-use Input, View;
+use Input;
+use Redirect;
+use View;
 
 class Group extends Base
 {
@@ -45,11 +47,18 @@ class Group extends Base
     {
         $result = static::sendEmails($ids, true);
         if (array_key_exists('template_id', $result)) {
+            list($sent, $consumers) = $result['sent'];
+
+            $params = [
+                'sent' => $sent,
+                'total' => $result['total'],
+            ];
             return Redirect::route('consumer-hub.history.email', ['campaign_id' => $result['template_id']])
                 ->with('messages', $this->successMessageBag(
-                    trans('co.email_templates.sent_to_x_of_y', $result)
+                    trans('co.email_templates.sent_to_x_of_y', $params)
                 ));
         }
+
         return View::make('modules.co.groups.bulk_send_email', $result);
     }
 

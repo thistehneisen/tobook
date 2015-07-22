@@ -31,7 +31,7 @@ class DeployedNotificationCommand extends Command
         $branch = $this->argument('branch');
 
         $emoji = [
-            ':shipit',
+            ':shipit:',
             ':sweat_drops:',
             ':notes:',
             ':musical_note:',

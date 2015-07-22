@@ -25,7 +25,7 @@
     $dayOfWeek = $date->dayOfWeek;
     $routeName = 'as.index';
 ?>
-<div class="container alert alert-info hidden-print">
+<div class="container alert alert-info hidden-print hidden-xs hidden-sm">
     <p><strong>{{ trans('as.index.heading') }}</strong></p>
     <p>{{ trans('as.index.description') }}</p>
 </div>

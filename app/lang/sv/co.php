@@ -66,7 +66,7 @@ return [
         'add'           => 'Lägg till e-postmall',
         'edit'          => 'Redigera e-postmall',
         'sent_at'       => 'Skickat',
-        'sent_to_x_of_y'=> 'E-post skickat till :sent av :total kunder',
+        'sent_to_x_of_y'=> 'E-post skickat till :total kunder',
     ],
     'sms_templates' => [
         'all'           => 'SMS mallar',
@@ -76,7 +76,7 @@ return [
         'add'           => 'Lägg till SMS mall',
         'edit'          => 'Redigera SMS mall',
         'sent_at'       => 'Skickat',
-        'sent_to_x_of_y'=> 'Skickat SMS till :sent av :total kunder',
+        'sent_to_x_of_y'=> 'Skickat SMS till :total kunder',
     ],
     'history' => [
         'index'         => 'Historik',
