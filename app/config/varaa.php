@@ -118,10 +118,6 @@ return [
         //----------------------------------------------------------------------
         'default_location'   => ['type' => 'Text', 'default' => 'Helsinki, FI'],
         //----------------------------------------------------------------------
-        // Globally enable shopping cart
-        //----------------------------------------------------------------------
-        'enable_cart'        => ['type' => 'Radio', 'default' => true],
-        //----------------------------------------------------------------------
         //  The commission rate that takes from businesses
         //  Default is 30%
         //----------------------------------------------------------------------
@@ -133,7 +129,7 @@ return [
         //----------------------------------------------------------------------
         // Default paygate for the system
         //----------------------------------------------------------------------
-        'default_paygate' => ['type' => 'Dropdown', 'values' => ['Paysera', 'Skrill', 'Checkout'], 'default' => 'Skrill'],
+        'default_paygate' => ['type' => 'Dropdown', 'values' => ['Disabled', 'Paysera', 'Skrill', 'Checkout'], 'default' => 'Skrill'],
         //----------------------------------------------------------------------
         // Big cities that appear in the search form in front page
         //----------------------------------------------------------------------
