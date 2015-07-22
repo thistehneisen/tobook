@@ -36,10 +36,12 @@ def _deploy(environment, host):
             run('php artisan db:seed')
             # chmod storage again
             run('chmod -Rf 777 app/storage')
-            # chown upload folder
+            # chown uploads and tmp folder
+            run('chown www-data:www-data public/tmp -R')
             run('chown www-data:www-data public/uploads -R')
             # chmod 644 for files, 755 for folder
             run('chmod ug+rwX,go+rX public/uploads -R')
+            run('chmod ug+rwX,go+rX public/tmp -R')
             # clear all application cache
             run('php artisan cache:clear')
             #-------------------------------------------------------------------
