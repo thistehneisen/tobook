@@ -14,6 +14,25 @@ def get_random_word(wordLen):
         word += random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789')
     return word
 
+@task
+def check_branch(instance=''):
+    env.user = 'root'
+    instance_dict = {
+        'stag': '46.101.49.100',
+        'prod': '178.62.37.23',
+        'clearbooking': '178.62.52.193',
+        'tobook': '178.62.41.125',
+        'yellowpage': '178.62.123.243'
+    }
+    if instance in instance_dict:
+        host = instance_dict[instance]
+        with settings(host_string=host):
+            with cd('/srv/varaa/src'):
+                current_branch = run('git symbolic-ref --short -q HEAD')
+                print "Current branch on %s is %s" % (instance, current_branch)
+    else:
+        print "Instance not found"
+
 def _deploy(environment, host):
     env.user = 'root'
     with settings(host_string=host):
@@ -23,7 +42,12 @@ def _deploy(environment, host):
             # pull latest source
             branch = 'develop' if environment == 'stag' else 'master'
             run('git pull')
+            #check the current branch on server
+            current_branch = run('git symbolic-ref --short -q HEAD')
             run('git checkout {}'.format(branch))
+            #if the new branch is different to current branch, we need to pull again
+            if current_branch != branch:
+                run('git pull')
             # update composer
             run('composer self-update')
             # install dependencies
