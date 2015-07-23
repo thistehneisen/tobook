@@ -254,6 +254,7 @@ return [
         'en_version'       => 'Englanniksi',
         'sv_version'       => 'Ruotsiksi',
         'book'             => 'Varaa',
+        'loading'          => 'Ladataan&hellip;',
         'success'          => 'Kiitos varauksestasi! Sinut ohjataan takaisin alkuun <span id="as-counter">10</span> -sekunnin kuluttua.',
         'success_line1'    => '<h2>Kiitos!</h2>',
         'success_line2'    => '<h3>Varauksesi luotiin onnistuneesti.</h3>',
