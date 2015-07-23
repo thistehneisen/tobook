@@ -29,9 +29,9 @@ def check_branch(instance=''):
         with settings(host_string=host):
             with cd('/srv/varaa/src'):
                 current_branch = run('git symbolic-ref --short -q HEAD')
-                print "Current branch on %s is %s" % (instance, current_branch)
+                print("Current branch on {0} is {1}".format(red(instance), blue(current_branch)))
     else:
-        print "Instance not found"
+        print(red("Instance not found!"))
 
 def _deploy(environment, host):
     env.user = 'root'
