@@ -69,7 +69,7 @@ return [
         'items'           => 'tuote|tuotteet',
         'empty'           => 'Tyhjä',
         'empty_long'      => 'Sinulla ei ole varauksia.',
-        'checkout'        => 'Maksa',
+        'checkout'        => 'Valitse maksutapa',
         'total'           => 'Yhteensä',
         'heading'         => 'Valitut tuotteet',
         'why_heading'     => 'Miksi rekisteröityisin?',
@@ -77,10 +77,12 @@ return [
         'process'         => 'Maksua prosessoidaan',
         'total_deposit'   => 'Varausmaksu',
         'pay_deposit'     => 'Maksa varausmaksu',
-        'pay_whole'       => 'Siirry maksamaan',
-        'deposit_message' => 'You can choose to pay the deposit, or the total sum of the booking in order to continue.',//@todo
+        'pay_full'        => 'Maksa etukäteen',
+        'pay_venue'       => 'Maksa käynnin yhteydessä',
+        'terms'           => 'Jos valitset maksavasi varauksen käyntisi yhteydessä, otathan huomioon että mahdollinen varauksen peruuttaminen täytyy tehdä hyvissä ajoin yrittäjän itsensä määrittämien peruutusehtojen mukaisesti.<br>Voit menettää oikeutesi (tilapäisesti tai pysyvästi) tehdä varauksia Varaa.comin kautta, mikäli jätät ilmaantumatta paikalle sovituun aikaan.<br>Kiitos ymmärryksestä!',
+        'deposit_message' => 'Voit maksaa varauksesi etukäteen netissä, tai vasta käyntisi yhteydessä.',
         'err'         => [
-            'business' => 'Valitettavasti emme tue maksuja yrityskäyttäjätunnuksen kautta. Ole ystävällinen ja rekisteröidy palveluun kuluttajana.',
+            'business' => 'Valitettavasti emme tue maksuja yrityskäyttäjätunnuksen kautta. Kirjaudu ulos yrityskäyttäjätililtäsi.',
             'zero_amount' => 'Maksua ei voida suorittaa',
         ]
     ],
