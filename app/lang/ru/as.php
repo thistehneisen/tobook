@@ -189,7 +189,7 @@ return [
         'is_received_calendar_invitation'  => 'Получает приглашения через календарь?',
         'services'                         => 'Услуги',
         'status'                           => 'Статус',
-        'is_active'                        => 'Activation',//@todo
+        'is_active'                        => 'Aктивация',
         'avatar'                           => 'Аватар',
         'default_time'                     => 'Время по умолчанию',
         'custom_time'                      => 'Время по выбору',
@@ -230,7 +230,7 @@ return [
     'embed' => [
         'heading'          => 'Название',
         'description'      => 'Описание',
-        'embed'            => 'Встроить (эмбед)',
+        'embed'            => 'Bставлять',
         'preview'          => 'Превью',
         'back_to_services' => 'Назад к услугам',
         'select_date'      => 'Выбрать дату',
@@ -311,6 +311,7 @@ return [
         'booking'   => [
             'heading'                                        => '',
             'info'                                           => '',
+            'disable_booking'                                => 'Отключить виджет бронирования',
             'index'                                          => 'Заказы',
             'booking_form'                                   => 'Форма для заказов',
             'reminders'                                      => 'Напоминание',

@@ -124,7 +124,7 @@ App::before(function ($request) {
     // Now get locale from URI
     if (!empty($segments[1])) {
         $routeLanguage = $segments[1];
-        if (in_array($routeLanguage, Config::get('varaa.languages'))) {
+        if (in_array($routeLanguage, Config::get('varaa.supported_languages'))) {
             $language = $routeLanguage;
         }
     }
