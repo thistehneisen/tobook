@@ -80,9 +80,7 @@ $(function () {
         <div class="payment-wrapper">
             <div id="js-overlay" class="overlay">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae aliquid unde sint laboriosam, adipisci libero, asperiores nisi assumenda eum voluptatibus facilis amet fuga eaque doloribus cupiditate, nostrum pariatur, accusantium eius!</div>
             <h1 class="comfortaa orange text-center">{{ trans('home.cart.checkout') }}</h1>
-            @if((bool) Settings::get('deposit_payment'))
-            <h4 class="comfortaa orange text-center">{{ trans('home.cart.deposit_message') }}</h4>
-            @endif
+            <h4 class="comfortaa orange text-center">{{ trans('home.cart.checkout_message') }}</h4>
             {{ Form::open(['route' => 'cart.payment', 'role' => 'form', 'id' => 'frm-payment']) }}
             <div class="form-group row">
                 <div class="col-sm-8 col-sm-offset-2">

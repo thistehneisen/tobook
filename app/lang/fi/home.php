@@ -80,7 +80,7 @@ return [
         'pay_full'        => 'Maksa etukäteen',
         'pay_venue'       => 'Maksa käynnin yhteydessä',
         'terms'           => 'Jos valitset maksavasi varauksen käyntisi yhteydessä, otathan huomioon että mahdollinen varauksen peruuttaminen täytyy tehdä hyvissä ajoin yrittäjän itsensä määrittämien peruutusehtojen mukaisesti.<br>Voit menettää oikeutesi (tilapäisesti tai pysyvästi) tehdä varauksia Varaa.comin kautta, mikäli jätät ilmaantumatta paikalle sovituun aikaan.<br>Kiitos ymmärryksestä!',
-        'deposit_message' => 'Voit maksaa varauksesi etukäteen netissä, tai vasta käyntisi yhteydessä.',
+        'checkout_message'=> 'Voit maksaa varauksesi etukäteen netissä, tai vasta käyntisi yhteydessä.',
         'err'         => [
             'business' => 'Valitettavasti emme tue maksuja yrityskäyttäjätunnuksen kautta. Kirjaudu ulos yrityskäyttäjätililtäsi.',
             'zero_amount' => 'Maksua ei voida suorittaa',
