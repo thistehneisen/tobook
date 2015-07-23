@@ -74,6 +74,9 @@
             // When user selects a category
             $('input[name=category_id]').on('change', function () {
                 var $this = $(this);
+                // Highlight this button as selected
+                $('label.as-service-category').removeClass('btn-success');
+                $this.closest('label.as-service-category').addClass('btn-success');
                 $categories.hide(function () {
                     $('#as-category-' + $this.val() + '-services').show();
                 });
@@ -98,6 +101,10 @@
                 $title1.find('span').text($this.data('service'));
                 $title1.find('i').removeClass('hide');
                 $title1.addClass('collapsable');
+
+                // Highlight this button as selected
+                $('.as-service-time').find('label').removeClass('btn-success');
+                $this.closest('label').addClass('btn-success');
 
                 // Assign serviceId to dataStorage
                 dataStorage.serviceId = $this.val();
@@ -132,6 +139,10 @@
                 $title2.find('i').removeClass('hide');
                 $step3.collapse('show');
                 $title3.addClass('collapsable');
+
+                // Highlight this button as selected
+                $('.as-employee').find('label').removeClass('btn-success');
+                $this.closest('label').addClass('btn-success');
 
                 // Asign employeeId to dataStorage
                 dataStorage.employeeId = $this.val();
