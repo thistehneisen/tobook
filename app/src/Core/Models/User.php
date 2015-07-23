@@ -1,10 +1,19 @@
 <?php namespace App\Core\Models;
 
-use App, DB, Hashids, Config, Carbon\Carbon, Geocoder, Util;
-use Consumer, Log, NAT;
+use App;
+use App\Haku\Indexers\BusinessIndexer;
+use Carbon\Carbon;
+use Config;
+use Consumer;
+use DB;
+use Geocoder;
+use Hashids;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Log;
+use NAT;
+use Util;
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Entrust\HasRole;
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class User extends ConfideUser
 {
@@ -46,6 +55,19 @@ class User extends ConfideUser
         if (isset(ConfideUser::$rules['username'])) {
             unset(ConfideUser::$rules['username']);
         }
+
+        static::deleted(function ($model) {
+            if ($model->business !== null) {
+                $i = new BusinessIndexer($model->business);
+                $i->delete();
+            }
+        });
+
+        static::restoring(function ($model) {
+            if ($model->business !== null) {
+                $model->business->updateIndex();
+            }
+        });
     }
 
     /**
@@ -318,7 +340,6 @@ class User extends ConfideUser
         foreach ($default as $sections) {
             foreach ($sections as $options) {
                 foreach ($options as $name => $option) {
-
                     $ret[$name] = isset($option['default'])
                         ? $option['default']
                         : '';

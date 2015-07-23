@@ -48,10 +48,12 @@ class Search extends Base
             foreach ($category->keywords as $keyword) {
                 $data[] = ['type' => 'category', 'name' => $keyword->keyword, 'url' => $category->url];
             }
-
         }
 
         $businesses = Business::notHidden()
+            ->whereHas('user', function ($query) {
+                $query->whereNull('deleted_at');
+            })
             ->where('name', '!=', '')
             ->get();
         foreach ($businesses as $business) {
@@ -99,7 +101,7 @@ class Search extends Base
             ->active()
             ->get();
 
-        $layout = $this->handleIndex($user->hash, $user,'layout-3');
+        $layout = $this->handleIndex($user->hash, $user, 'layout-3');
 
         // Data to be passed to view
         $data = array_merge([
@@ -136,8 +138,8 @@ class Search extends Base
         $minute     = Input::get('minute');
 
         $categoryId = null;
-        if(!empty($serviceId) && !empty($employeeId)
-            && !empty($hour) && !empty($minute)){
+        if (!empty($serviceId) && !empty($employeeId)
+            && !empty($hour) && !empty($minute)) {
             $service = Service::findOrFail($serviceId);
             $categoryId = $service->category->id;
         }

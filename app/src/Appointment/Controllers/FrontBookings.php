@@ -96,7 +96,7 @@ class FrontBookings extends Bookings
     {
         //Validate the consumer info before adding booking
         $validation = $this->getConfirmationValidator();
-        if ( $validation->fails() ) {
+        if ($validation->fails()) {
             $data['success'] = false;
             $data['message'] = Util::getHtmlListMessageBagError($validation->messages());
             return Response::json($data, 500);
@@ -143,7 +143,7 @@ class FrontBookings extends Bookings
             }
 
             // Complete the cart
-            if (($source !== 'inhouse' || (Input::get('l') === '3' && $source === 'inhouse')) && !empty($booking)) {
+            if (($source !== 'inhouse') && !empty($booking)) {
                 $cart->complete();
             }
 
@@ -158,6 +158,9 @@ class FrontBookings extends Bookings
             $data['success'] = true;
             $data['message'] = $messages;
 
+            if (Input::get('l') === '3' && $source === 'inhouse') {
+                $data['checkout_url'] = route('cart.checkout');
+            }
         } catch (\Exception $ex) {
             Log::error($ex->getMessage(), Input::all());
 

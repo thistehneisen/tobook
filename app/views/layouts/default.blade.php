@@ -108,15 +108,6 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     </li>
                     @endif
 
-                    {{-- Show cart to consumer only --}}
-                    @if ((!Confide::user() || Confide::user()->is_consumer) && Settings::get('enable_cart'))
-                    <li class="cart">
-                        <a data-cart-url="{{ route('cart.index') }}" href="#" id="header-cart" data-toggle="popover">
-                            <i class="fa fa-shopping-cart"></i> <span class="content"><i class="fa fa-spinner fa-spin"></i></span>
-                        </a>
-                    </li>
-                    @endif
-
                     {{-- Logged in --}}
                     @if (Confide::user()) {{-- Admin --}}
                         @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)

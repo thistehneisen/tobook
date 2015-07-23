@@ -1,6 +1,6 @@
 @foreach ($categories as $category)
     <div id="as-category-{{ $category->id }}" class="as-category">
-        <label class="as-service-category"><input type="radio" name="category_id" value="{{ $category->id }}"> {{ $category->name }}</label>
+        <label class="as-service-category btn btn-default"><input type="radio" class="hidden" name="category_id" value="{{ $category->id }}"> {{ $category->name }}</label>
     </div>
     <div id="as-category-{{ $category->id }}-services" class="as-service">
         <p class="as-back"><i class="glyphicon glyphicon-chevron-left"></i> {{ $category->name }}</p>
@@ -11,9 +11,9 @@
                 <div class="as-service-time" id="service-times-{{ $service->id }}">
                     <p>
                         <?php $col = ((bool)$user->asOptions['hide_prices'] === false) ? 4 : 12;?>
-                        <label class="col-lg-{{$col}} col-sm-6 col-md-6">
+                        <label class="col-lg-{{$col}} col-sm-6 col-md-6 btn btn-default">
                             <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $service->description }}"></i>
-                            <input type="radio" name="service_id" data-service-time-id="default" value="{{ $service->id }}" data-service="{{ $service->name }}" data-hash="{{ $user->hash }}">
+                            <input type="radio" class="hidden" name="service_id" data-service-time-id="default" value="{{ $service->id }}" data-service="{{ $service->name }}" data-hash="{{ $user->hash }}">
                             @if ((bool)$user->asOptions['hide_prices'] === false)
                                 {{ $service->price }}{{ Settings::get('currency') }}
                             @else
@@ -27,9 +27,9 @@
 
                 @foreach ($service->serviceTimes as $item)
                     <p>
-                        <label class="col-lg-{{$col}} col-sm-6 col-md-6">
+                        <label class="col-lg-{{$col}} col-sm-6 col-md-6 btn btn-default">
                             <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $item->description }}"></i>
-                            <input type="radio" name="service_id" data-service-time-id="{{ $item->id }}" value="{{ $service->id }}" data-service="{{ $service->name }}">
+                            <input type="radio" class="hidden" name="service_id" data-service-time-id="{{ $item->id }}" value="{{ $service->id }}" data-service="{{ $service->name }}">
                             @if ((bool)$user->asOptions['hide_prices'] === false)
                                 {{ $item->price }}{{ Settings::get('currency') }}
                             @else

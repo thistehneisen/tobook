@@ -147,11 +147,11 @@ class Users extends Base
                 'note'             => ['type' => false],
                 'payment_options'  => ['type' => false],
                 'deposit_rate'     => ['type' => false],
-                'bank_account'     => ['type' => 'text'          , 'hidden' => !$isAdmin],
+                'bank_account'     => ['type' => 'text', 'hidden' => !$isAdmin],
                 'meta_title'       => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
                 'meta_description' => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
                 'meta_keywords'    => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
-                'is_hidden'        => ['type' => 'radio'         , 'hidden' => !$isAdmin],
+                'is_hidden'        => ['type' => 'radio', 'hidden' => !$isAdmin],
             ],
         ]);
 
@@ -434,8 +434,10 @@ class Users extends Base
      */
     protected function restore($ids)
     {
-        User::whereIn('id', $ids)
-            ->update(['deleted_at' => null]);
+        $users = User::onlyTrashed()->whereIn('id', $ids)->get();
+        foreach ($users as $user) {
+            $user->restore();
+        }
     }
 
     /**
