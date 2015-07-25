@@ -102,12 +102,6 @@ do ($ = jQuery) ->
         return;
 
       return true if $formSearch.data('bypass') is true
-      # If the action has been modified by selecting MC/TM
-      if $formSearch.data 'old-action'
-        if $q.val() isnt $formSearch.data('suggestion')
-          # Revert old action, submit as normal
-          $formSearch.attr('action', $formSearch.data('old-action'))
-        return true
 
       e.preventDefault()
 
@@ -124,12 +118,13 @@ do ($ = jQuery) ->
       return if emptyLocation or emptyQ
 
       # Should ask for location
-      if $location.data 'current-location' == '1'
+      if $location.data('current-location') is 1
         VARAA.getLocation()
           .then (lat, lng) ->
             $formSearch.find('[name=lat]').val(lat)
             $formSearch.find('[name=lng]').val(lng)
-          .always bypassAndSubmit
+            bypassAndSubmit()
+          .fail -> $('#js-top-alert').show()
       else
         bypassAndSubmit()
 
@@ -140,7 +135,7 @@ do ($ = jQuery) ->
         $me = $ @
 
         $formSearch.find('[name=type]').val($me.data('type'))
-        $location.attr 'data-current-location', $me.data('current-location')
+        $location.data 'current-location', $me.data('current-location')
         $location.val $me.text()
         $locationDropdownWrapper.removeClass 'open'
 
