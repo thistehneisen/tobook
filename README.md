@@ -84,3 +84,7 @@ Feel free to add more features (sending email, storing cache, etc.) to that Brid
 ## Setup new server automatically
 
 Run `fab new_server:<hostname> -H root@<new server IP>`
+
+## Make a patch
+
+Run `fab patch <branch_name>` to merge `<branch_name>` into `master` and `develop` and bump version in patch mode.
