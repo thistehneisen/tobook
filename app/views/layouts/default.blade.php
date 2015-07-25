@@ -54,6 +54,9 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     {{ Lomake::renderHead() }}
 </head>
 <body @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}" data-js-locale="{{ route('ajax.jslocale') }}" data-geo-url="{{ route('search.location') }}" data-lat="{{ $lat }}" data-lng="{{ $lng }}">
+    <div class="container-fluid top-alert warning" id="js-top-alert">
+        <p>Please allow us to know your location to serve you better. Click here to try again.</p>
+    </div>
     @section('header')
     <header class="header">
         <nav class="main-nav container">

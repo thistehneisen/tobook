@@ -186,27 +186,31 @@ do ($ = jQuery) ->
         $body = $ 'body'
         lat = $body.data 'lat'
         lng = $body.data 'lng'
+        receivedGeolocation = false
 
         if (lat? and lng? and lat != '' and lng != '')
           window.location = $$.prop 'href'
         else
           # Ask for location
-          success = (pos) ->
-            lat = pos.coords.latitude
-            lng = pos.coords.longitude
-            $.ajax
-              url: $body.data 'geo-url'
-              type: 'POST'
-              data:
-                lat: lat
-                lng: lng
-            .done ->
-              window.location = $$.prop 'href'
+          VARAA.getLocation()
+            .then (lat, lng) ->
+              receivedGeolocation = true
+              $.ajax
+                url: $body.data 'geo-url'
+                type: 'POST'
+                data:
+                  lat: lat
+                  lng: lng
+              .done -> window.location = $$.prop 'href'
+            .fail -> $('#js-top-alert').show()
 
-          failed = ->
-            window.location = $$.prop 'href'
+          askGeolocation = ->
+            $('#js-top-alert').show() if receivedGeolocation is false
 
-          navigator.geolocation.getCurrentPosition success, failed, timeout: 10000
+          setTimeout askGeolocation, 60000
+
+    $('#js-top-alert').on 'click', ->
+      window.location.reload()
 
     # If user clicks on "Choose category" in navigation, scroll to the list of
     # categories
