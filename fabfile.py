@@ -99,32 +99,39 @@ def deploy(instance=''):
             _deploy(inst, instance_dict[inst])
 
 @task
-def quick_fix(branch):
+def patch(branch):
     '''
     Merge the branch into `master` and develop and bump current release version
     '''
+    # To make sure the branch exists
+    local('git checkout {}'.format(branch))
+
     f = open('VERSION')
-    version = f.read().strip('\n')
+    current_version = f.read().strip('\n')
     f.close()
     # Bump version
-    bumped_version = semver.bump_patch(version)
+    bumped_version = semver.bump_patch(current_version)
     msg = 'Release v{}'.format(bumped_version)
     # Merge into `master`
-    # local('git checkout master')
-    # local('git merge --no-ff {} -m "{}"'.format(branch, msg))
+    local('git checkout master')
+    local('git merge --no-ff {} -m "{}"'.format(branch, msg))
+    # Write VERSION
+    write_version(bumped_version)
+    # Add new version file
+    local('git add VERSION')
+    local('git commit --amend -m "{}"'.format(msg))
+    # Create a tag
+    local('git tag -a v{} -m "{}"'.format(bumped_version, msg))
+
     # Merge into `develop`
     local('git checkout develop')
     local('git merge --no-ff {} -m "Merge branch `{}`.\n{}"'.format(branch, branch, msg))
-    # Create a tag
-    local('git tag -a v{} -m "{}"'.format(bumped_version, msg))
-    # Write it
-    bump_version(bumped_version)
 
     print('Current version: '+red(bumped_version, True))
 
 @task
-def bump_version(version = None):
-    f = open('VERSION')
+def write_version(version = None):
+    f = open('VERSION', 'w')
     if version == None:
         version = f.read().strip('\n')
         version = semver.bump_patch(version)
