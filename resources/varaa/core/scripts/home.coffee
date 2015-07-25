@@ -59,7 +59,6 @@ do ($ = jQuery) ->
 
     # --------------------------------------------------------------------------
 
-
     # Init typeahead on search form
     VARAA.initTypeahead $q, 'services' if $q.length > 0
     $q.bind 'typeahead:selected', (e, selection) ->
@@ -208,18 +207,6 @@ do ($ = jQuery) ->
             window.location = $$.prop 'href'
 
           navigator.geolocation.getCurrentPosition success, failed, timeout: 10000
-
-    $ '.datetime-link'
-      .on 'click', (e) ->
-        e.preventDefault()
-      .on 'focus', (e) ->
-        e.preventDefault()
-        $(@).siblings '.datetime-control'
-          .show()
-      .on 'blur', (e) ->
-        e.preventDefault()
-        $(@).siblings '.datetime-control'
-          .hide()
 
     # If user clicks on "Choose category" in navigation, scroll to the list of
     # categories
