@@ -290,6 +290,7 @@ return [
             'empty'           => 'Valittuna päivänä ei vapaita aikoja',
             'payment_note'    => 'Vahvistuksen jälkeen sinut ohjatamaan maksamaan varaus',
             'confirm_service' => 'Vahvista varauksen palvelu',
+            'heading_line'    => 'Varaa aika',
         ]
     ],
     'options' => [

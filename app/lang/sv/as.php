@@ -284,6 +284,7 @@ return [
             'empty'           => 'Det finns inga tillgängliga tider den valda dagen.',
             'payment_note'    => 'När bokningen är gjord kommer du att skickas vidare till kassan.',
             'confirm_service' => 'Bekräfta bokning',
+            'heading_line'    => 'Boka tid',
         ]
     ],
      'options' => [
