@@ -59,7 +59,6 @@ do ($ = jQuery) ->
 
     # --------------------------------------------------------------------------
 
-
     # Init typeahead on search form
     VARAA.initTypeahead $q, 'services' if $q.length > 0
     $q.bind 'typeahead:selected', (e, selection) ->
@@ -103,12 +102,6 @@ do ($ = jQuery) ->
         return;
 
       return true if $formSearch.data('bypass') is true
-      # If the action has been modified by selecting MC/TM
-      if $formSearch.data 'old-action'
-        if $q.val() isnt $formSearch.data('suggestion')
-          # Revert old action, submit as normal
-          $formSearch.attr('action', $formSearch.data('old-action'))
-        return true
 
       e.preventDefault()
 
@@ -125,12 +118,13 @@ do ($ = jQuery) ->
       return if emptyLocation or emptyQ
 
       # Should ask for location
-      if $location.data 'current-location' == '1'
+      if $location.data('current-location') is 1
         VARAA.getLocation()
           .then (lat, lng) ->
             $formSearch.find('[name=lat]').val(lat)
             $formSearch.find('[name=lng]').val(lng)
-          .always bypassAndSubmit
+            bypassAndSubmit()
+          .fail -> $('#js-top-alert').show()
       else
         bypassAndSubmit()
 
@@ -141,7 +135,7 @@ do ($ = jQuery) ->
         $me = $ @
 
         $formSearch.find('[name=type]').val($me.data('type'))
-        $location.attr 'data-current-location', $me.data('current-location')
+        $location.data 'current-location', $me.data('current-location')
         $location.val $me.text()
         $locationDropdownWrapper.removeClass 'open'
 
@@ -187,39 +181,31 @@ do ($ = jQuery) ->
         $body = $ 'body'
         lat = $body.data 'lat'
         lng = $body.data 'lng'
+        receivedGeolocation = false
 
         if (lat? and lng? and lat != '' and lng != '')
           window.location = $$.prop 'href'
         else
           # Ask for location
-          success = (pos) ->
-            lat = pos.coords.latitude
-            lng = pos.coords.longitude
-            $.ajax
-              url: $body.data 'geo-url'
-              type: 'POST'
-              data:
-                lat: lat
-                lng: lng
-            .done ->
-              window.location = $$.prop 'href'
+          VARAA.getLocation()
+            .then (lat, lng) ->
+              receivedGeolocation = true
+              $.ajax
+                url: $body.data 'geo-url'
+                type: 'POST'
+                data:
+                  lat: lat
+                  lng: lng
+              .done -> window.location = $$.prop 'href'
+            .fail -> $('#js-top-alert').show()
 
-          failed = ->
-            window.location = $$.prop 'href'
+          askGeolocation = ->
+            $('#js-top-alert').show() if receivedGeolocation is false
 
-          navigator.geolocation.getCurrentPosition success, failed, timeout: 10000
+          setTimeout askGeolocation, 60000
 
-    $ '.datetime-link'
-      .on 'click', (e) ->
-        e.preventDefault()
-      .on 'focus', (e) ->
-        e.preventDefault()
-        $(@).siblings '.datetime-control'
-          .show()
-      .on 'blur', (e) ->
-        e.preventDefault()
-        $(@).siblings '.datetime-control'
-          .hide()
+    $('#js-top-alert').on 'click', ->
+      window.location.reload()
 
     # If user clicks on "Choose category" in navigation, scroll to the list of
     # categories

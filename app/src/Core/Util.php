@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Config;
 use Exception;
 use Geocoder;
-use Guzzle\Http\Client;
 use Imagine;
 use Input;
 use InvalidArgumentException;
@@ -14,6 +13,7 @@ use Log;
 use Request;
 use Session;
 use Str;
+
 /**
  * Providing a set of utility functions
  */
@@ -41,7 +41,7 @@ class Util
     public static function getDayOfWeekText($weekday)
     {
         $dayOfWeek = '';
-         switch ($weekday) {
+        switch ($weekday) {
             case Carbon::MONDAY:
                 $dayOfWeek = 'mon';
                 break;
@@ -145,7 +145,8 @@ class Util
                 $imagine->open($imagePath)
                     ->thumbnail($size, $mode)
                     ->save($thumbPath);
-            } catch (\Exception $ex) {}
+            } catch (\Exception $ex) {
+            }
         }
 
         return $returnUrl ? asset($thumbPath) : $thumbPath;
@@ -265,19 +266,9 @@ class Util
             $lat = Session::get('lat');
             $lng = Session::get('lng');
         } else {
-            // Try to get location based on IP
-            $data = static::decodeIp();
-            if ($data && $data->city) {
-                Session::set('lat', $data->city->lat);
-                Session::set('lng', $data->city->lon);
-
-                $lat = $data->city->lat;
-                $lng = $data->city->lon;
-            } else {
-                // Final blast, use default coords of the system
-                // Maybe Helsinki, Stockholm, Tallinn, etc.
-                list($lat, $lng) = Config::get('varaa.default_coords');
-            }
+            // Final blast, use default coords of the system
+            // Maybe Helsinki, Stockholm, Tallinn, etc.
+            list($lat, $lng) = Config::get('varaa.default_coords');
         }
 
         return [$lat, $lng];
@@ -320,32 +311,6 @@ class Util
     }
 
     /**
-     * Get the current IP and collect relevant data using Sypexgeo.net
-     *
-     * @see  https://sypexgeo.net/ru/api/ Sypexgeo API
-     *
-     * @return stdClass
-     */
-    public static function decodeIp()
-    {
-        $ip = Request::getClientIp();
-        $key = 'ip:'.$ip;
-        if (Cache::has($key)) {
-            return Cache::get($key);
-        }
-
-        $client = new Client();
-        $req = $client->get('https://api.sypexgeo.net/json/'.$ip);
-        $res = $client->send($req);
-        if ($res->getStatusCode() === 200) {
-            $json = json_decode($res->getBody());
-            Cache::forever($key, $json);
-
-            return $json;
-        }
-    }
-
-    /**
      * Get name of current location based on user input, IP decoding, or default
      * system location
      *
@@ -355,18 +320,6 @@ class Util
     {
         if (Input::has('location')) {
             return Input::get('location');
-        }
-
-        $ipData = static::decodeIp();
-        if ($ipData && $ipData->city !== null) {
-            $field = App::getLocale() === 'ru' ? 'name_ru' : 'name_en';
-            $location = $ipData->city->$field;
-
-            if ($ipData->country !== null) {
-                return $location.', '.$ipData->country->$field;
-            }
-
-            return $location;
         }
 
         // If cannot get location from those two criteria, return the default
