@@ -98,7 +98,7 @@ return [
         'pay_full'        => 'Full payment',//@todo
         'pay_venue'       => 'Pay at the venue',//@todo
         'terms'           => 'Please be aware that by not showing up at the place by the booked time, you might cause severe harm to the salon owner. <br/> By doing so you\'ll also lose your permission to book times without paying in advance.',
-        'deposit_message' => 'Please select a payment method to continue',
+        'checkout_message'=> 'Please select a payment method to continue',
         'err'             => [
             'business' => 'Currently we are not support for business account to checkout. Please login with your consumer account.',
             'zero_amount' => 'Unable to make payment since the amount of your cart is zero',

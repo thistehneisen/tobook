@@ -97,7 +97,7 @@ return [
         'pay_full'        => 'Maksāt pilnu summu',
         'pay_venue'       => 'Maksāt uz vietas',
         'terms'           => 'Lūdzu ņemiet vērā, neierodoties uz sev rezervēto laiku,  Jūs radiet zaudējumus salonam. <br/>Ja šāda rīcība atkārtojas, salons var iekļaut Jūs “melnajā sarakstā”, un zaudēsiet iespēju tur veikt rezervācijas.',
-        'deposit_message' => 'Izvēlēties maksājuma veidu',
+        'checkout_message'=> 'Izvēlēties maksājuma veidu',
         'err'         => [
             'business' => 'Šobrīd nepiedāvājam iespēju izmantot nereģistrētu biznesa kontu. Lūdzu, ienāciet sistēmā ar savu reģistrēto lietotājvārdu.',
             'zero_amount' => 'Maksājums nav iespējams, jo Jūsu rezervāciju sarakstā nav pasūtījumu.',
