@@ -309,15 +309,15 @@
                 e.preventDefault();
                 var $this = $(this);
                 var $submit = $('#btn-submit-confirm-booking');
+
+                var term_enabled = parseInt($(this).data('term-enabled'), 10);
+                //yes and required
+                if (term_enabled === 3 && !$('#terms').is(':checked')) {
+                    return alertify.alert($(this).data('term-error-msg'));
+                }
+
                 //Prevent user double click to the submit button
                 $submit.attr('disabled','disabled');
-
-                //yes and required
-                var term = $this.find('input[name=terms]');
-                if (term.length && !term.is(':checked')) {
-                    alert($(this).data('term-error-msg'));
-                    return;
-                }
 
                 $body.showLoading();
                 $.ajax({
@@ -346,7 +346,7 @@
                         }, 1000);
                     }
                 }).fail(function (data) {
-                    alert(data.responseJSON.message);
+                    alertify.alert(data.responseJSON.message);
                     $submit.removeAttr('disabled');
                 });
             });
