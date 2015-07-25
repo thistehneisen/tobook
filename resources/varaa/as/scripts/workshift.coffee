@@ -21,7 +21,7 @@
 
             for key, val of custom_time
                 $('<option />',
-                    value: key,
+                    value: key.replace('@',''),
                     text: val
                 ).appendTo dropdown
 

@@ -426,6 +426,8 @@ class Employees extends AsBase
         $sundayHours     = [];
         $montlyHours     = [];
 
+        //JSON will sort the id by ascending order automatically
+        //Append @ in order to avoid auto sorting
         $customTimes = CustomTime::ofCurrentUser()
             ->orderBy('start_at')
             ->orderBy('end_at')
@@ -435,7 +437,7 @@ class Employees extends AsBase
                     TIME_FORMAT(start_at, "%H:%i"), " - ",
                     TIME_FORMAT(end_at, "%H:%i"),")") AS name'
                 ),
-                'id'
+                DB::raw('CONCAT("@",id) as id')
                 )
             ->lists('name', 'id');
 
