@@ -54,6 +54,9 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     {{ Lomake::renderHead() }}
 </head>
 <body @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}" data-js-locale="{{ route('ajax.jslocale') }}" data-geo-url="{{ route('search.location') }}" data-lat="{{ $lat }}" data-lng="{{ $lng }}">
+    <div class="container-fluid top-alert warning" id="js-top-alert">
+        <p class="text-center"><strong>Please allow us to know your location to serve you better. Click here to try again.</strong></p>
+    </div>
     @section('header')
     <header class="header">
         <nav class="main-nav container">
@@ -77,7 +80,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                 <ul class="nav navbar-nav">
                     {{-- Language switcher --}}
                     <li>
-                        <select id="js-languageSwitcher" class="form-control">
+                        <select id="js-language-switcher" class="form-control">
                             @foreach (Config::get('varaa.languages') as $locale)
                             <option value="{{ UrlHelper::localizeCurrentUrl($locale) }}" {{ Config::get('app.locale') === $locale ? 'selected' : '' }}>{{ strtoupper($locale) }}</option>
                             @endforeach

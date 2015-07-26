@@ -137,17 +137,6 @@ a {
         }
 
         #main-menu {
-            .cart {
-                .popover {
-                    min-width: 350px;
-                    max-width: 500px;
-
-                    .popover-content {
-                        max-height: 500px;
-                        overflow-y: auto;
-                    }
-                }
-            }
 
             li select {
                 margin: 8px 15px;
@@ -319,6 +308,24 @@ a {
 
 .soft-hidden {
     display: none;
+}
+
+.top-alert {
+    padding: 5px 15px;
+    display: none;
+    cursor: pointer;
+
+    &.warning {
+        color: #8a6d3b;
+        background-color: #fcf8e3;
+        border-color: #faebcc;
+    }
+
+    &.danger {
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;
+    }
 }
 
 
