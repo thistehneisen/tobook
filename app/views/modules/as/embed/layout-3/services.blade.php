@@ -36,6 +36,7 @@
                             @else
                                 &nbsp;<i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes')}}
                             @endif
+                            {{ trans('common.select') }}
                         </label>
                         @if ((bool)$user->asOptions['hide_prices'] === false)
                         <span><i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes')}}</span>
