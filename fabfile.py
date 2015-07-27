@@ -71,7 +71,8 @@ def _deploy(environment, host):
             #-------------------------------------------------------------------
             # These commands are run once and will be removed in next release
             #-------------------------------------------------------------------
-            print(red('Deployment notes:', True))
+            print(red('Release notes:', True))
+            print(blue('Delete ES business indexes and rebuild using Haku'))
             #-------------------------------------------------------------------
             # restart supervisor processes
             run('supervisorctl restart all')
