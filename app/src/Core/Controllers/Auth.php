@@ -1,11 +1,18 @@
 <?php namespace App\Core\Controllers;
 
+use App;
 use App\Core\Models\Business;
-use View, Validator, Input, Redirect, Config, Session, Cart;
-use Confide;
-use App\Core\Models\User;
-use App\Core\Models\Role;
 use App\Core\Models\BusinessCategory;
+use App\Core\Models\Role;
+use App\Core\Models\User;
+use Cart;
+use Confide;
+use Config;
+use Input;
+use Redirect;
+use Session;
+use Validator;
+use View;
 
 class Auth extends Base
 {
@@ -119,7 +126,6 @@ class Auth extends Base
             } elseif (Confide::user()->is_consumer) {
                 return Redirect::intended(route('home'));
             }
-
         }
 
         // Failed, now get the reason
@@ -184,23 +190,15 @@ class Auth extends Base
      */
     public function register()
     {
-        //Temporary fix for tobook
-        if (App::environment() === 'tobook') {
-           return Redirect::route('home');
-        }
-
-        $fields = [
-            'name'                  => ['label' => trans('user.business.name'), 'type' => 'text'],
-            'email'                 => ['label' => trans('user.email'), 'type' => 'email'],
-            'password'              => ['label' => trans('user.password'), 'type' => 'password'],
-            'password_confirmation' => ['label' => trans('user.password_confirmation'), 'type' => 'password'],
-            'phone'                 => ['label' => trans('user.business.phone'), 'type' => 'text'],
-            'address'               => ['label' => trans('user.business.address'), 'type' => 'text'],
+        $typeform = [
+            'prod' => 'https://varaa.typeform.com/to/q6wEUx',
+            'tobook' => 'https://varaa.typeform.com/to/VbW85p',
         ];
 
+        $typeformUrl = array_get($typeform, App::environment(), $typeform['prod']);
+
         return View::make('auth.register', [
-            'fields'             => $fields,
-            'validator'          => Validator::make(Input::all(), $this->rules['register'])
+            'iframe' => $typeformUrl,
         ]);
     }
 

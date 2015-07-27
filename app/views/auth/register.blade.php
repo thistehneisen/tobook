@@ -42,5 +42,5 @@
 @stop
 
 @section ('content')
-    <iframe id="typeform-full" width="100%" height="100%" frameborder="0" src="https://varaa.typeform.com/to/q6wEUx"></iframe>
+    <iframe id="typeform-full" width="100%" height="100%" frameborder="0" src="{{ $iframe }}"></iframe>
 @stop
