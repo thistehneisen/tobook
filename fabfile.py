@@ -109,7 +109,7 @@ def patch(branch):
     # Bump version
     current_version = read_version()
     bumped_version = semver.bump_patch(current_version)
-    msg = 'Release v{}'.format(bumped_version)
+    msg = 'Merge branch {}. Bump v{}'.format(branch, bumped_version)
     # Merge into `master`
     local('git checkout master')
     local('git merge --no-ff {} -m "{}"'.format(branch, msg))
