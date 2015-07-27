@@ -170,18 +170,6 @@ class FrontBookings extends Bookings
             return Response::json($data, 500);
         }
 
-        //TODO maybe change to use Event instead of Observer
-        //Send notification email and SMSs
-        try {
-            $booking->attach(new EmailObserver());
-            $booking->attach(new SmsObserver());
-            $booking->notify();
-            //Send calendar invitation to employee
-            Event::fire('employee.calendar.invitation.send', [$booking]);
-        } catch (\Exception $ex) {
-            Log::warning('Could not send sms or email:' . $ex->getMessage());
-        }
-
         return Response::json($data);
     }
 
