@@ -71,7 +71,8 @@ def _deploy(environment, host):
             #-------------------------------------------------------------------
             # These commands are run once and will be removed in next release
             #-------------------------------------------------------------------
-            print(red('Deployment notes:', True))
+            print(red('Release notes:', True))
+            print(blue('Delete ES business indexes and rebuild using Haku'))
             #-------------------------------------------------------------------
             # restart supervisor processes
             run('supervisorctl restart all')
@@ -100,7 +101,7 @@ def deploy(instance=''):
             _deploy(inst, instance_dict[inst])
 
 @task
-def bump_patch(branch):
+def patch(branch):
     '''
     Merge the branch into `master` and `develop` and bump current release version
     '''
@@ -124,12 +125,13 @@ def bump_patch(branch):
 
     # Merge into `develop`
     local('git checkout develop')
-    local('git merge --no-ff {} -m "Merge branch `{}`.\n{}"'.format(branch, branch, msg))
+    local('git pull --rebase')
+    local('git merge --no-ff {} -m "Merge branch {} into develop"'.format(branch, branch))
 
     print('Current version: '+red(bumped_version, True))
 
 @task
-def bump_minor():
+def minor():
     '''
     Merge `develop` into `master` and bump release version
     '''
