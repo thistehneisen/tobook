@@ -10,7 +10,7 @@
                 <p class="as-service-name" id="btn-service-{{ $service->id }}"><small><i class="glyphicon glyphicon-chevron-right"></i></small> {{ $service->name }}</p>
                 <div class="as-service-time" id="service-times-{{ $service->id }}">
                     <p>
-                        <?php $col = ((bool)$user->asOptions['hide_prices'] === false) ? 4 : 12;?>
+                        <?php $col = ((bool)$user->asOptions['hide_prices'] === false) ? 5 : 12;?>
                         <label class="col-lg-{{$col}} col-sm-6 col-md-6 btn btn-default">
                             <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $service->description }}"></i>
                             <input type="radio" class="hidden" name="service_id" data-service-time-id="default" value="{{ $service->id }}" data-service="{{ $service->name }}" data-hash="{{ $user->hash }}">
@@ -19,6 +19,7 @@
                             @else
                                 &nbsp;<i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes')}}
                             @endif
+                            {{ trans('common.select') }}
                         </label>
                         @if ((bool)$user->asOptions['hide_prices'] === false)
                         <span><i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes')}}</span>
@@ -35,6 +36,7 @@
                             @else
                                 &nbsp;<i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes')}}
                             @endif
+                            {{ trans('common.select') }}
                         </label>
                         @if ((bool)$user->asOptions['hide_prices'] === false)
                         <span><i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes')}}</span>

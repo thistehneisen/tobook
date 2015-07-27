@@ -271,7 +271,7 @@ class Front extends Base
      */
     public function staticPage()
     {
-        $id = Request::segment(App::environment() !== 'tobook' ? 1 : 2);
+        $id = Request::segment(1);
         $page = array_get([
             'terms'  => 'terms_conditions',
             'policy' => 'privacy_cookies',

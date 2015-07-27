@@ -312,6 +312,13 @@
               .addClass('text-danger')
               .text(message)
         }
+
+        var term_enabled = parseInt($(this).data('term-enabled'), 10);
+        //yes and required
+        if (term_enabled === 3 && !$('#terms').is(':checked')) {
+            return alertify.alert($(this).data('term-error-msg'));
+        }
+
         // Prevent user double click to the submit button
         $this.attr('disabled', 'disabled')
 

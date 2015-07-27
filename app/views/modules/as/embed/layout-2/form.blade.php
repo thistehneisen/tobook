@@ -6,7 +6,7 @@
 
 <div id="as-overlay-message" class="as-overlay-message"></div>
 
-{{ Form::open(['route' => 'as.bookings.frontend.add', 'role' => 'form', 'id' => 'frm-customer-info', 'data-success-url' => route('as.embed.embed', ['hash'=> Input::get('hash'), 'l' => Input::get('l')]), 'data-term-error-msg' => trans('as.bookings.error.terms')]) }}
+{{ Form::open(['route' => 'as.bookings.frontend.add', 'role' => 'form', 'id' => 'frm-customer-info', 'data-success-url' => route('as.embed.embed', ['hash'=> Input::get('hash'), 'l' => Input::get('l')]), 'data-term-enabled'=> $user->asOptions['terms_enabled'], 'data-term-error-msg' => trans('as.bookings.error.terms')]) }}
     <div class="form-group">
         <label>{{ trans('as.bookings.first_name') }}*</label>
         {{ Form::text('first_name', (isset($booking_info['first_name'])) ? $booking_info['first_name'] : ''  , ['class' => 'form-control input-sm', 'id' => 'first_name']) }}

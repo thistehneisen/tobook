@@ -1,4 +1,11 @@
 <div class="container-fluid">
+    @if(isset($allInput['src']) && $allInput['src'] === 'inhouse')
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="sub-heading">{{ trans('as.embed.layout_3.heading_line')}}</h3>
+        </div>
+    </div>
+    @endif
     <div class="panel-group" id="varaa-as-bookings" data-inhouse="{{ isset($inhouse) ? (int) $inhouse : 0 }}">
         <div class="panel panel-default">
             <div class="panel-heading" id="as-title-1" href="#as-step-1">
@@ -66,5 +73,4 @@
 </div>
 
 <input type="hidden" name="add-service-url" id="add-service-url" value="{{ route('as.bookings.service.front.add', $allInput) }}">
-<?php $isInhouse = isset($inhouse) ? (int) $inhouse : 0;?>
 <input type="hidden" name="auto-select-employee" id="auto-select-employee" value="<?php echo ($user->asOptions['auto_select_employee']) ? 'true' : 'false';?>">

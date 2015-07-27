@@ -28,6 +28,7 @@ Artisan::add(new App\Core\Commands\SimpleReportCommand());
 Artisan::add(new App\Core\Commands\RecuseOldDataFromBackupImporter());
 Artisan::add(new App\Core\Commands\ReleasePendingCommisions());
 Artisan::add(new App\Core\Commands\BroadcastConfirmationSettings());
+Artisan::add(new App\Core\Commands\FixPayAtVenueCommisions());
 
 // Temporarily disable NAT builder
 // Artisan::add(new App\Appointment\NAT\Commands\ScheduledBuild());

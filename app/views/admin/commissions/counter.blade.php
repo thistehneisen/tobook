@@ -31,7 +31,7 @@ $(function () {
 <ul class="nav nav-tabs" role="tablist">
     <li  @if (empty($employeeId)) {{ 'class="active"' }} @endif><a href="{{ route('admin.users.commissions.counter', ['id'=> $user->id]) }}">{{ trans($langPrefix.'.employees') }}</a></li>
     @foreach ($freelancers as $freelancer)
-    <li  @if ($employeeId === $freelancer->id) {{ 'class="active"' }} @endif><a href="{{ route('admin.users.commissions.counter',['id'=> $user->id, 'employee'=> $freelancer->id])}}">
+    <li  @if ((int)$employeeId === $freelancer->id) {{ 'class="active"' }} @endif><a href="{{ route('admin.users.commissions.counter',['id'=> $user->id, 'employee'=> $freelancer->id])}}">
         {{ htmlspecialchars($freelancer->name) }}
     </a></li>
     @endforeach

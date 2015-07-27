@@ -290,6 +290,7 @@ return [
             'empty'           => 'There is no available time on selected day.',
             'payment_note'    => 'After a booking is placed, you will be redirected to payment.',
             'confirm_service' => 'Confirm booking service',
+            'heading_line'    => 'Book a time',
         ]
     ],
      'options' => [
