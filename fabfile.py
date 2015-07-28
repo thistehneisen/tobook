@@ -80,6 +80,8 @@ def _deploy(environment, host):
             run('php artisan up')
             # notify everyone for fun
             run('php artisan varaa:deployed {} {}'.format(environment, branch))
+            # remove all temporary css files
+            run('rm *.css')
             # run CI
             if environment == 'stag': run('/srv/phpci/console phpci:rebuild')
 
