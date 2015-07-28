@@ -322,7 +322,7 @@
             submit.siblings('span.text-success')
               .removeClass('text-success')
               .addClass('text-danger')
-              .text(message)
+              .html(message)
         }
 
         var term_enabled = parseInt($(this).data('term-enabled'), 10);
