@@ -287,6 +287,18 @@
         })
       })
 
+      $form.on('click', '#terms', function (e) {
+        var $this = $(this),
+            submit = $('#as-form-checkout').find(':submit'),
+            term_enabled = parseInt($('#as-form-checkout').data('term-enabled'), 10);
+        //yes and required
+        if (term_enabled === 3) {
+            (submit.attr('disabled'))
+                ? submit.removeAttr('disabled')
+                : submit.attr('disabled', 'disabled');
+        }
+      });
+
       // When user submits the confirmation form
       $form.on('submit', '#as-form-checkout', function (e) {
         e.preventDefault()

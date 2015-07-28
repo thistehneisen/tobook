@@ -83,7 +83,7 @@
     @endif
 
     <div class="form-group">
-        <button type="submit" id="btn-checkout-submit" class="btn btn-success">{{ trans('as.embed.book') }}</button>
+        <button type="submit" id="btn-checkout-submit" @if ((int) $user->asOptions['terms_enabled'] === 3) disabled="disabled"@endif class="btn btn-success">{{ trans('as.embed.book') }}</button>
         <span class="text-success"></span>
         <span class="as-loading">
             <i class="glyphicon glyphicon-refresh text-info"></i> {{ trans('as.embed.loading') }}
