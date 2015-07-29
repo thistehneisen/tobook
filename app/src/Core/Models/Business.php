@@ -288,7 +288,6 @@ class Business extends Base
             'is_booking_disabled' => array_get($input, 'is_booking_disabled', true),
             'note'                => array_get($input, 'note', ''),
             'is_hidden'           => array_get($input, 'is_hidden', false),
-            'payment_options'     => array_get($input, 'payment_options', []),
         ]);
         $this->user()->associate($user);
         $this->saveOrFail();
