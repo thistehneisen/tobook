@@ -216,14 +216,7 @@ class User extends Base
             $errors = $this->errorMessageBag(trans('common.err.unexpected'));
         }
 
-        $redirect = Redirect::back()->with('tab', 'business');
-        //To prevent payment methods are reset
-        //@see https://github.com/varaa/varaa/issues/593
-        if(!empty($errors)) {
-            $redirect->withInput()->withErrors($errors);
-        }
-
-        return $redirect;
+        return Redirect::back()->with('tab', 'business')->withErrors($errors);
     }
 
     /**
