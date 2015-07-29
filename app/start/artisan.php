@@ -30,6 +30,8 @@ Artisan::add(new App\Core\Commands\ReleasePendingCommisions());
 Artisan::add(new App\Core\Commands\BroadcastConfirmationSettings());
 Artisan::add(new App\Core\Commands\FixPayAtVenueCommisions());
 
+Artisan::add(new App\Cart\Commands\UnlockCartItemsCommand());
+
 // Temporarily disable NAT builder
 // Artisan::add(new App\Appointment\NAT\Commands\ScheduledBuild());
 
