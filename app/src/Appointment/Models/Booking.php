@@ -228,19 +228,16 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      *
      * @return string
      */
-    public function getServiceInfo()
+    public function getServiceInfo($isFull = false)
     {
         $serviceInfos = [];
         foreach ($this->bookingServices as $bookingService) {
-            if (!empty($bookingService->serviceTime->id)) {
-                $serviceTime = $bookingService->serviceTime;
-                $before      = $serviceTime->before;
-                $after       = $serviceTime->after;
-            } else {
-                $service = $bookingService->service;
-                $before  = $service->before;
-                $after   = $service->after;
-            }
+            $service = (!empty($bookingService->serviceTime->id))
+                ? $bookingService->serviceTime
+                : $bookingService->service;
+
+            $before  = $service->before;
+            $after   = $service->after;
 
             $start = $bookingService->startTime->addMinutes($before);
 
@@ -249,23 +246,14 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $serviceInfo = str_replace('{employee}', $this->employee->name, $serviceInfo);
             $serviceInfo = str_replace('{date}', $this->date, $serviceInfo);
             $serviceInfo = str_replace('{start}', $start->toTimeString(), $serviceInfo);
+
+            if ($isFull) {
+                $serviceInfo .= "\n" . $service->description;
+            }
+
             $serviceInfos[] = $serviceInfo;
         }
         return !empty($serviceInfos) ? implode(" \n", $serviceInfos) : '';
-    }
-
-    public function getServicesDescription()
-    {
-        $description = '';
-        if (!empty($this->bookingServices()->first()->serviceTime->id)) {
-            $serviceTime = $this->bookingServices()->first()->serviceTime;
-            $description = $serviceTime->description;
-        } else {
-            $service = $this->bookingServices()->first()->service;
-            $description = $service->description;
-        }
-
-        return $description;
     }
 
     /**
