@@ -243,14 +243,12 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             }
 
             $start = $bookingService->startTime->addMinutes($before);
-            $end   = $bookingService->endTime->subMinutes($after);
 
-            $serviceInfo = "{service} - {employee}, {date} ({start} - {end})";
+            $serviceInfo = "{service} - {employee}, {date} ({start})";
             $serviceInfo = str_replace('{service}', $bookingService->service->name, $serviceInfo);
             $serviceInfo = str_replace('{employee}', $this->employee->name, $serviceInfo);
             $serviceInfo = str_replace('{date}', $this->date, $serviceInfo);
             $serviceInfo = str_replace('{start}', $start->toTimeString(), $serviceInfo);
-            $serviceInfo = str_replace('{end}', $end->toTimeString(), $serviceInfo);
             $serviceInfos[] = $serviceInfo;
         }
         return !empty($serviceInfos) ? implode(" \n", $serviceInfos) : '';
