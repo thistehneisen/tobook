@@ -107,6 +107,7 @@ return [
     'accept'                => 'Piekrītu',
     'decline'               => 'Nepiekrītu',
     'history'               => 'Arhīvs',
+    'placeholders'          => 'Placeholders',//@todo
     'short' => [
         'week'  => 'nedēļa',
         'hour'  => 'stunda',

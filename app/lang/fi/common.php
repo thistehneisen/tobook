@@ -106,6 +106,7 @@ return [
     'accept'                => 'Hyväksy',
     'decline'               => 'Peruuta',
     'submit'                => 'Hyväksy',
+    'placeholders'          => 'Placeholders',//@todo
     'short' => [
         'week'  => 'vko',
         'hour'  => 'hr',//@todo

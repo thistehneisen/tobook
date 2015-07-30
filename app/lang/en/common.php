@@ -108,6 +108,7 @@ return [
     'accept'                => 'Accept',
     'decline'               => 'Decline',
     'history'               => 'History',
+    'placeholders'          => 'Placeholders',
     'short' => [
         'week'  => 'week',
         'hour'  => 'hr',

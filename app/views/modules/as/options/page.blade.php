@@ -27,19 +27,27 @@
             <label class="control-label col-sm-3">{{ trans('as.options.'.$page.'.'.$field->name) }}</label>
             <div class="col-sm-6">
                 {{ $field->render() }}
-                @if ($field->name === 'confirm_tokens_client' || $field->name === 'confirm_tokens_employee')
-                <br/>
-                <div class="alert alert-info">
-                    {Services}, {ServicesFull}, {Name}, {BookingID}, {Phone}, {Email}, {Notes}, {CancelURL}, {Address}, {Deposit}
-                </div>
-                @elseif ($field->name === 'confirm_consumer_sms_message' || $field->name === 'confirm_employee_sms_message')
-                <br/>
-                <div class="alert alert-info">
-                    {Services}, {ServicesFull}, {CancelURL}, {Address}, {Deposit}
-                </div>
-                @endif
             </div>
         </div>
+            @if ($field->name === 'confirm_tokens_client' || $field->name === 'confirm_tokens_employee')
+            <div class="form-group">
+                <label class="control-label col-sm-3">{{ trans('common.placeholders')}}:</label>
+                <div class="col-sm-6">
+                    <div class="alert alert-info">
+                        {Services}, {ServicesFull}, {Name}, {BookingID}, {Phone}, {Email}, {Notes}, {CancelURL}, {Address}, {Deposit}
+                    </div>
+                </div>
+            </div>
+            @elseif ($field->name === 'confirm_consumer_sms_message' || $field->name === 'confirm_employee_sms_message')
+            <div class="form-group">
+                <label class="control-label col-sm-3">{{ trans('common.placeholders')}}:</label>
+                <div class="col-sm-6">
+                    <div class="alert alert-info">
+                        {Services}, {ServicesFull}, {CancelURL}, {Address}, {Deposit}
+                    </div>
+                </div>
+            </div>
+            @endif
         @endforeach
     </div>
     <?php $index++; ?>
