@@ -55,25 +55,25 @@ return [
     'tagline'               => 'Все, что вам нужно <br>для удобного и прибыльного бизнеса',
     'next_timeslot'         => 'Следующие доступные "окна"',
     'time'                  => 'Время',
-    'search_tagline'        => 'Что вы хотите заказать?', // @todo
-    'search_query'          => 'Enter business name or service', // @todo
-    'search_place'          => 'Helsinki, FI', // @todo
+    'search_tagline'        => 'Что вы хотите заказать?',
+    'search_query'          => 'Enter business name or service',
+    'search_place'          => 'Helsinki, FI',
     'search'        => [
-        'tagline'         => 'Что вы хотите заказать?', // @todo
-        'query'           => 'Введите компанию', // @todo
-        'location'        => Settings::get('default_location'), // @todo
+        'tagline'         => 'Что вы хотите заказать?',
+        'query'           => 'Введите компанию',
+        'location'        => Settings::get('default_location'),
         'about'           => 'Подробнее',
         'locations_hours' => 'Места &amp; время',
         'business_hours'  => 'Время работы',
         'buy'             => 'Купить',
         'book'            => 'Записаться',
-        'button'          => 'поиск', // @todo
-        'date'            => 'Любая дата', // @todo
-        'time'            => 'любое время', // @todo
+        'button'          => 'поиск',
+        'date'            => 'Любая дата',
+        'time'            => 'любое время',
         'current_location' => 'Ваше местоположение',
         'validation'      => [
-            'q'        => 'Please enter or select a service', // @todo
-            'location' => 'Please enter or select a location', // @todo
+            'q'        => 'Пожалуйста, введите бизнес или услугу',
+            'location' => 'Пожалуйста, введите местоположение',
         ],
         'geo'             => [
             'info' => 'Ваше местоположение нужно для того, чтобы показывать близкие к вам результаты поиска.'
@@ -101,18 +101,18 @@ return [
             'zero_amount' => 'Покупка невозможна, поскольку в вашей корзине ничего нет',
         ]
     ],
-    'choose_category'     => 'Что вы хотите заказать?', // @todo
-    'how_does_it_work'    => 'How does it work?', // @todo
-    'businesses'          => 'Что вы хотите заказать?', // @todo
+    'choose_category'     => 'Что вы хотите заказать?',
+    'how_does_it_work'    => 'Как это работает?',
+    'businesses'          => 'Что вы хотите заказать?',
     'businesses_category' => 'Businesses of <strong>:category</strong>', // @todo
-    'more'                => 'более', // @todo
-    'less'                => 'менее', // @todo
-    'companies_offers'    => 'Компании с предложениями', // @todo
-    'categories'          => 'категории', // @todo
-    'best_offers'         => 'Лучшие предложения', // @todo
-    'no_offers'           => 'Там нет никаких предложений доступны.', // @todo
-    'map'                 => 'карта', // @todo
-    'show_more'           => 'Показать больше', // @todo
+    'more'                => 'более',
+    'less'                => 'менее',
+    'companies_offers'    => 'Компании с предложениями',
+    'categories'          => 'категории',
+    'best_offers'         => 'Лучшие предложения',
+    'no_offers'           => 'Там нет никаких предложений доступны.',
+    'map'                 => 'карта',
+    'show_more'           => 'Показать больше',
     // How it works?
     'hiw' => [
         'heading' => 'How it works?', // @todo
@@ -127,29 +127,29 @@ return [
     ],
     // Business
     'business' => [
-        'about'          => 'о нас', // @todo
-        'openning_hours' => 'время работы', // @todo
-        'map'            => 'карта', // @todo
-        'phone'          => 'телефон', // @todo
-        'email'          => 'Электронная Почта', // @todo
-        'online_booking' => 'онлайн бронирование', // @todo
+        'about'          => 'о нас',
+        'openning_hours' => 'время работы',
+        'map'            => 'карта',
+        'phone'          => 'телефон',
+        'email'          => 'Электронная Почта',
+        'online_booking' => 'онлайн бронирование',
         'request'        => [
-            'link'    => 'Спросите для онлайн-бронирования', // @todo
-            'info'    => 'TВладелец магазина будет предложено использовать нашу систему бронирования онлайн.', // @todo
-            'subject' => 'Запрос на использование системы онлайн-бронирования', // @todo
-            'mail'    => $requestMail, // @todo
+            'link'    => 'Спросите для онлайн-бронирования',
+            'info'    => 'TВладелец магазина будет предложено использовать нашу систему бронирования онлайн.',
+            'subject' => 'Запрос на использование системы онлайн-бронирования',
+            'mail'    => $requestMail,
         ],
         'contact'        => [
-            'index'   => 'связаться с нами', // @todo
-            'heading' => 'связаться с нами', // @todo
-            'name'    => 'Имя*', // @todo
-            'email'   => 'Электронная Почта*', // @todo
-            'phone'   => 'телефон', // @todo
-            'captcha' => 'Пожалуйста, введите символы, указанные ниже*', // @todo
-            'message' => 'Сообщение*', // @todo
-            'sent'    => 'Ваше сообщение отправлено', // @todo
-            'subject' => 'Вы получили контактную', // @todo
-            'mail'    => $contactEmail, // @todo
+            'index'   => 'связаться с нами',
+            'heading' => 'связаться с нами',
+            'name'    => 'Имя*',
+            'email'   => 'Электронная Почта*',
+            'phone'   => 'телефон',
+            'captcha' => 'Пожалуйста, введите символы, указанные ниже*',
+            'message' => 'Сообщение*',
+            'sent'    => 'Ваше сообщение отправлено',
+            'subject' => 'Вы получили контактную',
+            'mail'    => $contactEmail,
         ]
     ],
     // Contact form
