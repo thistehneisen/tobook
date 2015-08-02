@@ -67,8 +67,8 @@
                 <td>{{ trans('as.employees.weekly_hours') }}</td>
                 <td>&nbsp;</td>
                 @foreach ($employees as $employee)
-                @if(isset($customTimeWeekSummary[$item['date']->weekOfYear][$employee->id]))
-                <td>{{ $customTimeWeekSummary[$item['date']->weekOfYear][$employee->id]}}</td>
+                @if(isset($weekSummary[$item['date']->weekOfYear][$employee->id]))
+                <td>{{ $weekSummary[$item['date']->weekOfYear][$employee->id]}}</td>
                 @else
                 <td>0</td>
                 @endif
@@ -81,8 +81,8 @@
                 <td>{{ trans('as.employees.monthly_hours') }}</td>
                 <td>&nbsp;</td>
                 @foreach ($employees as $employee)
-                @if(isset($customTimeMonthSummary[$item['date']->month][$employee->id]))
-                <td>{{ $customTimeMonthSummary[$item['date']->month][$employee->id]}}</td>
+                @if(isset($monthSummary[$item['date']->month][$employee->id]))
+                <td>{{ $monthSummary[$item['date']->month][$employee->id]}}</td>
                 @else
                 <td>0</td>
                 @endif
