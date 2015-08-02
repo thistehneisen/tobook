@@ -233,6 +233,7 @@ class Employees extends AsBase
             $fromDate    = new Carbon(Input::get('from_date'));
             $toDate      = new Carbon(Input::get('to_date'));
             $description = Input::get('description');
+            $type        = (int) Input::get('freetime_type');
 
             if($fromDate->gt($toDate)) {
                 throw new \Exception(trans('as.employees.error.from_date_greater_than_to_date'), 1);
@@ -264,10 +265,11 @@ class Employees extends AsBase
                 $employeeFreetime = new EmployeeFreetime();
                 $date = $fromDate->copy()->addDays($day);
                 $employeeFreetime->fill([
-                    'date' => $date->toDateString(),
-                    'start_at' => $startAt->toTimeString(),
-                    'end_at' => $endAt->toTimeString(),
-                    'description' => $description
+                    'date'        => $date->toDateString(),
+                    'start_at'    => $startAt->toTimeString(),
+                    'end_at'      => $endAt->toTimeString(),
+                    'description' => $description,
+                    'type'        => $type
                 ]);
 
                 $employee = Employee::ofCurrentUser()->find($employeeId);
@@ -442,8 +444,8 @@ class Employees extends AsBase
             ->lists('name', 'id');
 
         $customTimes = [0 => trans('common.options_select')] + $customTimes;
-        $customTimeWeekSummary = [];
-        $customTimeMonthSummary = [];
+        $weekSummary = [];
+        $monthSummary = [];
         foreach ($employees as $employee) {
             $items = $employee->employeeCustomTimes()
                 ->with('customTime')
@@ -460,17 +462,17 @@ class Employees extends AsBase
                 $carbonDate = new Carbon($item->date);
 
                 //Collect weekly summary data for each employee
-                if(empty($customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id])) {
-                    $customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id] = $item->getWorkingHours();
+                if(empty($weekSummary[$carbonDate->weekOfYear][$employee->id])) {
+                    $weekSummary[$carbonDate->weekOfYear][$employee->id] = $item->getWorkingHours();
                 } else {
-                    $customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id] += $item->getWorkingHours();
+                    $weekSummary[$carbonDate->weekOfYear][$employee->id] += $item->getWorkingHours();
                 }
 
                 //Collect monthly summary data for each employee
-                if(empty($customTimeMonthSummary[$carbonDate->month][$employee->id])) {
-                    $customTimeMonthSummary[$carbonDate->month][$employee->id] = $item->getWorkingHours();
+                if(empty($monthSummary[$carbonDate->month][$employee->id])) {
+                    $monthSummary[$carbonDate->month][$employee->id] = $item->getWorkingHours();
                 } else {
-                    $customTimeMonthSummary[$carbonDate->month][$employee->id] += $item->getWorkingHours();
+                    $monthSummary[$carbonDate->month][$employee->id] += $item->getWorkingHours();
                 }
 
                 $dayOfWeek = $item->getDayOfWeek();
@@ -509,8 +511,8 @@ class Employees extends AsBase
             'sarturdayHours'         => $sarturdayHours,
             'sundayHours'            => $sundayHours,
             'montlyHours'            => $montlyHours,
-            'customTimeWeekSummary'  => $customTimeWeekSummary,
-            'customTimeMonthSummary' => $customTimeMonthSummary,
+            'weekSummary'            => $weekSummary,
+            'monthSummary'           => $monthSummary,
             'customTimes'            => json_encode($customTimes)
         ]);
     }

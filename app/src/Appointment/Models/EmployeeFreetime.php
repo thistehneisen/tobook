@@ -5,7 +5,10 @@ class EmployeeFreetime extends \App\Appointment\Models\Base
 {
     protected $table = 'as_employee_freetime';
 
-    public $fillable = ['date', 'start_at', 'end_at', 'description'];
+    public $fillable = ['date', 'start_at', 'end_at', 'description', 'type'];
+
+    const PERSONAL_FREETIME = 1;
+    const WOKRING_FREETIME  = 2;
 
     public function getLength()
     {
