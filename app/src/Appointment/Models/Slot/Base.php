@@ -2,7 +2,7 @@
 use Config, Util;
 use Carbon\Carbon;
 use App\Appointment\Models\Booking;
-use App\Appointment\Models\EmployeeFreeTime;
+use App\Appointment\Models\EmployeeFreetime;
 
 class Base implements Strategy
 {
@@ -165,11 +165,11 @@ class Base implements Strategy
 
             if ($this->rowTime >= $start && $this->rowTime <= $end) {
                 if ($this->rowTime == $start) {
-                    $this->class .= ($freetime->type === EmployeeFreeTime::PERSONAL_FREETIME)
+                    $this->class .= ($freetime->type === EmployeeFreetime::PERSONAL_FREETIME)
                         ? $this->getValue('freetime_head')
                         : $this->getValue('freetime_working_head');
                 } else {
-                    $this->class .= ($freetime->type === EmployeeFreeTime::PERSONAL_FREETIME)
+                    $this->class .= ($freetime->type === EmployeeFreetime::PERSONAL_FREETIME)
                         ? $this->getValue('freetime_body')
                         : $this->getValue('freetime_working_body');
                 }

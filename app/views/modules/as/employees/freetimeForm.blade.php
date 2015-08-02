@@ -16,7 +16,7 @@
                                     <label class="col-sm-4 control-label">{{ trans('as.employees.free_time_type') }}</label>
                                     <div class="col-sm-8">
                                     <label for="personal_free_time" class="inline">
-                                    {{ Form::radio('freetime_type', App\Appointment\Models\EmployeeFreetime::PERSONAL_FREETIME, false, ['id' => 'personal_free_time']) }}
+                                    {{ Form::radio('freetime_type', App\Appointment\Models\EmployeeFreetime::PERSONAL_FREETIME, true, ['id' => 'personal_free_time']) }}
                                     {{ trans('as.employees.personal_free_time') }}
                                     </label>
                                     <label for="working_free_time" class="inline">

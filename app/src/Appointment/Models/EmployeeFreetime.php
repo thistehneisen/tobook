@@ -27,6 +27,10 @@ class EmployeeFreetime extends \App\Appointment\Models\Base
         return new Carbon($this->attributes['date'].' '.$this->attributes['end_at']);
     }
 
+    public function getTypeAttribute()
+    {
+        return (int) $this->attributes['type'];
+    }
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
