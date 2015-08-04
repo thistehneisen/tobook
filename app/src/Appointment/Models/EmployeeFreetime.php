@@ -14,6 +14,7 @@ class EmployeeFreetime extends \App\Appointment\Models\Base
     {
        return (int) $this->getStartAt()->diffInMinutes($this->getEndAt());
     }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------

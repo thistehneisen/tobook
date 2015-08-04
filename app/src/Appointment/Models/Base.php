@@ -17,4 +17,14 @@ class Base extends \App\Core\Models\Base
         $endAt = new Carbon($this->end_at, Config::get('app.timezone'));
         return $endAt;
     }
+
+    /**
+     * Get length in minutes
+     *
+     * return int
+     */
+    public function getMinutes()
+    {
+        return (double) $this->getStartAt()->diffInMinutes($this->getEndAt());
+    }
 }

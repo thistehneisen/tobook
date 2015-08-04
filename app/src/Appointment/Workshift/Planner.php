@@ -92,10 +92,20 @@ class Planner {
         return $this->dateRange;
     }
 
+    /**
+    * Return weekly working hours of each employee
+    *
+    * @return array
+    */
     public function getWeekSummary() {
         return $this->weekly;
     }
 
+    /**
+    * Return monthly working hours of each employee
+    *
+    * @return array
+    */
     public function getMonthSummary() {
         return $this->monthly;
     }
