@@ -25,9 +25,9 @@
 @section ('content')
 {{ Form::open(['class' => 'form-inline', 'role' => 'form', 'method' => 'GET']) }}
     <div class="input-daterange input-group date-picker">
-        <input type="text" class="input-sm form-control" name="start" placeholder="{{ trans('as.reports.start') }}" value="{{{ $startOfMonth->toDateString() }}}">
+        <input type="text" class="input-sm form-control" name="start" placeholder="{{ trans('as.reports.start') }}" value="{{{ $startDate->toDateString() }}}">
         <span class="input-group-addon">&ndash;</span>
-        <input type="text" class="input-sm form-control" name="end" placeholder="{{ trans('as.reports.end') }}" value="{{{ $endOfMonth->toDateString() }}}">
+        <input type="text" class="input-sm form-control" name="end" placeholder="{{ trans('as.reports.end') }}" value="{{{ $endDate->toDateString() }}}">
     </div>
     <button type="submit" class="btn btn-primary btn-sm hidden-print">{{ trans('as.reports.generate') }}</button>
     <div class="from-control pull-right hidden-print">
@@ -46,7 +46,7 @@
         @endforeach
     </thead>
     <tbody>
-        @foreach($currentMonths as $item)
+        @foreach($dateRange as $item)
              <tr @if($item['date']->dayOfWeek === \Carbon\Carbon::SUNDAY) class="sunday-row" @endif>
                 <td>{{ trans(strtolower('common.' . $item['date']->format('l'))) }}</td>
                 <td>{{ $item['date']->toDateString() }}</td>
@@ -67,8 +67,8 @@
                 <td>{{ trans('as.employees.weekly_hours') }}</td>
                 <td>&nbsp;</td>
                 @foreach ($employees as $employee)
-                @if(isset($customTimeWeekSummary[$item['date']->weekOfYear][$employee->id]))
-                <td>{{ $customTimeWeekSummary[$item['date']->weekOfYear][$employee->id]}}</td>
+                @if(isset($weekSummary[$item['date']->weekOfYear][$employee->id]))
+                <td>{{ $weekSummary[$item['date']->weekOfYear][$employee->id]}}</td>
                 @else
                 <td>0</td>
                 @endif
@@ -76,13 +76,13 @@
             </tr>
             @endif
             @if(($item['date']->toDateString() === $item['date']->copy()->endOfMonth()->toDateString())
-            || ($item['date']->toDateString() === $endOfMonth->toDateString()))
+            || ($item['date']->toDateString() === $endDate->toDateString()))
             <tr class="monthly-row">
                 <td>{{ trans('as.employees.monthly_hours') }}</td>
                 <td>&nbsp;</td>
                 @foreach ($employees as $employee)
-                @if(isset($customTimeMonthSummary[$item['date']->month][$employee->id]))
-                <td>{{ $customTimeMonthSummary[$item['date']->month][$employee->id]}}</td>
+                @if(isset($monthSummary[$item['date']->month][$employee->id]))
+                <td>{{ $monthSummary[$item['date']->month][$employee->id]}}</td>
                 @else
                 <td>0</td>
                 @endif

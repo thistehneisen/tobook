@@ -19,16 +19,18 @@ class Frontend extends Base implements Strategy
     protected function getValue($key)
     {
         $map = [
-            'active'            => 'active',
-            'inactive'          => 'inactive',
-            'freetime_head'     => ' freetime freetime-head',
-            'freetime_body'     => ' freetime freetime-body',
-            'resource_inactive' => 'resource fancybox inactive',
-            'room_inactive'     => 'room fancybox inactive',
-            'custom_active'     => 'custom active',
-            'custom_inactive'   => 'custom inactive',
-            'booked_head'       => ' slot-booked-head',
-            'booked_body'       => ' slot-booked-body',
+            'active'                => 'active',
+            'inactive'              => 'inactive',
+            'freetime_head'         => ' freetime freetime-head',
+            'freetime_body'         => ' freetime freetime-body',
+            'freetime_working_head' => ' freetime freetime-head freetime-working',
+            'freetime_working_body' => ' freetime freetime-body freetime-working',
+            'resource_inactive'     => 'resource fancybox inactive',
+            'room_inactive'         => 'room fancybox inactive',
+            'custom_active'         => 'custom active',
+            'custom_inactive'       => 'custom inactive',
+            'booked_head'           => ' slot-booked-head',
+            'booked_body'           => ' slot-booked-body',
         ];
 
         return (isset($map[$key])) ? $map[$key] : '';

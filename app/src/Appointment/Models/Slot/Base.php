@@ -2,6 +2,7 @@
 use Config, Util;
 use Carbon\Carbon;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\EmployeeFreetime;
 
 class Base implements Strategy
 {
@@ -164,11 +165,16 @@ class Base implements Strategy
 
             if ($this->rowTime >= $start && $this->rowTime <= $end) {
                 if ($this->rowTime == $start) {
-                    $this->class .= $this->getValue('freetime_head');
+                    $this->class .= ($freetime->type === EmployeeFreetime::PERSONAL_FREETIME)
+                        ? $this->getValue('freetime_head')
+                        : $this->getValue('freetime_working_head');
                 } else {
-                    $this->class .= $this->getValue('freetime_body');
+                    $this->class .= ($freetime->type === EmployeeFreetime::PERSONAL_FREETIME)
+                        ? $this->getValue('freetime_body')
+                        : $this->getValue('freetime_working_body');
                 }
                 $this->freetimeSlot[$this->date][$this->hour][$this->minute] = $freetime;
+                $this->class = trim(str_replace('fancybox active', '', $this->class));
             }
         }
         return $this->class;
@@ -219,6 +225,7 @@ class Base implements Strategy
                 }
             }
         }
+
         return $this->class;
     }
 
@@ -314,16 +321,18 @@ class Base implements Strategy
     protected function getValue($key)
     {
         $map = [
-            'active'            => 'fancybox active',
-            'inactive'          => 'fancybox inactive',
-            'freetime_head'     => 'freetime freetime-head',
-            'freetime_body'     => 'freetime freetime-body',
-            'custom_active'     => 'custom fancybox active',
-            'custom_inactive'   => 'custom fancybox inactive',
-            'resource_inactive' => 'resource fancybox inactive',
-            'room_inactive'     => 'room fancybox inactive',
-            'booked_head'       => ' slot-booked-head',
-            'booked_body'       => ' slot-booked-body',
+            'active'                => 'fancybox active',
+            'inactive'              => 'fancybox inactive',
+            'freetime_head'         => 'freetime freetime-head',
+            'freetime_body'         => 'freetime freetime-body',
+            'freetime_working_head' => ' freetime freetime-head freetime-working',
+            'freetime_working_body' => ' freetime freetime-body freetime-working',
+            'custom_active'         => 'custom fancybox active',
+            'custom_inactive'       => 'custom fancybox inactive',
+            'resource_inactive'     => 'resource fancybox inactive',
+            'room_inactive'         => 'room fancybox inactive',
+            'booked_head'           => ' slot-booked-head',
+            'booked_body'           => ' slot-booked-body',
         ];
 
         return (isset($map[$key])) ? $map[$key] : '';

@@ -1,6 +1,8 @@
 <?php namespace App\Appointment\Models;
 
 use Config, Carbon;
+use App\Appointment\Models\EmployeeFreetime;
+use App\Appointment\Models\Booking;
 
 class EmployeeCustomTime extends \App\Appointment\Models\Base
 {
@@ -45,14 +47,48 @@ class EmployeeCustomTime extends \App\Appointment\Models\Base
     {
         if(!empty($this->customTime)) {
             if ($this->customTime->is_day_off) {
-               $this->workingHours = 0;
+               $this->workingHours = 0.;
             }
         }
 
         if($this->workingHours === -1) {
-            $this->workingHours = $this->getEndAt()->diffInHours($this->getStartAt());
+            $this->workingHours = $this->getEndAt()->diffInMinutes($this->getStartAt());
         }
-        return $this->workingHours;
+
+        //Count all personal freetime
+        $personalFreetimes = $this->employee->freetimes()
+                ->where('date', '=', $this->date)
+                ->where('type', '=', EmployeeFreetime::PERSONAL_FREETIME)->get();
+
+        foreach ($personalFreetimes as $freetime) {
+            $this->workingHours -= $freetime->getMinutes();
+        }
+
+        //Count all working freetime outside working hours
+         $workingFreetimes = $this->employee->freetimes()
+            ->where('date', '=', $this->date)
+            ->where('type', '=', EmployeeFreetime::WOKRING_FREETIME)
+            ->where(function($query){
+                $query->where('start_at', '<=', $this->getStartAt()->toTimeString())
+                ->orWhere('start_at', '>=', $this->getEndAt()->toTimeString());
+            })->get();
+
+        foreach ($workingFreetimes as $freetime) {
+            $this->workingHours += $freetime->getMinutes();
+        }
+
+        //Count all working hours in white slots
+        $overTimeBookings = $this->employee->bookings()->where('date', '=', $this->date)
+            ->where(function($query){
+                $query->where('start_at', '<=', $this->getStartAt()->toTimeString())
+                ->orWhere('start_at', '>=', $this->getEndAt()->toTimeString());
+            })->get();
+
+        foreach ($overTimeBookings as $booking) {
+            $this->workingHours += $booking->getMinutes();
+        }
+
+        return (double) $this->workingHours / 60;
     }
 
     //--------------------------------------------------------------------------

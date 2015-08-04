@@ -412,7 +412,7 @@
             } else if (selected_action === 'freetime') {
                 $.fancybox.open({
                     padding: 5,
-                    width: 550,
+                    width: 590,
                     title: '',
                     autoSize: false,
                     autoScale: true,
