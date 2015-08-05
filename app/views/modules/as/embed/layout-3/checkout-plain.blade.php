@@ -59,6 +59,7 @@
     <input type="hidden" name="inhouse" value="{{ Input::get('inhouse') }}">
     <input type="hidden" name="source" value="{{ Input::get('src', 'layout3') }}">
     <input type="hidden" name="booking_terms" value="{{ $terms }}">
+    <input type="hidden" name="alert_title" value="{{ trans('as.bookings.terms') }}">
 
     @if ((int) $user->asOptions['terms_enabled'] > 1)
         <?php

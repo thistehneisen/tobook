@@ -383,7 +383,13 @@
 
       $form.on('click', '#toggle_term', function (e) {
         e.preventDefault()
-        $('#terms_body').toggle()
+        var source = $("input[name='source']").val();
+        if(source !== 'inhouse') {
+            $('#terms_body').toggle()
+        } else {
+            alertify.alert($("input[name='booking_terms']").val())
+            .set('title', $("input[name='alert_title']").val());
+        }
       })
     }
   })
