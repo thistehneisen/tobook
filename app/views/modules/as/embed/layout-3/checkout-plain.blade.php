@@ -58,6 +58,7 @@
     <input type="hidden" name="cart_id" value="{{ Input::get('cartId') }}">
     <input type="hidden" name="inhouse" value="{{ Input::get('inhouse') }}">
     <input type="hidden" name="source" value="{{ Input::get('src', 'layout3') }}">
+    <input type="hidden" name="booking_terms" value="{{ $terms }}">
 
     @if ((int) $user->asOptions['terms_enabled'] > 1)
         <?php

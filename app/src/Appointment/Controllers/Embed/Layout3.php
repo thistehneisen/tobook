@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Controllers\Embed;
 
 use Input, Response, Carbon\Carbon, Session, Redirect, Payment, Cart;
+use App, Settings;
 use App\Appointment\Controllers\Embed;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
@@ -28,6 +29,9 @@ class Layout3 extends Base
             // Show the form to add to cart
             $tpl = 'cart';
         }
+
+        $data['terms'] = Settings::getBookingTerms(App::getLocale());
+
         return $this->render($tpl, $data);
     }
 
