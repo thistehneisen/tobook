@@ -70,7 +70,7 @@
         <div class="form-group">
             <div class="checkbox {{ Form::errorCSS('is_day_off', $errors) }}">
                 @if ((int) $user->asOptions['terms_enabled'] === 3)
-                <label>{{ Form::checkbox('terms', 0, 0,['id'=>'terms']); }} <a {{ $terms_class }}>{{ trans('as.bookings.terms_agree') }}</a></label>
+                <label>{{ Form::checkbox('terms', 0, true, ['id'=>'terms']); }} <a {{ $terms_class }}>{{ trans('as.bookings.terms_agree') }}</a></label>
                 @else
                 <label><a {{ $terms_class }}>{{ trans('as.bookings.terms') }}</a></label>
                 @endif
@@ -85,7 +85,7 @@
     @endif
 
     <div class="form-group">
-        <button type="submit" id="btn-checkout-submit" @if ((int) $user->asOptions['terms_enabled'] === 3) disabled="disabled"@endif class="btn btn-success">{{ trans('as.embed.book') }}</button>
+        <button type="submit" id="btn-checkout-submit" class="btn btn-success">{{ trans('as.embed.book') }}</button>
         <span class="text-success"></span>
         <span class="as-loading">
             <i class="glyphicon glyphicon-refresh text-info"></i> {{ trans('as.embed.loading') }}
