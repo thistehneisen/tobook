@@ -201,7 +201,7 @@ class Employees extends AsBase
             : null;
 
         $date      = empty($freetime) ? Input::get('date') : $freetime->date;
-        $startTime = empty($freetime) ? Input::get('start_time') : $freetime->startTime;
+        $startTime = empty($freetime) ? new Carbon(Input::get('start_time')) : $freetime->startTime;
         $endTime   = empty($freetime) ? $startTime->copy()->addMinutes(60) : $freetime->endTime;
         $employee  = Employee::ofCurrentUser()->find($employeeId);
         $employees = Employee::ofCurrentUser()->lists('name','id');
@@ -282,23 +282,25 @@ class Employees extends AsBase
             }
 
             for ($day = 0; $day < $days; $day++) {
-                $employeeFreetime = new EmployeeFreetime();
-                $date = $fromDate->copy()->addDays($day);
-                $employeeFreetime->fill([
-                    'date'        => $date->toDateString(),
-                    'start_at'    => $startAt->toTimeString(),
-                    'end_at'      => $endAt->toTimeString(),
-                    'description' => $description,
-                    'type'        => $type
-                ]);
+                foreach ($employeeIds as $employeeId) {
+                    $employeeFreetime = new EmployeeFreetime();
+                    $date = $fromDate->copy()->addDays($day);
+                    $employeeFreetime->fill([
+                        'date'        => $date->toDateString(),
+                        'start_at'    => $startAt->toTimeString(),
+                        'end_at'      => $endAt->toTimeString(),
+                        'description' => $description,
+                        'type'        => $type
+                    ]);
 
-                $employee = Employee::ofCurrentUser()->find($employeeId);
-                $employeeFreetime->user()->associate($this->user);
-                $employeeFreetime->employee()->associate($employee);
-                $employeeFreetime->save();
-                $data['success'] = true;
-                // Remove NAT slots since employee has freetime
-                NAT::removeEmployeeFreeTime($employeeFreetime);
+                    $employee = Employee::ofCurrentUser()->find($employeeId);
+                    $employeeFreetime->user()->associate($this->user);
+                    $employeeFreetime->employee()->associate($employee);
+                    $employeeFreetime->save();
+                    $data['success'] = true;
+                    // Remove NAT slots since employee has freetime
+                    NAT::removeEmployeeFreeTime($employeeFreetime);
+                }
             }
         } catch (\Exception $ex) {
             $data['success'] = false;
