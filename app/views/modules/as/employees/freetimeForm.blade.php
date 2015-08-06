@@ -34,7 +34,7 @@
                                 <div class="form-group row">
                                     <label for="employees" class="col-sm-4 control-label">{{ trans('as.bookings.employee') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::select('employees[]', $employees, $employee->id, ['class' => 'form-control input-sm select2', 'id' => 'employees', 'multiple' => 'multiple']) }}
+                                        {{ Form::select('employees[]', $employees, $employee->id, ['class' => 'form-control input-sm select2', 'id' => 'employees', 'multiple' => 'multiple', !empty($freetime) ? 'disabled' : '']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -52,13 +52,13 @@
                                 <div class="form-group row">
                                     <label for="from_date" class="col-sm-4 control-label">{{ trans('as.employees.from_date') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::text('from_date', $date, ['class' => 'datepicker form-control input-sm', 'id' => 'from_date']) }}
+                                        {{ Form::text('from_date', $date, ['class' => 'datepicker form-control input-sm', 'id' => 'from_date', (!empty($freetime) ? 'disabled' : '')]) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="to_date" class="col-sm-4 control-label">{{ trans('as.employees.to_date') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::text('to_date', $date, ['class' => 'datepicker form-control input-sm', 'id' => 'to_date']) }}
+                                        {{ Form::text('to_date', $date, ['class' => 'datepicker form-control input-sm', 'id' => 'to_date', !empty($freetime) ? 'disabled' : '']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
