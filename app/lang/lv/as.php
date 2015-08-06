@@ -202,6 +202,9 @@ return [
         ],
         'free_time'                        => 'Pieejams laiks',
         'free_times'                       => 'Pieejamie laiki',
+        'free_time_type'                   => 'Pieejamie laiks tips',
+        'working_free_time'                => 'Darba',
+        'personal_free_time'               => 'Personisks',
         'working_times'                    => 'Darba laiks',
         'add_free_time'                    => 'Pievienot savu brīvo laiku',
         'start_at'                         => 'Sākums plkst.',
@@ -222,7 +225,7 @@ return [
         'saturday_hours'                   => 'Darba laiks sestdienā',
         'sunday_hours'                     => 'Darba laiks svētdienā',
         'monthly_hours'                    => 'Mēneša darba laiks',
-        'weekly_hours'                     => 'Weekly hours',//@todo
+        'weekly_hours'                     => 'Nedēļas stundas',
         'error'                            => [
         'freetime_overlapped_with_booking' => 'Brīvdienas pārklājas ar rezervāciju (-ām)',
         ],
