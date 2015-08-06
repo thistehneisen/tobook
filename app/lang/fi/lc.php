@@ -74,13 +74,13 @@ return [
     'edit'                  => 'Muokkaa',
     'is_auto_add'           => 'Automaattisestilisäys',
     'error' => [
-        'consumer_not_exist' => 'This consumer does not exist',
-        'not_enough_point'   => 'Not enough stamp for this offer',
+        'consumer_not_exist' => 'Asiakasta ei löydy tietokannasta.',
+        'not_enough_point'   => 'Ei tarpeeksi leimoja kampanjaa varten.',
     ],
     'success' => [
-        'point_added' => 'Point added successfully',
-        'point_used'  => 'Point used successfully',
-        'stamp_added' => 'Stamp added successfully',
-        'offer_used'  => 'Offer used successfully',
+        'point_added' => 'Pisteet lisätty onnistuneesti!',
+        'point_used'  => 'Pisteitä käytetty onnistuneesti!',
+        'stamp_added' => 'Leima lisätty onnistuneesti!',
+        'offer_used'  => 'Kampanja käytetty onnistuneesti!',
     ]
 ];

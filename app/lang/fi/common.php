@@ -108,8 +108,8 @@ return [
     'submit'                => 'Hyväksy',
     'short' => [
         'week'  => 'vko',
-        'hour'  => 'hr',//@todo
-        'hours' => 'hrs',
+        'hour'  => 'tunti',
+        'hours' => 'tuntia',
         'mon'   => 'Ma',
         'tue'   => 'Ti',
         'wed'   => 'Ke',
