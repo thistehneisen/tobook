@@ -85,9 +85,14 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Employees@getFreetimeForm'
         ]);
 
-        Route::post('upsert-employee-freetime', [
-            'as' => 'as.employees.freetime.upsert',
-            'uses' => 'App\Appointment\Controllers\Employees@upsertEmployeeFreeTime'
+        Route::post('add-employee-freetime', [
+            'as' => 'as.employees.freetime.add',
+            'uses' => 'App\Appointment\Controllers\Employees@addEmployeeFreeTime'
+        ]);
+
+        Route::post('edit-employee-freetime', [
+            'as' => 'as.employees.freetime.edit',
+            'uses' => 'App\Appointment\Controllers\Employees@editEmployeeFreeTime'
         ]);
 
         Route::post('delete-employee-freetime', [

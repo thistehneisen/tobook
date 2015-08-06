@@ -34,7 +34,7 @@
                                 <div class="form-group row">
                                     <label for="employees" class="col-sm-4 control-label">{{ trans('as.bookings.employee') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::select('employees', $employees, $employee->id, ['class' => 'form-control input-sm', 'id' => 'employees']) }}
+                                        {{ Form::select('employees[]', $employees, $employee->id, ['class' => 'form-control input-sm select2', 'id' => 'employees', 'multiple' => 'multiple']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -63,7 +63,10 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        <a id="btn-add-employee-freetime" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
+
+                                        <input type="hidden" name="freetime_id" @if(!empty($freetime)) value="{{ $freetime->id }}" @else value="0" @endif/>
+
+                                        <a id="btn-upsert-employee-freetime" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -85,5 +88,8 @@ $(function () {
         autoclose: true,
         language: '{{ App::getLocale() }}',
     });
+});
+$(function () {
+    $('select.select2').select2();
 });
 </script>

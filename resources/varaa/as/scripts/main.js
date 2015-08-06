@@ -205,11 +205,16 @@
                 }
             });
         });
-        $doc.on('click', '#btn-add-employee-freetime', function (e) {
+        $doc.on('click', '#btn-upsert-employee-freetime', function (e) {
             e.preventDefault();
+            var freetime_id = $('input[name="freetime_id"').val();
+            var url = $('#add_freetime_url').val();
+            if (freetime_id !== '0') {
+                url = $('#edit_freetime_url').val();
+            }
             $.ajax({
                 type: 'POST',
-                url: $('#upsert_freetime_url').val(),
+                url: url,
                 data: $('#freetime_form').serialize(),
                 dataType: 'json'
             }).done(function (data) {
