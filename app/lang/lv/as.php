@@ -142,7 +142,7 @@ return [
         'cancel_reschedule' => 'Atcelt mainīto rezervācijas laiku',
         'own_customer'      => 'Mūsu klients',
         'request_employee'  => 'Pieprasīt konkrētu darbinieku',
-        'deposit'           => 'Deposit payment', //@todo
+        'deposit'           => 'Depozīta maksājuma',
         'search_placeholder'=> 'Meklēt patērētājs',
         'error'             => [
             'add_overlapped_booking'      => 'Rezervācijas laiki pārklājas!',
