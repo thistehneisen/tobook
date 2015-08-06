@@ -26,5 +26,13 @@
     <div class="col-sm-1 col-md-1">
         <button type="submit" class="btn btn-lg btn-success btn-search">{{ trans('home.search.button') }}</button>
     </div>
+     <div class="col-sm-4 col-md-4">
+     </div>
 </div>
+
+@if (App::environment() !== 'tobook')
+<div style="position: absolute;left: 500px;top: 150px" class="hidden-md hidden-sm hidden-xs">
 {{ Form::close() }}
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/YNVCHyxY-kg" frameborder="0" allowfullscreen></iframe>
+</div>
+@endif
