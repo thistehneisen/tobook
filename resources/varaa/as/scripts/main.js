@@ -209,7 +209,7 @@
             e.preventDefault();
             $.ajax({
                 type: 'POST',
-                url: $('#add_freetime_url').val(),
+                url: $('#upsert_freetime_url').val(),
                 data: $('#freetime_form').serialize(),
                 dataType: 'json'
             }).done(function (data) {

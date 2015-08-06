@@ -224,7 +224,6 @@ class Employees extends AsBase
             ? true
             : false;
 
-
         return View::make('modules.as.employees.freetimeForm', [
             'employees'        => $employees,
             'employee'         => $employee,
@@ -241,7 +240,7 @@ class Employees extends AsBase
     /**
      * Handle ajax request to add new freetime from BE calendar
      */
-    public function addEmployeeFreeTime()
+    public function upsertEmployeeFreeTime()
     {
         $employeeId = Input::get('employees');
         $data = [];
