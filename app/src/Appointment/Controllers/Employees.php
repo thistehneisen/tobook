@@ -194,11 +194,17 @@ class Employees extends AsBase
     public function getFreeTimeForm()
     {
         $employeeId  = Input::get('employee_id');
-        $bookingDate = Input::get('booking_date');
-        $startTime   = Input::get('start_time');
-        $endTime     = with(new Carbon($startTime))->addMinutes(60);
-        $employee    = Employee::ofCurrentUser()->find($employeeId);
-        $employees   = Employee::ofCurrentUser()->lists('name','id');
+        $freetimeId  = Input::get('freetime_id', null);
+
+        $freetime  = !empty($freetimeId)
+            ? EmployeeFreetime::find($freetimeId)
+            : null;
+
+        $date      = empty($freetime) ? Input::get('date') : $freetime->date;
+        $startTime = empty($freetime) ? Input::get('start_time') : $freetime->startTime;
+        $endTime   = empty($freetime) ? with(new Carbon($startTime))->addMinutes(60) : $freetime->endTime;
+        $employee  = Employee::ofCurrentUser()->find($employeeId);
+        $employees = Employee::ofCurrentUser()->lists('name','id');
 
         //TODO get form settings or somewhere else
         $workingTimes = range(6, 22);
@@ -211,13 +217,24 @@ class Employees extends AsBase
            }
         }
 
+        $personalFreetime =  (!empty($freetime) && ($freetime->type !== EmployeeFreetime::PERSONAL_FREETIME))
+            ? false
+            : true;
+        $workingFreetime = (!empty($freetime) && ($freetime->type === EmployeeFreetime::WOKRING_FREETIME))
+            ? true
+            : false;
+
+
         return View::make('modules.as.employees.freetimeForm', [
-            'employees'   => $employees,
-            'employee'    => $employee,
-            'bookingDate' => $bookingDate,
-            'startTime'   => $startTime,
-            'endTime'     => $endTime->format('H:i'),
-            'times'       => $times
+            'employees'        => $employees,
+            'employee'         => $employee,
+            'date'             => $date,
+            'freetime'         => $freetime,
+            'startTime'        => $startTime,
+            'endTime'          => $endTime->format('H:i'),
+            'times'            => $times,
+            'personalFreetime' => $personalFreetime,
+            'workingFreetime'  => $workingFreetime
         ]);
     }
 
