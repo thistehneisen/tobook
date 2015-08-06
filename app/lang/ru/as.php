@@ -143,6 +143,7 @@ return [
         'own_customer'      => 'Свой клиент',
         'request_employee'  => 'Запрос конкретного работника',
         'deposit'           => 'Deposit payment', //@todo
+        'search_placeholder'=> 'Поиск потребителя',//@todo
         'error'             => [
             'add_overlapped_booking'      => 'Время заказа перекрывается!',
             'insufficient_slots'          => 'Для этого заказа не хватает свободных "окон"!',

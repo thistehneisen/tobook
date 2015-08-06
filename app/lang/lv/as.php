@@ -143,6 +143,7 @@ return [
         'own_customer'      => 'Mūsu klients',
         'request_employee'  => 'Pieprasīt konkrētu darbinieku',
         'deposit'           => 'Deposit payment', //@todo
+        'search_placeholder'=> 'Meklēt patērētājs',
         'error'             => [
             'add_overlapped_booking'      => 'Rezervācijas laiki pārklājas!',
             'insufficient_slots'          => 'Kalendārā nav pieejams izvēlētajai rezervācijai atbilstošs brīvais laiks!',
