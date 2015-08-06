@@ -174,7 +174,7 @@ class Base implements Strategy
                         : $this->getValue('freetime_working_body');
                 }
                 $this->freetimeSlot[$this->date][$this->hour][$this->minute] = $freetime;
-                $this->class = trim(str_replace('fancybox active', '', $this->class));
+                $this->class = trim(str_replace(['fancybox', 'active', 'inactive'], '', $this->class));
             }
         }
         return $this->class;
