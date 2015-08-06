@@ -291,11 +291,21 @@
         var $this = $(this),
             submit = $('#as-form-checkout').find(':submit'),
             term_enabled = parseInt($('#as-form-checkout').data('term-enabled'), 10);
+
         //yes and required
         if (term_enabled === 3) {
-            (submit.attr('disabled'))
-                ? submit.removeAttr('disabled')
-                : submit.attr('disabled', 'disabled');
+            if($this.is(':checked') === false) {
+                submit.attr('disabled', 'disabled');
+                submit.siblings('span.text-success')
+                  .removeClass('text-success')
+                  .addClass('text-danger')
+                  .html('<ul><li>'+$('#as-form-checkout').data('term-error-msg')+'</li></ul>');
+            } else {
+                submit.removeAttr('disabled');
+                submit.siblings('span.text-danger')
+                  .removeClass('text-danger')
+                  .addClass('text-success').html('');
+            }
         }
       });
 
@@ -383,7 +393,13 @@
 
       $form.on('click', '#toggle_term', function (e) {
         e.preventDefault()
-        $('#terms_body').toggle()
+        var source = $("input[name='source']").val();
+        if(source !== 'inhouse') {
+            $('#terms_body').toggle()
+        } else {
+            alertify.alert($("input[name='booking_terms']").val())
+            .set('title', $("input[name='alert_title']").val());
+        }
       })
     }
   })

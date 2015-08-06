@@ -1,10 +1,10 @@
 <?php
-    $booking   = $selectedEmployee->getBooked($selectedDate, $hour, $minuteShift);
-    $freetime  = $selectedEmployee->getFreetime($selectedDate, $hour, $minuteShift);
-    $bookingId = !empty($booking) ? $booking->id : -1;
-    $slots = !empty($booking) ? round($booking->total / 15) : 0;
-    $freetimeSlots = (int) !empty($freetime) ? round($freetime->getLength() / 15) : 0;
-    $maxHeight = !empty($booking) ? $slots * 18 : 18;
+    $booking           = $selectedEmployee->getBooked($selectedDate, $hour, $minuteShift);
+    $freetime          = $selectedEmployee->getFreetime($selectedDate, $hour, $minuteShift);
+    $bookingId         = !empty($booking) ? $booking->id : -1;
+    $slots             = !empty($booking) ? round($booking->total / 15) : 0;
+    $freetimeSlots     = (int) !empty($freetime) ? round($freetime->getLength() / 15) : 0;
+    $maxHeight         = !empty($booking) ? $slots * 18 : 18;
     $maxFreetimeHeight = !empty($freetime) ? $freetimeSlots * 18 : 18;
 ?>
 <li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $selectedEmployee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}" id="btn-slot-{{ $selectedEmployee->id }}-{{ sprintf('%02d%02d', $hour, $minuteShift) }}" @if($cutId==$bookingId) style="background-color: grey" @endif>

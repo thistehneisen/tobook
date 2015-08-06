@@ -18,8 +18,8 @@
 @section ('content')
 <?php
     $selectedDate = $date->toDateString();
-    $dayOfWeek = $date->dayOfWeek;
-    $routeName = 'as.employee';
+    $dayOfWeek    = $date->dayOfWeek;
+    $routeName    = 'as.employee';
 ?>
 <div class="container alert alert-info">
     <p><strong>{{ trans('as.index.heading') }}</strong></p>

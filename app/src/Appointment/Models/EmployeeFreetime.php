@@ -5,12 +5,16 @@ class EmployeeFreetime extends \App\Appointment\Models\Base
 {
     protected $table = 'as_employee_freetime';
 
-    public $fillable = ['date', 'start_at', 'end_at', 'description'];
+    public $fillable = ['date', 'start_at', 'end_at', 'description', 'type'];
+
+    const PERSONAL_FREETIME = 1;
+    const WOKRING_FREETIME  = 2;
 
     public function getLength()
     {
        return (int) $this->getStartAt()->diffInMinutes($this->getEndAt());
     }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
@@ -24,6 +28,10 @@ class EmployeeFreetime extends \App\Appointment\Models\Base
         return new Carbon($this->attributes['date'].' '.$this->attributes['end_at']);
     }
 
+    public function getTypeAttribute()
+    {
+        return (int) $this->attributes['type'];
+    }
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

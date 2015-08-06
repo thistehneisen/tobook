@@ -9,6 +9,7 @@ use App\Appointment\Models\EmployeeCustomTime;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\CustomTime;
+use App\Appointment\Workshift\Planner;
 
 class Employees extends AsBase
 {
@@ -233,6 +234,7 @@ class Employees extends AsBase
             $fromDate    = new Carbon(Input::get('from_date'));
             $toDate      = new Carbon(Input::get('to_date'));
             $description = Input::get('description');
+            $type        = (int) Input::get('freetime_type');
 
             if($fromDate->gt($toDate)) {
                 throw new \Exception(trans('as.employees.error.from_date_greater_than_to_date'), 1);
@@ -264,10 +266,11 @@ class Employees extends AsBase
                 $employeeFreetime = new EmployeeFreetime();
                 $date = $fromDate->copy()->addDays($day);
                 $employeeFreetime->fill([
-                    'date' => $date->toDateString(),
-                    'start_at' => $startAt->toTimeString(),
-                    'end_at' => $endAt->toTimeString(),
-                    'description' => $description
+                    'date'        => $date->toDateString(),
+                    'start_at'    => $startAt->toTimeString(),
+                    'end_at'      => $endAt->toTimeString(),
+                    'description' => $description,
+                    'type'        => $type
                 ]);
 
                 $employee = Employee::ofCurrentUser()->find($employeeId);
@@ -413,104 +416,28 @@ class Employees extends AsBase
     {
         $current = Carbon::now();
 
-        $startOfMonth = Input::has('start')
+        $startDate = Input::has('start')
             ? new Carbon(Input::get('start'))
             : $current->copy()->startOfMonth();
-        $endOfMonth = Input::has('end')
+        $endDate = Input::has('end')
             ? new Carbon(Input::get('end'))
             : $current->copy()->endOfMonth();
 
-        $employees       = Employee::ofCurrentUser()->get();
-        $customTimesList = [];
-        $sarturdayHours  = [];
-        $sundayHours     = [];
-        $montlyHours     = [];
-
-        //JSON will sort the id by ascending order automatically
-        //Append @ in order to avoid auto sorting
-        $customTimes = CustomTime::ofCurrentUser()
-            ->orderBy('start_at')
-            ->orderBy('end_at')
-            ->select(
-                DB::raw(
-                    'CONCAT(name, " (",
-                    TIME_FORMAT(start_at, "%H:%i"), " - ",
-                    TIME_FORMAT(end_at, "%H:%i"),")") AS name'
-                ),
-                DB::raw('CONCAT("@",id) as id')
-                )
-            ->lists('name', 'id');
-
-        $customTimes = [0 => trans('common.options_select')] + $customTimes;
-        $customTimeWeekSummary = [];
-        $customTimeMonthSummary = [];
-        foreach ($employees as $employee) {
-            $items = $employee->employeeCustomTimes()
-                ->with('customTime')
-                ->where('date','>=', $startOfMonth)
-                ->where('date','<=', $endOfMonth)
-                ->orderBy('date','asc')->get();
-
-            $sarturdayHours[$employee->id] = 0;
-            $sundayHours[$employee->id]    = 0;
-            $montlyHours[$employee->id]    = 0;
-
-            foreach ($items as $item) {
-                $customTimesList[$item->date][$employee->id] = $item;
-                $carbonDate = new Carbon($item->date);
-
-                //Collect weekly summary data for each employee
-                if(empty($customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id])) {
-                    $customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id] = $item->getWorkingHours();
-                } else {
-                    $customTimeWeekSummary[$carbonDate->weekOfYear][$employee->id] += $item->getWorkingHours();
-                }
-
-                //Collect monthly summary data for each employee
-                if(empty($customTimeMonthSummary[$carbonDate->month][$employee->id])) {
-                    $customTimeMonthSummary[$carbonDate->month][$employee->id] = $item->getWorkingHours();
-                } else {
-                    $customTimeMonthSummary[$carbonDate->month][$employee->id] += $item->getWorkingHours();
-                }
-
-                $dayOfWeek = $item->getDayOfWeek();
-
-                if ($dayOfWeek == Carbon::SATURDAY) {
-                    $sarturdayHours[$employee->id] += $item->getWorkingHours();
-                } elseif ($dayOfWeek == Carbon::SUNDAY) {
-                    $sundayHours[$employee->id] += $item->getWorkingHours();
-                }
-                $montlyHours[$employee->id] += $item->getWorkingHours();
-            }
-        }
-
-        $currentMonths = [];
-        $startDay      = $startOfMonth->copy();
-        $days = $startDay->copy()->diffInDays($endOfMonth);
-
-        foreach (range(1, $days+1) as $day) {
-            if (!empty($customTimesList[$startDay->toDateString()])) {
-                $currentMonths[$startDay->toDateString()]['date'] = $startDay->copy();
-                $currentMonths[$startDay->toDateString()]['employees'] = $customTimesList[$startDay->toDateString()];
-            } else {
-                $currentMonths[$startDay->toDateString()]['date'] = $startDay->copy();
-                $currentMonths[$startDay->toDateString()]['employees'] = [];
-            }
-            $startDay->addDay();
-        }
+        $employees    = Employee::ofCurrentUser()->get();
+        $planner      = new Planner($startDate, $endDate);
+        $customTimes  = $planner->getDisplayCustomTimes();
+        $monthSummary = $planner->getMonthSummary();
+        $weekSummary  = $planner->getWeekSummary();
+        $dateRange    = $planner->getDateRange();
 
         return $this->render('workshiftPlanning', [
-            'customTimesList'        => $customTimesList,//custom time of the employee
             'employees'              => $employees,
             'current'                => $current,
-            'currentMonths'          => $currentMonths,
-            'startOfMonth'           => $startOfMonth,
-            'endOfMonth'             => $endOfMonth,
-            'sarturdayHours'         => $sarturdayHours,
-            'sundayHours'            => $sundayHours,
-            'montlyHours'            => $montlyHours,
-            'customTimeWeekSummary'  => $customTimeWeekSummary,
-            'customTimeMonthSummary' => $customTimeMonthSummary,
+            'dateRange'              => $dateRange,
+            'startDate'              => $startDate,
+            'endDate'                => $endDate,
+            'weekSummary'            => $weekSummary,
+            'monthSummary'           => $monthSummary,
             'customTimes'            => json_encode($customTimes)
         ]);
     }

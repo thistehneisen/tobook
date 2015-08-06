@@ -211,7 +211,7 @@
         background-color: #a9a9a9;
     }
     li.freetime-head {
-        background-color: @as_light_purple;
+        background-color: @as_light_yellow;
         text-align: left;
         padding: 0 10px;
         border-bottom: 0;
@@ -219,11 +219,11 @@
             color: #ff0000;
         }
         a.backend-tooltip {
-            color: #fff;
+            color: #000;
             display: inline-block;
         }
         span {
-            color: #fff;
+            color: #000;
             position: absolute;
             display: inline-block;
             overflow: hidden;
@@ -233,7 +233,7 @@
         }
     }
     li.freetime-body {
-        background-color: @as_light_purple;
+        background-color: @as_light_yellow;
         text-align: left;
         padding: 0 10px;
         border-top: 0;
@@ -242,11 +242,18 @@
             color: #ff0000;
         }
         span {
-            color: #fff;
+            color: #000000;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             width: 160px;
+            display: inline-block;
+        }
+    }
+    li.freetime-working {
+        background: @as_light_purple;
+        a.backend-tooltip {
+            color: #fff;
             display: inline-block;
         }
     }
@@ -305,7 +312,7 @@
     margin-right: 55px;
 }
 .as-freetime-form {
-    width: 500px;
+    width: 550px;
     margin: 20px;
 }
 .as-calendar-extra-service {

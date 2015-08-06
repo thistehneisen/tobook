@@ -104,8 +104,8 @@ class SmsObserver implements \SplObserver
             $subject->consumer->address,
             $subject->consumer->city,
             $subject->consumer->postcode);
-        $msg = str_replace('{Services}', $this->serviceInfo, $msg);
-        $msg = str_replace('{ServicesDescription}', $subject->getServicesDescription(), $msg);
+        $msg = str_replace('{Services}', $subject->getServiceInfo(), $msg);
+        $msg = str_replace('{ServicesFull}', $subject->getServiceInfo(true), $msg);
         $msg = str_replace('{CancelURL}', $cancelURL, $msg);
         $msg = str_replace('{Address}', $address, $msg);
 
