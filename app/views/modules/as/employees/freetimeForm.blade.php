@@ -16,11 +16,11 @@
                                     <label class="col-sm-4 control-label">{{ trans('as.employees.free_time_type') }}</label>
                                     <div class="col-sm-8">
                                     <label for="personal_free_time" class="inline">
-                                    {{ Form::radio('freetime_type', App\Appointment\Models\EmployeeFreetime::PERSONAL_FREETIME, true, ['id' => 'personal_free_time']) }}
+                                    {{ Form::radio('freetime_type', App\Appointment\Models\EmployeeFreetime::PERSONAL_FREETIME, $personalFreetime, ['id' => 'personal_free_time']) }}
                                     {{ trans('as.employees.personal_free_time') }}
                                     </label>
                                     <label for="working_free_time" class="inline">
-                                    {{ Form::radio('freetime_type', App\Appointment\Models\EmployeeFreetime::WOKRING_FREETIME, false, ['id' => 'working_free_time']) }}
+                                    {{ Form::radio('freetime_type', App\Appointment\Models\EmployeeFreetime::WOKRING_FREETIME, $workingFreetime, ['id' => 'working_free_time']) }}
                                     {{ trans('as.employees.working_free_time') }}
                                     </label>
                                     </div>
@@ -28,13 +28,13 @@
                                 <div class="form-group row">
                                     <label for="description" class="col-sm-4 control-label">{{ trans('as.employees.description') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::textarea('description', '', ['class' => 'form-control input-sm', 'id' => 'description']) }}
+                                        {{ Form::textarea('description', (!empty($freetime)) ? $freetime->description : '', ['class' => 'form-control input-sm', 'id' => 'description']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="employees" class="col-sm-4 control-label">{{ trans('as.bookings.employee') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::select('employees', $employees, $employee->id, ['class' => 'form-control input-sm', 'id' => 'employees']) }}
+                                        {{ Form::select('employees[]', $employees, $employee->id, ['class' => 'form-control input-sm select2', 'id' => 'employees', 'multiple' => 'multiple', !empty($freetime) ? 'disabled' : '']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -52,18 +52,21 @@
                                 <div class="form-group row">
                                     <label for="from_date" class="col-sm-4 control-label">{{ trans('as.employees.from_date') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::text('from_date', $bookingDate, ['class' => 'datepicker form-control input-sm', 'id' => 'from_date']) }}
+                                        {{ Form::text('from_date', $date, ['class' => 'datepicker form-control input-sm', 'id' => 'from_date', (!empty($freetime) ? 'disabled' : '')]) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="to_date" class="col-sm-4 control-label">{{ trans('as.employees.to_date') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::text('to_date', $bookingDate, ['class' => 'datepicker form-control input-sm', 'id' => 'to_date']) }}
+                                        {{ Form::text('to_date', $date, ['class' => 'datepicker form-control input-sm', 'id' => 'to_date', !empty($freetime) ? 'disabled' : '']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        <a id="btn-add-employee-freetime" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
+
+                                        <input type="hidden" name="freetime_id" @if(!empty($freetime)) value="{{ $freetime->id }}" @else value="0" @endif/>
+
+                                        <a id="btn-upsert-employee-freetime" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -85,5 +88,8 @@ $(function () {
         autoclose: true,
         language: '{{ App::getLocale() }}',
     });
+});
+$(function () {
+    $('select.select2').select2();
 });
 </script>

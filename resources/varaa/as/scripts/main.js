@@ -205,11 +205,16 @@
                 }
             });
         });
-        $doc.on('click', '#btn-add-employee-freetime', function (e) {
+        $doc.on('click', '#btn-upsert-employee-freetime', function (e) {
             e.preventDefault();
+            var freetime_id = $('input[name="freetime_id"').val();
+            var url = $('#add_freetime_url').val();
+            if (freetime_id !== '0') {
+                url = $('#edit_freetime_url').val();
+            }
             $.ajax({
                 type: 'POST',
-                url: $('#add_freetime_url').val(),
+                url: url,
                 data: $('#freetime_form').serialize(),
                 dataType: 'json'
             }).done(function (data) {
@@ -425,7 +430,7 @@
                         type: 'GET',
                         data: {
                             employee_id : employee_id,
-                            booking_date: booking_date,
+                            date        : booking_date,
                             start_time  : start_time
                         }
                     },
@@ -597,6 +602,36 @@
           if (e.keyCode == 27) {
             $('.modal-backdrop').remove();
           }
+        });
+
+        $doc.on('click', 'li.freetime', function(e) {
+            var employee_id = $(this).data('employee-id');
+            var freetime_id = $(this).data('freetime-id');
+            $.fancybox.open({
+                padding: 5,
+                width: 590,
+                title: '',
+                autoSize: false,
+                autoScale: true,
+                autoWidth: false,
+                autoHeight: true,
+                fitToView: false,
+                href: $('#get_freetime_form_url').val(),
+                type: 'ajax',
+                ajax: {
+                    type: 'GET',
+                    data: {
+                        employee_id : employee_id,
+                        freetime_id : freetime_id,
+                    }
+                },
+                helpers: {
+                    overlay: {
+                        locked: false
+                    }
+                },
+                autoCenter: false
+            });
         });
 
     });
