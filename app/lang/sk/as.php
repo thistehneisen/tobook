@@ -143,6 +143,7 @@ return [
         'cancel_reschedule' => 'Zrušiť zmeny',
         'own_customer'      => 'Own customer',
         'request_employee'  => 'Žiadosť o konkrétneho zamestnanca',
+        'search_placeholder'=> 'Search for a consumer',//@todo
         'error'             => [
             'add_overlapped_booking'      => 'Čas rezervácie sa prekrýva s inou!',
             'insufficient_slots'          => 'Pre túto rezerváciu už nie je miesto!',

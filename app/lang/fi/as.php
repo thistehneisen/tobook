@@ -145,6 +145,7 @@ return [
         'own_customer'      => 'Oma asiakas',
         'request_employee'  => 'Työntekijää ei saa vaihtaa',
         'deposit'           => 'Varausmaksu',
+        'search_placeholder'=> 'Asiakashaku',
         'error'             => [
             'add_overlapped_booking'      => 'Varauksia ei voi asettaa päällekäin!',
             'insufficient_slots'          => 'Varaus ei mahdu valitsemaasi kohtaan.',
