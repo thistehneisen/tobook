@@ -9,7 +9,7 @@ use App\Appointment\Models\EmployeeCustomTime;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\CustomTime;
-use App\Appointment\Workshift\Planner;
+use App\Appointment\Planner\Workshift;
 
 class Employees extends AsBase
 {
@@ -495,7 +495,7 @@ class Employees extends AsBase
             : $current->copy()->endOfMonth();
 
         $employees    = Employee::ofCurrentUser()->get();
-        $planner      = new Planner($startDate, $endDate);
+        $planner      = new Workshift($startDate, $endDate);
         $customTimes  = $planner->getDisplayCustomTimes();
         $monthSummary = $planner->getMonthSummary();
         $weekSummary  = $planner->getWeekSummary();
