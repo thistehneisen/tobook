@@ -10,7 +10,8 @@ use App\Appointment\Models\Booking;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\CustomTime;
 
-class Workshift {
+class Workshift
+{
 
     protected $startDate;
     protected $endDate;

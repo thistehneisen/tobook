@@ -10,6 +10,7 @@ use App\Appointment\Models\Booking;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\CustomTime;
 use App\Appointment\Planner\Workshift;
+use App\Appointment\Planner\Freetime;
 
 class Employees extends AsBase
 {
@@ -206,16 +207,8 @@ class Employees extends AsBase
         $employee  = Employee::ofCurrentUser()->find($employeeId);
         $employees = Employee::ofCurrentUser()->lists('name','id');
 
-        //TODO get form settings or somewhere else
-        $workingTimes = range(6, 22);
-        $workShift = range(0, 45, 15);
-        $times = [];
-        foreach ($workingTimes as $hour) {
-           foreach (range(0, 45, 15) as $minuteShift) {
-                $time = sprintf('%02d:%02d', $hour, $minuteShift);
-                $times[$time] = $time;
-           }
-        }
+        $planner = new Freetime();
+        $times = $planner->getWorkshift();
 
         $personalFreetime =  (!empty($freetime) && ($freetime->type !== EmployeeFreetime::PERSONAL_FREETIME))
             ? false
