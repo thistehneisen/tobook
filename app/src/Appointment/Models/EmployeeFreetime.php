@@ -15,6 +15,52 @@ class EmployeeFreetime extends \App\Appointment\Models\Base
        return (int) $this->getStartAt()->diffInMinutes($this->getEndAt());
     }
 
+    public static function getOverlappedFreetimes($employeeId, $date, Carbon $startTime, Carbon $endTime, $id = null)
+    {
+        $freetimes = null;
+
+        if ($date instanceof Carbon) {
+            $date = $date->toDateString();
+        }
+
+        $query = self::where('date', $date)
+            ->where('employee_id', $employeeId)
+            ->whereNull('deleted_at');
+
+        $query = self::applyDuplicateFilter($query, $startTime, $endTime);
+
+        if (!empty($id)) {
+            $query->where('id','!=', $id);
+        }
+
+        $freetimes = $query->get();
+
+        return $freetimes;
+    }
+
+     /**
+     * Return a query with conditions for checking duplicate booking
+     * @return Illuminate\Database\Query\Builder
+     */
+    public static function applyDuplicateFilter($query, $startTime, $endTime)
+    {
+        return $query->where(function ($query) use ($startTime, $endTime) {
+            return $query->where(function ($query) use ($startTime, $endTime) {
+                return $query->where('as_employee_freetime.start_at', '>=', $startTime->toTimeString())
+                     ->where('as_employee_freetime.start_at', '<', $endTime->toTimeString());
+            })->orWhere(function ($query) use ($endTime, $startTime) {
+                 return $query->where('as_employee_freetime.end_at', '>', $startTime->toTimeString())
+                      ->where('as_employee_freetime.end_at', '<=', $endTime->toTimeString());
+            })->orWhere(function ($query) use ($startTime) {
+                 return $query->where('as_employee_freetime.start_at', '<', $startTime->toTimeString())
+                      ->where('as_employee_freetime.end_at', '>', $startTime->toTimeString());
+            })->orWhere(function ($query) use ($startTime, $endTime) {
+                 return $query->where('as_employee_freetime.start_at', '=', $startTime->toTimeString())
+                      ->where('as_employee_freetime.end_at', '=', $endTime->toTimeString());
+            });
+        });
+    }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------

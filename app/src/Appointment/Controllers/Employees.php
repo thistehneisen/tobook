@@ -260,7 +260,7 @@ class Employees extends AsBase
             $data = $planner->validateData();
 
             if (!empty($data)) {
-                 return Response::json($data);
+                return Response::json($data);
             }
 
             $data = $planner->saveFreetimes();

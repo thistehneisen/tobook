@@ -54,6 +54,23 @@ class Freetime
        return $bookings;
     }
 
+    public function getOverlappedFreetimes()
+    {
+        $freetimes = array();
+        for($day = 0; $day < $this->days; $day++) {
+            $date = $this->fromDate->copy()->addDays($day);
+            foreach ($this->employeeIds as $employeeId) {
+                $overlaps = EmployeeFreetime::getOverlappedFreetimes($employeeId, $date, $this->startAt, $this->endAt);
+                foreach ($overlaps as $booking) {
+                    $freetimes[] = $booking;
+                }
+            }
+        }
+        //Checking if freetime overlaps with any booking or not
+       return $freetimes;
+    }
+
+
     public function validateData() {
         $bookings = $this->getOverlappedBookings();
         $data = [];
@@ -64,6 +81,18 @@ class Freetime
             $data['message'] .= '<ul>';
             foreach ($bookings as $booking) {
                 $data['message'] .= '<li>' . $booking->startTime->toDateTimeString() . '</li>';
+            }
+            $data['message'] .= '</ul>';
+            return $data;
+        }
+
+        $freetimes = $this->getOverlappedFreetimes();
+        if(!empty($freetimes)) {
+            $data['success'] = false;
+            $data['message'] = trans('as.employees.error.freetime_overlapped_with_others');
+            $data['message'] .= '<ul>';
+            foreach ($freetimes as $freetime) {
+                $data['message'] .= '<li>' . $freetime->startTime->toDateTimeString() . '</li>';
             }
             $data['message'] .= '</ul>';
             return $data;

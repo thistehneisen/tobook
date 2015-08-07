@@ -225,6 +225,7 @@ return [
         'weekly_hours'                     => 'Weekly hours',//@todo
         'error'                            => [
         'freetime_overlapped_with_booking' => 'Brīvdienas pārklājas ar rezervāciju (-ām)',
+        'freetime_overlapped_with_others'  => 'Freetime is overlapped with other freetime(s)',//@todo
         ],
     ],
     'embed' => [
