@@ -1,4 +1,4 @@
-<?php namespace App\Appointment\Workshift;
+<?php namespace App\Appointment\Planner;
 
 use App, View, Confide, Redirect, Input, Config, Util, Response, Request, Validator, DB, NAT;
 use Carbon\Carbon;
@@ -10,7 +10,8 @@ use App\Appointment\Models\Booking;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\CustomTime;
 
-class Planner {
+class Workshift
+{
 
     protected $startDate;
     protected $endDate;
@@ -18,22 +19,22 @@ class Planner {
     /**
     * Custom times of employees
     */
-    protected $employeeTimes   = [];
+    protected $employeeTimes = [];
 
     /**
     * Weekly working hours of each employee
     */
-    protected $weekly          = [];
+    protected $weekly        = [];
 
     /**
     * Monthly working hours of each employee
     */
-    protected $monthly         = [];
+    protected $monthly       = [];
 
     /**
     * Date range to render the workshift planning table
     */
-    protected $dateRange       = [];
+    protected $dateRange     = [];
 
     public function __construct($startDate, $endDate) {
         $this->startDate = $startDate;
