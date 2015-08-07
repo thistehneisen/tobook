@@ -201,7 +201,7 @@ class Employees extends AsBase
             ? EmployeeFreetime::find($freetimeId)
             : null;
 
-        $date      = empty($freetime) ? Input::get('date') : $freetime->date;
+        $date      = empty($freetime) ? new Carbon(Input::get('date')) : new Carbon($freetime->date);
         $startTime = empty($freetime) ? new Carbon(Input::get('start_time')) : $freetime->startTime;
         $endTime   = empty($freetime) ? $startTime->copy()->addMinutes(60) : $freetime->endTime;
         $employee  = Employee::ofCurrentUser()->find($employeeId);
@@ -220,7 +220,7 @@ class Employees extends AsBase
         return View::make('modules.as.employees.freetimeForm', [
             'employees'        => $employees,
             'employee'         => $employee,
-            'date'             => $date,
+            'date'             => $date->format('Y-m-d'),
             'freetime'         => $freetime,
             'startTime'        => $startTime->format('H:i'),
             'endTime'          => $endTime->format('H:i'),
@@ -244,57 +244,27 @@ class Employees extends AsBase
             $toDate      = new Carbon(Input::get('to_date'));
             $description = Input::get('description');
             $type        = (int) Input::get('freetime_type');
-            $freetimeId  = Input::get('freetime_id', null);
 
-            if($fromDate->gt($toDate)) {
-                throw new \Exception(trans('as.employees.error.from_date_greater_than_to_date'), 1);
+            $planner = new Freetime();
+            $planner->fill([
+                'employeeIds' => $employeeIds,
+                'startAt'     => $startAt,
+                'endAt'       => $endAt,
+                'fromDate'    => $fromDate,
+                'toDate'      => $toDate,
+                'description' => $description,
+                'type'        => $type,
+                'user'        => $this->user
+            ]);
+
+            $data = $planner->validateData();
+
+            if (!empty($data)) {
+                 return Response::json($data);
             }
 
-            $days = (int) $fromDate->diffInDays($toDate)+1;
-            $bookings = array();
-            for($day = 0; $day < $days; $day++) {
-                $date = $fromDate->copy()->addDays($day);
-                foreach ($employeeIds as $employeeId) {
-                    $overlaps = Booking::getOverlappedBookings($employeeId, $date, $startAt, $endAt);
-                    foreach ($overlaps as $booking) {
-                        $bookings[] = $booking;
-                    }
-                }
-            }
+            $data = $planner->saveFreetimes();
 
-            //Checking if freetime overlaps with any booking or not
-            if(!empty($bookings)) {
-                $data['success'] = false;
-                $data['message'] = trans('as.employees.error.freetime_overlapped_with_booking');
-                $data['message'] .= '<ul>';
-                foreach ($bookings as $booking) {
-                    $data['message'] .= '<li>' . $booking->startTime->toDateTimeString() . '</li>';
-                }
-                $data['message'] .= '</ul>';
-                return Response::json($data);
-            }
-
-            for ($day = 0; $day < $days; $day++) {
-                foreach ($employeeIds as $employeeId) {
-                    $employeeFreetime = new EmployeeFreetime();
-                    $date = $fromDate->copy()->addDays($day);
-                    $employeeFreetime->fill([
-                        'date'        => $date->toDateString(),
-                        'start_at'    => $startAt->toTimeString(),
-                        'end_at'      => $endAt->toTimeString(),
-                        'description' => $description,
-                        'type'        => $type
-                    ]);
-
-                    $employee = Employee::ofCurrentUser()->find($employeeId);
-                    $employeeFreetime->user()->associate($this->user);
-                    $employeeFreetime->employee()->associate($employee);
-                    $employeeFreetime->save();
-                    $data['success'] = true;
-                    // Remove NAT slots since employee has freetime
-                    NAT::removeEmployeeFreeTime($employeeFreetime);
-                }
-            }
         } catch (\Exception $ex) {
             $data['success'] = false;
             $data['message'] = $ex->getMessage();
@@ -308,47 +278,40 @@ class Employees extends AsBase
      */
     public function editEmployeeFreeTime()
     {
-        $employeeId  = current(Input::get('employees'));
         $startAt     = new Carbon(Input::get('start_at'));
         $endAt       = new Carbon(Input::get('end_at'));
         $description = Input::get('description');
         $type        = (int) Input::get('freetime_type');
         $freetimeId  = Input::get('freetime_id', null);
 
-        if(!empty($freetimeId)) {
-            $employeeFreetime = EmployeeFreetime::find($freetimeId);
+        try{
+            $employeeFreetime = EmployeeFreetime::findOrFail($freetimeId);
 
-            $overlaps = Booking::getOverlappedBookings($employeeId, $employeeFreetime->date, $startAt, $endAt);
-            foreach ($overlaps as $booking) {
-                $bookings[] = $booking;
-            }
-
-            //Checking if freetime overlaps with any booking or not
-            if(!empty($bookings)) {
-                $data['success'] = false;
-                $data['message'] = trans('as.employees.error.freetime_overlapped_with_booking');
-                $data['message'] .= '<ul>';
-                foreach ($bookings as $booking) {
-                    $data['message'] .= '<li>' . $booking->startTime->toDateTimeString() . '</li>';
-                }
-                $data['message'] .= '</ul>';
-                return Response::json($data);
-            }
-
-            $employeeFreetime->fill([
-                'start_at'    => $startAt->toTimeString(),
-                'end_at'      => $endAt->toTimeString(),
+            $planner = new Freetime();
+            $planner->fill([
+                'employeeIds' => [$employeeFreetime->employee->id],
+                'startAt'     => $startAt,
+                'endAt'       => $endAt,
+                'fromDate'    => $employeeFreetime->date,
+                'toDate'      => $employeeFreetime->date,
                 'description' => $description,
-                'type'        => $type
+                'type'        => $type,
             ]);
 
-            $employee = Employee::ofCurrentUser()->find($employeeId);
-            $employeeFreetime->user()->associate($this->user);
-            $employeeFreetime->employee()->associate($employee);
-            $employeeFreetime->save();
+            $data = $planner->validateData();
+
+            if (!empty($data)) {
+                 return Response::json($data);
+            }
+
+            $planner->editEmployeeFreetime($employeeFreetime);
+
             $data['success'] = true;
             // Remove NAT slots since employee has freetime
             NAT::removeEmployeeFreeTime($employeeFreetime);
+         } catch (\Exception $ex) {
+            $data['success'] = false;
+            $data['message'] = $ex->getMessage();
         }
         return Response::json($data);
     }
