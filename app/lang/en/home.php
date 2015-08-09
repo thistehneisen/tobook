@@ -59,6 +59,7 @@ return [
     'search_query'          => 'Enter business name or service',
     'search_place'          => 'Helsinki, FI',
     'on_media'              => 'Featured in ',
+    'video_tutorial_text'   => 'How it works?',
     'search'        => [
         'tagline'         => 'What do you want to book?',
         'query'           => 'Enter business name or service',

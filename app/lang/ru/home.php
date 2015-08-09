@@ -58,6 +58,7 @@ return [
     'search_tagline'        => 'Что вы хотите заказать?',
     'search_query'          => 'Enter business name or service',
     'search_place'          => 'Helsinki, FI',
+    'video_tutorial_text'   => 'Как это работает?',
     'search'        => [
         'tagline'         => 'Что вы хотите заказать?',
         'query'           => 'Введите компанию',
