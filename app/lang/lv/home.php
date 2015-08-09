@@ -59,6 +59,7 @@ return [
     'search_tagline'        => 'Rezervē it visu!',
     'search_query'          => 'Meklē pakalpojumu',
     'search_place'          => 'Rīga',
+    'video_tutorial_text'   => 'Kā tas strādā?',
     'search'        => [
         'tagline'         => 'Rezervē, ko vēlies',
         'query'           => 'Meklē uzņēmumu',

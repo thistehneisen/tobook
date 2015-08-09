@@ -29,10 +29,12 @@
      <div class="col-sm-4 col-md-4">
      </div>
 </div>
-
-@if (App::environment() === 'tobook')
-<div style="position: absolute;left: 500px;top: 150px" class="hidden-md hidden-sm hidden-xs">
 {{ Form::close() }}
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/YNVCHyxY-kg" frameborder="0" allowfullscreen></iframe>
+
+@if (App::environment() === 'tobook' || App::environment() === 'local')
+<div class="tutorial-video hidden-md hidden-sm hidden-xs">
+    <a class="view-video" title="ToBook.lv - {{ trans('home.video_tutorial_text')}}" href="{{ Config::get('varaa.tutorial_video') }}"><img width="560" height="315" src="{{ asset_path('core/img/how-does-it-work.png') }}"></a>
 </div>
 @endif
+
+
