@@ -2,7 +2,7 @@
 
 use Payment, Event, Session;
 use App\Payment\Models\Transaction;
-use App\Cart;
+use App\Cart\Cart;
 class Index extends Base
 {
     /**
