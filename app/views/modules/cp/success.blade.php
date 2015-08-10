@@ -52,7 +52,7 @@
             @include ('front.cart.el.show-on-thankyou', ['hidden' => false])
             @if(!empty($cart))
 
-            @if((bool) Settings::get('deposit_payment')
+            @if((bool) Settings::get('deposit_payment'))
             <table class="table table-striped">
                 <tbody>
                     @foreach ($cart->details as $detail)
