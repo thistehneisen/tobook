@@ -86,7 +86,7 @@ $(function () {
 
         var dom = document.getElementById('js-terms');
         var env = $form.data('env');
-        fnOnOk = (env === 'local') ? fnOnOkThankYou : fnOnOkOverlay;
+        fnOnOk = (env === 'tobook') ? fnOnOkThankYou : fnOnOkOverlay;
         console.log(env);
         dom.style.display = 'inline';
         alertify.confirm()
