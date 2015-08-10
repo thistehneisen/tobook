@@ -1,6 +1,6 @@
 <?php namespace App\Payment\Controllers;
 
-use Payment, Event;
+use Payment, Event, Session;
 use App\Payment\Models\Transaction;
 use App\Cart;
 class Index extends Base
