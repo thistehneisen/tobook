@@ -2,7 +2,7 @@
 
 use Payment, Event;
 use App\Payment\Models\Transaction;
-
+use App\Cart;
 class Index extends Base
 {
     /**
@@ -47,7 +47,9 @@ class Index extends Base
      */
     public function success()
     {
-        return $this->render('success');
+        $cartId = Session::get('cartId');
+        $cart   = Cart::find($cartId);
+        return $this->render('success',['cart', $cart]);
     }
 
     /**

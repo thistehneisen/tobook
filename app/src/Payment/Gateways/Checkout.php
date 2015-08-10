@@ -108,13 +108,19 @@ class Checkout extends AbstractGateway
                             $transaction->status = Transaction::STATUS_SUCCESS;
                             $transaction->save();
 
+                            //To display thank you message for tobook
+                            $cart = $transaction->cart;
+                            $cartId = null;
+                            if ($cart !== null) {
+                                $cartId = $cart->id;
+                            }
                             // Fire success event, so that related data know how to update
                             // themselves
                             Event::fire('payment.success', [$transaction]);
 
                             Log::info('Payment from Checkout succeeded');
 
-                            return Redirect::route('payment.success');
+                            return Redirect::route('payment.success')->with('cartId', $cartId);
                         }
                     case '7':
                     case '3':
