@@ -46,10 +46,9 @@ class Index extends Base
      *
      * @return View
      */
-    public function success()
+    public function success($cartId = null)
     {
-        $cartId = Session::get('cartId');
-        $cart   = Cart::find($cartId);
+        $cart = (!empty($cartId)) ? Cart::find($cartId) : null;
         return $this->render('success',['cart', $cart]);
     }
 
