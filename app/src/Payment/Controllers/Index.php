@@ -46,10 +46,10 @@ class Index extends Base
      *
      * @return View
      */
-    public function success($cartId = null)
+    public function success($transactionId = null)
     {
-        $cart = (!empty($cartId)) ? Cart::find($cartId) : null;
-        return $this->render('success',['cart', $cart]);
+        $transaction = Transaction::find($transactionId);
+        return $this->render('success',['cart', $transaction->cart]);
     }
 
     /**

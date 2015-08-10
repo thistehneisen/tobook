@@ -51,15 +51,15 @@
         <div class="payment-wrapper">
             @include ('front.cart.el.show-on-thankyou', ['hidden' => false])
             @if(!empty($cart))
-
-            @if((bool) Settings::get('deposit_payment'))
             <table class="table table-striped">
                 <tbody>
                     @foreach ($cart->details as $detail)
                         @if ($detail->model !== null)
                         <tr class="cart-detail" id="cart-detail-{{ $detail->id }}">
                             <td>{{{ $detail->name }}}</td>
+                            @if((bool) Settings::get('deposit_payment'))
                             <td>{{{ $detail->deposit }}}{{ Settings::get('currency') }}</td>
+                            @endif
                             <td></td>
                             <td>{{{ $detail->price }}}{{ Settings::get('currency') }}</td>
                         </tr>
@@ -67,9 +67,6 @@
                     @endforeach
                 </tbody>
             </table>
-            @else
-            @endif
-
             @endif
         </div>
     </div>
