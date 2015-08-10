@@ -86,7 +86,7 @@ $(function () {
 
         var dom = document.getElementById('js-terms');
         var env = $form.data('env');
-        fnOnOk = (env === 'tobook') ? fnOnOkThankYou : fnOnOkOverlay;
+        fnOnOk = (env === 'tobook' || env === 'stag') ? fnOnOkThankYou : fnOnOkOverlay;
         console.log(env);
         dom.style.display = 'inline';
         alertify.confirm()
@@ -107,7 +107,7 @@ $(function () {
             <h1 class="comfortaa orange text-center hidden-on-thankyou">{{ trans('home.cart.checkout') }}</h1>
             <h4 class="comfortaa orange text-center hidden-on-thankyou">{{ trans('home.cart.checkout_message') }}</h4>
 
-            @include ('front.cart.el.show-on-thankyou')
+            @include ('front.cart.el.show-on-thankyou', ['hidden' => true])
 
             {{ Form::open(['route' => 'cart.payment', 'role' => 'form', 'id' => 'frm-payment', 'data-env' => App::environment() ]) }}
             <div class="form-group row">
