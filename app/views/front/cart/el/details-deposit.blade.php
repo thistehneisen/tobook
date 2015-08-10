@@ -11,13 +11,13 @@
                 <td></td>
                 <td>{{{ $detail->price }}}{{ Settings::get('currency') }}</td>
                 <td>
-                    <a class="js-btn-cart-remove" data-detail-id="{{ $detail->id }}" href="{{ route('cart.remove', ['id' => $detail->id]) }}"><i class="fa fa-close text-danger"></i></a>
+                    <a class="js-btn-cart-remove" data-detail-id="{{ $detail->id }}" href="{{ route('cart.remove', ['id' => $detail->id]) }}"><i class="fa fa-close text-danger hidden-on-thankyou"></i></a>
                 </td>
             </tr>
             @endif
         @endforeach
     </tbody>
-    <tfoot>
+    <tfoot class="hidden-on-thankyou">
         <tr>
             <td class="text-right">{{ trans('home.cart.total_deposit') }}</td>
             <td><strong>{{ $cart->depositTotal }}{{ Settings::get('currency') }}</strong></td>
