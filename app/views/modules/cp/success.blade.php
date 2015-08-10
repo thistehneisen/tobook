@@ -32,7 +32,7 @@
 @stop
 
 @section('content')
-@if (App::environment() !== 'tobook' || App::environment() !== 'stag')
+@if (App::environment() !== 'tobook' && App::environment() !== 'stag')
 <div class="container">
     <h1 class="comfortaa orange text-center">{{ trans('cp.success') }}</h1>
     <div class="row">
