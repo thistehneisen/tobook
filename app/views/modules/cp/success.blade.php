@@ -35,14 +35,15 @@
 @if (App::environment() !== 'tobook' && App::environment() !== 'stag')
 <div class="container">
     <h1 class="comfortaa orange text-center">{{ trans('cp.success') }}</h1>
-    <div class="row">
-        <div class="col-sm-offset-2 col-sm-8">
 
-            <div class="alert alert-success">
-                <p>{{ trans('cp.success_notice') }}</p>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-8">
+
+                <div class="alert alert-success">
+                    <p>{{ trans('cp.success_notice') }}</p>
+                </div>
             </div>
         </div>
-    </div>
 </div>
 @else
 <div class="row">
@@ -51,7 +52,7 @@
             @include ('front.cart.el.show-on-thankyou', ['hidden' => false])
             @if(!empty($cart))
 
-            @if((bool) Settings::get('deposit_payment')
+            @if((bool) Settings::get('deposit_payment'))
             <table class="table table-striped">
                 <tbody>
                     @foreach ($cart->details as $detail)
