@@ -59,6 +59,7 @@ return [
     'search_tagline'        => 'Rezervē it visu!',
     'search_query'          => 'Meklē pakalpojumu',
     'search_place'          => 'Rīga',
+    'video_tutorial_text'   => 'Kā tas strādā?',
     'search'        => [
         'tagline'         => 'Rezervē, ko vēlies',
         'query'           => 'Meklē uzņēmumu',
@@ -112,7 +113,7 @@ return [
     'companies_offers'    => 'Uzņēmumi ar piedāvājumiem',
     'categories'          => 'Kategorijas',
     'best_offers'         => 'Labākie piedāvājumi',
-    'no_offers'           => 'Nav piedāvājumu pieejama',
+    'no_offers'           => 'Uz dotu brīdi speciālo piedāvāju nav.',
     'map'                 => 'Karte',
     'show_more'           => 'Parādīt vairāk',
     // How it works?

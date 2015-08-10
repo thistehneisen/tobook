@@ -21,6 +21,11 @@
                     </li>
                     @endforeach
                 </ul>
+                @if (App::environment() === 'tobook' || App::environment() === 'local')
+                <ul class="nav navbar-nav front-nav">
+                    <li class="tutorial-video-link"><a class="view-video" title="ToBook.lv - {{ trans('home.video_tutorial_text')}}?" href="{{ Config::get('varaa.tutorial_video') }}">{{ trans('home.video_tutorial_text')}}</a></li>
+                </ul>
+                @endif
             </div>
         </div>
     </div>

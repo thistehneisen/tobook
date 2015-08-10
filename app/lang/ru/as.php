@@ -143,6 +143,7 @@ return [
         'own_customer'      => 'Свой клиент',
         'request_employee'  => 'Запрос конкретного работника',
         'deposit'           => 'Deposit payment', //@todo
+        'search_placeholder'=> 'Поиск потребителя',//@todo
         'error'             => [
             'add_overlapped_booking'      => 'Время заказа перекрывается!',
             'insufficient_slots'          => 'Для этого заказа не хватает свободных "окон"!',
@@ -202,6 +203,9 @@ return [
         ],
         'free_time'                        => 'Свободное время',
         'free_times'                       => 'Свободное время',
+        'free_time_type'                   => 'Свободное тип время',
+        'working_free_time'                => 'Рабочая',
+        'personal_free_time'               => 'личный',
         'working_times'                    => 'Рабочее время',
         'add_free_time'                    => 'Добавить свободное время',
         'start_at'                         => 'Начало в',
@@ -222,7 +226,7 @@ return [
         'saturday_hours'                   => 'Рабочие часы в субботу',
         'sunday_hours'                     => 'Рабочие часы в воскресенье',
         'monthly_hours'                    => 'Рабочие часы за месяц',
-        'weekly_hours'                     => 'Weekly hours',//@todo
+        'weekly_hours'                     => 'Еженедельные часов',
         'error'                            => [
         'freetime_overlapped_with_booking' => 'Свободное время совпадает с заказами',
         ],

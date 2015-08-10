@@ -144,7 +144,7 @@ $(function () {
         });
     });
     $("#keyword").select2({
-        placeholder: "Search for a consumer",
+        placeholder: "{{ trans('as.bookings.search_placeholder') }}",
         minimumInputLength: 3,
         ajax: {
             url: "{{ route('as.bookings.search-consumer') }}",

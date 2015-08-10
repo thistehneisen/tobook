@@ -145,6 +145,7 @@ return [
         'own_customer'      => 'Own customer',
         'request_employee'  => 'Requesting for a specific employee',
         'deposit'           => 'Deposit payment',
+        'search_placeholder'=> 'Search for a consumer',
         'error'             => [
             'add_overlapped_booking'      => 'Overlapped booking time!',
             'insufficient_slots'          => 'There is no enough time slots for this booking!',
@@ -188,7 +189,7 @@ return [
         'description'                      => 'Description',
         'is_subscribed_email'              => 'Is subscribed email?',
         'is_subscribed_sms'                => 'Is subscribed SMS?',
-        'is_received_calendar_invitation'  => 'Is received calendar invitation?',
+        'is_received_calendar_invitation'  => 'Calendar invite email',
         'services'                         => 'Services',
         'status'                           => 'Status',
         'is_active'                        => 'Activation',
@@ -321,7 +322,7 @@ return [
         'booking'   => [
             'heading'                                        => '',
             'info'                                           => '',
-            'disable_booking'                                => 'Disable booking widget', // @todo
+            'disable_booking'                                => 'Disable booking widget',
             'index'                                          => 'Bookings',
             'booking_form'                                   => 'Booking Form',
             'reminders'                                      => 'Reminder',

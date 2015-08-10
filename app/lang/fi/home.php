@@ -42,7 +42,7 @@ return [
     'search_tagline'        => 'Mitä haluat varata?',
     'search_query'          => 'Syötä yrityksen tai palvelun nimi',
     'search_place'          => 'Helsinki, FI',
-    'on_media'              => 'Mediassa',//@todo
+    'on_media'              => 'Mediassa',
     'search'        => [
         'tagline'         => 'Mitä haluat varata?',
         'query'           => 'Syötä yrityksen tai palvelun nimi',

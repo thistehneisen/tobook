@@ -26,5 +26,15 @@
     <div class="col-sm-1 col-md-1">
         <button type="submit" class="btn btn-lg btn-success btn-search">{{ trans('home.search.button') }}</button>
     </div>
+     <div class="col-sm-4 col-md-4">
+     </div>
 </div>
 {{ Form::close() }}
+
+@if (App::environment() === 'tobook' || App::environment() === 'local')
+<div class="tutorial-video hidden-md hidden-sm hidden-xs">
+    <a class="view-video" title="ToBook.lv - {{ trans('home.video_tutorial_text')}}" href="{{ Config::get('varaa.tutorial_video') }}"><img width="560" height="315" src="{{ asset_path('core/img/how-does-it-work.png') }}"></a>
+</div>
+@endif
+
+

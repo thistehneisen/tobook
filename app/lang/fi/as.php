@@ -13,7 +13,7 @@ return [
         'today'         => 'Tänään',
         'tomorrow'      => 'Huomenna',
         'print'         => 'Tulosta',
-        'refresh'       => 'Refresh',//@todo
+        'refresh'       => 'Päivitä',
         'calendar'      => 'Kalenteri',
     ],
     'services' => [
@@ -115,7 +115,7 @@ return [
         'service_time'      => 'Kesto',
         'modify_time'       => 'Muokkaa aikaa',
         'plustime'          => 'Lisäaika',
-        'total_length'      => 'Total length',//@todo
+        'total_length'      => 'Kokonaiskesto',
         'modify_duration'   => 'Muokkaa kestoa',
         'employee'          => 'Työntekijä',
         'notes'             => 'Muistiinpanoja',
@@ -144,7 +144,8 @@ return [
         'cancel_reschedule' => 'Peru siirto',
         'own_customer'      => 'Oma asiakas',
         'request_employee'  => 'Työntekijää ei saa vaihtaa',
-        'deposit'           => 'Deposit payment', //@todo
+        'deposit'           => 'Varausmaksu',
+        'search_placeholder'=> 'Asiakashaku',
         'error'             => [
             'add_overlapped_booking'      => 'Varauksia ei voi asettaa päällekäin!',
             'insufficient_slots'          => 'Varaus ei mahdu valitsemaasi kohtaan.',
@@ -169,10 +170,10 @@ return [
             'empty_start_time'            => 'Alkamisajankohta -kenttä ei voi olla tyhjä',
             'booking_not_found'           => 'Varausta ei löytynyt!',
             'past_booking'                => 'Et voi tehdä varausta menneisyyteen!',
-            'delete_last_booking_service' => 'You cannot delete the last booking service',//@todo
-            'before_min_distance'         => 'You cannot make a booking before the min distance day',//@todo
-            'after_max_distance'          => 'You cannot make a booking after the max distance day',//@todo
-            'missing_services'            => 'Add a service to continue!',//@todo
+            'delete_last_booking_service' => 'Et voi poistaa varauksen viimeistä palvelua.',
+            'before_min_distance'         => 'Valitettavasti et voi tehdä varausta näin lähelle',
+            'after_max_distance'          => 'Olet tekemässä varauksen liian kauas tulevaisuuteen',
+            'missing_services'            => 'Muista lisätä varaukseen palvelu!<br>(Klikkaa \'Lisää\')',
         ],
         'warning'      => [
             'existing_user'   => 'Järjestelmästä löytyy käyttäjäprofiili antamallesi sähköpostiosoitteelle. Ovatko nämä sinun tietosi?',
@@ -188,10 +189,10 @@ return [
         'description'                      => 'Kuvaus',
         'is_subscribed_email'              => 'Työntekijän sähköpostivahvistukset käytössä',
         'is_subscribed_sms'                => 'Työntekijän tekstiviestivahvistukset käytössä',
-        'is_received_calendar_invitation'  => 'Is received calendar invitation',
+        'is_received_calendar_invitation'  => 'Kalenterikutsu käytössä',
         'services'                         => 'Palvelut',
         'status'                           => 'Tila',
-        'is_active'                        => 'Activation',//@todo
+        'is_active'                        => 'Aktiivinen',
         'avatar'                           => 'Kuva',
         'default_time'                     => 'Oletustyöajat',
         'custom_time'                      => 'Räätälöidyt ajat',
@@ -204,6 +205,9 @@ return [
         ],
         'free_time'                        => 'Vapaa',
         'free_times'                       => 'Vapaat',
+        'free_time_type'                   => 'Vapaan tyyppi',
+        'working_free_time'                => 'Työvapaa',
+        'personal_free_time'               => 'Henk. koht. vapaa',
         'working_times'                    => 'Työvuorosuunnittelu',
         'add_free_time'                    => 'Lisää vapaa',
         'start_at'                         => 'Aloitusaika',
@@ -217,14 +221,14 @@ return [
         'to_date'                          => 'Päättyen',
         'weekday'                          => 'Viikonpäivä',
         'employee'                         => 'Työntekijä',
-        'freelancer'                       => 'Freelancer',//@todo
+        'freelancer'                       => 'Yrittäjä',
         'business_id'                      => 'Y-tunnus',
-        'account'                          => 'Account',//@todo
-        'activation'                       => 'Activation',//@todo
+        'account'                          => 'Tilinumero',
+        'activation'                       => 'Aktivointi',
         'saturday_hours'                   => 'Lauantaitunnit',
         'sunday_hours'                     => 'Sununtaitunnit',
         'monthly_hours'                    => 'Kuukauden tunnit',
-        'weekly_hours'                     => 'Weekly hours',//@todo
+        'weekly_hours'                     => 'Viikkotunnit',
         'error'                            => [
         'freetime_overlapped_with_booking' => 'Vapaa-aika menossa varauksen päälle!',
         'freetime_overlapped_with_others'  => 'Freetime is overlapped with other freetime(s)',//@todo
@@ -357,12 +361,12 @@ return [
             'confirm_tokens_employee'                        => 'Viestin sisältö',
             'terms_enabled'                                  => 'Ehdot käytössä',
             'default_nat_service'                            => 'Default next available service',
-            'min_distance'                                   => 'Min distance',//@todo
-            'max_distance'                                   => 'Max distance',//@todo
-            'auto_select_employee'                           => 'Auto select an employee',//@todo
-            'auto_expand_all_categories'                     => 'Auto expand all categories',//@todo
-            'show_employee_request'                          => 'Show option requesting for an employee',//@todo
-            'factor'                                         => 'Factor',//@todo
+            'min_distance'                                   => 'Varauksien varoaika (/vrk)',
+            'max_distance'                                   => 'Maksimietäisyys varauksille (/vrk)',
+            'auto_select_employee'                           => 'Työntekijän automaattivalitsin',
+            'auto_expand_all_categories'                     => 'Avaa varausnäkymän kategoriat automaattisesti',
+            'show_employee_request'                          => '\'Oma asiakas\' painike käytössä',
+            'factor'                                         => 'Varausnäkymän työntekijämuuttuja',
         ],
         'style' => [
             'heading'                           => '',

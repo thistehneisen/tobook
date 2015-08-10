@@ -2,12 +2,12 @@
 return [
     'all'                    => 'Kaikki käyttäjät',
     'add'                    => 'Lisää käyttäjiä',
-    'deleted'                => 'Deleted users',
-    'restore'                => 'Restore',
+    'deleted'                => 'Poistetut käyttäjät',
+    'restore'                => 'Palauta',
     'edit'                   => 'Muokkaa',
-    'activate'               => 'Activate',
-    'deactivate'             => 'Deactivate',
-    'activated'              => 'Activated',
+    'activate'               => 'Aktivoi',
+    'deactivate'             => 'Deaktivoi',
+    'activated'              => 'Aktivoitu',
     'types'                  => 'Tyypit',
     'change_password'        => 'Muokkaa salasanaa',
     'old_password'           => 'Vanha salasana',
@@ -17,7 +17,7 @@ return [
     'change_profile_success' => 'Sinun profiili on päivittänyt',
     'change_profile_failed'  => 'Tietojen päivittäminen epäonnistui, ole hyvä ja yritä uudelleen.',
     'incorrect_old_password' => 'Vanha salasanasi on väärä. Yritä uudelleen.',
-    'create_account'         => 'Luo Tilin',
+    'create_account'         => 'Luo tili',
     'fill_fields'            => 'Täytä seuraavat tiedot',
     'username'               => 'Käyttäjänimi',
     'email'                  => 'Sähköposti',
@@ -35,15 +35,15 @@ return [
     'new_customers'          => 'Uusi käyttäjä',
     'register_here'          => 'Rekisteröidy tästä',
     'forgot_password'        => 'Unohditko salasanasi?',
-    'forgot_password_title'  => 'Unohdin salasana',
+    'forgot_password_title'  => 'Unohdin salasanan',
     'click_here'             => 'Klikkaa tästä',
-    'fill_reset_password'    => 'Ole hyvä ja kirjoita sähköpostisi nollaamaan salasana',
+    'fill_reset_password'    => 'Ole hyvä ja anna sähköpostisi resetoidaksesi salasanasi.',
     'reset_password'         => 'Salasanan nollaaminen',
     'enter_new_password'     => 'Kirjoita uusi salasana',
     'business_name'          => 'Yrityksen nimi',
     'password_reminder' => [
         'reset' => [
-            'heading' => 'Salasanasi on resetoitu',
+            'heading' => 'Salasanasi on nyt resetoitu!',
             'body'    => 'Uusi salasanasi on :password',
         ],
         'created' => [
@@ -52,25 +52,25 @@ return [
         ]
     ],
     'business' => [
-        'auto_confirm'     => 'Auto confirm this business?', // @todo
+        'auto_confirm'     => 'Ohita käyttäjätilin vahvistus',
         'is_activated'     => 'Aktivoitu',
         'name'             => 'Yrityksen nimi',
         'description'      => 'Yritysesittely',
         'size'             => 'Henkilömäärä',
         'phone'            => 'Puhelin',
         'address'          => 'Osoite',
-        'district'         => 'District', // @todo
+        'district'         => 'Kaupunginosa',
         'city'             => 'Kaupunki',
         'postcode'         => 'Postinumero',
         'country'          => 'Maa',
         'note'             => 'Huomautus',
-        'meta_title'       => 'Meta title', // @todo
-        'meta_description' => 'Meta description', // @todo
-        'meta_keywords'    => 'Meta keywords', // @todo
-        'bank_account'     => 'Bank account', // @todo
-        'is_hidden'        => 'Is hidden business?', // @todo
-        'preview'          => 'Preview your page', // @todo
-        'is_booking_disabled' => 'Disable booking widget?', // @todo
+        'meta_title'       => 'Meta otsikko',
+        'meta_description' => 'Meta kuvaus',
+        'meta_keywords'    => 'Meta hakusanat',
+        'bank_account'     => 'Tilinumero',
+        'is_hidden'        => 'Piilotettu sivustolta',
+        'preview'          => 'Esikatsele',
+        'is_booking_disabled' => 'Varausnäkymä piilossa',
         'sizes'            => [
             '1',
             '2-3',
@@ -148,11 +148,11 @@ return [
         ]
     ],
     'payment_options' => [
-        'index'       => 'Payment options',
-        'venue'       => 'Pay at the venue',
-        'deposit'     => 'Deposit payment',
-        'full'        => 'Full payment',
-        'rate'        => 'Deposit rate',
-        'placeholder' => 'Enter deposit rate in decimal, e.g. 0.3 for 30%',
+        'index'       => 'Maksutavat',
+        'venue'       => 'Maksu paikanpäällä',
+        'deposit'     => 'Varausmaksu',
+        'full'        => 'Etukäteismaksu',
+        'rate'        => 'Varausmaksun suuruus',
+        'placeholder' => 'Anna varausmaksun suuruus desimaalilukuna, esim. 0.3 = 30%',
     ],
 ];

@@ -142,7 +142,8 @@ return [
         'cancel_reschedule' => 'Atcelt mainīto rezervācijas laiku',
         'own_customer'      => 'Mūsu klients',
         'request_employee'  => 'Pieprasīt konkrētu darbinieku',
-        'deposit'           => 'Deposit payment', //@todo
+        'deposit'           => 'Depozīta maksājuma',
+        'search_placeholder'=> 'Meklēt patērētājs',
         'error'             => [
             'add_overlapped_booking'      => 'Rezervācijas laiki pārklājas!',
             'insufficient_slots'          => 'Kalendārā nav pieejams izvēlētajai rezervācijai atbilstošs brīvais laiks!',
@@ -202,6 +203,9 @@ return [
         ],
         'free_time'                        => 'Pieejams laiks',
         'free_times'                       => 'Pieejamie laiki',
+        'free_time_type'                   => 'Pieejamie laiks tips',
+        'working_free_time'                => 'Darba',
+        'personal_free_time'               => 'Personisks',
         'working_times'                    => 'Darba laiks',
         'add_free_time'                    => 'Pievienot savu brīvo laiku',
         'start_at'                         => 'Sākums plkst.',
@@ -222,7 +226,7 @@ return [
         'saturday_hours'                   => 'Darba laiks sestdienā',
         'sunday_hours'                     => 'Darba laiks svētdienā',
         'monthly_hours'                    => 'Mēneša darba laiks',
-        'weekly_hours'                     => 'Weekly hours',//@todo
+        'weekly_hours'                     => 'Nedēļas stundas',
         'error'                            => [
         'freetime_overlapped_with_booking' => 'Brīvdienas pārklājas ar rezervāciju (-ām)',
         'freetime_overlapped_with_others'  => 'Freetime is overlapped with other freetime(s)',//@todo

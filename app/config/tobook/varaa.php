@@ -13,7 +13,8 @@ return [
     'name'             => 'ToBook.lv',
     'languages'        => ['lv', 'ru'],
     'default_language' => 'lv',
-    'default_coords'   => [56.9462031, 24.1042872], // Riga
+    'default_coords'   => [56.9462031, 24.1042872], // Riga,
+    'tutorial_video'   => 'https://www.youtube.com/watch?v=YNVCHyxY-kg',
     'premium_modules'  => [
         'appointment' => [
             'route_name' => 'as.index',
