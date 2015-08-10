@@ -32,7 +32,7 @@
 @stop
 
 @section('content')
-@if (App::environment() !== 'tobook' || App::environment() !== 'stag')
+@if (App::environment() !== 'tobook' && App::environment() !== 'stag')
 <div class="container">
     <h1 class="comfortaa orange text-center">{{ trans('cp.success') }}</h1>
 
@@ -51,6 +51,8 @@
         <div class="payment-wrapper">
             @include ('front.cart.el.show-on-thankyou', ['hidden' => false])
             @if(!empty($cart))
+
+            @if((bool) Settings::get('deposit_payment')
             <table class="table table-striped">
                 <tbody>
                     @foreach ($cart->details as $detail)
@@ -65,6 +67,9 @@
                     @endforeach
                 </tbody>
             </table>
+            @else
+            @endif
+
             @endif
         </div>
     </div>

@@ -23,7 +23,7 @@ Route::group([
         'uses' => 'App\Payment\Controllers\Index@notify'
     ]);
 
-    Route::get('success', [
+    Route::get('success/{cartId?}', [
         'as' => 'payment.success',
         'uses' => 'App\Payment\Controllers\Index@success'
     ]);
