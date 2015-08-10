@@ -16,9 +16,8 @@
                 <p>{{ trans('cp.success_notice') }}</p>
             </div>
             @else
-
             @include ('front.cart.el.show-on-thankyou')
-
+            @if(!empty($cart))
             <table class="table table-striped">
                 <tbody>
                     @foreach ($cart->details as $detail)
@@ -33,6 +32,7 @@
                     @endforeach
                 </tbody>
             </table>
+            @endif
             @endif
         </div>
     </div>
