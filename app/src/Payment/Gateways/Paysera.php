@@ -25,13 +25,19 @@ class Paysera extends AbstractGateway
      */
     public function purchase(\App\Payment\Models\Transaction $transaction, $args = [])
     {
+        $cart = $transaction->cart;
+        $cartId = null;
+        if ($cart !== null) {
+            $cartId = $cart->id;
+        }
+
         $params = [
             'projectid'     => Config::get('services.paysera.id'),
             'sign_password' => Config::get('services.paysera.password'),
             'orderid'       => $transaction->id,
             'amount'        => $transaction->amount * 100, // The amount must be in cents
             'currency'      => $transaction->currency,
-            'accepturl'     => route('payment.success'),
+            'accepturl'     => route('payment.success', ['cartId' => $cartId]),
             'cancelurl'     => route('payment.cancel', ['id' => $transaction->id]),
             'callbackurl'   => route('payment.notify', ['gateway' => 'paysera']),
             'test'          => Config::get('services.paysera.test', 0),
