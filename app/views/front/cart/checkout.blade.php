@@ -71,13 +71,6 @@ $(function () {
             }).then(function (res) {
                 $('.hidden-on-thankyou').remove();
                 $('.show-on-thankyou').show();
-                var counter = 9;
-                var id = setInterval(function () {
-                    if (counter-- === 0) {
-                        clearInterval(id);
-                        window.location = '{{ route('home') }}';
-                    }
-                }, 1000);
             }).fail(function (res) {
                 alertify.set('notifier','position', 'top-right');
                 alertify.error(res.responseJSON.message);
