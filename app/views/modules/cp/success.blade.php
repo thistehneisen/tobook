@@ -72,4 +72,3 @@
 </div>
 @endif
 @stop
-/Users/hungnq/Vagrant/codebox/wwwroot/app/views/modules/cp/success.blade.php
