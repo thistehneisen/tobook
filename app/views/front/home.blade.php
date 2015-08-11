@@ -29,7 +29,7 @@
 <div class="hero-form">
     <div class="img-bg">
         <div class="container">
-            @if (App::environment() === 'tobook' || App::environment() === 'local')
+            @if (App::environment() === 'tobook' || App::environment() === 'stag')
                 @include ('front.el.search.form-tobook')
             @else
                 @include ('front.el.search.form')
