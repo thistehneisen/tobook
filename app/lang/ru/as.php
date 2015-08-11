@@ -260,6 +260,8 @@ return [
         'success_line1'    => '<h2>Спасибо!</h2>',
         'success_line2'    => '<h3>Ваша резервация принята.</h3>',
         'success_line3'    => '<h3>Через <span id="as-counter">10</span> секунды вы будете перенаправлены на стартовую страницу.</h3>',
+        'thankyou_line1'   => 'Paldies, Jūsu rezervācija ir pieņemta!',
+        'thankyou_line2'   => 'Par pakalpojumu būs iespējams norēķināties salonā uz vietas',
         'confirm'          => 'Подтвердить заказ',
         'layout_2'         => [
             'select_service'      => 'Выбрать услугу и дату',
