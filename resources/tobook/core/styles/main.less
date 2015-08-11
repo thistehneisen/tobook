@@ -55,7 +55,6 @@ html {
 body {
     font-family: 'Roboto', Arial, Verdana, sans-serif;
     font-weight: 300;
-    margin-bottom: 100px;
 }
 a {
     color: @link_color;
@@ -137,6 +136,17 @@ a {
         }
 
         #main-menu {
+            .cart {
+                .popover {
+                    min-width: 350px;
+                    max-width: 500px;
+
+                    .popover-content {
+                        max-height: 500px;
+                        overflow-y: auto;
+                    }
+                }
+            }
 
             li select {
                 margin: 8px 15px;
@@ -151,11 +161,8 @@ a {
 
     .search-wrapper {
         background: @primary_color;
-
-        @media (min-width: 767px) {
-            &.default {
-                padding-bottom: 10px;
-            }
+        &.default {
+            padding-bottom: 10px;
         }
 
         #category-menu .navbar-nav {
@@ -205,35 +212,12 @@ a {
     }
 }
 
-.navbar-form-group {
-    margin-top: 15px;
-    .input-group {
-        margin-bottom: 3px;
-    }
-
-    .form-control {
-        width: 100% !important;
-        border-top-right-radius: 4px !important;
-        border-bottom-right-radius: 4px !important;
-    }
-
-    @media (max-width: 767px) {
-        .btn-square {
-            display: block;
-            width: 100%;
-        }
-    }
-}
-
 // # ------------------------------- footer
 .footer {
-    padding: 10px;
-    background: @light_black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: @light_black;
     color: #fff;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100px;
 
     i {
         color: #fff;
@@ -264,6 +248,40 @@ a {
             font-size: 16px;
         }
     }
+
+    &.lv {
+        background-color: #333;
+        z-index: 2;
+        position: relative;
+
+        .upper {
+            padding-bottom: 30px;
+            border-bottom: 1px solid #3d3d3d;
+        }
+
+        .form-subscribe {
+            margin-bottom: 10px;
+        }
+
+        .form-control {
+            background-color: #2b2b2b;
+            border: 1px solid #424242;
+            color: #bebebe;
+            resize: none;
+
+            &:focus {
+                outline: 0 none;
+                box-shadow: none;
+            }
+        }
+        .contact-form {
+            background-color: #3c3c3c;
+            display: inline-block;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    }
+
 }
 
 
@@ -354,7 +372,6 @@ a {
     }
 }
 
-
 // -------------------------------------------------------------------------- //
 // ------------------------------- Responsive ------------------------------- //
 // -------------------------------------------------------------------------- //
@@ -385,9 +402,5 @@ a {
     }
     .search-left .img-responsive {
         width: auto;
-    }
-
-    .zopim {
-        display: none;
     }
 }
