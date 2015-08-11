@@ -254,7 +254,7 @@ return [
         'fi_version'       => 'Finnish',
         'en_version'       => 'English',
         'sv_version'       => 'Swedish',
-        'book'             => 'Rezervēt',
+        'book'             => 'Apstiprināt rezervāciju',
         'loading'          => 'Now loading&hellip;',
         'success'          => 'Paldies par rezervāciju! Rezervācijas apstiprinājums tiks nosūtīts uz Jūsu norādīto e-pastu.',
         'success_line1'    => '<h2>Paldies!</h2>',
