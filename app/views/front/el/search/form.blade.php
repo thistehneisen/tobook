@@ -31,10 +31,4 @@
 </div>
 {{ Form::close() }}
 
-@if (App::environment() === 'tobook' || App::environment() === 'local')
-<div class="tutorial-video hidden-md hidden-sm hidden-xs">
-    <a class="view-video" title="ToBook.lv - {{ trans('home.video_tutorial_text')}}" href="{{ Config::get('varaa.tutorial_video') }}"><img width="560" height="315" src="{{ asset_path('core/img/how-does-it-work.png') }}"></a>
-</div>
-@endif
-
 
