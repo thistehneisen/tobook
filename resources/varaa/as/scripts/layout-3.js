@@ -296,12 +296,16 @@
         if (term_enabled === 3) {
             if($this.is(':checked') === false) {
                 submit.attr('disabled', 'disabled');
+                submit.addClass('btn-disabled').
+                    removeClass('btn-success');
                 submit.siblings('span.text-success')
                   .removeClass('text-success')
                   .addClass('text-danger')
-                  .html('<ul><li>'+$('#as-form-checkout').data('term-error-msg')+'</li></ul>');
+                  .html('<ul class="no-bullet"><li><h6>'+$('#as-form-checkout').data('term-error-msg')+'</h6></li></ul>');
             } else {
                 submit.removeAttr('disabled');
+                submit.addClass('btn-success').
+                    removeClass('btn-disabled');
                 submit.siblings('span.text-danger')
                   .removeClass('text-danger')
                   .addClass('text-success').html('');
