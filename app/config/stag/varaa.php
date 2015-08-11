@@ -3,7 +3,7 @@ return [
     'languages' => ['fi', 'sv', 'en'],
     'default_language' => 'fi',
     'commission_style' => '',
-
+    'tutorial_video'   => 'https://www.youtube.com/watch?v=YNVCHyxY-kg',
     //--------------------------------------------------------------------------
     // Admin Setting Form
     //--------------------------------------------------------------------------
