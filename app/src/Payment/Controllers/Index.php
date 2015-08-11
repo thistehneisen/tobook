@@ -1,7 +1,8 @@
 <?php namespace App\Payment\Controllers;
 
-use Payment, Event;
+use Payment, Event, Session;
 use App\Payment\Models\Transaction;
+use App\Cart\Cart;
 
 class Index extends Base
 {
@@ -45,9 +46,11 @@ class Index extends Base
      *
      * @return View
      */
-    public function success()
+    public function success($transactionId = null)
     {
-        return $this->render('success');
+        $transaction = Transaction::find($transactionId);
+        $cart = (!empty($transaction)) ? $transaction->cart : null;
+        return $this->render('success', ['cart' => $cart]);
     }
 
     /**

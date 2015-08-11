@@ -31,7 +31,7 @@ class Paysera extends AbstractGateway
             'orderid'       => $transaction->id,
             'amount'        => $transaction->amount * 100, // The amount must be in cents
             'currency'      => $transaction->currency,
-            'accepturl'     => route('payment.success'),
+            'accepturl'     => route('payment.success', ['id' => $transaction->id]),
             'cancelurl'     => route('payment.cancel', ['id' => $transaction->id]),
             'callbackurl'   => route('payment.notify', ['gateway' => 'paysera']),
             'test'          => Config::get('services.paysera.test', 0),

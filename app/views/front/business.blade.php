@@ -13,6 +13,7 @@
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.6/css/swiper.min.css') }}
     {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css') }}
     {{ HTML::style(asset('packages/alertify/css/themes/bootstrap.min.css')) }}
     {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
 @stop
@@ -39,6 +40,7 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
     @if (App::getLocale() !== 'en') {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
     @endif
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js') }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
     {{ HTML::script(asset_path('as/scripts/layout-3.js')) }}

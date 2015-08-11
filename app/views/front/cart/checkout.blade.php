@@ -37,8 +37,8 @@
 $(function () {
     $('#btn-payment-venue').on('click', function (e) {
         e.preventDefault();
-        var fnOnOk = function () {
-            var $form = $('#frm-payment');
+        var $form = $('#frm-payment');
+        var fnOnOkOverlay = function () {
             $.ajax({
                 url: $form.attr('action'),
                 method: 'POST',
@@ -62,13 +62,24 @@ $(function () {
             });
         };
 
-        var dom = document.getElementById('js-terms');
-        dom.style.display = 'inline';
-        alertify.confirm()
-            .set('title', '{{ trans('common.notice') }}')
-            .set('message', dom)
-            .set('onok', fnOnOk)
-            .show();
+        var fnOnOkThankYou = function() {
+            $.ajax({
+                url: $form.attr('action'),
+                method: 'POST',
+                dataType: 'JSON',
+                data: {submit: 'venue'}
+            }).then(function (res) {
+                $('.hidden-on-thankyou').remove();
+                $('.show-on-thankyou').show();
+            }).fail(function (res) {
+                alertify.set('notifier','position', 'top-right');
+                alertify.error(res.responseJSON.message);
+            });
+        }
+
+        var env = $form.data('env');
+        fnOnOk = (env === 'tobook' || env === 'stag') ? fnOnOkThankYou : fnOnOkOverlay;
+        fnOnOk();
     });
 });
     </script>
@@ -79,9 +90,12 @@ $(function () {
     <div class="col-xs-12">
         <div class="payment-wrapper">
             <div id="js-overlay" class="overlay">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae aliquid unde sint laboriosam, adipisci libero, asperiores nisi assumenda eum voluptatibus facilis amet fuga eaque doloribus cupiditate, nostrum pariatur, accusantium eius!</div>
-            <h1 class="comfortaa orange text-center">{{ trans('home.cart.checkout') }}</h1>
-            <h4 class="comfortaa orange text-center">{{ trans('home.cart.checkout_message') }}</h4>
-            {{ Form::open(['route' => 'cart.payment', 'role' => 'form', 'id' => 'frm-payment']) }}
+            <h1 class="comfortaa orange text-center hidden-on-thankyou">{{ trans('home.cart.checkout') }}</h1>
+            <h4 class="comfortaa orange text-center hidden-on-thankyou">{{ trans('home.cart.checkout_message') }}</h4>
+
+            @include ('front.cart.el.show-on-thankyou', ['hidden' => true])
+
+            {{ Form::open(['route' => 'cart.payment', 'role' => 'form', 'id' => 'frm-payment', 'data-env' => App::environment() ]) }}
             <div class="form-group row">
                 <div class="col-sm-8 col-sm-offset-2">
 
@@ -96,7 +110,7 @@ $(function () {
                     @endif
 
                     @if ($cart && $cart->isEmpty() === false)
-                        <div class="text-center">
+                        <div class="text-center hidden-on-thankyou">
                         @foreach ($business->payment_options as $option)
                             <button id="btn-payment-{{ $option }}" type="submit" name="submit" class="btn btn-default btn-success text-uppercase comfortaa" value="{{ $option }}">{{ trans('home.cart.pay_'.$option) }} <i class="fa fa-check-circle"></i></button>
                         @endforeach
@@ -105,7 +119,6 @@ $(function () {
                 </div>
             </div>
             {{ Form::close() }}
-            <div id="js-terms" class="soft-hidden">@lang('home.cart.terms')</div>
         </div>
     </div>
 </div>

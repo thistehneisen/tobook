@@ -45,7 +45,7 @@ class Skrill extends AbstractGateway
             'currency'      => $transaction->currency,
             'transactionId' => $transaction->id,
             'notifyUrl'     => route('payment.notify', ['gateway' => 'skrill']),
-            'returnUrl'     => route('payment.success'),
+            'returnUrl'     => route('payment.success', ['id' => $transaction->id]),
             'cancelUrl'     => route('payment.cancel', ['id' => $transaction->id]),
             // TODO: Populate with cart details
             'details'       => ['foo' => 'bar'],
