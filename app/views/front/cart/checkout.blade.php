@@ -78,7 +78,7 @@ $(function () {
         }
 
         var env = $form.data('env');
-        fnOnOk = (env === 'tobook' || env === 'stag') ? fnOnOkThankYou : fnOnOkOverlay;
+        fnOnOk = (env === 'tobook') ? fnOnOkThankYou : fnOnOkOverlay;
         fnOnOk();
     });
 });
