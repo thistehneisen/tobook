@@ -84,16 +84,9 @@ $(function () {
             });
         }
 
-        var dom = document.getElementById('js-terms');
         var env = $form.data('env');
-        fnOnOk = (env === 'tobook' || env === 'stag') ? fnOnOkThankYou : fnOnOkOverlay;
-        console.log(env);
-        dom.style.display = 'inline';
-        alertify.confirm()
-            .set('title', '{{ trans('common.notice') }}')
-            .set('message', dom)
-            .set('onok', fnOnOk)
-            .show();
+        fnOnOk = (env === 'tobook' || env === 'local') ? fnOnOkThankYou : fnOnOkOverlay;
+        fnOnOk();
     });
 });
     </script>
@@ -133,7 +126,6 @@ $(function () {
                 </div>
             </div>
             {{ Form::close() }}
-            <div id="js-terms" class="soft-hidden">@lang('home.cart.terms')</div>
         </div>
     </div>
 </div>
