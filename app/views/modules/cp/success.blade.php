@@ -47,29 +47,29 @@
 </div>
 @else
 <div class="row">
-    <div class="col-xs-12">
-        <div class="payment-wrapper">
-            @include ('front.cart.el.show-on-thankyou', ['hidden' => false])
-            @if(!empty($cart))
-            <table class="table table-striped">
-                <tbody>
-                    @foreach ($cart->details as $detail)
+    <div class="payment-wrapper">
+        @include ('front.cart.el.show-on-thankyou', ['hidden' => false])
+        @if(!empty($cart))
+        <div class="form-group row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <table class="table table-striped">
+                    <tbody>
+                        @foreach ($cart->details as $detail)
                         @if ($detail->model !== null)
                         <tr class="cart-detail" id="cart-detail-{{ $detail->id }}">
                             <td>{{{ $detail->name }}}</td>
-                            @if((bool) Settings::get('deposit_payment'))
-                            <td>{{{ $detail->deposit }}}{{ Settings::get('currency') }}</td>
-                            @endif
                             <td></td>
                             <td>{{{ $detail->price }}}{{ Settings::get('currency') }}</td>
                         </tr>
                         @endif
-                    @endforeach
-                </tbody>
-            </table>
-            @endif
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
+        @endif
     </div>
 </div>
 @endif
 @stop
+/Users/hungnq/Vagrant/codebox/wwwroot/app/views/modules/cp/success.blade.php
