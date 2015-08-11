@@ -70,7 +70,11 @@
         <div class="form-group">
             <div class="checkbox {{ Form::errorCSS('is_day_off', $errors) }}">
                 @if ((int) $user->asOptions['terms_enabled'] === 3)
-                <label>{{ Form::checkbox('terms', 0, true, ['id'=>'terms']); }} <a {{ $terms_class }}>{{ trans('as.bookings.terms_agree') }}</a></label>
+                    @if (App::environment() === 'tobook')
+                    <label>{{ Form::checkbox('terms', 0, true, ['id'=>'terms']); }}{{ str_replace('{terms_class}', $terms_class, trans('as.bookings.terms_of_agreement')) }}</label>
+                    @else
+                    <label>{{ Form::checkbox('terms', 0, true, ['id'=>'terms']); }} <a {{ $terms_class }}>{{ trans('as.bookings.terms_agree') }}</a></label>
+                    @endif
                 @else
                 <label><a {{ $terms_class }}>{{ trans('as.bookings.terms') }}</a></label>
                 @endif

@@ -134,6 +134,7 @@ return [
         'edit'              => 'Labot rezervācijas',
         'terms'             => 'Noteikumi',
         'terms_agree'       => 'Izlasīju rezervāciju noteikumus un piekrītu tiem.',
+        'terms_of_agreement'=> 'Piekrītu <a {terms_class}>lietošanas noteikumiem</a>',
         'cancel_message'    => $cancelMessage,
         'cancel_confirm'    => 'Vai tiešām vēlaties atcelt šo rezervāciju',
         'modify_booking'    => 'Labot rezervāciju',
@@ -260,6 +261,8 @@ return [
         'success_line1'    => '<h2>Paldies!</h2>',
         'success_line2'    => '<h3>Jūsu rezervācija ir veiksmīgi pievienota</h3>',
         'success_line3'    => '<h3>Jūs automātiski tiksiet novirzīti uz sākuma lapu pēc <span id="as-counter">10</span> sekundēm.</h3>',
+        'thankyou_line1'   => 'Paldies, Jūsu rezervācija ir pieņemta!',
+        'thankyou_line2'   => 'Par pakalpojumu būs iespējams norēķināties salonā uz vietas',
         'confirm'          => 'Apstiprināt rezervāciju',
         'layout_2'         => [
             'select_service'      => 'Izvēlieties pakalpojumu un datumu',
