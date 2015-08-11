@@ -134,6 +134,7 @@ return [
         'edit'              => 'Labot rezervācijas',
         'terms'             => 'Noteikumi',
         'terms_agree'       => 'Izlasīju rezervāciju noteikumus un piekrītu tiem.',
+        'terms_of_agreement'=> 'Piekrītu <a {terms_class}>lietošanas noteikumiem</a>',
         'cancel_message'    => $cancelMessage,
         'cancel_confirm'    => 'Vai tiešām vēlaties atcelt šo rezervāciju',
         'modify_booking'    => 'Labot rezervāciju',

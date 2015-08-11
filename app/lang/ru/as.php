@@ -134,6 +134,7 @@ return [
         'edit'              => 'Редактировать заказы',
         'terms'             => 'Условия',
         'terms_agree'       => 'Я прочел и согласен с условиями заказа',
+        'terms_of_agreement'=> 'Piekrītu <a {terms_class}>lietošanas noteikumiem</a>',
         'cancel_message'    => $cancelMessage,
         'cancel_confirm'    => 'Вы уверены, что хотите отменить заказ %s?',
         'modify_booking'    => 'Изменить заказ',
