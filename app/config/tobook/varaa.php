@@ -14,7 +14,7 @@ return [
     'languages'        => ['lv', 'ru'],
     'default_language' => 'lv',
     'default_coords'   => [56.9462031, 24.1042872], // Riga,
-    'tutorial_video'   => 'https://www.youtube.com/watch?v=YNVCHyxY-kg',
+    'tutorial_video'   => 'https://www.youtube.com/watch?v=FrMUPi7Yo7U',
     'premium_modules'  => [
         'appointment' => [
             'route_name' => 'as.index',
