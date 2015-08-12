@@ -89,6 +89,9 @@ class Options extends AsBase
             }
 
             if($field === 'style_external_css') {
+                if(trim($value) === '') {
+                    continue;
+                }
                 $filetype = Util::getRemoteFileType($value);
                 if ($filetype !== 'text/css') {
                     $dirty[$field] = $default;
