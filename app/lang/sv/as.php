@@ -364,6 +364,7 @@ return [
             'style_text_color'                  => 'Textfärg',
             'style_background'                  => 'Bakgrundsfärg',
             'style_custom_css'                  => 'Anpassad CSS',
+            'style_external_css'                => 'External CSS Link',
             'style_main_color'                  => 'Huvudsaklig färg',
             'style_heading_background'          => 'Rubrik bakgrund',
         ],

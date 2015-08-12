@@ -119,6 +119,7 @@ return [
         'deposit_payment'        => 'Deposit payment', // @todo
         'big_cities'             => 'Big cities (One city per line)', // @todo
         'contact_email'          => 'Contact email', // @todo
+        'force_pay_at_venue'     => 'Force pay at venue',
     ],
     'master-cats' => [
         'all'         => 'All master category',// @todo

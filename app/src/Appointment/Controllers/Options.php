@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
 use App, View, Confide, Redirect, Input, Config, NAT, Closure;
+use Util, Entrust, Session;
 use App\Lomake\FieldFactory;
 use App\Appointment\Models\Option;
 use Illuminate\Support\MessageBag;
@@ -29,11 +30,18 @@ class Options extends AsBase
         $fields = [];
         $sections = [];
         $options = Config::get('appointment.options.'.$page);
+
         foreach ($options as $section => $controls) {
             $allControls = [];
 
             foreach ($controls as $name => $params) {
                 $params['name'] = $name;
+                // Don't display option with attribute admin_only to non-admin users
+                if(isset($params['admin_only']) && $params['admin_only']) {
+                    if(!$this->user->isAdmin) {
+                        continue;
+                    }
+                }
                 if (isset($userOptions[$name])) {
                     $params['default'] = $userOptions[$name];
                 }
@@ -71,6 +79,7 @@ class Options extends AsBase
 
         $dirty = [];
         $userOptions = $this->user->as_options;
+        $errors = [];
         foreach ($input as $field => $value) {
             $default = $userOptions->get($field);
             // It's very long time ago since I use non-strict comparison, but
@@ -78,14 +87,26 @@ class Options extends AsBase
             if ($value != $default) {
                 $dirty[$field] = $value;
             }
-        }
 
+            if($field === 'style_external_css') {
+                $filetype = Util::getRemoteFileType($value);
+                if ($filetype !== 'text/css') {
+                    $dirty[$field] = $default;
+                    $errors[]['msg'] = trans('as.options.invalid_' . $field);
+                }
+            }
+        }
         Option::upsert($this->user, $dirty);
 
-        return Redirect::back()->with(
-            'messages',
-            $this->successMessageBag(trans('as.options.updated'))
-        );
+        $redirect = Redirect::back();
+
+        if (!empty($errors)) {
+            $redirect->withErrors($errors);
+        } else {
+            $redirect->with('messages', $this->successMessageBag(trans('as.options.updated')));
+        }
+
+        return $redirect;
     }
 
     /**

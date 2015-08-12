@@ -293,6 +293,10 @@ return [
                 'style_background' => [
                     'type' => 'Text'
                 ],
+                'style_external_css' => [
+                    'type' => 'Text',
+                    'admin_only'=> true
+                ],
                 'style_custom_css' => [
                     'type' => 'Textarea'
                 ],

@@ -297,8 +297,9 @@ return [
         ]
     ],
      'options' => [
-        'heading' => 'Iestatījumi',
-        'updated' => 'Iestatījumi mainīti',
+        'heading'                    => 'Iestatījumi',
+        'updated'                    => 'Iestatījumi mainīti',
+        'invalid_style_external_css' => 'Invalid external css file!',
         'general' => [
             'index'           => 'Vispārīgi',
             'heading'         => 'Vispārīgi iestatījumi',
@@ -377,6 +378,7 @@ return [
             'style_text_color'                  => 'Text color',
             'style_background'                  => 'Background',
             'style_custom_css'                  => 'Custom CSS',
+            'style_external_css'                => 'External CSS Link',
             'style_main_color'                  => 'Main color',
             'style_heading_background'          => 'Heading background',
         ],

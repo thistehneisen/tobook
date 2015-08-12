@@ -76,6 +76,7 @@ return [
         'default_paygate'        => 'The default paygate', // @todo
         'big_cities'             => 'Big cities (One city per line)', // @todo
         'contact_email'          => 'Contact email', // @todo
+        'force_pay_at_venue'     => 'Force pay at venue',
     ],
     'master-cats' => [
         'all'         => 'All master category',// @todo

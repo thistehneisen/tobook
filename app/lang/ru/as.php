@@ -296,8 +296,9 @@ return [
         ]
     ],
      'options' => [
-        'heading' => 'Настройки',
-        'updated' => 'Настройки обновлены',
+        'heading'                    => 'Настройки',
+        'updated'                    => 'Настройки обновлены',
+        'invalid_style_external_css' => 'Invalid external css file!',
         'general' => [
             'index'           => 'Основное',
             'heading'         => 'Основные настройки',
@@ -375,6 +376,7 @@ return [
             'style_text_color'                  => 'Цвет текста',
             'style_background'                  => 'Фон',
             'style_custom_css'                  => 'Свой CSS',
+            'style_external_css'                => 'External CSS Link',
             'style_main_color'                  => 'Основной цвет',
             'style_heading_background'          => 'Фон "шапки" сайта',
         ],
