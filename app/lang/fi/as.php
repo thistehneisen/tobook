@@ -377,6 +377,7 @@ return [
             'style_text_color'                  => 'Tekstin väri',
             'style_background'                  => 'Tausta',
             'style_custom_css'                  => 'Custom CSS',
+            'style_external_css'                => 'External CSS Link',
             'style_main_color'                  => 'Pääväri',
             'style_heading_background'          => 'Otsikon tausta',
         ],

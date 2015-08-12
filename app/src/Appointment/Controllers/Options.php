@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, NAT, Closure;
+use App, View, Confide, Redirect, Input, Config, NAT, Closure, Entrust, Session;
 use App\Lomake\FieldFactory;
 use App\Appointment\Models\Option;
 use Illuminate\Support\MessageBag;
@@ -29,11 +29,18 @@ class Options extends AsBase
         $fields = [];
         $sections = [];
         $options = Config::get('appointment.options.'.$page);
+
         foreach ($options as $section => $controls) {
             $allControls = [];
 
             foreach ($controls as $name => $params) {
                 $params['name'] = $name;
+                // Don't display option with attribute admin_only to non-admin users
+                if(isset($params['admin_only']) && $params['admin_only']) {
+                    if(!$this->user->isAdmin) {
+                        continue;
+                    }
+                }
                 if (isset($userOptions[$name])) {
                     $params['default'] = $userOptions[$name];
                 }

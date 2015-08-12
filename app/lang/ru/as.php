@@ -375,6 +375,7 @@ return [
             'style_text_color'                  => 'Цвет текста',
             'style_background'                  => 'Фон',
             'style_custom_css'                  => 'Свой CSS',
+            'style_external_css'                => 'External CSS Link',
             'style_main_color'                  => 'Основной цвет',
             'style_heading_background'          => 'Фон "шапки" сайта',
         ],
