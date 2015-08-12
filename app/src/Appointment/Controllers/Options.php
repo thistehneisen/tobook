@@ -38,7 +38,7 @@ class Options extends AsBase
                 $params['name'] = $name;
                 // Don't display option with attribute admin_only to non-admin users
                 if(isset($params['admin_only']) && $params['admin_only']) {
-                    if(!$this->user->isAdmin) {
+                    if(!$this->user->isAdmin && (Session::get('stealthMode') === null)) {
                         continue;
                     }
                 }
