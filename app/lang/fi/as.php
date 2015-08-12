@@ -299,9 +299,10 @@ return [
         ]
     ],
     'options' => [
-        'heading' => 'Asetukset',
-        'updated' => 'Asetukset päivitetty onnistuneesti!',
-        'invalid_data' => 'Invalid input data',
+        'heading'                    => 'Asetukset',
+        'updated'                    => 'Asetukset päivitetty onnistuneesti!',
+        'invalid_data'               => 'Invalid input data',
+        'invalid_style_external_css' => 'Invalid external css file!',
         'general' => [
             'index'           => 'Yleinen',
             'heading'         => 'Yleisasetukset',
@@ -378,6 +379,7 @@ return [
             'style_text_color'                  => 'Tekstin väri',
             'style_background'                  => 'Tausta',
             'style_custom_css'                  => 'Custom CSS',
+            'style_external_css'                => 'External CSS Link',
             'style_main_color'                  => 'Pääväri',
             'style_heading_background'          => 'Otsikon tausta',
         ],

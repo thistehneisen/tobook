@@ -369,6 +369,7 @@ return [
             'style_text_color'                  => 'Farba textu',
             'style_background'                  => 'Pozadie',
             'style_custom_css'                  => 'Vlastné CSS',
+            'style_external_css'                => 'External CSS Link',
             'style_main_color'                  => 'Hlavná farba',
             'style_heading_background'          => 'Heading background',
         ],

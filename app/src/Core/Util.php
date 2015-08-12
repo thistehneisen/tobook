@@ -367,4 +367,13 @@ class Util
     {
         return number_format($amount, 2);
     }
+
+    public static function getRemoteFileType($url)
+    {
+        $handle = curl_init ($url);
+        curl_setopt($handle, CURLOPT_RETURNTRANSFER, 1);
+        curl_exec($handle);
+        $type = curl_getinfo($handle, CURLINFO_CONTENT_TYPE);
+        return $type;
+    }
 }

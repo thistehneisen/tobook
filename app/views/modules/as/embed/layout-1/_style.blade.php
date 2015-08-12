@@ -29,3 +29,6 @@
     }
     @endif
 </style>
+@if(!empty($user->asOptions['style_external_css']))
+<link rel="stylesheet" type"text/css" href="{{ $user->asOptions['style_external_css'] }}">
+@endif
