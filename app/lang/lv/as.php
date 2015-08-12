@@ -297,8 +297,9 @@ return [
         ]
     ],
      'options' => [
-        'heading' => 'Iestatījumi',
-        'updated' => 'Iestatījumi mainīti',
+        'heading'                    => 'Iestatījumi',
+        'updated'                    => 'Iestatījumi mainīti',
+        'invalid_style_external_css' => 'Invalid external css file!',
         'general' => [
             'index'           => 'Vispārīgi',
             'heading'         => 'Vispārīgi iestatījumi',

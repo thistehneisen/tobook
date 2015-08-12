@@ -298,9 +298,10 @@ return [
         ]
     ],
     'options' => [
-        'heading' => 'Asetukset',
-        'updated' => 'Asetukset päivitetty onnistuneesti!',
-        'invalid_data' => 'Invalid input data',
+        'heading'                    => 'Asetukset',
+        'updated'                    => 'Asetukset päivitetty onnistuneesti!',
+        'invalid_data'               => 'Invalid input data',
+        'invalid_style_external_css' => 'Invalid external css file!',
         'general' => [
             'index'           => 'Yleinen',
             'heading'         => 'Yleisasetukset',

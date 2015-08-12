@@ -298,9 +298,10 @@ return [
         ]
     ],
      'options' => [
-        'heading' => 'Options',
-        'updated' => 'Options updated',
-        'invalid_data' => 'Invalid input data',
+        'heading'                    => 'Options',
+        'updated'                    => 'Options updated',
+        'invalid_data'               => 'Invalid input data',
+        'invalid_style_external_css' => 'Invalid external css file!',
         'general' => [
             'index'           => 'General',
             'heading'         => 'General options',

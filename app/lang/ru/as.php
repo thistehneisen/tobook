@@ -296,8 +296,9 @@ return [
         ]
     ],
      'options' => [
-        'heading' => 'Настройки',
-        'updated' => 'Настройки обновлены',
+        'heading'                    => 'Настройки',
+        'updated'                    => 'Настройки обновлены',
+        'invalid_style_external_css' => 'Invalid external css file!',
         'general' => [
             'index'           => 'Основное',
             'heading'         => 'Основные настройки',
