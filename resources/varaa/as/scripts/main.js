@@ -375,12 +375,12 @@
                 }
             });
         });
-        $('#btn-continute-action').click(function (e) {
+        $('.btn-continute-action').click(function (e) {
             e.preventDefault();
             var employee_id = $('#employee_id').val(),
                 booking_date    = $('#date').val(),
                 start_time      = $('#start_time').val(),
-                selected_action = $('input[name="action_type"]:checked').val(),
+                selected_action = $(this).data('action'),
                 action_url;
 
             if (selected_action === 'book') {
