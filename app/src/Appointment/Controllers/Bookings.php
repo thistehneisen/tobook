@@ -242,6 +242,7 @@ class Bookings extends AsBase
 
         $employee = Employee::ofCurrentUser()->find($employeeId);
         $services = $employee->services;
+        $extras = [];
 
         $categories = $this->getCategories($services);
 
@@ -252,7 +253,8 @@ class Bookings extends AsBase
             'bookingDate'     => $bookingDate,
             'bookingServices' => [],
             'startTime'       => $startTime,
-            'bookingStatuses' => $bookingStatuses
+            'bookingStatuses' => $bookingStatuses,
+            'extras'          => $extras,
         ]);
     }
 

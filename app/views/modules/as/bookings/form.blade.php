@@ -221,6 +221,12 @@
                                 <button id="btn-add-service" class="btn btn-primary btn-sm pull-right">{{ trans('common.add') }}</button>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="extra_services" class="col-sm-4 control-label">{{ trans('as.bookings.extra_service') }}</label>
+                            <div class="col-sm-8">
+                                {{ Form::select('extra_services[]', $extras, 0 , array('class'=> 'selectpicker form-control input-sm', 'multiple' => true, 'title' => trans('as.nothing_selected'))) }}
+                            </div>
+                        </div>
                     </div>
                      <div class="col-sm-6">
                             <div class="form-group row">
@@ -348,6 +354,11 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    (function(){
+        $('.selectpicker').selectpicker();
+    })();
+</script>
 @if(!isset($upsert))
     @include ('modules.as.bookings.formScript')
 @endif
