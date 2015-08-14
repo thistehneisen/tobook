@@ -224,7 +224,7 @@
                         <div class="form-group row">
                             <label for="extra_services" class="col-sm-4 control-label">{{ trans('as.bookings.extra_service') }}</label>
                             <div class="col-sm-8">
-                                {{ Form::select('extra_services[]', $extras, 0 , array('class'=> 'selectpicker form-control input-sm', 'multiple' => true, 'title' => trans('as.nothing_selected'))) }}
+                                {{ Form::select('extra_services[]', $extras, 0 , array('class'=> 'selectpicker form-control input-sm', 'id' => 'extra_services', 'multiple' => true, 'title' => trans('as.nothing_selected'))) }}
                             </div>
                         </div>
                     </div>

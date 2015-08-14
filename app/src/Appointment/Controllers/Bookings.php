@@ -189,6 +189,7 @@ class Bookings extends AsBase
 
         $startAt = with(new Carbon($booking->start_at))->format('H:i');
         $endAt   = with(new Carbon($booking->end_at))->format('H:i');
+        $extras = [];
 
         return [
             'booking'               => $booking,
@@ -210,7 +211,8 @@ class Bookings extends AsBase
             'services'              => $bookingServicesList,
             'bookingServices'       => $bookingServices,
             'serviceTimes'          => $serviceTimesList,
-            'plustime'              => $plustime
+            'plustime'              => $plustime,
+            'extras'                => $extras,
         ];
     }
 
