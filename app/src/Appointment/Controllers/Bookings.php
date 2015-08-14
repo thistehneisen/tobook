@@ -189,7 +189,7 @@ class Bookings extends AsBase
 
         $startAt = with(new Carbon($booking->start_at))->format('H:i');
         $endAt   = with(new Carbon($booking->end_at))->format('H:i');
-        $extras = [];
+        $extras = $booking->getDisplayExtraServices();
 
         return [
             'booking'               => $booking,
@@ -289,24 +289,8 @@ class Bookings extends AsBase
 
         $bookingStatuses = Booking::getStatuses();
 
-        $bookingExtraServices = $booking->extraServices()->lists('extra_service_id');
-        $extraServices = new \Illuminate\Database\Eloquent\Collection;
+        $extras = $booking->getDisplayExtraServices();
 
-        //Find all extra services of all booking services
-        foreach ($booking->bookingServices as $bookingService) {
-            foreach ($bookingService->service->extraServices as $extraService) {
-                $extraServices->push($extraService);
-            }
-        }
-
-        //Exclude existing extra services associated with current booking
-        if (!empty($bookingExtraServices)) {
-            $extraServices = $extraServices->filter(function($item) use($bookingExtraServices) {
-                return !in_array($item->id, $bookingExtraServices);
-            });
-        }
-
-        $extras = $extraServices->lists('name', 'id');
         $resources = $booking->getBookingResources();
 
         $totalPrice = (!empty($booking->businessCommission->total_price))
@@ -528,6 +512,7 @@ class Bookings extends AsBase
         $modifyTime          = (int) Input::get('modify_times', 0);
         $notes               = Input::get('booking_notes');
         $isRequestedEmployee = Input::get('is_requested_employee', false);
+        $extraServiceIds     = Input::get('extra_services');
 
         try {
 
@@ -541,6 +526,7 @@ class Bookings extends AsBase
                 ->setIsRequestedEmployee($isRequestedEmployee)
                 ->setConsumer($consumer)
                 ->setModifyTime($modifyTime)
+                ->setExtraServiceIds($extraServiceIds)
                 ->setClientIP(Request::getClientIp())
                 ->setSource('backend');
 

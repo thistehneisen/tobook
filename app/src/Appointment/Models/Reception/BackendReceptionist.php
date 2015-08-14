@@ -84,11 +84,13 @@ class BackendReceptionist extends Receptionist
                 $extraService = ExtraService::find($extraServiceId);
                 $bookingExtraService = new BookingExtraService;
                 $bookingExtraService->fill([
-                    'date'     => $this->date,
+                    'date'     => $this->bookingServices->first()->date,
                     'tmp_uuid' => $this->uuid
                 ]);
                 $bookingExtraService->extraService()->associate($extraService);
-                $bookingExtraService->booking()->associate($booking);
+                if (!empty($booking)) {
+                    $bookingExtraService->booking()->associate($booking);
+                }
                 $bookingExtraService->save();
             }
         }
@@ -169,6 +171,13 @@ class BackendReceptionist extends Receptionist
             $bookingService->is_requested_employee = $this->isRequestedEmployee;
             $bookingService->booking()->associate($booking);
             $bookingService->save();
+        }
+
+        // Associate extra services with bookings
+        $bookingExtraServices = $this->getExtraServices();
+        foreach ($bookingExtraServices as $bookingExtraService) {
+            $bookingExtraService->booking()->associate($booking);
+            $bookingExtraService->save();
         }
 
         //Don't send sms when update booking

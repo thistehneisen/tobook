@@ -291,7 +291,6 @@
                     'added_booking_date',
                     'added_service_price'
                 ];
-            console.log(data.extras);
 
             for (var i = 0; i < data.extras.length; i++) {
                 // Don't add duplicate options
