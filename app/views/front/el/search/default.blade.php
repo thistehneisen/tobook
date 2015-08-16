@@ -22,7 +22,7 @@
                             @endif
                             </li>
                             @endforeach
-                            @if (App::environment() === 'tobook' || App::environment() === 'local')
+                            @if (App::environment() === 'tobook' || App::environment() === 'stag')
                                 <li class="tutorial-video-link"><a class="view-video" title="ToBook.lv - {{ trans('home.video_tutorial_text')}}?" href="{{ Config::get('varaa.tutorial_video') }}">{{ trans('home.video_tutorial_text')}}</a></li>
                             @endif
                         </ul>

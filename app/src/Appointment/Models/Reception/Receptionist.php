@@ -540,6 +540,17 @@ abstract class Receptionist implements ReceptionistInterface
 
         $this->bookingService = BookingService::find($this->bookingServiceId);
 
+        $extras = [];
+
+        //Find all extra services of all booking services
+        foreach ($this->bookingServices as $bookingService) {
+            foreach ($bookingService->service->extraServices as $extraService) {
+                $extras[] = [
+                    'id' => $extraService->id,
+                    'name' => $extraService->name
+                ];
+            }
+        }
         $data = [
             'datetime'           => $this->startTime->toDateString(),
             'booking_service_id' => $this->bookingServiceId,
@@ -555,7 +566,8 @@ abstract class Receptionist implements ReceptionistInterface
             'service_length'     => $this->bookingService->selectedService->length,
             'plustime'           => $this->plustime,
             'employee_name'      => $this->employee->name,
-            'uuid'               => $this->uuid
+            'uuid'               => $this->uuid,
+            'extras'             => $extras,
         ];
         return $data;
     }

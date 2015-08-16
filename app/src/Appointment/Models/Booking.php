@@ -1321,4 +1321,46 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $businessCommission->save();
     }
 
+    /**
+     * Return list of extra services exlude the current one
+     * @return array;
+     */
+    public function getDisplayExtraServices()
+    {
+        $bookingExtraServices = $this->extraServices()->lists('extra_service_id');
+        $extraServices = new \Illuminate\Database\Eloquent\Collection;
+
+        //Find all extra services of all booking services
+        foreach ($this->bookingServices as $bookingService) {
+            foreach ($bookingService->service->extraServices as $extraService) {
+                $extraServices->push($extraService);
+            }
+        }
+
+        //Exclude existing extra services associated with current booking
+        if (!empty($bookingExtraServices)) {
+            $extraServices = $extraServices->filter(function($item) use($bookingExtraServices) {
+                return !in_array($item->id, $bookingExtraServices);
+            });
+        }
+
+        $extras = $extraServices->lists('name', 'id');
+        return $extras;
+    }
+
+    public function getAvailableExtraServices()
+    {
+        $extras = [];
+        //Find all extra services of all booking services
+        foreach ($this->bookingServices as $bookingService) {
+            foreach ($bookingService->service->extraServices as $extraService) {
+                $extras[] = [
+                    'id' => $extraService->id,
+                    'name' => $extraService->name
+                ];
+            }
+        }
+        return $extras;
+    }
+
 }

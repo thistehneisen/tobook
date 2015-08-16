@@ -60,6 +60,7 @@ return [
     'search_query'          => 'Meklē pakalpojumu',
     'search_place'          => 'Rīga',
     'video_tutorial_text'   => 'Kā tas strādā?',
+    'video_tutorial_link'   => 'https://www.youtube.com/watch?v=FrMUPi7Yo7U?rel=0&amp;showinfo=0&autoplay=1',
     'search'        => [
         'tagline'         => 'Rezervē, ko vēlies',
         'query'           => 'Meklē uzņēmumu',

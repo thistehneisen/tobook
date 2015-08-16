@@ -9,7 +9,8 @@ use App\Appointment\Models\EmployeeCustomTime;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\CustomTime;
-use App\Appointment\Workshift\Planner;
+use App\Appointment\Planner\Workshift;
+use App\Appointment\Planner\Freetime;
 
 class Employees extends AsBase
 {
@@ -194,30 +195,38 @@ class Employees extends AsBase
     public function getFreeTimeForm()
     {
         $employeeId  = Input::get('employee_id');
-        $bookingDate = Input::get('booking_date');
-        $startTime   = Input::get('start_time');
-        $endTime     = with(new Carbon($startTime))->addMinutes(60);
-        $employee    = Employee::ofCurrentUser()->find($employeeId);
-        $employees   = Employee::ofCurrentUser()->lists('name','id');
+        $freetimeId  = Input::get('freetime_id', null);
 
-        //TODO get form settings or somewhere else
-        $workingTimes = range(6, 22);
-        $workShift = range(0, 45, 15);
-        $times = [];
-        foreach ($workingTimes as $hour) {
-           foreach (range(0, 45, 15) as $minuteShift) {
-                $time = sprintf('%02d:%02d', $hour, $minuteShift);
-                $times[$time] = $time;
-           }
-        }
+        $freetime  = !empty($freetimeId)
+            ? EmployeeFreetime::find($freetimeId)
+            : null;
+
+        $date      = empty($freetime) ? new Carbon(Input::get('date')) : new Carbon($freetime->date);
+        $startTime = empty($freetime) ? new Carbon(Input::get('start_time')) : $freetime->startTime;
+        $endTime   = empty($freetime) ? $startTime->copy()->addMinutes(60) : $freetime->endTime;
+        $employee  = Employee::ofCurrentUser()->find($employeeId);
+        $employees = Employee::ofCurrentUser()->lists('name','id');
+
+        $planner = new Freetime();
+        $times = $planner->getWorkshift();
+
+        $personalFreetime =  (!empty($freetime) && ($freetime->type !== EmployeeFreetime::PERSONAL_FREETIME))
+            ? false
+            : true;
+        $workingFreetime = (!empty($freetime) && ($freetime->type === EmployeeFreetime::WOKRING_FREETIME))
+            ? true
+            : false;
 
         return View::make('modules.as.employees.freetimeForm', [
-            'employees'   => $employees,
-            'employee'    => $employee,
-            'bookingDate' => $bookingDate,
-            'startTime'   => $startTime,
-            'endTime'     => $endTime->format('H:i'),
-            'times'       => $times
+            'employees'        => $employees,
+            'employee'         => $employee,
+            'date'             => $date->format('Y-m-d'),
+            'freetime'         => $freetime,
+            'startTime'        => $startTime->format('H:i'),
+            'endTime'          => $endTime->format('H:i'),
+            'times'            => $times,
+            'personalFreetime' => $personalFreetime,
+            'workingFreetime'  => $workingFreetime
         ]);
     }
 
@@ -226,7 +235,7 @@ class Employees extends AsBase
      */
     public function addEmployeeFreeTime()
     {
-        $employeeId = Input::get('employees');
+        $employeeIds = Input::get('employees');
         $data = [];
         try {
             $startAt     = new Carbon(Input::get('start_at'));
@@ -236,56 +245,75 @@ class Employees extends AsBase
             $description = Input::get('description');
             $type        = (int) Input::get('freetime_type');
 
-            if($fromDate->gt($toDate)) {
-                throw new \Exception(trans('as.employees.error.from_date_greater_than_to_date'), 1);
+            $planner = new Freetime();
+            $planner->fill([
+                'employeeIds' => $employeeIds,
+                'startAt'     => $startAt,
+                'endAt'       => $endAt,
+                'fromDate'    => $fromDate,
+                'toDate'      => $toDate,
+                'description' => $description,
+                'type'        => $type,
+                'user'        => $this->user
+            ]);
 
-            }
-            $days = (int) $fromDate->diffInDays($toDate)+1;
-            $bookings = array();
-            for($day = 0; $day < $days; $day++) {
-                $date = $fromDate->copy()->addDays($day);
-                $overlaps = Booking::getOverlappedBookings($employeeId, $date, $startAt, $endAt);
-                foreach ($overlaps as $booking) {
-                    $bookings[] = $booking;
-                }
-            }
+            $data = $planner->validateData();
 
-            //Checking if freetime overlaps with any booking or not
-            if(!empty($bookings)) {
-                $data['success'] = false;
-                $data['message'] = trans('as.employees.error.freetime_overlapped_with_booking');
-                $data['message'] .= '<ul>';
-                foreach ($bookings as $booking) {
-                    $data['message'] .= '<li>' . $booking->startTime->toDateTimeString() . '</li>';
-                }
-                $data['message'] .= '</ul>';
+            if (!empty($data)) {
                 return Response::json($data);
             }
 
-            for ($day = 0; $day < $days; $day++) {
-                $employeeFreetime = new EmployeeFreetime();
-                $date = $fromDate->copy()->addDays($day);
-                $employeeFreetime->fill([
-                    'date'        => $date->toDateString(),
-                    'start_at'    => $startAt->toTimeString(),
-                    'end_at'      => $endAt->toTimeString(),
-                    'description' => $description,
-                    'type'        => $type
-                ]);
+            $data = $planner->saveFreetimes();
 
-                $employee = Employee::ofCurrentUser()->find($employeeId);
-                $employeeFreetime->user()->associate($this->user);
-                $employeeFreetime->employee()->associate($employee);
-                $employeeFreetime->save();
-                $data['success'] = true;
-                // Remove NAT slots since employee has freetime
-                NAT::removeEmployeeFreeTime($employeeFreetime);
-            }
         } catch (\Exception $ex) {
             $data['success'] = false;
             $data['message'] = $ex->getMessage();
         }
 
+        return Response::json($data);
+    }
+
+    /**
+     * Handle ajax request to edit freetime from BE calendar
+     */
+    public function editEmployeeFreeTime()
+    {
+        $startAt     = new Carbon(Input::get('start_at'));
+        $endAt       = new Carbon(Input::get('end_at'));
+        $description = Input::get('description');
+        $type        = (int) Input::get('freetime_type');
+        $freetimeId  = Input::get('freetime_id', null);
+
+        try{
+            $employeeFreetime = EmployeeFreetime::findOrFail($freetimeId);
+
+            $planner = new Freetime();
+            $planner->fill([
+                'employeeIds' => [$employeeFreetime->employee->id],
+                'startAt'     => $startAt,
+                'endAt'       => $endAt,
+                'fromDate'    => new Carbon($employeeFreetime->date),
+                'toDate'      => new Carbon($employeeFreetime->date),
+                'description' => $description,
+                'type'        => $type,
+                'freetimeId'  => $freetimeId
+            ]);
+
+            $data = $planner->validateData();
+
+            if (!empty($data)) {
+                 return Response::json($data);
+            }
+
+            $planner->editEmployeeFreetime($employeeFreetime);
+
+            $data['success'] = true;
+            // Remove NAT slots since employee has freetime
+            NAT::removeEmployeeFreeTime($employeeFreetime);
+         } catch (\Exception $ex) {
+            $data['success'] = false;
+            $data['message'] = $ex->getMessage();
+        }
         return Response::json($data);
     }
 
@@ -424,7 +452,7 @@ class Employees extends AsBase
             : $current->copy()->endOfMonth();
 
         $employees    = Employee::ofCurrentUser()->get();
-        $planner      = new Planner($startDate, $endDate);
+        $planner      = new Workshift($startDate, $endDate);
         $customTimes  = $planner->getDisplayCustomTimes();
         $monthSummary = $planner->getMonthSummary();
         $weekSummary  = $planner->getWeekSummary();

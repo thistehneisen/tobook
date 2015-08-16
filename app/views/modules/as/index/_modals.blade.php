@@ -1,33 +1,11 @@
 <div id="select-action" class="as-modal-form as-calendar-action">
 <h2>{{ trans('as.index.calendar') }}</h2>
-<table class="table table-condensed">
-    <tbody>
-        <tr>
-            <td><input type="radio" id="freetime" value="freetime" name="action_type"></td>
-            <td><label for="freetime">{{ trans('as.employees.add_free_time') }}</label></td>
-        </tr>
-        <tr>
-            <td><input type="radio" id="book" value="book" name="action_type"></td>
-            <td><label for="book">{{ trans('as.bookings.add') }}</label></td>
-        </tr>
-        <tr id="row_paste_booking" style="@if(empty($cutId)) display: none @endif">
-            <td><input type="radio" id="paste_booking" value="paste_booking" name="action_type"></td>
-            <td><label for="paste_booking">{{ trans('as.bookings.confirm_reschedule') }}</label></td>
-        </tr>
-        <tr id="row_discard_cut_booking" style="@if(empty($cutId)) display: none @endif">
-            <td><input type="radio" id="discard_cut_booking" value="discard_cut_booking" name="action_type"></td>
-            <td><label for="discard_cut_booking">{{ trans('as.bookings.cancel_reschedule') }}</label></td>
-        </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-        <td class="as-submit-row" colspan="2">
-            <a href="#" id="btn-continute-action" class="btn btn-primary">{{ trans('common.continue') }}</a>
-            <a onclick="$.fancybox.close();" id="btn-cancel-action" class="btn btn-danger">{{ trans('common.cancel') }}</a>
-        </td>
-    </tr>
-    </tfoot>
-</table>
+<div class="btn-group-vertical" style="width: 100%" role="group" aria-label="...">
+    <button type="button" data-action="freetime" class="btn btn-default btn-continute-action">{{ trans('as.employees.add_free_time') }}</button>
+    <button type="button" data-action="book" class="btn btn-default btn-continute-action">{{ trans('as.bookings.add') }}</button>
+    <button type="button" id="row_paste_booking" data-action="paste_booking" class="btn btn-default btn-continute-action" style="@if(empty($cutId)) display: none @endif">{{ trans('as.bookings.confirm_reschedule') }}</button>
+    <button type="button" id="row_discard_cut_booking" data-action="discard_cut_booking" class="btn btn-default btn-continute-action" style="@if(empty($cutId)) display: none @endif">{{ trans('as.bookings.cancel_reschedule') }}</button>
+</div>
 </div>
 <div id="select-modify-action" class="as-modal-form as-calendar-action">
 <h2>{{ trans('as.index.calendar') }}</h2>
@@ -67,6 +45,7 @@
 <input type="hidden" id="add_service_url" value="{{ route('as.bookings.service.add') }}">
 <input type="hidden" id="add_booking_url" value="{{ route('as.bookings.add') }}">
 <input type="hidden" id="add_freetime_url" value=" {{ route('as.employees.freetime.add') }}">
+<input type="hidden" id="edit_freetime_url" value=" {{ route('as.employees.freetime.edit') }}">
 <input type="hidden" id="delete_freetime_url" value="{{ route('as.employees.freetime.delete') }}"/>
 <input type="hidden" id="modify_booking_form_url" value="{{ route('as.bookings.modify-form') }}"/>
 <input type="hidden" id="get_paste_booking_url" value="{{ route('as.bookings.paste') }}"/>

@@ -90,6 +90,11 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Employees@addEmployeeFreeTime'
         ]);
 
+        Route::post('edit-employee-freetime', [
+            'as' => 'as.employees.freetime.edit',
+            'uses' => 'App\Appointment\Controllers\Employees@editEmployeeFreeTime'
+        ]);
+
         Route::post('delete-employee-freetime', [
             'as' => 'as.employees.freetime.delete',
             'uses' => 'App\Appointment\Controllers\Employees@deleteEmployeeFreeTime'

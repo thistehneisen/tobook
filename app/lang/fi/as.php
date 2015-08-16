@@ -230,7 +230,8 @@ return [
         'monthly_hours'                    => 'Kuukauden tunnit',
         'weekly_hours'                     => 'Viikkotunnit',
         'error'                            => [
-        'freetime_overlapped_with_booking' => 'Vapaa-aika menossa varauksen päälle!'
+        'freetime_overlapped_with_booking' => 'Vapaa-aika menossa varauksen päälle!',
+        'freetime_overlapped_with_others'  => 'Freetime is overlapped with other freetime(s)',//@todo
         ],
     ],
     'embed' => [

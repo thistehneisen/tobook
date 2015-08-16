@@ -230,7 +230,8 @@ return [
         'monthly_hours'                    => 'Monthly hours',
         'weekly_hours'                     => 'Weekly hours',
         'error'                            => [
-        'freetime_overlapped_with_booking' => 'Freetime is overlapped with with booking(s)',
+        'freetime_overlapped_with_booking' => 'Freetime is overlapped with booking(s)',
+        'freetime_overlapped_with_others'  => 'Freetime is overlapped with other freetime(s)',
         ],
     ],
     'embed' => [
