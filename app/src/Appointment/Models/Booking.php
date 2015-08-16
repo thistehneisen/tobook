@@ -1348,4 +1348,19 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $extras;
     }
 
+    public function getAvailableExtraServices()
+    {
+        $extras = [];
+        //Find all extra services of all booking services
+        foreach ($this->bookingServices as $bookingService) {
+            foreach ($bookingService->service->extraServices as $extraService) {
+                $extras[] = [
+                    'id' => $extraService->id,
+                    'name' => $extraService->name
+                ];
+            }
+        }
+        return $extras;
+    }
+
 }

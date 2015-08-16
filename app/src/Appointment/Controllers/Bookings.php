@@ -189,7 +189,7 @@ class Bookings extends AsBase
 
         $startAt = with(new Carbon($booking->start_at))->format('H:i');
         $endAt   = with(new Carbon($booking->end_at))->format('H:i');
-        $extras = $booking->getDisplayExtraServices();
+        $extras  = $booking->getDisplayExtraServices();
 
         return [
             'booking'               => $booking,
@@ -632,10 +632,12 @@ class Bookings extends AsBase
                 ->setBookingId($bookingId)
                 ->setConsumer($booking->consumer)
                 ->updateBookingServicesTime();
-
-             $receptionist->upsertBooking();
+            $receptionist->upsertBooking();
+            $extras = $booking->getAvailableExtraServices();
 
             $data['success'] = true;
+            $data['extras'] = $extras;
+
         } catch (\Exception $ex) {
             $data['success'] = false;
             $data['message'] = $ex->getMessage();
