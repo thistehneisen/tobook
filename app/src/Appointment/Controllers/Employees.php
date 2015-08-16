@@ -292,10 +292,11 @@ class Employees extends AsBase
                 'employeeIds' => [$employeeFreetime->employee->id],
                 'startAt'     => $startAt,
                 'endAt'       => $endAt,
-                'fromDate'    => $employeeFreetime->date,
-                'toDate'      => $employeeFreetime->date,
+                'fromDate'    => new Carbon($employeeFreetime->date),
+                'toDate'      => new Carbon($employeeFreetime->date),
                 'description' => $description,
                 'type'        => $type,
+                'freetimeId'  => $freetimeId
             ]);
 
             $data = $planner->validateData();

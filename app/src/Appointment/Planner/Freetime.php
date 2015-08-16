@@ -60,7 +60,7 @@ class Freetime
         for($day = 0; $day < $this->days; $day++) {
             $date = $this->fromDate->copy()->addDays($day);
             foreach ($this->employeeIds as $employeeId) {
-                $overlaps = EmployeeFreetime::getOverlappedFreetimes($employeeId, $date, $this->startAt, $this->endAt);
+                $overlaps = EmployeeFreetime::getOverlappedFreetimes($employeeId, $date, $this->startAt, $this->endAt, $this->freetimeId);
                 foreach ($overlaps as $booking) {
                     $freetimes[] = $booking;
                 }
