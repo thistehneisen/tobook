@@ -132,6 +132,14 @@ $(function () {
         }).done(function (data) {
             if(data.success){
                 $('#extra-service-'+extra_service).remove();
+                console.log(data.extras);
+                for (var i = 0; i < data.extras.length; i++) {
+                    // Don't add duplicate options
+                    if ($("#extra_services option[value=" + data.extras[i].id +"]").length === 0){
+                        $('<option>',{'value': data.extras[i].id, text: data.extras[i].name}).appendTo($('#extra_services'));
+                    }
+                };
+                $('#extra_services').selectpicker('refresh');
             } else {
                 alertify.alert('Alert', data.message, function() {
                     alertify.message("OK");
