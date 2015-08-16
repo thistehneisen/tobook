@@ -60,6 +60,7 @@ return [
     'search_place'          => 'Helsinki, FI',
     'on_media'              => 'Featured in ',
     'video_tutorial_text'   => 'How it works?',
+    'video_tutorial_link'   => 'https://www.youtube.com/watch?v=FrMUPi7Yo7U',
     'search'        => [
         'tagline'         => 'What do you want to book?',
         'query'           => 'Enter business name or service',

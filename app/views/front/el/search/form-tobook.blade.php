@@ -31,7 +31,7 @@
     <!--end search form-->
     <!--tutorial video link -->
     <div class="col-md-offset-2 col-sm-4 hidden-md hidden-sm hidden-xs">
-        <a class="view-video" title="ToBook.lv - {{ trans('home.video_tutorial_text')}}" href="{{ Config::get('varaa.tutorial_video') }}">
+        <a class="view-video" title="ToBook.lv - {{ trans('home.video_tutorial_text')}}" href="{{ trans('home.video_tutorial_link') }}">
         <img class="tutorial-video" width="560" height="315" src="{{ asset_path('core/img/how-does-it-work.png') }}">
         </a>
     </div>
