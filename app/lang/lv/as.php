@@ -420,4 +420,5 @@ return [
         'success_bulk'   => 'Ieraksts veiksmīgi izdzēsts.',
         'sortable'       => 'Velciet ar peli, lai pārkārtotu secību',
     ],
+    'nothing_selected' => 'Izvēlēties',
 ];
