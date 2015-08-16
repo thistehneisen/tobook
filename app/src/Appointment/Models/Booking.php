@@ -252,6 +252,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             if(!empty($extraServices)) {
                 $extraServiceText = "(" . implode(' & ', $extraServices) . ")";
                 $serviceInfo = str_replace('{extraServices}', $extraServiceText, $serviceInfo);
+            } else {
+                $serviceInfo = str_replace(' {extraServices}', '', $serviceInfo);
             }
 
             $serviceInfo = str_replace('{employee}', $this->employee->name, $serviceInfo);
