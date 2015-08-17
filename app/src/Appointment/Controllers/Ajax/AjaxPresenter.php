@@ -1,14 +1,14 @@
 <?php namespace App\Appointment\Controllers\Ajax;
 
-class AjaxPresenter extends \Illuminate\Pagination\BootstrapPresenter {
-
+class AjaxPresenter extends \Illuminate\Pagination\BootstrapPresenter
+{
     protected $class = 'ajaxPaginatorLink';
     /**
      * Get HTML wrapper for a page link.
      *
-     * @param  string  $url
-     * @param  int  $page
-     * @param  string  $rel
+     * @param  string $url
+     * @param  int    $page
+     * @param  string $rel
      * @return string
      */
     public function getPageLinkWrapper($url, $page, $rel = null)
@@ -20,7 +20,7 @@ class AjaxPresenter extends \Illuminate\Pagination\BootstrapPresenter {
 
     /**
      * Parse url params and transform to data-* attributes
-     * @param type $url
+     * @param  type $url
      * @return type
      */
     public function getDataAttributes($url)
@@ -32,6 +32,7 @@ class AjaxPresenter extends \Illuminate\Pagination\BootstrapPresenter {
             $parts = explode("=", $param);
             $data .= sprintf('data-%s="%s" ', $parts[0], $parts[1]);
         }
+
         return $data;
     }
 }

@@ -1,6 +1,5 @@
 <?php namespace App\Appointment\Models;
 use DB;
-use App\Appointment\Models\RoomService;
 
 class Room extends \App\Core\Models\Base
 {
@@ -26,7 +25,7 @@ class Room extends \App\Core\Models\Base
 
         foreach ($roomIds as $key => $id) {
             $room = self::find($id);
-            $roomService = new RoomService;
+            $roomService = new RoomService();
             $roomService->service()->associate($service);
             $roomService->room()->associate($room);
             $roomService->save();

@@ -93,14 +93,16 @@ class Service extends \App\Core\Models\Base
                 'description'   => $serviceTime->description
             ];
         }
+
         return array_values($data);
     }
 
     public function getTreamentsList()
     {
-        if(!empty($this->treatmentType->id)) {
+        if (!empty($this->treatmentType->id)) {
             return TreatmentType::where('master_category_id', $this->treatmentType->master_category_id)->get()->lists('name', 'id');
         }
+
         return[];
     }
 
@@ -180,7 +182,8 @@ class Service extends \App\Core\Models\Base
     /**
      * @see http://laravel.com/docs/eloquent#many-to-many
      */
-    public function extraServices(){
+    public function extraServices()
+    {
         return $this->belongsToMany(
             'App\Appointment\Models\ExtraService',
             'as_extra_service_service',

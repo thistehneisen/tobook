@@ -6,7 +6,6 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeDefaultTime;
 use App\Appointment\Models\EmployeeFreetime;
 use App\Appointment\Models\EmployeeCustomTime;
-use App\Appointment\Models\Booking;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\CustomTime;
 use App\Appointment\Planner\Workshift;
@@ -74,9 +73,9 @@ class Employees extends AsBase
         $business_id = Input::get('business_id');
         $account     = Input::get('account');
 
-        if((int)$status === Employee::STATUS_FREELANCER) {
+        if ((int) $status === Employee::STATUS_FREELANCER) {
             $validator = Employee::getFreelancerValidator($business_id, $account);
-            if($validator->fails()) {
+            if ($validator->fails()) {
 
             }
         }
@@ -284,7 +283,7 @@ class Employees extends AsBase
         $type        = (int) Input::get('freetime_type');
         $freetimeId  = Input::get('freetime_id', null);
 
-        try{
+        try {
             $employeeFreetime = EmployeeFreetime::findOrFail($freetimeId);
 
             $planner = new Freetime();
@@ -314,6 +313,7 @@ class Employees extends AsBase
             $data['success'] = false;
             $data['message'] = $ex->getMessage();
         }
+
         return Response::json($data);
     }
 
@@ -498,7 +498,7 @@ class Employees extends AsBase
             }
 
             return Response::json(['success' => true]);
-        } catch(\Exception $ex){
+        } catch (\Exception $ex) {
             return Response::json([
                 'success' => false,
                 'message' => $ex->getMessage()

@@ -1,14 +1,9 @@
 <?php namespace App\Appointment\Planner;
 
 use App, View, Confide, Redirect, Input, Config, Util, Response, Request, Validator, DB, NAT;
-use Carbon\Carbon;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\EmployeeDefaultTime;
 use App\Appointment\Models\EmployeeFreetime;
-use App\Appointment\Models\EmployeeCustomTime;
 use App\Appointment\Models\Booking;
-use App\Appointment\Models\Service;
-use App\Appointment\Models\CustomTime;
 
 class Freetime
 {
@@ -23,12 +18,13 @@ class Freetime
     public $type;
     protected $days;
 
-    public function fill($data = []) {
+    public function fill($data = [])
+    {
         foreach ($data as $key => $value) {
             $this->$key = $value;
         }
 
-        if(empty($this->fromDate) || empty($this->toDate)) {
+        if (empty($this->fromDate) || empty($this->toDate)) {
             throw new \Exception('as.employees.error.missing_data', 1);
         }
 
@@ -41,7 +37,7 @@ class Freetime
     public function getOverlappedBookings()
     {
         $bookings = array();
-        for($day = 0; $day < $this->days; $day++) {
+        for ($day = 0; $day < $this->days; $day++) {
             $date = $this->fromDate->copy()->addDays($day);
             foreach ($this->employeeIds as $employeeId) {
                 $overlaps = Booking::getOverlappedBookings($employeeId, $date, $this->startAt, $this->endAt);
@@ -57,7 +53,7 @@ class Freetime
     public function getOverlappedFreetimes()
     {
         $freetimes = array();
-        for($day = 0; $day < $this->days; $day++) {
+        for ($day = 0; $day < $this->days; $day++) {
             $date = $this->fromDate->copy()->addDays($day);
             foreach ($this->employeeIds as $employeeId) {
                 $overlaps = EmployeeFreetime::getOverlappedFreetimes($employeeId, $date, $this->startAt, $this->endAt, $this->freetimeId);
@@ -70,12 +66,12 @@ class Freetime
        return $freetimes;
     }
 
-
-    public function validateData() {
+    public function validateData()
+    {
         $bookings = $this->getOverlappedBookings();
         $data = [];
         //Checking if freetime overlaps with any booking or not
-        if(!empty($bookings)) {
+        if (!empty($bookings)) {
             $data['success'] = false;
             $data['message'] = trans('as.employees.error.freetime_overlapped_with_booking');
             $data['message'] .= '<ul>';
@@ -83,11 +79,12 @@ class Freetime
                 $data['message'] .= '<li>' . $booking->startTime->toDateTimeString() . '</li>';
             }
             $data['message'] .= '</ul>';
+
             return $data;
         }
 
         $freetimes = $this->getOverlappedFreetimes();
-        if(!empty($freetimes)) {
+        if (!empty($freetimes)) {
             $data['success'] = false;
             $data['message'] = trans('as.employees.error.freetime_overlapped_with_others');
             $data['message'] .= '<ul>';
@@ -95,6 +92,7 @@ class Freetime
                 $data['message'] .= '<li>' . $freetime->startTime->toDateTimeString() . '</li>';
             }
             $data['message'] .= '</ul>';
+
             return $data;
         }
     }
@@ -123,6 +121,7 @@ class Freetime
                 NAT::removeEmployeeFreeTime($employeeFreetime);
             }
         }
+
         return $data;
     }
 
@@ -134,6 +133,7 @@ class Freetime
             'description' => $this->description,
             'type'        => $this->type
         ]);
+
         return $employeeFreetime->save();
     }
 
@@ -153,6 +153,7 @@ class Freetime
                 $times[$time] = $time;
            }
         }
+
         return $times;
     }
 

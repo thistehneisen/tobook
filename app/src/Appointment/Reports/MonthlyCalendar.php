@@ -83,6 +83,7 @@ class MonthlyCalendar extends Base
             $data[$i++] = ['date' => clone $date];
             $date->addDay();
         }
+
         return $data;
     }
 
@@ -90,8 +91,8 @@ class MonthlyCalendar extends Base
      * Helper method to merge raw result into data array, allow to set key
      * and default value
      *
-     * @param array  $data    The data to be returned
-     * @param array  $result  The result to be merged
+     * @param array   $data    The data to be returned
+     * @param array   $result  The result to be merged
      * @param string  $key     Name of key to hold data in $data
      * @param integer $default Default value
      *
@@ -102,6 +103,7 @@ class MonthlyCalendar extends Base
         foreach ($data as $day => &$item) {
             $item[$key] = isset($result[$day]) ? $result[$day] : $default;
         }
+
         return $data;
     }
 
@@ -140,6 +142,7 @@ class MonthlyCalendar extends Base
             $result = $query->groupBy('date')
                 ->select($select, DB::raw('DAYOFMONTH(date) as day'))
                 ->get();
+
             return array_combine(array_pluck($result, 'day'), array_pluck($result, $type));
         } else {
             return $query->select($select)->first();

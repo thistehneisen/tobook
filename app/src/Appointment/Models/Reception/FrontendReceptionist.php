@@ -4,8 +4,6 @@ use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\ExtraService;
-use App\Appointment\Models\Observer\SmsObserver;
-use App\Appointment\Models\Observer\EmailObserver;
 use Exception;
 
 class FrontendReceptionist extends Receptionist
@@ -77,7 +75,7 @@ class FrontendReceptionist extends Receptionist
 
         $booking = new Booking();
 
-        $status = ($this->getSource() === 'inhouse' && !((int)$this->layout === 3))
+        $status = ($this->getSource() === 'inhouse' && !((int) $this->layout === 3))
             ? Booking::STATUS_PENDING
             : Booking::STATUS_CONFIRM;
 
@@ -99,7 +97,6 @@ class FrontendReceptionist extends Receptionist
         if ($this->getSource() !== 'backend' && $this->consumer !== null) {
             $booking->consumer()->associate($this->consumer);
         }
-
 
         $booking->user()->associate($this->user);
         $booking->employee()->associate($this->bookingService->employee);

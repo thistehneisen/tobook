@@ -34,10 +34,10 @@ class BookingExtraService extends \App\Core\Models\Base
      * <code>App\Appointment\Models\Booking::saveBooking</code> needs to be called with the same uuid
      * to associate the new extra service with a booking record.
      *
-     * @param string $uuid
-     * @param Employee $employee
+     * @param string         $uuid
+     * @param Employee       $employee
      * @param BookingService $bookingService
-     * @param ExtraService $extraService
+     * @param ExtraService   $extraService
      *
      * @return BookingExtraService
      *
@@ -61,7 +61,7 @@ class BookingExtraService extends \App\Core\Models\Base
 
         // TODO: check for overlapping with other booking services of the same booking
 
-        $bookingExtraService = new BookingExtraService;
+        $bookingExtraService = new BookingExtraService();
         $bookingExtraService->fill([
             'date' => $extraServiceStartTime->toDateString(),
             'tmp_uuid' => $uuid,

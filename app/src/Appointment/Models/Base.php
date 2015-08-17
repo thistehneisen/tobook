@@ -8,6 +8,7 @@ class Base extends \App\Core\Models\Base
     public function getStartAt()
     {
         $startAt = new Carbon($this->start_at, Config::get('app.timezone'));
+
         return $startAt;
     }
 
@@ -15,6 +16,7 @@ class Base extends \App\Core\Models\Base
     public function getEndAt()
     {
         $endAt = new Carbon($this->end_at, Config::get('app.timezone'));
+
         return $endAt;
     }
 

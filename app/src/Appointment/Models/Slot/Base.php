@@ -19,7 +19,6 @@ class Base implements Strategy
     private $resourceCache   = [];
     private $roomCache       = [];
 
-
     /**
      * @var string
      */
@@ -76,10 +75,12 @@ class Base implements Strategy
         $this->service  = $service;
         $this->employee = $employee;
         $this->rowTime  = Carbon::createFromTime($hour, $minute, 0, Config::get('app.timezone'));
+
         return $this;
     }
 
-    public function determineClass($date, $hour, $minute, $employee, $service = null){
+    public function determineClass($date, $hour, $minute, $employee, $service = null)
+    {
         $this->init($date, $hour, $minute, $employee, $service);
         $this->class = 'fancybox active';
         $this->defaultWorkingTimeClass();
@@ -91,6 +92,7 @@ class Base implements Strategy
         $employee->setBookedSlot($this->bookedSlot);
         $employee->setFreetimeSlot($this->freetimeSlot);
         $employee->setCustomTimeSlot($this->customTimeSlot);
+
         return $this->class;
     }
 
@@ -110,6 +112,7 @@ class Base implements Strategy
         } else {
             $this->class = $this->getValue('inactive');
         }
+
         return $this->class;
     }
 
@@ -120,7 +123,7 @@ class Base implements Strategy
      */
     protected function customTimeClass()
     {
-        if(empty($this->customTimeCache)){
+        if (empty($this->customTimeCache)) {
             $this->customTimeCache = $this->employee->employeeCustomTimes()
                     ->with('customTime')
                     ->where('date', $this->date)
@@ -128,7 +131,7 @@ class Base implements Strategy
         }
 
         foreach ($this->customTimeCache as $empCustomTime) {
-            if(empty($empCustomTime->customTime)) {
+            if (empty($empCustomTime->customTime)) {
                 continue;
             }
             $start =  $empCustomTime->customTime->getStartAt();
@@ -141,6 +144,7 @@ class Base implements Strategy
                 $this->class = $this->getValue('custom_inactive');
             }
         }
+
         return $this->class;
     }
 
@@ -177,6 +181,7 @@ class Base implements Strategy
                 $this->class = trim(str_replace(['fancybox', 'active', 'inactive'], '', $this->class));
             }
         }
+
         return $this->class;
     }
 
@@ -201,14 +206,12 @@ class Base implements Strategy
                 $start      = $booking->getStartAt();
                 $end        = $booking->getEndAt()->subMinutes($subMinutes);
 
-                if(($start->minute % 15) > 0)
-                {
+                if (($start->minute % 15) > 0) {
                     $complement = $start->minute % 15;
                     $start->subMinutes($complement);
                 }
 
-                if(($end->minute % 15) > 0)
-                {
+                if (($end->minute % 15) > 0) {
                     $complement = 15 - ($end->minute % 15);
                     $end->addMinutes($complement);
                 }
@@ -237,11 +240,11 @@ class Base implements Strategy
         }
 
         $resourceIds = $this->service->resources->lists('id');
-        if(empty($resourceIds)) {
+        if (empty($resourceIds)) {
             return $this->class;
         }
 
-        if(!isset($this->resourceCache[$this->date][$this->service->id]['query'])) {
+        if (!isset($this->resourceCache[$this->date][$this->service->id]['query'])) {
             $query = Booking::where('as_bookings.date', $this->date)
                     ->whereNull('as_bookings.deleted_at')
                     ->where('as_bookings.status','!=', Booking::STATUS_CANCELLED)
@@ -262,7 +265,7 @@ class Base implements Strategy
             }
         }
 
-        if(!$this->resourceCache[$this->date][$this->service->id][$this->hour][$this->minute]) {
+        if (!$this->resourceCache[$this->date][$this->service->id][$this->hour][$this->minute]) {
             $this->class = $this->getValue('resource_inactive');
         }
 

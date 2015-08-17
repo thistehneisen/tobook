@@ -5,11 +5,7 @@ use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
-use App\Appointment\Models\ServiceTime;
-use App\Appointment\Models\Observer\EmailObserver;
-use App\Appointment\Models\Observer\SmsObserver;
 use Exception;
 
 class Rescheduler extends Receptionist
@@ -24,12 +20,13 @@ class Rescheduler extends Receptionist
     {
         $this->bookingId = $bookingId;
         $this->booking = Booking::findOrFail($bookingId);
+
         return $this;
     }
 
     public function setStartTime($strStartTime)
     {
-        if(empty($strStartTime)) {
+        if (empty($strStartTime)) {
             throw new Exception(trans('as.bookings.error.empty_start_time'), 1);
         }
 
@@ -37,6 +34,7 @@ class Rescheduler extends Receptionist
         $this->strStartTime = $strStartTime;
         $this->startTime = $startTime;
         $this->bookingStartTime = $startTime;
+
         return $this;
     }
 
@@ -51,6 +49,7 @@ class Rescheduler extends Receptionist
         $this->newTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $this->booking->date, $this->strStartTime));
         //calculate the different in minutes between old time and new time, no date consideration
         $this->timeGap = $this->booking->startTime->diffInMinutes($this->newTime);
+
         return $this->timeGap;
     }
 
@@ -155,6 +154,7 @@ class Rescheduler extends Receptionist
 
             $this->roomId = $availableRoom->id;
         }
+
         return true;
     }
 

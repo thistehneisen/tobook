@@ -47,8 +47,9 @@ class Layout3 extends Base
         if ($v->fails()) {
             // Flash old input
             Input::flash();
-            $viewErrorBag = new ViewErrorBag;
+            $viewErrorBag = new ViewErrorBag();
             $viewErrorBag->put('errors', $v->errors());
+
             return $this->render('checkout', [
                 'user'         => $user,
                 'booking_info' => $this->getBookingInfo(),
@@ -62,7 +63,7 @@ class Layout3 extends Base
 
         $fields = ['postcode', 'address', 'city', 'country'];
         foreach ($fields as $field) {
-            if ((int)$user->asOptions[$field] >= 2) {
+            if ((int) $user->asOptions[$field] >= 2) {
                 $data['fields'][] = $field;
             }
         }
@@ -80,6 +81,7 @@ class Layout3 extends Base
         if ((bool) Input::get('inhouse')) {
             $tpl = 'confirm-plain';
         }
+
         return $this->render($tpl, $data);
     }
 
@@ -92,6 +94,7 @@ class Layout3 extends Base
         $data['employee']            = Employee::findOrFail(Input::get('employeeId'));
         $data['notes']               = Input::get('notes', '');
         $data['isRequestedEmployee'] = Input::get('is_requested_employee', false);
+
         return $data;
     }
 
@@ -104,6 +107,7 @@ class Layout3 extends Base
     {
         $cart = Cart::findOrFail(Input::get('cart_id'));
         $goToPaygate = true;
+
         return Payment::redirect($cart, $cart->total, $goToPaygate);
     }
 }

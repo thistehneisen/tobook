@@ -1,7 +1,6 @@
 <?php namespace App\Appointment\Listeners;
 
 use App, View, Mail, Log;
-use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\Employee;
 
@@ -29,7 +28,7 @@ class EmployeeCalendarInvidationListener
         $employee       = $booking->firstBookingService()->employee;
 
         if ($employee->is_received_calendar_invitation) {
-            Mail::send('modules.as.emails.confirm', $email, function($message) use ($employee, $icsFile, $emailSubject) {
+            Mail::send('modules.as.emails.confirm', $email, function ($message) use ($employee, $icsFile, $emailSubject) {
                 $message->to($employee->email, $employee->name)->subject($emailSubject);
                 $message->attach($icsFile, array('mime' => "text/calendar"));
             });

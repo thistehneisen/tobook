@@ -2,18 +2,9 @@
 
 use App, View, Redirect, Response, Request, Input, Config, Session, Event;
 use App\Appointment\Models\Booking;
-use App\Appointment\Models\BookingService;
-use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Service;
-use App\Appointment\Models\ServiceCategory;
-use App\Appointment\Models\ServiceTime;
-use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Reception\Rescheduler;
-use Carbon\Carbon;
-use DB;
-use Confide;
 
 class Bookings extends \App\Core\Controllers\Ajax\Base
 {
@@ -104,8 +95,9 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
 
             Event::fire('employee.calendar.invitation.send', [$booking]);
             Session::forget('cutId');
+
             return Response::json(['success' => true]);
-        } catch(\Exception $ex){
+        } catch (\Exception $ex) {
             return Response::json([
                 'success' => false,
                 'message' => $ex->getMessage()

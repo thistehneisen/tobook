@@ -50,6 +50,7 @@ class Statistics extends Base
                 'cancelled' => isset($item['cancelled']) ? $item['cancelled'] : 0,
             ];
         }
+
         return json_encode($json);
     }
 
@@ -73,7 +74,7 @@ class Statistics extends Base
         foreach ($result as $item) {
             if ($item->source === 'inhouse') {
                 $data[$item->employee_id]['inhouse'] = $item->total;
-            } else if($item->source !== 'backend') {
+            } elseif ($item->source !== 'backend') {
                 $data[$item->employee_id]['frontend'] = $item->total;
             }
         }
@@ -131,8 +132,6 @@ class Statistics extends Base
                 )
                 ->groupBy('employee_id')->get();
         }
-
-
 
         return $count;
     }

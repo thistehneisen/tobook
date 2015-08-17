@@ -12,8 +12,6 @@ use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
-use App\Appointment\Models\ExtraService;
-use App\Appointment\Models\Observer\SmsObserver;
 use App\Appointment\Models\Reception\BackendReceptionist;
 
 class Bookings extends AsBase
@@ -432,7 +430,7 @@ class Bookings extends AsBase
         $uuid                = Input::get('uuid', '');// from ajax uuid
         $isRequestedEmployee = Input::get('is_requested_employee', false);
 
-        try{
+        try {
             $receptionist = new BackendReceptionist();
             $receptionist->setBookingId($bookingId)
                 ->setUUID($uuid)
@@ -449,10 +447,11 @@ class Bookings extends AsBase
             $receptionist->upsertBookingService();
             $data = $receptionist->getResponseData();
 
-        } catch (\Exception $ex){
+        } catch (\Exception $ex) {
             $data = [];
             $data['success'] = false;
             $data['message'] = $ex->getMessage();
+
             return Response::json($data, 500);
         }
 
@@ -474,9 +473,9 @@ class Bookings extends AsBase
                 $bookingServiceId = Input::get('booking_service_id', 0);
 
                 //Prevent user delete all booking service when booking was already placed
-                if(!empty($bookingId)) {
+                if (!empty($bookingId)) {
                     $countBookingService = BookingService::where('tmp_uuid', $uuid)->whereNull('deleted_at')->count();
-                    if($countBookingService === 1) {
+                    if ($countBookingService === 1) {
                         throw new \Exception(trans('as.bookings.error.delete_last_booking_service'));
                     }
                 }
@@ -493,10 +492,12 @@ class Bookings extends AsBase
                 $receptionist->updateBookingServicesTime();
                 $data = $receptionist->getDeleteResponseData();
             }
-        }catch(\Exception $ex){
+        } catch (\Exception $ex) {
             $data = ['success' => false, 'message' => $ex->getMessage()];
+
             return Response::json($data, 500);
         }
+
         return Response::json($data);
     }
 

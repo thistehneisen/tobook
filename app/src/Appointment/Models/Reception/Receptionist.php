@@ -82,30 +82,31 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function setStartTime($strStartTime)
     {
-        if(empty($strStartTime)) {
+        if (empty($strStartTime)) {
             throw new Exception(trans('as.bookings.error.empty_start_time'), 1);
         }
 
         $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $this->date, $strStartTime));
         $this->startTime = $startTime;
         $this->bookingStartTime = $startTime;
+
         return $this;
     }
 
     public function getStartTime()
     {
-        if(!empty($this->bookingServices) && !$this->bookingServices->isEmpty()) {
-            if(!empty($this->bookingServiceId)) {
+        if (!empty($this->bookingServices) && !$this->bookingServices->isEmpty()) {
+            if (!empty($this->bookingServiceId)) {
                 $previousBookingService = null;
                 foreach ($this->bookingServices as $bookingService) {
-                    if(intval($bookingService->id) === $this->bookingServiceId) {
+                    if (intval($bookingService->id) === $this->bookingServiceId) {
                         break;
                     } else {
                         $previousBookingService = $bookingService;
                     }
                 }
 
-                if(!empty($previousBookingService) && $this->bookingServiceId !== $previousBookingService->id) {
+                if (!empty($previousBookingService) && $this->bookingServiceId !== $previousBookingService->id) {
                     $this->startTime = $previousBookingService->endTime;
                 }
             } else {
@@ -114,6 +115,7 @@ abstract class Receptionist implements ReceptionistInterface
                     : $this->startTime;
             }
         }
+
         return $this->startTime;
     }
 
@@ -131,12 +133,13 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function setServiceId($serviceId)
     {
-        if(empty($serviceId)) {
+        if (empty($serviceId)) {
             throw new Exception(trans('as.bookings.error.service_empty'), 1);
         }
 
         $this->serviceId = $serviceId;
         $this->service   = Service::ofUser($this->user->id)->find($this->serviceId);
+
         return $this;
     }
 
@@ -151,6 +154,7 @@ abstract class Receptionist implements ReceptionistInterface
         $this->serviceTime   = ($this->serviceTimeId !== 'default')
             ? ServiceTime::ofUser($this->user->id)->find($this->serviceTimeId)
             : null;
+
         return $this;
     }
 
@@ -174,12 +178,13 @@ abstract class Receptionist implements ReceptionistInterface
     public function setExtraServices()
     {
         $this->extraServices  = BookingExtraService::where('tmp_uuid', $this->uuid)->whereNull('deleted_at')->get();
+
         return $this;
     }
 
     public function getExtraServices()
     {
-        if(empty($this->extraServices)) {
+        if (empty($this->extraServices)) {
             $this->setExtraServices();
         }
 
@@ -197,28 +202,31 @@ abstract class Receptionist implements ReceptionistInterface
     {
         $this->employeeId = $employeeId;
         $this->employee   = Employee::ofUser($this->user->id)->find($employeeId);
+
         return $this;
     }
 
     public function getSelectedService()
     {
-        if(empty($this->selectedService)) {
+        if (empty($this->selectedService)) {
             $this->selectedService = ($this->serviceTimeId === 'default')
                 ? Service::ofUser($this->user->id)->findOrFail($this->serviceId)
                 : ServiceTime::ofUser($this->user->id)->findOrFail($this->serviceTimeId);
         }
+
         return $this->selectedService;
     }
 
     public function setBookingServiceId($bookingServiceId)
     {
         $this->bookingServiceId = $bookingServiceId;
+
         return $this;
     }
 
     public function setBookingService()
     {
-        if(!empty($this->bookingServiceId)) {
+        if (!empty($this->bookingServiceId)) {
             $this->bookingService = BookingService::find($this->bookingServiceId);
         }
 
@@ -252,6 +260,7 @@ abstract class Receptionist implements ReceptionistInterface
     public function setClientIP($ip)
     {
         $this->clientIP = $ip;
+
         return $this;
     }
 
@@ -263,6 +272,7 @@ abstract class Receptionist implements ReceptionistInterface
     public function setConsumer($consumer)
     {
         $this->consumer = $consumer;
+
         return $this;
     }
 
@@ -274,6 +284,7 @@ abstract class Receptionist implements ReceptionistInterface
     public function setSource($source)
     {
         $this->source = $source;
+
         return $this;
     }
 
@@ -285,6 +296,7 @@ abstract class Receptionist implements ReceptionistInterface
     public function setLayout($layout)
     {
         $this->layout = $layout;
+
         return $this;
     }
 
@@ -301,12 +313,14 @@ abstract class Receptionist implements ReceptionistInterface
     public function setNotes($notes)
     {
         $this->notes = $notes;
+
         return $this;
     }
 
     public function setStatus($status)
     {
         $this->status = Booking::getStatus($status);
+
         return $this;
     }
 
@@ -319,13 +333,13 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function getLength($force = false)
     {
-        if(empty($this->total) || $force) {
+        if (empty($this->total) || $force) {
             $this->plustime = $this->employee->getPlustime($this->serviceId);
 
             $this->total = ($this->getBaseLength() + $this->modifyTime + $this->plustime);
 
             //To prevent Exception: Invalid argument supplied for foreach()
-            if(!empty($this->extraServices)) {
+            if (!empty($this->extraServices)) {
                 foreach ($this->extraServices as $extraService) {
                     $this->extraServiceLength += $extraService->length;
                 }
@@ -333,6 +347,7 @@ abstract class Receptionist implements ReceptionistInterface
 
             $this->total += $this->extraServiceLength;
         }
+
         return $this->total;
     }
 
@@ -342,11 +357,12 @@ abstract class Receptionist implements ReceptionistInterface
         $this->setExtraServices();
 
         $this->extraServiceLength = 0;
-        if(!empty($this->extraServices)) {
+        if (!empty($this->extraServices)) {
             foreach ($this->extraServices as $extraService) {
                 $this->extraServiceLength += $extraService->length;
             }
         }
+
         return $this->extraServiceLength;
     }
 
@@ -362,6 +378,7 @@ abstract class Receptionist implements ReceptionistInterface
         if ($this->getLength() < 1) {
             throw new Exception(trans('as.bookings.error.empty_total_time'), 1);
         }
+
         return true;
     }
 
@@ -400,10 +417,10 @@ abstract class Receptionist implements ReceptionistInterface
     public function validateWithExistingBooking()
     {
         //upsert booking service
-        if(!empty($this->serviceId)) {
+        if (!empty($this->serviceId)) {
             $bookingServicesCount = BookingService::where('tmp_uuid', $this->uuid)
                 ->whereNull('deleted_at')->orderBy('start_at', 'ASC')->count();
-            if($bookingServicesCount == 0) {
+            if ($bookingServicesCount == 0) {
                 $this->endTime->addMinutes($this->modifyTime);
             }
         }
@@ -459,14 +476,16 @@ abstract class Receptionist implements ReceptionistInterface
 
             $this->roomId = $availableRoom->id;
         }
+
         return true;
     }
 
     public function validateEmployee()
     {
-        if(empty($this->employee)) {
+        if (empty($this->employee)) {
             throw new Exception(trans('as.bookings.error.employee_not_found'), 1);
         }
+
         return true;
     }
 
@@ -480,7 +499,7 @@ abstract class Receptionist implements ReceptionistInterface
         $this->setBookingService();
 
         //TODO validate modify time and service time
-        $model = (empty($this->bookingService->id)) ? (new BookingService) : $this->bookingService;
+        $model = (empty($this->bookingService->id)) ? (new BookingService()) : $this->bookingService;
 
         //Using uuid for retrieve it later when insert real booking
         $model->fill([
@@ -506,7 +525,7 @@ abstract class Receptionist implements ReceptionistInterface
 
         if (!empty($this->getRoomId())) {
             $room = Room::findOrFail($this->getRoomId());
-            $bookingServiceRoom = new BookingServiceRoom;
+            $bookingServiceRoom = new BookingServiceRoom();
             $bookingServiceRoom->bookingService()->associate($model);
             $bookingServiceRoom->room()->associate($room);
             $bookingServiceRoom->save();
@@ -515,7 +534,7 @@ abstract class Receptionist implements ReceptionistInterface
         //to avoid warning
         if (!empty($this->extraServices)) {
             foreach ($this->extraServices as $extraService) {
-                $bookingExtraService = new BookingExtraService;
+                $bookingExtraService = new BookingExtraService();
                 $bookingExtraService->fill([
                     'date'     => $this->date,
                     'tmp_uuid' => $this->uuid
@@ -526,6 +545,7 @@ abstract class Receptionist implements ReceptionistInterface
             }
         }
         $this->bookingServiceId = $model->id;
+
         return $model;
     }
 
@@ -534,7 +554,7 @@ abstract class Receptionist implements ReceptionistInterface
 
         $this->setBookingService();
 
-        if(empty($this->price)) {
+        if (empty($this->price)) {
             $this->computeTotalPrice();
         }
 
@@ -569,6 +589,7 @@ abstract class Receptionist implements ReceptionistInterface
             'uuid'               => $this->uuid,
             'extras'             => $extras,
         ];
+
         return $data;
     }
 
@@ -579,6 +600,7 @@ abstract class Receptionist implements ReceptionistInterface
             'total_price'  => $this->computeTotalPrice(),
             'total_length' => $this->getFormTotalLength()
         ];
+
         return $data;
     }
 
@@ -613,13 +635,14 @@ abstract class Receptionist implements ReceptionistInterface
     {
         $totalLength = 0;
 
-        if(empty($this->bookingServices)) {
+        if (empty($this->bookingServices)) {
             $this->setBookingService();
         }
 
         foreach ($this->bookingServices as $bookingService) {
             $totalLength  += $bookingService->calculcateTotalLength();
         }
+
         return $totalLength;
     }
 
@@ -637,7 +660,7 @@ abstract class Receptionist implements ReceptionistInterface
         return $ret;
     }
 
-    abstract function upsertBooking();
+    abstract public function upsertBooking();
     abstract public function validateData();
     abstract public function validateBooking();
 

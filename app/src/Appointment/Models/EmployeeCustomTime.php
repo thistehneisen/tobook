@@ -1,8 +1,6 @@
 <?php namespace App\Appointment\Models;
 
 use Config, Carbon;
-use App\Appointment\Models\EmployeeFreetime;
-use App\Appointment\Models\Booking;
 
 class EmployeeCustomTime extends \App\Appointment\Models\Base
 {
@@ -12,24 +10,25 @@ class EmployeeCustomTime extends \App\Appointment\Models\Base
 
     private $workingHours = -1;
 
-
     //Currently don't use attribute because can break other code
     public function getStartAt()
     {
-        if(empty($this->customTime)) {
+        if (empty($this->customTime)) {
             return Carbon\Carbon::now();
         }
         $startAt =  \Carbon\Carbon::createFromFormat('H:i:s', $this->customTime->start_at, Config::get('app.timezone'));
+
         return $startAt;
     }
 
     //Currently  don't use attribute because can break other code
     public function getEndAt()
     {
-        if(empty($this->customTime)) {
+        if (empty($this->customTime)) {
             return Carbon\Carbon::now();
         }
         $endAt =  \Carbon\Carbon::createFromFormat('H:i:s', $this->customTime->end_at, Config::get('app.timezone'));
+
         return $endAt;
     }
 
@@ -40,18 +39,19 @@ class EmployeeCustomTime extends \App\Appointment\Models\Base
     public function getDayOfWeek()
     {
         $date = new \Carbon\Carbon($this->date);
+
         return $date->dayOfWeek;
     }
 
     public function getWorkingHours()
     {
-        if(!empty($this->customTime)) {
+        if (!empty($this->customTime)) {
             if ($this->customTime->is_day_off) {
                $this->workingHours = 0.;
             }
         }
 
-        if($this->workingHours === -1) {
+        if ($this->workingHours === -1) {
             $this->workingHours = $this->getEndAt()->diffInMinutes($this->getStartAt());
         }
 
@@ -68,7 +68,7 @@ class EmployeeCustomTime extends \App\Appointment\Models\Base
          $workingFreetimes = $this->employee->freetimes()
             ->where('date', '=', $this->date)
             ->where('type', '=', EmployeeFreetime::WOKRING_FREETIME)
-            ->where(function($query){
+            ->where(function ($query) {
                 $query->where('start_at', '<=', $this->getStartAt()->toTimeString())
                 ->orWhere('start_at', '>=', $this->getEndAt()->toTimeString());
             })->get();
@@ -79,7 +79,7 @@ class EmployeeCustomTime extends \App\Appointment\Models\Base
 
         //Count all working hours in white slots
         $overTimeBookings = $this->employee->bookings()->where('date', '=', $this->date)
-            ->where(function($query){
+            ->where(function ($query) {
                 $query->where('start_at', '<=', $this->getStartAt()->toTimeString())
                 ->orWhere('start_at', '>=', $this->getEndAt()->toTimeString());
             })->get();

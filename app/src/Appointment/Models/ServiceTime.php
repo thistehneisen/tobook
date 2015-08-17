@@ -50,6 +50,7 @@ class ServiceTime extends \App\Core\Models\Base
             $data[$key] = (!empty($data[$key.'s'][ $defaultLanguage]))
             ? $data[$key.'s'][ $defaultLanguage] : '';
         }
+
         return parent::fill($data);
     }
 
