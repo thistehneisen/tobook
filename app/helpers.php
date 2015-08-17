@@ -26,3 +26,20 @@ if (!function_exists('asset_path')) {
             : asset('assets/'.$filename);
     }
 }
+
+if (!function_exists('show_money')) {
+    /**
+     * Show money with format and predefined currency
+     *
+     * @param  double $amount
+     * @param  string $currency
+     *
+     * @return string
+     */
+    function show_money($amount, $currency = null, $decimals = 2)
+    {
+        $currency = $currency !== null ? $currency : Settings::get('currency');
+
+        return number_format($amount, $decimals).$currency;
+    }
+}

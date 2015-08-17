@@ -7,7 +7,7 @@
             @if ($detail->model !== null)
             <tr class="cart-detail" id="cart-detail-{{ $detail->id }}">
                 <td>{{{ $detail->name }}}</td>
-                <td>{{{ $detail->price }}}{{ Settings::get('currency') }}</td>
+                <td>{{ show_money($detail->price) }}</td>
                 <td>
                     <a class="js-btn-cart-remove" data-detail-id="{{ $detail->id }}" href="{{ route('cart.remove', ['id' => $detail->id]) }}"><i class="fa fa-close text-danger hidden-on-thankyou"></i></a>
                 </td>
@@ -18,7 +18,7 @@
     <tfoot class="hidden-on-thankyou">
         <tr>
             <td class="text-right">{{ trans('home.cart.total') }}</td>
-            <td><strong>{{ $cart->total }}{{ Settings::get('currency') }}</strong></td>
+            <td><strong>{{ show_money($cart->total) }}</strong></td>
             <td></td>
         </tr>
     </tfoot>

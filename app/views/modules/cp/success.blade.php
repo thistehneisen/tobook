@@ -59,7 +59,7 @@
                         <tr class="cart-detail" id="cart-detail-{{ $detail->id }}">
                             <td>{{{ $detail->name }}}</td>
                             <td></td>
-                            <td>{{{ $detail->price }}}{{ Settings::get('currency') }}</td>
+                            <td>{{{ show_money($detail->price) }}}</td>
                         </tr>
                         @endif
                         @endforeach

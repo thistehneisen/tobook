@@ -13,8 +13,8 @@
     @foreach ($items as $item)
         <tr>
             <td>{{ $item->service->name }}</td>
-            <td>{{ $item->service->price }}{{ Settings::get('currency') }}</td>
-            <td>{{ $item->discounted_price }}{{ Settings::get('currency') }} <span class="text-danger">(<i class="fa fa-caret-down"></i> {{ $item->discount_percent }}%)</span></td>
+            <td>{{ show_money($item->service->price) }}</td>
+            <td>{{ show_money($item->discounted_price) }} <span class="text-danger">(<i class="fa fa-caret-down"></i> {{ $item->discount_percent }}%)</span></td>
             <td>{{ $item->valid_date->format(trans('common.format.date')) }}</td>
             <td></td>
             <td></td>
