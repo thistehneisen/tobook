@@ -3,11 +3,6 @@
 use App, View, Confide, Redirect, Input, Config, Util, Response, Request, Validator, DB, NAT;
 use Carbon\Carbon;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\EmployeeDefaultTime;
-use App\Appointment\Models\EmployeeFreetime;
-use App\Appointment\Models\EmployeeCustomTime;
-use App\Appointment\Models\Booking;
-use App\Appointment\Models\Service;
 use App\Appointment\Models\CustomTime;
 
 class Workshift
@@ -36,13 +31,15 @@ class Workshift
     */
     protected $dateRange     = [];
 
-    public function __construct($startDate, $endDate) {
+    public function __construct($startDate, $endDate)
+    {
         $this->startDate = $startDate;
         $this->endDate   = $endDate;
         $this->init();
     }
 
-    protected function init() {
+    protected function init()
+    {
         $employees = Employee::ofCurrentUser()->get();
         foreach ($employees as $employee) {
             $items = $employee->EmployeeCustomTimes()
@@ -56,14 +53,14 @@ class Workshift
                 $date = new Carbon($item->date);
 
                 //Collect weekly summary data for each employee
-                if(empty($this->weekly[$date->weekOfYear][$employee->id])) {
+                if (empty($this->weekly[$date->weekOfYear][$employee->id])) {
                     $this->weekly[$date->weekOfYear][$employee->id] = $item->getWorkingHours();
                 } else {
                     $this->weekly[$date->weekOfYear][$employee->id] += $item->getWorkingHours();
                 }
 
                 //Collect monthly summary data for each employee
-                if(empty($this->montly[$date->month][$employee->id])) {
+                if (empty($this->montly[$date->month][$employee->id])) {
                     $this->montly[$date->month][$employee->id] = $item->getWorkingHours();
                 } else {
                     $this->montly[$date->month][$employee->id] += $item->getWorkingHours();
@@ -77,7 +74,8 @@ class Workshift
     *
     * @return array
     */
-    public function getDateRange() {
+    public function getDateRange()
+    {
         $start = $this->startDate->copy();
         $days  = $start->copy()->diffInDays($this->endDate);
         foreach (range(1, $days+1) as $day) {
@@ -90,6 +88,7 @@ class Workshift
             }
             $start->addDay();
         }
+
         return $this->dateRange;
     }
 
@@ -98,7 +97,8 @@ class Workshift
     *
     * @return array
     */
-    public function getWeekSummary() {
+    public function getWeekSummary()
+    {
         return $this->weekly;
     }
 
@@ -107,7 +107,8 @@ class Workshift
     *
     * @return array
     */
-    public function getMonthSummary() {
+    public function getMonthSummary()
+    {
         return $this->monthly;
     }
 
@@ -121,7 +122,8 @@ class Workshift
      * ]
      * @return array
      */
-    public function getDisplayCustomTimes() {
+    public function getDisplayCustomTimes()
+    {
         $format = 'CONCAT(name, " (", TIME_FORMAT(start_at, "%H:%i"),
                                " - ", TIME_FORMAT(end_at, "%H:%i"),")") AS name';
 
