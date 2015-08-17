@@ -249,7 +249,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $serviceInfo = "+ {service} {extraServices} - {employee}, {date} ({start})";
             $serviceInfo = str_replace('{service}', $bookingService->service->name, $serviceInfo);
 
-            if(!empty($extraServices)) {
+            if (!empty($extraServices)) {
                 $extraServiceText = "(" . implode(' & ', $extraServices) . ")";
                 $serviceInfo = str_replace('{extraServices}', $extraServiceText, $serviceInfo);
             } else {
@@ -268,6 +268,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $serviceInfos[] = $serviceInfo;
         }
         Log::info(implode(" \n", $serviceInfos));
+
         return !empty($serviceInfos) ? implode(" \n", $serviceInfos) : '';
     }
 
@@ -1058,7 +1059,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function countSteadyCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->where(function($query){
+        $query = $query->where(function ($query) {
                     $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
                         $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
@@ -1078,9 +1079,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function countPaidDepositCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->where(function($query){
+        $query = $query->where(function ($query) {
                     $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
-                        $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function($query){
+                        $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function ($query) {
                             $query->whereNotNull('as_bookings.deposit')->where('as_bookings.deposit', '>', 0);
                         });
                     });
@@ -1100,7 +1101,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function countNewConsumerCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->where(function($query){
+        $query = $query->where(function ($query) {
                     $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
                         $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
@@ -1115,7 +1116,6 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $result;
     }
 
-
     /**
      * For holy Latvia
      * Sum all total commission of all bookings
@@ -1123,7 +1123,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function totalCommission($userId, $status, $employeeId, $start, $end)
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->where(function($query){
+        $query = $query->where(function ($query) {
                     $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
                         $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
@@ -1145,7 +1145,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
 
-        $query = $query->where(function($query){
+        $query = $query->where(function ($query) {
                     $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
                         $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
@@ -1163,9 +1163,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      * For holy Latvia
      * Sum all total money receive from paygate
      */
-    public static function totalReceiveFromPaygate($userId, $status, $employeeId, $start, $end) {
+    public static function totalReceiveFromPaygate($userId, $status, $employeeId, $start, $end)
+    {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->where(function($query){
+        $query = $query->where(function ($query) {
                     $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
                         $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
@@ -1178,12 +1179,12 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $receivedFromPaygate = 0;
         foreach ($result as $row) {
             //pay at venue
-            if(empty($row->commission)){
+            if (empty($row->commission)) {
                 continue;
             }
 
             //full payment
-            if($row->deposit <= 0) {
+            if ($row->deposit <= 0) {
                 $receivedFromPaygate += $row->total_price;
             } else {
                 $receivedFromPaygate += $row->deposit;
@@ -1197,7 +1198,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
 
-        $query = $query->where(function($query){
+        $query = $query->where(function ($query) {
                     $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
                         $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
@@ -1236,9 +1237,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         //status  = Employee status
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where('business_commissions.status', '=', BusinessCommission::STATUS_INITIAL);
-        $query = $query->where(function($query){
+        $query = $query->where(function ($query) {
             $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
-                $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function($query){
+                $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function ($query) {
                     $query->where('business_commissions.commission', '>', '0');
                 });
             });
@@ -1263,9 +1264,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where('business_commissions.status', '=', BusinessCommission::STATUS_PAID);
 
-        $query = $query->where(function($query){
+        $query = $query->where(function ($query) {
             $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
-                $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function($query){
+                $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function ($query) {
                     $query->where('business_commissions.commission', '>', '0');
                 });
             });
@@ -1342,7 +1343,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function getDisplayExtraServices()
     {
         $bookingExtraServices = $this->extraServices()->lists('extra_service_id');
-        $extraServices = new \Illuminate\Database\Eloquent\Collection;
+        $extraServices = new \Illuminate\Database\Eloquent\Collection();
 
         //Find all extra services of all booking services
         foreach ($this->bookingServices as $bookingService) {
@@ -1353,12 +1354,13 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         //Exclude existing extra services associated with current booking
         if (!empty($bookingExtraServices)) {
-            $extraServices = $extraServices->filter(function($item) use($bookingExtraServices) {
+            $extraServices = $extraServices->filter(function ($item) use ($bookingExtraServices) {
                 return !in_array($item->id, $bookingExtraServices);
             });
         }
 
         $extras = $extraServices->lists('name', 'id');
+
         return $extras;
     }
 
@@ -1374,6 +1376,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 ];
             }
         }
+
         return $extras;
     }
 

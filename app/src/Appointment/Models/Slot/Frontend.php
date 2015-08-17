@@ -1,18 +1,18 @@
 <?php namespace App\Appointment\Models\Slot;
 use Config, Util;
 use Carbon\Carbon;
-use App\Appointment\Models\Booking;
-use App\Appointment\Models\Slot\Base;
 
 class Frontend extends Base implements Strategy
 {
-    public function determineClass($date, $hour, $minute, $employee, $service = null){
+    public function determineClass($date, $hour, $minute, $employee, $service = null)
+    {
         $bookingDate = with(new Carbon($date))->hour($hour)->minute($minute);
-        if($bookingDate < Carbon::now()) {
+        if ($bookingDate < Carbon::now()) {
             $this->class =  $this->getValue('inactive');
         } else {
             $this->class = parent::determineClass($date, $hour, $minute, $employee, $service);
         }
+
         return $this->class;
     }
 

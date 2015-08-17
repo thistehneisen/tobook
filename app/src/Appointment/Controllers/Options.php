@@ -4,7 +4,6 @@ use App, View, Confide, Redirect, Input, Config, NAT, Closure;
 use Util, Entrust, Session;
 use App\Lomake\FieldFactory;
 use App\Appointment\Models\Option;
-use Illuminate\Support\MessageBag;
 
 class Options extends AsBase
 {
@@ -37,8 +36,8 @@ class Options extends AsBase
             foreach ($controls as $name => $params) {
                 $params['name'] = $name;
                 // Don't display option with attribute admin_only to non-admin users
-                if(isset($params['admin_only']) && $params['admin_only']) {
-                    if(!$this->user->isAdmin && (Session::get('stealthMode') === null)) {
+                if (isset($params['admin_only']) && $params['admin_only']) {
+                    if (!$this->user->isAdmin && (Session::get('stealthMode') === null)) {
                         continue;
                     }
                 }
@@ -88,8 +87,8 @@ class Options extends AsBase
                 $dirty[$field] = $value;
             }
 
-            if($field === 'style_external_css') {
-                if(trim($value) === '') {
+            if ($field === 'style_external_css') {
+                if (trim($value) === '') {
                     continue;
                 }
                 $filetype = Util::getRemoteFileType($value);
@@ -146,13 +145,13 @@ class Options extends AsBase
             foreach ($weekday as $key => $value) {
                 $dateTimeObj1 = \DateTime::createFromFormat('d.m.Y H:i:s', '1.1.1970 ' . $value);
                 $dateTimeObj2 = \DateTime::createFromFormat('d.m.Y H:i', '1.1.1970 ' . $value);
-                if($dateTimeObj1 === false && $dateTimeObj2 === false) {
+                if ($dateTimeObj1 === false && $dateTimeObj2 === false) {
                     $invalidData[] = $value;
                 }
             }
         }
 
-        if(!empty($invalidData)) {
+        if (!empty($invalidData)) {
             $errors = $this->errorMessageBag([trans('as.options.invalid_data')]);
 
             return Redirect::back()->withInput()->withErrors($errors, 'top');
@@ -165,7 +164,7 @@ class Options extends AsBase
                 ->first();
 
             if ($option === null) {
-                $option = new Option;
+                $option = new Option();
             }
 
             $option->fill([

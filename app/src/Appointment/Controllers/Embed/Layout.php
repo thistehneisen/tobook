@@ -7,12 +7,9 @@ use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Booking;
-use App\Appointment\Models\BookingService;
 use App\Consumers\Models\Consumer;
 use App\Core\Models\User;
-use App\Appointment\Controllers\AsBase;
 use App\Appointment\Models\NAT\CalendarKeeper;
 
 trait Layout
@@ -43,13 +40,13 @@ trait Layout
         $action = Input::get('action');
 
         //If carts is empty, user cannot checkout
-        if($action === 'checkout' || $action === 'confirm'){
-            if(empty($cartId)){
+        if ($action === 'checkout' || $action === 'confirm') {
+            if (empty($cartId)) {
                 return null;
             }
         }
 
-        if(!empty($cartId)){
+        if (!empty($cartId)) {
             $cart = Cart::find($cartId);
             if (empty($cart)) {
                 return null;
@@ -71,7 +68,7 @@ trait Layout
         //TODO get default workingTimes from config
         $workingTimes = $this->getDefaultWorkingTimes($date, $hash);
         //for select employee view
-        if(!empty($serviceId) && !empty($date)){
+        if (!empty($serviceId) && !empty($date)) {
             $service = Service::find($serviceId);
 
             $serviceTime = (!empty($serviceTimeId))
@@ -84,11 +81,11 @@ trait Layout
 
         }
         $extraServices = [];
-        if(!empty($extraServiceIds)){
+        if (!empty($extraServiceIds)) {
             $extraServices = ExtraService::whereIn('id', $extraServiceIds)->get();
         }
         $extraServiceLength = $extraServicePrice =  0;
-        if(!empty($extraServices)){
+        if (!empty($extraServices)) {
             foreach ($extraServices as $extraService) {
                 $extraServiceLength += $extraService->length;
                 $extraServicePrice  += $extraService->price;
@@ -106,12 +103,12 @@ trait Layout
             ? $this->getLayout()
             : $layout;
 
-        $minDistance = ((int)$user->asOptions['min_distance'])
-            ? sprintf('+%dd', (int)$user->asOptions['min_distance'])
+        $minDistance = ((int) $user->asOptions['min_distance'])
+            ? sprintf('+%dd', (int) $user->asOptions['min_distance'])
             : 0;
 
-        $maxDistance = ((int)$user->asOptions['max_distance'])
-            ? sprintf('+%dd', (int)$user->asOptions['max_distance'])
+        $maxDistance = ((int) $user->asOptions['max_distance'])
+            ? sprintf('+%dd', (int) $user->asOptions['max_distance'])
             : null;
 
         return [
@@ -194,19 +191,19 @@ trait Layout
         $user = $this->getUser($hash);
 
         foreach ($extraFields as $field) {
-            if ((int)$user->asOptions[$field] == 3) {
+            if ((int) $user->asOptions[$field] == 3) {
                 $fields[$field]     = Input::get($field);
                 $fields['country']  = str_replace(trans('common.select'), '',Input::get('country'));
                 $validators[$field] = ($field !== 'email') ? ['required'] : ['required', 'email'];
             }
         }
 
-        if((int)$user->asOptions['email'] == 2) {
+        if ((int) $user->asOptions['email'] == 2) {
             $fields['email']     = Input::get('email');
             $validators['email'] = ['email'];
         }
 
-        if((int)$user->asOptions['terms_enabled'] == 3) {
+        if ((int) $user->asOptions['terms_enabled'] == 3) {
             $fields['terms']     = Input::get('terms');
             $validators['terms'] = ['required'];
         }
@@ -218,6 +215,7 @@ trait Layout
     {
         $user = $this->getUser($hash);
         $workingTimes = CalendarKeeper::getDefaultWorkingTimes($user, $date, false);
+
         return $workingTimes;
     }
 
@@ -236,7 +234,7 @@ trait Layout
         $serviceTime = null;
 
         if (Input::has('serviceTimeId')) {
-            if(Input::get('serviceTimeId') !== 'default') {
+            if (Input::get('serviceTimeId') !== 'default') {
                 $serviceTime = $service->serviceTimes()
                     ->findOrFail(Input::get('serviceTimeId'));
             }
@@ -330,7 +328,7 @@ trait Layout
      * @param Employee $employee
      * @param Service  $service
      * @param Carbon   $date
-     * @param boolean $showEndTime
+     * @param boolean  $showEndTime
      *
      * @return array
      */
@@ -338,7 +336,7 @@ trait Layout
     {
         $extraServiceIds = Input::get('extraServiceId');
         $extraServices = [];
-        if(!empty($extraServiceIds)) {
+        if (!empty($extraServiceIds)) {
             foreach ($extraServiceIds as $extraServiceId) {
                 $extraService = ExtraService::findOrFail($extraServiceId);
                 $extraServices[] = $extraService;
@@ -359,9 +357,9 @@ trait Layout
             ? $this->getUser($hash)
             : $user;
 
-        $minDistance = (int)$user->asOptions['min_distance'];
-        $maxDistance = (int)$user->asOptions['max_distance']
-            ? (int)$user->asOptions['max_distance']
+        $minDistance = (int) $user->asOptions['min_distance'];
+        $maxDistance = (int) $user->asOptions['max_distance']
+            ? (int) $user->asOptions['max_distance']
             : 3650;
         $start = $today->copy()->addDays($minDistance);
         $final = $today->copy()->addDays($maxDistance);

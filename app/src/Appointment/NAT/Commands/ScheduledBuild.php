@@ -3,13 +3,11 @@
 use Indatus\Dispatcher\Scheduling\ScheduledCommand;
 use Indatus\Dispatcher\Scheduling\Schedulable;
 use Indatus\Dispatcher\Drivers\Cron\Scheduler;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use Carbon\Carbon, NAT, Queue;
 use App\Core\Models\Business;
 
-class ScheduledBuild extends ScheduledCommand {
-
+class ScheduledBuild extends ScheduledCommand
+{
     /**
      * The console command name.
      *
@@ -27,7 +25,7 @@ class ScheduledBuild extends ScheduledCommand {
     /**
      * When a command should run
      *
-     * @param Scheduler $scheduler
+     * @param  Scheduler                                  $scheduler
      * @return \Indatus\Dispatcher\Scheduling\Schedulable
      */
     public function schedule(Schedulable $scheduler)

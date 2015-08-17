@@ -8,7 +8,6 @@ use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
 use App\Appointment\Models\Reception\FrontendReceptionist;
 use App\Appointment\Models\Service;
-use App\Payment\Models\Transaction;
 use App\Payment\Payment;
 use App\Core\Models\Business;
 use App\Core\Models\User;
@@ -21,7 +20,6 @@ use Log;
 use Request;
 use Response;
 use Util;
-use Validator;
 use Settings;
 
 class FrontBookings extends Bookings
@@ -102,6 +100,7 @@ class FrontBookings extends Bookings
         if ($validation->fails()) {
             $data['success'] = false;
             $data['message'] = Util::getHtmlListMessageBagError($validation->messages());
+
             return Response::json($data, 500);
         }
 
@@ -172,7 +171,7 @@ class FrontBookings extends Bookings
             $data['message'] = $messages;
 
             if (Input::get('l') === '3' && $source === 'inhouse') {
-                if((bool)Settings::get('force_pay_at_venue')) {
+                if ((bool) Settings::get('force_pay_at_venue')) {
                     $cart->completePayAtVenue();
                     $data['checkout_url'] = route('payment.success', ['id' => $cart->id]);
                 } else {

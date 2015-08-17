@@ -1,13 +1,11 @@
 <?php namespace App\Appointment\Models\Reception;
 
-use Carbon\Carbon;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
-use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
 use Exception;
@@ -36,7 +34,7 @@ class BackendReceptionist extends Receptionist
         $first = BookingService::where('tmp_uuid', $this->uuid)
             ->whereNull('deleted_at')->orderBy('start_at', 'ASC')->first();
 
-        if(!empty($first)) {
+        if (!empty($first)) {
             $first->start_at = $this->startTime->toTimeString();
             $first->end_at = $first->startTime->copy()->addMinutes($first->calculcateTotalLength())->toTimeString();
             $first->save();
@@ -49,14 +47,14 @@ class BackendReceptionist extends Receptionist
             //Update the sequence of booking service
             //The next start time = the previous end time
             foreach ($bookingServices as $bookingService) {
-                if(empty($previousBookingService)){
+                if (empty($previousBookingService)) {
                     $previousBookingService[] = $bookingService;
                     continue;
                 } else {
                     $lastBookingService = $previousBookingService[count($previousBookingService) - 1];
                 }
 
-                if(!empty($lastBookingService)){
+                if (!empty($lastBookingService)) {
                     $bookingService->start_at = $lastBookingService->endTime->toTimeString();
                     $bookingService->end_at = $lastBookingService->endTime
                         ->copy()->addMinutes($bookingService->calculcateTotalLength())->toTimeString();
@@ -79,10 +77,10 @@ class BackendReceptionist extends Receptionist
         }
 
         //Add new booking extra services if needed
-        if(!empty($this->extraServiceIds)) {
+        if (!empty($this->extraServiceIds)) {
             foreach ($this->extraServiceIds as $extraServiceId) {
                 $extraService = ExtraService::find($extraServiceId);
-                $bookingExtraService = new BookingExtraService;
+                $bookingExtraService = new BookingExtraService();
                 $bookingExtraService->fill([
                     'date'     => $this->bookingServices->first()->date,
                     'tmp_uuid' => $this->uuid
@@ -110,9 +108,10 @@ class BackendReceptionist extends Receptionist
         $this->date       = $this->bookingServices->first()->startTime->toDateString();
         $this->employeeId = $this->bookingServices->first()->employee_id;
 
-        if($endTime <= $startTime) {
+        if ($endTime <= $startTime) {
             throw new \Exception(trans('as.bookings.error.empty_total_time'), 1);
         }
+
         return array($date, $startTime, $endTime, $plustime, $totalLength, $totalPrice);
     }
 
@@ -135,7 +134,7 @@ class BackendReceptionist extends Receptionist
         $this->validateWithExistingBooking();
 
         //Don't change booking source for those bookings from frontend + inhouse
-        if(!empty($booking->source) && $booking->source !== $this->getSource()) {
+        if (!empty($booking->source) && $booking->source !== $this->getSource()) {
             $this->setSource($booking->source);
         }
 
@@ -158,7 +157,7 @@ class BackendReceptionist extends Receptionist
         $booking->user()->associate($this->user);
         $booking->employee()->associate($this->employee);
 
-        if ((int) $this->status === Booking::STATUS_CANCELLED){
+        if ((int) $this->status === Booking::STATUS_CANCELLED) {
             $booking->delete_reason = 'Cancelled while updating';
             $booking->save();
             $booking->delete();
@@ -181,18 +180,19 @@ class BackendReceptionist extends Receptionist
         }
 
         //Don't send sms when update booking
-        if(empty($this->bookingId)){
+        if (empty($this->bookingId)) {
             //Only can send sms after insert booking service
             $booking->attach(new SmsObserver(true));//true is backend
             $booking->attach(new EmailObserver());
             $booking->notify();
         }
+
         return $booking;
     }
 
     public function rollBack()
     {
-        if(!empty($this->extraServiceIds)) {
+        if (!empty($this->extraServiceIds)) {
             BookingExtraService::whereIn('extra_service_id',$this->extraServiceIds)->delete();
         }
     }

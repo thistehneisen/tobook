@@ -2,7 +2,6 @@
 
 use App, View, Confide, Redirect, Request, Input, Config, Response, DB;
 use App\Appointment\Models\ServiceCategory;
-use App\Core\Models\Multilanguage;
 
 class Categories extends AsBase
 {
@@ -32,7 +31,6 @@ class Categories extends AsBase
         $tabsView = View::exists($this->getViewPath().'.tabs')
             ? $this->getViewPath().'.tabs'
             : 'olut::tabs';
-
 
         $langPrefix = (string) $this->getOlutOptions('langPrefix');
 
@@ -78,9 +76,10 @@ class Categories extends AsBase
         $category = ServiceCategory::ofCurrentUser()->findOrFail($id);
 
          //Cannot delete this category if is there any undeleted booking use its services
-        if(!$category->isDeletable()){
+        if (!$category->isDeletable()) {
             //if there are bookings, redirect back
             $errors = $this->errorMessageBag(trans('as.services.categories.error.category_current_in_use'));
+
             return Redirect::route(static::$crudRoutes['index'])
                 ->withInput()->withErrors($errors, 'top');
         }

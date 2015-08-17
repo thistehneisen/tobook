@@ -2,12 +2,9 @@
 
 use Config, Util, Validator;
 use Carbon\Carbon;
-use App\Appointment\Models\EmployeeService;
-use App\Appointment\Models\Booking;
 use App\Appointment\Models\Slot\Strategy;
 use App\Appointment\Models\Slot\Context;
 use App\Appointment\Models\Slot\Backend;
-use App\Appointment\Models\Slot\Frontend;
 use App\Appointment\Models\Slot\Next;
 
 class Employee extends \App\Appointment\Models\Base
@@ -78,6 +75,7 @@ class Employee extends \App\Appointment\Models\Base
             }
             $defaultTimes = new \Illuminate\Support\Collection($data);
         }
+
         return $defaultTimes;
     }
 
@@ -93,6 +91,7 @@ class Employee extends \App\Appointment\Models\Base
     public function getDefaulTimesByDayOfWeek($dayOfWeek)
     {
         $day = Util::getDayOfWeekText($dayOfWeek);
+
         return $this->getDefaulTimesByDay($day)->first();
     }
 
@@ -100,7 +99,7 @@ class Employee extends \App\Appointment\Models\Base
      * Genereate working times table this employee for using in Layout 2 and 3
      * If default working times of an employee is empty, try to use custom time of the date
      *
-     * @param Carbon $date
+     * @param  Carbon $date
      * @return Array
      */
     public function getWorkingTimesByDate($date, &$end)
@@ -120,14 +119,14 @@ class Employee extends \App\Appointment\Models\Base
             if ($i === $startHour) {
                 $workingTimes[$i] = range($startMinute, 45, 15);
             }
-            if ($i !== $startHour && $i !== $endHour)
-            {
+            if ($i !== $startHour && $i !== $endHour) {
                 $workingTimes[$i] = range(0, 45, 15);
             }
             if ($i === $endHour) {
                  $workingTimes[$i] = range(0, $endMinute, 15);
             }
         }
+
         return $workingTimes;
     }
 
@@ -167,17 +166,17 @@ class Employee extends \App\Appointment\Models\Base
             $endTime   = Carbon::createFromFormat('H:i', substr($time->end_at, 0, 5));
         }
 
-        $startHour   = (int)!empty($startTime) ? $startTime->hour   : 0;
-        $startMinute = (int)!empty($startTime) ? $startTime->minute : 0;
-        $endHour     = (int)!empty($endTime)   ? $endTime->hour     : 0;
-        $endMinute   = (int)!empty($endTime)   ? $endTime->minute   : 0;
+        $startHour   = (int) !empty($startTime) ? $startTime->hour   : 0;
+        $startMinute = (int) !empty($startTime) ? $startTime->minute : 0;
+        $endHour     = (int) !empty($endTime)   ? $endTime->hour     : 0;
+        $endMinute   = (int) !empty($endTime)   ? $endTime->minute   : 0;
 
         return [$startHour, $startMinute, $endHour, $endMinute];
     }
 
     /**
      * Return default working time of an employee
-     * @param Carbon $date
+     * @param  Carbon $date
      * @return array
      */
     // public function getDefaultWorkingTimes($date = null)
@@ -194,7 +193,7 @@ class Employee extends \App\Appointment\Models\Base
     //     }
 
     //     //low to high
-    //     usort($startTimes, function($a, $b){
+    //     usort($startTimes, function ($a, $b) {
     //         if ($a === $b) {
     //             return 0;
     //         }
@@ -202,7 +201,7 @@ class Employee extends \App\Appointment\Models\Base
     //     });
 
     //     //high to low
-    //     usort($endTimes, function($a, $b){
+    //     usort($endTimes, function ($a, $b) {
     //         if ($a === $b) {
     //             return 0;
     //         }
@@ -215,11 +214,11 @@ class Employee extends \App\Appointment\Models\Base
     //     $endHour     = (int)isset($endTimes[0]) ? $endTimes[0]->hour : 21;
     //     $endMinute   = (int)isset($endTimes[0]) ? $endTimes[0]->minute : 0;
 
-    //     if(!empty($date)){
+    //     if (!empty($date)) {
     //         $startDate      = $date;
     //         $endDate        = with(clone $date)->addDays(6);
     //         $lastestBooking = Booking::getLastestBookingEndTimeInRange($startDate->toDateString(), $endDate->toDateString());
-    //         if(!empty($lastestBooking)){
+    //         if (!empty($lastestBooking)) {
     //             $lastestEndTime = $lastestBooking->getEndAt();
     //             if(($lastestEndTime->hour   >= $endHour)
     //             && ($lastestEndTime->minute >  $endMinute))
@@ -252,7 +251,7 @@ class Employee extends \App\Appointment\Models\Base
      * Return the effective end time of a date
      * Consider default working time and work-shift planning time
      *
-     * @param \Carbon\Carbon $date
+     * @param  \Carbon\Carbon $date
      * @return \Carbon\Carbon
      */
     public function getEffectiveEndAtByDate($date)
@@ -311,6 +310,7 @@ class Employee extends \App\Appointment\Models\Base
         }
         $dayOfWeek = Util::getDayOfWeekText($weekday);
         $todayStartAt = $this->getDefaulTimesByDay($dayOfWeek)->first()->start_at;
+
         return (new Carbon($todayStartAt));
     }
 
@@ -321,6 +321,7 @@ class Employee extends \App\Appointment\Models\Base
         }
         $dayOfWeek = Util::getDayOfWeekText($weekday);
         $todayEndAt = $this->getDefaulTimesByDay($dayOfWeek)->first()->end_at;
+
         return (new Carbon($todayEndAt));
     }
 
@@ -328,7 +329,7 @@ class Employee extends \App\Appointment\Models\Base
     public function getSlotClass($date, $hour, $minute, $context = 'backend', $service = null)
     {
         //Cache by date for employee view
-        if(empty($this->strategy[$date])){
+        if (empty($this->strategy[$date])) {
             $class = "App\\Appointment\\Models\\Slot\\" .ucfirst($context);
             if (class_exists($class)) {
                 $this->strategy[$date] = new $class();
@@ -375,6 +376,7 @@ class Employee extends \App\Appointment\Models\Base
                     ->where('service_id', $serviceId)->first();
             $this->plustime[$serviceId] = (!empty($employeeService)) ? $employeeService->plustime : 0;
         }
+
         return $this->plustime[$serviceId];
     }
 
@@ -408,6 +410,7 @@ class Employee extends \App\Appointment\Models\Base
             }
             $startDay->addDay();
         }
+
         return [$customTimesList, $currentMonths];
     }
 
@@ -423,12 +426,13 @@ class Employee extends \App\Appointment\Models\Base
         if (!empty($date)) {
             try {
                 $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
-            } catch(\Exception $ex) {
+            } catch (\Exception $ex) {
                 $current = Carbon::now();
             }
         }
         $startOfMonth = $current->startOfMonth()->toDateString();
         $endOfMonth   = $current->endOfMonth()->toDateString();
+
         return [$current, $startOfMonth, $endOfMonth];
     }
 
@@ -464,7 +468,7 @@ class Employee extends \App\Appointment\Models\Base
                     ->where('date', $date)
                     ->first();
 
-        if(!empty($empCustomTime)){
+        if (!empty($empCustomTime)) {
             $end   = $empCustomTime->customTime->getEndAt();
             $start = $empCustomTime->customTime->getStartAt();
         }
@@ -475,7 +479,7 @@ class Employee extends \App\Appointment\Models\Base
                     : $service;
 
         $serviceLength = $service->length;
-        if(is_array($extraServices)) {
+        if (is_array($extraServices)) {
             foreach ($extraServices as $extraService) {
                 $serviceLength += $extraService->length;
             }
@@ -485,8 +489,8 @@ class Employee extends \App\Appointment\Models\Base
             foreach ($minutes as $shift) {
                 // We will check if this time bookable
 
-                if(!empty($empCustomTime)){
-                    if($hour < $start->hour) {
+                if (!empty($empCustomTime)) {
+                    if ($hour < $start->hour) {
                         break;
                     }
                 }
@@ -495,12 +499,12 @@ class Employee extends \App\Appointment\Models\Base
                 $startTime = $date->copy()->hour($hour)->minute($shift)->second(0);
                 $endTime   = $startTime->copy()->addMinutes($serviceLength)->second(0);
 
-                if(!empty($empCustomTime)){
-                    if(($endTime->hour * 60) + $endTime->minute > ($end->hour * 60) + $end->minute){
+                if (!empty($empCustomTime)) {
+                    if (($endTime->hour * 60) + $endTime->minute > ($end->hour * 60) + $end->minute) {
                         break;
                     }
                 } else {
-                    if(($endTime->hour * 60) + $endTime->minute > ($defaultEndTime->hour * 60) + $defaultEndTime->minute){
+                    if (($endTime->hour * 60) + $endTime->minute > ($defaultEndTime->hour * 60) + $defaultEndTime->minute) {
                         break;
                     }
                 }
@@ -536,7 +540,7 @@ class Employee extends \App\Appointment\Models\Base
                     continue;
                 }
 
-                if($basicService->requireRoom()) {
+                if ($basicService->requireRoom()) {
                     $availableRoom = Booking::getAvailableRoom(
                         $this->id,
                         $basicService,
@@ -566,6 +570,7 @@ class Employee extends \App\Appointment\Models\Base
                 }
             }
         }
+
         return $timetable;
     }
 
@@ -587,7 +592,6 @@ class Employee extends \App\Appointment\Models\Base
         return (isset($this->attributes['is_received_calendar_invitation']))
             ? (bool) $this->attributes['is_received_calendar_invitation'] : true;
     }
-
 
     public function getAvatarPath()
     {

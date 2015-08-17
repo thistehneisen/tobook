@@ -40,7 +40,7 @@ class PaymentSuccessListener
         foreach ($bookingServices as $item) {
             if ($item->booking !== null) {
                 $paymentType = '';
-                if(!$cart->isDepositPayment) {
+                if (!$cart->isDepositPayment) {
                     $item->booking->status = Booking::STATUS_PAID;
                     $paymentType           = BusinessCommission::PAYMENT_FULL;
                 } else {

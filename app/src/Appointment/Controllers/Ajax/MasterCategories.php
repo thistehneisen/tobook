@@ -3,7 +3,6 @@
 use App, View, Redirect, Response, Request, Input, Config, Session, Event;
 use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\TreatmentType;
-use Carbon\Carbon;
 
 class MasterCategories extends \App\Core\Controllers\Ajax\Base
 {

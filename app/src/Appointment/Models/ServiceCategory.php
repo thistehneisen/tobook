@@ -36,7 +36,6 @@ class ServiceCategory extends \App\Core\Models\Base
         return ($this->services->isEmpty()) ? true : false;
     }
 
-
     public function saveMultilanguage($names, $descriptions)
     {
         Multilanguage::saveValues($this->id, static::getContext(), 'name', $names);

@@ -2,7 +2,6 @@
 
 use App, View, Confide, Mail, Log, Settings;
 use Queue;
-use Carbon\Carbon;
 
 class EmailObserver implements \SplObserver
 {
@@ -30,22 +29,26 @@ class EmailObserver implements \SplObserver
     public function setSubject($subject)
     {
         $this->subject = $subject;
+
         return $this;
     }
 
     public function setIsEnabled($subject)
     {
         $this->isEnabled = (bool) $subject->user->asOptions['confirm_email_enable'];
+
         return $this;
     }
 
     public function setServiceInfo($subject)
     {
         $this->serviceInfo = $subject->getServiceInfo();
+
         return $this;
     }
 
-    public function update(\SplSubject $subject) {
+    public function update(\SplSubject $subject)
+    {
         $this->init($subject);
         if ($this->isEnabled) {
             $this->sendConsumerEmail($subject);
@@ -83,7 +86,7 @@ class EmailObserver implements \SplObserver
     {
         if (empty($subject->consumer->email)
                 || (!empty($subject->consumer->receive_email)
-                    && !(bool)$subject->consumer->receive_email)) {
+                    && !(bool) $subject->consumer->receive_email)) {
             return;
         }
 
@@ -97,7 +100,7 @@ class EmailObserver implements \SplObserver
             Mail::send('modules.as.emails.confirm', [
                 'title' => $emailSubject,
                 'body' => nl2br($body)
-            ], function($message) use ($emailSubject, $receiver, $receiverName){
+            ], function ($message) use ($emailSubject, $receiver, $receiverName) {
                 $message->subject($emailSubject);
                 $message->to($receiver, $receiverName);
             });
@@ -114,15 +117,16 @@ class EmailObserver implements \SplObserver
         $employee = $subject->bookingServices()->first()->employee;
 
         //Don't send employee confirmation email in backend calendar
-        if($subject->source === 'backend') {
+        if ($subject->source === 'backend') {
             Log::info("Don't send employee confirmation email from backend calendar");
+
             return;
         }
 
         if (!$employee->isReceivedCalendarInvitation) {
 
             if (empty($employee->email) ||
-                (!empty($employee->is_subscribed_email) && !(bool)$employee->is_subscribed_email)) {
+                (!empty($employee->is_subscribed_email) && !(bool) $employee->is_subscribed_email)) {
                 return;
             }
 
@@ -134,12 +138,11 @@ class EmailObserver implements \SplObserver
             $receiver     = $employee->email;
             $receiverName = $employee->name;
 
-
             Queue::push(function ($job) use ($emailSubject, $body, $receiver, $receiverName) {
                 Mail::send('modules.as.emails.confirm', [
                     'title' => $emailSubject,
                     'body' => nl2br($body)
-                ], function($message) use ($emailSubject, $receiver, $receiverName){
+                ], function ($message) use ($emailSubject, $receiver, $receiverName) {
                     $message->subject($emailSubject);
                     $message->to($receiver, $receiverName);
                 });

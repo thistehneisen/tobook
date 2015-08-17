@@ -133,12 +133,12 @@ class CalendarKeeper
 
     /**
      * calculate the default working time for Calendar
-     * @param User $user
-     * @param Carbon $date
-     * @param boolean $showUntilLastestBooking: for BE calendar to show all bookings in range
-     * @param Employee $employee: if $employee is specified, the min and max value
-     *                            for start and end time will be calculated based on his/her working times
-     *                            otherwise all employees' working times will be taken into account
+     * @param  User     $user
+     * @param  Carbon   $date
+     * @param  boolean  $showUntilLastestBooking: for BE calendar to show all bookings in range
+     * @param  Employee $employee:                if $employee is specified, the min and max value
+     *                                            for start and end time will be calculated based on his/her working times
+     *                                            otherwise all employees' working times will be taken into account
      * @return Array
      */
     protected function getDefaultWorkingTimes($user, $date, $showUntilLastestBooking = true, $employee = null)
@@ -185,6 +185,7 @@ class CalendarKeeper
                 $workingTimes[$i] = range(0, $endMinute, 15);
             }
         }
+
         return $workingTimes;
     }
 
@@ -198,13 +199,13 @@ class CalendarKeeper
             if ($sHour < $minSHour) {
                 $minSHour = $sHour;
                 $minSMin = $sMin;
-            } else if ($sHour === $minSMin && $sMin < $minSMin) {
+            } elseif ($sHour === $minSMin && $sMin < $minSMin) {
                 $minSMin = $sMin;
             }
             if ($eHour > $maxEHour) {
                 $maxEHour = $eHour;
                 $maxEMin = $eMin;
-            } else if ($eHour === $maxEHour && $eMin > $maxEMin) {
+            } elseif ($eHour === $maxEHour && $eMin > $maxEMin) {
                 $maxEMin = $eMin;
             }
         }

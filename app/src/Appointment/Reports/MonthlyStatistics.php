@@ -1,9 +1,5 @@
 <?php namespace App\Appointment\Reports;
 
-use Carbon\Carbon;
-use DB;
-use Confide;
-
 class MonthlyStatistics extends MonthlyCalendar
 {
     /**
@@ -33,6 +29,7 @@ class MonthlyStatistics extends MonthlyCalendar
         $data['working_time'] = $this->formatMinutes($data['working_time']);
 
         $data['month'] = trans('common.'.strtolower($this->date->format('M')));
+
         return $data;
     }
 }
