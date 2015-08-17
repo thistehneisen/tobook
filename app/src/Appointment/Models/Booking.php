@@ -12,7 +12,7 @@ use Request;
 use Settings;
 use Util;
 use Watson\Validating\ValidationException;
-use App;
+use App, Log;
 
 class Booking extends \App\Appointment\Models\Base implements \SplSubject
 {
@@ -241,8 +241,21 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
             $start = $bookingService->startTime->addMinutes($before);
 
-            $serviceInfo = "+ {service} - {employee}, {date} ({start})";
+            $extraServices = [];
+            foreach ($this->extraServices as $bookingExtraService) {
+                $extraServices[] = $bookingExtraService->extraService->name;
+            }
+
+            $serviceInfo = "+ {service} {extraServices} - {employee}, {date} ({start})";
             $serviceInfo = str_replace('{service}', $bookingService->service->name, $serviceInfo);
+
+            if(!empty($extraServices)) {
+                $extraServiceText = "(" . implode(' & ', $extraServices) . ")";
+                $serviceInfo = str_replace('{extraServices}', $extraServiceText, $serviceInfo);
+            } else {
+                $serviceInfo = str_replace(' {extraServices}', '', $serviceInfo);
+            }
+
             $serviceInfo = str_replace('{employee}', $this->employee->name, $serviceInfo);
             $serviceInfo = str_replace('{date}', $this->date, $serviceInfo);
             $serviceInfo = str_replace('{start}', $start->toTimeString(), $serviceInfo);
@@ -254,6 +267,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
             $serviceInfos[] = $serviceInfo;
         }
+        Log::info(implode(" \n", $serviceInfos));
         return !empty($serviceInfos) ? implode(" \n", $serviceInfos) : '';
     }
 

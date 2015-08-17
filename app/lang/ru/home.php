@@ -59,7 +59,7 @@ return [
     'search_query'          => 'Enter business name or service',
     'search_place'          => 'Helsinki, FI',
     'video_tutorial_text'   => 'Как это работает?',
-    'video_tutorial_link'   => 'https://www.youtube.com/watch?v=0G8U4xZCgLY',
+    'video_tutorial_link'   => 'https://www.youtube.com/watch?v=0G8U4xZCgLY?rel=0&amp;showinfo=0&autoplay=1',
     'search'        => [
         'tagline'         => 'Что вы хотите заказать?',
         'query'           => 'Введите компанию',

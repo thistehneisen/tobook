@@ -138,7 +138,7 @@ return [
         'cancel_message'    => $cancelMessage,
         'cancel_confirm'    => 'Vai tiešām vēlaties atcelt šo rezervāciju',
         'modify_booking'    => 'Labot rezervāciju',
-        'reschedule'        => 'Mainīt rezervācijas laiku',
+        'reschedule'        => 'Pārplānot',
         'confirm_reschedule'=> 'Apstiprināt mainīto rezervācijas laiku',
         'cancel_reschedule' => 'Atcelt mainīto rezervācijas laiku',
         'own_customer'      => 'Mūsu klients',
@@ -421,4 +421,5 @@ return [
         'success_bulk'   => 'Ieraksts veiksmīgi izdzēsts.',
         'sortable'       => 'Velciet ar peli, lai pārkārtotu secību',
     ],
+    'nothing_selected' => 'Izvēlēties',
 ];

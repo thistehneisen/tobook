@@ -421,4 +421,5 @@ return [
         'success_bulk'   => 'Toiminto toteutettu onnistuneesti!',
         'sortable'       => 'Järjestä sarakkeet uudelleen nappaamalla kiinni haluamastasi sarakkeesta, ja vetämällä sitä hiirellä ylös tai alas!',
     ],
+    'nothing_selected' => 'Valitse',
 ];
