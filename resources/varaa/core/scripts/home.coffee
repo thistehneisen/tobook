@@ -124,7 +124,6 @@ do ($ = jQuery) ->
             $formSearch.find('[name=lat]').val(lat)
             $formSearch.find('[name=lng]').val(lng)
             bypassAndSubmit()
-          .fail -> $('#js-top-alert').show()
       else
         bypassAndSubmit()
 
@@ -181,7 +180,6 @@ do ($ = jQuery) ->
         $body = $ 'body'
         lat = $body.data 'lat'
         lng = $body.data 'lng'
-        receivedGeolocation = false
 
         if (lat? and lng? and lat != '' and lng != '')
           window.location = $$.prop 'href'
@@ -189,7 +187,6 @@ do ($ = jQuery) ->
           # Ask for location
           VARAA.getLocation()
             .then (lat, lng) ->
-              receivedGeolocation = true
               $.ajax
                 url: $body.data 'geo-url'
                 type: 'POST'
@@ -197,15 +194,7 @@ do ($ = jQuery) ->
                   lat: lat
                   lng: lng
               .done -> window.location = $$.prop 'href'
-            .fail -> $('#js-top-alert').show()
-
-          askGeolocation = ->
-            $('#js-top-alert').show() if receivedGeolocation is false
-
-          setTimeout askGeolocation, 60000
-
-    $('#js-top-alert').on 'click', ->
-      window.location.reload()
+            .fail -> window.location = $$.prop 'href'
 
     # If user clicks on "Choose category" in navigation, scroll to the list of
     # categories
