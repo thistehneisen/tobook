@@ -207,7 +207,7 @@
         });
         $doc.on('click', '#btn-upsert-employee-freetime', function (e) {
             e.preventDefault();
-            var freetime_id = $('input[name="freetime_id"').val();
+            var freetime_id = $('input[name="freetime_id"]').val();
             var url = $('#add_freetime_url').val();
             if (freetime_id !== '0') {
                 url = $('#edit_freetime_url').val();
