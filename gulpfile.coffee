@@ -1,5 +1,6 @@
 gulp     = require 'gulp'
 coffee   = require 'gulp-coffee'
+babel    = require 'gulp-babel'
 concat   = require 'gulp-concat'
 less     = require 'gulp-less'
 cssmin   = require 'gulp-cssmin'
@@ -18,6 +19,7 @@ paths =
   rev: "#{__dirname}/rev.json"
   dest: 'public/assets'
   coffee: ["#{root}/**/scripts/**/*.coffee"]
+  es6: ["#{root}/**/scripts/**/*.es6"]
   less: ["#{root}/**/styles/**/*.less", "!#{root}/**/styles/**/*.import.less"]
   js: ["#{root}/**/scripts/**/*.js", "!#{root}/**/scripts/**/*.min.js"]
   static: ["#{root}/**/img/**/*.*", "#{root}/**/fonts/**/*.*"]
@@ -48,6 +50,17 @@ gulp.task 'coffee', ['js'], ->
     .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
     .pipe gulpif production, gulp.dest(__dirname)
 
+gulp.task 'es6', ['coffee'], ->
+  gulp.src paths.es6
+    .pipe cached 'es6'
+    .pipe babel()
+    .pipe remember 'es6'
+    .pipe gulpif production, uglify()
+    .pipe gulpif production, rev()
+    .pipe gulp.dest paths.dest
+    .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
+    .pipe gulpif production, gulp.dest(__dirname)
+
 gulp.task 'less', ->
   gulp.src paths.less
     .pipe cached 'less'
@@ -59,10 +72,10 @@ gulp.task 'less', ->
     .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
     .pipe gulpif production, gulp.dest(__dirname)
 
-gulp.task 'default', ['coffee', 'less', 'static']
+gulp.task 'default', ['es6', 'less', 'static']
 
 gulp.task 'watch', ['default'], ->
-  ['coffee', 'less', 'js'].forEach (task) ->
+  ['coffee', 'less', 'js', 'es6'].forEach (task) ->
     watcher = gulp.watch paths[task], [task]
     watcher.on 'change', (e) ->
       if e.type is 'deleted'
