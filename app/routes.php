@@ -15,7 +15,7 @@ Route::pattern('slug', '[a-z0-9-]+');
 */
 $prefix =  (!empty($_ENV['ROUTES_PREFIX'])) ? $_ENV['ROUTES_PREFIX'] : '';
 
-Route::group(array('prefix' => $prefix), function() {
+Route::group(array('prefix' => $prefix), function () {
     require app_path().'/routes/search.php';
     require app_path().'/routes/auth.php';
     require app_path().'/routes/business.php';
@@ -32,7 +32,6 @@ Route::group(array('prefix' => $prefix), function() {
     require app_path().'/routes/consumer_hub.php';
     require app_path().'/routes/appointment.php';
     require app_path().'/routes/loyalty_card.php';
-    require app_path().'/routes/flash_deal.php';
     require app_path().'/routes/home.php';
 
     //------------------------------------------------------------------------------
@@ -53,9 +52,8 @@ Route::group(array('prefix' => $prefix), function() {
 
 
 
-if(App::environment() === 'tobook' && !empty($prefix)) {
-    Route::get('/', function(){
+if (App::environment() === 'tobook' && !empty($prefix)) {
+    Route::get('/', function () {
         echo "Under construction";
     });
 }
-

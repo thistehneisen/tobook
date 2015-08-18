@@ -128,16 +128,6 @@ Route::group([
     //--------------------------------------------------------------------------
     App\Core\Controllers\Admin\Keywords::crudRoutes('keywords', 'admin.keywords');
 
-    //--------------------------------------------------------------------------
-    // Statistics
-    //--------------------------------------------------------------------------
-
-    Route::group(['prefix' => 'stats'], function () {
-        Route::get('flash-deals', [
-            'as' => 'admin.stats.fd',
-            'uses' => 'App\Core\Controllers\Admin\Stats\FlashDeals@index'
-        ]);
-    });
 
     //--------------------------------------------------------------------------
     // Settings

@@ -95,19 +95,12 @@ class Search extends Base
             ->active()
             ->get();
 
-        $flashDeals = $user
-            ->flashDeals()
-            ->with('flashDeal', 'flashDeal.service')
-            ->active()
-            ->get();
-
         $layout = $this->handleIndex($user->hash, $user, 'layout-3');
 
         // Data to be passed to view
         $data = array_merge([
             'business'   => $user->business,
             'coupons'    => $coupons,
-            'flashDeals' => $flashDeals
         ], $layout);
 
         if (Request::ajax()) {

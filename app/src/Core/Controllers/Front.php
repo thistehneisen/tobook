@@ -6,7 +6,6 @@ use App\Appointment\Models\TreatmentType;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
-use App\FlashDeal\Models\FlashDeal;
 use App\Haku\Searchers\BusinessesByDistrict;
 use App\Haku\Searchers\BusinessesByCategory;
 use Illuminate\Support\Collection;
@@ -48,26 +47,12 @@ class Front extends Base
     public function home()
     {
         $categories = BusinessCategory::getAll();
-        $deals = FlashDeal::getActiveDeals();
-
-        // Count number of active deals
-        $totalDeals = $deals->count();
-
-        // Extract deal categories and its counters
-        $dealCategories = FlashDeal::getDealCategories($deals);
-
-        // Because of the layout, we need to split deals into smaller parts
-        $head = $deals->splice(0, 4);
 
         // Master categories
         $masterCategories = MasterCategory::getAll();
 
         return $this->render('home', [
             'categories'       => $categories,
-            'head'             => $head,
-            'tail'             => $deals,
-            'totalDeals'       => $totalDeals,
-            'dealCategories'   => $dealCategories,
             'masterCategories' => $masterCategories,
         ]);
     }
