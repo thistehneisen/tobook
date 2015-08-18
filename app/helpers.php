@@ -40,6 +40,6 @@ if (!function_exists('show_money')) {
     {
         $currency = $currency !== null ? $currency : Settings::get('currency');
 
-        return number_format($amount, $decimals).$currency;
+        return number_format((double) $amount, $decimals).$currency;
     }
 }
