@@ -15,6 +15,11 @@
      @if(App::getLocale() !== 'en')
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
     @endif
+    <script type="text/javascript">
+        $(window).load(function () {
+            CUSTOM_TIME = {{ $customTimes }};
+        });
+    </script>
 @stop
 
 @section('main-classes') as-wrapper @stop
@@ -51,7 +56,7 @@
                 <li class="as-col-header as-col-fixed">
                     <a class="as-col-name" href="{{ route('as.employee', ['id'=> $employee->id ]) }}">{{ $employee->name }}</a>
                     @if($user->asOptions['show_quick_workshift_selection'])
-                    <a class="btn-workshift-switch" href="#">&nbsp;<i class="fa fa-clock-o as-workshift-switch"></i></a>
+                    <a class="btn-workshift-switch" data-date="{{ $selectedDate }}" data-employee-id="{{ $employee->id }}" href="#">&nbsp;<i class="fa fa-clock-o as-workshift-switch"></i></a>
                     @endif
                 </li>
                 @foreach ($workingTimes as $hour => $minutes)
