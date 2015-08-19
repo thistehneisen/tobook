@@ -61,6 +61,7 @@ return [
     'on_media'              => 'Featured in ',
     'video_tutorial_text'   => 'How it works?',
     'video_tutorial_link'   => 'https://www.youtube.com/watch?v=FrMUPi7Yo7U',
+    'image_tutorial_link'   => asset_path('core/img/how-does-it-work.png'),
     'search'        => [
         'tagline'         => 'What do you want to book?',
         'query'           => 'Enter business name or service',
