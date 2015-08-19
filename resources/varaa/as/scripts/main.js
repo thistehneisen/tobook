@@ -647,6 +647,7 @@
             var custom_time = CUSTOM_TIME;
             var header = $(this).closest('.as-col-header');
             var employee_id = $(this).data('employee-id');
+            var custom_id = $(this).data('custom-time-id');
             var date = $(this).data('date');
             $('.as-col-header').each(function(index){
                 $(this).css('height', '70px');
@@ -670,6 +671,9 @@
                     value: val.replace('@',''),
                     text: custom_time[val]
                 }).appendTo(dropdown);
+            }
+            if(custom_id !== -1) {
+                dropdown.val(custom_id);
             }
             dropdown.appendTo(header);
         });

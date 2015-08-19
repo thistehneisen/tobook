@@ -56,7 +56,7 @@
                 <li class="as-col-header as-col-fixed">
                     <a class="as-col-name" href="{{ route('as.employee', ['id'=> $employee->id ]) }}">{{ $employee->name }}</a>
                     @if($user->asOptions['show_quick_workshift_selection'])
-                    <a class="btn-workshift-switch" data-date="{{ $selectedDate }}" data-employee-id="{{ $employee->id }}" href="#"><i class="fa fa-clock-o as-workshift-switch"></i></a>
+                    <a class="btn-workshift-switch" data-custom-time-id="{{ $employee->getActiveWorkshift($selectedDate) }}" data-date="{{ $selectedDate }}" data-employee-id="{{ $employee->id }}" href="#"><i class="fa fa-clock-o as-workshift-switch"></i></a>
                     @endif
                 </li>
                 @foreach ($workingTimes as $hour => $minutes)
