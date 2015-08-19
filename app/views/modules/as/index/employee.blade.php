@@ -56,7 +56,7 @@
                 <li class="as-col-header">{{ $selectedDate }} ({{ Util::td($weekDay) }})</li>
                 @foreach ($workingTimes as $hour => $minutes)
                     @foreach ($minutes as $minuteShift)
-                        <?php $slotClass = $selectedEmployee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
+                        <?php $slotClass = $theEmployee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
                         @include('modules.as.index._calendar')
                     @endforeach
                 @endforeach

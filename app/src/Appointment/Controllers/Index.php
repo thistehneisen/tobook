@@ -41,6 +41,7 @@ class Index extends AsBase
                 'workingTimes' => $workingTimes,
                 'date'         => $date,
                 'cutId'        => $cutId,
+                'user'         => $this->user,
             ]);
     }
 
@@ -68,7 +69,7 @@ class Index extends AsBase
 
         return View::make('modules.as.index.employee', [
                 'employeeId'       => $id,
-                'selectedEmployee' => $employee,
+                'theEmployee'      => $employee,
                 'employees'        => $employees,
                 'workingTimes'     => $workingTimes,
                 'weekDaysFromDate' => $weekDaysFromDate,

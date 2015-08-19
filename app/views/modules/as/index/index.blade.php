@@ -44,17 +44,19 @@
         </ul>
     </div>
     <div class="as-calendar col-lg-11 col-md-11 col-sm-11 col-xs-11">
-        @foreach ($employees as $selectedEmployee)
-            @if ($selectedEmployee->is_active)
+        @foreach ($employees as $employee)
+            @if ($employee->is_active)
             <div class="as-col">
             <ul id="as-ul">
                 <li class="as-col-header as-col-fixed">
-                    <a href="{{ route('as.employee', ['id'=> $selectedEmployee->id ]) }}">{{ $selectedEmployee->name }}</a>
-                    <a href=""><i class="fa fa-clock-o"></i></a>
+                    <a class="as-col-name" href="{{ route('as.employee', ['id'=> $employee->id ]) }}">{{ $employee->name }}</a>
+                    @if($user->asOptions['show_quick_workshift_selection'])
+                    <a class="btn-workshift-switch" href="#">&nbsp;<i class="fa fa-clock-o as-workshift-switch"></i></a>
+                    @endif
                 </li>
                 @foreach ($workingTimes as $hour => $minutes)
                     @foreach ($minutes as $minuteShift)
-                        <?php $slotClass = $selectedEmployee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
+                        <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
                         @include('modules.as.index._calendar')
                     @endforeach
                 @endforeach
