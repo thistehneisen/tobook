@@ -60,6 +60,7 @@ return [
     'search_place'          => 'Helsinki, FI',
     'video_tutorial_text'   => 'Как это работает?',
     'video_tutorial_link'   => 'https://www.youtube.com/watch?v=0G8U4xZCgLY?rel=0&amp;showinfo=0&autoplay=1',
+    'image_tutorial_link'   => asset_path('core/img/how-does-it-work.png'),
     'search'        => [
         'tagline'         => 'Что вы хотите заказать?',
         'query'           => 'Введите компанию',
