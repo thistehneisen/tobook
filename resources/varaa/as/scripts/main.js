@@ -545,7 +545,7 @@
 
             if ($(window).scrollTop() > colHeaderTop) {
                 $('.as-col-header').css('position', 'fixed');
-                $('.as-col-header').css('height', 25);
+                // $('.as-col-header').css('height', originalHeight);
                 $('.as-col-header').css('width', 163);
                 $('.as-col-header').css('top', 0);
             }
