@@ -114,6 +114,10 @@ return [
                     'type' => 'DefaultNatDropdown',
                     'default' => -1
                 ],
+                'show_quick_workshift_selection' => [
+                    'type' => 'Radio',
+                    'default' => true
+                ],
                 'min_distance' => [
                     'type' => 'Spinner',
                     'default' => '0',

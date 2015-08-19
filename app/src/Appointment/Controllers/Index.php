@@ -4,6 +4,7 @@ use View, Input, Confide, Util, Config, Event, Session;
 use Carbon\Carbon;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking;
+use App\Appointment\Planner\Workshift;
 
 class Index extends AsBase
 {
@@ -34,6 +35,9 @@ class Index extends AsBase
 
         $workingTimes = $this->getDefaultWorkingTimes($date);
 
+        $planner      = new Workshift();
+        $customTimes  = $planner->getDisplayCustomTimes();
+
         //TODO settings for day off such as Sunday
         return View::make('modules.as.index.index', [
                 'employeeId'   => null, //because use the same view with employee
@@ -41,6 +45,8 @@ class Index extends AsBase
                 'workingTimes' => $workingTimes,
                 'date'         => $date,
                 'cutId'        => $cutId,
+                'user'         => $this->user,
+                'customTimes'  => json_encode($customTimes)
             ]);
     }
 
@@ -68,7 +74,7 @@ class Index extends AsBase
 
         return View::make('modules.as.index.employee', [
                 'employeeId'       => $id,
-                'selectedEmployee' => $employee,
+                'theEmployee'      => $employee,
                 'employees'        => $employees,
                 'workingTimes'     => $workingTimes,
                 'weekDaysFromDate' => $weekDaysFromDate,

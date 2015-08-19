@@ -545,7 +545,7 @@
 
             if ($(window).scrollTop() > colHeaderTop) {
                 $('.as-col-header').css('position', 'fixed');
-                $('.as-col-header').css('height', 25);
+                // $('.as-col-header').css('height', originalHeight);
                 $('.as-col-header').css('width', 163);
                 $('.as-col-header').css('top', 0);
             }
@@ -639,6 +639,56 @@
                     }
                 },
                 autoCenter: false
+            });
+        });
+
+        $doc.on('click', 'a.btn-workshift-switch', function(e){
+            e.preventDefault();
+            var custom_time = CUSTOM_TIME;
+            var header = $(this).closest('.as-col-header');
+            var employee_id = $(this).data('employee-id');
+            var custom_id = $(this).data('custom-time-id');
+            var date = $(this).data('date');
+            $('.as-col-header').each(function(index){
+                $(this).css('height', '70px');
+            });
+            if ($('#change_workshift-'+employee_id).length !== 0) {
+                $('#change_workshift-'+employee_id).remove();
+                $('.as-col-header').each(function(index){
+                    $(this).removeAttr('style');
+                });
+                return;
+            }
+            var dropdown = $('<select/>', {
+                'class': 'form-control change-workshift',
+                'id'   : 'change_workshift-' + employee_id,
+                'style': 'display:block',
+                'data-employee-id': employee_id,
+                'data-date': date,
+            });
+            for(var val in custom_time) {
+                $('<option />', {
+                    value: val.replace('@',''),
+                    text: custom_time[val]
+                }).appendTo(dropdown);
+            }
+            if(custom_id !== -1) {
+                dropdown.val(custom_id);
+            }
+            dropdown.appendTo(header);
+        });
+
+        $doc.on('change', '.change-workshift', function(e){
+            var custom_time_id   = $(this).val();
+            var url = $('#update_workshift_url').val();
+            var employee_id = $(this).data('employee-id');
+            var date = $(this).data('date');
+            $.post(url, {
+                'custom_time_id': custom_time_id,
+                'employee_id'   : employee_id,
+                'date'          : date,
+            }).done(function(data){
+                location.reload();
             });
         });
 

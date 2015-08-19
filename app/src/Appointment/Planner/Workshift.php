@@ -31,11 +31,13 @@ class Workshift
     */
     protected $dateRange     = [];
 
-    public function __construct($startDate, $endDate)
+    public function __construct($startDate = null, $endDate = null)
     {
-        $this->startDate = $startDate;
-        $this->endDate   = $endDate;
-        $this->init();
+        if(!empty($startDate) && !empty($endDate)){
+            $this->startDate = $startDate;
+            $this->endDate   = $endDate;
+            $this->init();
+        }
     }
 
     protected function init()

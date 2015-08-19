@@ -364,6 +364,7 @@ return [
             'confirm_tokens_employee'                        => 'Email body',
             'terms_enabled'                                  => 'Enable terms',
             'default_nat_service'                            => 'Default next available service',
+            'show_quick_workshift_selection'                 => 'Show on calendar workshift selection',
             'min_distance'                                   => 'Min distance',
             'max_distance'                                   => 'Max distance',
             'auto_select_employee'                           => 'Auto select an employee',
