@@ -48,7 +48,10 @@
             @if ($selectedEmployee->is_active)
             <div class="as-col">
             <ul id="as-ul">
-                <li class="as-col-header as-col-fixed"><a href="{{ route('as.employee', ['id'=> $selectedEmployee->id ]) }}">{{ $selectedEmployee->name }}</a></li>
+                <li class="as-col-header as-col-fixed">
+                    <a href="{{ route('as.employee', ['id'=> $selectedEmployee->id ]) }}">{{ $selectedEmployee->name }}</a>
+                    <a href=""><i class="fa fa-clock-o"></i></a>
+                </li>
                 @foreach ($workingTimes as $hour => $minutes)
                     @foreach ($minutes as $minuteShift)
                         <?php $slotClass = $selectedEmployee->getSlotClass($selectedDate, $hour, $minuteShift); ?>

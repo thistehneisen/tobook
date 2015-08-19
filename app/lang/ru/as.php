@@ -360,6 +360,7 @@ return [
             'confirm_tokens_employee'                        => 'Текст е-мейла',
             'terms_enabled'                                  => 'Включить условия',
             'default_nat_service'                            => 'Следующая доступная услуга по умолчанию',
+            'show_quick_workshift_selection'                 => 'Show on calendar workshift selection',
             'min_distance'                                   => 'Мин. расстояние',
             'max_distance'                                   => 'Макс. расстояние',
             'auto_select_employee'                           => 'Автоматический выбор работника',

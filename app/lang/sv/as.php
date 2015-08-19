@@ -351,6 +351,9 @@ return [
             'confirm_tokens_employee'                        => 'Innehåll e-post',
             'terms_enabled'                                  => 'Aktivera villkor',
             'default_nat_service'                            => 'Nästa tillgängliga tjänst',
+            'show_quick_workshift_selection'                 => 'Show on calendar workshift selection',
+            'min_distance'                                   => 'Min distance',
+            'max_distance'                                   => 'Max distance',
             'auto_expand_all_categories'                     => 'Auto expand all categories',//@todo
             'show_employee_request'                          => 'Show option requesting for an employee',//@todo
         ],
