@@ -72,6 +72,9 @@ class Index extends AsBase
 
         $cutId = Session::get('cutId', 0);
 
+        $planner      = new Workshift();
+        $customTimes  = $planner->getDisplayCustomTimes();
+
         return View::make('modules.as.index.employee', [
                 'employeeId'       => $id,
                 'theEmployee'      => $employee,
@@ -79,7 +82,9 @@ class Index extends AsBase
                 'workingTimes'     => $workingTimes,
                 'weekDaysFromDate' => $weekDaysFromDate,
                 'date'             => $date,
-                'cutId'            => $cutId
+                'cutId'            => $cutId,
+                'user'             => $this->user,
+                'customTimes'      => json_encode($customTimes)
             ]);
     }
 }
