@@ -54,6 +54,8 @@
                     </ul>
                 </li>
                 <li><a href="{{ route('consumer-hub.groups.index')}}"><i class="fa fa-users"></i> {{ trans('co.groups.all') }}</a></li>
+                {{-- Only display these two options for admin on tobook --}}
+                @if (App::environment() !== 'tobook' || Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('consumer-hub.email_templates.index') }}">
                         <i class="fa fa-envelope"></i>
@@ -76,6 +78,8 @@
                         <li><a href="{{ route('consumer-hub.sms_templates.upsert')}}">{{ trans('co.sms_templates.add') }}</a></li>
                     </ul>
                 </li>
+                @endif
+                {{-- End: Only display these two options for admin on tobook --}}
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-history"></i>
