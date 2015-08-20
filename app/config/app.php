@@ -142,7 +142,7 @@ return array(
         'App\Olut\OlutServiceProvider',
         'App\Payment\PaymentServiceProvider',
         'App\Appointment\NAT\NATServiceProvider',
-
+        'App\Validation\ValidationServiceProvider',
     ),
 
     /*
