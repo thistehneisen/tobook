@@ -3,7 +3,7 @@
 use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
 use App\Core\Controllers\Base;
-use Confide, DB, Input, Lang, Redirect, View;
+use App, Confide, DB, Input, Lang, Redirect, View;
 
 class Hub extends Base
 {
@@ -39,7 +39,33 @@ class Hub extends Base
             'send_all_sms',
             'destroy',
         ],
+        'bulkActionsTobook' => [
+            'group',
+            'destroy',
+        ],
     ];
+
+    /**
+     * Return options defined in $this->crudOptions
+     *
+     * @param string $key
+     *
+     * @return mixed
+     */
+    protected function getOlutOptions($key, $default = null)
+    {
+        if (App::environment() === 'tobook' && $key === 'bulkActions') {
+            if(!$this->user->isAdmin) {
+                return $this->crudOptions[$key. 'Tobook'];
+            }
+        }
+
+        if (isset($this->crudOptions) && isset($this->crudOptions[$key])) {
+            return $this->crudOptions[$key];
+        } else {
+            return $default;
+        }
+    }
 
     public static function presentServices($value, $item)
     {
