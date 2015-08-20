@@ -66,9 +66,16 @@ class Group extends Base
     {
         $result = static::sendSms($ids, true);
         if (array_key_exists('template_id', $result)) {
+            list($sent, $consumers) = $result['sent'];
+
+            $params = [
+                'sent' => $sent,
+                'total' => $result['total'],
+            ];
+
             return Redirect::route('consumer-hub.history.sms', ['sms_id' => $result['template_id']])
                 ->with('messages', $this->successMessageBag(
-                    trans('co.sms_templates.sent_to_x_of_y', $result)
+                    trans('co.sms_templates.sent_to_x_of_y', $params)
                 ));
         }
         return View::make('modules.co.groups.bulk_send_sms', $result);

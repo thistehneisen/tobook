@@ -95,11 +95,12 @@ trait Marketing
             );
         }
 
-        $targets = $sendGroup
-            ? Group::ofCurrentUser()->whereIn('id', $ids)->get()
-            : $sendAll
-                ? []
-                : Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
+        $targets = [];
+        if ($sendGroup) {
+            $targets = Group::ofCurrentUser()->whereIn('id', $ids)->get();
+        } else {
+            $targets = $sendAll ? [] : Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
+        }
 
         return [
             'smsPairs' => $smsPairs,
