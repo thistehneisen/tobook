@@ -688,7 +688,7 @@
                 'employee_id'   : employee_id,
                 'date'          : date,
             }).done(function(data){
-                location.reload();
+                // location.reload();
             });
         });
 
