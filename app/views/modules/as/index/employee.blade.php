@@ -61,7 +61,7 @@
                 <li class="as-col-header">
                     {{ $selectedDate }} ({{ Util::td($weekDay) }})
                     @if($user->asOptions['show_quick_workshift_selection'])
-                    <a class="btn-workshift-switch" data-custom-time-id="{{ $theEmployee->getActiveWorkshift($selectedDate) }}" data-date="{{ $selectedDate }}" data-employee-id="{{ $theEmployee->id }}" href="#"><i class="fa fa-clock-o as-workshift-switch"></i></a>
+                    <a class="as-weekly-col btn-workshift-switch" data-custom-time-id="{{ $theEmployee->getActiveWorkshift($selectedDate) }}" data-date="{{ $selectedDate }}" data-employee-id="{{ $theEmployee->id }}" href="#"><i class="fa fa-clock-o as-workshift-switch"></i></a>
                     @endif
                 </li>
                 @foreach ($workingTimes as $hour => $minutes)
