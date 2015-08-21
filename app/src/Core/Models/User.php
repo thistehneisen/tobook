@@ -142,16 +142,6 @@ class User extends ConfideUser
         return $this->morphMany('App\Core\Models\Image', 'imageable');
     }
 
-    public function coupons()
-    {
-        return $this->hasMany('App\FlashDeal\Models\Coupon');
-    }
-
-    public function flashDeals()
-    {
-        return $this->hasMany('App\FlashDeal\Models\FlashDealDate');
-    }
-
     public function consumer()
     {
         return $this->belongsTo('App\Consumers\Models\Consumer');

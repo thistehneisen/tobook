@@ -89,25 +89,12 @@ class Search extends Base
     public function showBusiness($id)
     {
         $user = User::with('business')->findOrFail($id);
-        $coupons = $user
-            ->coupons()
-            ->with('service')
-            ->active()
-            ->get();
-
-        $flashDeals = $user
-            ->flashDeals()
-            ->with('flashDeal', 'flashDeal.service')
-            ->active()
-            ->get();
 
         $layout = $this->handleIndex($user->hash, $user, 'layout-3');
 
         // Data to be passed to view
         $data = array_merge([
             'business'   => $user->business,
-            'coupons'    => $coupons,
-            'flashDeals' => $flashDeals
         ], $layout);
 
         if (Request::ajax()) {

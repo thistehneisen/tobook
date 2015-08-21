@@ -41,7 +41,7 @@ return [
     'loyalty_kantis_17'         => 'Fii parte din comunitatea de fidelizare a clientilor',
     'loyalty_kantis_18'         => 'Administrarea loialitatii clientilor este acum mai usora ca niciodata!',
     'loyalty_kantis_19'         => 'Toate informatiile importante ale clientilor dvs. sunt in final la indemana',
-    'loyalty_kantis_20'         => 'Sistemul de loialitate pentru clienti colecteaza in mod automat si sorteaza informatii importante despre 
+    'loyalty_kantis_20'         => 'Sistemul de loialitate pentru clienti colecteaza in mod automat si sorteaza informatii importante despre
                                     clienti. Datele in timp real va permit sa controlati afacerea mai usor decat oricand.',
     'loyalty_kantis_21'         => 'Usor de folosit',
     'loyalty_kantis_22'         => 'Sigur',

@@ -230,8 +230,10 @@ return [
         'monthly_hours'                    => 'Monthly hours',
         'weekly_hours'                     => 'Weekly hours',
         'error'                            => [
-        'freetime_overlapped_with_booking' => 'Freetime is overlapped with booking(s)',
-        'freetime_overlapped_with_others'  => 'Freetime is overlapped with other freetime(s)',
+            'freetime_overlapped_with_booking' => 'Freetime is overlapped with booking(s)',
+            'freetime_overlapped_with_others'  => 'Freetime is overlapped with other freetime(s)',
+            'from_date_greater_than_to_date'   => 'Start date must be before end date',
+            'start_time_greater_than_end_time' => 'Start time must be before end time',
         ],
     ],
     'embed' => [
@@ -364,6 +366,7 @@ return [
             'confirm_tokens_employee'                        => 'Email body',
             'terms_enabled'                                  => 'Enable terms',
             'default_nat_service'                            => 'Default next available service',
+            'show_quick_workshift_selection'                 => 'Show on calendar workshift selection',
             'min_distance'                                   => 'Min distance',
             'max_distance'                                   => 'Max distance',
             'auto_select_employee'                           => 'Auto select an employee',

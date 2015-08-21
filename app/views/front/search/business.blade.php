@@ -9,68 +9,6 @@
         <h4>{{ trans('home.search.about') }} {{{ $business->name }}}</h4>
         <div>{{ $business->description_html }}</div>
         @endif
-
-        <!-- Flash deals -->
-        @if (!$flashDeals->isEmpty())
-        <hr>
-        <table class="table table-stripped table-hovered">
-            <thead>
-                <tr>
-                    <th>{{ trans('fd.services.name') }}</th>
-                    <th>{{ trans('fd.coupons.valid_date') }}</th>
-                    <th>{{ trans('common.price') }}</th>
-                    <th>{{ trans('common.discount') }}</th>
-                    <th>{{ trans('home.search.buy') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-        @foreach ($flashDeals as $item)
-            <tr>
-                <td><a href="#" title="">{{{ $item->flashDeal->service->name }}}</a></td>
-                <td><span class="text-danger countdown" data-date="{{ $item->expire->format('Y-m-d\TH:i:s') }}"></span></td>
-                <td>{{ $item->flashDeal->discounted_price }}{{ Settings::get('currency') }} ({{ $item->flashDeal->service->price }}{{ Settings::get('currency') }})</td>
-                <td>
-                    <p class="text-danger"><strong>-{{ $item->flashDeal->discount_percent }}%</strong></p>
-                </td>
-                <td>
-                    <a href="#" class="btn btn-success btn-sm">{{ trans('home.search.book') }}</a>
-                </td>
-            </tr>
-        @endforeach
-            </tbody>
-        </table>
-        @endif
-
-        <!-- Coupons -->
-        @if (!$coupons->isEmpty())
-        <hr>
-        <table class="table table-stripped table-hovered">
-            <thead>
-                <tr>
-                    <th>{{ trans('fd.services.name') }}</th>
-                    <th>{{ trans('fd.coupons.valid_date') }}</th>
-                    <th>{{ trans('common.price') }}</th>
-                    <th>{{ trans('common.discount') }}</th>
-                    <th>{{ trans('home.search.buy') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach ($coupons as $item)
-                <tr>
-                    <td><a href="#" title="">{{{ $item->service->name }}}</a></td>
-                    <td><span class="text-danger countdown" data-date="{{ $item->valid_date->format('Y-m-d\TH:i:s') }}"></span></td>
-                    <td>{{ $item->discounted_price }}{{ Settings::get('currency') }} ({{{ $item->service->price }}}{{ Settings::get('currency') }})</td>
-                    <td>
-                        <p class="text-danger"><strong>-{{ $item->discount_percent }}%</strong></p>
-                    </td>
-                    <td>
-                        <a href="#" class="btn btn-success btn-sm">{{ trans('home.search.book') }}</a>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-        @endif
     </div>
 
     <div class="col-sm-6">

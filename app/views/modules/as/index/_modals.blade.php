@@ -50,3 +50,4 @@
 <input type="hidden" id="modify_booking_form_url" value="{{ route('as.bookings.modify-form') }}"/>
 <input type="hidden" id="get_paste_booking_url" value="{{ route('as.bookings.paste') }}"/>
 <input type="hidden" id="get_discard_cut_booking_url" value="{{ route('as.bookings.discard-cut') }}"/>
+<input type="hidden" id="update_workshift_url" value="{{ route('as.employees.employeeCustomTime.updateWorkshift') }}"/>

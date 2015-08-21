@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Models;
 
-use Settings, Config;
+use Settings;
+use Config;
 use App\Core\Models\Multilanguage;
 
 class ServiceTime extends \App\Core\Models\Base
@@ -60,8 +61,7 @@ class ServiceTime extends \App\Core\Models\Base
 
     public function getFormattedPriceAttribute()
     {
-        return number_format($this->attributes['price'], 2)
-            .Settings::get('currency');
+        return show_money($this->attributes['price']);
     }
 
     //--------------------------------------------------------------------------

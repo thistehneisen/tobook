@@ -1,9 +1,1 @@
-{{ HTML::script(asset('packages/bootstrap-maxlength/bootstrap-maxlength.min.js')) }}
-
-<script>
-$(function () {
-    $('#content').maxlength({
-        alwaysShow: true
-    });
-});
-</script>
+{{ HTML::script(asset_path('core/scripts/sms-length.js')) }}

@@ -454,6 +454,17 @@ class Employee extends \App\Appointment\Models\Base
     }
 
     /**
+     * Get active custom time id of employe for specific date
+     *
+     * @return integer
+     */
+    public function getActiveWorkshift($date)
+    {
+        $workshift = $this->employeeCustomTimes()->where('date', '=', $date)->first();
+        return (!empty($workshift)) ? $workshift->customTime->id : -1;
+    }
+
+    /**
      * Get timetable of this employee
      * @return array
      */

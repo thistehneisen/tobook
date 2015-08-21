@@ -109,39 +109,5 @@
     </div>
 @endif
 
-@if ($head->isEmpty() === false)
-    <div class="row">
-        <div class="hot-offers">
-            <h1 class="heading">{{ trans('home.best_offers') }} ({{ $totalDeals }})</h1>
-            <div class="col-sm-4 col-md-4">
-                <ul class="list-unstyled filters">
-                    <li>{{ trans('home.categories') }}
-                        <ul id="js-category-filter">
-                        @foreach ($dealCategories as $category)
-                            <li><a class="js-filter-link" data-id="{{ $category->id }}" href="#">{{{ $category->name }}} ({{ $category->totalDeals }})</a></li>
-                        @endforeach
-                            <li class="toggle more"><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
-                            <li class="toggle less"><a href="#">{{ trans('home.less') }} <i class="fa fa-angle-double-up"></i></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            @foreach ($head as $deal)
-                <div class="col-sm-4 col-md-4 js-deal js-deal-category-{{ $deal->service->businessCategory->id }}">
-                @include ('front.el.deal', ['deal' => $deal])
-                </div>
-            @endforeach
-
-        @if ($tail->isEmpty() === false)
-            @foreach ($tail as $deal)
-                <div class="col-sm-4 col-md-4 js-deal js-deal-category-{{ $deal->service->businessCategory->id }}">
-                @include ('front.el.deal', ['deal' => $deal])
-                </div>
-            @endforeach
-        @endif
-        </div>
-    </div>
-@endif
 </div>
 @stop

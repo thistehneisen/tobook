@@ -11,6 +11,11 @@
     @if(App::getLocale() !== 'en')
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2_locale_'.App::getLocale().'.min.js') }}
     @endif
+    <script type="text/javascript">
+        $(window).load(function () {
+            CUSTOM_TIME = {{ $customTimes }};
+        });
+    </script>
 @stop
 
 @section('main-classes') as-wrapper @stop
@@ -53,10 +58,15 @@
         @foreach ($weekDaysFromDate as $weekDay => $selectedDate)
         <div class="as-col">
             <ul>
-                <li class="as-col-header">{{ $selectedDate }} ({{ Util::td($weekDay) }})</li>
+                <li class="as-col-header">
+                    {{ $selectedDate }} ({{ Util::td($weekDay) }})
+                    @if($user->asOptions['show_quick_workshift_selection'])
+                    <a class="as-weekly-col btn-workshift-switch" data-custom-time-id="{{ $theEmployee->getActiveWorkshift($selectedDate) }}" data-date="{{ $selectedDate }}" data-employee-id="{{ $theEmployee->id }}" href="#"><i class="fa fa-clock-o as-workshift-switch"></i></a>
+                    @endif
+                </li>
                 @foreach ($workingTimes as $hour => $minutes)
                     @foreach ($minutes as $minuteShift)
-                        <?php $slotClass = $selectedEmployee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
+                        <?php $slotClass = $theEmployee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
                         @include('modules.as.index._calendar')
                     @endforeach
                 @endforeach

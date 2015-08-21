@@ -1,5 +1,8 @@
 <?php namespace App\Appointment\Models;
-use Config, Settings, App;
+
+use Config;
+use Settings;
+use App;
 use App\Core\Models\Multilanguage;
 
 class Service extends \App\Core\Models\Base
@@ -28,8 +31,8 @@ class Service extends \App\Core\Models\Base
 
     public function isDeletable()
     {
-        $bookings = Booking::join('as_booking_services','as_booking_services.booking_id','=','as_bookings.id')
-            ->where('as_bookings.status','!=', Booking::STATUS_CANCELLED)
+        $bookings = Booking::join('as_booking_services', 'as_booking_services.booking_id', '=', 'as_bookings.id')
+            ->where('as_bookings.status', '!=', Booking::STATUS_CANCELLED)
             ->where('as_booking_services.service_id', $this->id)->get();
 
         return ($bookings->isEmpty()) ? true : false;
@@ -121,8 +124,7 @@ class Service extends \App\Core\Models\Base
 
     public function getFormattedPriceAttribute()
     {
-        return number_format($this->attributes['price'], 2)
-            .Settings::get('currency');
+        return show_money($this->attributes['price']);
     }
 
     public function setLength()

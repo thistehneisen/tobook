@@ -3,9 +3,7 @@ Event::listen('payment.process', 'App\Appointment\Listeners\PaymentProcessListen
 Event::listen('payment.success', 'App\Appointment\Listeners\PaymentSuccessListener');
 
 Event::listen('payment.cancelled', 'App\Appointment\Listeners\PaymentCancelledListener');
-Event::listen('payment.cancelled', 'App\FlashDeal\Listeners\PaymentCancelledListener');
 
 Event::listen('cart.removed', 'App\Appointment\Listeners\CartRemovedListener');
-Event::listen('cart.removed', 'App\FlashDeal\Listeners\CartRemovedListener');
 
 Event::listen('employee.calendar.invitation.send', 'App\Appointment\Listeners\EmployeeCalendarInvidationListener');

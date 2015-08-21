@@ -41,17 +41,10 @@ return [
             'route_name' => 'lc.offers.index',
             'enable' => false,
         ],
-        'flashdeal' => [
-            'route_name' => 'fd.index',
-            'enable' => true,
-        ],
         'consumers' => [
             'route_name' => 'consumer-hub.index',
             'enable' => true,
         ]
-    ],
-    'flash_deal' => [
-        'show_front_page' => false
     ],
     'head_script' => $head_script,
 

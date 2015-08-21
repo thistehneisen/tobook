@@ -487,7 +487,7 @@ class Business extends Base
      */
     public function getFullAddressAttribute()
     {
-        if (empty ($this->address)) {
+        if (empty($this->address)) {
             return '';
         }
 
@@ -647,17 +647,6 @@ class Business extends Base
             || \App\LoyaltyCard\Models\Voucher::where('user_id', $this->user->id)->first();
     }
 
-    /**
-     * Check if business is using FD
-     *
-     * @return bool
-     */
-    public function getIsUsingFdAttribute()
-    {
-        return \App\FlashDeal\Models\FlashDeal::where('user_id', $this->user->id)->first()
-            || \App\FlashDeal\Models\Coupon::where('user_id', $this->user->id)->first();
-    }
-
     public function getIconsAttribute()
     {
         $map = [
@@ -693,7 +682,7 @@ class Business extends Base
 
         // it is not efficient to order by RAND() but we have relatively small customers base
         return static::orderBy(\DB::raw('RAND()'))
-            ->join('business_category_user', 'business_category_user.user_id', '=','businesses.user_id')
+            ->join('business_category_user', 'business_category_user.user_id', '=', 'businesses.user_id')
             ->where('business_category_user.business_category_id', $categoryId)
             ->where('businesses.name', '!=', '')
             ->where('businesses.is_hidden', 0)

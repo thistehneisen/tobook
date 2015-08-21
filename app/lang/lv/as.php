@@ -362,6 +362,7 @@ return [
             'confirm_tokens_employee'                        => 'E-pasta teksts',
             'terms_enabled'                                  => 'Iespējot noteikumus',
             'default_nat_service'                            => 'Nākamais pieejamais pakalpojums pēc noklusējuma',
+            'show_quick_workshift_selection'                 => 'Show on calendar workshift selection',
             'min_distance'                                   => 'Min attālums',
             'max_distance'                                   => 'Max attālums',
             'auto_select_employee'                           => 'Automātiski izvēlēties darbinieku',

@@ -90,7 +90,7 @@
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#tab-map" aria-controls="tab-map" role="tab" data-toggle="tab">{{ trans('home.map') }}</a></li>
-                    <li role="presentation"><a href="#tab-best-offers" aria-controls="tab-best-offers" role="tab" data-toggle="tab">{{ trans('home.best_offers') }}</a></li>
+                    {{-- <li role="presentation"><a href="#tab-best-offers" aria-controls="tab-best-offers" role="tab" data-toggle="tab">{{ trans('home.best_offers') }}</a></li> --}}
                 </ul>
 
                 <div class="tab-content">
@@ -98,7 +98,7 @@
                         <div id="js-map-canvas" class="map hidden-xs"></div>
                     </div>
 
-                    <div role="tabpanel" class="tab-pane" id="tab-best-offers">
+{{--                     <div role="tabpanel" class="tab-pane" id="tab-best-offers">
                         <h2 class="heading">{{ trans('home.best_offers') }}</h2>
                         <div class="row">
                         @forelse ($deals as $deal)
@@ -111,7 +111,7 @@
                             </div>
                         @endforelse
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
