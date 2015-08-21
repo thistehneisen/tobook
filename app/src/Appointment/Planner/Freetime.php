@@ -28,7 +28,7 @@ class Freetime
             throw new \Exception('as.employees.error.missing_data', 1);
         }
 
-        if ($this->startAt->gt($this->endAt)) {
+        if ($this->startAt->gt($this->endAt) || $this->startAt->eq($this->endAt)) {
             throw new \Exception(trans('as.employees.error.start_time_greater_than_end_time'), 1);
         }
 
