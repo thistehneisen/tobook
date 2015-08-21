@@ -218,6 +218,57 @@
                 </div>
             </div>
         </div>
+
+        <div class="cp-booking-form">
+            <div class="content">
+                <div class="payment">
+                    <div class="payment-section">
+                        <h4>Your booking is almost done</h4>
+                        <form action="" class="row">
+                            <div class="form-group col-sm-3">
+                                <label for="">First Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="">Last Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="">Email</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="">Phone</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="payment-section">
+                        <h4>Booking details</h4>
+                        <div class="row">
+                            <div class="col-sm-3">HiusAkatemi</div>
+                            <div class="col-sm-3">Hair washing</div>
+                            <div class="col-sm-2">An Cao</div>
+                            <div class="col-sm-3">08:00 12/08/2015</div>
+                            <div class="col-sm-1">80&euro;</div>
+                        </div>
+                    </div>
+
+                    <div class="payment-section">
+                        <h4>How do you want to pay for your booking?</h4>
+                        <p><img src="https://www.mokejimai.lt/new/upload/plan_payment_types/rf52cbea8580fa5/visa-mastercard-maestro.jpeg" alt=""></p>
+                    </div>
+                </div>
+            </div>
+            <div class="navigation">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <a href="#" class="btn btn-orange">Go back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     {{-- right sidebar --}}
