@@ -39,6 +39,7 @@ class EmployeeFreetime extends \App\Appointment\Models\Base
 
      /**
      * Return a query with conditions for checking duplicate booking
+     *
      * @return Illuminate\Database\Query\Builder
      */
     public static function applyDuplicateFilter($query, $startTime, $endTime)
@@ -77,6 +78,7 @@ class EmployeeFreetime extends \App\Appointment\Models\Base
     {
         return (int) $this->attributes['type'];
     }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

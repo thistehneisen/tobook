@@ -1,4 +1,5 @@
 <?php namespace App\Appointment\Models;
+
 class EmployeeDefaultTime extends \App\Appointment\Models\Base
 {
     protected $table = 'as_employee_default_time';
@@ -7,15 +8,7 @@ class EmployeeDefaultTime extends \App\Appointment\Models\Base
 
     protected function getTypes()
     {
-        return [
-            'mon',
-            'tue',
-            'wed',
-            'thu',
-            'fri',
-            'sat',
-            'sun'
-        ];
+        return [ 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
     }
 
     public function getStartHourIndex()
@@ -45,6 +38,7 @@ class EmployeeDefaultTime extends \App\Appointment\Models\Base
 
         return (int) $minutes;
     }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
