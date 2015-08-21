@@ -144,35 +144,65 @@
 
         <div class="cp-booking-form">
             <div class="content">
-                <div class="row">
-                    <div class="col-sm-4"><strong>Choose the employee</strong></div>
-                    <div class="col-sm-2">Employee1</div>
-                    <div class="col-sm-2">Employee2</div>
-                    <div class="col-sm-2">Employee3</div>
-                    <div class="col-sm-2">Employee4</div>
+                <div class="panel-group" id="js-booking-form-employee" role="tablist">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#js-booking-form-employee" href="#js-booking-form-employees">
+                                    The first available employee
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="js-booking-form-employees" class="panel-collapse collapse" role="tabpanel">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-offset-1 col-sm-10">
+                                        <ul class="list-employees">
+                                            <li>The first available employee</li>
+                                            <li>Employee 1</li>
+                                            <li>Employee 2</li>
+                                            <li>Employee 3</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-sm-1"><i class="glyphicon glyphicon-chevron-left"></i></div>
-                    <div class="col-sm-10">
-                        <ul class="dates">
-                            <li>17.8</li>
-                            <li>17.8</li>
-                            <li>17.8</li>
-                            <li>17.8</li>
-                            <li>17.8</li>
-                            <li>17.8</li>
-                            <li>17.8</li>
-                        </ul>
+                <div class="date-selector">
+                    <div class="row">
+                        <div class="col-sm-1"><i class="fa fa-chevron-left"></i></div>
+                        <div class="col-sm-10">
+                            <ul class="date-selector-dates">
+                                <li><span>ma</span> <em>17.8</em></li>
+                                <li><span>ti</span> <em>18.8</em></li>
+                                <li class="date-selector-dates-active"><span>ke</span> <em>19.8</em></li>
+                                <li><span>to</span> <em>20.8</em></li>
+                                <li><span>pe</span> <em>21.8</em></li>
+                                <li><span>la</span> <em>22.8</em></li>
+                                <li><span>su</span> <em>23.8</em></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-1 text-right"><i class="fa fa-chevron-right"></i></div>
                     </div>
-                    <div class="col-sm-1 text-right"><i class="glyphicon glyphicon-chevron-right"></i></div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-10">
                         <ul class="time-options">
-                            <li>08:00</li>
-                            <li>09:00</li>
+                            <li>08:00 &ndash; 60&euro; <a href="#" class="btn btn-success">Select</a></li>
+                            <li>09:00 &ndash; 60&euro; <a href="#" class="btn btn-success">Select</a></li>
+                            <li>09:00 &ndash; 60&euro; <a href="#" class="btn btn-success">Select</a></li>
+                            <li>09:00 &ndash; 60&euro; <a href="#" class="btn btn-success">Select</a></li>
+                            <li>09:00 &ndash; 60&euro; <a href="#" class="btn btn-success">Select</a></li>
+                            <li>09:00 &ndash; 60&euro; <a href="#" class="btn btn-success">Select</a></li>
+                            <li>09:00 &ndash; 60&euro; <a href="#" class="btn btn-success">Select</a></li>
+                            <li>09:00 &ndash; 60&euro; <a href="#" class="btn btn-success">Select</a></li>
+                            <li>09:00 &ndash; 60&euro; <a href="#" class="btn btn-success">Select</a></li>
+                            <li>09:00 &ndash; 60&euro; <a href="#" class="btn btn-success">Select</a></li>
+                            <li>09:00 &ndash; 60&euro; <a href="#" class="btn btn-success">Select</a></li>
+                            <li>09:00 &ndash; 60&euro; <a href="#" class="btn btn-success">Select</a></li>
                         </ul>
                     </div>
                 </div>

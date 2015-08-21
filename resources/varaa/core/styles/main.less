@@ -286,8 +286,9 @@ a {
         padding: 15px;
     }
 
-    a {
+    .panel-title a {
         text-decoration: none;
+        display: block;
     }
 
     .panel {
@@ -339,26 +340,85 @@ a {
         padding: 10px 15px;
     }
 
-    .dates {
+    .date-selector {
+        border-bottom: 2px solid #dedede;
+        margin: 10px 0;
+        padding-bottom: 10px;
+        font-size: 16px;
+
+        .fa {
+            margin-top: 20px;
+            color: #bbb;
+            font-size: 18px;
+        }
+    }
+
+        .date-selector-dates {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                float: left;
+                width: 14.28%;
+                padding: 5px;
+                text-align: center;
+                cursor: pointer;
+
+                span {
+                    text-transform: uppercase;
+                    color: #999;
+                    display: block;
+                }
+
+                em {
+                    font-style: normal;
+                }
+            }
+        }
+
+            .date-selector-dates-active em {
+                color: @primary_color;
+                font-weight: 700;
+            }
+
+    .list-employees {
         list-style-type: none;
-        margin: 0;
+        margin-left: 0;
         padding: 0;
 
         li {
-            float: left;
-            width: 14.28%;
-            padding: 5px;
-            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            background-color: #fff;
+            margin-top: 3px;
         }
     }
+
 
     .time-options {
         list-style-type: none;
         margin: 0;
         padding: 0;
-        width: 14.28%;
         padding: 5px;
-        text-align: center;
+
+        li {
+            padding: 15px;
+            cursor: pointer;
+            position: relative;
+            background-color: #fff;
+            margin-top: 3px;
+
+            .btn {
+                position: absolute;
+                top: 5px;
+                right: 10px;
+            }
+
+            &.selected {
+                font-weight: 700;
+            }
+        }
     }
 }
 
