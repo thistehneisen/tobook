@@ -35,9 +35,15 @@ class Freetime
         if ($this->fromDate->gt($this->toDate)) {
             throw new \Exception(trans('as.employees.error.from_date_greater_than_to_date'), 1);
         }
+
         $this->days = (int) $this->fromDate->diffInDays($this->toDate)+1;
     }
 
+    /**
+     * Find all overlapped bookings
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
     public function getOverlappedBookings()
     {
         $bookings = array();
@@ -50,10 +56,14 @@ class Freetime
                 }
             }
         }
-        //Checking if freetime overlaps with any booking or not
        return $bookings;
     }
 
+    /**
+     * Find all overlapped free times
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
     public function getOverlappedFreetimes()
     {
         $freetimes = array();
@@ -66,7 +76,6 @@ class Freetime
                 }
             }
         }
-        //Checking if freetime overlaps with any booking or not
        return $freetimes;
     }
 
@@ -88,6 +97,7 @@ class Freetime
         }
 
         $freetimes = $this->getOverlappedFreetimes();
+
         if (!empty($freetimes)) {
             $data['success'] = false;
             $data['message'] = trans('as.employees.error.freetime_overlapped_with_others');
@@ -108,6 +118,7 @@ class Freetime
             foreach ($this->employeeIds as $employeeId) {
                 $employeeFreetime = new EmployeeFreetime();
                 $date = $this->fromDate->copy()->addDays($day);
+
                 $employeeFreetime->fill([
                     'date'        => $date->toDateString(),
                     'start_at'    => $this->startAt->toTimeString(),
@@ -143,6 +154,7 @@ class Freetime
 
     /**
      * Generate possible workshift from 6:00 to 22:45
+     *
      * @return array
      */
     public function getWorkshift()
