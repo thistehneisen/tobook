@@ -126,8 +126,8 @@ class Workshift
      */
     public function getDisplayCustomTimes()
     {
-        $format = 'CONCAT(name, " (", TIME_FORMAT(start_at, "%H:%i"),
-                               " - ", TIME_FORMAT(end_at, "%H:%i"),")") AS name';
+        $format = 'IF(is_day_off = 0, CONCAT(name, " (", TIME_FORMAT(start_at, "%H:%i"),
+                               " - ", TIME_FORMAT(end_at, "%H:%i"),")"), name) AS name';
 
         //JSON will sort the id by ascending order automatically
         //Append @ in order to avoid auto sorting
