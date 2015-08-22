@@ -39,7 +39,7 @@ gulp.task 'js', ->
     .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
     .pipe gulpif production, gulp.dest(__dirname)
 
-gulp.task 'coffee', ['js'], ->
+gulp.task 'coffee', ->
   gulp.src paths.coffee
     .pipe cached 'coffee'
     .pipe coffee()
@@ -50,7 +50,7 @@ gulp.task 'coffee', ['js'], ->
     .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
     .pipe gulpif production, gulp.dest(__dirname)
 
-gulp.task 'es6', ['coffee'], ->
+gulp.task 'es6', ->
   gulp.src paths.es6
     .pipe cached 'es6'
     .pipe babel()
@@ -72,7 +72,7 @@ gulp.task 'less', ->
     .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
     .pipe gulpif production, gulp.dest(__dirname)
 
-gulp.task 'default', ['es6', 'less', 'static']
+gulp.task 'default', ['es6', 'coffee', 'js', 'less', 'static']
 
 gulp.task 'watch', ['default'], ->
   ['coffee', 'less', 'js', 'es6'].forEach (task) ->

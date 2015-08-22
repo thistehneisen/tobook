@@ -43,7 +43,7 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js') }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
-    {{ HTML::script(asset_path('as/scripts/layout-3.js')) }}
+    {{ HTML::script(asset_path('as/scripts/layout-cp.js')) }}
     {{ HTML::script(asset_path('core/scripts/business.js')) }}
 
     <script>
@@ -56,10 +56,6 @@ $(function () {
     map.addMarker({
       lat: {{ $lat }},
       lng: {{ $lng }}
-    });
-
-    VARAA.initLayout3({
-        isAutoSelectEmployee: false
     });
 });
     </script>
