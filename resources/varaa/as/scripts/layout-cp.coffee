@@ -119,35 +119,47 @@ do ->
     ]
 
     @timeOptions = [0..18].map (i) -> {time: "#{i}:00", price: 45.50}
-    @employees = [
-      {id: 0, name: 'The first available employee'},
-      {id: 1, name: 'Employee 1'},
-      {id: 2, name: 'Employee 2'},
-      {id: 3, name: 'Employee 3'},
-      {id: 4, name: 'Employee 4'},
-      {id: 5, name: 'Employee 5'}
-    ]
+
+    # Get employees from server
+    @employees = m.prop []
+    m.request
+      method: 'GET'
+      url: app.routes['business.booking.employees']
+      data:
+        serviceId: @layout.dataStore().service.id
+        hash: @layout.dataStore().hash
+    .then @employees
+    .then =>
+      @employees().unshift {id: -1, name: 'Any'}
+
+    # Selected employee
+    @selectedEmployee = m.prop 0
+    @getSelectedEmployee = -> @employees()[@selectedEmployee()]
 
     @selectTime = (time, e) ->
       e.preventDefault()
       @layout.selectTime time, e
 
+    @selectEmployee = (employee, index, e) ->
+      @selectedEmployee index
+      @layout.selectEmployee employee, e
     return
+
   Time.view = (ctrl) ->
     m('div', [
       m('.panel-group[id=js-booking-form-employee][role=tablist]', [
         m('.panel.panel-default', [
           m('.panel-heading[role=tab]', [
             m('h4.panel-title', [
-              m('a[data-parent=#js-booking-form-employee][data-toggle=collapse][href=#js-booking-form-employees][role=button]', '\n                                    The first available employee\n                                ')
+              m('a[data-parent=#js-booking-form-employee][data-toggle=collapse][href=#js-booking-form-employees][role=button]', ctrl.getSelectedEmployee().name || 'Any')
             ])
           ]),
           m('.panel-collapse.collapse[id=js-booking-form-employees][role=tabpanel]', [
             m('.panel-body', [
               m('.row', [
                 m('.col-sm-offset-1.col-sm-10', [
-                  m('ul.list-employees', ctrl.employees.map((employee) ->
-                    m('li', employee.name)
+                  m('ul.list-employees', ctrl.employees().map((employee, index) ->
+                    m('li', {onclick: ctrl.selectEmployee.bind(ctrl, employee, index)}, employee.name)
                   ))
                 ])
               ])
@@ -236,7 +248,7 @@ do ->
 
   LayoutCP = {}
   LayoutCP.controller = ->
-    @dataStore = m.prop {}
+    @dataStore = m.prop {hash: app.hash}
 
     # Fetch services JSON data
     @data = m.prop {}
@@ -280,6 +292,12 @@ do ->
       e.preventDefault()
       @dataStore().service = service
       @moveNext()
+
+    @selectEmployee = (employee, e) ->
+      e.preventDefault()
+      @dataStore().employee = employee
+      console.log @dataStore()
+      return
 
     @selectTime = (time, e) ->
       e.preventDefault()

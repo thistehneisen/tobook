@@ -41,11 +41,27 @@ Route::group(['prefix' => 'businesses'], function () {
         'uses'  => 'App\Core\Controllers\Businesses@request'
     ]);
 
+    //--------------------------------------------------------------------------
+    // CP booking form
+    //--------------------------------------------------------------------------
     Route::get('{hash}/booking/services', [
         'as'    => 'business.booking.services',
         'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@getServices'
     ]);
 
+    Route::get('{hash}/booking/timetable', [
+        'as'    => 'business.booking.timetable',
+        'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@getTimetable'
+    ]);
+
+    Route::get('{hash}/booking/employees', [
+        'as'    => 'business.booking.employees',
+        'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@getEmployees'
+    ]);
+
+    //--------------------------------------------------------------------------
+    // Single business
+    //--------------------------------------------------------------------------
     Route::get('{id}-{slug?}', [
         'as'    => 'business.index',
         'uses'  => 'App\Core\Controllers\Ajax\Search@showBusiness'
