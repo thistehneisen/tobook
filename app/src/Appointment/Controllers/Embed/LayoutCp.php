@@ -1,10 +1,13 @@
 <?php namespace App\Appointment\Controllers\Embed;
 
+use App;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use Carbon\Carbon;
 use Input;
 use Response;
+use Config;
+use WebToPay;
 
 class LayoutCp extends Base
 {
@@ -36,7 +39,7 @@ class LayoutCp extends Base
 
     public function getTimetable()
     {
-        $today      = new Carbon('2015-08-24');
+        $today      = Carbon::today();
         $date       = Input::has('date') ? new Carbon(Input::get('date')) : $today;
         $dateStr    = $date->toDateString();
         $hash       = Input::get('hash');
@@ -102,5 +105,28 @@ class LayoutCp extends Base
             'nextWeek'     => $nextWeek->toDateString(),
             'calendar'     => $calendar,
         ]);
+    }
+
+    public function getPaymentOptions()
+    {
+        // $language = App::getLocale() ?: 'en';
+        $language = 'lt';
+        $amount = Input::get('amount', 10.00);
+        $options = WebToPay::getPaymentMethodList(Config::get('services.paysera.id'), 'EUR')
+            ->filterForAmount($amount, 'EUR')
+            ->setDefaultLanguage($language);
+
+        $methods = [];
+        if ($options->getCountry($language) !== null) {
+            foreach ($options->getCountry($language)->getPaymentMethods() as $method) {
+                $methods[] = [
+                    'key' => $method->getKey(),
+                    'logo' => $method->getLogoUrl(),
+                    'title' => $method->getTitle()
+                ];
+            }
+        }
+
+        return Response::json($methods);
     }
 }

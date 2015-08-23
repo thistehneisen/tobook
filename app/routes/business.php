@@ -54,6 +54,11 @@ Route::group(['prefix' => 'businesses'], function () {
         'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@getTimetable'
     ]);
 
+    Route::get('{hash}/booking/payments', [
+        'as'    => 'business.booking.payments',
+        'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@getPaymentOptions'
+    ]);
+
     Route::get('{hash}/booking/employees', [
         'as'    => 'business.booking.employees',
         'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@getEmployees'

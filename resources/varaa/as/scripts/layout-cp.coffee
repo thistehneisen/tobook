@@ -219,9 +219,33 @@ do ->
       el = e.target
       @layout.setCustomerInfo field, el.value
 
+    @paymentOptions = m.prop []
+    @fetchPaymentOptions = (amount) ->
+      m.request
+        background: true
+        url: app.routes['business.booking.payments']
+        method: 'GET'
+        data:
+          amount: amount
+      .then @paymentOptions
+      .then -> m.redraw()
+
+    # Kickstart
+    @fetchPaymentOptions @layout.dataStore().service.price
     return
+
   Payment.view = (ctrl) ->
     dataStore = ctrl.layout.dataStore()
+    paymentOptionView = if ctrl.paymentOptions().length > 0
+      m('ul.row.list-inline', ctrl.paymentOptions().map((option) ->
+        return m('li.col-sm-4', m('.payment-option', [
+          m('img', {src: option.logo}),
+          m('p', option.title)
+        ]))
+      ))
+    else
+      m('.cbf-loading', m('i.fa.fa-spin.fa-spinner'))
+
     m('.payment', [
       m('.payment-section', [
         m('h4', 'Your booking is almost done'),
@@ -256,7 +280,7 @@ do ->
       ]),
       m('.payment-section', [
         m('h4', 'How do you want to pay for your booking?'),
-        m('p', [m('img[alt=][src=https://www.mokejimai.lt/new/upload/plan_payment_types/rf52cbea8580fa5/visa-mastercard-maestro.jpeg]')])
+        paymentOptionView
       ])
     ])
 
