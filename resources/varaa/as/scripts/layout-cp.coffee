@@ -230,6 +230,12 @@ do ->
       .then @paymentOptions
       .then -> m.redraw()
 
+    @validateCustomer = ->
+      customer = @layout.dataStore().customer
+      return ['first_name', 'last_name', 'phone', 'email']
+        .map (field) -> customer[field]
+        .every (value) -> value? and value.length
+
     # Kickstart
     @fetchPaymentOptions @layout.dataStore().service.price
     return
@@ -237,12 +243,14 @@ do ->
   Payment.view = (ctrl) ->
     dataStore = ctrl.layout.dataStore()
     paymentOptionView = if ctrl.paymentOptions().length > 0
-      m('ul.row.list-inline', ctrl.paymentOptions().map((option) ->
-        return m('li.col-sm-4', m('.payment-option', [
-          m('img', {src: option.logo}),
-          m('p', option.title)
-        ]))
-      ))
+      m('ul.row.list-inline.payment-option-list', [
+        ctrl.paymentOptions().map((option) ->
+          return m('li.col-sm-4', m('.payment-option', [
+            m('img', {src: option.logo}),
+            m('p', option.title)
+          ]))
+        )
+      ])
     else
       m('.cbf-loading', m('i.fa.fa-spin.fa-spinner'))
 
@@ -251,19 +259,19 @@ do ->
         m('h4', 'Your booking is almost done'),
         m('form.row[action=]', [
           m('.form-group.col-sm-3', [
-            m('label[for=]', 'First Name'),
+            m('label[for=]', 'First Name*'),
             m('input.form-control[type=text]', {onblur: ctrl.setCustomerInfo.bind(ctrl, 'first_name')})
           ]),
           m('.form-group.col-sm-3', [
-            m('label[for=]', 'Last Name'),
+            m('label[for=]', 'Last Name*'),
             m('input.form-control[type=text]', {onblur: ctrl.setCustomerInfo.bind(ctrl, 'last_name')})
           ]),
           m('.form-group.col-sm-3', [
-            m('label[for=]', 'Email'),
+            m('label[for=]', 'Email*'),
             m('input.form-control[type=email]', {onblur: ctrl.setCustomerInfo.bind(ctrl, 'email')})
           ]),
           m('.form-group.col-sm-3', [
-            m('label[for=]', 'Phone'),
+            m('label[for=]', 'Phone*'),
             m('input.form-control[type=text]', {onblur: ctrl.setCustomerInfo.bind(ctrl, 'phone')})
           ])
         ])
@@ -280,7 +288,12 @@ do ->
       ]),
       m('.payment-section', [
         m('h4', 'How do you want to pay for your booking?'),
-        paymentOptionView
+        m('.row',
+          m('.col-sm-12', [
+            m('.locked', {class: if ctrl.validateCustomer() then 'hidden' else ''}),
+            paymentOptionView
+          ])
+        )
       ])
     ])
 
@@ -290,7 +303,7 @@ do ->
 
   LayoutCP = {}
   LayoutCP.controller = ->
-    @dataStore = m.prop {hash: app.hash}
+    @dataStore = m.prop {hash: app.hash, customer: {}}
 
     # Fetch services JSON data
     @data = m.prop {}
