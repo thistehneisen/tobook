@@ -8,16 +8,6 @@ do ->
   Service = {}
   Service.controller = (args) ->
     @categories = args.data().categories
-    # @categories = [
-    #   {id: 1, name: 'Category 1', services: [
-    #     {id: 1, name: 'Service 1', time: 60, price: 55.00, custom: []},
-    #     {id: 2, name: 'Service 2', custom: [
-    #       {id: 1, time: 45, price: 60.00},
-    #       {id: 2, time: 45, price: 70.00}
-    #     ]}
-    #   ]},
-    #   {id: 2, name: 'Category 2', services: []}
-    # ]
 
     @selectService = (service, e) ->
       e.preventDefault()
@@ -117,6 +107,7 @@ do ->
     @getSelectedEmployee = -> @employees()[@selectedEmployee()]
     @fetchEmployees = ->
       m.request
+        background: true
         method: 'GET'
         url: app.routes['business.booking.employees']
         data:
@@ -130,6 +121,7 @@ do ->
     @fetchCalendar = ->
       return m.request
         method: 'GET'
+        background: true
         url: app.routes['business.booking.timetable']
         data:
           serviceId: @layout.dataStore().service.id
@@ -137,7 +129,9 @@ do ->
           employeeId: @getSelectedEmployee().id
           date: @selectedDate()
       .then @calendar
-      .then => @selectedDate @calendar().selectedDate
+      .then =>
+        @selectedDate @calendar().selectedDate
+        m.redraw()
 
     @selectDate = (date, e) ->
       e.preventDefault()
@@ -165,12 +159,14 @@ do ->
     return
 
   Time.view = (ctrl) ->
+    return m('.cbf-loading', m('i.fa.fa-spin.fa-spinner')) unless ctrl.getSelectedEmployee()?
+
     m('div', [
       m('.panel-group[id=js-booking-form-employee][role=tablist]', [
         m('.panel.panel-default', [
           m('.panel-heading[role=tab]', [
             m('h4.panel-title', [
-              m('a[data-parent=#js-booking-form-employee][data-toggle=collapse][href=#js-booking-form-employees][role=button]', ctrl.getSelectedEmployee().name || 'Any')
+              m('a[data-parent=#js-booking-form-employee][data-toggle=collapse][href=#js-booking-form-employees][role=button]', ctrl.getSelectedEmployee().name)
             ])
           ]),
           m('.panel-collapse.collapse[id=js-booking-form-employees][role=tabpanel]', [
@@ -251,11 +247,11 @@ do ->
       m('.payment-section', [
         m('h4', 'Booking details'),
         m('.row', [
-          m('.col-sm-3', dataStore.business.name),
-          m('.col-sm-3', dataStore.service.name),
-          m('.col-sm-2', dataStore.employee.name),
-          m('.col-sm-3', "#{dataStore.date} #{dataStore.time}"),
-          m('.col-sm-1', m.trust("#{dataStore.service.price}&euro;"))
+          m('.col-sm-2', [m('p', m('strong', 'Salon')), dataStore.business.name]),
+          m('.col-sm-3', [m('p', m('strong', 'Service')), dataStore.service.name]),
+          m('.col-sm-2', [m('p', m('strong', 'Employee')), dataStore.employee.name]),
+          m('.col-sm-3', [m('p', m('strong', 'Time')), "#{dataStore.date} #{dataStore.time}"]),
+          m('.col-sm-2', [m('p', m('strong', 'Price')), m.trust("#{dataStore.service.price}&euro;")])
         ])
       ]),
       m('.payment-section', [
@@ -337,6 +333,7 @@ do ->
 
       @dataStore().customer = customer
       return
+
 
     return
 
