@@ -19,7 +19,9 @@ do ->
     #   {id: 2, name: 'Category 2', services: []}
     # ]
 
-    @selectService = args.layout.selectService.bind(args.layout)
+    @selectService = (service, e) ->
+      e.preventDefault()
+      args.layout.selectService service
 
     return
   Service.view = (ctrl) ->
@@ -124,6 +126,7 @@ do ->
 
     # Get timetable from server
     @calendar = m.prop []
+    @selectedDate = m.prop()
     @fetchCalendar = ->
       return m.request
         method: 'GET'
@@ -132,16 +135,26 @@ do ->
           serviceId: @layout.dataStore().service.id
           hash: @layout.dataStore().hash
           employeeId: @getSelectedEmployee().id
+          date: @selectedDate()
       .then @calendar
+      .then => @selectedDate @calendar().selectedDate
 
-    @selectTime = (time, e) ->
+    @selectDate = (date, e) ->
       e.preventDefault()
-      @layout.selectTime time, e
+      @selectedDate date
+      @fetchCalendar()
+      return
+
+    @selectTime = (opts, e) ->
+      e.preventDefault()
+      @layout.selectEmployee opts.employee
+      @layout.selectDate opts.date
+      @layout.selectTime opts.time
+      return
 
     @selectEmployee = (employee, index, e) ->
       @selectedEmployee index
       @fetchCalendar()
-      @layout.selectEmployee employee, e
 
     # Kickstart
     @fetchEmployees()
@@ -179,7 +192,8 @@ do ->
           m('.col-sm-10', [
             m('ul.date-selector-dates', ctrl.calendar().dates.map((item) ->
               m('li', {
-                class: if ctrl.calendar().selectedDate is item.date then 'date-selector-dates-active' else ''
+                class: if ctrl.selectedDate() is item.date then 'date-selector-dates-active' else ''
+                onclick: ctrl.selectDate.bind(ctrl, item.date)
               }, [m('span', item.dayOfWeek),m('em', item.niceDate)])
             ))
           ]),
@@ -237,10 +251,10 @@ do ->
       m('.payment-section', [
         m('h4', 'Booking details'),
         m('.row', [
-          m('.col-sm-3', 'HiusAkatemi'),
+          m('.col-sm-3', dataStore.business.name),
           m('.col-sm-3', dataStore.service.name),
-          m('.col-sm-2', 'An Cao'),
-          m('.col-sm-3', '08:00 12/08/2015'),
+          m('.col-sm-2', dataStore.employee.name),
+          m('.col-sm-3', "#{dataStore.date} #{dataStore.time}"),
           m('.col-sm-1', m.trust("#{dataStore.service.price}&euro;"))
         ])
       ]),
@@ -265,6 +279,8 @@ do ->
       method: 'GET'
       url: app.routes['business.booking.services']
     .then @data
+    .then =>
+      @dataStore().business = @data().business
 
     # The list of all panels in layout
     args = {layout: @, data: @data}
@@ -296,18 +312,20 @@ do ->
     # Hide Back button if active panel is the first one
     @shouldHideBackButton = -> @activePanel() is 0
 
-    @selectService = (service, e) ->
-      e.preventDefault()
+    @selectService = (service) ->
       @dataStore().service = service
       @moveNext()
+      return
 
-    @selectEmployee = (employee, e) ->
-      e.preventDefault()
+    @selectEmployee = (employee) ->
       @dataStore().employee = employee
       return
 
-    @selectTime = (time, e) ->
-      e.preventDefault()
+    @selectDate = (date) ->
+      @dataStore().date = date
+      return
+
+    @selectTime = (time) ->
       @dataStore().time = time
       @moveNext()
 

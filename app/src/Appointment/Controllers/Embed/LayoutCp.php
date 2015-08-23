@@ -38,6 +38,7 @@ class LayoutCp extends Base
     {
         $today      = new Carbon('2015-08-24');
         $date       = Input::has('date') ? new Carbon(Input::get('date')) : $today;
+        $dateStr    = $date->toDateString();
         $hash       = Input::get('hash');
         $service    = Service::findOrFail(Input::get('serviceId'));
         $employeeId = (int) Input::get('employeeId');
@@ -86,6 +87,7 @@ class LayoutCp extends Base
         foreach ($timetable as $time => $employee) {
             $calendar[] = [
                 'time' => $time,
+                'date' => $dateStr,
                 'employee' => [
                     'id' => $employee->id,
                     'name' => $employee->name,
@@ -95,7 +97,7 @@ class LayoutCp extends Base
 
         return Response::json([
             'dates'        => $dates,
-            'selectedDate' => $date->toDateString(),
+            'selectedDate' => $dateStr,
             'prevWeek'     => $prevWeek->toDateString(),
             'nextWeek'     => $nextWeek->toDateString(),
             'calendar'     => $calendar,
