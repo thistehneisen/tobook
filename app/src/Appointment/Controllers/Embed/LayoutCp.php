@@ -1,5 +1,6 @@
 <?php namespace App\Appointment\Controllers\Embed;
 
+use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use Carbon\Carbon;
 use Input;
@@ -35,7 +36,7 @@ class LayoutCp extends Base
 
     public function getTimetable()
     {
-        $today      = Carbon::today();
+        $today      = new Carbon('2015-08-24');
         $date       = Input::has('date') ? new Carbon(Input::get('date')) : $today;
         $hash       = Input::get('hash');
         $service    = Service::findOrFail(Input::get('serviceId'));
@@ -56,14 +57,6 @@ class LayoutCp extends Base
             $date = $start->copy();
         }
 
-        $timetable = [];
-        if ($employeeId === -1) {
-            $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime);
-        } elseif ($employeeId > 0) {
-            $employee = Employee::findOrFail($employeeId);
-            $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime);
-        }
-
         $startDate = $date->copy()->startOfWeek();
         $endDate = $startDate->copy()->endOfWeek();
         $nextWeek = $endDate->copy()->addDay();
@@ -80,12 +73,32 @@ class LayoutCp extends Base
             $i->addDay();
         }
 
+        // Get timetable data
+        $timetable = [];
+        if ($employeeId > 0) {
+            $employee = Employee::findOrFail($employeeId);
+            $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime);
+        } else {
+            $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime);
+        }
+
+        $calendar = [];
+        foreach ($timetable as $time => $employee) {
+            $calendar[] = [
+                'time' => $time,
+                'employee' => [
+                    'id' => $employee->id,
+                    'name' => $employee->name,
+                ]
+            ];
+        }
+
         return Response::json([
             'dates'        => $dates,
             'selectedDate' => $date->toDateString(),
             'prevWeek'     => $prevWeek->toDateString(),
             'nextWeek'     => $nextWeek->toDateString(),
-            'timetable'    => $timetable
+            'calendar'     => $calendar,
         ]);
     }
 }

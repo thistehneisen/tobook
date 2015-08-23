@@ -108,33 +108,31 @@ do ->
   Time.controller = (args) ->
     @layout = args.layout
 
-    # Get timetable from server
-    @calendar = m.prop []
-    m.request
-      method: 'GET'
-      url: app.routes['business.booking.timetable']
-      data:
-        serviceId: @layout.dataStore().service.id
-        hash: @layout.dataStore().hash
-    .then @calendar
-
-    @timeOptions = [0..18].map (i) -> {time: "#{i}:00", price: 45.50}
-
     # Get employees from server
     @employees = m.prop []
-    m.request
-      method: 'GET'
-      url: app.routes['business.booking.employees']
-      data:
-        serviceId: @layout.dataStore().service.id
-        hash: @layout.dataStore().hash
-    .then @employees
-    .then =>
-      @employees().unshift {id: -1, name: 'Any'}
-
     # Selected employee
     @selectedEmployee = m.prop 0
     @getSelectedEmployee = -> @employees()[@selectedEmployee()]
+    @fetchEmployees = ->
+      m.request
+        method: 'GET'
+        url: app.routes['business.booking.employees']
+        data:
+          serviceId: @layout.dataStore().service.id
+          hash: @layout.dataStore().hash
+      .then @employees
+
+    # Get timetable from server
+    @calendar = m.prop []
+    @fetchCalendar = ->
+      return m.request
+        method: 'GET'
+        url: app.routes['business.booking.timetable']
+        data:
+          serviceId: @layout.dataStore().service.id
+          hash: @layout.dataStore().hash
+          employeeId: @getSelectedEmployee().id
+      .then @calendar
 
     @selectTime = (time, e) ->
       e.preventDefault()
@@ -142,7 +140,15 @@ do ->
 
     @selectEmployee = (employee, index, e) ->
       @selectedEmployee index
+      @fetchCalendar()
       @layout.selectEmployee employee, e
+
+    # Kickstart
+    @fetchEmployees()
+      .then =>
+        @employees().unshift {id: -1, name: 'The first available employee'}
+        @fetchCalendar()
+
     return
 
   Time.view = (ctrl) ->
@@ -182,9 +188,9 @@ do ->
       ]),
       m('.row', [
         m('.col-sm-offset-1.col-sm-10', [
-          m('ul.time-options', ctrl.timeOptions.map((opt) ->
+          m('ul.time-options', ctrl.calendar().calendar.map((opt) ->
             m('li', {onclick: ctrl.selectTime.bind(ctrl, opt)}, [
-              m.trust("#{opt.time} &ndash; #{opt.price}&euro;"),
+              m.trust("#{opt.time} &ndash; #{ctrl.layout.dataStore().service.price}&euro;"),
               m('button.btn.btn-success', 'Select')
             ])
           ))
@@ -298,7 +304,6 @@ do ->
     @selectEmployee = (employee, e) ->
       e.preventDefault()
       @dataStore().employee = employee
-      console.log @dataStore()
       return
 
     @selectTime = (time, e) ->
