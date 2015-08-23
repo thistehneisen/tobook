@@ -35,7 +35,7 @@ class LayoutCp extends Base
 
     public function getTimetable()
     {
-        $today      = new Carbon('2015-08-24');
+        $today      = Carbon::today();
         $date       = Input::has('date') ? new Carbon(Input::get('date')) : $today;
         $hash       = Input::get('hash');
         $service    = Service::findOrFail(Input::get('serviceId'));

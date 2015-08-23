@@ -108,15 +108,15 @@ do ->
   Time.controller = (args) ->
     @layout = args.layout
 
-    @calendar = [
-      {dayOfWeek: 'ma', date: '17.8'},
-      {dayOfWeek: 'ti', date: '18.8'},
-      {dayOfWeek: 'ke', date: '19.8'},
-      {dayOfWeek: 'to', date: '20.8'},
-      {dayOfWeek: 'pe', date: '21.8'},
-      {dayOfWeek: 'la', date: '22.8'},
-      {dayOfWeek: 'su', date: '23.8'}
-    ]
+    # Get timetable from server
+    @calendar = m.prop []
+    m.request
+      method: 'GET'
+      url: app.routes['business.booking.timetable']
+      data:
+        serviceId: @layout.dataStore().service.id
+        hash: @layout.dataStore().hash
+    .then @calendar
 
     @timeOptions = [0..18].map (i) -> {time: "#{i}:00", price: 45.50}
 
@@ -169,13 +169,15 @@ do ->
       ]),
       m('.date-selector', [
         m('.row', [
-          m('.col-sm-1', [m('i.fa.fa-chevron-left')]),
+          m('.col-sm-1', m('a[href=#].date-selector-link', m('i.fa.fa-chevron-left'))),
           m('.col-sm-10', [
-            m('ul.date-selector-dates', ctrl.calendar.map((item) ->
-              m('li', [m('span', item.dayOfWeek),m('em', item.date)])
+            m('ul.date-selector-dates', ctrl.calendar().dates.map((item) ->
+              m('li', {
+                class: if ctrl.calendar().selectedDate is item.date then 'date-selector-dates-active' else ''
+              }, [m('span', item.dayOfWeek),m('em', item.niceDate)])
             ))
           ]),
-          m('.col-sm-1.text-right', [m('i.fa.fa-chevron-right')])
+          m('.col-sm-1', m('a[href=#].date-selector-link', m('i.fa.fa-chevron-right')))
         ])
       ]),
       m('.row', [

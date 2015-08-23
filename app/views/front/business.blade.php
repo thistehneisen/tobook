@@ -36,6 +36,7 @@ var app = app || {}
 app.hash = '{{ $business->user->hash }}'
 app.routes = {
     'business.booking.services': '{{ route('business.booking.services', ['hash' => $business->user->hash]) }}',
+    'business.booking.timetable': '{{ route('business.booking.timetable', ['hash' => $business->user->hash]) }}',
     'business.booking.employees': '{{ route('business.booking.employees', ['hash' => $business->user->hash]) }}'
 }
 </script>
