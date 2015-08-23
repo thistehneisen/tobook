@@ -29,7 +29,7 @@
         </div>
 
         <h3 class="sub-heading">Book your service online</h3>
-        <div class="js-cp-booking-form"></div>
+        <div class="js-cp-booking-form">Loading&hellip;</div>
 
     </div>
 

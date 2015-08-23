@@ -1,4 +1,4 @@
-# global m
+# global m, app
 do ->
   'use strict'
 
@@ -7,28 +7,30 @@ do ->
   # ----------------------------------------------------------------------------
   Service = {}
   Service.controller = (args) ->
-    @categories = [
-      {id: 1, name: 'Category 1', services: [
-        {id: 1, name: 'Service 1', time: 60, price: 55.00, custom: []},
-        {id: 2, name: 'Service 2', custom: [
-          {id: 1, time: 45, price: 60.00},
-          {id: 2, time: 45, price: 70.00}
-        ]}
-      ]},
-      {id: 2, name: 'Category 2', services: []}
-    ]
+    @categories = args.data().categories
+    # @categories = [
+    #   {id: 1, name: 'Category 1', services: [
+    #     {id: 1, name: 'Service 1', time: 60, price: 55.00, custom: []},
+    #     {id: 2, name: 'Service 2', custom: [
+    #       {id: 1, time: 45, price: 60.00},
+    #       {id: 2, time: 45, price: 70.00}
+    #     ]}
+    #   ]},
+    #   {id: 2, name: 'Category 2', services: []}
+    # ]
 
     @selectService = args.layout.selectService.bind(args.layout)
 
     return
   Service.view = (ctrl) ->
+
     normalService = (service) ->
       m('.single-service', {onclick: ctrl.selectService.bind(ctrl, service)},[
-        m('h4.panel-title', service.name),
         m('.row', [
           m('.col-md-10', [
-            m('.service-description', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima aliquid fugit beatae labore provident unde, quasi, tempore, reiciendis amet inventore, delectus recusandae et dolorem ut maxime autem obcaecati pariatur corporis.'),
-            m('p', m.trust("#{service.time}min/ #{service.price}&euro;"))
+            m('h4.panel-title', service.name),
+            m('.service-description', service.description),
+            m('p', "#{service.during}min")
           ]),
           m('.col-md-2', [
             m('button.btn.btn-orange.pull-right', 'Select')
@@ -90,7 +92,7 @@ do ->
             }, [
             m('.panel-body', [
               m('.panel-group-service', category.services.map((service) ->
-                v = if service.custom.length then serviceWithCustomTimes else normalService
+                v = if service.custom? and service.custom.length then serviceWithCustomTimes else normalService
                 return v(service)
               ))
             ])
@@ -236,11 +238,20 @@ do ->
   LayoutCP.controller = ->
     @dataStore = m.prop {}
 
+    # Fetch services JSON data
+    @data = m.prop {}
+
+    m.request
+      method: 'GET'
+      url: app.routes['business.booking.services']
+    .then @data
+
     # The list of all panels in layout
+    args = {layout: @, data: @data}
     @panels = [
-      m.component(Service, {layout: this}),
-      m.component(Time, {layout: this}),
-      m.component(Payment, {layout: this})
+      m.component(Service, args),
+      m.component(Time, args),
+      m.component(Payment, args)
     ]
     # Default panel is the first one
     @activePanel = m.prop 0

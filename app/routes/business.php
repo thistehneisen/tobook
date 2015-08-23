@@ -41,6 +41,11 @@ Route::group(['prefix' => 'businesses'], function () {
         'uses'  => 'App\Core\Controllers\Businesses@request'
     ]);
 
+    Route::get('{hash}/booking/services', [
+        'as'    => 'business.booking.services',
+        'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@getServices'
+    ]);
+
     Route::get('{id}-{slug?}', [
         'as'    => 'business.index',
         'uses'  => 'App\Core\Controllers\Ajax\Search@showBusiness'

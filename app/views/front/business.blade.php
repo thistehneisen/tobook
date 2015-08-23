@@ -31,6 +31,11 @@
     VARAA.Search.employeeId = {{ $employeeId }};
     VARAA.Search.time = {{ $time }};
 @endif
+
+var app = app || {}
+app.routes = {
+    'business.booking.services': '{{ route('business.booking.services', ['hash' => $business->user->hash]) }}'
+}
 </script>
 
     {{ HTML::script('//maps.googleapis.com/maps/api/js?v=3.exp&language='.App::getLocale()) }}
