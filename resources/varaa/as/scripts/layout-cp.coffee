@@ -188,7 +188,7 @@ do ->
       ]),
       m('.date-selector', [
         m('.row', [
-          m('.col-sm-1', m('a[href=#].date-selector-link', m('i.fa.fa-chevron-left'))),
+          m('.col-sm-1', m('a[href=#].date-selector-link', {onclick: ctrl.selectDate.bind(ctrl, ctrl.calendar().prevWeek)}, m('i.fa.fa-chevron-left'))),
           m('.col-sm-10', [
             m('ul.date-selector-dates', ctrl.calendar().dates.map((item) ->
               m('li', {
@@ -197,7 +197,7 @@ do ->
               }, [m('span', item.dayOfWeek),m('em', item.niceDate)])
             ))
           ]),
-          m('.col-sm-1', m('a[href=#].date-selector-link', m('i.fa.fa-chevron-right')))
+          m('.col-sm-1', m('a[href=#].date-selector-link', {onclick: ctrl.selectDate.bind(ctrl, ctrl.calendar().nextWeek)}, m('i.fa.fa-chevron-right')))
         ])
       ]),
       m('.row', [
