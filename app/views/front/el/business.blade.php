@@ -37,15 +37,6 @@
     <div class="col-sm-4 col-md-4">
     @if ($business->is_booking_disabled)
         @include ('front.contact.form', ['business' => $business])
-    @else
-        @if ($business->isUsingAS)
-        <div class="box">
-            {{-- `$inhouse = true` means that we'll show login/register secion in step 4 --}}
-            <input type="hidden" id="business_id" value="{{ $business->id }}">
-            <input type="hidden" id="business_hash" value="{{ $business->user->hash }}">
-            @include('modules.as.embed.layout-3.main', ['inhouse' => false, 'hash' => $business->user->hash, 'allInput' => ['l' => 3, 'hash' => $business->user->hash, 'src' => 'inhouse']])
-        </div>
-        @endif
     @endif
 
         <h3 class="sub-heading">{{ trans('home.business.map') }}</h3>
