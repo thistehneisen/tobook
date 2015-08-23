@@ -71,12 +71,12 @@ do ->
         ])
       ])
 
-    m('.panel-group[id=js-cp-booking-form-categories][role=tablist]', [
+    m('.panel-group[id=js-cbf-categories][role=tablist]', [
       ctrl.categories.map((category, index) ->
         m('.panel.panel-default', [
           m('.panel-heading[role=tab]', [
             m('h4.panel-title', [
-              m('a[data-parent=#js-cp-booking-form-categories][data-toggle=collapse][role=button]', {
+              m('a[data-parent=#js-cbf-categories][data-toggle=collapse][role=button]', {
                   href: "#js-cbf-category-#{category.id}"
                 }, [
                 category.name,
@@ -113,10 +113,18 @@ do ->
       {dayOfWeek: 'to', date: '20.8'},
       {dayOfWeek: 'pe', date: '21.8'},
       {dayOfWeek: 'la', date: '22.8'},
-      {dayOfWeek: 'su', date: '23.8'},
+      {dayOfWeek: 'su', date: '23.8'}
     ]
 
     @timeOptions = [0..18].map (i) -> {time: "#{i}:00", price: 45.50}
+    @employees = [
+      {id: 0, name: 'The first available employee'},
+      {id: 1, name: 'Employee 1'},
+      {id: 2, name: 'Employee 2'},
+      {id: 3, name: 'Employee 3'},
+      {id: 4, name: 'Employee 4'},
+      {id: 5, name: 'Employee 5'}
+    ]
 
     @selectTime = (time, e) ->
       e.preventDefault()
@@ -136,12 +144,9 @@ do ->
             m('.panel-body', [
               m('.row', [
                 m('.col-sm-offset-1.col-sm-10', [
-                  m('ul.list-employees', [
-                    m('li', 'The first available employee'),
-                    m('li', 'Employee 1'),
-                    m('li', 'Employee 2'),
-                    m('li', 'Employee 3')
-                  ])
+                  m('ul.list-employees', ctrl.employees.map((employee) ->
+                    m('li', employee.name)
+                  ))
                 ])
               ])
             ])
@@ -177,6 +182,11 @@ do ->
   Payment = {}
   Payment.controller = (args) ->
     @layout = args.layout
+
+    @setCustomerInfo = (field, e) ->
+      el = e.target
+      @layout.setCustomerInfo field, el.value
+
     return
   Payment.view = (ctrl) ->
     dataStore = ctrl.layout.dataStore()
@@ -186,19 +196,19 @@ do ->
         m('form.row[action=]', [
           m('.form-group.col-sm-3', [
             m('label[for=]', 'First Name'),
-            m('input.form-control[type=text]')
+            m('input.form-control[type=text]', {onblur: ctrl.setCustomerInfo.bind(ctrl, 'first_name')})
           ]),
           m('.form-group.col-sm-3', [
             m('label[for=]', 'Last Name'),
-            m('input.form-control[type=text]')
+            m('input.form-control[type=text]', {onblur: ctrl.setCustomerInfo.bind(ctrl, 'last_name')})
           ]),
           m('.form-group.col-sm-3', [
             m('label[for=]', 'Email'),
-            m('input.form-control[type=text]')
+            m('input.form-control[type=email]', {onblur: ctrl.setCustomerInfo.bind(ctrl, 'email')})
           ]),
           m('.form-group.col-sm-3', [
             m('label[for=]', 'Phone'),
-            m('input.form-control[type=text]')
+            m('input.form-control[type=text]', {onblur: ctrl.setCustomerInfo.bind(ctrl, 'phone')})
           ])
         ])
       ]),
@@ -241,16 +251,16 @@ do ->
       @activePanel(index) if @panels[index]?
       return
 
-    @moveNext = (e) ->
-      e.preventDefault()
-      @move(1)
+    @moveNext = -> @move(1)
 
-    @moveBack = (e) ->
-      e.preventDefault()
-      @move(-1)
+    @moveBack = -> @move(-1)
 
     # Return the active panel in panel list
     @getActivePanel = -> @panels[@activePanel()]
+
+    @showPreviousPanel = (e) ->
+      e.preventDefault()
+      @moveBack()
 
     # Hide Back button if active panel is the first one
     @shouldHideBackButton = -> @activePanel() is 0
@@ -258,12 +268,21 @@ do ->
     @selectService = (service, e) ->
       e.preventDefault()
       @dataStore().service = service
-      @moveNext e
+      @moveNext()
 
     @selectTime = (time, e) ->
       e.preventDefault()
       @dataStore().time = time
-      @moveNext e
+      @moveNext()
+
+    @setCustomerInfo = (field, value) ->
+      customer = @dataStore().customer
+
+      customer = {} unless customer?
+      customer[field] = value
+
+      @dataStore().customer = customer
+      return
 
     return
 
@@ -274,7 +293,7 @@ do ->
           class: if ctrl.activePanel() is 0 then 'hidden' else ''
         }, [
         m('a.btn.btn-orange[href=#]', {
-          onclick: ctrl.moveBack.bind(ctrl),
+          onclick: ctrl.showPreviousPanel.bind(ctrl),
           class: if ctrl.shouldHideBackButton() then 'hidden' else ''
         }, 'Go back')
       ])
