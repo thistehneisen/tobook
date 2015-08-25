@@ -4,9 +4,11 @@ use App;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use Carbon\Carbon;
+use CheckoutFinland\Client;
+use CheckoutFinland\Payment;
+use Config;
 use Input;
 use Response;
-use Config;
 use WebToPay;
 
 class LayoutCp extends Base
@@ -109,6 +111,59 @@ class LayoutCp extends Base
 
     public function getPaymentOptions()
     {
+        $methods = [];
+        if (App::environment() !== 'tobook') {
+            $methods = $this->getWebToPayOptions();
+        } else {
+            $methods = $this->getCheckoutOptions();
+        }
+
+        return Response::json($methods);
+    }
+
+    public function getCheckoutOptions()
+    {
+        $id = Config::get('services.checkout.id');
+        $secret = Config::get('services.checkout.secret');
+
+        $payment = new Payment($id, $secret);
+        $payment->setData([
+            'stamp'        => time(),
+            'amount'       => round(Input::get('amount', 10), 2) * 100,
+            'message'      => '',
+            'country'      => 'FIN',
+            'language'     => strtoupper(App::getLocale()),
+            'reference'    => '123', // TODO: Fill real data
+            'deliveryDate' => Carbon::today(),
+        ]);
+
+        $client = new Client();
+        $response = $client->sendPayment($payment);
+        $methods = [];
+        if ($response) {
+            $xml = @simplexml_load_string($response);
+            if ($xml and isset($xml->id)) {
+                foreach ($xml->payments->payment->banks as $banks) {
+                    foreach ($banks as $key => $bank) {
+                        $methods[] = [
+                            'key' => $key,
+                            'logo' => (string) $bank['icon'],
+                            'title' => (string) $bank['name'],
+                        ];
+                    }
+                }
+            }
+        }
+        return $methods;
+    }
+
+    /**
+     * Get payment options from WebToPay
+     *
+     * @return array
+     */
+    public function getWebToPayOptions()
+    {
         // $language = App::getLocale() ?: 'en';
         $language = 'lt';
         $amount = Input::get('amount', 10.00);
@@ -126,7 +181,6 @@ class LayoutCp extends Base
                 ];
             }
         }
-
-        return Response::json($methods);
+        return $methods;
     }
 }
