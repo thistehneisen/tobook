@@ -112,7 +112,7 @@ class LayoutCp extends Base
     public function getPaymentOptions()
     {
         $methods = [];
-        if (App::environment() !== 'tobook') {
+        if (is_tobook()) {
             $methods = $this->getWebToPayOptions();
         } else {
             $methods = $this->getCheckoutOptions();
