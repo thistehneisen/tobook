@@ -260,19 +260,19 @@ do ->
         m('form.row[action=]', [
           m('.form-group.col-sm-3', [
             m('label[for=]', 'First Name*'),
-            m('input.form-control[type=text]', {onblur: ctrl.setCustomerInfo.bind(ctrl, 'first_name')})
+            m('input.form-control[type=text]', {value: dataStore.customer.first_name or '', onblur: ctrl.setCustomerInfo.bind(ctrl, 'first_name')})
           ]),
           m('.form-group.col-sm-3', [
             m('label[for=]', 'Last Name*'),
-            m('input.form-control[type=text]', {onblur: ctrl.setCustomerInfo.bind(ctrl, 'last_name')})
+            m('input.form-control[type=text]', {value: dataStore.customer.last_name or '', onblur: ctrl.setCustomerInfo.bind(ctrl, 'last_name')})
           ]),
           m('.form-group.col-sm-3', [
             m('label[for=]', 'Email*'),
-            m('input.form-control[type=email]', {onblur: ctrl.setCustomerInfo.bind(ctrl, 'email')})
+            m('input.form-control[type=email]', {value: dataStore.customer.email or '', onblur: ctrl.setCustomerInfo.bind(ctrl, 'email')})
           ]),
           m('.form-group.col-sm-3', [
             m('label[for=]', 'Phone*'),
-            m('input.form-control[type=text]', {onblur: ctrl.setCustomerInfo.bind(ctrl, 'phone')})
+            m('input.form-control[type=text]', {value: dataStore.customer.phone or '', onblur: ctrl.setCustomerInfo.bind(ctrl, 'phone')})
           ])
         ])
       ]),
