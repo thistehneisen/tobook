@@ -117,7 +117,7 @@ do ->
 
     # Get timetable from server
     @calendar = m.prop []
-    @selectedDate = m.prop()
+    @selectedDate = m.prop @layout.dataStore().date
     @fetchCalendar = ->
       return m.request
         method: 'GET'
@@ -190,7 +190,7 @@ do ->
               m('li', {
                 class: if ctrl.selectedDate() is item.date then 'date-selector-dates-active' else ''
                 onclick: ctrl.selectDate.bind(ctrl, item.date)
-              }, [m('span', item.dayOfWeek),m('em', item.niceDate)])
+              }, [m('span', item.dayOfWeek), m('em', item.niceDate)])
             ))
           ]),
           m('.col-sm-1', m('a[href=#].date-selector-link', {onclick: ctrl.selectDate.bind(ctrl, ctrl.calendar().nextWeek)}, m('i.fa.fa-chevron-right')))
