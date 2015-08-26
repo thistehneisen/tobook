@@ -118,6 +118,13 @@ class LayoutCp extends Base
             $methods = $this->getCheckoutOptions();
         }
 
+        // Add Pay at venue button
+        $methods[] = [
+            'key' => 'pay_at_venue',
+            'logo' => 'http://i.imgur.com/uh8LWm2.png',
+            'title' => trans('home.cart.pay_venue'),
+        ];
+
         return Response::json($methods);
     }
 
