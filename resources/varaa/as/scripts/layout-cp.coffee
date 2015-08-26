@@ -159,7 +159,7 @@ do ->
     return
 
   Time.view = (ctrl) ->
-    return m('.cbf-loading', m('i.fa.fa-spin.fa-spinner')) unless ctrl.getSelectedEmployee()?
+    return m('.cbf-loading', m('i.fa.fa-spin.fa-2x.fa-spinner')) unless ctrl.getSelectedEmployee()?
 
     m('div', [
       m('.panel-group[id=js-booking-form-employee][role=tablist]', [
@@ -252,7 +252,7 @@ do ->
         )
       ])
     else
-      m('.cbf-loading', m('i.fa.fa-spin.fa-spinner'))
+      m('.cbf-loading', m('i.fa.fa-spin.fa-2x.fa-spinner'))
 
     m('.payment', [
       m('.payment-section', [
@@ -360,7 +360,8 @@ do ->
 
     @selectTime = (time) ->
       @dataStore().time = time
-      @moveNext()
+      @addBookingService()
+        .then => @moveNext()
 
     @setCustomerInfo = (field, value) ->
       customer = @dataStore().customer
@@ -371,6 +372,23 @@ do ->
       @dataStore().customer = customer
       return
 
+    @addBookingService = ->
+      ds = @dataStore()
+      return m.request
+        method: 'POST'
+        url: app.routes['business.booking.book_service']
+        data:
+          service_id: ds.service.id
+          employee_id: ds.employee.id
+          inhouse: true
+          hash: ds.hash
+          booking_date: ds.date
+          start_time: ds.time
+      .then (data) ->
+        ['uuid', 'price', 'cart_id', 'booking_service_id'].map (field) ->
+          ds[field] = data[field]
+          return
+        return ds
 
     return
 

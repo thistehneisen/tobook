@@ -35,6 +35,8 @@
 var app = app || {}
 app.hash = '{{ $business->user->hash }}'
 app.routes = {
+    'business.booking.book': '{{ route('as.bookings.frontend.add') }}',
+    'business.booking.book_service': '{{ route('as.bookings.service.front.add') }}',
     'business.booking.services': '{{ route('business.booking.services', ['hash' => $business->user->hash]) }}',
     'business.booking.timetable': '{{ route('business.booking.timetable', ['hash' => $business->user->hash]) }}',
     'business.booking.payments': '{{ route('business.booking.payments', ['hash' => $business->user->hash]) }}',
