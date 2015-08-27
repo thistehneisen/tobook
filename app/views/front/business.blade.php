@@ -34,6 +34,11 @@
 
 var app = app || {}
 app.hash = '{{ $business->user->hash }}'
+app.i18n = {
+    'select': '@lang('as.embed.cp.select')',
+    'services': '@lang('as.embed.cp.services')',
+    'first_employee': '@lang('as.embed.cp.first_employee')'
+}
 app.routes = {
     'business.booking.book': '{{ route('as.bookings.frontend.add') }}',
     'business.booking.book_service': '{{ route('as.bookings.service.front.add') }}',

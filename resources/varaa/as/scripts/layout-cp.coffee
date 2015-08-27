@@ -1,6 +1,8 @@
 # global m, app
 do ->
   'use strict'
+  # Translation helper
+  __ = (key) -> if app.i18n[key]? then app.i18n[key] else ''
 
   # ----------------------------------------------------------------------------
   # Panel Service
@@ -25,7 +27,7 @@ do ->
             m('p', "#{service.during}min")
           ]),
           m('.col-md-2', [
-            m('button.btn.btn-orange.pull-right', 'Select')
+            m('button.btn.btn-orange.pull-right', __('select'))
           ])
         ])
       ])
@@ -51,11 +53,11 @@ do ->
                 m('.service', {onclick: ctrl.selectService.bind(ctrl, item)}, [
                   m('.row', [
                     m('.col-md-10', [
-                      m('.service-description', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima aliquid fugit beatae labore provident unde, quasi, tempore, reiciendis amet inventore, delectus recusandae et dolorem ut maxime autem obcaecati pariatur corporis.'),
+                      m('.service-description', item.description),
                       m('p', "#{item.time}min/ #{item.price}€")
                     ]),
                     m('.col-md-2', [
-                      m('button.btn.btn-orange.pull-right', 'Select')
+                      m('button.btn.btn-orange.pull-right', __('select'))
                     ])
                   ])
                 ])
@@ -74,7 +76,7 @@ do ->
                   href: "#js-cbf-category-#{category.id}"
                 }, [
                 category.name,
-                m('span.pull-right', if category.services.length then "#{category.services.length} services" else '')
+                m('span.pull-right', if category.services.length then "#{category.services.length} #{__('services')}" else '')
               ])
             ])
           ]),
@@ -153,7 +155,7 @@ do ->
     # Kickstart
     @fetchEmployees()
       .then =>
-        @employees().unshift {id: -1, name: 'The first available employee'}
+        @employees().unshift {id: -1, name: __('first_employee')}
         @fetchCalendar()
 
     return

@@ -299,6 +299,11 @@ return [
             'payment_note'    => 'After a booking is placed, you will be redirected to payment.',
             'confirm_service' => 'Confirm booking service',
             'heading_line'    => 'Book a time',
+        ],
+        'cp' => [
+            'select' => 'Select',
+            'services' => 'services',
+            'first_employee' => 'The first employee available',
         ]
     ],
      'options' => [
