@@ -134,6 +134,10 @@ class LayoutCp extends Base
         $transaction = $this->getTransaction();
 
         $payment = new Payment($id, $secret);
+        $payment->setReturnUrl(route('payment.notify', ['gateway' => 'checkout']));
+        $payment->setCancelUrl(route('payment.cancel', ['id' => $transaction->id]));
+        $payment->setDelayedUrl(route('payment.notify', ['gateway' => 'checkout']));
+        $payment->setRejectUrl(route('payment.notify', ['gateway' => 'checkout']));
         $payment->setData([
             'stamp'        => time(),
             'amount'       => round(Input::get('amount', 10), 2) * 100,
