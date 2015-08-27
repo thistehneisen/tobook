@@ -146,6 +146,11 @@ class FrontBookings extends Bookings
                 $booking = $receptionist->upsertBooking();
             }
 
+            // Return Booking ID in JSON response
+            if (!empty($booking)) {
+                $data['booking_id'] = $booking->id;
+            }
+
             // Complete the cart and send out confirmation message if source is not 'inhouse'
             if (($source !== 'inhouse') && !empty($booking)) {
                 $cart->complete();

@@ -152,11 +152,18 @@ class LayoutCp extends Base
             if ($xml and isset($xml->id)) {
                 foreach ($xml->payments->payment->banks as $banks) {
                     foreach ($banks as $key => $bank) {
-                        $methods[] = [
+                        $data = [
                             'key' => $key,
+                            'url' => (string) $bank['url'],
                             'logo' => (string) $bank['icon'],
                             'title' => (string) $bank['name'],
                         ];
+                        // Extract hidden values
+                        foreach ($bank as $k => $v) {
+                            $data['attr'][$k] = (string) $v;
+                        }
+
+                        $methods[] = $data;
                     }
                 }
             }

@@ -229,24 +229,25 @@ do ->
           amount: amount
       .then (data) =>
         @paymentOptions(data.payment_methods)
-        @layout.setTransaction data.transaction_id
+        @layout.setTransactionId data.transaction_id
       .then -> m.redraw()
 
+    # --------------------------------------------------------------------------
+    # Validation
+    # --------------------------------------------------------------------------
     @validateCustomer = ->
       customer = @layout.dataStore().customer
       return ['first_name', 'last_name', 'phone', 'email']
         .map (field) -> customer[field]
         .every (value) -> value? and value.length
 
-    # --------------------------------------------------------------------------
-    # Validation
-    # --------------------------------------------------------------------------
     @validationErrors = m.prop {}
     @getValidationErrorCss = (field) -> if @validationErrors()[field]? then 'has-error' else ''
     @getValidationError = (field) -> @validationErrors()[field] or ''
 
-    @placeBooking = (e) ->
+    @placeBooking = (paygate, e) ->
       e.preventDefault()
+      # Error handler in case of failing validation
       errorHandler = (res) =>
         if res.success is false
           # Reset all errors
@@ -254,12 +255,34 @@ do ->
           Object.keys res.message
             .map (field) =>
               @validationErrors()[field] = res.message[field].join '\n'
-
           m.redraw()
 
+      # Assume the response is fine, submit payment info to paygate
+      submitToPaygate = =>
+        results = @paymentOptions().filter (item) -> item.key is paygate
+        option = results[0]
+        if option?
+          console.log option
+          addInput = (name, value) ->
+            input = document.createElement 'input'
+            input.name = name
+            input.value = value
+            return input
 
+          # Create a new form
+          form = document.createElement 'form'
+          form.method = 'POST'
+          form.action = option.url
+
+          for key, value of option.attr
+            form.appendChild addInput key, value
+
+          # Submit it
+          form.submit()
+
+      # Send request to place the booking
       @layout.placeBooking()
-        .then (data) -> console.log data
+        .then submitToPaygate
         .then null, errorHandler
 
     # Kickstart
@@ -271,7 +294,9 @@ do ->
     paymentOptionView = if ctrl.paymentOptions().length > 0
       m('ul.row.list-inline.payment-option-list', [
         ctrl.paymentOptions().map((option) ->
-          return m('li.col-sm-4', m('.payment-option', {onclick: ctrl.placeBooking.bind(ctrl)}, [
+          return m('li.col-sm-4', m('.payment-option', {
+            onclick: ctrl.placeBooking.bind(ctrl, option.key)
+          }, [
             m('img', {src: option.logo}),
             m('p', option.title)
           ]))
@@ -382,7 +407,8 @@ do ->
       @addBookingService()
         .then => @moveNext()
 
-    @setTransaction = (transactionId) -> @dataStore().transaction_id = transactionId
+    @setTransactionId = (id) -> @dataStore().transaction_id = id
+    @setBookingId = (id) -> @dataStore().booking_id = id
 
     @setCustomerInfo = (field, value) ->
       customer = @dataStore().customer
@@ -413,7 +439,6 @@ do ->
 
     @placeBooking = ->
       ds = @dataStore()
-      console.log ds
       return m.request
         method: 'POST'
         url: app.routes['business.booking.book']
