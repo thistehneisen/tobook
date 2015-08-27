@@ -236,6 +236,30 @@ do ->
         .map (field) -> customer[field]
         .every (value) -> value? and value.length
 
+    # --------------------------------------------------------------------------
+    # Validation
+    # --------------------------------------------------------------------------
+    @validationErrors = m.prop {}
+    @getValidationErrorCss = (field) -> if @validationErrors()[field]? then 'has-error' else ''
+    @getValidationError = (field) -> @validationErrors()[field] or ''
+
+    @placeBooking = (e) ->
+      e.preventDefault()
+      errorHandler = (res) =>
+        if res.success is false
+          # Reset all errors
+          @validationErrors {}
+          Object.keys res.message
+            .map (field) =>
+              @validationErrors()[field] = res.message[field].join '\n'
+
+          m.redraw()
+
+
+      @layout.placeBooking()
+        .then (data) -> console.log data
+        .then null, errorHandler
+
     # Kickstart
     @fetchPaymentOptions @layout.dataStore().service.price
     return
@@ -245,7 +269,7 @@ do ->
     paymentOptionView = if ctrl.paymentOptions().length > 0
       m('ul.row.list-inline.payment-option-list', [
         ctrl.paymentOptions().map((option) ->
-          return m('li.col-sm-4', m('.payment-option', [
+          return m('li.col-sm-4', m('.payment-option', {onclick: ctrl.placeBooking.bind(ctrl)}, [
             m('img', {src: option.logo}),
             m('p', option.title)
           ]))
@@ -257,23 +281,16 @@ do ->
     m('.payment', [
       m('.payment-section', [
         m('h4', 'Your booking is almost done'),
-        m('form.row[action=]', [
-          m('.form-group.col-sm-3', [
-            m('label[for=]', 'First Name*'),
-            m('input.form-control[type=text]', {value: dataStore.customer.first_name or '', onblur: ctrl.setCustomerInfo.bind(ctrl, 'first_name')})
-          ]),
-          m('.form-group.col-sm-3', [
-            m('label[for=]', 'Last Name*'),
-            m('input.form-control[type=text]', {value: dataStore.customer.last_name or '', onblur: ctrl.setCustomerInfo.bind(ctrl, 'last_name')})
-          ]),
-          m('.form-group.col-sm-3', [
-            m('label[for=]', 'Email*'),
-            m('input.form-control[type=email]', {value: dataStore.customer.email or '', onblur: ctrl.setCustomerInfo.bind(ctrl, 'email')})
-          ]),
-          m('.form-group.col-sm-3', [
-            m('label[for=]', 'Phone*'),
-            m('input.form-control[type=text]', {value: dataStore.customer.phone or '', onblur: ctrl.setCustomerInfo.bind(ctrl, 'phone')})
-          ])
+        m('form.row', [
+          ['first_name', 'last_name', 'email', 'phone'].map (field) ->
+            return m('.form-group.col-sm-3', {class: ctrl.getValidationErrorCss.call(ctrl, field)}, [
+              m('label', field+'*'),
+              m('input.form-control[type=text]', {
+                value: dataStore.customer[field] or '',
+                onblur: ctrl.setCustomerInfo.bind(ctrl, field)
+              }),
+              m('p.help-block', ctrl.getValidationError.call(ctrl, field))
+            ])
         ])
       ]),
       m('.payment-section', [
@@ -389,6 +406,23 @@ do ->
           ds[field] = data[field]
           return
         return ds
+
+    @placeBooking = ->
+      ds = @dataStore()
+      return m.request
+        method: 'POST'
+        url: app.routes['business.booking.book']
+        data:
+          l: 'cp'
+          hash: ds.hash
+          terms: true # Auto-select the terms
+          phone: ds.customer.phone
+          email: ds.customer.email
+          source: 'cp'
+          cart_id: ds.cart_id
+          last_name: ds.customer.last_name
+          first_name: ds.customer.first_name
+          json_messages: true
 
     return
 

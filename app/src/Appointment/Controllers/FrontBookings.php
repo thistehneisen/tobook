@@ -99,7 +99,9 @@ class FrontBookings extends Bookings
         $validation = $this->getConfirmationValidator();
         if ($validation->fails()) {
             $data['success'] = false;
-            $data['message'] = Util::getHtmlListMessageBagError($validation->messages());
+            $data['message'] = Input::has('json_messages') === false
+                ? Util::getHtmlListMessageBagError($validation->messages())
+                : $validation->messages();
 
             return Response::json($data, 500);
         }
