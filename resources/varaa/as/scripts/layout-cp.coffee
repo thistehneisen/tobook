@@ -227,7 +227,9 @@ do ->
         method: 'GET'
         data:
           amount: amount
-      .then @paymentOptions
+      .then (data) =>
+        @paymentOptions(data.payment_methods)
+        @layout.setTransaction data.transaction_id
       .then -> m.redraw()
 
     @validateCustomer = ->
@@ -380,6 +382,8 @@ do ->
       @addBookingService()
         .then => @moveNext()
 
+    @setTransaction = (transactionId) -> @dataStore().transaction_id = transactionId
+
     @setCustomerInfo = (field, value) ->
       customer = @dataStore().customer
 
@@ -409,6 +413,7 @@ do ->
 
     @placeBooking = ->
       ds = @dataStore()
+      console.log ds
       return m.request
         method: 'POST'
         url: app.routes['business.booking.book']

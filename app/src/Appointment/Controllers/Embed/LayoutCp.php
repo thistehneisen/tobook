@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Controllers\Embed;
 
 use App;
+use App\Payment\Models\Transaction;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use Carbon\Carbon;
@@ -111,27 +112,26 @@ class LayoutCp extends Base
 
     public function getPaymentOptions()
     {
-        $methods = [];
-        if (is_tobook()) {
-            $methods = $this->getWebToPayOptions();
-        } else {
-            $methods = $this->getCheckoutOptions();
-        }
+        $result = is_tobook()
+            ? $this->getWebToPayOptions()
+            : $this->getCheckoutOptions();
 
         // Add Pay at venue button
-        $methods[] = [
+        $result['payment_methods'][] = [
             'key' => 'pay_at_venue',
             'logo' => 'http://i.imgur.com/uh8LWm2.png',
             'title' => trans('home.cart.pay_venue'),
         ];
 
-        return Response::json($methods);
+        return Response::json($result);
     }
 
     public function getCheckoutOptions()
     {
         $id = Config::get('services.checkout.id');
         $secret = Config::get('services.checkout.secret');
+
+        $transaction = $this->getTransaction();
 
         $payment = new Payment($id, $secret);
         $payment->setData([
@@ -140,7 +140,7 @@ class LayoutCp extends Base
             'message'      => '',
             'country'      => 'FIN',
             'language'     => strtoupper(App::getLocale()),
-            'reference'    => '123', // TODO: Fill real data
+            'reference'    => $transaction->id, // TODO: Fill real data
             'deliveryDate' => Carbon::today(),
         ]);
 
@@ -161,7 +161,30 @@ class LayoutCp extends Base
                 }
             }
         }
-        return $methods;
+
+        return [
+            'transaction_id' => $transaction->id,
+            'payment_methods' => $methods,
+        ];
+    }
+
+    /**
+     * Find or create a transaction for this session
+     * Update the amount in case user chooses another service
+     *
+     * @return App\Payment\Models\Transaction
+     */
+    public function getTransaction()
+    {
+        $transaction = Transaction::find(Input::get('transaction_id'));
+        $amount = round(Input::get('amount', 10), 2);
+        if ($transaction === null) {
+            $transaction = new Transaction();
+        }
+        $transaction->amount = $amount;
+        $transaction->save();
+
+        return $transaction;
     }
 
     /**
