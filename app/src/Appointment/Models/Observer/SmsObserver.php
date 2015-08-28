@@ -1,11 +1,6 @@
 <?php namespace App\Appointment\Models\Observer;
 
-use App;
-use Config;
-use Queue;
-use Settings;
-use Sms;
-use Log;
+use App, Config, Queue, Settings, Sms, Log;
 
 class SmsObserver implements \SplObserver
 {

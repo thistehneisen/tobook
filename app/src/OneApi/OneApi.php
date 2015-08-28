@@ -5,6 +5,7 @@ use Config;
 use Log;
 use Queue;
 use Settings;
+use App\Appointment\Models\Trimmer\SMSTrimmer;
 
 class OneApi
 {
@@ -37,6 +38,9 @@ class OneApi
 
             return;
         }
+
+        $trimmer = new SMSTrimmer(Settings::get('sms_length_limiter'));
+        $message = $trimmer->trim($message);
 
         try {
             $smsClient = new \SmsClient(
