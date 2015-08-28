@@ -59,6 +59,7 @@ return [
             'description' => 'Description',
             'price'       => 'Price',
             'length'      => 'Length',
+            'is_hidden'   => 'Hidden from frontend',
             'msg_extra'   => 'Do you also want to reserve?',
         ],
         'all'          => 'All services',
