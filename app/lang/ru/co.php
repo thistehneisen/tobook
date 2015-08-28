@@ -6,6 +6,7 @@ return [
     'first_name'        => 'Имя',
     'last_name'         => 'Фамилия',
     'email'             => 'Е-мейл',
+    'employee'          => 'Работник',
     'phone'             => 'Телефон',
     'city'              => 'Город',
     'country'           => 'Страна',
