@@ -12,7 +12,7 @@ class AddColumnIsHiddenToExtraServicesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('as_extra_service_service', function(Blueprint $table)
+		Schema::table('as_extra_services', function(Blueprint $table)
         {
             $table->boolean('is_hidden')->default(false);
         });
@@ -25,7 +25,7 @@ class AddColumnIsHiddenToExtraServicesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('as_extra_service_service', function(Blueprint $table)
+		Schema::table('as_extra_services', function(Blueprint $table)
         {
             $table->dropColumn('is_hidden');
         });
