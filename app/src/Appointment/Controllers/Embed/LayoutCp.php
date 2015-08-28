@@ -11,6 +11,7 @@ use Config;
 use Input;
 use Response;
 use WebToPay;
+use Cart;
 
 class LayoutCp extends Base
 {
@@ -191,6 +192,11 @@ class LayoutCp extends Base
         $amount = round(Input::get('amount', 10), 2);
         if ($transaction === null) {
             $transaction = new Transaction();
+
+            $cart = Cart::find(Input::get('cart_id'));
+            if ($cart !== null) {
+                $transaction->cart()->associate($cart);
+            }
         }
         $transaction->amount = $amount;
         $transaction->save();

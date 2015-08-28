@@ -229,6 +229,7 @@ do ->
         method: 'GET'
         data:
           amount: amount
+          cart_id: @layout.dataStore().cart_id
       .then (data) =>
         @paymentOptions(data.payment_methods)
         @layout.setTransactionId data.transaction_id
