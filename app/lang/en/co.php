@@ -5,6 +5,7 @@ return [
     'id'                => 'ID',
     'first_name'        => 'First Name',
     'last_name'         => 'Last Name',
+    'employee'          => 'Employee',
     'email'             => 'Email',
     'phone'             => 'Phone',
     'city'              => 'City',
