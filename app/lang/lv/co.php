@@ -6,6 +6,7 @@ return [
     'first_name'        => 'Vārds',
     'last_name'         => 'Uzvārds',
     'email'             => 'E-pasts',
+    'employee'          => 'Darbinieks',
     'phone'             => 'Tālrunis',
     'city'              => 'Pilsēta',
     'country'           => 'Valsts',

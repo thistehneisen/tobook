@@ -6,6 +6,7 @@ return [
     'first_name'        => 'Etunimi',
     'last_name'         => 'Sukunimi',
     'email'             => 'Sähköposti',
+    'employee'          => 'Työntekijä',
     'phone'             => 'Puhelin',
     'city'              => 'Postitoimipaikka',
     'country'           => 'Maa',

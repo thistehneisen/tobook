@@ -118,8 +118,9 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
         $history = Booking::ofCurrentUser()
             ->join('as_booking_services', 'as_bookings.id', '=', 'as_booking_services.booking_id')
             ->join('as_services', 'as_booking_services.service_id', '=', 'as_services.id')
+            ->join('as_employees', 'as_booking_services.employee_id', '=', 'as_employees.id')
             ->where('as_bookings.consumer_id', $consumerId)
-            ->select('as_bookings.id', 'as_bookings.uuid', 'as_booking_services.date', 'as_bookings.start_at', 'as_bookings.end_at', 'as_services.name', 'as_bookings.notes', 'as_bookings.created_at')
+            ->select('as_bookings.id','as_employees.name as employee_name', 'as_booking_services.date', 'as_bookings.start_at', 'as_bookings.end_at', 'as_services.name', 'as_bookings.notes', 'as_bookings.created_at')
             ->distinct()
             ->orderBy('as_bookings.date', 'DESC');
 
