@@ -4,7 +4,7 @@ class ExtraService extends \App\Core\Models\Base
 {
     protected $table = 'as_extra_services';
 
-    public $fillable = ['name', 'description', 'price', 'length'];
+    public $fillable = ['name', 'description', 'price', 'length', 'is_hidden'];
 
     protected $rulesets = [
         'saving' => [

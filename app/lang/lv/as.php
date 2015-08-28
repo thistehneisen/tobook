@@ -57,6 +57,7 @@ return [
             'description' => 'Apraksts',
             'price'       => 'Cena',
             'length'      => 'Ilgums',
+            'is_hidden'   => 'Hidden from frontend',
             'msg_extra'   => 'Vai jūs vēlaties arī rezervēt?',
         ],
         'all'          => 'Visi pakalpojumi',
