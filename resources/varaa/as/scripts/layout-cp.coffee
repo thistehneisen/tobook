@@ -150,6 +150,8 @@ do ->
 
     @selectEmployee = (employee, index, e) ->
       @selectedEmployee index
+      $ '#js-booking-form-employees'
+        .collapse 'hide'
       @fetchCalendar()
 
     # Kickstart
@@ -326,11 +328,11 @@ do ->
       m('.payment-section', [
         m('h4', 'Booking details'),
         m('.row', [
-          m('.col-sm-2', [m('p', m('strong', 'Salon')), dataStore.business.name]),
-          m('.col-sm-3', [m('p', m('strong', 'Service')), dataStore.service.name]),
-          m('.col-sm-2', [m('p', m('strong', 'Employee')), dataStore.employee.name]),
-          m('.col-sm-3', [m('p', m('strong', 'Time')), "#{dataStore.date} #{dataStore.time}"]),
-          m('.col-sm-2', [m('p', m('strong', 'Price')), m.trust("#{dataStore.service.price}&euro;")])
+          m('.col-sm-2', [m('p', m('strong', __('salon'))), dataStore.business.name]),
+          m('.col-sm-3', [m('p', m('strong', __('service'))), dataStore.service.name]),
+          m('.col-sm-2', [m('p', m('strong', __('employee'))), dataStore.employee.name]),
+          m('.col-sm-3', [m('p', m('strong', __('time'))), "#{dataStore.date} #{dataStore.time}"]),
+          m('.col-sm-2', [m('p', m('strong', __('price'))), m.trust("#{dataStore.service.price}&euro;")])
         ])
       ]),
       m('.payment-section', [
