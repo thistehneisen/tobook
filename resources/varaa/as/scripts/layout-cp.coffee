@@ -121,6 +121,7 @@ do ->
     @calendar = m.prop []
     @selectedDate = m.prop @layout.dataStore().date
     @fetchCalendar = ->
+      @showLoading true
       return m.request
         method: 'GET'
         background: true
@@ -133,11 +134,13 @@ do ->
       .then @calendar
       .then =>
         @selectedDate @calendar().selectedDate
+        @showLoading false
         m.redraw()
 
     @selectDate = (date, e) ->
       e.preventDefault()
       @selectedDate date
+
       @fetchCalendar()
       return
 
@@ -155,6 +158,7 @@ do ->
       @fetchCalendar()
 
     # Kickstart
+    @showLoading = m.prop false
     @fetchEmployees()
       .then =>
         @employees().unshift {id: -1, name: __('first_employee')}
@@ -163,7 +167,22 @@ do ->
     return
 
   Time.view = (ctrl) ->
-    return m('.cbf-loading', m('i.fa.fa-spin.fa-2x.fa-spinner')) unless ctrl.getSelectedEmployee()?
+    loading = m('.cbf-loading', m('i.fa.fa-spin.fa-2x.fa-spinner'))
+    return loading unless ctrl.getSelectedEmployee()?
+
+    if ctrl.showLoading() is true
+      slots = loading
+    else
+      slots = m('.row', [
+          m('.col-sm-offset-1.col-sm-10', [
+            m('ul.time-options', ctrl.calendar().calendar.map((opt) ->
+              m('li', {onclick: ctrl.selectTime.bind(ctrl, opt)}, [
+                m.trust("#{opt.time} &ndash; #{ctrl.layout.dataStore().service.price}&euro;"),
+                m('button.btn.btn-success', 'Select')
+              ])
+            ))
+          ])
+        ])
 
     m('div', [
       m('.panel-group[id=js-booking-form-employee][role=tablist]', [
@@ -200,16 +219,7 @@ do ->
           m('.col-sm-1', m('a[href=#].date-selector-link', {onclick: ctrl.selectDate.bind(ctrl, ctrl.calendar().nextWeek)}, m('i.fa.fa-chevron-right')))
         ])
       ]),
-      m('.row', [
-        m('.col-sm-offset-1.col-sm-10', [
-          m('ul.time-options', ctrl.calendar().calendar.map((opt) ->
-            m('li', {onclick: ctrl.selectTime.bind(ctrl, opt)}, [
-              m.trust("#{opt.time} &ndash; #{ctrl.layout.dataStore().service.price}&euro;"),
-              m('button.btn.btn-success', 'Select')
-            ])
-          ))
-        ])
-      ])
+      slots
     ])
 
   # ----------------------------------------------------------------------------
@@ -268,7 +278,6 @@ do ->
         results = @paymentOptions().filter (item) -> item.key is paygate
         option = results[0]
         if option?
-          console.log option
           addInput = (name, value) ->
             input = document.createElement 'input'
             input.name = name
