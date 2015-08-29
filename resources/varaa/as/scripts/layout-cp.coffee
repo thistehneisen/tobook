@@ -326,7 +326,7 @@ do ->
         m('form.row', [
           ['first_name', 'last_name', 'email', 'phone'].map (field) ->
             return m('.form-group.col-sm-3', {class: ctrl.getValidationErrorCss.call(ctrl, field)}, [
-              m('label', field+'*'),
+              m('label', __(field)+'*'),
               m('input.form-control[type=text]', {
                 value: dataStore.customer[field] or '',
                 onblur: ctrl.setCustomerInfo.bind(ctrl, field)
@@ -480,7 +480,7 @@ do ->
         m('a.btn.btn-orange[href=#]', {
           onclick: ctrl.showPreviousPanel.bind(ctrl),
           class: if ctrl.shouldHideBackButton() then 'hidden' else ''
-        }, 'Go back')
+        }, __('go_back'))
       ])
     ])
 

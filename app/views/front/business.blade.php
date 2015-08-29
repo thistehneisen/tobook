@@ -37,6 +37,18 @@ app.hash = '{{ $business->user->hash }}'
 app.i18n = {
     'select': '@lang('as.embed.cp.select')',
     'services': '@lang('as.embed.cp.services')',
+    'first_name': '@lang('as.bookings.first_name')',
+    'last_name': '@lang('as.bookings.last_name')',
+    'email': '@lang('as.bookings.email')',
+    'phone': '@lang('as.bookings.phone')',
+    'almost_done': '@lang('as.embed.cp.almost_done')',
+    'time': '@lang('as.embed.cp.time')',
+    'employee': '@lang('as.embed.cp.employee')',
+    'salon': '@lang('as.embed.cp.salon')',
+    'price': '@lang('as.embed.cp.price')',
+    'service': '@lang('as.embed.cp.service')',
+    'how_to_pay': '@lang('as.embed.cp.how_to_pay')',
+    'go_back': '@lang('as.embed.cp.go_back')',
     'first_employee': '@lang('as.embed.cp.first_employee')'
 }
 app.routes = {

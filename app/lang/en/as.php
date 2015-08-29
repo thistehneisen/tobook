@@ -303,8 +303,17 @@ return [
         'cp' => [
             'select' => 'Select',
             'services' => 'services',
+            'employee' => 'Employee',
+            'time' => 'Time',
+            'salon' => 'Salon',
+            'price' => 'Price',
+            'service' => 'Service',
+            'details' => 'Booking details',
+            'go_back' => 'Go back',
+            'how_to_pay' => 'How do you want to pay for your booking?',
+            'almost_done' => 'Your booking is almost done',
             'first_employee' => 'The first employee available',
-        ]
+        ],
     ],
      'options' => [
         'heading'                    => 'Options',
