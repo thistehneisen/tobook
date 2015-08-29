@@ -230,6 +230,7 @@ do ->
         url: app.routes['business.booking.payments']
         method: 'GET'
         data:
+          hash: @layout.dataStore().hash
           amount: amount
           cart_id: @layout.dataStore().cart_id
       .then (data) =>
@@ -432,7 +433,6 @@ do ->
         data:
           service_id: ds.service.id
           employee_id: ds.employee.id
-          inhouse: true
           hash: ds.hash
           booking_date: ds.date
           start_time: ds.time
@@ -449,6 +449,7 @@ do ->
         url: app.routes['business.booking.book']
         data:
           l: 'cp'
+          uuid: ds.uuid
           hash: ds.hash
           terms: true # Auto-select the terms
           phone: ds.customer.phone

@@ -64,6 +64,11 @@ Route::group(['prefix' => 'businesses'], function () {
         'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@getEmployees'
     ]);
 
+    Route::post('{hash}/booking/pay_at_venue', [
+        'as'    => 'business.booking.pay_at_venue',
+        'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@payAtVenue'
+    ]);
+
     //--------------------------------------------------------------------------
     // Single business
     //--------------------------------------------------------------------------

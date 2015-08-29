@@ -1,17 +1,18 @@
 <?php namespace App\Appointment\Controllers\Embed;
 
 use App;
-use App\Payment\Models\Transaction;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
+use App\Payment\Models\Transaction;
 use Carbon\Carbon;
+use Cart;
 use CheckoutFinland\Client;
 use CheckoutFinland\Payment;
 use Config;
 use Input;
+use Redirect;
 use Response;
 use WebToPay;
-use Cart;
 
 class LayoutCp extends Base
 {
@@ -119,7 +120,11 @@ class LayoutCp extends Base
 
         // Add Pay at venue button
         $result['payment_methods'][] = [
+            'url' => route('business.booking.pay_at_venue', ['hash' => Input::get('hash')]),
             'key' => 'pay_at_venue',
+            'attr' => [
+                'cart_id' => $result['cart_id']
+            ],
             'logo' => 'http://i.imgur.com/uh8LWm2.png',
             'title' => trans('home.cart.pay_venue'),
         ];
@@ -175,7 +180,8 @@ class LayoutCp extends Base
         }
 
         return [
-            'transaction_id' => $transaction->id,
+            'cart_id' => $transaction->cart !== null ? $transaction->cart->id : null,
+            'transaction' => $transaction->id,
             'payment_methods' => $methods,
         ];
     }
@@ -229,5 +235,13 @@ class LayoutCp extends Base
             }
         }
         return $methods;
+    }
+
+    public function payAtVenue()
+    {
+        $cart = Cart::findOrFail(Input::get('cart_id'));
+        $result = $cart->completePayAtVenue();
+
+        return Redirect::route('payment.success', ['id' => $cart->id]);
     }
 }
