@@ -49,12 +49,23 @@ do ->
               id: "js-cbf-service-#{service.id}-custom-times"
             }, [
             m('.panel-body', [
-              service.custom.map((item) ->
+                m('.service', {onclick: ctrl.selectService.bind(ctrl, service)}, [
+                  m('.row', [
+                    m('.col-md-10', [
+                      m('.service-description', service.description),
+                      m('p', "#{service.length}min")
+                    ]),
+                    m('.col-md-2', [
+                      m('button.btn.btn-orange.pull-right', __('select'))
+                    ])
+                  ])
+                ]),
+              service.service_times.map((item) ->
                 m('.service', {onclick: ctrl.selectService.bind(ctrl, item)}, [
                   m('.row', [
                     m('.col-md-10', [
                       m('.service-description', item.description),
-                      m('p', "#{item.time}min/ #{item.price}€")
+                      m('p', "#{item.length}min")
                     ]),
                     m('.col-md-2', [
                       m('button.btn.btn-orange.pull-right', __('select'))
@@ -86,7 +97,7 @@ do ->
             }, [
             m('.panel-body', [
               m('.panel-group-service', category.services.map((service) ->
-                v = if service.custom? and service.custom.length then serviceWithCustomTimes else normalService
+                v = if service.service_times? and service.service_times.length then serviceWithCustomTimes else normalService
                 return v(service)
               ))
             ])
