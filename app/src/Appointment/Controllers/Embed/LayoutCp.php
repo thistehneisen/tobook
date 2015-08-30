@@ -3,6 +3,7 @@
 use App;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
+use App\Appointment\Models\ServiceTime;
 use App\Payment\Models\Transaction;
 use Carbon\Carbon;
 use Cart;
@@ -31,8 +32,15 @@ class LayoutCp extends Base
     {
         $hash = Input::get('hash');
         $user = $this->getUser($hash);
-        $serviceId = Input::get('serviceId');
-        $service = Service::ofUser($user)->findOrFail($serviceId);
+
+        if (Input::has('serviceTimeId')) {
+            $service = ServiceTime::ofUser($user)
+                ->find(Input::get('serviceTimeId'))
+                ->service;
+        } else {
+            $service = Service::ofUser($user)
+                ->find(Input::get('serviceId'));
+        }
 
         return Response::json($service->employees->map(function ($employee) {
             return [

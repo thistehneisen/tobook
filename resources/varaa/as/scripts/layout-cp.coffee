@@ -15,6 +15,10 @@ do ->
       e.preventDefault()
       args.layout.selectService service
 
+    @selectServiceTime = (serviceTime, e) ->
+      e.preventDefault()
+      args.layout.selectServiceTime serviceTime
+
     return
   Service.view = (ctrl) ->
 
@@ -61,7 +65,7 @@ do ->
                   ])
                 ]),
               service.service_times.map((item) ->
-                m('.service', {onclick: ctrl.selectService.bind(ctrl, item)}, [
+                m('.service', {onclick: ctrl.selectServiceTime.bind(ctrl, item)}, [
                   m('.row', [
                     m('.col-md-10', [
                       m('.service-description', item.description),
@@ -119,13 +123,15 @@ do ->
     @selectedEmployee = m.prop 0
     @getSelectedEmployee = -> @employees()[@selectedEmployee()]
     @fetchEmployees = ->
+      ds = @layout.dataStore()
       m.request
         background: true
         method: 'GET'
         url: app.routes['business.booking.employees']
         data:
-          serviceId: @layout.dataStore().service.id
-          hash: @layout.dataStore().hash
+          serviceTimeId: if ds.serviceTime? then ds.serviceTime.id else null
+          serviceId: if ds.service? then ds.service.id else null
+          hash: ds.hash
       .then @employees
 
     # Get timetable from server
@@ -417,6 +423,11 @@ do ->
 
     @selectService = (service) ->
       @dataStore().service = service
+      @moveNext()
+      return
+
+    @selectServiceTime = (serviceTime) ->
+      @dataStore().serviceTime = serviceTime
       @moveNext()
       return
 
