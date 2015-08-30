@@ -180,6 +180,18 @@ do ->
         .collapse 'hide'
       @fetchCalendar()
 
+    @getCssClass = (date) ->
+      a = new Date date
+        .setHours 0, 0, 0, 0
+      b = new Date()
+        .setHours 0, 0, 0, 0
+      c = new Date @selectedDate()
+        .setHours 0, 0, 0, 0
+
+      return 'date-selector-dates-active' if a is c
+      return 'date-selector-dates-past' if a < b
+      return ''
+
     # Kickstart
     @showLoading = m.prop false
     @fetchEmployees()
@@ -234,7 +246,7 @@ do ->
           m('.col-sm-10', [
             m('ul.date-selector-dates', ctrl.calendar().dates.map((item) ->
               m('li', {
-                class: if ctrl.selectedDate() is item.date then 'date-selector-dates-active' else ''
+                class: ctrl.getCssClass(item.date),
                 onclick: ctrl.selectDate.bind(ctrl, item.date)
               }, [m('span', item.dayOfWeek), m('em', item.niceDate)])
             ))
