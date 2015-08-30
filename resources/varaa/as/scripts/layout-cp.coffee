@@ -156,8 +156,14 @@ do ->
 
     @selectDate = (date, e) ->
       e.preventDefault()
-      @selectedDate date
+      today = new Date()
+        .setHours 0, 0, 0, 0
+      dateObj = new Date date
+        .setHours 0, 0, 0, 0
 
+      return if dateObj < today
+
+      @selectedDate date
       @fetchCalendar()
       return
 
