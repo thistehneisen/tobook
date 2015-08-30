@@ -152,7 +152,7 @@ class FrontBookings extends Bookings
             }
 
             // Complete the cart and send out confirmation message if source is not 'inhouse'
-            if (($source !== 'inhouse' || $source !== 'cp') && !empty($booking)) {
+            if (($source !== 'inhouse' && $source !== 'cp') && !empty($booking)) {
                 $cart->complete();
                 //Send notification email and SMSs
                 try {
