@@ -133,7 +133,7 @@ class LayoutCp extends Base
             'attr' => [
                 'cart_id' => $result['cart_id']
             ],
-            'logo' => 'http://i.imgur.com/uh8LWm2.png',
+            'logo' => asset_path('core/img/pay-at-venue.png'),
             'title' => trans('home.cart.pay_venue'),
         ];
 
