@@ -4,6 +4,9 @@
         <h1>{{{ $business->name }}}</h1>
         <address>{{{ $business->full_address }}}</address>
 
+        <h3 class="sub-heading">@lang('as.embed.cp.heading')</h3>
+        <div class="js-cp-booking-form">Loading&hellip;</div>
+
     @if ($business->images->isEmpty() === false)
         <!-- Slider main container -->
         <div class="slideshow swiper-container" id="js-swiper-{{ $business->user_id }}">
@@ -27,10 +30,6 @@
         <div class="description">
             {{ $business->description_html }}
         </div>
-
-        <h3 class="sub-heading">Book your service online</h3>
-        <div class="js-cp-booking-form">Loading&hellip;</div>
-
     </div>
 
     {{-- right sidebar --}}

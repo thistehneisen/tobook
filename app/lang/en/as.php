@@ -301,6 +301,7 @@ return [
             'heading_line'    => 'Book a time',
         ],
         'cp' => [
+            'heading' => 'Book your service online',
             'select' => 'Select',
             'services' => 'services',
             'employee' => 'Employee',
