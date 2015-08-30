@@ -12,7 +12,8 @@ use Request;
 use Settings;
 use Util;
 use Watson\Validating\ValidationException;
-use App, Log;
+use App;
+use Log;
 
 class Booking extends \App\Appointment\Models\Base implements \SplSubject
 {
@@ -174,11 +175,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         // No icon for bookings made from backend calendar
         if ($this->source === 'backend') {
-            return NULL;
+            return null;
         }
 
         // For bookings make from our consumer portal
-        if ($this->source === 'inhouse') {
+        if ($this->source === 'inhouse' || $this->source === 'cp') {
             return 'fa-user-plus';
         }
 
@@ -193,7 +194,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public function getCommisionStatusAttribute()
     {
-         $map = [
+        $map = [
             self::STATUS_CONFIRM     => 'confirmed',
             self::STATUS_PAID        => 'paid',
             self::STATUS_PENDING     => 'pending'
@@ -389,12 +390,12 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = self::where('date', $bookingDate)
             ->where('employee_id', $employeeId)
             ->whereNull('deleted_at')
-            ->where('status','!=', self::STATUS_CANCELLED);
+            ->where('status', '!=', self::STATUS_CANCELLED);
 
         $query = self::applyDuplicateFilter($query, $startTime, $endTime);
 
         if (!empty($uuid)) {
-            $query->where('uuid','!=', $uuid);
+            $query->where('uuid', '!=', $uuid);
         }
 
         $bookings = $query->get();
@@ -418,7 +419,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $query = self::where('as_bookings.date', $bookingDate)
             ->whereNull('as_bookings.deleted_at')
-            ->where('as_bookings.status','!=', self::STATUS_CANCELLED);
+            ->where('as_bookings.status', '!=', self::STATUS_CANCELLED);
 
         //for inhouse layout
         if (!empty($uuid)) {
@@ -427,12 +428,12 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $query = self::applyDuplicateFilter($query, $startTime, $endTime);
 
-        $result = $query->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
-            ->join('as_services', 'as_services.id', '=','as_booking_services.service_id')
+        $result = $query->join('as_booking_services', 'as_booking_services.booking_id', '=', 'as_bookings.id')
+            ->join('as_services', 'as_services.id', '=', 'as_booking_services.service_id')
             ->join('as_resource_service', 'as_resource_service.service_id', '=', 'as_services.id')
             ->join('as_resources', 'as_resource_service.resource_id', '=', 'as_resources.id')
             ->whereIn('as_resource_service.resource_id', $resourceIds)
-            ->select(array('as_resource_service.resource_id as resource_id','as_resources.quantity', DB::raw('COUNT(varaa_as_resource_service.resource_id) as occupied')))
+            ->select(array('as_resource_service.resource_id as resource_id', 'as_resources.quantity', DB::raw('COUNT(varaa_as_resource_service.resource_id) as occupied')))
             ->groupBy('as_resource_service.resource_id')
             ->get();
 
@@ -458,7 +459,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = self::where('as_bookings.date', $bookingDate)
             ->whereNull('as_bookings.deleted_at')
-            ->where('as_bookings.status','!=', self::STATUS_CANCELLED);
+            ->where('as_bookings.status', '!=', self::STATUS_CANCELLED);
 
         //for inhouse layout
         if (!empty($uuid)) {
@@ -467,10 +468,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $query = self::applyDuplicateFilter($query, $startTime, $endTime);
 
-        $query = $query->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
-            ->join('as_services', 'as_services.id', '=','as_booking_services.service_id')
+        $query = $query->join('as_booking_services', 'as_booking_services.booking_id', '=', 'as_bookings.id')
+            ->join('as_services', 'as_services.id', '=', 'as_booking_services.service_id')
             ->join('as_room_service', 'as_room_service.service_id', '=', 'as_services.id')
-            ->join('as_booking_service_rooms', 'as_booking_service_rooms.booking_service_id', '=','as_booking_services.id')
+            ->join('as_booking_service_rooms', 'as_booking_service_rooms.booking_service_id', '=', 'as_booking_services.id')
             ->whereIn('as_booking_service_rooms.room_id',  $service->rooms()->lists('id'))
             ->select('as_booking_service_rooms.room_id AS room')
             ->lists('room');
@@ -529,27 +530,27 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         if (empty(static::$bookings[$date])) {
             $bookings = self::where('date', $date)
                 ->whereNull('deleted_at')
-                ->where('status','!=', self::STATUS_CANCELLED)->get();
+                ->where('status', '!=', self::STATUS_CANCELLED)->get();
             static::$bookings[$date] = $bookings;
         }
 
         $bookings = static::$bookings[$date];
 
         foreach ($bookings as $booking) {
-            if($booking->getStartAt() >= $startTime
+            if ($booking->getStartAt() >= $startTime
                 && $booking->getStartAt() < $endTime
                 && $booking->employee->id == $employeeId
-                && $booking->uuid != $uuid){
+                && $booking->uuid != $uuid) {
                 return false;
-            } elseif($booking->getEndAt() > $startTime
+            } elseif ($booking->getEndAt() > $startTime
                 && $booking->getEndAt() <= $endTime
                 && $booking->employee->id == $employeeId
-                && $booking->uuid != $uuid){
+                && $booking->uuid != $uuid) {
                 return false;
-            } elseif($booking->getStartAt() == $startTime
+            } elseif ($booking->getStartAt() == $startTime
                 && $booking->getEndAt() == $endTime
                 && $booking->employee->id == $employeeId
-                && $booking->uuid != $uuid){
+                && $booking->uuid != $uuid) {
                 return false;
             }
         }
@@ -678,7 +679,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 return [];
             }
             $service = $this->firstBookingService()->service;
-            $resources = ResourceService::join('as_resources', 'as_resources.id','=', 'as_resource_service.resource_id')
+            $resources = ResourceService::join('as_resources', 'as_resources.id', '=', 'as_resource_service.resource_id')
                 ->where('as_resource_service.service_id', $service->id)
                 ->select('as_resources.name', 'as_resources.id')->get();
             foreach ($resources as $resource) {
@@ -703,7 +704,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public function consumer()
     {
-       return $this->belongsTo('App\Consumers\Models\Consumer');
+        return $this->belongsTo('App\Consumers\Models\Consumer');
     }
 
     public function employee()
@@ -723,7 +724,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public function extraServices()
     {
-         return $this->hasMany('App\Appointment\Models\BookingExtraService');
+        return $this->hasMany('App\Appointment\Models\BookingExtraService');
     }
 
     //--------------------------------------------------------------------------
@@ -1024,7 +1025,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $body  = $this->user->asOptions['confirm_tokens_employee'];
         $body  = str_replace('{Services}', $this->getServiceInfo(), $body);
-        $body  = str_replace('{Name}',$this->consumer->name, $body);
+        $body  = str_replace('{Name}', $this->consumer->name, $body);
         $body  = str_replace('{BookingID}', $this->uuid, $body);
         $body  = str_replace('{Phone}', $this->consumer->phone, $body);
         $body  = str_replace('{Email}', $this->consumer->email, $body);
@@ -1060,13 +1061,13 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where(function ($query) {
-                    $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                    $query->where('business_commissions.booking_status', '=', self::STATUS_PAID)->orWhere(function ($query) {
                         $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
                 });
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
             ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.constant_commission),0) as commision_total')])
             ->first();
 
@@ -1080,7 +1081,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where(function ($query) {
-                    $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                    $query->where('business_commissions.booking_status', '=', self::STATUS_PAID)->orWhere(function ($query) {
                         $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function ($query) {
                             $query->whereNotNull('as_bookings.deposit')->where('as_bookings.deposit', '>', 0);
                         });
@@ -1088,7 +1089,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 });
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
             ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.commission),0) as commision_total')])
             ->first();
 
@@ -1102,14 +1103,14 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where(function ($query) {
-                    $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                    $query->where('business_commissions.booking_status', '=', self::STATUS_PAID)->orWhere(function ($query) {
                         $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
                 });
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
-            ->where('business_commissions.consumer_status', '=' , Consumer::STATUS_NEW)
+            ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
+            ->where('business_commissions.consumer_status', '=', Consumer::STATUS_NEW)
             ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.new_consumer_commission),0) as commision_total')])
             ->first();
 
@@ -1124,13 +1125,13 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where(function ($query) {
-                    $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                    $query->where('business_commissions.booking_status', '=', self::STATUS_PAID)->orWhere(function ($query) {
                         $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
                 });
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
             ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.new_consumer_commission+varaa_business_commissions.commission+varaa_business_commissions.constant_commission),0) as commision_total')])
             ->first();
 
@@ -1146,13 +1147,13 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
 
         $query = $query->where(function ($query) {
-                    $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                    $query->where('business_commissions.booking_status', '=', self::STATUS_PAID)->orWhere(function ($query) {
                         $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
                 });
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
             ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.new_consumer_commission+varaa_business_commissions.commission+varaa_business_commissions.constant_commission),0) as commision_total')])
             ->first();
 
@@ -1167,14 +1168,14 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where(function ($query) {
-                    $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                    $query->where('business_commissions.booking_status', '=', self::STATUS_PAID)->orWhere(function ($query) {
                         $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
                 });
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
-            ->select(['business_commissions.total_price', 'business_commissions.commission','as_bookings.deposit'])->get();
+            ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
+            ->select(['business_commissions.total_price', 'business_commissions.commission', 'as_bookings.deposit'])->get();
 
         $receivedFromPaygate = 0;
         foreach ($result as $row) {
@@ -1199,13 +1200,13 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
 
         $query = $query->where(function ($query) {
-                    $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+                    $query->where('business_commissions.booking_status', '=', self::STATUS_PAID)->orWhere(function ($query) {
                         $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
                 });
 
         $query = $query->rightJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
             ->leftJoin('consumers', 'consumers.id', '=', 'as_bookings.consumer_id')
             ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.date', 'as_bookings.created_at as created', 'as_employees.*', 'as_employees.status as employee_status', 'business_commissions.booking_status as booking_status', 'business_commissions.total_price as total_price', 'business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")]);
 
@@ -1218,8 +1219,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
 
-            $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+        $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
             ->leftJoin('consumers', 'consumers.id', '=', 'as_bookings.consumer_id')
             ->select(['as_bookings.*', 'as_bookings.created_at as created', 'as_bookings.id as booking_id', 'as_bookings.status as real_booking_status', 'business_commissions.booking_status as booking_status', 'as_employees.*', 'as_employees.status as employee_status', 'business_commissions.total_price as total_price', 'business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")])
             ->paginate($perPage);
@@ -1238,7 +1239,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where('business_commissions.status', '=', BusinessCommission::STATUS_INITIAL);
         $query = $query->where(function ($query) {
-            $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+            $query->where('business_commissions.booking_status', '=', self::STATUS_PAID)->orWhere(function ($query) {
                 $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function ($query) {
                     $query->where('business_commissions.commission', '>', '0');
                 });
@@ -1247,7 +1248,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $result = 0;
         $bookings = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
             ->select(['business_commissions.*'])
             ->get();
 
@@ -1265,7 +1266,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = $query->where('business_commissions.status', '=', BusinessCommission::STATUS_PAID);
 
         $query = $query->where(function ($query) {
-            $query->where('business_commissions.booking_status','=', self::STATUS_PAID)->orWhere(function ($query) {
+            $query->where('business_commissions.booking_status', '=', self::STATUS_PAID)->orWhere(function ($query) {
                 $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM)->where(function ($query) {
                     $query->where('business_commissions.commission', '>', '0');
                 });
@@ -1274,7 +1275,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         // $query = $query->where(DB::raw('varaa_business_commissions.commission'), '<=', DB::raw('varaa_business_commissions.total_price'));
 
         $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
-            ->join('as_employees', 'as_employees.id', '=','business_commissions.employee_id')
+            ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
             ->select([DB::raw('COALESCE(SUM(varaa_business_commissions.commission),0) as commision_total'),
                 DB::raw('COALESCE(SUM(varaa_business_commissions.total_price),0) as total_price')])
             ->first();
@@ -1286,7 +1287,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = self::withTrashed()->where('as_bookings.created_at', '>=', $start)
             ->where('as_bookings.created_at', '<=', $end)
-            ->where('as_bookings.source','=', 'inhouse')
+            ->where('as_bookings.source', '=', 'inhouse')
             ->where('as_bookings.user_id', '=', $userId)
             ->whereNull('business_commissions.deleted_at');
 
@@ -1379,5 +1380,4 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         return $extras;
     }
-
 }
