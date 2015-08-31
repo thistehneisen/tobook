@@ -412,6 +412,8 @@ do ->
     m.request
       method: 'GET'
       url: app.routes['business.booking.services']
+      data:
+        hash: @dataStore().hash
     .then @data
     .then =>
       @dataStore().business = @data().business

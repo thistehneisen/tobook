@@ -19,8 +19,9 @@ class LayoutCp extends Base
 {
     use Layout;
 
-    public function getServices($hash)
+    public function getServices()
     {
+        $hash = Input::get('hash');
         $data = $this->handleIndex($hash);
         return Response::json([
             'categories' => $data['categories'],

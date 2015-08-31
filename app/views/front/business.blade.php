@@ -15,7 +15,6 @@
     {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css') }}
     {{ HTML::style(asset('packages/alertify/css/themes/bootstrap.min.css')) }}
-    {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
 @stop
 
 @section('scripts')
@@ -55,10 +54,10 @@ app.i18n = {
 app.routes = {
     'business.booking.book': '{{ route('as.bookings.frontend.add') }}',
     'business.booking.book_service': '{{ route('as.bookings.service.front.add') }}',
-    'business.booking.services': '{{ route('business.booking.services', ['hash' => $business->user->hash]) }}',
-    'business.booking.timetable': '{{ route('business.booking.timetable', ['hash' => $business->user->hash]) }}',
-    'business.booking.payments': '{{ route('business.booking.payments', ['hash' => $business->user->hash]) }}',
-    'business.booking.employees': '{{ route('business.booking.employees', ['hash' => $business->user->hash]) }}'
+    'business.booking.services': '{{ route('business.booking.services') }}',
+    'business.booking.timetable': '{{ route('business.booking.timetable') }}',
+    'business.booking.payments': '{{ route('business.booking.payments') }}',
+    'business.booking.employees': '{{ route('business.booking.employees') }}'
 }
 </script>
 
