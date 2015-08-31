@@ -296,13 +296,16 @@ do ->
     @getValidationErrorCss = (field) -> if @validationErrors()[field]? then 'has-error' else ''
     @getValidationError = (field) -> @validationErrors()[field] or ''
 
-    ongoingRequest = false
+    # This property is used to prevent submitting duplicated requests
+    # And show a locking curtain as well
+    @lock = m.prop false
     @placeBooking = (paygate, e) ->
-      return if ongoingRequest is true
+      return if @lock() is true
       e.preventDefault()
       # Error handler in case of failing validation
       errorHandler = (res) =>
         if res.success is false
+          @lock false
           # Reset all errors
           @validationErrors {}
           Object.keys res.message
@@ -333,7 +336,8 @@ do ->
           form.submit()
 
       # Send request to place the booking
-      ongoingRequest = true
+      @lock true
+      m.redraw()
       @layout.placeBooking()
         .then submitToPaygate
         .then null, errorHandler
@@ -387,7 +391,7 @@ do ->
         m('h4', __('how_to_pay')),
         m('.row',
           m('.col-sm-12', [
-            m('.locked', {class: if ctrl.validateCustomer() then 'hidden' else ''}),
+            m('.locked', {class: if ctrl.validateCustomer() and ctrl.lock() is no then 'hidden' else ''}),
             paymentOptionView
           ])
         )
