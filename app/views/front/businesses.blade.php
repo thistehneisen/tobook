@@ -33,6 +33,34 @@
     VARAA.Search.employeeId = {{ $employeeId }};
     VARAA.Search.time = {{ $time }};
 @endif
+
+var app = app || {}
+app.i18n = {
+    'select': '@lang('as.embed.cp.select')',
+    'services': '@lang('as.embed.cp.services')',
+    'first_name': '@lang('as.bookings.first_name')',
+    'last_name': '@lang('as.bookings.last_name')',
+    'email': '@lang('as.bookings.email')',
+    'phone': '@lang('as.bookings.phone')',
+    'almost_done': '@lang('as.embed.cp.almost_done')',
+    'time': '@lang('as.embed.cp.time')',
+    'employee': '@lang('as.embed.cp.employee')',
+    'salon': '@lang('as.embed.cp.salon')',
+    'price': '@lang('as.embed.cp.price')',
+    'service': '@lang('as.embed.cp.service')',
+    'details': '@lang('as.embed.cp.details')',
+    'how_to_pay': '@lang('as.embed.cp.how_to_pay')',
+    'go_back': '@lang('as.embed.cp.go_back')',
+    'first_employee': '@lang('as.embed.cp.first_employee')'
+}
+app.routes = {
+    'business.booking.book': '{{ route('as.bookings.frontend.add') }}',
+    'business.booking.book_service': '{{ route('as.bookings.service.front.add') }}',
+    'business.booking.services': '{{ route('business.booking.services') }}',
+    'business.booking.timetable': '{{ route('business.booking.timetable') }}',
+    'business.booking.payments': '{{ route('business.booking.payments') }}',
+    'business.booking.employees': '{{ route('business.booking.employees') }}'
+}
     </script>
 
     {{ HTML::script('//maps.googleapis.com/maps/api/js?v=3.exp&language='.App::getLocale()) }}
@@ -48,7 +76,7 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.6/js/swiper.jquery.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/history.js/1.8/native.history.min.js') }}
     {{ HTML::script(asset('packages/sticky/jquery.sticky.min.js')) }}
-    {{ HTML::script(asset_path('as/scripts/layout-3.js')) }}
+    {{ HTML::script(asset_path('as/scripts/layout-cp.js')) }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
     {{ HTML::script(asset_path('core/scripts/business.js')) }}
     {{ HTML::script(asset_path('core/scripts/search.js')) }}
@@ -97,21 +125,6 @@
                     <div role="tabpanel" class="tab-pane active" id="tab-map">
                         <div id="js-map-canvas" class="map hidden-xs"></div>
                     </div>
-
-{{--                     <div role="tabpanel" class="tab-pane" id="tab-best-offers">
-                        <h2 class="heading">{{ trans('home.best_offers') }}</h2>
-                        <div class="row">
-                        @forelse ($deals as $deal)
-                            <div class="col-sm-4 col-md-4">
-                                @include ('front.el.deal', ['deal' => $deal])
-                            </div>
-                        @empty
-                            <div class="col-sm-12">
-                                <div class="alert alert-info"><p>{{ trans('home.no_offers') }}</p></div>
-                            </div>
-                        @endforelse
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 # global m, app
-do ->
+app.VaraaCPLayout = (dom, hash) ->
   'use strict'
   # Translation helper
   __ = (key) -> if app.i18n[key]? then app.i18n[key] else ''
@@ -404,7 +404,7 @@ do ->
 
   LayoutCP = {}
   LayoutCP.controller = ->
-    @dataStore = m.prop {hash: app.hash, customer: {}}
+    @dataStore = m.prop {hash: hash, customer: {}}
 
     # Fetch services JSON data
     @data = m.prop {}
@@ -534,4 +534,4 @@ do ->
     ])
 
   # Render booking forms
-  m.mount(el, m.component(LayoutCP)) for el in document.querySelectorAll 'div.js-cp-booking-form'
+  m.mount(dom, m.component(LayoutCP))

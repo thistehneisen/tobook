@@ -32,7 +32,6 @@
 @endif
 
 var app = app || {}
-app.hash = '{{ $business->user->hash }}'
 app.i18n = {
     'select': '@lang('as.embed.cp.select')',
     'services': '@lang('as.embed.cp.services')',
@@ -85,7 +84,10 @@ $(function () {
       lat: {{ $lat }},
       lng: {{ $lng }}
     });
+
+    app.VaraaCPLayout(document.getElementById('js-cp-booking-form'), '{{ $business->user->hash }}')
 });
+
     </script>
 @stop
 
