@@ -47,6 +47,7 @@ app.i18n = {
     'salon': '@lang('as.embed.cp.salon')',
     'price': '@lang('as.embed.cp.price')',
     'service': '@lang('as.embed.cp.service')',
+    'details': '@lang('as.embed.cp.details')',
     'how_to_pay': '@lang('as.embed.cp.how_to_pay')',
     'go_back': '@lang('as.embed.cp.go_back')',
     'first_employee': '@lang('as.embed.cp.first_employee')'

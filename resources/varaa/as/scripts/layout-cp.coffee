@@ -360,7 +360,7 @@ do ->
 
     m('.payment', [
       m('.payment-section', [
-        m('h4', 'Your booking is almost done'),
+        m('h4', __('almost_done')),
         m('form.row', [
           ['first_name', 'last_name', 'email', 'phone'].map (field) ->
             return m('.form-group.col-sm-3', {class: ctrl.getValidationErrorCss.call(ctrl, field)}, [
@@ -374,7 +374,7 @@ do ->
         ])
       ]),
       m('.payment-section', [
-        m('h4', 'Booking details'),
+        m('h4', __('details')),
         m('.row', [
           m('.col-sm-2', [m('p', m('strong', __('salon'))), dataStore.business.name]),
           m('.col-sm-3', [m('p', m('strong', __('service'))), dataStore.service.name]),
@@ -384,7 +384,7 @@ do ->
         ])
       ]),
       m('.payment-section', [
-        m('h4', 'How do you want to pay for your booking?'),
+        m('h4', __('how_to_pay')),
         m('.row',
           m('.col-sm-12', [
             m('.locked', {class: if ctrl.validateCustomer() then 'hidden' else ''}),
