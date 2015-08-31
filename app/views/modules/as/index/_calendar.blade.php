@@ -1,4 +1,5 @@
 <?php
+    $employee          = (!empty($theEmployee)) ? $theEmployee : $employee;
     $booking           = $employee->getBooked($selectedDate, $hour, $minuteShift);
     $freetime          = $employee->getFreetime($selectedDate, $hour, $minuteShift);
     $bookingId         = !empty($booking) ? $booking->id : -1;
