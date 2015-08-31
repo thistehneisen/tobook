@@ -8,7 +8,7 @@
     $maxHeight         = !empty($booking) ? $slots * 18 : 18;
     $maxFreetimeHeight = !empty($freetime) ? $freetimeSlots * 18 : 18;
 ?>
-<li @if(strpos(trim($slotClass), 'freetime') !== false) data-freetime-id="{{ $freetime->id }}" @endif data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $employee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}" id="btn-slot-{{ $employee->id }}-{{ sprintf('%02d%02d', $hour, $minuteShift) }}" @if($cutId==$bookingId) style="background-color: grey" @endif>
+<li @if(strpos(trim($slotClass), 'freetime') !== false) data-freetime-id="{{ $freetime->id }}" @endif data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $theEmployee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}" id="btn-slot-{{ $theEmployee->id }}-{{ sprintf('%02d%02d', $hour, $minuteShift) }}" @if($cutId==$bookingId) style="background-color: grey" @endif>
     @if(strpos(trim($slotClass), 'booked') === 0)
         @if($booking !== null)
             @if ($booking->isShowModifyPopup())
