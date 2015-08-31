@@ -296,7 +296,9 @@ do ->
     @getValidationErrorCss = (field) -> if @validationErrors()[field]? then 'has-error' else ''
     @getValidationError = (field) -> @validationErrors()[field] or ''
 
+    ongoingRequest = false
     @placeBooking = (paygate, e) ->
+      return if ongoingRequest is true
       e.preventDefault()
       # Error handler in case of failing validation
       errorHandler = (res) =>
@@ -331,6 +333,7 @@ do ->
           form.submit()
 
       # Send request to place the booking
+      ongoingRequest = true
       @layout.placeBooking()
         .then submitToPaygate
         .then null, errorHandler
