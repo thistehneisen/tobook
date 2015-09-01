@@ -1,3 +1,22 @@
+@section ('styles')
+    @parent
+    {{ HTML::style(asset('packages/flipclock/flipclock.css')) }}
+@stop
+
+@section ('scripts')
+    @parent
+    {{ HTML::script(asset('packages/flipclock/flipclock.min.js')) }}
+    <script type="text/javascript">
+        var clock;
+        $(document).ready(function() {
+            // Instantiate a counter
+            clock = new FlipClock($('.clock'), {{ $bookingCount }}, {
+                clockFace: 'Counter'
+            });
+        });
+    </script>
+@stop
+
 {{ Form::open(['route' => 'search', 'class' => 'form-search', 'method' => 'GET', 'id' => 'form-search']) }}
 <div class="row">
     <input type="hidden" name="lat">
@@ -25,6 +44,14 @@
             </div>
             <div class="col-sm-4 col-md-4">
                 <button type="submit" class="btn btn-lg btn-success btn-search">{{ trans('home.search.button') }}</button>
+            </div>
+        </div>
+        <div class="form-group row clock-wrapper">
+            <div class="col-sm-8 col-md-8">
+                <h5>{{ trans('home.current_total_bookings') }}</h5>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <div class="clock"></div>
             </div>
         </div>
     </div>
