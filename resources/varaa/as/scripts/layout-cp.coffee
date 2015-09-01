@@ -160,7 +160,7 @@ app.VaraaCPLayout = (dom, hash) ->
       dateObj = new Date date
         .setHours 0, 0, 0, 0
 
-      return if dateObj < today
+      return if e.currentTarget.classList.contains 'date-selector-dates-past'
 
       @selectedDate date
       @fetchCalendar()
@@ -187,8 +187,12 @@ app.VaraaCPLayout = (dom, hash) ->
       c = new Date @selectedDate()
         .setHours 0, 0, 0, 0
 
-      return 'date-selector-dates-active' if a is c
-      return 'date-selector-dates-past' if a < b
+      if a is c
+        return 'date-selector-dates-active'
+      else
+        if a < c and a <= b
+          return 'date-selector-dates-past'
+
       return ''
 
     # Kickstart

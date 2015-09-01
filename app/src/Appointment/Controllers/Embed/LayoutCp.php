@@ -56,7 +56,6 @@ class LayoutCp extends Base
     {
         $today      = Carbon::today();
         $date       = Input::has('date') ? new Carbon(Input::get('date')) : $today;
-        $dateStr    = $date->toDateString();
         $hash       = Input::get('hash');
         $service    = Service::findOrFail(Input::get('serviceId'));
         $employeeId = (int) Input::get('employeeId');
@@ -102,6 +101,7 @@ class LayoutCp extends Base
         }
 
         $calendar = [];
+        $dateStr = $date->toDateString();
         foreach ($timetable as $time => $employee) {
             $calendar[] = [
                 'time' => $time,
