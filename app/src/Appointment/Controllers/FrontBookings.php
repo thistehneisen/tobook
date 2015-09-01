@@ -142,6 +142,10 @@ class FrontBookings extends Bookings
                     ->setLayout($layout);
 
                 $booking = $receptionist->upsertBooking();
+
+                if ((bool) Settings::get('force_pay_at_venue')) {
+                    $booking->saveCommission();
+                }
             }
 
             // Complete the cart and send out confirmation message if source is not 'inhouse'
