@@ -19,6 +19,12 @@ app.VaraaCPLayout = (dom, hash) ->
       e.preventDefault()
       args.layout.selectServiceTime serviceTime
 
+    @showServiceCounter = (value) ->
+      value = parseInt value, 10
+      return "#{value} #{__('pl_service')}" if value > 1
+      return "#{value} #{__('sg_service')}" if value is 1
+      return ''
+
     return
   Service.view = (ctrl) ->
 
@@ -91,7 +97,7 @@ app.VaraaCPLayout = (dom, hash) ->
                   href: "#js-cbf-category-#{category.id}"
                 }, [
                 category.name,
-                m('span.pull-right', if category.services.length then "#{category.services.length} #{__('services')}" else '')
+                m('span.pull-right', ctrl.showServiceCounter(category.services.length))
               ])
             ])
           ]),

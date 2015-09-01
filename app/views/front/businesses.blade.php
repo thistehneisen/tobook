@@ -37,7 +37,8 @@
 var app = app || {}
 app.i18n = {
     'select': '@lang('as.embed.cp.select')',
-    'services': '@lang('as.embed.cp.services')',
+    'pl_service': '@lang('as.embed.cp.pl_service')',
+    'sg_service': '@lang('as.embed.cp.sg_service')',
     'first_name': '@lang('as.bookings.first_name')',
     'last_name': '@lang('as.bookings.last_name')',
     'email': '@lang('as.bookings.email')',

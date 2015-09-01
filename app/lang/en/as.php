@@ -303,7 +303,8 @@ return [
         'cp' => [
             'heading' => 'Book your service online',
             'select' => 'Select',
-            'services' => 'services',
+            'sg_service' => 'service',
+            'pl_service' => 'services',
             'employee' => 'Employee',
             'time' => 'Time',
             'salon' => 'Salon',

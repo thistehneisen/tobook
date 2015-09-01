@@ -301,7 +301,8 @@ return [
         'cp' => [
             'heading' => 'Varaa aika',
             'select' => 'Valitse',
-            'services' => 'Palvelua',
+            'sg_service' => 'palvelu',
+            'pl_service' => 'palvelua',
             'employee' => 'Työntekijä',
             'time' => 'Ajankohta',
             'salon' => 'Yritys',
