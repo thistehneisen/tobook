@@ -1,3 +1,38 @@
+@section ('styles')
+    @parent
+    {{ HTML::style(asset('packages/flipclock/flipclock.css')) }}
+    <style type="text/css">
+    .clock{
+       zoom: 0.3;
+       -moz-transform: scale(0.3);
+       margin-left: 30px;
+    }
+    </style>
+@stop
+
+@section ('scripts')
+    @parent
+    {{ HTML::script(asset('packages/flipclock/flipclock.min.js')) }}
+    <script type="text/javascript">
+        var clock;
+        $(document).ready(function() {
+            // Instantiate a counter
+            clock = new FlipClock($('.clock'), 101, {
+                clockFace: 'Counter'
+            });
+            // Use this code if you want to autoincrement the counter.
+            var timer = new FlipClock.Timer(clock, {
+                callbacks: {
+                    interval: function() {
+                        clock.increment();
+                    }
+                }
+            });
+            timer.start();
+        });
+    </script>
+@stop
+
 {{ Form::open(['route' => 'search', 'class' => 'form-search', 'method' => 'GET', 'id' => 'form-search']) }}
 <div class="row">
     <input type="hidden" name="lat">
@@ -25,6 +60,14 @@
             </div>
             <div class="col-sm-4 col-md-4">
                 <button type="submit" class="btn btn-lg btn-success btn-search">{{ trans('home.search.button') }}</button>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-7 col-md-7">
+                <h4>{{ trans('home.current_total_bookings') }}</h4>
+            </div>
+            <div class="col-sm-5 col-md-5 clock-wrapper">
+                <div class="clock"></div>
             </div>
         </div>
     </div>
