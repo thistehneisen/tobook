@@ -3,6 +3,7 @@
 use App;
 use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\TreatmentType;
+use App\Appointment\Models\Booking;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
@@ -51,9 +52,12 @@ class Front extends Base
         // Master categories
         $masterCategories = MasterCategory::getAll();
 
+        $bookingCount = Booking::count();
+
         return $this->render('home', [
             'categories'       => $categories,
             'masterCategories' => $masterCategories,
+            'bookingCount'     => $bookingCount,
         ]);
     }
 

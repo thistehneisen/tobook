@@ -62,6 +62,7 @@ return [
     'video_tutorial_text'   => 'How it works?',
     'video_tutorial_link'   => 'https://www.youtube.com/watch?v=FrMUPi7Yo7U',
     'image_tutorial_link'   => asset_path('core/img/how-does-it-work.png'),
+    'current_total_bookings'=> 'Current total bookings:',
     'search'        => [
         'tagline'         => 'What do you want to book?',
         'query'           => 'Enter business name or service',
