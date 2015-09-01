@@ -183,4 +183,9 @@ class Options extends AsBase
             $this->successMessageBag(trans('as.options.updated'))
         );
     }
+
+    public function discount()
+    {
+
+    }
 }
