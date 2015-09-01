@@ -227,7 +227,7 @@ app.VaraaCPLayout = (dom, hash) ->
             m('ul.time-options', ctrl.calendar().calendar.map((opt) ->
               m('li', {onclick: ctrl.selectTime.bind(ctrl, opt)}, [
                 m.trust("#{opt.time} &ndash; #{ctrl.layout.dataStore().service.price}&euro;"),
-                m('button.btn.btn-success', 'Select')
+                m('button.btn.btn-success', __('select'))
               ])
             ))
           ])
