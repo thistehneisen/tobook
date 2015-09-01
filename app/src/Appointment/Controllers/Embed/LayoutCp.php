@@ -47,6 +47,7 @@ class LayoutCp extends Base
             return [
                 'id' => $employee->id,
                 'name' => $employee->name,
+                'avatar' => $employee->getAvatarUrl(),
             ];
         }));
     }

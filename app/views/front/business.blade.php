@@ -50,6 +50,9 @@ app.i18n = {
     'go_back': '@lang('as.embed.cp.go_back')',
     'first_employee': '@lang('as.embed.cp.first_employee')'
 }
+app.assets = {
+    'employee_avatar': '{{ asset_path('core/img/avatar-round.png') }}'
+}
 app.routes = {
     'business.booking.book': '{{ route('as.bookings.frontend.add') }}',
     'business.booking.book_service': '{{ route('as.bookings.service.front.add') }}',

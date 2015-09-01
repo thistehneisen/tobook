@@ -195,7 +195,12 @@ app.VaraaCPLayout = (dom, hash) ->
     @showLoading = m.prop false
     @fetchEmployees()
       .then =>
-        @employees().unshift {id: -1, name: __('first_employee')}
+        defaultEmployee =
+          id: -1
+          name: __('first_employee')
+          avatar: app.assets.employee_avatar
+
+        @employees().unshift defaultEmployee
         @fetchCalendar()
 
     return
@@ -223,7 +228,10 @@ app.VaraaCPLayout = (dom, hash) ->
         m('.panel.panel-default', [
           m('.panel-heading[role=tab]', [
             m('h4.panel-title', [
-              m('a[data-parent=#js-booking-form-employee][data-toggle=collapse][href=#js-booking-form-employees][role=button]', ctrl.getSelectedEmployee().name)
+              m('a[data-parent=#js-booking-form-employee][data-toggle=collapse][href=#js-booking-form-employees][role=button]', [
+                m('img.img-circle.employee-avatar', {src: ctrl.getSelectedEmployee().avatar}),
+                ctrl.getSelectedEmployee().name
+              ])
             ])
           ]),
           m('.panel-collapse.collapse[id=js-booking-form-employees][role=tabpanel]', [
@@ -231,7 +239,10 @@ app.VaraaCPLayout = (dom, hash) ->
               m('.row', [
                 m('.col-sm-offset-1.col-sm-10', [
                   m('ul.list-employees', ctrl.employees().map((employee, index) ->
-                    m('li', {onclick: ctrl.selectEmployee.bind(ctrl, employee, index)}, employee.name)
+                    m('li', {onclick: ctrl.selectEmployee.bind(ctrl, employee, index)}, [
+                      m('img.img-circle.employee-avatar', {src: employee.avatar}),
+                      employee.name
+                    ])
                   ))
                 ])
               ])
