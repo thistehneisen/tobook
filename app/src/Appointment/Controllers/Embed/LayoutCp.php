@@ -85,7 +85,7 @@ class LayoutCp extends Base
         $i = $startDate->copy();
         while ($i->lte($endDate)) {
             $dates[] = [
-                'dayOfWeek' => $i->format('D'),
+                'dayOfWeek' => trans('common.short.'.strtolower($i->format('D'))),
                 'date' => $i->toDateString(),
                 'niceDate' => $i->format('d.m'),
             ];
