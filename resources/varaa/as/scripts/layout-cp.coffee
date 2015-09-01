@@ -49,7 +49,7 @@ app.VaraaCPLayout = (dom, hash) ->
               }, service.name)
             ])
           ]),
-          m('.panel-collapse.collapse.in[id=js-service-1][role=tabpanel]', {
+          m('.panel-collapse.collapse[id=js-service-1][role=tabpanel]', {
               id: "js-cbf-service-#{service.id}-custom-times"
             }, [
             m('.panel-body', [
@@ -96,8 +96,7 @@ app.VaraaCPLayout = (dom, hash) ->
             ])
           ]),
           m('.panel-collapse.collapse[role=tabpanel]', {
-              id: "js-cbf-category-#{category.id}",
-              class: if index is 0 then 'in' else ''
+              id: "js-cbf-category-#{category.id}"
             }, [
             m('.panel-body', [
               m('.panel-group-service', category.services.map((service) ->
