@@ -184,8 +184,9 @@ class Options extends AsBase
         );
     }
 
-    public function discount()
+    public function discount($page = 'last_minute')
     {
-
+        $data = [];
+        return $this->render($page, $data);
     }
 }
