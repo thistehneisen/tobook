@@ -292,7 +292,7 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Options@updateWorkingTime'
         ]);
 
-        Route::get('discount', [
+        Route::get('discount/{page}', [
             'as'   => 'as.options.discount',
             'uses' => 'App\Appointment\Controllers\Options@discount'
         ]);

@@ -1,58 +1,30 @@
 @extends ('modules.as.layout')
 
 @section ('content')
-<h3>{{ trans('as.options.'.$page.'.index') }}</h3>
+<h3>{{ trans('as.options.discount.last-minute') }}</h3>
 
-<div class="alert alert-info">
-    <p><strong>{{ trans('as.options.'.$page.'.heading') }}</strong></p>
-    <p>{{ trans('as.options.'.$page.'.info') }}</p>
-</div>
-
-<ul class="nav nav-tabs" role="tablist">
-    @foreach ($sections as $index => $section)
-    <li class="{{ $index === 0 ? 'active' : '' }}"><a href="#section-{{ $section }}" role="tab" data-toggle="tab">{{ trans('as.options.'.$page.'.'.$section) }}</a></li>
-    @endforeach
-</ul>
 <br>
 
 @include ('el.messages')
 
-{{ Form::open(['route' => ['as.options', $page], 'class' => 'form-horizontal']) }}
-<div class="tab-content">
-    <?php $index = 0 ?>
-    @foreach ($fields as $section => $controls)
-    <div class="tab-pane {{ $index === 0 ? 'active' : '' }}" id="section-{{ $section }}">
-        @foreach ($controls as $field)
+@include ('modules.as.options.el.discount-tabs')
+<br>
+
+{{ Form::open(['route' => ['as.options.discount', 'last-minute'], 'class' => 'form-horizontal']) }}
+    <div class="tab-content">
         <div class="form-group">
-            <label class="control-label col-sm-3">{{ trans('as.options.'.$page.'.'.$field->name) }}</label>
-            <div class="col-sm-6">
-                {{ $field->render() }}
-            </div>
+           <label class="control-label col-sm-3">{{ trans('as.options.discount.last-minute-1')}}</label>
+           <div class="col-sm-4">{{ Form::checkbox('is_active', 0, 0, ['id'=>'is_active']) }}</div>
         </div>
-            @if ($field->name === 'confirm_tokens_client' || $field->name === 'confirm_tokens_employee')
-            <div class="form-group">
-                <label class="control-label col-sm-3">{{ trans('common.placeholders')}}:</label>
-                <div class="col-sm-6">
-                    <div class="alert alert-info">
-                        {Services}, {ServicesFull}, {Name}, {BookingID}, {Phone}, {Email}, {Notes}, {CancelURL}, {Address}, {Deposit}
-                    </div>
-                </div>
-            </div>
-            @elseif ($field->name === 'confirm_consumer_sms_message' || $field->name === 'confirm_employee_sms_message')
-            <div class="form-group">
-                <label class="control-label col-sm-3">{{ trans('common.placeholders')}}:</label>
-                <div class="col-sm-6">
-                    <div class="alert alert-info">
-                        {Services}, {ServicesFull}, {CancelURL}, {Address}, {Deposit}
-                    </div>
-                </div>
-            </div>
-            @endif
-        @endforeach
+        <div class="form-group">
+           <label class="control-label col-sm-3">{{ trans('as.options.discount.last-minute-2')}}</label>
+           <div class="col-sm-4">{{ Form::select('discount', $discount, 0, ['class'=> 'form-control']) }}</div>
+        </div>
+        <div class="form-group">
+           <label class="control-label col-sm-3">{{ trans('as.options.discount.last-minute-3')}}</label>
+           <div class="col-sm-4">{{ Form::select('before', $before, 0, ['class'=> 'form-control']) }}</div>
+        </div>
     </div>
-    <?php $index++; ?>
-    @endforeach
-</div>
 
     <div class="form-group form-group-sm">
         <div class="col-sm-offset-3 col-sm-6">

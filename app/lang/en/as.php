@@ -390,6 +390,16 @@ return [
         ],
         'working_time' => [
             'index' => 'Calendar view',
+        ],
+        'discount' => [
+            'discount' => 'Discount',
+            'last-minute' => 'Last minute discount',
+            'business-hour' => 'business hour',
+            'business-hours' => 'business hours',
+            'full-price'    => 'Full price',
+            'last-minute-1' => 'Enabled',
+            'last-minute-2' => 'Discount',
+            'last-minute-3' => 'Before',
         ]
     ],
     'reports' => [
