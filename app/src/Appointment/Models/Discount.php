@@ -31,6 +31,13 @@ class Discount extends \App\Appointment\Models\Base
         for ($i=5; $i <= 100 ; $i+=5) {
             $data['discount'][$i] = sprintf('%d %%', $i);
         }
+
+        for ($i=1; $i <= 24 ; $i++) {
+            $data['hours'][$i] = sprintf('%d:00',$i);
+        }
+
+        $data['weekdays'] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+        $data['periods']  = ['morning', 'afternoon', 'evening'];
         return $data;
     }
 

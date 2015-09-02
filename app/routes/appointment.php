@@ -297,6 +297,11 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Options@discount'
         ]);
 
+        Route::post('discount/{page}', [
+            'as'   => 'as.options.discount',
+            'uses' => 'App\Appointment\Controllers\Options@discountUpsert'
+        ]);
+
         Route::get('{page?}', [
             'as'   => 'as.options',
             'uses' => 'App\Appointment\Controllers\Options@index'

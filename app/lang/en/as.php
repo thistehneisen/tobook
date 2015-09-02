@@ -397,7 +397,9 @@ return [
             'business-hour' => 'business hour',
             'business-hours' => 'business hours',
             'full-price'    => 'Full price',
-            'last-minute-1' => 'Enabled',
+            'afternoon_starts_at'=>'Afternoon starts at',
+            'evening_starts_at'=>'Evening starts at',
+            'last-minute-1' => 'Is Enabled',
             'last-minute-2' => 'Discount',
             'last-minute-3' => 'Before',
         ]

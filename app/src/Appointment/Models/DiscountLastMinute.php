@@ -21,6 +21,11 @@ class DiscountLastMinute extends \App\Appointment\Models\Base
         ]
     ];
 
+    /**
+     * Create data params (e.g.:discount percentage, hours) for displaying on view
+     *
+     * @return array
+     */
     public static function createFormData(&$data)
     {
         for ($i=5; $i <= 100 ; $i+=5) {
@@ -31,6 +36,14 @@ class DiscountLastMinute extends \App\Appointment\Models\Base
             $data['before'][$i] = sprintf('%d %s', $i, trans('as.options.discount.business-hours'));
         }
         return $data;
+    }
+
+    /**
+     * Insert or update discount last minute record
+     */
+    public function upsert($data)
+    {
+
     }
 
     //--------------------------------------------------------------------------

@@ -186,6 +186,12 @@ class Options extends AsBase
         );
     }
 
+    /**
+     * Show the discount form (last minute discount, day period discount)
+     *
+     * @param $page
+     * @return View
+     */
     public function discount($page = 'last-minute')
     {
         $data = [ 'page' => $page ];
@@ -197,5 +203,16 @@ class Options extends AsBase
         $model::createFormData($data);
 
         return $this->render($page, $data);
+    }
+
+    public function discountUpsert($page = 'last-minute')
+    {
+         $model = ($page === 'discount')
+            ? 'App\Appointment\Models\Discount'
+            : 'App\Appointment\Models\DiscountLastMinute';
+
+        $model::upsert(Input::all());
+
+        return Redirect::back();
     }
 }
