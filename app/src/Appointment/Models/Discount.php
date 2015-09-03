@@ -41,6 +41,18 @@ class Discount extends \App\Appointment\Models\Base
         return $data;
     }
 
+    /**
+     * Insert or update discount
+     */
+    public function upsert($data)
+    {
+        $user = $data['user'];
+        // foreach ($data['discount'] as $key => $value) {
+        //     var_dump([$key, $value]);
+        // }
+        // die();
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
