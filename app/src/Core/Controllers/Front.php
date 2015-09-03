@@ -52,7 +52,7 @@ class Front extends Base
         // Master categories
         $masterCategories = MasterCategory::getAll();
 
-        $bookingCount = Booking::count();
+        $bookingCount = Booking::where('created_at', '>=', '2015-07-01')->count();
 
         return $this->render('home', [
             'categories'       => $categories,
