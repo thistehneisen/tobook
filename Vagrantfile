@@ -25,6 +25,8 @@ Vagrant.configure("2") do |config|
             v.gui = true
         end
 
+        config.vm.provision :shell, :inline => "sudo apt-get update && sudo apt-get install puppet -y"
+
         lv4_config.vm.provision :puppet do |puppet|
             puppet.manifests_path = "puppet/manifests"
             puppet.manifest_file  = "phpbase.pp"

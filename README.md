@@ -46,3 +46,9 @@ return [
     'key' => $_ENV['SECRET_KEY'],
 ];
 ```
+
+* Run command to index data
+
+```bash
+cd /var/www && php artisan varaa:haku-create-indexes
+```
