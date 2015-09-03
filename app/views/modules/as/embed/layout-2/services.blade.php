@@ -42,12 +42,12 @@
 
 @foreach ($categories as $category)
     @foreach ($category->services as $service)
-        @if ($service->extraServices->isEmpty() === false)
+        @if ($service->extraServices()->where('is_hidden', '=', true)->count())
 <div class="as-extra-services col-sm-3" id="as-service-{{ $service->id }}-extra-services">
     <h5>{{ trans('as.embed.layout_2.extra_services') }}</h5>
     <div class="better">
         <div class="as-extra-service-row">
-            @foreach ($service->extraServices as $item)
+            @foreach ($service->extraServices()->where('is_hidden', '=', false)->get() as $item)
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="extra_service_id[]" value="{{ $item->id }}"> {{ $item->name }} ({{ $item->length }} {{ trans('common.minutes') }})

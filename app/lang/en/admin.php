@@ -133,6 +133,7 @@ return [
         'new_consumer_commission_rate' => 'New consumer commission, e.g. 30% =0.3',
         'booking_terms'                => 'Booking terms',
         'force_pay_at_venue'           => 'Force pay at venue',
+        'sms_length_limiter'           => 'SMS length limiter',
     ],
     'master-cats' => [
         'all'         => 'All master category',

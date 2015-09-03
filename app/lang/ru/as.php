@@ -57,6 +57,7 @@ return [
             'description' => 'Описание',
             'price'       => 'Цена',
             'length'      => 'Длительность',
+            'is_hidden'   => 'Hidden from frontend',
             'msg_extra'   => 'Хотите зарезервировать?',
         ],
         'all'          => 'Все услуги',

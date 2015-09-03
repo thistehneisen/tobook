@@ -2,7 +2,7 @@
     <form action="">
         <div class="form-group">
             <label>{{ trans('as.services.extras.msg_extra') }}</label>
-            @foreach ($service->extraServices as $extraService)
+            @foreach ($extraServices as $extraService)
             <div class="checkbox">
                 <label>
                     <input type="checkbox" name="extra_services[]" value="{{ $extraService->id }}"> {{ $extraService->name }} ({{ $extraService->length }} {{ trans('common.minutes')}})

@@ -35,7 +35,7 @@
                         </div>
                         @endforeach
 
-                        @if($service->extraServices()->count())
+                        @if($service->extraServices()->where('is_hidden', '=', false)->count())
                         <a href="#" data-hash="{{ $hash }}" data-service-id="{{ $service->id }}" class="btn btn-success btn-add-extra-service">{{ trans('as.services.categories.availability') }}</a>
                         @else
                         <a id="btn-add-service-{{ $service->id }}" href="{{ route('as.embed.embed', ['hash' => $hash,'service_id' => $service->id,'service_time' => 'default' ,'date' => $date->toDateString() ])}}" class="btn btn-success btn-add-service">{{ trans('as.services.categories.availability') }}</a>
