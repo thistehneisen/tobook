@@ -59,7 +59,10 @@ dpkg -i elasticsearch-1.7.1.deb
 cd /var/www && php artisan varaa:haku-create-indexes
 ```
 
-* Build assets
+* Install required packages and build assets
+```
+cd /var/www && npm install
+```
 
 ```
  ENV=local npm run build-dev
