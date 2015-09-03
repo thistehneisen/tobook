@@ -43,15 +43,13 @@ cd /var/www && php artisan varaa:generate-configs
 
 ```
 wget wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.deb
-```
-
-```
-chmod +X elasticsearch-1.7.1.deb
-```
-
-```
+chmod +x elasticsearch-1.7.1.deb
 dpkg -i elasticsearch-1.7.1.deb
+sudo update-rc.d elasticsearch defaults 95 10
+sudo /etc/init.d/elasticsearch start
 ```
+
+
 
 * Run command to index data
 
