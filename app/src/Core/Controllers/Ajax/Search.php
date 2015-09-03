@@ -88,7 +88,7 @@ class Search extends Base
      */
     public function showBusiness($id)
     {
-        $user = User::with('business')->findOrFail($id);
+        $user = User::with('business')->where('id', '=', $id)->whereNull('deleted_at')->firstOrFail();
 
         $layout = $this->handleIndex($user->hash, $user, 'layout-3');
 
