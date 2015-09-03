@@ -203,6 +203,8 @@ class Options extends AsBase
             ? 'App\Appointment\Models\Discount'
             : 'App\Appointment\Models\DiscountLastMinute';
 
+        $data['user'] = $this->user;
+
         $model::createFormData($data);
 
         return $this->render($page, $data);
