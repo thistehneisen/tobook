@@ -39,6 +39,21 @@ cd /var/www && composer install
 ```
 cd /var/www && php artisan varaa:generate-configs
 ```
+
+Sample .env.local.php
+```php
+<?php
+
+return [
+    'DB_USERNAME'       => 'root',
+    'DB_PASSWORD'       => '',
+    'DB_NAME'           => 'varaa_stag',
+    'SECRET_KEY'        => 'x70dWfOWxcolum3Ef9cq265YQpifdZCn',
+    'MANDRILL_PASSWORD' => '7HZ2C_D-ZLHKJ5FrR9fFFQ',
+    'ROUTES_PREFIX'     => '',
+];
+
+```
 * Install ElasticSearch
 
 ```
