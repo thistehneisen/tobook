@@ -61,6 +61,7 @@ return [
     'video_tutorial_text'   => 'Как это работает?',
     'video_tutorial_link'   => 'https://www.youtube.com/watch?v=tG170YStzeQ?rel=0&amp;showinfo=0&autoplay=1',
     'image_tutorial_link'   => asset_path('core/img/how-does-it-work-ru.png'),
+    'current_total_bookings'=> 'Количество размещенных резерваций',
     'search'        => [
         'tagline'         => 'Что вы хотите заказать?',
         'query'           => 'Введите компанию',
