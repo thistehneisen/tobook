@@ -5,7 +5,7 @@
         <address>{{{ $business->full_address }}}</address>
 
         <h3 class="sub-heading">@lang('as.embed.cp.heading')</h3>
-        <div class="js-cp-booking-form">Loading&hellip;</div>
+        <div id="js-cp-booking-form">Loading&hellip;</div>
 
     @if ($business->images->isEmpty() === false)
         <!-- Slider main container -->

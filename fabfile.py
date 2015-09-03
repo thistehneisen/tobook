@@ -1,12 +1,14 @@
+from fabric import utils
 from fabric.api import cd, run, local, task, hosts, env, settings
 from fabric.colors import red, blue
 from fabric.contrib import files
-from fabric import utils
+import datetime
+import json
 import os
-import subprocess
-import threading
 import random
 import semver
+import subprocess
+import threading
 
 def get_random_word(wordLen):
     word = ''
@@ -14,16 +16,31 @@ def get_random_word(wordLen):
         word += random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789')
     return word
 
+instance_dict = {
+    'stag': '46.101.49.100',
+    'prod': '178.62.37.23',
+    'clearbooking': '178.62.52.193',
+    'tobook': '178.62.41.125',
+    'yellowpage': '178.62.123.243'
+}
+src_path = '/srv/varaa/src'
+env.user = 'root'
+
+def write_deploy_log(instance=''):
+    branch = run('git symbolic-ref --short -q HEAD')
+    revision = run('git rev-parse --short=7 HEAD')
+    now = datetime.datetime.now()
+    data = json.dumps({
+        'instance': instance,
+        'branch': branch,
+        'revision': revision,
+        'last_deployed': now.isoformat()
+    })
+    # Shell quote
+    run("echo '" + data.replace("'", "'\\''") + "' > public/deployment.json")
+
 @task
 def check_branch(instance=''):
-    env.user = 'root'
-    instance_dict = {
-        'stag': '46.101.49.100',
-        'prod': '178.62.37.23',
-        'clearbooking': '178.62.52.193',
-        'tobook': '178.62.41.125',
-        'yellowpage': '178.62.123.243'
-    }
     if instance in instance_dict:
         host = instance_dict[instance]
         with settings(host_string=host):
@@ -34,7 +51,6 @@ def check_branch(instance=''):
         print(red("Instance not found!"))
 
 def _deploy(environment, host):
-    env.user = 'root'
     with settings(host_string=host):
         with cd('/srv/varaa/src'):
             # set it to maintenance mode
@@ -71,8 +87,8 @@ def _deploy(environment, host):
             #-------------------------------------------------------------------
             # These commands are run once and will be removed in next release
             #-------------------------------------------------------------------
-            print(red('Release notes:', True))
-            print(blue('Delete ES business indexes and rebuild using Haku'))
+            # print(red('Release notes:', True))
+            # print(blue('Delete ES business indexes and rebuild using Haku'))
             #-------------------------------------------------------------------
             # restart supervisor processes
             run('supervisorctl restart all')
@@ -83,17 +99,11 @@ def _deploy(environment, host):
             # remove all temporary css files
             run('rm *.css')
             # run CI
-            if environment == 'stag': run('/srv/phpci/console phpci:rebuild')
+            # if environment == 'stag': run('/srv/phpci/console phpci:rebuild')
+            write_deploy_log(environment)
 
 @task
 def deploy(instance=''):
-    instance_dict = {
-        'stag': '46.101.49.100',
-        'prod': '178.62.37.23',
-        'clearbooking': '178.62.52.193',
-        'tobook': '178.62.41.125',
-        'yellowpage': '178.62.123.243'
-    }
     if instance in instance_dict:
         _deploy(instance, instance_dict[instance])
     elif instance == 'all':

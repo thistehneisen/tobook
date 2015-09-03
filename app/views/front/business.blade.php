@@ -15,7 +15,6 @@
     {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css') }}
     {{ HTML::style(asset('packages/alertify/css/themes/bootstrap.min.css')) }}
-    {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
 @stop
 
 @section('scripts')
@@ -33,10 +32,10 @@
 @endif
 
 var app = app || {}
-app.hash = '{{ $business->user->hash }}'
 app.i18n = {
     'select': '@lang('as.embed.cp.select')',
-    'services': '@lang('as.embed.cp.services')',
+    'pl_service': '@lang('as.embed.cp.pl_service')',
+    'sg_service': '@lang('as.embed.cp.sg_service')',
     'first_name': '@lang('as.bookings.first_name')',
     'last_name': '@lang('as.bookings.last_name')',
     'email': '@lang('as.bookings.email')',
@@ -47,17 +46,21 @@ app.i18n = {
     'salon': '@lang('as.embed.cp.salon')',
     'price': '@lang('as.embed.cp.price')',
     'service': '@lang('as.embed.cp.service')',
+    'details': '@lang('as.embed.cp.details')',
     'how_to_pay': '@lang('as.embed.cp.how_to_pay')',
     'go_back': '@lang('as.embed.cp.go_back')',
     'first_employee': '@lang('as.embed.cp.first_employee')'
 }
+app.assets = {
+    'employee_avatar': '{{ asset_path('core/img/avatar-round.png') }}'
+}
 app.routes = {
     'business.booking.book': '{{ route('as.bookings.frontend.add') }}',
     'business.booking.book_service': '{{ route('as.bookings.service.front.add') }}',
-    'business.booking.services': '{{ route('business.booking.services', ['hash' => $business->user->hash]) }}',
-    'business.booking.timetable': '{{ route('business.booking.timetable', ['hash' => $business->user->hash]) }}',
-    'business.booking.payments': '{{ route('business.booking.payments', ['hash' => $business->user->hash]) }}',
-    'business.booking.employees': '{{ route('business.booking.employees', ['hash' => $business->user->hash]) }}'
+    'business.booking.services': '{{ route('business.booking.services') }}',
+    'business.booking.timetable': '{{ route('business.booking.timetable') }}',
+    'business.booking.payments': '{{ route('business.booking.payments') }}',
+    'business.booking.employees': '{{ route('business.booking.employees') }}'
 }
 </script>
 
@@ -85,7 +88,10 @@ $(function () {
       lat: {{ $lat }},
       lng: {{ $lng }}
     });
+
+    app.VaraaCPLayout(document.getElementById('js-cp-booking-form'), '{{ $business->user->hash }}')
 });
+
     </script>
 @stop
 

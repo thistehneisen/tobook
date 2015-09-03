@@ -185,7 +185,7 @@ class VaraaSearch
         $heading.find 'i'
           .show()
 
-        VARAA.initLayout3()
+        app.VaraaCPLayout(document.getElementById('js-cp-booking-form'), $$.data 'hash')
 
         # Set current business flag
         $list.data 'current-business-id', businessId

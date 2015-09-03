@@ -1,5 +1,5 @@
 # global m, app
-do ->
+app.VaraaCPLayout = (dom, hash) ->
   'use strict'
   # Translation helper
   __ = (key) -> if app.i18n[key]? then app.i18n[key] else ''
@@ -18,6 +18,12 @@ do ->
     @selectServiceTime = (serviceTime, e) ->
       e.preventDefault()
       args.layout.selectServiceTime serviceTime
+
+    @showServiceCounter = (value) ->
+      value = parseInt value, 10
+      return "#{value} #{__('pl_service')}" if value > 1
+      return "#{value} #{__('sg_service')}" if value is 1
+      return ''
 
     return
   Service.view = (ctrl) ->
@@ -49,7 +55,7 @@ do ->
               }, service.name)
             ])
           ]),
-          m('.panel-collapse.collapse.in[id=js-service-1][role=tabpanel]', {
+          m('.panel-collapse.collapse[id=js-service-1][role=tabpanel]', {
               id: "js-cbf-service-#{service.id}-custom-times"
             }, [
             m('.panel-body', [
@@ -91,13 +97,12 @@ do ->
                   href: "#js-cbf-category-#{category.id}"
                 }, [
                 category.name,
-                m('span.pull-right', if category.services.length then "#{category.services.length} #{__('services')}" else '')
+                m('span.pull-right', ctrl.showServiceCounter(category.services.length))
               ])
             ])
           ]),
           m('.panel-collapse.collapse[role=tabpanel]', {
-              id: "js-cbf-category-#{category.id}",
-              class: if index is 0 then 'in' else ''
+              id: "js-cbf-category-#{category.id}"
             }, [
             m('.panel-body', [
               m('.panel-group-service', category.services.map((service) ->
@@ -161,7 +166,7 @@ do ->
       dateObj = new Date date
         .setHours 0, 0, 0, 0
 
-      return if dateObj < today
+      return if e.currentTarget.classList.contains 'date-selector-dates-past'
 
       @selectedDate date
       @fetchCalendar()
@@ -188,15 +193,24 @@ do ->
       c = new Date @selectedDate()
         .setHours 0, 0, 0, 0
 
-      return 'date-selector-dates-active' if a is c
-      return 'date-selector-dates-past' if a < b
+      if a is c
+        return 'date-selector-dates-active'
+      else
+        if a < c and a <= b
+          return 'date-selector-dates-past'
+
       return ''
 
     # Kickstart
     @showLoading = m.prop false
     @fetchEmployees()
       .then =>
-        @employees().unshift {id: -1, name: __('first_employee')}
+        defaultEmployee =
+          id: -1
+          name: __('first_employee')
+          avatar: app.assets.employee_avatar
+
+        @employees().unshift defaultEmployee
         @fetchCalendar()
 
     return
@@ -213,7 +227,7 @@ do ->
             m('ul.time-options', ctrl.calendar().calendar.map((opt) ->
               m('li', {onclick: ctrl.selectTime.bind(ctrl, opt)}, [
                 m.trust("#{opt.time} &ndash; #{ctrl.layout.dataStore().service.price}&euro;"),
-                m('button.btn.btn-success', 'Select')
+                m('button.btn.btn-success', __('select'))
               ])
             ))
           ])
@@ -224,7 +238,10 @@ do ->
         m('.panel.panel-default', [
           m('.panel-heading[role=tab]', [
             m('h4.panel-title', [
-              m('a[data-parent=#js-booking-form-employee][data-toggle=collapse][href=#js-booking-form-employees][role=button]', ctrl.getSelectedEmployee().name)
+              m('a[data-parent=#js-booking-form-employee][data-toggle=collapse][href=#js-booking-form-employees][role=button]', [
+                m('img.img-circle.employee-avatar', {src: ctrl.getSelectedEmployee().avatar}),
+                ctrl.getSelectedEmployee().name
+              ])
             ])
           ]),
           m('.panel-collapse.collapse[id=js-booking-form-employees][role=tabpanel]', [
@@ -232,7 +249,10 @@ do ->
               m('.row', [
                 m('.col-sm-offset-1.col-sm-10', [
                   m('ul.list-employees', ctrl.employees().map((employee, index) ->
-                    m('li', {onclick: ctrl.selectEmployee.bind(ctrl, employee, index)}, employee.name)
+                    m('li', {onclick: ctrl.selectEmployee.bind(ctrl, employee, index)}, [
+                      m('img.img-circle.employee-avatar', {src: employee.avatar}),
+                      employee.name
+                    ])
                   ))
                 ])
               ])
@@ -296,11 +316,16 @@ do ->
     @getValidationErrorCss = (field) -> if @validationErrors()[field]? then 'has-error' else ''
     @getValidationError = (field) -> @validationErrors()[field] or ''
 
+    # This property is used to prevent submitting duplicated requests
+    # And show a locking curtain as well
+    @lock = m.prop false
     @placeBooking = (paygate, e) ->
+      return if @lock() is true
       e.preventDefault()
       # Error handler in case of failing validation
       errorHandler = (res) =>
         if res.success is false
+          @lock false
           # Reset all errors
           @validationErrors {}
           Object.keys res.message
@@ -331,6 +356,8 @@ do ->
           form.submit()
 
       # Send request to place the booking
+      @lock true
+      m.redraw()
       @layout.placeBooking()
         .then submitToPaygate
         .then null, errorHandler
@@ -357,7 +384,7 @@ do ->
 
     m('.payment', [
       m('.payment-section', [
-        m('h4', 'Your booking is almost done'),
+        m('h4', __('almost_done')),
         m('form.row', [
           ['first_name', 'last_name', 'email', 'phone'].map (field) ->
             return m('.form-group.col-sm-3', {class: ctrl.getValidationErrorCss.call(ctrl, field)}, [
@@ -371,7 +398,7 @@ do ->
         ])
       ]),
       m('.payment-section', [
-        m('h4', 'Booking details'),
+        m('h4', __('details')),
         m('.row', [
           m('.col-sm-2', [m('p', m('strong', __('salon'))), dataStore.business.name]),
           m('.col-sm-3', [m('p', m('strong', __('service'))), dataStore.service.name]),
@@ -381,10 +408,10 @@ do ->
         ])
       ]),
       m('.payment-section', [
-        m('h4', 'How do you want to pay for your booking?'),
+        m('h4', __('how_to_pay')),
         m('.row',
           m('.col-sm-12', [
-            m('.locked', {class: if ctrl.validateCustomer() then 'hidden' else ''}),
+            m('.locked', {class: if ctrl.validateCustomer() and ctrl.lock() is no then 'hidden' else ''}),
             paymentOptionView
           ])
         )
@@ -397,7 +424,7 @@ do ->
 
   LayoutCP = {}
   LayoutCP.controller = ->
-    @dataStore = m.prop {hash: app.hash, customer: {}}
+    @dataStore = m.prop {hash: hash, customer: {}}
 
     # Fetch services JSON data
     @data = m.prop {}
@@ -405,6 +432,8 @@ do ->
     m.request
       method: 'GET'
       url: app.routes['business.booking.services']
+      data:
+        hash: @dataStore().hash
     .then @data
     .then =>
       @dataStore().business = @data().business
@@ -525,4 +554,4 @@ do ->
     ])
 
   # Render booking forms
-  m.mount(el, m.component(LayoutCP)) for el in document.querySelectorAll 'div.js-cp-booking-form'
+  m.mount(dom, m.component(LayoutCP))

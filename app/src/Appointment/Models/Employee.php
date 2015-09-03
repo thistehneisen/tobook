@@ -1,6 +1,8 @@
 <?php namespace App\Appointment\Models;
 
-use Config, Util, Validator;
+use Config;
+use Util;
+use Validator;
 use Carbon\Carbon;
 use App\Appointment\Models\Slot\Strategy;
 use App\Appointment\Models\Slot\Context;
@@ -123,7 +125,7 @@ class Employee extends \App\Appointment\Models\Base
                 $workingTimes[$i] = range(0, 45, 15);
             }
             if ($i === $endHour) {
-                 $workingTimes[$i] = range(0, $endMinute, 15);
+                $workingTimes[$i] = range(0, $endMinute, 15);
             }
         }
 
@@ -385,19 +387,18 @@ class Employee extends \App\Appointment\Models\Base
      */
     public function getWorkshiftPlan($date)
     {
-
         list($current, $startOfMonth, $endOfMonth) = $this->getWorkshiftDate($date);
 
         $items = $this->employeeCustomTimes()
             ->with('customTime')
-            ->where('date','>=', $startOfMonth)
-            ->where('date','<=', $endOfMonth)
-            ->orderBy('date','asc')->get();
+            ->where('date', '>=', $startOfMonth)
+            ->where('date', '<=', $endOfMonth)
+            ->orderBy('date', 'asc')->get();
 
         $customTimesList = [];
 
         foreach ($items as $item) {
-           $customTimesList[$item->date] = $item;
+            $customTimesList[$item->date] = $item;
         }
 
         $currentMonths = [];
@@ -443,7 +444,7 @@ class Employee extends \App\Appointment\Models\Base
     public function getRandomActiveService()
     {
         return Service::where('as_services.user_id', $this->user->id)
-            ->join('as_service_categories','as_service_categories.id', '=', 'as_services.category_id')
+            ->join('as_service_categories', 'as_service_categories.id', '=', 'as_services.category_id')
             ->join('as_employee_service', 'as_employee_service.service_id', '=', 'as_services.id')
             ->join('as_employees', 'as_employees.id', '=', 'as_employee_service.employee_id')
             ->where('as_employees.is_active', true)
@@ -522,7 +523,7 @@ class Employee extends \App\Appointment\Models\Base
 
                 $isOverllapedWithFreetime = $this->isOverllapedWithFreetime($date->toDateString(), $startTime, $endTime);
                 if ($isOverllapedWithFreetime === true) {
-                   continue;
+                    continue;
                 }
 
                 $isBookable = Booking::isBookable(
@@ -621,7 +622,7 @@ class Employee extends \App\Appointment\Models\Base
     public function getAvatarUrl()
     {
         if (empty($this->attributes['avatar'])) {
-            return asset_path('core/img/mm.png');
+            return asset_path('core/img/avatar-round.png');
         }
 
         return Util::thumbnail($this->getAvatarPath(), 200, 200);
@@ -653,7 +654,7 @@ class Employee extends \App\Appointment\Models\Base
 
     public function defaultTimes()
     {
-         return $this->hasMany('App\Appointment\Models\EmployeeDefaultTime');
+        return $this->hasMany('App\Appointment\Models\EmployeeDefaultTime');
     }
 
     public function services()
@@ -663,16 +664,16 @@ class Employee extends \App\Appointment\Models\Base
 
     public function bookings()
     {
-         return $this->hasMany('App\Appointment\Models\Booking');
+        return $this->hasMany('App\Appointment\Models\Booking');
     }
 
     public function freetimes()
     {
-         return $this->hasMany('App\Appointment\Models\EmployeeFreetime');
+        return $this->hasMany('App\Appointment\Models\EmployeeFreetime');
     }
 
     public function employeeCustomTimes()
     {
-         return $this->hasMany('App\Appointment\Models\EmployeeCustomTime');
+        return $this->hasMany('App\Appointment\Models\EmployeeCustomTime');
     }
 }
