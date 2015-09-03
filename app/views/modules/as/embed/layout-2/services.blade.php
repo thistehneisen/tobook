@@ -42,7 +42,7 @@
 
 @foreach ($categories as $category)
     @foreach ($category->services as $service)
-        @if ($service->extraServices()->where('is_hidden', '=', true)->count())
+        @if ($service->extraServices()->where('is_hidden', '=', false)->count())
 <div class="as-extra-services col-sm-3" id="as-service-{{ $service->id }}-extra-services">
     <h5>{{ trans('as.embed.layout_2.extra_services') }}</h5>
     <div class="better">
