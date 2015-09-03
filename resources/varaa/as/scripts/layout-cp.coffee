@@ -15,9 +15,9 @@ app.VaraaCPLayout = (dom, hash) ->
       e.preventDefault()
       args.layout.selectService service
 
-    @selectServiceTime = (serviceTime, e) ->
+    @selectServiceTime = (serviceTime, service, e) ->
       e.preventDefault()
-      args.layout.selectServiceTime serviceTime
+      args.layout.selectServiceTime serviceTime, service
 
     @showServiceCounter = (value) ->
       value = parseInt value, 10
@@ -72,7 +72,7 @@ app.VaraaCPLayout = (dom, hash) ->
                   m('p', "#{service.length}min")
                 ]),
                 service.service_times.map((item) ->
-                  m('.custom-time-service', {onclick: ctrl.selectServiceTime.bind(ctrl, item)}, [
+                  m('.custom-time-service', {onclick: ctrl.selectServiceTime.bind(ctrl, item, service)}, [
                     if service.name? then m('p', service.name) else m.trust('&nbsp;'),
                     m('.service-description', item.description),
                     m('p', "#{item.length}min")
@@ -141,13 +141,15 @@ app.VaraaCPLayout = (dom, hash) ->
     @selectedDate = m.prop @layout.dataStore().date
     @fetchCalendar = ->
       @showLoading true
+      ds = @layout.dataStore()
       return m.request
         method: 'GET'
         background: true
         url: app.routes['business.booking.timetable']
         data:
-          serviceId: @layout.dataStore().service.id
-          hash: @layout.dataStore().hash
+          serviceTimeId: if ds.serviceTime? then ds.serviceTime.id else null
+          serviceId: if ds.service? then ds.service.id else null
+          hash: ds.hash
           employeeId: @getSelectedEmployee().id
           date: @selectedDate()
       .then @calendar
@@ -467,8 +469,9 @@ app.VaraaCPLayout = (dom, hash) ->
       @moveNext()
       return
 
-    @selectServiceTime = (serviceTime) ->
+    @selectServiceTime = (serviceTime, service) ->
       @dataStore().serviceTime = serviceTime
+      @dataStore().service = service
       @moveNext()
       return
 
