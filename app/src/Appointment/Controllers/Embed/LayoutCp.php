@@ -86,7 +86,7 @@ class LayoutCp extends Base
             $dates[] = [
                 'dayOfWeek' => trans('common.short.'.strtolower($i->format('D'))),
                 'date' => $i->toDateString(),
-                'niceDate' => $i->format('d.m'),
+                'niceDate' => $i->format('j'),
             ];
             $i->addDay();
         }
