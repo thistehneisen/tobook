@@ -14,6 +14,8 @@ http://www.vagrantup.com/downloads
 vagrant up
 ```
 
+Puppet will automatically install apache2, php5, mysql, redis, java and composer for you. A empty database `varaa_stag` is also created.
+
 * Clone the code
 
 ```
