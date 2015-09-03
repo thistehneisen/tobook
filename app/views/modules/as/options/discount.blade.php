@@ -54,11 +54,11 @@
     <div class="form-horizontal well">
         <div class="form-group">
             <label class="control-label col-sm-3">{{ trans('as.options.discount.afternoon_starts_at')}}</label>
-            <div class="col-sm-8">{{ Form::select('afternoon_starts_at', $hours, 0, ['class'=> 'form-control']) }}</div>
+            <div class="col-sm-2">{{ Form::select('afternoon_starts_at', $hours, 0, ['class'=> 'form-control']) }}</div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3">{{ trans('as.options.discount.evening_starts_at')}}</label>
-            <div class="col-sm-8">{{ Form::select('evening_starts_at', $hours, 0, ['class'=> 'form-control']) }}</div>
+            <div class="col-sm-2">{{ Form::select('evening_starts_at', $hours, 0, ['class'=> 'form-control']) }}</div>
         </div>
          <div class="form-group">
             <div class="col-sm-offset-3 col-sm-6">

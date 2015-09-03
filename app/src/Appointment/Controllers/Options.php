@@ -207,11 +207,15 @@ class Options extends AsBase
 
     public function discountUpsert($page = 'last-minute')
     {
-         $model = ($page === 'discount')
+        $model = ($page === 'discount')
             ? 'App\Appointment\Models\Discount'
             : 'App\Appointment\Models\DiscountLastMinute';
 
-        $model::upsert(Input::all());
+        $obj          = new $model;
+        $data         = Input::all();
+        $data['user'] = $this->user;
+
+        $obj->upsert($data);
 
         return Redirect::back();
     }

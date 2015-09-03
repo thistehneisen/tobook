@@ -3,8 +3,10 @@
 use Config, Util, Validator;
 use Carbon\Carbon;
 
-class DiscountLastMinute extends \App\Appointment\Models\Base
+class DiscountLastMinute extends \Eloquent
 {
+    public $primaryKey  = 'user_id';
+
     protected $table = 'as_last_minute_discounts';
 
     public $fillable = [
@@ -43,7 +45,16 @@ class DiscountLastMinute extends \App\Appointment\Models\Base
      */
     public function upsert($data)
     {
+        $user = $data['user'];
+        $me = self::find($user->id);
 
+        if (empty($me)) {
+            $me = new self();
+        }
+        var_dump($data);
+        $me->fill($data);
+        $me->user()->associate($user);
+        $me->save();
     }
 
     //--------------------------------------------------------------------------
