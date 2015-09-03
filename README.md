@@ -46,6 +46,19 @@ return [
     'key' => $_ENV['SECRET_KEY'],
 ];
 ```
+* Install ElasticSearch
+
+```
+wget wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.deb
+```
+
+```
+chmod +X elasticsearch-1.7.1.deb
+```
+
+```
+dpkg -i elasticsearch-1.7.1.deb
+```
 
 * Run command to index data
 
