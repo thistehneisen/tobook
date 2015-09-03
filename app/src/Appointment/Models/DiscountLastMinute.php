@@ -37,6 +37,12 @@ class DiscountLastMinute extends \Eloquent
         for ($i=1; $i <= 24 ; $i++) {
             $data['before'][$i] = sprintf('%d %s', $i, trans('as.options.discount.business-hours'));
         }
+
+        $user = $data['user'];
+        $me   = self::find($user->id);
+        if (!empty($me)) {
+            $data['me'] = $me;
+        }
         return $data;
     }
 
@@ -46,12 +52,12 @@ class DiscountLastMinute extends \Eloquent
     public function upsert($data)
     {
         $user = $data['user'];
-        $me = self::find($user->id);
+        $me   = self::find($user->id);
 
         if (empty($me)) {
             $me = new self();
         }
-        var_dump($data);
+
         $me->fill($data);
         $me->user()->associate($user);
         $me->save();

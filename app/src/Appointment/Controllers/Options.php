@@ -194,7 +194,10 @@ class Options extends AsBase
      */
     public function discount($page = 'last-minute')
     {
-        $data = [ 'page' => $page ];
+        $data = [
+            'page' => $page,
+            'user' => $this->user
+        ];
 
         $model = ($page === 'discount')
             ? 'App\Appointment\Models\Discount'
