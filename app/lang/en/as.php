@@ -391,6 +391,18 @@ return [
         ],
         'working_time' => [
             'index' => 'Calendar view',
+        ],
+        'discount' => [
+            'discount' => 'Discount',
+            'last-minute' => 'Last minute discount',
+            'business-hour' => 'business hour',
+            'business-hours' => 'business hours',
+            'full-price'    => 'Full price',
+            'afternoon_starts_at'=>'Afternoon starts at',
+            'evening_starts_at'=>'Evening starts at',
+            'last-minute-1' => 'Is Enabled',
+            'last-minute-2' => 'Discount',
+            'last-minute-3' => 'Before',
         ]
     ],
     'reports' => [

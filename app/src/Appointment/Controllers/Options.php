@@ -4,6 +4,8 @@ use App, View, Confide, Redirect, Input, Config, NAT, Closure;
 use Util, Entrust, Session;
 use App\Lomake\FieldFactory;
 use App\Appointment\Models\Option;
+use App\Appointment\Models\Discount;
+use App\Appointment\Models\DiscountLastMinute;
 
 class Options extends AsBase
 {
@@ -182,5 +184,44 @@ class Options extends AsBase
             'messages',
             $this->successMessageBag(trans('as.options.updated'))
         );
+    }
+
+    /**
+     * Show the discount form (last minute discount, day period discount)
+     *
+     * @param $page
+     * @return View
+     */
+    public function discount($page = 'last-minute')
+    {
+        $data = [
+            'page' => $page,
+            'user' => $this->user
+        ];
+
+        $model = ($page === 'discount')
+            ? 'App\Appointment\Models\Discount'
+            : 'App\Appointment\Models\DiscountLastMinute';
+
+        $data['user'] = $this->user;
+
+        $model::createFormData($data);
+
+        return $this->render($page, $data);
+    }
+
+    public function discountUpsert($page = 'last-minute')
+    {
+        $model = ($page === 'discount')
+            ? 'App\Appointment\Models\Discount'
+            : 'App\Appointment\Models\DiscountLastMinute';
+
+        $obj          = new $model;
+        $data         = Input::all();
+        $data['user'] = $this->user;
+
+        $obj->upsert($data);
+
+        return Redirect::back();
     }
 }
