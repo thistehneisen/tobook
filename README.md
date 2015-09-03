@@ -36,15 +36,8 @@ cd /var/www && composer install
 
 * Create local config
 
-```php
-//app/config/local/app.php
-<?php
-
-return [
-    'debug' => true,
-    'url' => 'http://varaa.dev',
-    'key' => $_ENV['SECRET_KEY'],
-];
+```
+cd /var/www && php artisan varaa:generate-configs
 ```
 * Install ElasticSearch
 
