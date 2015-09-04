@@ -54,11 +54,11 @@ class LayoutCp extends Base
 
     public function getTimetable()
     {
-        $today      = Carbon::today();
-        $date       = Input::has('date') ? new Carbon(Input::get('date')) : $today;
-        $hash       = Input::get('hash');
-        $service    = Service::findOrFail(Input::get('serviceId'));
-        $employeeId = (int) Input::get('employeeId');
+        $today       = Carbon::today();
+        $date        = Input::has('date') ? new Carbon(Input::get('date')) : $today;
+        $hash        = Input::get('hash');
+        $service     = Service::findOrFail(Input::get('serviceId'));
+        $employeeId  = (int) Input::get('employeeId');
         $serviceTime = null;
 
         if (Input::has('serviceTimeId')) {
@@ -71,9 +71,9 @@ class LayoutCp extends Base
         //Withdrawal time feature
         list($start, $final, $maxWeeks) = $this->getMinMaxDistanceDay($hash);
 
-        if ($date->lt($start)) {
-            $date = $start->copy();
-        }
+        // if ($date->lt($start)) {
+        //     $date = $start->copy();
+        // }
 
         $startDate = $date->copy()->startOfWeek();
         $endDate = $startDate->copy()->endOfWeek();
@@ -91,13 +91,16 @@ class LayoutCp extends Base
             $i->addDay();
         }
 
+        $showEndTime = false;
+        $discount    = true;
         // Get timetable data
         $timetable = [];
+
         if ($employeeId > 0) {
             $employee = Employee::findOrFail($employeeId);
-            $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime);
+            $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime, $showEndTime, $discount);
         } else {
-            $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime);
+            $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime, $showEndTime, $discount);
         }
 
         $calendar = [];

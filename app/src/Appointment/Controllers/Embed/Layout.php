@@ -307,9 +307,10 @@ trait Layout
      *
      * @return array
      */
-    protected function getTimetableOfAnyone(Service $service, Carbon $date, $serviceTime = null, $showEndTime = false)
+    protected function getTimetableOfAnyone(Service $service, Carbon $date, $serviceTime = null, $showEndTime = false, $discount = false)
     {
         $timetable = [];
+
         // Get timetable of all employees
         $user = $this->getUser();
         $employees = $this->getEmployeesOfService($service);
@@ -319,7 +320,8 @@ trait Layout
                 $service,
                 $date,
                 $serviceTime,
-                $showEndTime
+                $showEndTime,
+                $discount
             );
 
             foreach ($data as $time => $_) {
@@ -345,7 +347,7 @@ trait Layout
      *
      * @return array
      */
-    public function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $serviceTime = null, $showEndTime = false)
+    public function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $serviceTime = null, $showEndTime = false, $discount = false)
     {
         $extraServiceIds = Input::get('extraServiceId');
         $extraServices = [];
@@ -355,8 +357,10 @@ trait Layout
                 $extraServices[] = $extraService;
             }
         }
+        //isTest = true to show booking in the past
+        $isTest = false;
 
-        $timetable = $employee->getTimetable($service, $date, $serviceTime, $extraServices, $showEndTime);
+        $timetable = $employee->getTimetable($service, $date, $serviceTime, $extraServices, $showEndTime, $isTest, $discount);
         // Sort timetable ascendingly
         ksort($timetable, SORT_STRING);
 
