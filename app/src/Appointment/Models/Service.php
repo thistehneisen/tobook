@@ -186,7 +186,10 @@ class Service extends \App\Core\Models\Base
 
     public function getDiscountPrice($date, $time)
     {
-        $startTime = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s:00', $date->toDateString(), $time));
+        $startTime = ($time instanceof Carbon)
+            ? $time
+            : Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s:00', $date->toDateString(), $time));
+
         $weekdays  = [
             Carbon::MONDAY    => 'mon',
             Carbon::TUESDAY   => 'tue',

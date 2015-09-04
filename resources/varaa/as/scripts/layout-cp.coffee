@@ -525,7 +525,7 @@ app.VaraaCPLayout = (dom, hash) ->
           booking_date: ds.date
           start_time: ds.time
       .then (data) ->
-        ['uuid', 'price', 'cart_id', 'booking_service_id'].map (field) ->
+        ['uuid', 'cart_id', 'booking_service_id'].map (field) ->
           ds[field] = data[field]
           return
         return ds

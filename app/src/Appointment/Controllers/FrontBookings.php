@@ -39,6 +39,7 @@ class FrontBookings extends Bookings
         $employeeId      = (int) Input::get('employee_id');
         $modifyTime      = (int) Input::get('modify_times', 0);
         $inhouse         = (boolean) Input::get('inhouse', false);
+        $source          = Input::get('source', '');
         $serviceTimeId   = Input::get('service_time', 'default');
         $extraServiceIds = Input::get('extra_services', []);
         $hash            = Input::get('hash');
