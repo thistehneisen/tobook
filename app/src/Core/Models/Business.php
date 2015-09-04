@@ -63,6 +63,7 @@ class Business extends Base
 
     protected $appends = [
         'full_address',
+        'hash',
     ];
 
     /**
@@ -624,6 +625,11 @@ class Business extends Base
     public function getSlugAttribute($value)
     {
         return Str::slug($this->getAttribute('name'));
+    }
+
+    public function getHashAttribute()
+    {
+        return $this->user->hash;
     }
 
     /**

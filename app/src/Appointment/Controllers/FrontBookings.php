@@ -99,7 +99,9 @@ class FrontBookings extends Bookings
         $validation = $this->getConfirmationValidator();
         if ($validation->fails()) {
             $data['success'] = false;
-            $data['message'] = Util::getHtmlListMessageBagError($validation->messages());
+            $data['message'] = Input::has('json_messages') === false
+                ? Util::getHtmlListMessageBagError($validation->messages())
+                : $validation->messages();
 
             return Response::json($data, 500);
         }
@@ -148,8 +150,13 @@ class FrontBookings extends Bookings
                 }
             }
 
+            // Return Booking ID in JSON response
+            if (!empty($booking)) {
+                $data['booking_id'] = $booking->id;
+            }
+
             // Complete the cart and send out confirmation message if source is not 'inhouse'
-            if (($source !== 'inhouse') && !empty($booking)) {
+            if (($source !== 'inhouse' && $source !== 'cp') && !empty($booking)) {
                 $cart->complete();
                 //Send notification email and SMSs
                 try {

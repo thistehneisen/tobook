@@ -57,6 +57,7 @@ return [
             'description' => 'Beskrivning',
             'price'       => 'Pris',
             'length'      => 'Längd (tid)',
+            'is_hidden'   => 'Hidden from frontend',
             'msg_extra'   => 'Vill du reservera?',
         ],
         'all'          => 'Alla tjänster',
