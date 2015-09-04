@@ -362,7 +362,7 @@ return [
             'confirm_tokens_employee'                        => 'Viestin sisältö',
             'terms_enabled'                                  => 'Ehdot käytössä',
             'default_nat_service'                            => 'Default next available service',
-            'show_quick_workshift_selection'                 => 'Show on calendar workshift selection',
+            'show_quick_workshift_selection'                 => 'Työvuorojen pikavalitsin kalenterinäkymässä',
             'min_distance'                                   => 'Varauksien varoaika (/vrk)',
             'max_distance'                                   => 'Maksimietäisyys varauksille (/vrk)',
             'auto_select_employee'                           => 'Työntekijän automaattivalitsin',
