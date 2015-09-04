@@ -1,20 +1,32 @@
-class other 
+class other
 {
-    package 
-    { 
+    package
+    {
         "curl":
             ensure  => present,
             require => Exec['apt-get update']
     }
-    package 
-    { 
+    package
+    {
         "vim":
             ensure  => present,
             require => Exec['apt-get update']
     }
-    package 
-    { 
+    package
+    {
         "sqlite":
+            ensure  => present,
+            require => Exec['apt-get update']
+    }
+    package
+    {
+        "nodejs":
+            ensure  => present,
+            require => Exec['apt-get update']
+    }
+    package
+    {
+        "npm":
             ensure  => present,
             require => Exec['apt-get update']
     }
