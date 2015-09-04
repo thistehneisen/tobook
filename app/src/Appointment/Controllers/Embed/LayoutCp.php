@@ -68,7 +68,22 @@ class LayoutCp extends Base
             }
         }
 
-        //Withdrawal time feature
+        // Get timetable data
+        $timetable = [];
+        while (empty($timetable)) {
+            if ($employeeId > 0) {
+                $employee = Employee::findOrFail($employeeId);
+                $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime);
+            } else {
+                $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime);
+            }
+
+            if (empty($timetable)) {
+                // Move to the next day until we find bookable slots
+                $date->addDay();
+            }
+        }
+
         list($start, $final, $maxWeeks) = $this->getMinMaxDistanceDay($hash);
 
         if ($date->lt($start)) {
@@ -78,7 +93,9 @@ class LayoutCp extends Base
         $startDate = $date->copy()->startOfWeek();
         $endDate = $startDate->copy()->endOfWeek();
         $nextWeek = $endDate->copy()->addDay();
-        $prevWeek = $startDate->copy()->subDay();
+        // Start of the week so that the date won't fall into Sunday which is
+        // usually unbookable
+        $prevWeek = $startDate->copy()->subDay()->startOfWeek();
 
         $dates = [];
         $i = $startDate->copy();
@@ -89,15 +106,6 @@ class LayoutCp extends Base
                 'niceDate' => $i->format('j'),
             ];
             $i->addDay();
-        }
-
-        // Get timetable data
-        $timetable = [];
-        if ($employeeId > 0) {
-            $employee = Employee::findOrFail($employeeId);
-            $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime);
-        } else {
-            $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime);
         }
 
         $calendar = [];
