@@ -1,16 +1,29 @@
 <?php namespace App\Appointment\Controllers\Embed;
-use App, Input, Config, Redirect, Route, View, Validator, Request, Response, DB;
-use Hashids, Session, URL, Cart;
-use Carbon\Carbon;
-use App\Appointment\Models\Service;
-use App\Appointment\Models\ServiceTime;
-use App\Appointment\Models\ServiceCategory;
-use App\Appointment\Models\ExtraService;
-use App\Appointment\Models\Employee;
+
+use App;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\Employee;
+use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\NAT\CalendarKeeper;
+use App\Appointment\Models\Service;
+use App\Appointment\Models\ServiceCategory;
+use App\Appointment\Models\ServiceTime;
 use App\Consumers\Models\Consumer;
 use App\Core\Models\User;
-use App\Appointment\Models\NAT\CalendarKeeper;
+use Carbon\Carbon;
+use Cart;
+use Config;
+use DB;
+use Hashids;
+use Input;
+use Redirect;
+use Request;
+use Response;
+use Route;
+use Session;
+use URL;
+use Validator;
+use View;
 
 trait Layout
 {
@@ -24,7 +37,7 @@ trait Layout
     public function handleIndex($hash, $user = null, $layout = null)
     {
         $user = empty($user)
-            ?   $this->getUser($hash)
+            ? $this->getUser($hash)
             : $user;
 
         $serviceId           = Input::get('service_id');
@@ -78,7 +91,6 @@ trait Layout
             if (!empty($service)) {
                 $employees = $service->employees()->where('is_active', true)->get();
             }
-
         }
         $extraServices = [];
         if (!empty($extraServiceIds)) {
@@ -96,7 +108,8 @@ trait Layout
             ->orderBy('order')
             ->with(['services' => function ($query) {
                 return $query->where('is_active', true)->with('serviceTimes');
-            }])->where('is_show_front', true)
+            }])
+            ->where('is_show_front', true)
             ->get();
 
         $layout = empty($layout)
@@ -178,7 +191,7 @@ trait Layout
         $fields = [
             'first_name' => Input::get('first_name'),
             'last_name'  => Input::get('last_name'),
-            'phone'      => str_replace(' ','', Input::get('phone')),
+            'phone'      => str_replace(' ', '', Input::get('phone')),
         ];
 
         $validators = [
@@ -193,7 +206,7 @@ trait Layout
         foreach ($extraFields as $field) {
             if ((int) $user->asOptions[$field] == 3) {
                 $fields[$field]     = Input::get($field);
-                $fields['country']  = str_replace(trans('common.select'), '',Input::get('country'));
+                $fields['country']  = str_replace(trans('common.select'), '', Input::get('country'));
                 $validators[$field] = ($field !== 'email') ? ['required'] : ['required', 'email'];
             }
         }
@@ -294,9 +307,10 @@ trait Layout
      *
      * @return array
      */
-    protected function getTimetableOfAnyone(Service $service, Carbon $date, $serviceTime = null, $showEndTime = false)
+    protected function getTimetableOfAnyone(Service $service, Carbon $date, $serviceTime = null, $showEndTime = false, $discount = false)
     {
         $timetable = [];
+
         // Get timetable of all employees
         $user = $this->getUser();
         $employees = $this->getEmployeesOfService($service);
@@ -306,7 +320,8 @@ trait Layout
                 $service,
                 $date,
                 $serviceTime,
-                $showEndTime
+                $showEndTime,
+                $discount
             );
 
             foreach ($data as $time => $_) {
@@ -332,7 +347,7 @@ trait Layout
      *
      * @return array
      */
-    public function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $serviceTime = null, $showEndTime = false)
+    public function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $serviceTime = null, $showEndTime = false, $discount = false)
     {
         $extraServiceIds = Input::get('extraServiceId');
         $extraServices = [];
@@ -342,12 +357,19 @@ trait Layout
                 $extraServices[] = $extraService;
             }
         }
+        //isTest = true to show booking in the past
+        $isTest = false;
 
-        $timetable = $employee->getTimetable($service, $date, $serviceTime, $extraServices, $showEndTime);
+        $timetable = $employee->getTimetable($service, $date, $serviceTime, $extraServices, $showEndTime, $isTest, $discount);
         // Sort timetable ascendingly
         ksort($timetable, SORT_STRING);
 
         return $timetable;
+    }
+
+    public function getDiscountPrice($date, $time, $service)
+    {
+        return $service->getDiscountPrice($date, $time);
     }
 
     public function getMinMaxDistanceDay($hash)

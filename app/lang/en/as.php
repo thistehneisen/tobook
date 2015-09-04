@@ -299,7 +299,23 @@ return [
             'payment_note'    => 'After a booking is placed, you will be redirected to payment.',
             'confirm_service' => 'Confirm booking service',
             'heading_line'    => 'Book a time',
-        ]
+        ],
+        'cp' => [
+            'heading' => 'Book your service online',
+            'select' => 'Select',
+            'sg_service' => 'service',
+            'pl_service' => 'services',
+            'employee' => 'Employee',
+            'time' => 'Time',
+            'salon' => 'Salon',
+            'price' => 'Price',
+            'service' => 'Service',
+            'details' => 'Booking details',
+            'go_back' => 'Go back',
+            'how_to_pay' => 'How do you want to pay for your booking?',
+            'almost_done' => 'Your booking is almost done',
+            'first_employee' => 'The first employee available',
+        ],
     ],
      'options' => [
         'heading'                    => 'Options',
@@ -403,6 +419,9 @@ return [
             'last-minute-1' => 'Is Enabled',
             'last-minute-2' => 'Discount',
             'last-minute-3' => 'Before',
+            'error' => [
+                'evening_starts_before_afternoon' => 'Afternoon must starts before evening starts'
+            ],
         ]
     ],
     'reports' => [

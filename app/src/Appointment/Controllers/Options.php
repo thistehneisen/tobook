@@ -220,7 +220,11 @@ class Options extends AsBase
         $data         = Input::all();
         $data['user'] = $this->user;
 
-        $obj->upsert($data);
+        try {
+            $obj->upsert($data);
+        } catch(\Exception $ex){
+            return Redirect::back()->withErrors($ex->getMessage());
+        }
 
         return Redirect::back();
     }

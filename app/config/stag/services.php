@@ -6,4 +6,8 @@ return [
         'verification' => '8c5d0adaf7804a593e6dd31b4ce48dc1',
         'test'         => 1,
     ],
+    'checkout' => [
+        'id' => '375917',
+        'secret' => 'SAIPPUAKAUPPIAS'
+    ],
 ];
