@@ -85,30 +85,32 @@ app.VaraaCPLayout = (dom, hash) ->
       ])
 
     m('.panel-group[id=js-cbf-categories][role=tablist]', [
-      ctrl.categories.map((category, index) ->
-        m('.panel.panel-default.panel-category', [
-          m('.panel-heading[role=tab]', [
-            m('h4.panel-title', [
-              m('a[data-parent=#js-cbf-categories][data-toggle=collapse][role=button]', {
-                  href: "#js-cbf-category-#{category.id}"
-                }, [
-                m('span.category-name', category.name),
-                m('span.pull-right', ctrl.showServiceCounter(category.services.length))
-              ]),
-              m('.clearfix')
-            ])
-          ]),
-          m('.panel-collapse.collapse[role=tabpanel]', {
-              id: "js-cbf-category-#{category.id}"
-            }, [
-            m('.panel-body', [
-              m('.panel-group-service', category.services.map((service) ->
-                v = if service.service_times? and service.service_times.length then serviceWithCustomTimes else normalService
-                return v(service)
-              ))
+      ctrl.categories
+        .filter((category) -> category.services.length > 0)
+        .map((category, index) ->
+          m('.panel.panel-default.panel-category', [
+            m('.panel-heading[role=tab]', [
+              m('h4.panel-title', [
+                m('a[data-parent=#js-cbf-categories][data-toggle=collapse][role=button]', {
+                    href: "#js-cbf-category-#{category.id}"
+                  }, [
+                  m('span.category-name', category.name),
+                  m('span.pull-right', ctrl.showServiceCounter(category.services.length))
+                ]),
+                m('.clearfix')
+              ])
+            ]),
+            m('.panel-collapse.collapse[role=tabpanel]', {
+                id: "js-cbf-category-#{category.id}"
+              }, [
+              m('.panel-body', [
+                m('.panel-group-service', category.services.map((service) ->
+                  v = if service.service_times? and service.service_times.length then serviceWithCustomTimes else normalService
+                  return v(service)
+                ))
+              ])
             ])
           ])
-        ])
       )
     ])
 
