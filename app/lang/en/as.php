@@ -402,6 +402,9 @@ return [
             'last-minute-1' => 'Is Enabled',
             'last-minute-2' => 'Discount',
             'last-minute-3' => 'Before',
+            'error' => [
+                'evening_starts_before_afternoon' => 'Afternoon must starts before evening starts'
+            ],
         ]
     ],
     'reports' => [

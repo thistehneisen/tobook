@@ -71,7 +71,12 @@ class Discount extends \Eloquent
     {
         $user = $data['user'];
 
-        //Need to validate data
+        //Afternoon must starts before evening starts
+        if ($data['evening_starts_at'] < $data['afternoon_starts_at']) {
+
+            throw new \Exception(trans('as.options.discount.error.evening_starts_before_afternoon'));
+        }
+
         $eveningStart   = sprintf('%02d:00:00', $data['evening_starts_at']);
         $eveningEnd     = '23:59:00';
         $afternoonStart = sprintf('%02d:00:00', $data['afternoon_starts_at']);
