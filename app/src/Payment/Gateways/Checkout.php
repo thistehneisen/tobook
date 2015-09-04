@@ -114,7 +114,11 @@ class Checkout extends AbstractGateway
 
                             Log::info('Payment from Checkout succeeded');
 
-                            return Redirect::route('payment.success', ['id', $transaction->cart->id]);
+                            return Redirect::route('payment.success', [
+                                'id' => $transaction->cart->id,
+                                'transaction_id' => $transaction->id,
+                                'paygate' => 'Checkout'
+                            ]);
                         }
                     case '7':
                     case '3':
