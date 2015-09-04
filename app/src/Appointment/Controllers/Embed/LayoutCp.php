@@ -109,6 +109,7 @@ class LayoutCp extends Base
             $calendar[] = [
                 'time' => $time,
                 'date' => $dateStr,
+                'discountPrice' => $this->getDiscountPrice($date, $time, $service),
                 'employee' => [
                     'id' => $employee->id,
                     'name' => $employee->name,

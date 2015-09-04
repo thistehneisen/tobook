@@ -367,6 +367,11 @@ trait Layout
         return $timetable;
     }
 
+    public function getDiscountPrice($date, $time, $service)
+    {
+        return $service->getDiscountPrice($date, $time);
+    }
+
     public function getMinMaxDistanceDay($hash)
     {
         $today = Carbon::today();

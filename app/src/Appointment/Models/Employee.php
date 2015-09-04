@@ -8,8 +8,6 @@ use App\Appointment\Models\Slot\Strategy;
 use App\Appointment\Models\Slot\Context;
 use App\Appointment\Models\Slot\Backend;
 use App\Appointment\Models\Slot\Next;
-use App\Appointment\Models\Discount;
-use App\Appointment\Models\DiscountLastMinute;
 
 class Employee extends \App\Appointment\Models\Base
 {
@@ -579,10 +577,6 @@ class Employee extends \App\Appointment\Models\Base
 
                     $formatted = sprintf('%02d:%02d', $startTime->hour, $startTime->minute);
 
-                    if ($discount) {
-                        $formatted = $this->showDiscountPrice($startTime, $service);
-                    }
-
                     if ($showEndTime) {
                         $formatted .= sprintf(' - %02d:%02d', $endTime->hour, $endTime->minute);
                     }
@@ -593,44 +587,6 @@ class Employee extends \App\Appointment\Models\Base
         }
 
         return $timetable;
-    }
-
-    public function showDiscountPrice($startTime, $service)
-    {
-        $weekdays  = [
-            Carbon::MONDAY    => 'mon',
-            Carbon::TUESDAY   => 'tue',
-            Carbon::WEDNESDAY => 'wed',
-            Carbon::THURSDAY  => 'thu',
-            Carbon::FRIDAY    => 'fri',
-            Carbon::SATURDAY  => 'sat',
-            Carbon::SUNDAY    => 'sun'
-        ];
-        $weekday   = $weekdays[$startTime->dayOfWeek];
-
-        $now       = Carbon::now();
-        $formatted = sprintf('%02d:%02d:00', $startTime->hour, $startTime->minute);
-        $discount = Discount::where('user_id', '=', $this->user->id)
-            ->where(function($query) use($weekday, $formatted) {
-                $query->where('start_at', '<=', $formatted)
-                ->where('end_at', '>=', $formatted);
-            })->where('weekday', '=', $weekday)->first();
-
-        $discountLastMinute = DiscountLastMinute::find($this->user->id);
-        $price = $service->price;
-
-        if (!empty($discount)) {
-            $price = $service->price * (1 - ($discount->discount / 100));
-        }
-
-        if (!empty($discountLastMinute)) {
-            if($discountLastMinute->is_active
-                && $now->diffInHours($startTime) >= $discountLastMinute->before) {
-                $price = $service->price * (1 - ($discountLastMinute->discount / 100));
-            }
-        }
-
-        return sprintf('%s – %s', $formatted, $price);
     }
 
     //--------------------------------------------------------------------------

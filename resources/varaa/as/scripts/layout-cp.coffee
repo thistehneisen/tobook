@@ -177,6 +177,7 @@ app.VaraaCPLayout = (dom, hash) ->
       @layout.selectEmployee opts.employee
       @layout.selectDate opts.date
       @layout.selectTime opts.time
+      @layout.selectPrice opts.discountPrice
       return
 
     @selectEmployee = (employee, index, e) ->
@@ -227,6 +228,8 @@ app.VaraaCPLayout = (dom, hash) ->
             m('ul.time-options', ctrl.calendar().calendar.map((opt) ->
               m('li', {onclick: ctrl.selectTime.bind(ctrl, opt)}, [
                 m.trust("#{opt.time} &ndash; #{ctrl.layout.dataStore().service.price}&euro;"),
+                m.trust(" &ndash; #{opt.discountPrice}&euro; "),
+                m('i.fa.fa-tag'),
                 m('button.btn.btn-success', __('select'))
               ])
             ))
@@ -363,7 +366,7 @@ app.VaraaCPLayout = (dom, hash) ->
         .then null, errorHandler
 
     # Kickstart
-    @fetchPaymentOptions @layout.dataStore().service.price
+    @fetchPaymentOptions @layout.dataStore().price
     return
 
   Payment.view = (ctrl) ->
@@ -404,7 +407,7 @@ app.VaraaCPLayout = (dom, hash) ->
           m('.col-sm-3', [m('p', m('strong', __('service'))), dataStore.service.name]),
           m('.col-sm-2', [m('p', m('strong', __('employee'))), dataStore.employee.name]),
           m('.col-sm-3', [m('p', m('strong', __('time'))), "#{dataStore.date} #{dataStore.time}"]),
-          m('.col-sm-2', [m('p', m('strong', __('price'))), m.trust("#{dataStore.service.price}&euro;")])
+          m('.col-sm-2', [m('p', m('strong', __('price'))), m.trust("#{dataStore.price}&euro;")])
         ])
       ]),
       m('.payment-section', [
@@ -484,6 +487,13 @@ app.VaraaCPLayout = (dom, hash) ->
 
     @selectDate = (date) ->
       @dataStore().date = date
+      return
+
+    @selectPrice = (discountPrice) ->
+      if discountPrice
+        @dataStore().price = discountPrice
+      else
+        @dataStore().price = @dataStore().service.price
       return
 
     @selectTime = (time) ->
