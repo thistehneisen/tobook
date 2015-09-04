@@ -156,6 +156,8 @@ class LayoutCp extends Base
         $secret = Config::get('services.checkout.secret');
 
         $transaction = $this->getTransaction();
+        $transaction->paygate = \Payment::CHECKOUT;
+        $transaction->save();
 
         $payment = new Payment($id, $secret);
         $payment->setReturnUrl(route('payment.notify', ['gateway' => 'checkout']));
@@ -168,7 +170,7 @@ class LayoutCp extends Base
             'message'      => '',
             'country'      => 'FIN',
             'language'     => strtoupper(App::getLocale()),
-            'reference'    => $transaction->id, // TODO: Fill real data
+            'reference'    => $transaction->id,
             'deliveryDate' => Carbon::today(),
         ]);
 
