@@ -77,4 +77,5 @@ rev.json
 bower_components/
 
 # Built assets
-public/assets
+wwwroot/*
+.vagrant/*
