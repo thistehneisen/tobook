@@ -65,13 +65,13 @@
                     </td>
                 </tr>
             </table>
-            <div class="footer">
-                <table width="100%">
-                    <tr>
-                        <td class="aligncenter content-block">@lang('as.embed.receipt.questions') <a href="mailto:yritys@varaa.com">yritys@varaa.com</a></a></td>
-                    </tr>
-                </table>
-            </div></div>
+
+            <table width="100%">
+                <tr>
+                    <td class="aligncenter content-block">@lang('as.embed.receipt.questions') <a href="mailto:yritys@varaa.com">yritys@varaa.com</a></a></td>
+                </tr>
+            </table>
+        </div>
     </td>
     <td></td>
 </tr>
