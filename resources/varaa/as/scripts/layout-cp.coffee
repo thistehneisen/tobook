@@ -15,9 +15,9 @@ app.VaraaCPLayout = (dom, hash) ->
       e.preventDefault()
       args.layout.selectService service
 
-    @selectServiceTime = (serviceTime, e) ->
+    @selectServiceTime = (serviceTime, service, e) ->
       e.preventDefault()
-      args.layout.selectServiceTime serviceTime
+      args.layout.selectServiceTime serviceTime, service
 
     @showServiceCounter = (value) ->
       value = parseInt value, 10
@@ -31,87 +31,86 @@ app.VaraaCPLayout = (dom, hash) ->
     normalService = (service) ->
       m('.single-service', {onclick: ctrl.selectService.bind(ctrl, service)},[
         m('.row', [
-          m('.col-md-10', [
+          m('.col-xs-10', [
             m('h4.panel-title', service.name),
             m('.service-description', service.description),
             m('p', "#{service.during}min")
           ]),
-          m('.col-md-2', [
-            m('button.btn.btn-orange.pull-right', __('select'))
+          m('.col-xs-2', [
+            m('button.btn.btn-orange.btn-square.pull-right', __('select'))
           ])
         ])
       ])
 
     serviceWithCustomTimes = (service) ->
-      m('.panel-group[id=js-cp-booking-form-categories-1][role=tablist]', {
+      m('.panel-group.panel-custom-times[id=js-cp-booking-form-categories-1][role=tablist]', {
           id: "js-cbf-service-#{service.id}"
         }, [
         m('.panel.panel-default', [
           m('.panel-heading[role=tab]', [
-            m('h4.panel-title', [
-              m('a[data-toggle=collapse][role=button]', {
-                'data-parent': "#js-cbf-service-#{service.id}",
-                href: "#js-cbf-service-#{service.id}-custom-times"
-              }, service.name)
+            m('.row', [
+              m('.col-xs-10', m('h4.panel-title',
+                m('a[data-toggle=collapse][role=button]', {
+                  'data-parent': "#js-cbf-service-#{service.id}",
+                  href: "#js-cbf-service-#{service.id}-custom-times"
+                }, service.name)
+              )),
+              m('.col-xs-2', m('a.btn.btn-orange.btn-square.pull-right[data-toggle=collapse]', {
+                  'data-parent': "#js-cbf-service-#{service.id}",
+                  href: "#js-cbf-service-#{service.id}-custom-times"
+                }, __('select')))
             ])
           ]),
           m('.panel-collapse.collapse[id=js-service-1][role=tabpanel]', {
               id: "js-cbf-service-#{service.id}-custom-times"
             }, [
             m('.panel-body', [
-                m('.service', {onclick: ctrl.selectService.bind(ctrl, service)}, [
-                  m('.row', [
-                    m('.col-md-10', [
-                      m('.service-description', service.description),
-                      m('p', "#{service.length}min")
-                    ]),
-                    m('.col-md-2', [
-                      m('button.btn.btn-orange.pull-right', __('select'))
-                    ])
-                  ])
+              m('.text-center', [
+                m('.custom-time-service', {onclick: ctrl.selectService.bind(ctrl, service)}, [
+                  if service.name? then m('p', service.name) else m.trust('&nbsp;'),
+                  m('.service-description', service.description),
+                  m('p', "#{service.length}min")
                 ]),
-              service.service_times.map((item) ->
-                m('.service', {onclick: ctrl.selectServiceTime.bind(ctrl, item)}, [
-                  m('.row', [
-                    m('.col-md-10', [
-                      m('.service-description', item.description),
-                      m('p', "#{item.length}min")
-                    ]),
-                    m('.col-md-2', [
-                      m('button.btn.btn-orange.pull-right', __('select'))
-                    ])
+                service.service_times.map((item) ->
+                  m('.custom-time-service', {onclick: ctrl.selectServiceTime.bind(ctrl, item, service)}, [
+                    if service.name? then m('p', service.name) else m.trust('&nbsp;'),
+                    m('.service-description', item.description),
+                    m('p', "#{item.length}min")
                   ])
-                ])
-              )
+                )
+              ])
             ])
           ])
         ])
       ])
 
     m('.panel-group[id=js-cbf-categories][role=tablist]', [
-      ctrl.categories.map((category, index) ->
-        m('.panel.panel-default', [
-          m('.panel-heading[role=tab]', [
-            m('h4.panel-title', [
-              m('a[data-parent=#js-cbf-categories][data-toggle=collapse][role=button]', {
-                  href: "#js-cbf-category-#{category.id}"
-                }, [
-                category.name,
-                m('span.pull-right', ctrl.showServiceCounter(category.services.length))
+      ctrl.categories
+        .filter((category) -> category.services.length > 0)
+        .map((category, index) ->
+          m('.panel.panel-default.panel-category', [
+            m('.panel-heading[role=tab]', [
+              m('h4.panel-title', [
+                m('a[data-parent=#js-cbf-categories][data-toggle=collapse][role=button]', {
+                    href: "#js-cbf-category-#{category.id}"
+                  }, [
+                  m('span.category-name', category.name),
+                  m('span.pull-right', ctrl.showServiceCounter(category.services.length))
+                ]),
+                m('.clearfix')
+              ])
+            ]),
+            m('.panel-collapse.collapse[role=tabpanel]', {
+                id: "js-cbf-category-#{category.id}"
+              }, [
+              m('.panel-body', [
+                m('.panel-group-service', category.services.map((service) ->
+                  v = if service.service_times? and service.service_times.length then serviceWithCustomTimes else normalService
+                  return v(service)
+                ))
               ])
             ])
-          ]),
-          m('.panel-collapse.collapse[role=tabpanel]', {
-              id: "js-cbf-category-#{category.id}"
-            }, [
-            m('.panel-body', [
-              m('.panel-group-service', category.services.map((service) ->
-                v = if service.service_times? and service.service_times.length then serviceWithCustomTimes else normalService
-                return v(service)
-              ))
-            ])
           ])
-        ])
       )
     ])
 
@@ -144,13 +143,15 @@ app.VaraaCPLayout = (dom, hash) ->
     @selectedDate = m.prop @layout.dataStore().date
     @fetchCalendar = ->
       @showLoading true
+      ds = @layout.dataStore()
       return m.request
         method: 'GET'
         background: true
         url: app.routes['business.booking.timetable']
         data:
-          serviceId: @layout.dataStore().service.id
-          hash: @layout.dataStore().hash
+          serviceTimeId: if ds.serviceTime? then ds.serviceTime.id else null
+          serviceId: if ds.service? then ds.service.id else null
+          hash: ds.hash
           employeeId: @getSelectedEmployee().id
           date: @selectedDate()
       .then @calendar
@@ -177,7 +178,7 @@ app.VaraaCPLayout = (dom, hash) ->
       @layout.selectEmployee opts.employee
       @layout.selectDate opts.date
       @layout.selectTime opts.time
-      @layout.selectPrice opts.discountPrice
+      @layout.selectPrice opts.price opts.discountPrice
       return
 
     @selectEmployee = (employee, index, e) ->
@@ -224,12 +225,12 @@ app.VaraaCPLayout = (dom, hash) ->
       slots = loading
     else
       slots = m('.row', [
-          m('.col-sm-offset-1.col-sm-10', [
+          m('.col-sm-12', [
             m('ul.time-options', ctrl.calendar().calendar.map((opt) ->
-              if parseInt(opt.discountPrice, 10) <  parseInt(ctrl.layout.dataStore().service.price, 10)
+              if parseInt(opt.discountPrice, 10) <  parseInt(opt.price, 10)
                 data = [
                   m.trust("#{opt.time} &ndash; "),
-                  m('span.non-discount.price', [ctrl.layout.dataStore().service.price]),
+                  m('span.non-discount.price', [opt.price]),
                   m.trust(" &ndash; ")
                   m('span.discount.price', [opt.discountPrice]),
                   m('i.fa.fa-tag.discount'),
@@ -246,13 +247,13 @@ app.VaraaCPLayout = (dom, hash) ->
         ])
 
     m('div', [
-      m('.panel-group[id=js-booking-form-employee][role=tablist]', [
+      m('.panel-group.panel-group-employees[id=js-booking-form-employee][role=tablist]', [
         m('.panel.panel-default', [
           m('.panel-heading[role=tab]', [
             m('h4.panel-title', [
               m('a[data-parent=#js-booking-form-employee][data-toggle=collapse][href=#js-booking-form-employees][role=button]', [
                 m('img.img-circle.employee-avatar', {src: ctrl.getSelectedEmployee().avatar}),
-                ctrl.getSelectedEmployee().name
+                m('span.employee-name', ctrl.getSelectedEmployee().name)
               ])
             ])
           ]),
@@ -273,18 +274,14 @@ app.VaraaCPLayout = (dom, hash) ->
         ])
       ]),
       m('.date-selector', [
-        m('.row', [
-          m('.col-sm-1', m('a[href=#].date-selector-link', {onclick: ctrl.selectDate.bind(ctrl, ctrl.calendar().prevWeek)}, m('i.fa.fa-chevron-left'))),
-          m('.col-sm-10', [
-            m('ul.date-selector-dates', ctrl.calendar().dates.map((item) ->
-              m('li', {
-                class: ctrl.getCssClass(item.date),
-                onclick: ctrl.selectDate.bind(ctrl, item.date)
-              }, [m('span', item.dayOfWeek), m('em', item.niceDate)])
-            ))
-          ]),
-          m('.col-sm-1', m('a[href=#].date-selector-link', {onclick: ctrl.selectDate.bind(ctrl, ctrl.calendar().nextWeek)}, m('i.fa.fa-chevron-right')))
-        ])
+        m('a[href=#].date-selector-link', {onclick: ctrl.selectDate.bind(ctrl, ctrl.calendar().prevWeek)}, m('i.fa.fa-chevron-left')),
+        m('ul.date-selector-dates', ctrl.calendar().dates.map((item) ->
+          m('li', {
+            class: ctrl.getCssClass(item.date),
+            onclick: ctrl.selectDate.bind(ctrl, item.date)
+          }, [m('em', item.niceDate), m('span', item.dayOfWeek)])
+        )),
+        m('a[href=#].date-selector-link', {onclick: ctrl.selectDate.bind(ctrl, ctrl.calendar().nextWeek)}, m('i.fa.fa-chevron-right'))
       ]),
       slots
     ])
@@ -381,14 +378,15 @@ app.VaraaCPLayout = (dom, hash) ->
   Payment.view = (ctrl) ->
     dataStore = ctrl.layout.dataStore()
     paymentOptionView = if ctrl.paymentOptions().length > 0
-      m('ul.row.list-inline.payment-option-list', [
+      m('ul.list-inline.payment-option-list', [
         ctrl.paymentOptions().map((option) ->
-          return m('li.col-sm-4', m('.payment-option', {
+          return m('li.payment-option', {
             onclick: ctrl.placeBooking.bind(ctrl, option.key)
           }, [
             m('img', {src: option.logo}),
-            m('p', option.title)
-          ]))
+            m('br'),
+            option.title
+          ])
         )
       ])
     else
@@ -401,9 +399,9 @@ app.VaraaCPLayout = (dom, hash) ->
           ['first_name', 'last_name', 'email', 'phone'].map (field) ->
             return m('.form-group.col-sm-3', {class: ctrl.getValidationErrorCss.call(ctrl, field)}, [
               m('label', __(field)+'*'),
-              m('input.form-control[type=text]', {
+              m('input.form-control.btn-square[type=text]', {
                 value: dataStore.customer[field] or '',
-                onblur: ctrl.setCustomerInfo.bind(ctrl, field)
+                onkeyup: ctrl.setCustomerInfo.bind(ctrl, field)
               }),
               m('p.help-block', ctrl.getValidationError.call(ctrl, field))
             ])
@@ -485,8 +483,9 @@ app.VaraaCPLayout = (dom, hash) ->
       @moveNext()
       return
 
-    @selectServiceTime = (serviceTime) ->
+    @selectServiceTime = (serviceTime, service) ->
       @dataStore().serviceTime = serviceTime
+      @dataStore().service = service
       @moveNext()
       return
 
@@ -498,11 +497,12 @@ app.VaraaCPLayout = (dom, hash) ->
       @dataStore().date = date
       return
 
-    @selectPrice = (discountPrice) ->
+    @selectPrice = (originalPrice, discountPrice) ->
       if discountPrice
         @dataStore().price = discountPrice
       else
         @dataStore().price = @dataStore().service.price
+      @dataStore().originalPrice = originalPrice;
       return
 
     @selectTime = (time) ->
@@ -565,7 +565,7 @@ app.VaraaCPLayout = (dom, hash) ->
       m('.navigation', {
           class: if ctrl.activePanel() is 0 then 'hidden' else ''
         }, [
-        m('a.btn.btn-orange[href=#]', {
+        m('a.btn.btn-orange.btn-square[href=#]', {
           onclick: ctrl.showPreviousPanel.bind(ctrl),
           class: if ctrl.shouldHideBackButton() then 'hidden' else ''
         }, __('go_back'))

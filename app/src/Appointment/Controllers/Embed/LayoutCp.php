@@ -68,7 +68,26 @@ class LayoutCp extends Base
             }
         }
 
-        //Withdrawal time feature
+        $selectedService = (empty($serviceTime)) ? $service : $serviceTime;
+
+        // Get timetable data
+        $timetable   = [];
+        $showEndTime = false;
+        $discount    = true;
+        while (empty($timetable)) {
+            if ($employeeId > 0) {
+                $employee = Employee::findOrFail($employeeId);
+                $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime, $showEndTime, $discount);
+            } else {
+                $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime, $showEndTime, $discount);
+            }
+
+            if (empty($timetable)) {
+                // Move to the next day until we find bookable slots
+                $date->addDay();
+            }
+        }
+
         list($start, $final, $maxWeeks) = $this->getMinMaxDistanceDay($hash);
 
         // if ($date->lt($start)) {
@@ -78,7 +97,9 @@ class LayoutCp extends Base
         $startDate = $date->copy()->startOfWeek();
         $endDate = $startDate->copy()->endOfWeek();
         $nextWeek = $endDate->copy()->addDay();
-        $prevWeek = $startDate->copy()->subDay();
+        // Start of the week so that the date won't fall into Sunday which is
+        // usually unbookable
+        $prevWeek = $startDate->copy()->subDay()->startOfWeek();
 
         $dates = [];
         $i = $startDate->copy();
@@ -86,21 +107,9 @@ class LayoutCp extends Base
             $dates[] = [
                 'dayOfWeek' => trans('common.short.'.strtolower($i->format('D'))),
                 'date' => $i->toDateString(),
-                'niceDate' => $i->format('d.m'),
+                'niceDate' => $i->format('j'),
             ];
             $i->addDay();
-        }
-
-        $showEndTime = false;
-        $discount    = true;
-        // Get timetable data
-        $timetable = [];
-
-        if ($employeeId > 0) {
-            $employee = Employee::findOrFail($employeeId);
-            $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime, $showEndTime, $discount);
-        } else {
-            $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime, $showEndTime, $discount);
         }
 
         $calendar = [];
@@ -109,7 +118,8 @@ class LayoutCp extends Base
             $calendar[] = [
                 'time' => $time,
                 'date' => $dateStr,
-                'discountPrice' => $this->getDiscountPrice($date, $time, $service),
+                'discountPrice' => $this->getDiscountPrice($date, $time, $selectedService),
+                'price' => $selectedService->price,
                 'employee' => [
                     'id' => $employee->id,
                     'name' => $employee->name,
@@ -152,6 +162,8 @@ class LayoutCp extends Base
         $secret = Config::get('services.checkout.secret');
 
         $transaction = $this->getTransaction();
+        $transaction->paygate = \Payment::CHECKOUT;
+        $transaction->save();
 
         $payment = new Payment($id, $secret);
         $payment->setReturnUrl(route('payment.notify', ['gateway' => 'checkout']));
@@ -164,7 +176,7 @@ class LayoutCp extends Base
             'message'      => '',
             'country'      => 'FIN',
             'language'     => strtoupper(App::getLocale()),
-            'reference'    => $transaction->id, // TODO: Fill real data
+            'reference'    => $transaction->id,
             'deliveryDate' => Carbon::today(),
         ]);
 
