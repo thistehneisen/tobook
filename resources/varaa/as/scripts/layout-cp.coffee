@@ -226,12 +226,21 @@ app.VaraaCPLayout = (dom, hash) ->
       slots = m('.row', [
           m('.col-sm-offset-1.col-sm-10', [
             m('ul.time-options', ctrl.calendar().calendar.map((opt) ->
-              m('li', {onclick: ctrl.selectTime.bind(ctrl, opt)}, [
-                m.trust("#{opt.time} &ndash; #{ctrl.layout.dataStore().service.price}&euro;"),
-                m.trust(" &ndash; #{opt.discountPrice}&euro; "),
-                m('i.fa.fa-tag'),
-                m('button.btn.btn-success', __('select'))
-              ])
+              if parseInt(opt.discountPrice, 10) <  parseInt(ctrl.layout.dataStore().service.price, 10)
+                data = [
+                  m.trust("#{opt.time} &ndash; "),
+                  m('span.non-discount.price', [ctrl.layout.dataStore().service.price]),
+                  m.trust(" &ndash; ")
+                  m('span.discount.price', [opt.discountPrice]),
+                  m('i.fa.fa-tag.discount'),
+                  m('button.btn.btn-success', __('select'))
+                ]
+              else
+                data = [
+                  m.trust("#{opt.time} &ndash; #{ctrl.layout.dataStore().service.price}&euro;"),
+                  m('button.btn.btn-success', __('select'))
+                ]
+              m('li', {onclick: ctrl.selectTime.bind(ctrl, opt)}, data)
             ))
           ])
         ])
