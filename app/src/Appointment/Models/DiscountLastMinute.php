@@ -58,6 +58,10 @@ class DiscountLastMinute extends \Eloquent
             $me = new self();
         }
 
+        if (!isset($data['is_active'])) {
+            $data['is_active'] = false;
+        }
+
         $me->fill($data);
         $me->user()->associate($user);
         $me->save();
