@@ -227,6 +227,7 @@ app.VaraaCPLayout = (dom, hash) ->
       slots = m('.row', [
           m('.col-sm-12', [
             m('ul.time-options', ctrl.calendar().calendar.map((opt) ->
+              ds = ctrl.layout.dataStore()
               if parseInt(opt.discountPrice, 10) <  parseInt(opt.price, 10)
                 data = [
                   m.trust("#{opt.time} &ndash; "),
