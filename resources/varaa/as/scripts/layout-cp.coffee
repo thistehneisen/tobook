@@ -178,7 +178,7 @@ app.VaraaCPLayout = (dom, hash) ->
       @layout.selectEmployee opts.employee
       @layout.selectDate opts.date
       @layout.selectTime opts.time
-      @layout.selectPrice opts.discountPrice
+      @layout.selectPrice opts.price opts.discountPrice
       return
 
     @selectEmployee = (employee, index, e) ->
@@ -227,12 +227,11 @@ app.VaraaCPLayout = (dom, hash) ->
       slots = m('.row', [
           m('.col-sm-12', [
             m('ul.time-options', ctrl.calendar().calendar.map((opt) ->
-              ds = ctrl.layout.dataStore()
-              if parseInt(opt.discountPrice, 10) <  parseInt(ds.service.price, 10)
+              if parseInt(opt.discountPrice, 10) <  parseInt(opt.price, 10)
                 data = [
                   m.trust("#{opt.time} &ndash; "),
-                  m('span.non-discount.price', [ds.service.price]),
-                  m.trust(' &ndash; '),
+                  m('span.non-discount.price', [opt.price]),
+                  m.trust(" &ndash; ")
                   m('span.discount.price', [opt.discountPrice]),
                   m('i.fa.fa-tag.discount'),
                   m('button.btn.btn-square.btn-success', __('select'))
@@ -498,11 +497,12 @@ app.VaraaCPLayout = (dom, hash) ->
       @dataStore().date = date
       return
 
-    @selectPrice = (discountPrice) ->
+    @selectPrice = (originalPrice, discountPrice) ->
       if discountPrice
         @dataStore().price = discountPrice
       else
         @dataStore().price = @dataStore().service.price
+      @dataStore().originalPrice = originalPrice;
       return
 
     @selectTime = (time) ->

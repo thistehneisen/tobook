@@ -14,6 +14,10 @@ trait DiscountPrice {
      */
     public function getDiscountPrice($date, $time)
     {
+        if($this instanceof \App\Appointment\Models\ServiceTime) {
+            $this->user = $this->service->user;
+        }
+
         $startTime = ($time instanceof Carbon)
             ? $time
             : Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s:00', $date->toDateString(), $time));

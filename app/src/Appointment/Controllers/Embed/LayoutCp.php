@@ -68,14 +68,18 @@ class LayoutCp extends Base
             }
         }
 
+        $selectedService = (empty($serviceTime)) ? $service : $serviceTime;
+
         // Get timetable data
-        $timetable = [];
+        $timetable   = [];
+        $showEndTime = false;
+        $discount    = true;
         while (empty($timetable)) {
             if ($employeeId > 0) {
                 $employee = Employee::findOrFail($employeeId);
-                $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime);
+                $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime, $showEndTime, $discount);
             } else {
-                $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime);
+                $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime, $showEndTime, $discount);
             }
 
             if (empty($timetable)) {
@@ -108,24 +112,14 @@ class LayoutCp extends Base
             $i->addDay();
         }
 
-        $showEndTime = false;
-        $discount    = true;
-        // Get timetable data
-        $timetable = [];
-        if ($employeeId > 0) {
-            $employee = Employee::findOrFail($employeeId);
-            $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime);
-        } else {
-            $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime);
-        }
-
         $calendar = [];
         $dateStr = $date->toDateString();
         foreach ($timetable as $time => $employee) {
             $calendar[] = [
                 'time' => $time,
                 'date' => $dateStr,
-                'discountPrice' => $this->getDiscountPrice($date, $time, $service),
+                'discountPrice' => $this->getDiscountPrice($date, $time, $selectedService),
+                'price' => $selectedService->price,
                 'employee' => [
                     'id' => $employee->id,
                     'name' => $employee->name,
