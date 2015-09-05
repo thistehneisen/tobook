@@ -218,7 +218,7 @@ class Service extends \App\Core\Models\Base
 
         if (!empty($discountLastMinute)) {
             if($discountLastMinute->is_active
-                && $now->diffInHours($startTime) >= $discountLastMinute->before) {
+                && $now->diffInHours($startTime) <= $discountLastMinute->before) {
                 $price = (double)  $this->price * (1 - ((double) $discountLastMinute->discount / 100));
             }
         }

@@ -457,6 +457,15 @@ a {
             &.selected {
                 font-weight: 700;
             }
+            .non-discount {
+                text-decoration: line-through;
+            }
+            .discount {
+                color: #ff0000;
+            }
+            .price::after {
+                content: '\20AC';
+            }
         }
     }
 
