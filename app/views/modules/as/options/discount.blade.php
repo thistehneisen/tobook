@@ -30,19 +30,19 @@
                 <tr>
                     <td>{{ trans('common.morning') }}</td>
                     @foreach ($weekdays as $weekday)
-                    <td>{{ Form::select('discount['. $weekday .'][morning]', $discount, (!empty($me[$weekday]['morning']) ? $me[$weekday]['morning'] : 0), ['class'=> 'form-control']) }}</td>
+                    <td>{{ Form::select('discount['. $weekday .'][morning]', $discount, (isset($me[$weekday]['morning']) ? $me[$weekday]['morning'] : 0), ['class'=> 'form-control']) }}</td>
                     @endforeach
                 </tr>
                 <tr>
                     <td>{{ trans('common.afternoon') }}</td>
                     @foreach ($weekdays as $weekday)
-                    <td>{{ Form::select('discount['. $weekday .'][afternoon]', $discount, (!empty($me[$weekday]['morning']) ? $me[$weekday]['afternoon'] : 0), ['class'=> 'form-control']) }}</td>
+                    <td>{{ Form::select('discount['. $weekday .'][afternoon]', $discount, (isset($me[$weekday]['morning']) ? $me[$weekday]['afternoon'] : 0), ['class'=> 'form-control']) }}</td>
                     @endforeach
                 </tr>
                 <tr>
                     <td>{{ trans('common.evening') }}</td>
                     @foreach ($weekdays as $weekday)
-                    <td>{{ Form::select('discount['. $weekday .'][evening]', $discount, (!empty($me[$weekday]['morning']) ? $me[$weekday]['evening'] : 0), ['class'=> 'form-control']) }}</td>
+                    <td>{{ Form::select('discount['. $weekday .'][evening]', $discount, (isset($me[$weekday]['morning']) ? $me[$weekday]['evening'] : 0), ['class'=> 'form-control']) }}</td>
                     @endforeach
                 </tr>
             </tbody>

@@ -54,9 +54,7 @@ class DiscountLastMinute extends \Eloquent
         $user = $data['user'];
         $me   = self::find($user->id);
 
-        if (empty($me)) {
-            $me = new self();
-        }
+        $me = (empty($me)) ? new self() : $me;
 
         if (!isset($data['is_active'])) {
             $data['is_active'] = false;
