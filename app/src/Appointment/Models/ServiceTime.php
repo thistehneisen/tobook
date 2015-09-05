@@ -10,6 +10,8 @@ class ServiceTime extends \App\Core\Models\Base
 
     public $fillable = ['price', 'length','before','during', 'after', 'description'];
 
+    use \App\Appointment\Models\Discount\DiscountPrice;
+
     /**
      * @see \App\Core\Models\Base
      */

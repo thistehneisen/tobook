@@ -91,9 +91,8 @@ class Discount extends \Eloquent
                     ->where('period', '=', $period)
                     ->where('user_id', '=', $user->id)->first();
 
-                if (empty($obj)) {
-                    $obj = new self();
-                }
+                $obj = (empty($obj)) ? new self() : $obj;
+
                 $start = sprintf('%sStart', $period);
                 $end   = sprintf('%sEnd', $period);
 
