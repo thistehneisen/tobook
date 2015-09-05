@@ -4,8 +4,10 @@
         <h1>{{{ $business->name }}}</h1>
         <address>{{{ $business->full_address }}}</address>
 
+    @if (!$business->is_booking_disabled)
         <h3 class="sub-heading">@lang('as.embed.cp.heading')</h3>
-        <div id="js-cp-booking-form">Loading&hellip;</div>
+        <div id="js-cp-booking-form">@lang('as.embed.loading')</div>
+    @endif
 
     @if ($business->images->isEmpty() === false)
         <!-- Slider main container -->

@@ -27,23 +27,55 @@
     text-align: center;
     padding-top: 5%;
 }
+.last {
+  margin-bottom: 0;
+}
 
+.first {
+  margin-top: 0;
+}
+
+.aligncenter {
+  text-align: center;
+}
+
+.alignright {
+  text-align: right;
+}
+
+.alignleft {
+  text-align: left;
+}
+
+.clear {
+  clear: both;
+}
+.invoice {
+  margin: 40px auto;
+  text-align: left;
+  width: 80%;
+}
+.invoice td {
+  padding: 5px 0;
+}
+.invoice .invoice-items {
+  width: 100%;
+}
+.invoice .invoice-items td {
+  border-top: #eee 1px solid;
+}
+.invoice .invoice-items .total td {
+  border-top: 2px solid #333;
+  border-bottom: 2px solid #333;
+  font-weight: 700;
+}
     </style>
 @stop
 
 @section('content')
 @if (App::environment() !== 'tobook')
 <div class="container">
-    <h1 class="comfortaa orange text-center">{{ trans('cp.success') }}</h1>
-
-        <div class="row">
-            <div class="col-sm-offset-2 col-sm-8">
-
-                <div class="alert alert-success">
-                    <p>{{ trans('cp.success_notice') }}</p>
-                </div>
-            </div>
-        </div>
+    {{ $details }}
 </div>
 @else
 <div class="row">

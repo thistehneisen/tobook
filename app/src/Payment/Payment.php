@@ -8,6 +8,10 @@ use Validator;
 
 class Payment
 {
+    const CHECKOUT = 'Checkout';
+    const PAYSERA = 'Paysera';
+    const SKRILL = 'Skrill';
+
     /**
      * Receice an amount and redirect to payment page. We want to pass the cart
      * subtotal separately because the amount might be modified via coupon,

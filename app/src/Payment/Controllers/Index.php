@@ -1,8 +1,12 @@
 <?php namespace App\Payment\Controllers;
 
-use Payment, Event, Session;
-use App\Payment\Models\Transaction;
 use App\Cart\Cart;
+use App\Payment\Models\Transaction;
+use App\Appointment\Models\BookingService;
+use Event;
+use Payment;
+use Session;
+use Input;
 
 class Index extends Base
 {
@@ -49,7 +53,46 @@ class Index extends Base
     public function success($cartId = null)
     {
         $cart = (!empty($cartId)) ? Cart::find($cartId) : null;
-        return $this->render('success', ['cart' => $cart]);
+
+        // View to render transaction details
+        $details = $this->render('details.general');
+        if (Input::get('paygate') === Payment::CHECKOUT) {
+            $details = $this->render('details.checkout', $this->getParamsForCheckout($cart));
+        }
+
+        return $this->render('success', [
+            'cart' => $cart,
+            'details' => $details,
+        ]);
+    }
+
+    protected function getParamsForCheckout($cart)
+    {
+        $transaction = Transaction::find(Input::get('transaction_id'));
+        $bookingServiceIds = $cart->details->lists('model_id');
+        $bookingService = BookingService::whereIn('id', $bookingServiceIds)
+            ->with('booking')
+            ->get()
+            ->filter(function ($bookingService) {
+                return $bookingService->booking !== null;
+            })
+            ->first();
+
+        if ($bookingService === null) {
+            // Don't know what to do next
+            return;
+        }
+
+        $booking = $bookingService->booking;
+        $consumer = $booking->consumer;
+        return [
+            'booking' => $booking,
+            'bookingService' => $bookingService,
+            'business' => $bookingService->user->business,
+            'transaction' => $transaction,
+            'consumer' => $consumer,
+            'vat' => $transaction->amount * 0.24,
+        ];
     }
 
     /**

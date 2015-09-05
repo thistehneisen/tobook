@@ -294,10 +294,14 @@ class Business extends Base
         $this->saveOrFail();
 
         // Update description
-        $this->updateDescription($input['description_html']);
-        $this->updateMultiligualAttribute('meta_title', $input['meta_title']);
-        $this->updateMultiligualAttribute('meta_keywords', $input['meta_keywords']);
-        $this->updateMultiligualAttribute('meta_description', $input['meta_description']);
+        if (isset($input['description_html'])) {
+            $this->updateDescription($input['description_html']);
+        }
+        foreach (['meta_title', 'meta_keywords', 'meta_description'] as $field) {
+            if (isset($input[$field])) {
+                $this->updateMultiligualAttribute($field, $input[$field]);
+            }
+        }
 
         if (!empty($input['categories'])) {
             $this->updateBusinessCategories($input['categories']);

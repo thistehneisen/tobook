@@ -44,6 +44,8 @@
      font-style: normal;
 }
 
+@import url(https://fonts.googleapis.com/css?family=Raleway:100,300);
+
 
 // -------------------------------------------------------------------------- //
 // --------------------------------- Global --------------------------------- //
@@ -281,6 +283,8 @@ a {
 .cp-booking-form {
     margin-bottom: 5px;
     position: relative;
+    font-family: "Raleway";
+    font-weight: 300;
 
     .cbf-loading {
         display: block;
@@ -292,10 +296,14 @@ a {
     }
 
     .content {
-        background-color: #ebebeb;
         padding: 15px;
         max-height: 600px;
         overflow-y: auto;
+
+        @media (max-width: 768px) {
+            overflow-x: hidden;
+            padding: 2px;
+        }
     }
 
     .panel-title {
@@ -314,29 +322,80 @@ a {
         -webkit-box-shadow: none;
         box-shadow: none;
     }
+        .single-service .panel-title,
+        .panel .panel .panel-title {
+            width: 90%;
+        }
+
+    .panel-category {
+        border: 2px solid #ec7923;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+    }
 
     .panel-heading {
         border-radius: 0;
+        background-color: #fff;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .panel-custom-times {
+        margin-bottom: 0;
     }
 
     .panel-body {
-        padding: 3px 0;
+        padding: 0;
         border: 0;
-        background-color: #ebebeb;
-    }
-
-    .panel-group-service {
-        margin-left: 30px;
-        margin-bottom: 5px;
-    }
-
-    .service {
         background-color: #fff;
-        padding: 5px 10px;
-        cursor: pointer;
-        margin-top: 3px;
-        margin-left: 15px;
     }
+
+    .panel-group-employees {
+        border: 1px solid #eee;
+    }
+
+    .employee-name {
+        @media (max-width: 768px) {
+            max-width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: block;
+        }
+    }
+
+    .category-name {
+        @media (max-width: 768px) {
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: block;
+            float: left;
+        }
+    }
+
+    .custom-time-service {
+        cursor: pointer;
+        padding: 10px;
+        border: 2px solid #ec7923;
+        margin: 5px 10px;
+        width: 20%;
+        display: inline-block;
+
+        @media (max-width: 768px) {
+            width: 93%;
+        }
+    }
+
+        .custom-time-service p {
+            margin-bottom: 0;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            height: 20px;
+        }
 
         .service-description {
             text-overflow: ellipsis;
@@ -347,9 +406,9 @@ a {
 
     .single-service {
         color: #333;
-        background-color: #f5f5f5;
+        background-color: #fff;
         border-color: #ddd;
-        padding: 5px 10px;
+        padding: 10px 15px;
         cursor: pointer;
         margin-bottom: 3px;
 
@@ -359,22 +418,28 @@ a {
     }
 
     .navigation {
-        background-color: #efefef;
-        padding: 10px 15px;
+        padding: 10px 15px 10px 0;
     }
 
     .date-selector {
-        border-bottom: 2px solid #dedede;
+        border-bottom: 1px solid #dedede;
         margin: 10px 0;
-        padding-bottom: 10px;
+        padding-bottom: 20px;
         font-size: 14px;
+        display: inline-flex;
+        width: 100%;
     }
         .date-selector-link {
-            margin-top: 12px;
             color: #bbb;
             font-size: 18px;
-            display: block;
+            display: inline-block;
             text-align: center;
+            width: 5%;
+            margin-top: 20px;
+
+            @media (max-width: 768px) {
+                margin-top: 15px;
+            }
 
             &:hover {
                 color: darken(#bbb, 10%);
@@ -385,9 +450,8 @@ a {
             list-style-type: none;
             margin: 0;
             padding: 0;
-            @media (max-width: 768px) {
-                display: inline-block;
-            }
+            width: 90%;
+            display: inline-block;
 
             li {
                 float: left;
@@ -395,27 +459,49 @@ a {
                 padding: 5px;
                 text-align: center;
                 cursor: pointer;
+                border: 1px solid #ddd;
+                border-left: none;
+
+                &:first-child {
+                    border-left: 1px solid #ddd;
+                }
+
                 @media (max-width: 768px) {
-                    width: 100%;
+                    // width: 100%;
+                    border: none;
+
+                    &:first-child {
+                        border: none;
+                    }
                 }
 
                 span {
                     text-transform: uppercase;
-                    color: #999;
                     display: block;
+                    @media (max-width: 768px) {
+                        font-size: .8em;
+                    }
                 }
 
                 em {
                     font-style: normal;
+                    font-size: 1.6em;
+                    @media (max-width: 768px) {
+                        font-size: 1.2em;
+                    }
                 }
             }
         }
 
-            .date-selector-dates-active em {
-                color: @primary_color;
+            .date-selector-dates-active {
+                color: #fff;
+                background-color: #5cb85c;
                 font-weight: 700;
             }
 
+            .date-selector-dates-past span {
+                color: #999;
+            }
             .date-selector-dates-past em {
                 text-decoration: line-through;
                 color: #f00;
@@ -442,15 +528,19 @@ a {
         padding: 5px;
 
         li {
-            padding: 10px;
+            padding: 15px;
             cursor: pointer;
             position: relative;
             background-color: #fff;
-            margin-top: 3px;
+            border-bottom: 1px solid #eee;
+
+            &:hover {
+                background-color: #efefef;
+            }
 
             .btn {
                 position: absolute;
-                top: 5px;
+                top: 7px;
                 right: 10px;
             }
 
@@ -503,6 +593,14 @@ a {
             margin-bottom: 3px;
             height: 120px;
             cursor: pointer;
+            margin: 3px;
+            float: left;
+            width: 24%;
+
+            @media (max-width: 768px) {
+                width: 45%;
+                font-size: 1.2em;
+            }
         }
 
         .employee-avatar {

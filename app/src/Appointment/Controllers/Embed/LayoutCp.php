@@ -54,11 +54,11 @@ class LayoutCp extends Base
 
     public function getTimetable()
     {
-        $today       = Carbon::today();
-        $date        = Input::has('date') ? new Carbon(Input::get('date')) : $today;
-        $hash        = Input::get('hash');
-        $service     = Service::findOrFail(Input::get('serviceId'));
-        $employeeId  = (int) Input::get('employeeId');
+        $today      = Carbon::today();
+        $date       = Input::has('date') ? new Carbon(Input::get('date')) : $today;
+        $hash       = Input::get('hash');
+        $service    = Service::findOrFail(Input::get('serviceId'));
+        $employeeId = (int) Input::get('employeeId');
         $serviceTime = null;
 
         if (Input::has('serviceTimeId')) {
@@ -68,17 +68,34 @@ class LayoutCp extends Base
             }
         }
 
-        //Withdrawal time feature
+        // Get timetable data
+        $timetable = [];
+        while (empty($timetable)) {
+            if ($employeeId > 0) {
+                $employee = Employee::findOrFail($employeeId);
+                $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime);
+            } else {
+                $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime);
+            }
+
+            if (empty($timetable)) {
+                // Move to the next day until we find bookable slots
+                $date->addDay();
+            }
+        }
+
         list($start, $final, $maxWeeks) = $this->getMinMaxDistanceDay($hash);
 
-        // if ($date->lt($start)) {
-        //     $date = $start->copy();
-        // }
+        if ($date->lt($start)) {
+            $date = $start->copy();
+        }
 
         $startDate = $date->copy()->startOfWeek();
         $endDate = $startDate->copy()->endOfWeek();
         $nextWeek = $endDate->copy()->addDay();
-        $prevWeek = $startDate->copy()->subDay();
+        // Start of the week so that the date won't fall into Sunday which is
+        // usually unbookable
+        $prevWeek = $startDate->copy()->subDay()->startOfWeek();
 
         $dates = [];
         $i = $startDate->copy();
@@ -86,7 +103,7 @@ class LayoutCp extends Base
             $dates[] = [
                 'dayOfWeek' => trans('common.short.'.strtolower($i->format('D'))),
                 'date' => $i->toDateString(),
-                'niceDate' => $i->format('d.m'),
+                'niceDate' => $i->format('j'),
             ];
             $i->addDay();
         }
@@ -95,12 +112,11 @@ class LayoutCp extends Base
         $discount    = true;
         // Get timetable data
         $timetable = [];
-
         if ($employeeId > 0) {
             $employee = Employee::findOrFail($employeeId);
-            $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime, $showEndTime, $discount);
+            $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime);
         } else {
-            $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime, $showEndTime, $discount);
+            $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime);
         }
 
         $calendar = [];
@@ -152,6 +168,8 @@ class LayoutCp extends Base
         $secret = Config::get('services.checkout.secret');
 
         $transaction = $this->getTransaction();
+        $transaction->paygate = \Payment::CHECKOUT;
+        $transaction->save();
 
         $payment = new Payment($id, $secret);
         $payment->setReturnUrl(route('payment.notify', ['gateway' => 'checkout']));
@@ -164,7 +182,7 @@ class LayoutCp extends Base
             'message'      => '',
             'country'      => 'FIN',
             'language'     => strtoupper(App::getLocale()),
-            'reference'    => $transaction->id, // TODO: Fill real data
+            'reference'    => $transaction->id,
             'deliveryDate' => Carbon::today(),
         ]);
 

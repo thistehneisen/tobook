@@ -316,6 +316,15 @@ return [
             'almost_done' => 'Your booking is almost done',
             'first_employee' => 'The first employee available',
         ],
+        'receipt' => [
+            'thanks' => 'Thanks for booking via Varaa.com!',
+            'paid' => 'Paid',
+            'invoice' => 'Invoice #',
+            'vat' => 'VAT 24%',
+            'total' => 'Total',
+            'questions' => 'Question? Email ',
+            'company' => 'Y: 2536946-1 - yritys@varaa.com - 045 146 3755 <br>Varaa.com Digital Oy - Pasilan Puistotie 10B, 00240 Helsinki',
+        ],
     ],
      'options' => [
         'heading'                    => 'Options',
