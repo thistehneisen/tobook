@@ -10,6 +10,9 @@ app.VaraaCPLayout = (dom, hash) ->
   Service = {}
   Service.controller = (args) ->
     @categories = args.data().categories
+    @priceRange = args.data().priceRange
+    @hasDiscount = args.data().hasDiscount
+    @servicesDiscount = args.data().servicesDiscount
 
     @selectService = (service, e) ->
       e.preventDefault()
@@ -25,7 +28,18 @@ app.VaraaCPLayout = (dom, hash) ->
       return "#{value} #{__('sg_service')}" if value is 1
       return ''
 
+    @showServicePriceRange = (category, priceRange, hasDiscount) ->
+      range = priceRange[category.id]
+      discount = hasDiscount[category.id]
+      return m.trust("#{range}") if discount is false
+      return [m.trust("#{range}&nbsp;"), m('i.fa.fa-tag.discount')] if discount is true
+
+    @showServiceDiscount = (service) ->
+      discount = this.servicesDiscount[service.id]
+      return m.trust("#{service.name}") if discount is false
+      return [m.trust("#{service.name}&nbsp;"), m('i.fa.fa-tag.discount')] if discount is true
     return
+
   Service.view = (ctrl) ->
 
     normalService = (service) ->
@@ -53,7 +67,7 @@ app.VaraaCPLayout = (dom, hash) ->
                 m('a[data-toggle=collapse][role=button]', {
                   'data-parent': "#js-cbf-service-#{service.id}",
                   href: "#js-cbf-service-#{service.id}-custom-times"
-                }, service.name)
+                }, ctrl.showServiceDiscount(service))
               )),
               m('.col-xs-2', m('a.btn.btn-orange.btn-square.pull-right[data-toggle=collapse]', {
                   'data-parent': "#js-cbf-service-#{service.id}",
@@ -95,7 +109,7 @@ app.VaraaCPLayout = (dom, hash) ->
                     href: "#js-cbf-category-#{category.id}"
                   }, [
                   m('span.category-name', category.name),
-                  m('span.pull-right', ctrl.showServiceCounter(category.services.length))
+                  m('span.pull-right', ctrl.showServicePriceRange(category, ctrl.priceRange, ctrl.hasDiscount))
                 ]),
                 m('.clearfix')
               ])
@@ -178,7 +192,7 @@ app.VaraaCPLayout = (dom, hash) ->
       @layout.selectEmployee opts.employee
       @layout.selectDate opts.date
       @layout.selectTime opts.time
-      @layout.selectPrice opts.price opts.discountPrice
+      @layout.selectPrice opts.price, opts.discountPrice
       return
 
     @selectEmployee = (employee, index, e) ->
@@ -202,6 +216,10 @@ app.VaraaCPLayout = (dom, hash) ->
           return 'date-selector-dates-past'
 
       return ''
+
+    @showTime = (item) ->
+      return [m('em', item.niceDate), m('span', item.dayOfWeek)] if item.hasDiscount is false
+      return [m('em', item.niceDate), m('span', [m.trust("#{item.dayOfWeek}&nbsp;"), m('i.fa.fa-tag.discount')])] if item.hasDiscount is true
 
     # Kickstart
     @showLoading = m.prop false
@@ -234,13 +252,14 @@ app.VaraaCPLayout = (dom, hash) ->
                   m('span.non-discount.price', [opt.price]),
                   m.trust(" &ndash; ")
                   m('span.discount.price', [opt.discountPrice]),
+                  m.trust("&nbsp;"),
                   m('i.fa.fa-tag.discount'),
                   m('button.btn.btn-square.btn-success', __('select'))
                 ]
               else
                 data = [
-                  m.trust("#{opt.time} &ndash; #{ds.service.price}&euro;"),
-                  m('button.btn.btn-square.btn-success', __('select'))
+                  m.trust("#{opt.time} &ndash; #{opt.price}&euro;"),
+                  m('button.btn.btn-success', __('select'))
                 ]
               m('li', {onclick: ctrl.selectTime.bind(ctrl, opt)}, data)
             ))
@@ -280,7 +299,7 @@ app.VaraaCPLayout = (dom, hash) ->
           m('li', {
             class: ctrl.getCssClass(item.date),
             onclick: ctrl.selectDate.bind(ctrl, item.date)
-          }, [m('em', item.niceDate), m('span', item.dayOfWeek)])
+          }, ctrl.showTime(item))
         )),
         m('a[href=#].date-selector-link', {onclick: ctrl.selectDate.bind(ctrl, ctrl.calendar().nextWeek)}, m('i.fa.fa-chevron-right'))
       ]),
@@ -502,7 +521,7 @@ app.VaraaCPLayout = (dom, hash) ->
       if discountPrice
         @dataStore().price = discountPrice
       else
-        @dataStore().price = @dataStore().service.price
+        @dataStore().price = originalPrice
       @dataStore().originalPrice = originalPrice;
       return
 

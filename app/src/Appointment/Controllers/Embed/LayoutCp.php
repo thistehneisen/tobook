@@ -24,8 +24,11 @@ class LayoutCp extends Base
         $hash = Input::get('hash');
         $data = $this->handleIndex($hash);
         return Response::json([
-            'categories' => $data['categories'],
-            'business' => $data['user']->business,
+            'categories'       => $data['categories'],
+            'priceRange'       => $data['priceRange'],
+            'hasDiscount'      => $data['hasDiscount'],
+            'servicesDiscount' => $data['servicesDiscount'],
+            'business'         => $data['user']->business,
         ]);
     }
 
@@ -108,6 +111,7 @@ class LayoutCp extends Base
                 'dayOfWeek' => trans('common.short.'.strtolower($i->format('D'))),
                 'date' => $i->toDateString(),
                 'niceDate' => $i->format('j'),
+                'hasDiscount' => $selectedService->hasDiscount($i)
             ];
             $i->addDay();
         }

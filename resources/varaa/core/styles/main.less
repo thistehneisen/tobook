@@ -497,6 +497,9 @@ a {
                 color: #fff;
                 background-color: #5cb85c;
                 font-weight: 700;
+                .discount {
+                    color: #fff;
+                }
             }
 
             .date-selector-dates-past span {
@@ -547,16 +550,16 @@ a {
             &.selected {
                 font-weight: 700;
             }
-            .non-discount {
-                text-decoration: line-through;
-            }
-            .discount {
-                color: #ff0000;
-            }
             .price::after {
                 content: '\20AC';
             }
         }
+    }
+    .non-discount {
+        text-decoration: line-through;
+    }
+    .discount {
+        color: #d44950;
     }
 
     .payment-section {

@@ -18,6 +18,14 @@ trait DiscountPrice {
             $this->user = $this->service->user;
         }
 
+        $isDiscountIncluded = ($this instanceof \App\Appointment\Models\ServiceTime)
+            ? $this->service->is_discount_included
+            : $this->is_discount_included;
+
+        if($isDiscountIncluded === false) {
+            return $this->price;
+        }
+
         $startTime = ($time instanceof Carbon)
             ? $time
             : Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s:00', $date->toDateString(), $time));
@@ -39,7 +47,7 @@ trait DiscountPrice {
             ->where(function($query) use($weekday, $formatted) {
                 $query->where('start_at', '<=', $formatted)
                 ->where('end_at', '>=', $formatted);
-            })->where('weekday', '=', $weekday)->first();
+            })->where('weekday', '=', $weekday)->where('is_active', '=', 1)->first();
 
         $discountLastMinute = DiscountLastMinute::find($this->user->id);
         $price = $this->price;
@@ -56,6 +64,50 @@ trait DiscountPrice {
         }
 
         return $price;
+    }
+
+    public function hasDiscount($date)
+    {
+        $hasDiscount = false;
+        $now = Carbon::now();
+
+        if($this instanceof \App\Appointment\Models\ServiceTime) {
+            $this->user = $this->service->user;
+        }
+        $date = $date->hour(23)->minute(59);
+
+        if ($date->lt($now)) {
+            return $hasDiscount;
+        }
+
+        $weekdays = [
+            Carbon::MONDAY    => 'mon',
+            Carbon::TUESDAY   => 'tue',
+            Carbon::WEDNESDAY => 'wed',
+            Carbon::THURSDAY  => 'thu',
+            Carbon::FRIDAY    => 'fri',
+            Carbon::SATURDAY  => 'sat',
+            Carbon::SUNDAY    => 'sun'
+        ];
+
+        $weekday = $weekdays[$date->dayOfWeek];
+        $discount = Discount::where('user_id', '=', $this->user->id)
+            ->where('weekday', '=', $weekday)->where('is_active', '=', 1)->first();
+
+        if (!empty($discount)){
+            $hasDiscount = true;
+        }
+
+        $discountLastMinute = DiscountLastMinute::find($this->user->id);
+
+        if (!empty($discountLastMinute)) {
+            if($discountLastMinute->is_active
+                && $now->diffInHours($date) <= $discountLastMinute->before) {
+                $hasDiscount = true;
+            }
+        }
+
+        return $hasDiscount;
     }
 
 }
