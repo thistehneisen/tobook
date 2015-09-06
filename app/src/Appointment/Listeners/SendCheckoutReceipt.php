@@ -1,9 +1,10 @@
 <?php namespace App\Appointment\Listeners;
 
 use App\Appointment\Models\BookingService;
+use Log;
 use Mail;
 use Payment;
-use Log;
+use Queue;
 
 class SendCheckoutReceipt
 {
@@ -59,9 +60,13 @@ class SendCheckoutReceipt
         ];
 
 
-        return Mail::send('emails.receipt', $params, function ($msg) use ($booking, $consumer) {
-            $msg->to($consumer->email)
-                ->subject('Receipt for your purchase #'.$booking->uuid);
+        return Queue::push(function ($job) use ($params, $booking, $consumer) {
+            Mail::send('emails.receipt', $params, function ($msg) use ($booking, $consumer) {
+                $msg->to($consumer->email)
+                    ->subject('Receipt for your purchase #'.$booking->uuid);
+            });
+
+            $job->delete();
         });
     }
 }
