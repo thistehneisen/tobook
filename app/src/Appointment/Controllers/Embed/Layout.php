@@ -112,9 +112,15 @@ trait Layout
             ->where('is_show_front', true)
             ->get();
 
-        $priceRange = [];
+        $priceRange  = [];
+        $hasDiscount = [];
+        $servicesDiscount = [];
         foreach ($categories as $category) {
-            $priceRange[$category->id] = $category->priceRange;
+            $priceRange[$category->id]  = $category->priceRange;
+            $hasDiscount[$category->id] = $category->hasDiscount;
+            foreach ($category->services as $service) {
+                $servicesDiscount[$service->id] = ($hasDiscount[$category->id] && $service->is_discount_included);
+            }
         }
 
         $layout = empty($layout)
@@ -135,6 +141,8 @@ trait Layout
             'user'               => $user,
             'categories'         => $categories,
             'priceRange'         => $priceRange,
+            'hasDiscount'        => $hasDiscount,
+            'servicesDiscount'   => $servicesDiscount,
             'employees'          => $employees,
             'isRequestedEmployee'=> $isRequestedEmployee,
             'cart'               => $cart,

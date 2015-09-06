@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Models;
 use Config, Input;
 use App\Core\Models\Multilanguage;
+use App\Appointment\Models\Discount;
 
 class ServiceCategory extends \App\Core\Models\Base
 {
@@ -84,6 +85,27 @@ class ServiceCategory extends \App\Core\Models\Base
         }
 
         return $result;
+    }
+
+    public function getHasDiscountAttribute()
+    {
+        $hashDiscount = false;
+
+        $discount           = Discount::where('user_id', '=', $this->user->id)->where('is_active', '=', true)->first();
+        $discountLastMinute = DiscountLastMinute::where('user_id', '=', $this->user->id)->where('is_active', '=', true)->first();
+
+        $hashDiscount = (empty($discount) && empty($discountLastMinute)) ? false : true;
+
+        if (!empty($discount)) {
+            foreach($this->services as $service) {
+                if($service->is_discount_included === true) {
+                    $hashDiscount = true;
+                    break;
+                }
+            }
+        }
+
+        return $hashDiscount;
     }
 
     //--------------------------------------------------------------------------

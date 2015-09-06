@@ -11,6 +11,8 @@ app.VaraaCPLayout = (dom, hash) ->
   Service.controller = (args) ->
     @categories = args.data().categories
     @priceRange = args.data().priceRange
+    @hasDiscount = args.data().hasDiscount
+    @servicesDiscount = args.data().servicesDiscount
 
     @selectService = (service, e) ->
       e.preventDefault()
@@ -26,11 +28,18 @@ app.VaraaCPLayout = (dom, hash) ->
       return "#{value} #{__('sg_service')}" if value is 1
       return ''
 
-    @showServicePriceRange = (category, priceRange) ->
+    @showServicePriceRange = (category, priceRange, hasDiscount) ->
       range = priceRange[category.id]
-      return "#{range}";
+      discount = hasDiscount[category.id]
+      return m.trust("#{range}") if discount is false
+      return [m.trust("#{range}&nbsp;"), m('i.fa.fa-tag.discount')] if discount is true
 
+    @showServiceDiscount = (service) ->
+      discount = this.servicesDiscount[service.id]
+      return m.trust("#{service.name}") if discount is false
+      return [m.trust("#{service.name}&nbsp;"), m('i.fa.fa-tag.discount')] if discount is true
     return
+
   Service.view = (ctrl) ->
 
     normalService = (service) ->
@@ -58,7 +67,7 @@ app.VaraaCPLayout = (dom, hash) ->
                 m('a[data-toggle=collapse][role=button]', {
                   'data-parent': "#js-cbf-service-#{service.id}",
                   href: "#js-cbf-service-#{service.id}-custom-times"
-                }, service.name)
+                }, ctrl.showServiceDiscount(service))
               )),
               m('.col-xs-2', m('a.btn.btn-orange.btn-square.pull-right[data-toggle=collapse]', {
                   'data-parent': "#js-cbf-service-#{service.id}",
@@ -100,7 +109,7 @@ app.VaraaCPLayout = (dom, hash) ->
                     href: "#js-cbf-category-#{category.id}"
                   }, [
                   m('span.category-name', category.name),
-                  m('span.pull-right', m.trust(ctrl.showServicePriceRange(category, ctrl.priceRange)))
+                  m('span.pull-right', ctrl.showServicePriceRange(category, ctrl.priceRange, ctrl.hasDiscount))
                 ]),
                 m('.clearfix')
               ])

@@ -18,6 +18,14 @@ trait DiscountPrice {
             $this->user = $this->service->user;
         }
 
+        $isDiscountIncluded = ($this instanceof \App\Appointment\Models\ServiceTime)
+            ? $this->service->is_discount_included
+            : $this->is_discount_included;
+
+        if($isDiscountIncluded === false) {
+            return $this->price;
+        }
+
         $startTime = ($time instanceof Carbon)
             ? $time
             : Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s:00', $date->toDateString(), $time));

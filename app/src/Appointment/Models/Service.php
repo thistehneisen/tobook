@@ -12,7 +12,7 @@ class Service extends \App\Core\Models\Base
 {
     protected $table = 'as_services';
 
-    public $fillable = ['name', 'price','length','before','during', 'after', 'description', 'is_active'];
+    public $fillable = ['name', 'price','length','before','during', 'after', 'description', 'is_active', 'is_discount_included'];
 
     protected $rulesets = [
         'saving' => [
@@ -135,6 +135,21 @@ class Service extends \App\Core\Models\Base
     public function setLength()
     {
         $this->length = $this->after + $this->during + $this->before;
+    }
+
+    public function getHasDiscountAttribute()
+    {
+        $hashDiscount = false;
+
+        $discount = Discount::where('user_id', '=', $this->user->id)
+            ->where('is_active', '=', true)->first();
+        $discountLastMinute = DiscountLastMinute::where('user_id', '=', $this->user->id)
+            ->where('is_active', '=', true)->first();
+
+        $hashDiscount = (empty($discount) && empty($discountLastMinute)) ? false : true;
+        $hashDiscount = ($hashDiscount && $service->is_discount_included);
+
+        return $hashDiscount;
     }
 
     //--------------------------------------------------------------------------

@@ -14,7 +14,7 @@ class AddColumnDiscountIncludedToAsServices extends Migration {
 	{
 		Schema::table('as_services', function(Blueprint $table)
         {
-            $table->boolean('is_discount_included')->default(false);
+            $table->boolean('is_discount_included')->default(true);
         });
 	}
 
