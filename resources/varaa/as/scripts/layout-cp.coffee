@@ -188,19 +188,8 @@ app.VaraaCPLayout = (dom, hash) ->
       @fetchCalendar()
 
     @getCssClass = (date) ->
-      a = new Date date
-        .setHours 0, 0, 0, 0
-      b = new Date()
-        .setHours 0, 0, 0, 0
-      c = new Date @selectedDate()
-        .setHours 0, 0, 0, 0
-
-      if a is c
-        return 'date-selector-dates-active'
-      else
-        if a < c and a <= b
-          return 'date-selector-dates-past'
-
+      return 'date-selector-dates-past' if @calendar().unbookable.indexOf(date) isnt -1
+      return 'date-selector-dates-active' if @selectedDate() is date
       return ''
 
     # Kickstart
@@ -278,7 +267,7 @@ app.VaraaCPLayout = (dom, hash) ->
         m('a[href=#].date-selector-link', {onclick: ctrl.selectDate.bind(ctrl, ctrl.calendar().prevWeek)}, m('i.fa.fa-chevron-left')),
         m('ul.date-selector-dates', ctrl.calendar().dates.map((item) ->
           m('li', {
-            class: ctrl.getCssClass(item.date),
+            class: ctrl.getCssClass.call(ctrl, item.date),
             onclick: ctrl.selectDate.bind(ctrl, item.date)
           }, [m('em', item.niceDate), m('span', item.dayOfWeek)])
         )),
