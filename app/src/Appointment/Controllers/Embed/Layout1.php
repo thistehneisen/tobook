@@ -45,13 +45,15 @@ class Layout1 extends Base
      */
     public function getExtraServiceForm()
     {
-        $service = Service::findOrFail(Input::get('service_id'));
-        $serviceTime = Input::get('service_time');
+        $service       = Service::findOrFail(Input::get('service_id'));
+        $serviceTime   = Input::get('service_time');
+        $extraServices = $service->extraServices()->where('is_hidden', '=', 'false')->get();
 
         return $this->render('extraServices', [
-            'date'        => Input::get('date') ?: Carbon::now()->toDateString(),
-            'service'     => $service,
-            'serviceTime' => $serviceTime,
+            'date'          => Input::get('date') ?: Carbon::now()->toDateString(),
+            'extraServices' => $extraServices,
+            'service'       => $service,
+            'serviceTime'   => $serviceTime,
         ]);
     }
 }

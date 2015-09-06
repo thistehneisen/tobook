@@ -43,3 +43,10 @@ if (!function_exists('show_money')) {
         return number_format((double) $amount, $decimals).$currency;
     }
 }
+
+if (!function_exists('is_tobook')) {
+    function is_tobook()
+    {
+        return App::environment() === 'tobook';
+    }
+}

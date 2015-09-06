@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Models;
 use Config, Input;
 use App\Core\Models\Multilanguage;
+use App\Appointment\Models\Discount;
 
 class ServiceCategory extends \App\Core\Models\Base
 {
@@ -53,6 +54,64 @@ class ServiceCategory extends \App\Core\Models\Base
     public function getIsShowFrontAttribute()
     {
         return (isset($this->attributes['is_show_front'])) ? (bool) $this->attributes['is_show_front'] : true;
+    }
+
+    public function getPriceRangeAttribute()
+    {
+        $mformatted = '%d&euro; &ndash; %d&euro;';
+        $oformatted = '%d&euro;';
+        $result = '';
+        $prices = [];
+
+        foreach($this->services as $service) {
+            $prices[] = $service->price;
+            foreach ($service->serviceTimes as $serviceTime) {
+                $prices[] = $serviceTime->price;
+            }
+        }
+
+        if (count($prices) < 1) {
+            $prices[] = 0;
+        }
+
+        $min = min($prices);
+        $max = max($prices);
+
+        if (count($prices) < 2) {
+           $result = sprintf($oformatted, $max);
+        } else {
+           $result = ($min !== $max)
+                ? sprintf($mformatted, $min, $max)
+                : sprintf($oformatted, $max);
+        }
+
+        return $result;
+    }
+
+    public function getHasDiscountAttribute()
+    {
+        $hashDiscount = false;
+
+        $discount = Discount::where('user_id', '=', $this->user->id)
+            ->where('is_active', '=', true)
+            ->where('discount', '>', 0)->first();
+
+        $discountLastMinute = DiscountLastMinute::where('user_id', '=', $this->user->id)
+            ->where('is_active', '=', true)
+            ->where('discount', '>', 0)->first();
+
+        $hashDiscount = (empty($discount) && empty($discountLastMinute)) ? false : true;
+
+        if (!empty($discount)) {
+            foreach($this->services as $service) {
+                if($service->is_discount_included === true) {
+                    $hashDiscount = true;
+                    break;
+                }
+            }
+        }
+
+        return $hashDiscount;
     }
 
     //--------------------------------------------------------------------------

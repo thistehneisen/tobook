@@ -4,6 +4,11 @@
         <h1>{{{ $business->name }}}</h1>
         <address>{{{ $business->full_address }}}</address>
 
+    @if (!$business->is_booking_disabled)
+        <h3 class="sub-heading">@lang('as.embed.cp.heading')</h3>
+        <div id="js-cp-booking-form">@lang('as.embed.loading')</div>
+    @endif
+
     @if ($business->images->isEmpty() === false)
         <!-- Slider main container -->
         <div class="slideshow swiper-container" id="js-swiper-{{ $business->user_id }}">
@@ -31,19 +36,6 @@
 
     {{-- right sidebar --}}
     <div class="col-sm-4 col-md-4">
-    @if ($business->is_booking_disabled)
-        @include ('front.contact.form', ['business' => $business])
-    @else
-        @if ($business->isUsingAS)
-        <div class="box">
-            {{-- `$inhouse = true` means that we'll show login/register secion in step 4 --}}
-            <input type="hidden" id="business_id" value="{{ $business->id }}">
-            <input type="hidden" id="business_hash" value="{{ $business->user->hash }}">
-            @include('modules.as.embed.layout-3.main', ['inhouse' => false, 'hash' => $business->user->hash, 'allInput' => ['l' => 3, 'hash' => $business->user->hash, 'src' => 'inhouse']])
-        </div>
-        @endif
-    @endif
-
         <h3 class="sub-heading">{{ trans('home.business.map') }}</h3>
         <div data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}" id="js-map-{{ $business->user_id }}" class="small-map"></div>
 

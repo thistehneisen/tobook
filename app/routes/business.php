@@ -26,6 +26,34 @@ Route::group(['prefix' => 'businesses'], function () {
         'uses'  => 'App\Core\Controllers\Front@businesses'
     ]);
 
+    //--------------------------------------------------------------------------
+    // CP booking form
+    //--------------------------------------------------------------------------
+    Route::get('booking/services', [
+        'as'    => 'business.booking.services',
+        'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@getServices'
+    ]);
+
+    Route::get('booking/timetable', [
+        'as'    => 'business.booking.timetable',
+        'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@getTimetable'
+    ]);
+
+    Route::get('booking/payments', [
+        'as'    => 'business.booking.payments',
+        'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@getPaymentOptions'
+    ]);
+
+    Route::get('booking/employees', [
+        'as'    => 'business.booking.employees',
+        'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@getEmployees'
+    ]);
+
+    Route::post('booking/pay_at_venue', [
+        'as'    => 'business.booking.pay_at_venue',
+        'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@payAtVenue'
+    ]);
+
     Route::get('category/{id}-{slug?}', [
         'as'    => 'business.category',
         'uses'  => 'App\Core\Controllers\Front@category'
@@ -41,6 +69,9 @@ Route::group(['prefix' => 'businesses'], function () {
         'uses'  => 'App\Core\Controllers\Businesses@request'
     ]);
 
+    //--------------------------------------------------------------------------
+    // Single business
+    //--------------------------------------------------------------------------
     Route::get('{id}-{slug?}', [
         'as'    => 'business.index',
         'uses'  => 'App\Core\Controllers\Ajax\Search@showBusiness'

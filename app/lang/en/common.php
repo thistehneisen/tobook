@@ -152,6 +152,9 @@ return [
     'october'   => 'October',
     'november'  => 'November',
     'december'  => 'December',
+    'morning'   => 'Morning',
+    'afternoon' => 'Afternoon',
+    'evening'   => 'Evening',
     'err'            => [
         'unexpected'   => 'An unexpected error has occurred. Please try again later.',
         'not_found'    => 'Cannot the find the requesting data. Please check the URL again.',

@@ -170,10 +170,11 @@ class BookingService extends Base implements CartDetailInterface
 
     public function calculateServicePrice()
     {
-        $price = (!empty($this->serviceTime->price))
-            ? $this->serviceTime->price
-            : $this->service->price;
+        $service = (!empty($this->serviceTime))
+            ? $this->serviceTime
+            : $this->service;
 
+        $price = $service->getDiscountPrice($this->startTime, $this->startTime);
         return $price;
     }
 

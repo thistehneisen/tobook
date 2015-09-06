@@ -79,12 +79,19 @@ class FrontendReceptionist extends Receptionist
             ? Booking::STATUS_PENDING
             : Booking::STATUS_CONFIRM;
 
+        $totalPrice = ($this->source === 'cp')
+            ? $this->bookingService->service->getDiscountPrice(
+                    $this->bookingService->date,
+                    $this->bookingService->startTime
+                )
+            : $this->bookingService->calculcateTotalPrice();
+
         $booking->fill([
             'date'        => $this->bookingService->date,
             'start_at'    => $this->bookingService->startTime->toTimeString(),
             'end_at'      => $this->bookingService->endTime->toTimeString(),
             'total'       => $this->bookingService->calculcateTotalLength(),
-            'total_price' => $this->bookingService->calculcateTotalPrice(),
+            'total_price' => $totalPrice,
             'uuid'        => $this->bookingService->tmp_uuid,
             'modify_time' => $this->bookingService->modify_time,
             'plustime'    => $this->bookingService->getEmployeePlustime(),

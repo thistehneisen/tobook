@@ -154,6 +154,23 @@ $(function () {
         </div>
     </div>
     <div class="form-group">
+        <label class="col-sm-2 control-label">{{ trans('as.services.is_discount_included') }}</label>
+        <div class="col-sm-5">
+            <div class="radio">
+                <label>
+                    {{ Form::radio('is_discount_included', 1, Input::get('is_discount_included', isset($service->id) ? $service->is_discount_included : 1)) }}
+                    {{ trans('common.yes') }}
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    {{ Form::radio('is_discount_included', 0, Input::get('is_discount_included', isset($service->id) ? !$service->is_discount_included : 0)) }}
+                    {{ trans('common.no') }}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
         <label for="resource" class="col-sm-2 control-label">{{ trans('as.services.resource') }}</label>
         <div class="col-sm-5">
            {{ Form::select('resources[]', $resources, isset($service->resources->first()->id) ? $service->resources->first()->id : -1, ['class' => 'form-control input-sm select2', 'id' => 'resources', 'multiple' => 'multiple']) }}
