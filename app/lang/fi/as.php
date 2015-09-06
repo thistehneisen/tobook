@@ -412,6 +412,20 @@ return [
         ],
         'working_time' => [
             'index' => 'Kalenterinäkymä',
+        ],
+        'discount' => [
+            'discount'            => 'Discount',
+            'last-minute'         => 'Last minute discount',
+            'business-hour'       => 'business hour',
+            'business-hours'      => 'business hours',
+            'full-price'          => 'Full price',
+            'afternoon_starts_at' => 'Afternoon starts at',
+            'evening_starts_at'   => 'Evening starts at',
+            'is_active'           => 'Is Enabled',
+            'before'              => 'Before',
+            'error' => [
+                'evening_starts_before_afternoon' => 'Afternoon must starts before evening starts'
+            ],
         ]
     ],
     'reports' => [
