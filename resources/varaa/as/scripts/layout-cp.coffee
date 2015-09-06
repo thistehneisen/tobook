@@ -341,6 +341,8 @@ app.VaraaCPLayout = (dom, hash) ->
           Object.keys res.message
             .map (field) =>
               @validationErrors()[field] = res.message[field].join '\n'
+          # Close the payment modal
+          $('#js-cbf-payment-modal').modal 'hide'
           m.redraw()
 
       # Assume the response is fine, submit payment info to paygate
@@ -418,14 +420,26 @@ app.VaraaCPLayout = (dom, hash) ->
           m('.col-sm-2', [m('p', m('strong', __('price'))), m.trust("#{dataStore.price}&euro;")])
         ])
       ]),
-      m('.payment-section', [
-        m('h4', __('how_to_pay')),
-        m('.row',
-          m('.col-sm-12', [
-            m('.locked', {class: if ctrl.validateCustomer() and ctrl.lock() is no then 'hidden' else ''}),
-            paymentOptionView
+      m('.payment-section.text-center', [
+        m('button.btn.btn-lg.btn-square.btn-book.btn-success', {
+          'data-toggle': 'modal',
+          'data-target': '#js-cbf-payment-modal',
+          disabled: ctrl.validateCustomer() is no or ctrl.lock() is yes
+        }, __('book'))
+      ]),
+      m('.modal.fade[id=js-cbf-payment-modal][role=dialog][tabindex=-1]', [
+        m('.modal-dialog[role=document]', [
+          m('.modal-content', [
+            m('.modal-header', [
+              m('button.close[data-dismiss=modal][type=button]', [m('span[aria-hidden=true]', m.trust('&times;'))]),
+              m('h4.modal-title', __('how_to_pay'))
+            ]),
+            m('.modal-body', m('.row', m('.col-sm-12', paymentOptionView))),
+            m('.modal-footer', [
+              m('button.btn.btn-default[data-dismiss=modal][type=button]', __('close'))
+            ])
           ])
-        )
+        ])
       ])
     ])
 
