@@ -78,6 +78,7 @@ return [
         'total'        => 'Yhteensä',
         'category'     => 'Kategoria',
         'is_active'    => 'Aktiivinen',
+        'is_discount_included' => 'Mukana tarjouksissa',
         'resource'     => 'Resurssit',
         'room'         => 'Huoneet',
         'extra'        => 'Lisäpalvelut',
@@ -427,6 +428,19 @@ return [
                 'evening_starts_before_afternoon' => 'Afternoon must starts before evening starts'
             ],
         ]
+        'discount' => [
+            'discount'            => 'Alennukset',
+            'last-minute'         => 'Äkkilähdöt',
+            'business-hour'       => 'tunti ennen',
+            'business-hours'      => 'tuntia ennen',
+            'full-price'          => 'Täysi hinta',
+            'afternoon_starts_at' =>'Päivä alkaa klo',
+            'evening_starts_at'   =>'Ilta alkaa klo',
+            'is_active'           => 'Käytössä',
+            'before'              => 'Varoaika',
+            'error' => [
+                'evening_starts_before_afternoon' => 'Ilta ei voi alkaa ennen päivää.'
+            ],
     ],
     'reports' => [
         'index'     => 'Raportit',
