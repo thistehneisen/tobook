@@ -183,7 +183,7 @@ app.VaraaCPLayout = (dom, hash) ->
       @layout.selectEmployee opts.employee
       @layout.selectDate opts.date
       @layout.selectTime opts.time
-      @layout.selectPrice opts.price opts.discountPrice
+      @layout.selectPrice opts.price, opts.discountPrice
       return
 
     @selectEmployee = (employee, index, e) ->
@@ -243,7 +243,7 @@ app.VaraaCPLayout = (dom, hash) ->
                 ]
               else
                 data = [
-                  m.trust("#{opt.time} &ndash; #{ctrl.layout.dataStore().service.price}&euro;"),
+                  m.trust("#{opt.time} &ndash; #{opt.price}&euro;"),
                   m('button.btn.btn-success', __('select'))
                 ]
               m('li', {onclick: ctrl.selectTime.bind(ctrl, opt)}, data)
@@ -506,7 +506,7 @@ app.VaraaCPLayout = (dom, hash) ->
       if discountPrice
         @dataStore().price = discountPrice
       else
-        @dataStore().price = @dataStore().service.price
+        @dataStore().price = originalPrice
       @dataStore().originalPrice = originalPrice;
       return
 
