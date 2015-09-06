@@ -36,10 +36,6 @@
 
     {{-- right sidebar --}}
     <div class="col-sm-4 col-md-4">
-    @if ($business->is_booking_disabled)
-        @include ('front.contact.form', ['business' => $business])
-    @endif
-
         <h3 class="sub-heading">{{ trans('home.business.map') }}</h3>
         <div data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}" id="js-map-{{ $business->user_id }}" class="small-map"></div>
 
