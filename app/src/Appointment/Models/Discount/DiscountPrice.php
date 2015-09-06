@@ -55,17 +55,31 @@ trait DiscountPrice {
         if (!empty($discount)) {
             $price = (double) $this->price * (1 - ((double) $discount->discount / 100));
         }
+        $startOfToday = $now->copy()->hour(0)->minute(0);
+        $startOfStart = $startTime->copy()->hour(23)->minute(59);
 
-        // if ($now->hour < 8) {
-        //     $now->addHours(8 - $now->hour);
-        // }
+        if ($startOfToday->diffInDays($startOfStart) === 1) {
+            if ($now->hour < 8) {
+                $now->addHours((8 - $now->hour) + 12);
+            } elseif ($now->hour > 20) {
+                $now->addHours((24 - $now->hour) + 8);
+            } else{
+                $now->addHours(12);
+            }
+        }
 
-        // if ($now->hour > 20) {
-        //     $now->addHours((24 - $now->hour) + 8);
-        // }
+        if ($startOfToday->diffInDays($startOfStart) === 2) {
+            if ($now->hour < 8) {
+                $now->addHours((8 - $now->hour) + 24);
+            } elseif ($now->hour > 20) {
+                $now->addHours((24 - $now->hour) + 8 + 12);
+            } else {
+                $now->addHours(24);
+            }
+        }
 
         if (!empty($discountLastMinute) && $discountLastMinute->is_active) {
-            if($now->diffInHours($startTime) <= $discountLastMinute->before) {
+            if ($now->diffInHours($startTime) <= $discountLastMinute->before) {
                 $price = (double)  $this->price * (1 - ((double) $discountLastMinute->discount / 100));
             }
         }
@@ -110,13 +124,28 @@ trait DiscountPrice {
 
         $discountLastMinute = DiscountLastMinute::find($this->user->id);
 
-        // if ($now->hour < 8) {
-        //     $now->addHours(8 - $now->hour);
-        // }
+        $startOfToday = $now->copy()->hour(0)->minute(0);
+        $startOfStart = $date->copy()->hour(23)->minute(59);
 
-        // if ($now->hour > 20) {
-        //     $now->addHours((24 - $now->hour) + 8);
-        // }
+        if ($startOfToday->diffInDays($startOfStart) === 1) {
+            if ($now->hour < 8) {
+                $now->addHours((8 - $now->hour) + 12);
+            } elseif ($now->hour > 20) {
+                $now->addHours((24 - $now->hour) + 8);
+            } else{
+                $now->addHours(12);
+            }
+        }
+
+        if ($startOfToday->diffInDays($startOfStart) === 2) {
+            if ($now->hour < 8) {
+                $now->addHours((8 - $now->hour) + 24);
+            } elseif ($now->hour > 20) {
+                $now->addHours((24 - $now->hour) + 8 + 12);
+            } else {
+                $now->addHours(24);
+            }
+        }
 
         if (!empty($discountLastMinute) && ($discountLastMinute->is_active)) {
             if($now->diffInHours($endOfDate)   <= $discountLastMinute->before
