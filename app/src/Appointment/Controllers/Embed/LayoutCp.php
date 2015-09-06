@@ -77,18 +77,57 @@ class LayoutCp extends Base
         $timetable   = [];
         $showEndTime = false;
         $discount    = true;
+
+        $employee = null;
+        $timetableMethod = 'getTimetableOfAnyone';
+        $params = [];
+
+        if ($employeeId > 0) {
+            $employee = Employee::findOrFail($employeeId);
+            $params[] = $employee;
+            $timetableMethod = 'getTimetableOfSingle';
+        }
+
+        $params[] = $service;
+        $params[] = $date;
+        $params[] = $serviceTime;
+        $params[] = $showEndTime;
+        $params[] = $discount;
+
         while (empty($timetable)) {
-            if ($employeeId > 0) {
-                $employee = Employee::findOrFail($employeeId);
-                $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime, $showEndTime, $discount);
-            } else {
-                $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime, $showEndTime, $discount);
-            }
+            $timetable = call_user_func_array([$this, $timetableMethod], $params);
 
             if (empty($timetable)) {
                 // Move to the next day until we find bookable slots
                 $date->addDay();
             }
+        }
+
+        // Calculate timeslots of the whole week just to know which days are
+        // unbookable
+        $unbookable = [];
+        $s = $date->copy()->startOfWeek();
+        $e = $s->copy()->endOfWeek();
+        while ($s->lte($e)) {
+            // Of course we cannot book on past days
+            if ($s->lt($today)) {
+                $unbookable[] = $s->format('Y-m-d');
+                $s->addDay();
+
+                continue;
+            }
+
+            if (count($params) === 6) {
+                $params[2] = $s;
+            } else {
+                $params[1] = $s;
+            }
+
+            $t = call_user_func_array([$this, $timetableMethod], $params);
+            if (empty($t)) {
+                $unbookable[] = $s->format('Y-m-d');
+            }
+            $s->addDay();
         }
 
         list($start, $final, $maxWeeks) = $this->getMinMaxDistanceDay($hash);
@@ -132,11 +171,12 @@ class LayoutCp extends Base
         }
 
         return Response::json([
-            'dates'        => $dates,
-            'selectedDate' => $dateStr,
-            'prevWeek'     => $prevWeek->toDateString(),
-            'nextWeek'     => $nextWeek->toDateString(),
             'calendar'     => $calendar,
+            'dates'        => $dates,
+            'nextWeek'     => $nextWeek->toDateString(),
+            'prevWeek'     => $prevWeek->toDateString(),
+            'selectedDate' => $dateStr,
+            'unbookable'   => $unbookable,
         ]);
     }
 
