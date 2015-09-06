@@ -46,7 +46,7 @@ app.VaraaCPLayout = (dom, hash) ->
       m('.single-service', {onclick: ctrl.selectService.bind(ctrl, service)},[
         m('.row', [
           m('.col-xs-10', [
-            m('h4.panel-title', service.name),
+            m('h4.panel-title', ctrl.showServiceDiscount(service)),
             m('.service-description', service.description),
             m('p', "#{service.during}min")
           ]),
