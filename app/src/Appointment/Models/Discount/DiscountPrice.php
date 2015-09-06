@@ -104,7 +104,7 @@ trait DiscountPrice {
         $startOfDate = $date->copy()->hour(8)->minute(0);
         $endOfDate   = $date->copy()->hour(20)->minute(59);
 
-        if ($date->lt($now)) {
+        if ($endOfDate->lt($now)) {
             return $hasDiscount;
         }
 
