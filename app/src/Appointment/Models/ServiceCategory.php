@@ -70,15 +70,16 @@ class ServiceCategory extends \App\Core\Models\Base
             }
         }
 
+        if (count($prices) < 1) {
+            $prices[] = 0;
+        }
+
         $min = min($prices);
         $max = max($prices);
 
-        if(count($prices) < 2)
-        {
+        if (count($prices) < 2) {
            $result = sprintf($oformatted, $max);
-        }
-        else
-        {
+        } else {
            $result = ($min !== $max)
                 ? sprintf($mformatted, $min, $max)
                 : sprintf($oformatted, $max);
