@@ -150,6 +150,9 @@ return [
     'october'   => 'Lokakuu',
     'november'  => 'Marraskuu',
     'december'  => 'Joulukuu',
+    'morning'   => 'Aamu',
+    'afternoon' => 'Päivä',
+    'evening'   => 'Ilta',
     'history'   => 'Historia',
     'err' => [
         'unexpected'   => 'Odottamaton virhe, yritä myöhemmin uudestaan.',
