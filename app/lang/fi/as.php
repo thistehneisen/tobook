@@ -314,6 +314,15 @@ return [
             'almost_done' => 'Varauksesi on melkein valmis..',
             'first_employee' => 'Kuka tahansa tekijä',
         ],
+        'receipt' => [
+            'thanks' => 'Kiitos kun varasit Varaa.comin kautta!',
+            'paid' => 'Maksettu',
+            'invoice' => 'Lasku nro #',
+            'vat' => 'ALV 24%',
+            'total' => 'Yht.',
+            'questions' => 'Kysymyksiä? Laita viestiä ',
+            'company' => 'Y: 2536946-1 - yritys@varaa.com - 045 146 3755 <br>Varaa.com Digital Oy - Pasilan Puistotie 10B, 00240 Helsinki',
+        ],
     ],
     'options' => [
         'heading'                    => 'Asetukset',
