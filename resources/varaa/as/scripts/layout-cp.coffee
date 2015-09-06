@@ -10,6 +10,7 @@ app.VaraaCPLayout = (dom, hash) ->
   Service = {}
   Service.controller = (args) ->
     @categories = args.data().categories
+    @priceRange = args.data().priceRange
 
     @selectService = (service, e) ->
       e.preventDefault()
@@ -24,6 +25,10 @@ app.VaraaCPLayout = (dom, hash) ->
       return "#{value} #{__('pl_service')}" if value > 1
       return "#{value} #{__('sg_service')}" if value is 1
       return ''
+
+    @showServicePriceRange = (category, priceRange) ->
+      range = priceRange[category.id]
+      return "#{range}";
 
     return
   Service.view = (ctrl) ->
@@ -95,7 +100,7 @@ app.VaraaCPLayout = (dom, hash) ->
                     href: "#js-cbf-category-#{category.id}"
                   }, [
                   m('span.category-name', category.name),
-                  m('span.pull-right', ctrl.showServiceCounter(category.services.length))
+                  m('span.pull-right', m.trust(ctrl.showServicePriceRange(category, ctrl.priceRange)))
                 ]),
                 m('.clearfix')
               ])

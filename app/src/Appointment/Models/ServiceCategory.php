@@ -55,6 +55,37 @@ class ServiceCategory extends \App\Core\Models\Base
         return (isset($this->attributes['is_show_front'])) ? (bool) $this->attributes['is_show_front'] : true;
     }
 
+    public function getPriceRangeAttribute()
+    {
+        $mformatted = '%d&euro; &ndash; %d&euro;';
+        $oformatted = '%d&euro;';
+        $result = '';
+        $prices = [];
+
+        foreach($this->services as $service) {
+            $prices[] = $service->price;
+            foreach ($service->serviceTimes as $serviceTime) {
+                $prices[] = $serviceTime->price;
+            }
+        }
+
+        $min = min($prices);
+        $max = max($prices);
+
+        if(count($prices) < 2)
+        {
+           $result = sprintf($oformatted, $max);
+        }
+        else
+        {
+           $result = ($min !== $max)
+                ? sprintf($mformatted, $min, $max)
+                : sprintf($oformatted, $max);
+        }
+
+        return $result;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

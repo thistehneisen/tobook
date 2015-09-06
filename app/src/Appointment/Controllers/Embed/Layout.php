@@ -112,6 +112,11 @@ trait Layout
             ->where('is_show_front', true)
             ->get();
 
+        $priceRange = [];
+        foreach ($categories as $category) {
+            $priceRange[$category->id] = $category->priceRange;
+        }
+
         $layout = empty($layout)
             ? $this->getLayout()
             : $layout;
@@ -129,6 +134,7 @@ trait Layout
             'inhouse'            => $inhouse,
             'user'               => $user,
             'categories'         => $categories,
+            'priceRange'         => $priceRange,
             'employees'          => $employees,
             'isRequestedEmployee'=> $isRequestedEmployee,
             'cart'               => $cart,

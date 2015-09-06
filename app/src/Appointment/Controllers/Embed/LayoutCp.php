@@ -25,6 +25,7 @@ class LayoutCp extends Base
         $data = $this->handleIndex($hash);
         return Response::json([
             'categories' => $data['categories'],
+            'priceRange' => $data['priceRange'],
             'business' => $data['user']->business,
         ]);
     }
