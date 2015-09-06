@@ -56,9 +56,16 @@ trait DiscountPrice {
             $price = (double) $this->price * (1 - ((double) $discount->discount / 100));
         }
 
-        if (!empty($discountLastMinute)) {
-            if($discountLastMinute->is_active
-                && $now->diffInHours($startTime) <= $discountLastMinute->before) {
+        // if ($now->hour < 8) {
+        //     $now->addHours(8 - $now->hour);
+        // }
+
+        // if ($now->hour > 20) {
+        //     $now->addHours((24 - $now->hour) + 8);
+        // }
+
+        if (!empty($discountLastMinute) && $discountLastMinute->is_active) {
+            if($now->diffInHours($startTime) <= $discountLastMinute->before) {
                 $price = (double)  $this->price * (1 - ((double) $discountLastMinute->discount / 100));
             }
         }
@@ -74,7 +81,8 @@ trait DiscountPrice {
         if($this instanceof \App\Appointment\Models\ServiceTime) {
             $this->user = $this->service->user;
         }
-        $date = $date->hour(23)->minute(59);
+        $startOfDate = $date->copy()->hour(8)->minute(0);
+        $endOfDate   = $date->copy()->hour(20)->minute(59);
 
         if ($date->lt($now)) {
             return $hasDiscount;
@@ -92,7 +100,9 @@ trait DiscountPrice {
 
         $weekday = $weekdays[$date->dayOfWeek];
         $discount = Discount::where('user_id', '=', $this->user->id)
-            ->where('weekday', '=', $weekday)->where('is_active', '=', 1)->first();
+            ->where('weekday', '=', $weekday)
+            ->where('is_active', '=', 1)
+            ->where('discount', '>', 0)->first();
 
         if (!empty($discount)){
             $hasDiscount = true;
@@ -100,9 +110,17 @@ trait DiscountPrice {
 
         $discountLastMinute = DiscountLastMinute::find($this->user->id);
 
-        if (!empty($discountLastMinute)) {
-            if($discountLastMinute->is_active
-                && $now->diffInHours($date) <= $discountLastMinute->before) {
+        // if ($now->hour < 8) {
+        //     $now->addHours(8 - $now->hour);
+        // }
+
+        // if ($now->hour > 20) {
+        //     $now->addHours((24 - $now->hour) + 8);
+        // }
+
+        if (!empty($discountLastMinute) && ($discountLastMinute->is_active)) {
+            if($now->diffInHours($endOfDate)   <= $discountLastMinute->before
+            || $now->diffInHours($startOfDate) <= $discountLastMinute->before) {
                 $hasDiscount = true;
             }
         }

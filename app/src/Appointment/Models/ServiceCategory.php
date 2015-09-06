@@ -92,8 +92,13 @@ class ServiceCategory extends \App\Core\Models\Base
     {
         $hashDiscount = false;
 
-        $discount           = Discount::where('user_id', '=', $this->user->id)->where('is_active', '=', true)->first();
-        $discountLastMinute = DiscountLastMinute::where('user_id', '=', $this->user->id)->where('is_active', '=', true)->first();
+        $discount = Discount::where('user_id', '=', $this->user->id)
+            ->where('is_active', '=', true)
+            ->where('discount', '>', 0)->first();
+
+        $discountLastMinute = DiscountLastMinute::where('user_id', '=', $this->user->id)
+            ->where('is_active', '=', true)
+            ->where('discount', '>', 0)->first();
 
         $hashDiscount = (empty($discount) && empty($discountLastMinute)) ? false : true;
 
