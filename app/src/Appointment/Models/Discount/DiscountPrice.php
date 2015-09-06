@@ -39,7 +39,7 @@ trait DiscountPrice {
             ->where(function($query) use($weekday, $formatted) {
                 $query->where('start_at', '<=', $formatted)
                 ->where('end_at', '>=', $formatted);
-            })->where('weekday', '=', $weekday)->first();
+            })->where('weekday', '=', $weekday)->where('is_active', '=', true)->first();
 
         $discountLastMinute = DiscountLastMinute::find($this->user->id);
         $price = $this->price;

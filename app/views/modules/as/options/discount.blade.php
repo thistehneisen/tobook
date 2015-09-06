@@ -57,7 +57,11 @@
             <label class="control-label col-sm-3">{{ trans('as.options.discount.evening_starts_at')}}</label>
             <div class="col-sm-2">{{ Form::select('evening_starts_at', $hours, $evening->hour, ['class'=> 'form-control']) }}</div>
         </div>
-         <div class="form-group">
+        <div class="form-group">
+            <label class="control-label col-sm-3">{{ trans('as.options.discount.is_active')}}</label>
+            <div class="col-sm-2">{{ Form::checkbox('is_active', 1, (!empty($is_active)) ? $is_active : 0, ['id'=>'is_active']) }}</div>
+        </div>
+        <div class="form-group">
             <div class="col-sm-offset-3 col-sm-6">
                 <button type="submit" class="btn btn-primary">{{ trans('common.save') }}</button>
             </div>

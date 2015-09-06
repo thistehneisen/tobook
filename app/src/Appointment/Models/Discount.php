@@ -12,7 +12,8 @@ class Discount extends \Eloquent
         'end_at',
         'weekday',
         'period',
-        'discount'
+        'discount',
+        'is_active',
     ];
 
     protected $rulesets = [
@@ -45,6 +46,7 @@ class Discount extends \Eloquent
 
         foreach ($discounts as $discount) {
             $data['me'][$discount->weekday][$discount->period] = $discount->discount;
+            $data['is_active'] = $discount->is_active;
         }
 
         $afternoon = self::where('user_id', '=', $user->id)
@@ -73,9 +75,14 @@ class Discount extends \Eloquent
 
         //Afternoon must starts before evening starts
         if ($data['evening_starts_at'] < $data['afternoon_starts_at']) {
-
             throw new \Exception(trans('as.options.discount.error.evening_starts_before_afternoon'));
         }
+
+        if (!isset($data['is_active'])) {
+            $data['is_active'] = false;
+        }
+
+        $isActive = $data['is_active'];
 
         $eveningStart   = sprintf('%02d:00:00', $data['evening_starts_at']);
         $eveningEnd     = '23:59:00';
@@ -97,11 +104,12 @@ class Discount extends \Eloquent
                 $end   = sprintf('%sEnd', $period);
 
                 $obj->fill([
-                    'weekday' => $weekday,
-                    'period'  => $period,
-                    'discount'=> $discount,
-                    'start_at'=> $$start,
-                    'end_at'  => $$end,
+                    'weekday'  => $weekday,
+                    'period'   => $period,
+                    'discount' => $discount,
+                    'start_at' => $$start,
+                    'end_at'   => $$end,
+                    'is_active'=> $isActive,
                 ]);
                 $obj->user()->associate($user);
                 $obj->save();
