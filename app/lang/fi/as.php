@@ -427,15 +427,15 @@ return [
             'error' => [
                 'evening_starts_before_afternoon' => 'Afternoon must starts before evening starts'
             ],
-        ]
+        ],
         'discount' => [
             'discount'            => 'Alennukset',
             'last-minute'         => 'Äkkilähdöt',
             'business-hour'       => 'tunti ennen',
             'business-hours'      => 'tuntia ennen',
             'full-price'          => 'Täysi hinta',
-            'afternoon_starts_at' =>'Päivä alkaa klo',
-            'evening_starts_at'   =>'Ilta alkaa klo',
+            'afternoon_starts_at' => 'Päivä alkaa klo',
+            'evening_starts_at'   => 'Ilta alkaa klo',
             'is_active'           => 'Käytössä',
             'before'              => 'Varoaika',
             'error' => [
