@@ -66,4 +66,48 @@ trait DiscountPrice {
         return $price;
     }
 
+    public function hasDiscount($date)
+    {
+        $hasDiscount = false;
+        $now = Carbon::now();
+
+        if($this instanceof \App\Appointment\Models\ServiceTime) {
+            $this->user = $this->service->user;
+        }
+        $date = $date->hour(23)->minute(59);
+
+        if ($date->lt($now)) {
+            return $hasDiscount;
+        }
+
+        $weekdays = [
+            Carbon::MONDAY    => 'mon',
+            Carbon::TUESDAY   => 'tue',
+            Carbon::WEDNESDAY => 'wed',
+            Carbon::THURSDAY  => 'thu',
+            Carbon::FRIDAY    => 'fri',
+            Carbon::SATURDAY  => 'sat',
+            Carbon::SUNDAY    => 'sun'
+        ];
+
+        $weekday = $weekdays[$date->dayOfWeek];
+        $discount = Discount::where('user_id', '=', $this->user->id)
+            ->where('weekday', '=', $weekday)->where('is_active', '=', 1)->first();
+
+        if (!empty($discount)){
+            $hasDiscount = true;
+        }
+
+        $discountLastMinute = DiscountLastMinute::find($this->user->id);
+
+        if (!empty($discountLastMinute)) {
+            if($discountLastMinute->is_active
+                && $now->diffInHours($date) <= $discountLastMinute->before) {
+                $hasDiscount = true;
+            }
+        }
+
+        return $hasDiscount;
+    }
+
 }

@@ -217,6 +217,10 @@ app.VaraaCPLayout = (dom, hash) ->
 
       return ''
 
+    @showTime = (item) ->
+      return [m('em', item.niceDate), m('span', item.dayOfWeek)] if item.hasDiscount is false
+      return [m('em', item.niceDate), m('span', [m.trust("#{item.dayOfWeek}&nbsp;"), m('i.fa.fa-tag.discount')])] if item.hasDiscount is true
+
     # Kickstart
     @showLoading = m.prop false
     @fetchEmployees()
@@ -247,6 +251,7 @@ app.VaraaCPLayout = (dom, hash) ->
                   m('span.non-discount.price', [opt.price]),
                   m.trust(" &ndash; ")
                   m('span.discount.price', [opt.discountPrice]),
+                  m.trust("&nbsp;"),
                   m('i.fa.fa-tag.discount'),
                   m('button.btn.btn-success', __('select'))
                 ]
@@ -293,7 +298,7 @@ app.VaraaCPLayout = (dom, hash) ->
           m('li', {
             class: ctrl.getCssClass(item.date),
             onclick: ctrl.selectDate.bind(ctrl, item.date)
-          }, [m('em', item.niceDate), m('span', item.dayOfWeek)])
+          }, ctrl.showTime(item))
         )),
         m('a[href=#].date-selector-link', {onclick: ctrl.selectDate.bind(ctrl, ctrl.calendar().nextWeek)}, m('i.fa.fa-chevron-right'))
       ]),

@@ -111,6 +111,7 @@ class LayoutCp extends Base
                 'dayOfWeek' => trans('common.short.'.strtolower($i->format('D'))),
                 'date' => $i->toDateString(),
                 'niceDate' => $i->format('j'),
+                'hasDiscount' => $selectedService->hasDiscount($i)
             ];
             $i->addDay();
         }
