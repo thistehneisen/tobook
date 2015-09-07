@@ -37,6 +37,7 @@ class Business extends Base
         'note',
         'payment_options',
         'deposit_rate',
+        'disabled_payment',
     ];
 
     public $rulesets = [
@@ -360,6 +361,16 @@ class Business extends Base
         }
 
         return $this->deposit_rate;
+    }
+
+    /**
+     * Return if this business has been disabled payment options
+     *
+     * @return bool
+     */
+    public function getDisabledPaymentAttribute()
+    {
+        return (bool) array_get($this->attributes, 'disabled_payment', false);
     }
 
     /**
