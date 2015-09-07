@@ -459,7 +459,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = self::where('as_bookings.date', $bookingDate)
             ->whereNull('as_bookings.deleted_at')
-            ->where('as_bookings.status', '!=', self::STATUS_CANCELLED);
+            ->where('as_bookings.status', '!=', self::STATUS_CANCELLED)
+            ->where('as_bookings.user_id', '=', $service->user->id);
 
         //for inhouse layout
         if (!empty($uuid)) {
@@ -468,7 +469,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $query = self::applyDuplicateFilter($query, $startTime, $endTime);
 
-        $query = $query->join('as_booking_services', 'as_booking_services.booking_id', '=', 'as_bookings.id')
+        $result = $query->join('as_booking_services', 'as_booking_services.booking_id', '=', 'as_bookings.id')
             ->join('as_services', 'as_services.id', '=', 'as_booking_services.service_id')
             ->join('as_room_service', 'as_room_service.service_id', '=', 'as_services.id')
             ->join('as_booking_service_rooms', 'as_booking_service_rooms.booking_service_id', '=', 'as_booking_services.id')
@@ -476,8 +477,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->select('as_booking_service_rooms.room_id AS room')
             ->lists('room');
 
-        $availableRoom = (!empty($query))
-            ? $service->rooms()->whereNotIn('room_id', $query)->first()
+        $availableRoom = (!empty($result))
+            ? $service->rooms()->whereNotIn('room_id', $result)->first()
             : $service->rooms()->first();
 
         return $availableRoom;
@@ -511,51 +512,6 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                       ->where('as_bookings.end_at', '=', $endTime->toTimeString());
             });
         });
-    }
-
-    /**
-     * Check if user can place a booking on certain employee, date, and time
-     * but only execute one query
-     *
-     * @param int    $employeeId
-     * @param string $date
-     * @param Carbon $startTime
-     * @param Carbon $endTime
-     * @param string $uuid
-     *
-     * @return boolean
-     */
-    public static function canBook($employeeId, $date, Carbon $startTime, Carbon $endTime, $uuid = null)
-    {
-        if (empty(static::$bookings[$date])) {
-            $bookings = self::where('date', $date)
-                ->whereNull('deleted_at')
-                ->where('status', '!=', self::STATUS_CANCELLED)->get();
-            static::$bookings[$date] = $bookings;
-        }
-
-        $bookings = static::$bookings[$date];
-
-        foreach ($bookings as $booking) {
-            if ($booking->getStartAt() >= $startTime
-                && $booking->getStartAt() < $endTime
-                && $booking->employee->id == $employeeId
-                && $booking->uuid != $uuid) {
-                return false;
-            } elseif ($booking->getEndAt() > $startTime
-                && $booking->getEndAt() <= $endTime
-                && $booking->employee->id == $employeeId
-                && $booking->uuid != $uuid) {
-                return false;
-            } elseif ($booking->getStartAt() == $startTime
-                && $booking->getEndAt() == $endTime
-                && $booking->employee->id == $employeeId
-                && $booking->uuid != $uuid) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public static function getLastestBookingEndTime($date, \App\Core\Models\User $user = null)
