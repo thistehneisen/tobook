@@ -306,6 +306,9 @@ app.VaraaCPLayout = (dom, hash) ->
       el = e.target
       @layout.setCustomerInfo field, el.value
 
+    @isDisabledPayment = m.prop false
+    # This URL will be submitted to if payment was disabled
+    @payAtVenueUrl = m.prop null
     @paymentOptions = m.prop []
     @fetchPaymentOptions = (amount) ->
       m.request
@@ -317,9 +320,16 @@ app.VaraaCPLayout = (dom, hash) ->
           amount: amount
           cart_id: @layout.dataStore().cart_id
       .then (data) =>
-        @paymentOptions(data.payment_methods)
-        @layout.setTransactionId data.transaction_id
+        # Should we disable payment options?
+        @isDisabledPayment data.disabled_payment
+
+        if data.disabled_payment is true
+          @payAtVenueUrl data.url
+        else
+          @paymentOptions data.payment_methods
+          @layout.setTransactionId data.transaction_id
       .then -> m.redraw()
+
 
     # --------------------------------------------------------------------------
     # Validation
@@ -334,53 +344,79 @@ app.VaraaCPLayout = (dom, hash) ->
     @getValidationErrorCss = (field) -> if @validationErrors()[field]? then 'has-error' else ''
     @getValidationError = (field) -> @validationErrors()[field] or ''
 
+    #
+    # Auxilary function to create FORM with provided input and submit it
+    # normally
+    #
+    # @param string action
+    # @param object inputs
+    #
+    createFormAndSubmit = (action, inputs) ->
+      addInput = (name, value) ->
+        input = document.createElement 'input'
+        input.name = name
+        input.value = value
+        return input
+
+      # Create a new form
+      form = document.createElement 'form'
+      form.method = 'POST'
+      form.action = action
+
+      for key, value of inputs
+        form.appendChild addInput key, value
+
+      # Submit it
+      form.submit()
+
     # This property is used to prevent submitting duplicated requests
     # And show a locking curtain as well
     @lock = m.prop false
+
+    # Error handler in case of failing validation
+    whenPlacingBookingFailed = (res) =>
+      if res.success is false
+        @lock false
+        # Reset all errors
+        @validationErrors {}
+        Object.keys res.message
+          .map (field) =>
+            @validationErrors()[field] = res.message[field].join '\n'
+        # Close the payment modal
+        $('#js-cbf-payment-modal').modal 'hide'
+        m.redraw()
+
     @placeBooking = (paygate, e) ->
       return if @lock() is true
       e.preventDefault()
-      # Error handler in case of failing validation
-      errorHandler = (res) =>
-        if res.success is false
-          @lock false
-          # Reset all errors
-          @validationErrors {}
-          Object.keys res.message
-            .map (field) =>
-              @validationErrors()[field] = res.message[field].join '\n'
-          # Close the payment modal
-          $('#js-cbf-payment-modal').modal 'hide'
-          m.redraw()
 
       # Assume the response is fine, submit payment info to paygate
       submitToPaygate = =>
         results = @paymentOptions().filter (item) -> item.key is paygate
         option = results[0]
         if option?
-          addInput = (name, value) ->
-            input = document.createElement 'input'
-            input.name = name
-            input.value = value
-            return input
-
-          # Create a new form
-          form = document.createElement 'form'
-          form.method = 'POST'
-          form.action = option.url
-
-          for key, value of option.attr
-            form.appendChild addInput key, value
-
-          # Submit it
-          form.submit()
+          createFormAndSubmit option.url, option.attr
 
       # Send request to place the booking
       @lock true
       m.redraw()
       @layout.placeBooking()
         .then submitToPaygate
-        .then null, errorHandler
+        .then null, whenPlacingBookingFailed
+
+    # --------------------------------------------------------------------------
+    # Modal
+    # --------------------------------------------------------------------------
+    @shouldOpenModal = (e) ->
+      return false if e.target.disabled is true
+      if @isDisabledPayment() is false
+        $('#js-cbf-payment-modal').modal('show')
+        return
+
+      @layout.placeBooking()
+        .then => createFormAndSubmit @payAtVenueUrl(), @layout.dataStore()
+        .then null, whenPlacingBookingFailed
+
 
     # Kickstart
     @fetchPaymentOptions @layout.dataStore().price
@@ -430,9 +466,8 @@ app.VaraaCPLayout = (dom, hash) ->
       ]),
       m('.payment-section.text-center', [
         m('button.btn.btn-lg.btn-square.btn-book.btn-success', {
-          'data-toggle': 'modal',
-          'data-target': '#js-cbf-payment-modal',
-          disabled: ctrl.validateCustomer() is no or ctrl.lock() is yes
+          disabled: ctrl.validateCustomer() is no or ctrl.lock() is yes,
+          onclick: ctrl.shouldOpenModal.bind(ctrl)
         }, __('book'))
       ]),
       m('.modal.fade[id=js-cbf-payment-modal][role=dialog][tabindex=-1]', [
