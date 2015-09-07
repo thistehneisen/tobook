@@ -26,18 +26,14 @@
     </div>
 @if (Confide::user()->is_admin || Session::has('stealthMode'))
     <div class="form-group">
-        {{ Form::label('payment_options', trans('user.payment_options.index'), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
+        {{ Form::label('payment_options', trans('user.payment_options.disable'), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
         <div class="col-sm-6">
-            <div class="checkbox">
-                <label>{{ Form::checkbox('payment_options[]', 'venue', $business->isPaymentOptionEnabled('venue')) }} @lang('user.payment_options.venue')</label>
+            <div class="radio">
+                <label>{{ Form::radio('disabled_payment', 1, $business->disabled_payment === true) }} @lang('common.yes')</label>
             </div>
-            @if((bool) Settings::get('deposit_payment') && (App::environment() === 'tobook'))
-            <div class="checkbox">
-                <label>{{ Form::checkbox('payment_options[]', 'deposit', $business->isPaymentOptionEnabled('deposit'), ['id' => 'js-payment-options-deposit']) }} @lang('user.payment_options.deposit')</label>
-            </div>
-            @endif
-            <div class="checkbox">
-                <label>{{ Form::checkbox('payment_options[]', 'full', $business->isPaymentOptionEnabled('full')) }} @lang('user.payment_options.full')</label>
+
+            <div class="radio">
+                <label>{{ Form::radio('disabled_payment', 0, $business->disabled_payment === false) }} @lang('common.no')</label>
             </div>
         </div>
     </div>
