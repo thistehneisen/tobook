@@ -118,8 +118,8 @@ trait Layout
         foreach ($categories as $category) {
             $priceRange[$category->id]  = $category->priceRange;
             $hasDiscount[$category->id] = $category->hasDiscount;
-            foreach ($category->services as $service) {
-                $servicesDiscount[$service->id] = ($hasDiscount[$category->id] && $service->is_discount_included);
+            foreach ($category->services as $asService) {
+                $servicesDiscount[$asService->id] = ($hasDiscount[$category->id] && $asService->is_discount_included);
             }
         }
 
