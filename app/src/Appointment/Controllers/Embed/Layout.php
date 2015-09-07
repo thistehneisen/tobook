@@ -313,7 +313,7 @@ trait Layout
     }
 
     /**
-     * The the timetable of all employees and merge them into one
+     * Generate the timetable of all employees and merge them into one
      *
      * @param Service $service
      * @param Carbon  $date
@@ -335,7 +335,8 @@ trait Layout
                 $date,
                 $serviceTime,
                 $showEndTime,
-                $discount
+                $discount,
+                $timetable
             );
 
             foreach ($data as $time => $_) {
@@ -361,7 +362,7 @@ trait Layout
      *
      * @return array
      */
-    public function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $serviceTime = null, $showEndTime = false, $discount = false)
+    public function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $serviceTime = null, $showEndTime = false, $discount = false, $currentTimetable = [])
     {
         $extraServiceIds = Input::get('extraServiceId');
         $extraServices = [];
@@ -374,7 +375,7 @@ trait Layout
         //isTest = true to show booking in the past
         $isTest = false;
 
-        $timetable = $employee->getTimetable($service, $date, $serviceTime, $extraServices, $showEndTime, $isTest, $discount);
+        $timetable = $employee->getTimetable($service, $date, $serviceTime, $extraServices, $showEndTime, $isTest, $discount, $currentTimetable);
         // Sort timetable ascendingly
         ksort($timetable, SORT_STRING);
 

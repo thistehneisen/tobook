@@ -4,6 +4,7 @@ use Config;
 use Util;
 use Validator;
 use Carbon\Carbon;
+use DB;
 use App\Appointment\Models\Slot\Strategy;
 use App\Appointment\Models\Slot\Context;
 use App\Appointment\Models\Slot\Backend;
@@ -48,6 +49,11 @@ class Employee extends \App\Appointment\Models\Base
     private $freetimeSlot   = [];
     private $customTimeSlot = [];
     private $strategy       = [];
+
+    private $freetimeRows   = null;
+    private $bookingRows    = null;
+    private $resourceRows   = null;
+    private $roomRows       = null;
 
     public function setBookedSlot(array $data)
     {
@@ -305,6 +311,43 @@ class Employee extends \App\Appointment\Models\Base
         return (!empty($freetime)) ? true : false;
     }
 
+    /**
+     * Check if the booking start time and end time overlap with
+     * current employee freetime, mimic isOverllapedWithFreetime but
+     * query database only once.
+     *
+     * @param string $date
+     * @param Carbon $startTime
+     * @param Carbon $endTime
+     *
+     * @return boolean
+     */
+    public function isFreetimeOverlpaped($date, $startTime, $endTime)
+    {
+        if(empty($this->freetimeRows)) {
+            $this->freetimeRows = $this->freetimes()->where('date', $date)->get();
+        }
+
+        foreach ($this->freetimeRows as $row) {
+            if ($row->startTime->gte($startTime) && $row->startTime->lt($startTime)) {
+                return true;
+            }
+
+            if ($row->endTime->gt($startTime) && $row->endTime->lte($endTime)) {
+                return true;
+            }
+
+            if ($row->startTime->lt($startTime) && $row->endTime->gt($startTime)) {
+                return true;
+            }
+
+            if ($row->startTime->eq($startTime) && $row->endTime->eq($endTime)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function getTodayDefaultStartAt($weekday = null)
     {
         if ($weekday === null) {
@@ -471,7 +514,7 @@ class Employee extends \App\Appointment\Models\Base
      * $isTest show booking in the past
      * @return array
      */
-    public function getTimeTable(Service $service, Carbon $date, $serviceTime = null, $extraServices, $showEndTime = false, $isTest = false, $discount = false)
+    public function getTimeTable(Service $service, Carbon $date, $serviceTime = null, $extraServices, $showEndTime = false, $isTest = false, $discount = false, $currentTimetable = [])
     {
         $timetable = [];
         $defaultEndTime = null;
@@ -499,6 +542,8 @@ class Employee extends \App\Appointment\Models\Base
             }
         }
 
+        $isRoomRequired = $basicService->requireRoom();
+
         foreach ($workingTimes as $hour => $minutes) {
             foreach ($minutes as $shift) {
                 // We will check if this time bookable
@@ -509,9 +554,15 @@ class Employee extends \App\Appointment\Models\Base
                     }
                 }
 
+
                 //Checking overlapp maybe go wrong in the edge with extra seconds: 11:30:40.000000
                 $startTime = $date->copy()->hour($hour)->minute($shift)->second(0);
                 $endTime   = $startTime->copy()->addMinutes($serviceLength)->second(0);
+
+                $formatted = sprintf('%02d:%02d', $startTime->hour, $startTime->minute);
+                if(!empty($currentTimetable) && isset($currentTimetable[$formatted])) {
+                    continue;
+                }
 
                 if (!empty($empCustomTime)) {
                     if (($endTime->hour * 60) + $endTime->minute > ($end->hour * 60) + $end->minute) {
@@ -523,17 +574,12 @@ class Employee extends \App\Appointment\Models\Base
                     }
                 }
 
-                $isOverllapedWithFreetime = $this->isOverllapedWithFreetime($date->toDateString(), $startTime, $endTime);
-                if ($isOverllapedWithFreetime === true) {
+                $isFreetimeOverlpaped = $this->isFreetimeOverlpaped($date->toDateString(), $startTime, $endTime);
+                if ($isFreetimeOverlpaped === true) {
                     continue;
                 }
 
-                $isBookable = Booking::isBookable(
-                    $this->id,
-                    $date,
-                    $startTime,
-                    $endTime
-                );
+                $isBookable = Booking::isBookable($this->id, $date, $startTime, $endTime);
 
                 // If not, move to the next one
                 if ($isBookable === false) {
@@ -554,7 +600,7 @@ class Employee extends \App\Appointment\Models\Base
                     continue;
                 }
 
-                if ($basicService->requireRoom()) {
+                if ($isRoomRequired) {
                     $availableRoom = Booking::getAvailableRoom(
                         $this->id,
                         $basicService,
