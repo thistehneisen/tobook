@@ -56,6 +56,8 @@ return [
         'date'            => 'Valitse päivä',
         'time'            => 'Valitse aika',
         'current_location' => 'Sijaintisi',
+        'results'         => '<span class="keyword">&ldquo;:keyword&rdquo;</span>, <span class="location">:location</span>, :date, :time, <span class="results">:total hakutulosta</span>',
+        'force_selection' => 'Valitse palvelutyyppi jatkaaksesi.',
         'validation'      => [
             'q'        => 'Etsi palveluita',
             'location' => 'Valitse sijainti',

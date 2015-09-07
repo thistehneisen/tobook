@@ -33,7 +33,7 @@ return [
     'users'                 => 'Käyttäjät',
     'settings'              => 'Asetukset',
     'yes'                   => 'Kyllä',
-    'yes_required'          => 'Kyllä (Tarpeellinen)',
+    'yes_required'          => 'Kyllä (pakollinen)',
     'no'                    => 'Ei',
     'add'                   => 'Lisää',
     'delete'                => 'Poista',

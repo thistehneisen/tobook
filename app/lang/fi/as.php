@@ -389,7 +389,7 @@ return [
             'confirm_tokens_employee'                        => 'Viestin sisältö',
             'terms_enabled'                                  => 'Ehdot käytössä',
             'default_nat_service'                            => 'Default next available service',
-            'show_quick_workshift_selection'                 => 'Show on calendar workshift selection',
+            'show_quick_workshift_selection'                 => 'Työvuorojen pikavalitsin kalenterinäkymässä',
             'min_distance'                                   => 'Varauksien varoaika (/vrk)',
             'max_distance'                                   => 'Maksimietäisyys varauksille (/vrk)',
             'auto_select_employee'                           => 'Työntekijän automaattivalitsin',
@@ -413,20 +413,21 @@ return [
         ],
         'working_time' => [
             'index' => 'Kalenterinäkymä',
-        ]
+        ],
         'discount' => [
             'discount'            => 'Alennukset',
             'last-minute'         => 'Äkkilähdöt',
             'business-hour'       => 'tunti ennen',
             'business-hours'      => 'tuntia ennen',
             'full-price'          => 'Täysi hinta',
-            'afternoon_starts_at' =>'Päivä alkaa klo',
-            'evening_starts_at'   =>'Ilta alkaa klo',
+            'afternoon_starts_at' => 'Päivä alkaa klo',
+            'evening_starts_at'   => 'Ilta alkaa klo',
             'is_active'           => 'Käytössä',
             'before'              => 'Varoaika',
             'error' => [
                 'evening_starts_before_afternoon' => 'Ilta ei voi alkaa ennen päivää.'
             ],
+        ]
     ],
     'reports' => [
         'index'     => 'Raportit',

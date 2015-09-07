@@ -58,6 +58,12 @@ trait DiscountPrice {
         $startOfToday = $now->copy()->hour(0)->minute(0);
         $startOfStart = $startTime->copy()->hour(23)->minute(59);
 
+        if ($startOfToday->diffInDays($startOfStart) === 0) {
+            if ($now->hour < 8) {
+                $now->addHours((8 - $now->hour));
+            }
+        }
+
         if ($startOfToday->diffInDays($startOfStart) === 1) {
             if ($now->hour < 8) {
                 $now->addHours((8 - $now->hour) + 12);
@@ -98,7 +104,7 @@ trait DiscountPrice {
         $startOfDate = $date->copy()->hour(8)->minute(0);
         $endOfDate   = $date->copy()->hour(20)->minute(59);
 
-        if ($date->lt($now)) {
+        if ($endOfDate->lt($now)) {
             return $hasDiscount;
         }
 
@@ -126,6 +132,12 @@ trait DiscountPrice {
 
         $startOfToday = $now->copy()->hour(0)->minute(0);
         $startOfStart = $date->copy()->hour(23)->minute(59);
+
+        if ($startOfToday->diffInDays($startOfStart) === 0) {
+            if ($now->hour < 8) {
+                $now->addHours((8 - $now->hour));
+            }
+        }
 
         if ($startOfToday->diffInDays($startOfStart) === 1) {
             if ($now->hour < 8) {

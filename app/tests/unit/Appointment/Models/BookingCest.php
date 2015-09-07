@@ -158,38 +158,6 @@ class BookingCest
             $booking->getStartAt(), $booking->getEndAt()), 'existing booking canceled');
     }
 
-    public function testCanBook(UnitTester $I)
-    {
-        $booking = $this->_makeABooking();
-
-        $I->assertFalse(Booking::canBook($booking->employee->id, $booking->date,
-                $booking->getStartAt(), $booking->getEndAt()),
-            'existing booking');
-
-        $I->assertFalse(Booking::canBook($booking->employee->id, $booking->date,
-                $booking->getStartAt()->subMinutes(15), $booking->getStartAt()->addMinutes(15)),
-            'existing booking, before 15 minutes, 30 overlap');
-
-        $I->assertFalse(Booking::canBook($booking->employee->id, $booking->date,
-                $booking->getEndAt()->subMinutes(15), $booking->getEndAt()->addMinutes(15)),
-            'existing booking, after 15 minutes, 30 overlap');
-
-        $I->assertFalse(Booking::canBook($booking->employee->id, $booking->date,
-                $booking->getStartAt()->subMinutes(15), $booking->getEndAt()->addMinutes(15)),
-            'existing booking, +15 minutes each way');
-
-        $I->assertTrue(Booking::canBook($booking->employee->id, $booking->date,
-                $booking->getStartAt(), $booking->getEndAt(), $booking->uuid),
-            'existing booking, check for itself');
-
-        $booking->status = Booking::STATUS_CANCELLED;
-        $booking->save();
-
-        // this is a wrong result but it is by design
-        $I->assertFalse(Booking::canBook($booking->employee->id, $booking->date,
-            $booking->getStartAt(), $booking->getEndAt()), 'existing booking canceled');
-    }
-
     public function testGetLastestBookingEndTime(UnitTester $I)
     {
         $user = User::find(70);

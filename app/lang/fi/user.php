@@ -87,7 +87,7 @@ return [
         'no_images'            => 'Kuvia ei löytynyt, ole ystävällinen ja lataa uusia kuvia.',
         'select_files'         => 'Valitse tiedostot',
         'upload'               => 'Lataa',
-        'upload_images'        => 'Lataa uusia kuvia',
+        'upload_images'        => 'Profiilisivun kuvat',
         'description'          => 'Yritysesittely',
         'business_size'        => 'Henkilömäärä',
         'business'             => 'Yritys',
@@ -96,6 +96,7 @@ return [
         'start_time'           => 'Avaamme',
         'end_time'             => 'Suljemme',
         'extra'                => 'Lisätiedot',
+        'hide_working_hours'   => 'Näytä pelkkä lisätietokenttä',
         'business_size_values' => [
             '1',
             '2-3',

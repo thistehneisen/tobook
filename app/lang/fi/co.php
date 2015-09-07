@@ -48,7 +48,7 @@ return [
     'x_consumers'       => ':count consumer|:count consumers',
     'group'             => 'Lisää ryhmään',
     'send_email'        => 'Lähetä sähköposti',
-    'send_sms'          => 'Lähetä SMS',
+    'send_sms'          => 'Valitse kampanja',
     'send_all_email'    => 'Lähetä sähköposti kaikille',
     'send_all_sms'      => 'Lähetä SMS kaikille',
     'groups' => [
