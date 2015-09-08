@@ -204,26 +204,43 @@ class Hub extends Base
         }
 
         $messages = [];
+        $errors = [];
         $successCount = 0;
+        $errorCount = 0;
         foreach ($importResults as $result) {
             if ($result['success']) {
                 $successCount++;
             } else {
-                $messages[] = trans('co.import.save_error_row_x_y', [
+                $errorCount++;
+                $errors[] = trans('co.import.save_error_row_x_y', [
                     'row' => $result['row'],
                     'error' => $result['error'],
                 ]);
             }
         }
-        if ($successCount > 0) {
+
+        if ($successCount) {
             array_unshift($messages, Lang::choice('co.import.imported_x', $successCount, ['count' => $successCount]));
             $messageBag = $this->successMessageBag($messages);
-        } else {
-            $messageBag = $this->errorMessageBag($messages);
         }
 
-        return Redirect::to(route('consumer-hub.import'))
-            ->with('messages', $messageBag);
+        if ($errorCount) {
+            $errorBag = $this->errorMessageBag($errors);
+        }
+
+
+        $redirect = Redirect::to(route('consumer-hub.import'));
+
+        if ($successCount) {
+            $redirect->with('messages', $messageBag);
+        }
+
+        if ($errorCount) {
+            $redirect->withErrors($errorBag);
+        }
+
+        return $redirect;
+
     }
 
     public function bulkGroup($ids)
