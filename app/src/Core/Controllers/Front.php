@@ -54,10 +54,15 @@ class Front extends Base
 
         $bookingCount = Booking::where('created_at', '>=', '2015-07-01')->count();
 
+        // Should we display the modal in homepage?
+        // @see: https://github.com/varaa/varaa/issues/644
+        $iframeUrl = null;
+
         return $this->render('home', [
-            'categories'       => $categories,
-            'masterCategories' => $masterCategories,
             'bookingCount'     => $bookingCount,
+            'categories'       => $categories,
+            'iframeUrl'        => $iframeUrl,
+            'masterCategories' => $masterCategories,
         ]);
     }
 
