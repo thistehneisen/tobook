@@ -206,7 +206,7 @@ class Consumer extends \App\Core\Models\Base
 
             $newObj = new self();
             foreach ($fieldIndices as $field => $index) {
-                $newObj->$field = $cells[$index];
+                $newObj->$field = str_replace(["\xA0", "\xC2"], "", trim($cells[$index]));
             }
 
             try {
