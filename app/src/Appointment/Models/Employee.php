@@ -516,35 +516,31 @@ class Employee extends \App\Appointment\Models\Base
      */
     public function getTimeTable(Service $service, Carbon $date, $serviceTime = null, $extraServices, $showEndTime = false, $isTest = false, $discount = false, $currentTimetable = [])
     {
-        $timetable = [];
+        $timetable      = [];
         $defaultEndTime = null;
         $workingTimes   = $this->getWorkingTimesByDate($date, $defaultEndTime);
-
-        $empCustomTime = $this->employeeCustomTimes()
-                    ->with('customTime')
-                    ->where('date', $date)
-                    ->first();
+        $empCustomTime  = $this->employeeCustomTimes()->with('customTime')
+            ->where('date', $date)->first();
 
         if (!empty($empCustomTime)) {
             $end   = $empCustomTime->customTime->getEndAt();
             $start = $empCustomTime->customTime->getStartAt();
         }
 
-        $basicService = $service;
-        $service = (!empty($serviceTime))
-                    ? $serviceTime
-                    : $service;
+        $basedService = $service;
+        $service = (!empty($serviceTime)) ? $serviceTime : $service;
 
         $serviceLength = $service->length;
         if (is_array($extraServices)) {
-            foreach ($extraServices as $extraService) {
-                $serviceLength += $extraService->length;
-            }
+            $serviceLength += array_reduce($extraServices, function($total, $item) {
+                $total += $item->length;
+                return $total;
+            }, 0);
         }
 
-        $isRoomRequired = $basicService->requireRoom();
 
-        $plustime       = $this->getPlustime($basicService->id);
+        $isRoomRequired = $basedService->requireRoom();
+        $plustime       = $this->getPlustime($basedService->id);
         $serviceLength += $plustime;
 
         foreach ($workingTimes as $hour => $minutes) {
@@ -593,7 +589,7 @@ class Employee extends \App\Appointment\Models\Base
                 //Check if there are enough resources for the booking
                 $areResourcesAvailable = Booking::areResourcesAvailable(
                     $this->id,
-                    $basicService,
+                    $basedService,
                     null,
                     $date,
                     $startTime,
@@ -607,7 +603,7 @@ class Employee extends \App\Appointment\Models\Base
                 if ($isRoomRequired) {
                     $availableRoom = Booking::getAvailableRoom(
                         $this->id,
-                        $basicService,
+                        $basedService,
                         null,
                         $date,
                         $startTime,
