@@ -1,14 +1,15 @@
 <?php namespace App\Core\Controllers;
 
 use App;
+use App\Appointment\Models\Booking;
 use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\TreatmentType;
-use App\Appointment\Models\Booking;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
-use App\Haku\Searchers\BusinessesByDistrict;
 use App\Haku\Searchers\BusinessesByCategory;
+use App\Haku\Searchers\BusinessesByDistrict;
+use Cookie;
 use Illuminate\Support\Collection;
 use Input;
 use Request;
@@ -54,10 +55,21 @@ class Front extends Base
 
         $bookingCount = Booking::where('created_at', '>=', '2015-07-01')->count();
 
+        // Should we display the modal in homepage?
+        // @see: https://github.com/varaa/varaa/issues/644
+        $iframeUrl = null;
+        Cookie::queue('shown_homepage_modal', true, 60*24*14); // 14 days
+
+        if ((bool) Settings::get('enable_homepage_modal', false)
+            && Cookie::get('shown_homepage_modal') !== true) {
+            $iframeUrl = Settings::get('homepage_modal_url');
+        }
+
         return $this->render('home', [
-            'categories'       => $categories,
-            'masterCategories' => $masterCategories,
             'bookingCount'     => $bookingCount,
+            'categories'       => $categories,
+            'iframeUrl'        => $iframeUrl,
+            'masterCategories' => $masterCategories,
         ]);
     }
 

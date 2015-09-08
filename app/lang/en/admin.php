@@ -134,6 +134,8 @@ return [
         'booking_terms'                => 'Booking terms',
         'force_pay_at_venue'           => 'Force pay at venue',
         'sms_length_limiter'           => 'SMS length limiter',
+        'enable_homepage_modal'        => 'Enable homepage modal',
+        'homepage_modal_url'           => 'Homepage modal URL',
     ],
     'master-cats' => [
         'all'         => 'All master category',

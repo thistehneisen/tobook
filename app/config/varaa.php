@@ -151,5 +151,7 @@ return [
         //----------------------------------------------------------------------
         'contact_email' => ['type' => 'Text',  'default' => ''],
         'booking_terms' => ['type' => 'Textarea',  'default' => '', 'options' => ['rows'=> 30, 'class' => 'form-control ckeditor'] ],
+        'enable_homepage_modal' => ['type' => 'Radio',  'default' => false],
+        'homepage_modal_url' => ['type' => 'Text',  'default' => ''],
     ],
 ];

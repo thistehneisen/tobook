@@ -9,6 +9,15 @@ do ($ = jQuery) ->
     $locationDropdownWrapper = $ '#location-dropdown-wrapper'
 
     # --------------------------------------------------------------------------
+    # Homepage modal
+    # --------------------------------------------------------------------------
+    $modal = $ '#js-homepage-modal'
+    if $modal.length > 0
+      $modal.modal()
+        .on 'shown.bs.modal', (e) ->
+          $modal.css('top', ($(window).height() - $modal.find('.modal-content').height()) / 2)
+
+    # --------------------------------------------------------------------------
     # Use MithrilJS to write the location dropdown
     # --------------------------------------------------------------------------
 
