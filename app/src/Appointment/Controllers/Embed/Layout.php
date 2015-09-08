@@ -406,6 +406,15 @@ trait Layout
         return $timetable;
     }
 
+    /**
+     * Get discount price of the given service
+     *
+     * @param Carbon $date
+     * @param Carbon $time
+     * @param ServiceTime/Service $service
+     *
+     * @return double
+     */
     public function getDiscountPrice($date, $time, $service)
     {
         return $service->getDiscountPrice($date, $time);
