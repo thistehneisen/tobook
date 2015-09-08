@@ -62,12 +62,13 @@ class User extends Base
                     'size'             => ['type' => false],
                     'note'             => ['type' => false],
                     'payment_options'  => ['type' => false],
+                    'disabled_payment' => ['type' => false],
                     'deposit_rate'     => ['type' => false],
-                    'bank_account'     => ['type' => 'text'          , 'hidden' => !$isAdmin],
+                    'bank_account'     => ['type' => 'text', 'hidden' => !$isAdmin],
                     'meta_title'       => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
                     'meta_description' => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
                     'meta_keywords'    => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
-                    'is_hidden'        => ['type' => 'radio'         , 'hidden' => !$isAdmin],
+                    'is_hidden'        => ['type' => 'radio', 'hidden' => !$isAdmin],
                 ],
             ]);
         }
@@ -148,16 +149,16 @@ class User extends Base
         }
 
         $data = [
-            'email'       => Input::get('email'),
-            'business_id' => Input::get('business_id'),
             'account'     => Input::get('account'),
+            'address'     => Input::get('address'),
+            'business_id' => Input::get('business_id'),
+            'city'        => Input::get('city'),
+            'country'     => Input::get('country'),
+            'email'       => Input::get('email'),
             'first_name'  => Input::get('first_name'),
             'last_name'   => Input::get('last_name'),
             'phone'       => Input::get('phone'),
-            'address'     => Input::get('address'),
-            'city'        => Input::get('city'),
             'postcode'    => Input::get('postcode'),
-            'country'     => Input::get('country'),
         ];
 
         $errors = null;
@@ -181,8 +182,9 @@ class User extends Base
 
         if ($user->is_business) {
             $business = $user->business;
-            $business->payment_options = Input::get('payment_options', []);
-            $business->deposit_rate = Input::get('deposit_rate');
+            $business->deposit_rate     = Input::get('deposit_rate');
+            $business->disabled_payment = Input::get('disabled_payment');
+            $business->payment_options  = Input::get('payment_options', []);
 
             $business->save();
         }

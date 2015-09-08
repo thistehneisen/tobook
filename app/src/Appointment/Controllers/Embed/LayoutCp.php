@@ -137,8 +137,8 @@ class LayoutCp extends Base
         }
 
         $startDate = $date->copy()->startOfWeek();
-        $endDate = $startDate->copy()->endOfWeek();
-        $nextWeek = $endDate->copy()->addDay();
+        $endDate   = $startDate->copy()->endOfWeek();
+        $nextWeek  = $endDate->copy()->addDay();
         // Start of the week so that the date won't fall into Sunday which is
         // usually unbookable
         $prevWeek = $startDate->copy()->subDay()->startOfWeek();
@@ -182,13 +182,22 @@ class LayoutCp extends Base
 
     public function getPaymentOptions()
     {
+        $hash = Input::get('hash');
+        $user = $this->getUser($hash);
+        if ($user->business->disabled_payment) {
+            return Response::json([
+                'disabled_payment' => true,
+                'url' => route('business.booking.pay_at_venue', ['hash' => $hash])
+            ]);
+        }
+
         $result = is_tobook()
             ? $this->getWebToPayOptions()
             : $this->getCheckoutOptions();
 
         // Add Pay at venue button
         $result['payment_methods'][] = [
-            'url' => route('business.booking.pay_at_venue', ['hash' => Input::get('hash')]),
+            'url' => route('business.booking.pay_at_venue', ['hash' => $hash]),
             'key' => 'pay_at_venue',
             'attr' => [
                 'cart_id' => $result['cart_id']
@@ -197,6 +206,7 @@ class LayoutCp extends Base
             'title' => trans('home.cart.pay_venue'),
         ];
 
+        $result['disabled_payment'] = false;
         return Response::json($result);
     }
 

@@ -93,10 +93,13 @@ trait Layout
             }
         }
         $extraServices = [];
+
         if (!empty($extraServiceIds)) {
             $extraServices = ExtraService::whereIn('id', $extraServiceIds)->get();
         }
+
         $extraServiceLength = $extraServicePrice =  0;
+
         if (!empty($extraServices)) {
             foreach ($extraServices as $extraService) {
                 $extraServiceLength += $extraService->length;
