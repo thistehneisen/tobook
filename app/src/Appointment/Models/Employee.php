@@ -324,11 +324,11 @@ class Employee extends \App\Appointment\Models\Base
      */
     public function isFreetimeOverlpaped($date, $startTime, $endTime)
     {
-        if(empty($this->freetimeRows)) {
-            $this->freetimeRows = $this->freetimes()->where('date', $date)->get();
+        if(empty($this->freetimeRows[$date])) {
+            $this->freetimeRows[$date] = $this->freetimes()->where('date', $date)->get();
         }
 
-        foreach ($this->freetimeRows as $row) {
+        foreach ($this->freetimeRows[$date] as $row) {
             if ($row->startTime->gte($startTime) && $row->startTime->lt($endTime)) {
                 return true;
             }
