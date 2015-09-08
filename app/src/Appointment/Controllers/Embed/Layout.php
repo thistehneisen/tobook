@@ -93,10 +93,13 @@ trait Layout
             }
         }
         $extraServices = [];
+
         if (!empty($extraServiceIds)) {
             $extraServices = ExtraService::whereIn('id', $extraServiceIds)->get();
         }
+
         $extraServiceLength = $extraServicePrice =  0;
+
         if (!empty($extraServices)) {
             foreach ($extraServices as $extraService) {
                 $extraServiceLength += $extraService->length;
@@ -112,20 +115,12 @@ trait Layout
             ->where('is_show_front', true)
             ->get();
 
-        $priceRange  = [];
-        $hasDiscount = [];
-        $servicesDiscount = [];
-        foreach ($categories as $category) {
-            $priceRange[$category->id]  = $category->priceRange;
-            $hasDiscount[$category->id] = $category->hasDiscount;
-            foreach ($category->services as $asService) {
-                $servicesDiscount[$asService->id] = ($hasDiscount[$category->id] && $asService->is_discount_included);
-            }
-        }
-
         $layout = empty($layout)
             ? $this->getLayout()
             : $layout;
+
+        list($priceRange, $hasDiscount, $servicesDiscount) = $this->getDiscountData($categories, $layout);
+
 
         $minDistance = ((int) $user->asOptions['min_distance'])
             ? sprintf('+%dd', (int) $user->asOptions['min_distance'])
@@ -159,6 +154,35 @@ trait Layout
             'maxDistance'        => $maxDistance,
             'action'             => $action
         ];
+    }
+
+    /**
+     * Fetch discount data for displaying on CP layout
+     *
+     * @param Illuminate\Support\Collection $categories
+     * @param strinng $layout
+     *
+     * @return Array
+     */
+    public function getDiscountData($categories, $layout)
+    {
+        $priceRange       = [];
+        $hasDiscount      = [];
+        $servicesDiscount = [];
+
+        if ($layout === 'cp') {
+            return [$priceRange, $hasDiscount, $servicesDiscount];
+        }
+
+        foreach ($categories as $category) {
+            $priceRange[$category->id]  = $category->priceRange;
+            $hasDiscount[$category->id] = $category->hasDiscount;
+            foreach ($category->services as $service) {
+                $servicesDiscount[$service->id] = ($hasDiscount[$category->id] && $service->is_discount_included);
+            }
+        }
+
+        return [$priceRange, $hasDiscount, $servicesDiscount];
     }
 
     /**
@@ -382,6 +406,15 @@ trait Layout
         return $timetable;
     }
 
+    /**
+     * Get discount price of the given service
+     *
+     * @param Carbon $date
+     * @param Carbon $time
+     * @param ServiceTime/Service $service
+     *
+     * @return double
+     */
     public function getDiscountPrice($date, $time, $service)
     {
         return $service->getDiscountPrice($date, $time);
