@@ -329,7 +329,7 @@ class Employee extends \App\Appointment\Models\Base
         }
 
         foreach ($this->freetimeRows as $row) {
-            if ($row->startTime->gte($startTime) && $row->startTime->lt($startTime)) {
+            if ($row->startTime->gte($startTime) && $row->startTime->lt($endTime)) {
                 return true;
             }
 
@@ -516,49 +516,48 @@ class Employee extends \App\Appointment\Models\Base
      */
     public function getTimeTable(Service $service, Carbon $date, $serviceTime = null, $extraServices, $showEndTime = false, $isTest = false, $discount = false, $currentTimetable = [])
     {
-        $timetable = [];
+        $timetable      = [];
         $defaultEndTime = null;
-        $workingTimes  = $this->getWorkingTimesByDate($date, $defaultEndTime);
-
-        $empCustomTime = $this->employeeCustomTimes()
-                    ->with('customTime')
-                    ->where('date', $date)
-                    ->first();
+        $workingTimes   = $this->getWorkingTimesByDate($date, $defaultEndTime);
+        $empCustomTime  = $this->employeeCustomTimes()->with('customTime')
+            ->where('date', $date)->first();
 
         if (!empty($empCustomTime)) {
             $end   = $empCustomTime->customTime->getEndAt();
             $start = $empCustomTime->customTime->getStartAt();
         }
 
-        $basicService = $service;
-        $service = (!empty($serviceTime))
-                    ? $serviceTime
-                    : $service;
+        $basedService = $service;
+        $service = (!empty($serviceTime)) ? $serviceTime : $service;
 
         $serviceLength = $service->length;
         if (is_array($extraServices)) {
-            foreach ($extraServices as $extraService) {
-                $serviceLength += $extraService->length;
-            }
+            $serviceLength += array_reduce($extraServices, function($total, $item) {
+                $total += $item->length;
+                return $total;
+            }, 0);
         }
 
-        $isRoomRequired = $basicService->requireRoom();
+
+        $isRoomRequired = $basedService->requireRoom();
+        $plustime       = $this->getPlustime($basedService->id);
+        $serviceLength += $plustime;
 
         foreach ($workingTimes as $hour => $minutes) {
             foreach ($minutes as $shift) {
-                // We will check if this time bookable
 
+                // break if the hour before employee daily begin working time
                 if (!empty($empCustomTime)) {
                     if ($hour < $start->hour) {
                         break;
                     }
                 }
 
-
                 //Checking overlapp maybe go wrong in the edge with extra seconds: 11:30:40.000000
                 $startTime = $date->copy()->hour($hour)->minute($shift)->second(0);
                 $endTime   = $startTime->copy()->addMinutes($serviceLength)->second(0);
 
+                // if the current timeslot is already existed in current timable, no need to do it again
                 $formatted = sprintf('%02d:%02d', $startTime->hour, $startTime->minute);
                 if(!empty($currentTimetable) && isset($currentTimetable[$formatted])) {
                     continue;
@@ -575,6 +574,7 @@ class Employee extends \App\Appointment\Models\Base
                 }
 
                 $isFreetimeOverlpaped = $this->isFreetimeOverlpaped($date->toDateString(), $startTime, $endTime);
+
                 if ($isFreetimeOverlpaped === true) {
                     continue;
                 }
@@ -589,7 +589,7 @@ class Employee extends \App\Appointment\Models\Base
                 //Check if there are enough resources for the booking
                 $areResourcesAvailable = Booking::areResourcesAvailable(
                     $this->id,
-                    $basicService,
+                    $basedService,
                     null,
                     $date,
                     $startTime,
@@ -603,7 +603,7 @@ class Employee extends \App\Appointment\Models\Base
                 if ($isRoomRequired) {
                     $availableRoom = Booking::getAvailableRoom(
                         $this->id,
-                        $basicService,
+                        $basedService,
                         null,
                         $date,
                         $startTime,
@@ -617,7 +617,7 @@ class Employee extends \App\Appointment\Models\Base
 
                 if ($startTime->gt(Carbon::now()) || $isTest) {
                     $startTime->addMinutes($service->before);
-                    $endTime   = $startTime->copy()->addMinutes($serviceLength)
+                    $endTime = $startTime->copy()->addMinutes($serviceLength)
                         ->subMinutes($service->before)
                         ->subMinutes($service->after);
 

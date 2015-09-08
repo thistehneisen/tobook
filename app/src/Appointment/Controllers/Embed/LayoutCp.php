@@ -137,8 +137,8 @@ class LayoutCp extends Base
         }
 
         $startDate = $date->copy()->startOfWeek();
-        $endDate = $startDate->copy()->endOfWeek();
-        $nextWeek = $endDate->copy()->addDay();
+        $endDate   = $startDate->copy()->endOfWeek();
+        $nextWeek  = $endDate->copy()->addDay();
         // Start of the week so that the date won't fall into Sunday which is
         // usually unbookable
         $prevWeek = $startDate->copy()->subDay()->startOfWeek();
