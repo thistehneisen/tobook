@@ -20,6 +20,36 @@
 
     .as-date-nav {
         margin: 0 auto 5px auto;
+        @media (max-width: 768px) {
+            padding: 0;
+        }
+    }
+}
+
+
+
+@media (max-width: 768px) {
+    .as-home-navigator {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .btn-as-day {
+        width: 49%;
+    }
+
+    .as-days-navigator {
+        width: 100%;
+        .btn {
+            width: 25%;
+        }
+    }
+
+    .as-days-of-week {
+        width: 100%;
+        .btn {
+            width: 14.5%;
+            padding: 5px;
+        }
     }
 }
 
@@ -316,6 +346,11 @@
 .as-calendar-action{
     width: 300px;
     margin: 20px;
+
+    @media (max-width: 768px) {
+        width: auto;
+        margin: 5px;
+    }
 }
 .as-calendar-book {
     // width: 800px;
@@ -329,6 +364,11 @@
 .as-freetime-form {
     width: 550px;
     margin: 20px;
+
+    @media (max-width: 768px) {
+        width: auto;
+        margin: 5px;
+    }
 }
 .as-calendar-extra-service {
     width: 350px;
