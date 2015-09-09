@@ -131,6 +131,10 @@ return [
         //----------------------------------------------------------------------
         'footer_contact_message' => ['type' => 'Text', 'default' => 'Start using our free online booking tool now'],
         //----------------------------------------------------------------------
+        // Default paygate for the system
+        //----------------------------------------------------------------------
+        'default_layout' => ['type' => 'Dropdown', 'values' => ['layout-3', 'layout-cp'], 'default' => 'layout-cp'],
+        //----------------------------------------------------------------------
         //  Automatically select pay at venue option for consumer
         //----------------------------------------------------------------------
         'force_pay_at_venue' => ['type' => 'Radio', 'default' => false],
