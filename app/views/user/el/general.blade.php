@@ -26,6 +26,30 @@
     </div>
 @if (Confide::user()->is_admin || Session::has('stealthMode'))
     <div class="form-group">
+        {{ Form::label('payment_options', trans('user.payment_options.index'), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
+        <div class="col-sm-6">
+            <div class="checkbox">
+                <label>{{ Form::checkbox('payment_options[]', 'venue', $business->isPaymentOptionEnabled('venue')) }} @lang('user.payment_options.venue')</label>
+            </div>
+            @if((bool) Settings::get('deposit_payment') && (App::environment() === 'tobook'))
+            <div class="checkbox">
+                <label>{{ Form::checkbox('payment_options[]', 'deposit', $business->isPaymentOptionEnabled('deposit'), ['id' => 'js-payment-options-deposit']) }} @lang('user.payment_options.deposit')</label>
+            </div>
+            @endif
+            <div class="checkbox">
+                <label>{{ Form::checkbox('payment_options[]', 'full', $business->isPaymentOptionEnabled('full')) }} @lang('user.payment_options.full')</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group {{ Form::errorCSS('deposit_rate', $errors) }} soft-hidden" id="js-deposit-rate">
+        {{ Form::label('deposit_rate', trans('user.payment_options.rate'), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
+        <div class="col-sm-6">
+            {{ Form::text('deposit_rate', Input::get('deposit_rate', $business->deposit_rate), ['class' => 'form-control', 'placeholder' => trans('user.payment_options.placeholder')]) }}
+            {{ Form::errorText('deposit_rate', $errors) }}
+        </div>
+    </div>
+    {{-- layout-cp settings --}}
+    <div class="form-group">
         {{ Form::label('payment_options', trans('user.payment_options.disable'), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
         <div class="col-sm-6">
             <div class="radio">
