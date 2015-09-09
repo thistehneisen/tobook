@@ -123,6 +123,7 @@ return [
         'default_location'             => 'Default location to show in front page, e.g. Helsinki, FI',
         'footer_contact_message'       => 'Text to be included in every contact message of business',
         'social_google-plus'           => 'Google+',
+        'default_layout'               => 'The default layout',
         'default_paygate'              => 'The default paygate',
         'deposit_rate'                 => 'Deposit rate',
         'deposit_payment'              => 'Deposit payment',
