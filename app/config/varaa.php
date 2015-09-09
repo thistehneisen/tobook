@@ -133,7 +133,7 @@ return [
         //----------------------------------------------------------------------
         // Default paygate for the system
         //----------------------------------------------------------------------
-        'default_layout' => ['type' => 'Dropdown', 'values' => ['Layout-3', 'Layout-CP'], 'default' => 'Layout-CP'],
+        'default_layout' => ['type' => 'Dropdown', 'values' => ['layout-3', 'layout-cp'], 'default' => 'layout-cp'],
         //----------------------------------------------------------------------
         //  Automatically select pay at venue option for consumer
         //----------------------------------------------------------------------
