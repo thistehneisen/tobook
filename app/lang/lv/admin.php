@@ -114,6 +114,7 @@ return [
         'default_location'       => 'Default location to show in front page, e.g. Helsinki, FI', // @todo
         'footer_contact_message' => 'Text to be included in every contact message of business', // @todo
         'social_google-plus'     => 'Google+', // @todo
+        'default_layout'         => 'The default layout', // @todo
         'default_paygate'        => 'The default paygate', // @todo
         'deposit_rate'           => 'Deposit rate', // @todo
         'deposit_payment'        => 'Deposit payment', // @todo

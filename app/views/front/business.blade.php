@@ -15,6 +15,9 @@
     {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css') }}
     {{ HTML::style(asset('packages/alertify/css/themes/bootstrap.min.css')) }}
+    @if(Settings::get('default_layout') === 'layout-3')
+    {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
+    @endif
 @stop
 
 @section('scripts')
@@ -31,6 +34,7 @@
     VARAA.Search.time = {{ $time }};
 @endif
 
+@if(Settings::get('default_layout') === 'layout-cp')
 var app = app || {}
 app.i18n = {
     'select': '@lang('as.embed.cp.select')',
@@ -64,6 +68,7 @@ app.routes = {
     'business.booking.payments': '{{ route('business.booking.payments') }}',
     'business.booking.employees': '{{ route('business.booking.employees') }}'
 }
+@endif
 </script>
 
     {{ HTML::script('//maps.googleapis.com/maps/api/js?v=3.exp&language='.App::getLocale()) }}
@@ -76,7 +81,7 @@ app.routes = {
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js') }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
-    {{ HTML::script(asset_path('as/scripts/layout-cp.js')) }}
+    {{ HTML::script(asset_path(sprintf('as/scripts/%s.js', Settings::get('default_layout')))) }}
     {{ HTML::script(asset_path('core/scripts/business.js')) }}
 
     <script>
@@ -91,7 +96,15 @@ $(function () {
       lng: {{ $lng }}
     });
 
+    @if(Settings::get('default_layout') === 'layout-cp')
     app.VaraaCPLayout(document.getElementById('js-cp-booking-form'), '{{ $business->user->hash }}')
+    @endif
+
+    @if(Settings::get('default_layout') === 'layout-3')
+    VARAA.initLayout3({
+        isAutoSelectEmployee: false
+    });
+    @endif
 });
 
     </script>
@@ -101,6 +114,6 @@ $(function () {
 
 @section('content')
 <div class="container search-results" id="js-search-results">
-    @include ('front.el.business')
+    @include (sprintf('front.el.%s.business', Settings::get('default_layout')))
 </div>
 @stop

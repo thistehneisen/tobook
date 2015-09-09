@@ -37,7 +37,7 @@ def write_deploy_log(instance=''):
         'last_deployed': now.isoformat()
     })
     # Shell quote
-    run("echo '" + data.replace("'", "'\\''") + "' > public/deployment.json")
+    run("echo '" + data.replace("'", "'\\''") + "' >> public/deployment.json")
 
 @task
 def check_branch(instance=''):

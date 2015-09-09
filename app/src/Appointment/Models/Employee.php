@@ -532,9 +532,8 @@ class Employee extends \App\Appointment\Models\Base
 
         $serviceLength = $service->length;
         if (is_array($extraServices)) {
-            $serviceLength += array_reduce($extraServices, function($total, $item) {
-                $total += $item->length;
-                return $total;
+            $serviceLength += array_reduce($extraServices, function($carry, $item) {
+                return $carry + $item->length;
             }, 0);
         }
 
