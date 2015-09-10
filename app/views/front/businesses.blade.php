@@ -18,7 +18,9 @@
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.6/css/swiper.min.css') }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css') }}
+    @if(Settings::get('default_layout') === 'layout-3')
     {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
+    @endif
 @stop
 
 @section('scripts')
@@ -35,6 +37,7 @@
 @endif
 
 var app = app || {}
+app.default_layout = '{{ Settings::get('default_layout') }}'
 app.i18n = {
     'select': '@lang('as.embed.cp.select')',
     'pl_service': '@lang('as.embed.cp.pl_service')',
@@ -80,7 +83,7 @@ app.routes = {
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.6/js/swiper.jquery.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/history.js/1.8/native.history.min.js') }}
     {{ HTML::script(asset('packages/sticky/jquery.sticky.min.js')) }}
-    {{ HTML::script(asset_path('as/scripts/layout-cp.js')) }}
+    {{ HTML::script(asset_path(sprintf('as/scripts/%s.js', Settings::get('default_layout')))) }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
     {{ HTML::script(asset_path('core/scripts/business.js')) }}
     {{ HTML::script(asset_path('core/scripts/search.js')) }}
