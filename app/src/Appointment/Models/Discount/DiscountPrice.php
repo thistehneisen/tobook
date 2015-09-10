@@ -102,10 +102,11 @@ trait DiscountPrice {
 
         $startTime = ($time instanceof Carbon)
             ? $time
-            : Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s:00', $date->toDateString(), $time));
+            : Carbon::createFromFormat('H:i:s', sprintf('%s:00', $time));
 
         $now       = Carbon::now();
         $weekday   = $this->getWeekdayAbbr($startTime->dayOfWeek);
+
         $formatted = sprintf('%02d:%02d:00', $startTime->hour, $startTime->minute);
 
         $discount = Discount::where('user_id', '=', $this->user->id)
