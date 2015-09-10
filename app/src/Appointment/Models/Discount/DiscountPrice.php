@@ -45,10 +45,10 @@ trait DiscountPrice {
      * @param Carbon $date
      * @return Carbon
      */
-    public function compensateNightlyHours(Carbon $time, Carbon $start)
+    public function compensateNightlyHours(Carbon $time, Carbon $date)
     {
         $startOfToday = $time->copy()->hour(0)->minute(0);
-        $endOfStart   = $start->copy()->hour(23)->minute(59);
+        $endOfStart   = $date->copy()->hour(23)->minute(59);
 
         if ($startOfToday->diffInDays($endOfStart) === 0) {
             if ($time->hour < 8) {
@@ -101,12 +101,13 @@ trait DiscountPrice {
         }
 
         $startTime = ($time instanceof Carbon)
-            ? $time
+            ? Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $date->toDateString(), $time->toTimeString()))
             : Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s:00', $date->toDateString(), $time));
 
-        $now       = Carbon::now();
-        $weekday   = $this->getWeekdayAbbr($startTime->dayOfWeek);
-        $formatted = sprintf('%02d:%02d:00', $startTime->hour, $startTime->minute);
+        $now     = Carbon::now();
+        $weekday = $this->getWeekdayAbbr($date->dayOfWeek);
+
+        $formatted = $startTime->toTimeString();
 
         $discount = Discount::where('user_id', '=', $this->user->id)
             ->where(function($query) use($weekday, $formatted) {
@@ -121,10 +122,10 @@ trait DiscountPrice {
             $price = (double) $this->price * (1 - ((double) $discount->discount / 100));
         }
 
-        $now = $this->compensateNightlyHours($now, $startTime);
+        $now = $this->compensateNightlyHours($now, $date);
 
         if (!empty($discountLastMinute) && $discountLastMinute->is_active) {
-            if ($now->diffInHours($startTime) <= $discountLastMinute->before) {
+            if ($now->diffInMinutes($startTime) <= ($discountLastMinute->before * 60)) {
                 $price = (double)  $this->price * (1 - ((double) $discountLastMinute->discount / 100));
             }
         }
@@ -169,8 +170,8 @@ trait DiscountPrice {
         $now = $this->compensateNightlyHours($now, $date);
 
         if (!empty($discountLastMinute) && ($discountLastMinute->is_active)) {
-            if($now->diffInHours($endOfDate)   <= $discountLastMinute->before
-            || $now->diffInHours($startOfDate) <= $discountLastMinute->before) {
+            if($now->diffInMinutes($endOfDate)   <= ($discountLastMinute->before * 60)
+            || $now->diffInMinutes($startOfDate) <= ($discountLastMinute->before * 60)) {
                 $hasDiscount = true;
             }
         }

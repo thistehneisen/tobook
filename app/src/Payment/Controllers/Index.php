@@ -117,7 +117,7 @@ class Index extends Base
             'business' => $bookingService->user->business,
             'transaction' => $transaction,
             'consumer' => $consumer,
-            'vat' => $transaction->amount * 0.24,
+            'vat' => (!empty($transaction)) ? $transaction->amount * 0.24 : 0,
         ];
     }
 
