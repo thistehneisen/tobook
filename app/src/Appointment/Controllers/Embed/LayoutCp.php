@@ -157,11 +157,12 @@ class LayoutCp extends Base
 
         $calendar = [];
         $dateStr = $date->toDateString();
+
         foreach ($timetable as $time => $employee) {
             $calendar[] = [
                 'time' => $time,
                 'date' => $dateStr,
-                'discountPrice' => $this->getDiscountPrice($time, $time, $selectedService),
+                'discountPrice' => $this->getDiscountPrice($date, $time, $selectedService),
                 'price' => $selectedService->price,
                 'employee' => [
                     'id' => $employee->id,
