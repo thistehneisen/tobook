@@ -3,6 +3,7 @@
 use App\Cart\Cart;
 use App\Payment\Models\Transaction;
 use App\Appointment\Models\BookingService;
+use App\Core\Models\BusinessCommission;
 use Event;
 use Payment;
 use Session;
@@ -56,14 +57,39 @@ class Index extends Base
 
         // View to render transaction details
         $details = $this->render('details.general');
+
+        $data = $this->getParamsForCheckout($cart);
+
         if (Input::get('paygate') === Payment::CHECKOUT) {
-            $details = $this->render('details.checkout', $this->getParamsForCheckout($cart));
+            $details = $this->render('details.checkout', $data);
         }
+
+        $this->updateCommission($cart, $data);
 
         return $this->render('success', [
             'cart' => $cart,
             'details' => $details,
         ]);
+    }
+
+    /**
+     * Update commission data after payement is successful
+     *
+     * @param Cart $cart
+     * @param array $data
+     *
+     * @return void
+     */
+    protected function updateCommission($cart, $data)
+    {
+        $transaction = $data['transaction'];
+        $booking = $data['booking'];
+
+        $paymentType = (!empty($transaction->paygate))
+            ? BusinessCommission::PAYMENT_FULL
+            : BusinessCommission::PAYMENT_VENUE;
+
+        BusinessCommission::updateCommission($booking, $paymentType);
     }
 
     protected function getParamsForCheckout($cart)
