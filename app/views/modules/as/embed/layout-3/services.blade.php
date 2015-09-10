@@ -1,6 +1,6 @@
 @foreach ($categories as $category)
     <div id="as-category-{{ $category->id }}" class="as-category">
-        <label class="as-service-category btn btn-default"><input type="radio" class="hidden" name="category_id" value="{{ $category->id }}"> {{ $category->name }}</label>
+        <label class="as-service-category btn btn-default"><input type="radio" class="hidden" name="category_id" value="{{ $category->id }}"><span>{{ $category->name }}</span></label>
     </div>
     <div id="as-category-{{ $category->id }}-services" class="as-service">
         <p class="as-back"><i class="glyphicon glyphicon-chevron-left"></i> {{ $category->name }}</p>
