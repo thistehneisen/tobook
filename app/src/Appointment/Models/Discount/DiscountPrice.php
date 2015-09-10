@@ -125,7 +125,7 @@ trait DiscountPrice {
         $now = $this->compensateNightlyHours($now, $date);
 
         if (!empty($discountLastMinute) && $discountLastMinute->is_active) {
-            if ($now->diffInHours($startTime) <= $discountLastMinute->before) {
+            if ($now->diffInMinutes($startTime) <= ($discountLastMinute->before * 60)) {
                 $price = (double)  $this->price * (1 - ((double) $discountLastMinute->discount / 100));
             }
         }
@@ -170,8 +170,8 @@ trait DiscountPrice {
         $now = $this->compensateNightlyHours($now, $date);
 
         if (!empty($discountLastMinute) && ($discountLastMinute->is_active)) {
-            if($now->diffInHours($endOfDate)   <= $discountLastMinute->before
-            || $now->diffInHours($startOfDate) <= $discountLastMinute->before) {
+            if($now->diffInMinutes($endOfDate)   <= ($discountLastMinute->before * 60)
+            || $now->diffInMinutes($startOfDate) <= ($discountLastMinute->before * 60)) {
                 $hasDiscount = true;
             }
         }
