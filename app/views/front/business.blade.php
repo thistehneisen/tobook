@@ -34,8 +34,8 @@
     VARAA.Search.time = {{ $time }};
 @endif
 
-@if(Settings::get('default_layout') === 'layout-cp')
 var app = app || {}
+app.default_layout = '{{ Settings::get('default_layout') }}'
 app.i18n = {
     'select': '@lang('as.embed.cp.select')',
     'pl_service': '@lang('as.embed.cp.pl_service')',
@@ -68,7 +68,6 @@ app.routes = {
     'business.booking.payments': '{{ route('business.booking.payments') }}',
     'business.booking.employees': '{{ route('business.booking.employees') }}'
 }
-@endif
 </script>
 
     {{ HTML::script('//maps.googleapis.com/maps/api/js?v=3.exp&language='.App::getLocale()) }}

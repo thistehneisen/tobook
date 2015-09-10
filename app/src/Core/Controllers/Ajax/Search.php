@@ -8,7 +8,7 @@ use App\Core\Models\Business;
 use App\Core\Models\User;
 use DB;
 use Input;
-use Request;
+use Request, Settings;
 use View;
 
 class Search extends Base
@@ -98,7 +98,7 @@ class Search extends Base
         ], $layout);
 
         if (Request::ajax()) {
-            return View::make('front.el.business', $data);
+            return View::make(sprintf('front.el.%s.business', Settings::get('default_layout')), $data);
         }
 
         Input::merge(array('l' => '3', 'hash' => $user->hash));
