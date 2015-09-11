@@ -22,7 +22,7 @@
 
 @section ('content')
 <?php
-    $selectedDate = $date->toDateString();
+    $selectedDate = str_local_date($date);
     $dayOfWeek    = $date->dayOfWeek;
     $routeName    = 'as.employee';
 ?>

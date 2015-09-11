@@ -26,7 +26,7 @@ class Index extends AsBase
 
         if (!$date instanceof Carbon) {
             try {
-                $date = Carbon::createFromFormat('Y-m-d', $date);
+                $date = Carbon::createFromFormat(str_date_format(), $date);
             } catch (\Exception $ex) {
                 $date = Carbon::today();
             }
@@ -50,6 +50,13 @@ class Index extends AsBase
             ]);
     }
 
+    /**
+     * Handle and reder employee weekly
+     * @param integer $id
+     * @param string $date
+     *
+     * @return View
+     */
     public function employee($id = null, $date = null)
     {
         $employees = Employee::ofCurrentUser()->get();
@@ -57,17 +64,17 @@ class Index extends AsBase
         $date = (empty($date)) ? Carbon::today() : $date;
         if (!$date instanceof Carbon) {
             try {
-                $date = Carbon::createFromFormat('Y-m-d', $date, Config::get('app.timezone'));
+                $date = Carbon::createFromFormat('d.m.Y', $date, Config::get('app.timezone'));
             } catch (\Exception $ex) {
                 $date = Carbon::today();
             }
         }
         $workingTimes = $this->getDefaultWorkingTimes($date, null, $employee);
 
-        $cloneDate = with(clone $date);
+        $start = $date->copy();
         foreach (range(1, 7) as $day) {
-           $weekDaysFromDate[$cloneDate->format('l')] = $cloneDate->toDateString();
-           $cloneDate->addDay();
+           $weekDaysFromDate[$start->format('l')] = str_local_date($start);
+           $start->addDay();
         }
 
         $cutId = Session::get('cutId', 0);

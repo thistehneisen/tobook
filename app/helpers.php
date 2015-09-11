@@ -50,3 +50,24 @@ if (!function_exists('is_tobook')) {
         return App::environment() === 'tobook';
     }
 }
+
+if (!function_exists('str_date_format')) {
+    function str_date_format()
+    {
+        return 'd.m.Y';
+    }
+}
+
+if (!function_exists('str_date')) {
+    function str_local_date(Carbon\Carbon $date)
+    {
+        return $date->format(str_date_format());
+    }
+}
+
+if (!function_exists('str_datetime')) {
+    function str_local_datetime(Carbon\Carbon $date)
+    {
+        return $date->format('d.m.Y (H:i)');
+    }
+}

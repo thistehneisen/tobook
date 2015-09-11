@@ -62,6 +62,7 @@ class Base implements Strategy
 
     /**
      * The initital class
+     * @see str_date_format in app/helpers.php
      * @var string
      */
     private $class = 'inactive';
@@ -69,7 +70,7 @@ class Base implements Strategy
     protected function init($date, $hour, $minute, $employee, $service = null)
     {
         $this->date     = $date;
-        $this->dateObj  = Carbon::createFromFormat('Y-m-d', $date);
+        $this->dateObj  = Carbon::createFromFormat(str_date_format(), $date);
         $this->hour     = (int) $hour;
         $this->minute   = (int) $minute;
         $this->service  = $service;
