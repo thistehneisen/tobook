@@ -1,50 +1,52 @@
-var args              = require('yargs');
-var webpack           = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var path = require('path')
+var webpack = require('webpack')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var AssetsPlugin = require('assets-webpack-plugin')
 
-var bowerDir = __dirname + '/bower_components';
-var nodeDir  = __dirname + '/node_modules';
+var defaultEnv = 'varaa'
+var env = process.env.NODE_ENV || defaultEnv
+var rootPath = path.join(__dirname, 'resources/' + env)
 
 var config = {
-  addVendor: function(name, path) {
-    this.resolve.alias[name] = path;
-    this.entry.vendors.push(name);
-  },
+  context: rootPath,
   entry: {
+    app: 'app',
     vendors: []
   },
   resolve: {
-    alias: {}
+    alias: {},
+    root: [rootPath],
+    extensions: ['', '.es6', '.js']
   },
   output: {
-    path: __dirname + '/public/assets',
+    path: path.join(__dirname, 'public/test'),
     filename: '[name].js'
   },
   module: {
     noParse: [],
     loaders: [
       { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
-      { test: /\.(png|woff|woff2)/, loader: 'url-loader' },
-      { test: /\.(svg|eot|ttf)/, loader: 'file-loader' },
-      // Define dependencies
-      { test: /bootstrap\.js/, loader: 'imports?jQuery=jquery' }
+      { test: /\.(jpg|gif|png)/, loader: 'url-loader' },
+      { test: /\.(svg|eot|ttf|woff|woff2)/, loader: 'file-loader' },
+      { test: /\.less/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader') },
+      { test: /\.es6/, loader: 'babel-loader' }
     ]
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
-    new ExtractTextPlugin('vendors.css')
+    new ExtractTextPlugin('[name].css')
   ]
-};
-
-config.addVendor('jquery', bowerDir + '/jquery/dist/jquery.js');
-config.addVendor('bootstrap', bowerDir + '/bootstrap/dist/js/bootstrap.js');
-config.addVendor('bootstrap_css', bowerDir + '/bootstrap/dist/css/bootstrap.css');
-
-if (args.argv.production) {
-    // Only compress vendor files in production
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-        warnings: false
-    }));
 }
 
-module.exports = config;
+if (env !== defaultEnv) {
+  config.output.filename = '[name]-[hash].js'
+  // Only compress vendor files in production
+  config.plugins = [
+    new webpack.optimize.UglifyJsPlugin({warnings: false}),
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors-[hash].js'),
+    new ExtractTextPlugin('[name]-[hash].css'),
+    new AssetsPlugin({filename: 'rev.json'})
+  ]
+}
+
+module.exports = config
