@@ -111,7 +111,7 @@ class LayoutCp extends Base
         while ($s->lte($e)) {
             // Of course we cannot book on past days
             if ($s->lt($today)) {
-                $unbookable[] = $s->format('Y-m-d');
+                $unbookable[] = str_date($s);
                 $s->addDay();
 
                 continue;
@@ -125,7 +125,7 @@ class LayoutCp extends Base
 
             $t = call_user_func_array([$this, $timetableMethod], $params);
             if (empty($t)) {
-                $unbookable[] = $s->format('Y-m-d');
+                $unbookable[] = str_date($s);
             }
             $s->addDay();
         }
@@ -156,7 +156,7 @@ class LayoutCp extends Base
         }
 
         $calendar = [];
-        $dateStr = $date->toDateString();
+        $dateStr = str_date($date);
 
         foreach ($timetable as $time => $employee) {
             $calendar[] = [
@@ -174,8 +174,8 @@ class LayoutCp extends Base
         return Response::json([
             'calendar'     => $calendar,
             'dates'        => $dates,
-            'nextWeek'     => $nextWeek->toDateString(),
-            'prevWeek'     => $prevWeek->toDateString(),
+            'nextWeek'     => str_date($nextWeek),
+            'prevWeek'     => str_date($prevWeek),
             'selectedDate' => $dateStr,
             'unbookable'   => $unbookable,
         ]);

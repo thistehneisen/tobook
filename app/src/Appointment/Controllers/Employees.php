@@ -219,7 +219,7 @@ class Employees extends AsBase
         return View::make('modules.as.employees.freetimeForm', [
             'employees'        => $employees,
             'employee'         => $employee,
-            'date'             => $date->format('Y-m-d'),
+            'date'             => str_date($date),
             'freetime'         => $freetime,
             'startTime'        => $startTime->format('H:i'),
             'endTime'          => $endTime->format('H:i'),
@@ -239,8 +239,8 @@ class Employees extends AsBase
         try {
             $startAt     = new Carbon(Input::get('start_at'));
             $endAt       = new Carbon(Input::get('end_at'));
-            $fromDate    = new Carbon(Input::get('from_date'));
-            $toDate      = new Carbon(Input::get('to_date'));
+            $fromDate    = carbon_date(Input::get('from_date'));
+            $toDate      = carbon_date(Input::get('to_date'));
             $description = Input::get('description');
             $type        = (int) Input::get('freetime_type');
 
@@ -445,10 +445,10 @@ class Employees extends AsBase
         $current = Carbon::now();
 
         $startDate = Input::has('start')
-            ? new Carbon(Input::get('start'))
+            ? carbon_date(Input::get('start'))
             : $current->copy()->startOfMonth();
         $endDate = Input::has('end')
-            ? new Carbon(Input::get('end'))
+            ? carbon_date(Input::get('end'))
             : $current->copy()->endOfMonth();
 
         $employees    = Employee::ofCurrentUser()->get();

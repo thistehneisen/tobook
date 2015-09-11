@@ -50,3 +50,47 @@ if (!function_exists('is_tobook')) {
         return App::environment() === 'tobook';
     }
 }
+
+if (!function_exists('str_date_format')) {
+    function str_date_format()
+    {
+        return 'd.m.Y';
+    }
+}
+
+if (!function_exists('carbon_date')) {
+    function carbon_date($str)
+    {
+        return Carbon\Carbon::createFromFormat(str_date_format(), $str);
+    }
+}
+
+if (!function_exists('str_standard_date')) {
+    function str_standard_date($str)
+    {
+        $date = carbon_date($str);
+        return $date->toDateString();
+    }
+}
+
+if (!function_exists('str_date')) {
+    function str_date(Carbon\Carbon $date)
+    {
+        return $date->format(str_date_format());
+    }
+}
+
+if (!function_exists('str_datetime')) {
+    function str_datetime(Carbon\Carbon $date)
+    {
+        return $date->format('d.m.Y (H:i)');
+    }
+}
+
+if (!function_exists('str_standard_to_local')) {
+    function str_standard_to_local($str)
+    {
+        $date = new Carbon\Carbon($str);
+        return $date->format(str_date_format());
+    }
+}

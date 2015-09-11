@@ -80,7 +80,7 @@
 <script>
 $(function () {
     $('.datepicker').datepicker({
-        format: 'yyyy-mm-dd',
+        format: 'dd.mm.yyyy',
         startDate: new Date(),
         todayBtn: true,
         todayHighlight: true,

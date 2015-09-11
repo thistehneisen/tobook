@@ -10,7 +10,7 @@
             <h5>{{ $item->model->employee_name }}</h5>
             <dl class="dl-horizontal">
                 <dt>{{ trans('as.embed.layout_2.date') }}</dt>
-                <dd>{{ $item->model->datetime }}, {{ $item->model->instance->plainStartTime->format('H:i') }} &ndash; {{ $item->model->instance->plainEndTime->format('H:i') }}</dd>
+                <dd>{{ str_standard_to_local($item->model->datetime) }}, {{ $item->model->instance->plainStartTime->format('H:i') }} &ndash; {{ $item->model->instance->plainEndTime->format('H:i') }}</dd>
                 @if ((bool)$user->asOptions['hide_prices'] === false)
                 <dt>{{ trans('as.embed.layout_2.price') }}</dt>
                 <dd>{{ $item->price }}{{ Settings::get('currency') }}</dd>

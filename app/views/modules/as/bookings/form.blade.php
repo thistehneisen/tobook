@@ -20,7 +20,7 @@
                             @if (isset($booking))
                             <div class="form-group row">
                                 <label for="booking_uuid" class="col-sm-4 control-label">{{ trans('common.created_at') }}</label>
-                                <div class="col-sm-8">{{ $booking->created_at->format('d-m-Y H:i:s') }}</div>
+                                <div class="col-sm-8">{{ str_datetime($booking->created_at) }}</div>
                             </div>
                             @endif
                             <div class="form-group row">
@@ -149,7 +149,7 @@
                                         </td>
                                         <td>
                                             <span class="added_booking_date">
-                                                @if (!empty($bookingService)) {{ $booking->date }}
+                                                @if (!empty($bookingService)) {{ str_standard_to_local($booking->date) }}
                                                 @endif
                                             </span>
                                         </td>
@@ -232,7 +232,7 @@
                             <div class="form-group row">
                                 <label for="booking_date" class="col-sm-4 control-label">{{ trans('as.bookings.date') }}</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('booking_date', isset($bookingDate) ? $bookingDate : '', ['class' => 'form-control input-sm', 'id' => 'booking_date', 'disabled'=>'disabled']) }}
+                                    {{ Form::text('booking_date', isset($bookingDate) ? str_standard_to_local($bookingDate) : '', ['class' => 'form-control input-sm', 'id' => 'booking_date', 'disabled'=>'disabled']) }}
                                 </div>
                             </div>
                             <div class="form-group row">

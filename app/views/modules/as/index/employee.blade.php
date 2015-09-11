@@ -22,7 +22,7 @@
 
 @section ('content')
 <?php
-    $selectedDate = $date->toDateString();
+    $selectedDate = str_date($date);
     $dayOfWeek    = $date->dayOfWeek;
     $routeName    = 'as.employee';
 ?>
@@ -66,7 +66,7 @@
                 </li>
                 @foreach ($workingTimes as $hour => $minutes)
                     @foreach ($minutes as $minuteShift)
-                        <?php $slotClass = $theEmployee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
+                        <?php $slotClass = $theEmployee->getSlotClass(str_standard_date($selectedDate), $hour, $minuteShift); ?>
                         @include('modules.as.index._calendar')
                     @endforeach
                 @endforeach
