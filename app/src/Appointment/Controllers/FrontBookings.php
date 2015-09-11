@@ -82,7 +82,7 @@ class FrontBookings extends Bookings
         $cart->addDetail($bookingService);
 
         $data = [
-            'datetime'           => $bookingService->plainStartTime->toDateTimeString(),
+            'datetime'           => str_date($bookingService->plainStartTime),
             'price'              => $bookingService->calculcateTotalPrice(),
             'service_name'       => $bookingService->service->name,
             'employee_name'      => $bookingService->employee->name,

@@ -18,7 +18,7 @@
             <thead>
                 <tr>
                 @foreach ($dates as $date)
-                    <th><h5 class="text-muted"><div class="day-in-week">{{ Util::td($date->format('D')) }}</div>{{ $date->format('d-m-Y') }}</h5></th>
+                    <th><h5 class="text-muted"><div class="day-in-week">{{ Util::td($date->format('D')) }}</div>{{ str_date($date) }}</h5></th>
                 @endforeach
                 </tr>
             </thead>
