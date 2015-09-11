@@ -207,18 +207,36 @@ a {
     }
 }
 
-.homepage-modal-header {
-    border-bottom: none;
-}
+
 .homepage-modal-dialog {
     width: 800px;
 }
 
-.homepage-modal-body {
-    height: 400px;
-    width: 100%;
-    overflow: hidden;
-}
+    .homepage-modal-content {
+        border-radius: 0;
+    }
+        .homepage-modal-body {
+            padding: 0;
+        }
+            .homepage-modal-iframe {
+                height: 400px;
+                width: 100%;
+                overflow: hidden;
+            }
+            .homepage-modal-close {
+                position: absolute;
+                top: -15px;
+                right: -15px;
+                opacity: 1;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                background-color: #fff !important;
+                border: 1px solid #efefef !important;
+                &:hover {
+                    opacity: 1;
+                }
+            }
 
 .navbar-form-group {
     margin-top: 15px;

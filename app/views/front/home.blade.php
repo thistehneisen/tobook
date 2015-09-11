@@ -114,12 +114,10 @@
 @if ($iframeUrl !== null)
 <div class="modal homepage-modal fade" id="js-homepage-modal">
     <div class="modal-dialog homepage-modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header homepage-modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <iframe src="{{ $iframeUrl }}" frameborder="0" class="homepage-modal-body"></iframe>
+        <div class="modal-content homepage-modal-content">
+            <div class="modal-body homepage-modal-body">
+                <button type="button" class="close homepage-modal-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <iframe src="{{ $iframeUrl }}" frameborder="0" class="homepage-modal-iframe"></iframe>
             </div>
         </div>
     </div>
