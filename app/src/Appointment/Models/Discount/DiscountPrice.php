@@ -6,6 +6,80 @@ use Carbon\Carbon;
 trait DiscountPrice {
 
     /**
+     * Get associative array of Carbon weekday and theirs abbreviation in English
+     *
+     * @return array()
+     */
+    public function getWeekdaysArray()
+    {
+        $weekdays  = [
+            Carbon::MONDAY    => 'mon',
+            Carbon::TUESDAY   => 'tue',
+            Carbon::WEDNESDAY => 'wed',
+            Carbon::THURSDAY  => 'thu',
+            Carbon::FRIDAY    => 'fri',
+            Carbon::SATURDAY  => 'sat',
+            Carbon::SUNDAY    => 'sun'
+        ];
+
+        return $weekdays;
+    }
+
+    /**
+     * Get weekday abbreviation in English by Carbon weekday int value
+     *
+     * @param int $weekday
+     * @return string
+     */
+    public function getWeekdayAbbr($weekday)
+    {
+        $weekdays = $this->getWeekDaysArray();
+
+        return $weekdays[$weekday];
+    }
+
+    /**
+     * Add more hours to time because we skip nightly time from 20:00 to next day 8:00
+     *
+     * @param Carbon $time
+     * @param Carbon $date
+     * @return Carbon
+     */
+    public function compensateNightlyHours(Carbon $time, Carbon $date)
+    {
+        $startOfToday = $time->copy()->hour(0)->minute(0);
+        $endOfStart   = $date->copy()->hour(23)->minute(59);
+
+        if ($startOfToday->diffInDays($endOfStart) === 0) {
+            if ($time->hour < 8) {
+                $time->addHours((8 - $time->hour));
+            }
+        }
+
+        if ($startOfToday->diffInDays($endOfStart) === 1) {
+            if ($time->hour < 8) {
+                $time->addHours((8 - $time->hour) + 12);
+            } elseif ($time->hour > 20) {
+                $time->addHours((24 - $time->hour) + 8);
+            } else{
+                $time->addHours(12);
+            }
+        }
+
+        if ($startOfToday->diffInDays($endOfStart) === 2) {
+            if ($time->hour < 8) {
+                $time->addHours((8 - $time->hour) + 24);
+            } elseif ($time->hour > 20) {
+                $time->addHours((24 - $time->hour) + 8 + 12);
+            } else {
+                $time->addHours(24);
+            }
+        }
+
+        return $time;
+    }
+
+    /**
      * Calculate discount price based on booking time
      *
      * @date booking date
@@ -27,22 +101,14 @@ trait DiscountPrice {
         }
 
         $startTime = ($time instanceof Carbon)
-            ? $time
+            ? Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $date->toDateString(), $time->toTimeString()))
             : Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s:00', $date->toDateString(), $time));
 
-        $weekdays  = [
-            Carbon::MONDAY    => 'mon',
-            Carbon::TUESDAY   => 'tue',
-            Carbon::WEDNESDAY => 'wed',
-            Carbon::THURSDAY  => 'thu',
-            Carbon::FRIDAY    => 'fri',
-            Carbon::SATURDAY  => 'sat',
-            Carbon::SUNDAY    => 'sun'
-        ];
-        $weekday   = $weekdays[$startTime->dayOfWeek];
+        $now     = Carbon::now();
+        $weekday = $this->getWeekdayAbbr($date->dayOfWeek);
 
-        $now       = Carbon::now();
-        $formatted = sprintf('%02d:%02d:00', $startTime->hour, $startTime->minute);
+        $formatted = $startTime->toTimeString();
+
         $discount = Discount::where('user_id', '=', $this->user->id)
             ->where(function($query) use($weekday, $formatted) {
                 $query->where('start_at', '<=', $formatted)
@@ -55,37 +121,11 @@ trait DiscountPrice {
         if (!empty($discount)) {
             $price = (double) $this->price * (1 - ((double) $discount->discount / 100));
         }
-        $startOfToday = $now->copy()->hour(0)->minute(0);
-        $startOfStart = $startTime->copy()->hour(23)->minute(59);
 
-        if ($startOfToday->diffInDays($startOfStart) === 0) {
-            if ($now->hour < 8) {
-                $now->addHours((8 - $now->hour));
-            }
-        }
-
-        if ($startOfToday->diffInDays($startOfStart) === 1) {
-            if ($now->hour < 8) {
-                $now->addHours((8 - $now->hour) + 12);
-            } elseif ($now->hour > 20) {
-                $now->addHours((24 - $now->hour) + 8);
-            } else{
-                $now->addHours(12);
-            }
-        }
-
-        if ($startOfToday->diffInDays($startOfStart) === 2) {
-            if ($now->hour < 8) {
-                $now->addHours((8 - $now->hour) + 24);
-            } elseif ($now->hour > 20) {
-                $now->addHours((24 - $now->hour) + 8 + 12);
-            } else {
-                $now->addHours(24);
-            }
-        }
+        $now = $this->compensateNightlyHours($now, $date);
 
         if (!empty($discountLastMinute) && $discountLastMinute->is_active) {
-            if ($now->diffInHours($startTime) <= $discountLastMinute->before) {
+            if ($now->diffInMinutes($startTime) <= ($discountLastMinute->before * 60)) {
                 $price = (double)  $this->price * (1 - ((double) $discountLastMinute->discount / 100));
             }
         }
@@ -93,6 +133,12 @@ trait DiscountPrice {
         return $price;
     }
 
+    /**
+     * Check if the given date has any possible discount
+     *
+     * @param Carbon $date
+     * @return booelan
+     */
     public function hasDiscount($date)
     {
         $hasDiscount = false;
@@ -108,17 +154,8 @@ trait DiscountPrice {
             return $hasDiscount;
         }
 
-        $weekdays = [
-            Carbon::MONDAY    => 'mon',
-            Carbon::TUESDAY   => 'tue',
-            Carbon::WEDNESDAY => 'wed',
-            Carbon::THURSDAY  => 'thu',
-            Carbon::FRIDAY    => 'fri',
-            Carbon::SATURDAY  => 'sat',
-            Carbon::SUNDAY    => 'sun'
-        ];
+        $weekday = $this->getWeekdayAbbr($date->dayOfWeek);
 
-        $weekday = $weekdays[$date->dayOfWeek];
         $discount = Discount::where('user_id', '=', $this->user->id)
             ->where('weekday', '=', $weekday)
             ->where('is_active', '=', 1)
@@ -130,38 +167,11 @@ trait DiscountPrice {
 
         $discountLastMinute = DiscountLastMinute::find($this->user->id);
 
-        $startOfToday = $now->copy()->hour(0)->minute(0);
-        $startOfStart = $date->copy()->hour(23)->minute(59);
-
-        if ($startOfToday->diffInDays($startOfStart) === 0) {
-            if ($now->hour < 8) {
-                $now->addHours((8 - $now->hour));
-            }
-        }
-
-        if ($startOfToday->diffInDays($startOfStart) === 1) {
-            if ($now->hour < 8) {
-                $now->addHours((8 - $now->hour) + 12);
-            } elseif ($now->hour > 20) {
-                $now->addHours((24 - $now->hour) + 8);
-            } else{
-                $now->addHours(12);
-            }
-        }
-
-        if ($startOfToday->diffInDays($startOfStart) === 2) {
-            if ($now->hour < 8) {
-                $now->addHours((8 - $now->hour) + 24);
-            } elseif ($now->hour > 20) {
-                $now->addHours((24 - $now->hour) + 8 + 12);
-            } else {
-                $now->addHours(24);
-            }
-        }
+        $now = $this->compensateNightlyHours($now, $date);
 
         if (!empty($discountLastMinute) && ($discountLastMinute->is_active)) {
-            if($now->diffInHours($endOfDate)   <= $discountLastMinute->before
-            || $now->diffInHours($startOfDate) <= $discountLastMinute->before) {
+            if($now->diffInMinutes($endOfDate)   <= ($discountLastMinute->before * 60)
+            || $now->diffInMinutes($startOfDate) <= ($discountLastMinute->before * 60)) {
                 $hasDiscount = true;
             }
         }

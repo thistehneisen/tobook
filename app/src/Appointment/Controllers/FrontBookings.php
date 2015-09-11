@@ -146,7 +146,7 @@ class FrontBookings extends Bookings
 
                 $booking = $receptionist->upsertBooking();
 
-                if ((bool) Settings::get('force_pay_at_venue')) {
+                if ((bool) Settings::get('force_pay_at_venue') || $source === 'cp') {
                     $booking->saveCommission();
                 }
             }
