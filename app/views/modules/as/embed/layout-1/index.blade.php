@@ -136,7 +136,7 @@ $(document).ready(function () {
                 @if ($action === 'checkout') {{ trans('as.embed.booking_form') }}
                 @elseif ($action === 'confirm') {{ trans('as.embed.booking_form') }}
                 @else
-                    @if (empty($service)) {{ trans('as.embed.select_service') }} {{ $date->format('d/m/Y') }}
+                    @if (empty($service)) {{ trans('as.embed.select_service') }} {{ str_date($date) }}
                     @else {{ $service->name }} {{ $date->format('d/m/Y') }} <a href="{{ route('as.embed.embed', [ 'hash' => $hash ])}}">({{ trans('as.embed.back_to_services') }})</a>
                     @endif
                 @endif
