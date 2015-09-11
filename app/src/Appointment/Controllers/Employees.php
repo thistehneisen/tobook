@@ -445,10 +445,10 @@ class Employees extends AsBase
         $current = Carbon::now();
 
         $startDate = Input::has('start')
-            ? new Carbon(Input::get('start'))
+            ? carbon_date(Input::get('start'))
             : $current->copy()->startOfMonth();
         $endDate = Input::has('end')
-            ? new Carbon(Input::get('end'))
+            ? carbon_date(Input::get('end'))
             : $current->copy()->endOfMonth();
 
         $employees    = Employee::ofCurrentUser()->get();

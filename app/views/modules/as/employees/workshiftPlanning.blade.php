@@ -25,9 +25,9 @@
 @section ('content')
 {{ Form::open(['class' => 'form-inline', 'role' => 'form', 'method' => 'GET']) }}
     <div class="input-daterange input-group date-picker">
-        <input type="text" class="input-sm form-control" name="start" placeholder="{{ trans('as.reports.start') }}" value="{{{ $startDate->toDateString() }}}">
+        <input type="text" class="input-sm form-control" name="start" placeholder="{{ trans('as.reports.start') }}" value="{{{ str_date($startDate) }}}">
         <span class="input-group-addon">&ndash;</span>
-        <input type="text" class="input-sm form-control" name="end" placeholder="{{ trans('as.reports.end') }}" value="{{{ $endDate->toDateString() }}}">
+        <input type="text" class="input-sm form-control" name="end" placeholder="{{ trans('as.reports.end') }}" value="{{{ str_date($endDate) }}}">
     </div>
     <button type="submit" class="btn btn-primary btn-sm hidden-print">{{ trans('as.reports.generate') }}</button>
     <div class="from-control pull-right hidden-print">
@@ -49,7 +49,7 @@
         @foreach($dateRange as $item)
              <tr @if($item['date']->dayOfWeek === \Carbon\Carbon::SUNDAY) class="sunday-row" @endif>
                 <td>{{ trans(strtolower('common.' . $item['date']->format('l'))) }}</td>
-                <td>{{ $item['date']->toDateString() }}</td>
+                <td>{{ str_date($item['date']) }}</td>
                 @foreach ($employees as $employee)
                 <td>
                     @if (!empty($item['employees'][$employee->id]->customTime))
