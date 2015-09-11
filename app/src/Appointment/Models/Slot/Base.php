@@ -70,7 +70,7 @@ class Base implements Strategy
     protected function init($date, $hour, $minute, $employee, $service = null)
     {
         $this->date     = $date;
-        $this->dateObj  = Carbon::createFromFormat(str_date_format(), $date);
+        $this->dateObj  = new Carbon($date);
         $this->hour     = (int) $hour;
         $this->minute   = (int) $minute;
         $this->service  = $service;
@@ -112,9 +112,10 @@ class Base implements Strategy
             ? (!$default->is_day_off) ? true : false
             : false;
 
-        $type = ($isActive) ? 'active' :'inactive';
+        $value = ($isActive) ? 'active' : 'inactive';
+        $this->class = $this->getValue($value);
 
-        return $this->getValue($type);
+        return $this->class;
     }
 
     /**
@@ -132,9 +133,11 @@ class Base implements Strategy
         }
 
         foreach ($this->customTimeCache as $empCustomTime) {
+
             if (empty($empCustomTime->customTime)) {
                 continue;
             }
+
             $start =  $empCustomTime->customTime->getStartAt();
             $end   =  $empCustomTime->customTime->getEndAt();
 

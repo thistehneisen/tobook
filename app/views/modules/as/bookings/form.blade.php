@@ -149,7 +149,7 @@
                                         </td>
                                         <td>
                                             <span class="added_booking_date">
-                                                @if (!empty($bookingService)) {{ $booking->date }}
+                                                @if (!empty($bookingService)) {{ $booking->date->format(str_date_format()) }}
                                                 @endif
                                             </span>
                                         </td>

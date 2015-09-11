@@ -425,7 +425,7 @@ class Bookings extends AsBase
         $bookingServiceId    = Input::get('booking_service_id', 0);
         $modifyTime          = Input::get('modify_time', 0);
         $hash                = Input::get('hash');
-        $bookingDate         = Input::get('booking_date');
+        $bookingDate         = str_standard_date(Input::get('booking_date'));
         $startTimeStr        = Input::get('start_time');
         $uuid                = Input::get('uuid', '');// from ajax uuid
         $isRequestedEmployee = Input::get('is_requested_employee', false);

@@ -465,7 +465,7 @@ class Employee extends \App\Appointment\Models\Base
      */
     public function getWorkshiftDate($date)
     {
-        $current      = Carbon::now();
+        $current = Carbon::now();
 
         if (!empty($date)) {
             try {
