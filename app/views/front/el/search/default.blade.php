@@ -36,10 +36,11 @@
                         </div>
                     </div>
 
-                    {{ Form::open(['route' => 'search', 'class' => 'form-inline default-search-form', 'method' => 'GET', 'id' => 'form-search']) }}
-                        <input type="hidden" name="lat">
-                        <input type="hidden" name="lng">
-                        <input type="hidden" name="type">
+                    {{ Form::open(['url' => $action, 'class' => 'form-inline default-search-form', 'method' => 'GET', 'id' => 'form-search']) }}
+                        <input type="hidden" name="lat" value="{{ Session::get('lat') }}">
+                        <input type="hidden" name="lng" value="{{ Session::get('lng') }}">
+                        <input type="hidden" name="type" value="{{ Input::get('type') }}">
+
 
                         <div class="form-group navbar-form-group">
                             <div class="alert alert-warning force-selection" style="display: none;">@lang('home.search.force_selection')</div>
