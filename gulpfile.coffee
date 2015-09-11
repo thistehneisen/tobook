@@ -75,7 +75,10 @@ gulp.task 'less', ->
 gulp.task 'default', ['es6', 'coffee', 'js', 'less', 'static']
 
 gulp.task 'watch', ['default'], ->
-  ['coffee', 'less', 'js', 'es6'].forEach (task) ->
+  # Special rule for LESS files
+  gulp.watch ["#{root}/**/styles/**/*.less"], ['less']
+
+  ['coffee', 'js', 'es6'].forEach (task) ->
     watcher = gulp.watch paths[task], [task]
     watcher.on 'change', (e) ->
       if e.type is 'deleted'
