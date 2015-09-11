@@ -157,6 +157,7 @@ class LayoutCp extends Base
 
         $calendar = [];
         $dateStr = $date->toDateString();
+
         foreach ($timetable as $time => $employee) {
             $calendar[] = [
                 'time' => $time,

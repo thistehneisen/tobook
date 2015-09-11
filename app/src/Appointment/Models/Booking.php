@@ -1243,7 +1243,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = self::withTrashed()->where('as_bookings.created_at', '>=', $start)
             ->where('as_bookings.created_at', '<=', $end)
-            ->where('as_bookings.source', '=', 'inhouse')
+            ->where(function($query){
+                $query->where('as_bookings.source', '=', 'inhouse')
+                ->orWhere('as_bookings.source', '=', 'cp');
+            })
             ->where('as_bookings.user_id', '=', $userId)
             ->whereNull('business_commissions.deleted_at');
 

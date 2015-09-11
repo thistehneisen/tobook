@@ -92,6 +92,8 @@ def _deploy(environment, host):
             #-------------------------------------------------------------------
             # restart supervisor processes
             run('supervisorctl restart all')
+            # optimize the framework file loading
+            run('php artisan optimize')
             # set it to live mode again
             run('php artisan up')
             # notify everyone for fun
