@@ -90,7 +90,7 @@ if (!function_exists('str_datetime')) {
 if (!function_exists('str_standard_to_local')) {
     function str_standard_to_local($str)
     {
-        $date = carbon_date($str);
+        $date = new Carbon\Carbon($str);
         return $date->format(str_date_format());
     }
 }
