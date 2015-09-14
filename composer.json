@@ -23,7 +23,8 @@
         "webtopay/libwebtopay": "dev-default#b62cb2f",
         "maknz/slack": "1.5.0",
         "barryvdh/laravel-dompdf": "0.4.*",
-        "rkioski/checkout-finland-api-client": "dev-master#7b39baf"
+        "rkioski/checkout-finland-api-client": "dev-master#7b39baf",
+        "infobip/oneapi": "1.1.3"
     },
     "repositories": [
         {
