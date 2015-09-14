@@ -257,8 +257,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 $serviceInfo = str_replace(' {extraServices}', '', $serviceInfo);
             }
 
+            $date  = ($this->date instanceof Carbon) ? $this->date : new Carbon($this->date);
             $serviceInfo = str_replace('{employee}', $this->employee->name, $serviceInfo);
-            $serviceInfo = str_replace('{date}', str_date($this->date), $serviceInfo);
+            $serviceInfo = str_replace('{date}', str_date($date), $serviceInfo);
             $serviceInfo = str_replace('{start}', $start->toTimeString(), $serviceInfo);
 
             if ($isFull && !empty($service->description)) {
