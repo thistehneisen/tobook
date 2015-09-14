@@ -21,7 +21,7 @@
                                 <td class="content-block aligncenter">
                                     <table class="invoice">
                                         <tr>
-                                            <td>{{ $consumer->name }}<br>@lang('as.embed.receipt.invoice'){{ $booking->uuid }}<br>{{ $booking->created_at->format('d/m/Y') }}</td>
+                                            <td>{{ $consumer->name }}<br>@lang('as.embed.receipt.invoice'){{ $booking->uuid }}<br>{{ str_date($booking->created_at) }}</td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -29,7 +29,7 @@
                                                     <tr>
                                                         <td>
                                                             {{ $bookingService->service->name }} <br>
-                                                            {{ $bookingService->employee->name }}, {{ $booking->date }} ({{ $bookingService->start_at }}) <br>
+                                                            {{ $bookingService->employee->name }}, {{ str_datetime($booking->startTime) }}<br>
                                                             {{ $business->name }} <br>
                                                             {{ $business->full_address }} <br>
                                                         </td>
