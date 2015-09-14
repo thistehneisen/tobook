@@ -1,11 +1,13 @@
 <?php namespace App\OneApi;
-require __DIR__.'/lib/oneapi/client.php';
 
+use App\Appointment\Models\Trimmer\SMSTrimmer;
 use Config;
+use Exception;
+use infobip\models\SMSRequest;
+use infobip\SmsClient;
 use Log;
 use Queue;
 use Settings;
-use App\Appointment\Models\Trimmer\SMSTrimmer;
 
 class OneApi
 {
@@ -17,7 +19,6 @@ class OneApi
         if (strpos($phone, '+') !== 0
                 && strpos($phone, '00') !== 0
                 && strpos($phone, $countryCode) !== 0) {
-
             if (strpos($phone, '0') === 0) {
                 $phone = ltrim($phone, '0');
             }
@@ -43,7 +44,7 @@ class OneApi
         $message = $trimmer->trim($message);
 
         try {
-            $smsClient = new \SmsClient(
+            $smsClient = new SmsClient(
                 Config::get('services.oneapi.username'),
                 Config::get('services.oneapi.password')
             );
@@ -53,7 +54,7 @@ class OneApi
 
             // Prepare message
             $phone = static::formatNumber($to, $countryCode);
-            $smsMessage = new \SMSRequest();
+            $smsMessage = new SMSRequest();
             $smsMessage->senderAddress = $from;
             $smsMessage->address = $phone;
             $smsMessage->message = $message;
@@ -63,7 +64,7 @@ class OneApi
                 'to' => $phone,
             ]);
             $smsMessageSendResult = $smsClient->sendSMS($smsMessage);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             Log::error('Cannot send SMS: '.$ex->getMessage(), [
                 'from'    => $from,
                 'to'      => $to,
