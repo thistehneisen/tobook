@@ -100,6 +100,8 @@ trait DiscountPrice {
             return $this->price;
         }
 
+        $date = ($date instanceof Carbon) ? $date : new Carbon($date);
+
         $startTime = ($time instanceof Carbon)
             ? Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $date->toDateString(), $time->toTimeString()))
             : Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s:00', $date->toDateString(), $time));
