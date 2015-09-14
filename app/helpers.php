@@ -58,6 +58,13 @@ if (!function_exists('str_date_format')) {
     }
 }
 
+if (!function_exists('str_datetime_format')) {
+    function str_datetime_format()
+    {
+        return 'd.m.Y (H:i)';
+    }
+}
+
 if (!function_exists('carbon_date')) {
     function carbon_date($str)
     {
@@ -83,14 +90,16 @@ if (!function_exists('str_date')) {
 if (!function_exists('str_datetime')) {
     function str_datetime(Carbon\Carbon $date)
     {
-        return $date->format('d.m.Y (H:i)');
+        return $date->format(str_datetime_format());
     }
 }
 
 if (!function_exists('str_standard_to_local')) {
-    function str_standard_to_local($str)
+    function str_standard_to_local($str, $type = 'date')
     {
         $date = new Carbon\Carbon($str);
-        return $date->format(str_date_format());
+        return ($type === 'date')
+            ? $date->format(str_date_format())
+            : $date->format(str_datetime_format());
     }
 }
