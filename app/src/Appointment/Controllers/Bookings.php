@@ -211,6 +211,7 @@ class Bookings extends AsBase
             'serviceTimes'          => $serviceTimesList,
             'plustime'              => $plustime,
             'extras'                => $extras,
+            'user'                  => $this->user,
         ];
     }
 
@@ -255,6 +256,7 @@ class Bookings extends AsBase
             'startTime'       => $startTime,
             'bookingStatuses' => $bookingStatuses,
             'extras'          => $extras,
+            'user'            => $this->user
         ]);
     }
 
