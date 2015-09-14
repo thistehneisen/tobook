@@ -275,7 +275,7 @@ class BookingService extends Base implements CartDetailInterface
         $price = $this->getCartDetailPrice();
 
         return (object) [
-            'datetime'      => $this->date,
+            'datetime'      => str_standard_to_local($this->date),
             'price'         => $price,
             'service_name'  => $this->service->name,
             'employee_name' => $this->employee->name,
