@@ -53,7 +53,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
     {{ Lomake::renderHead() }}
 </head>
-<body @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}" data-js-locale="{{ route('ajax.jslocale') }}" data-geo-url="{{ route('search.location') }}" data-lat="{{ $lat }}" data-lng="{{ $lng }}">
+<body class="body-lv" @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}" data-js-locale="{{ route('ajax.jslocale') }}" data-geo-url="{{ route('search.location') }}" data-lat="{{ $lat }}" data-lng="{{ $lng }}">
     <div class="container-fluid top-alert warning" id="js-top-alert">
         <p class="text-center"><strong>Please allow us to know your location to serve you better. Click here to try again.</strong></p>
     </div>
