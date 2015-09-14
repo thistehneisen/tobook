@@ -2,6 +2,7 @@
 
 use App;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\Discount\DiscountBusiness;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Haku\Indexers\BusinessIndexer;
 use Carbon\Carbon;
@@ -16,6 +17,8 @@ use Util;
 
 class Business extends Base
 {
+    use DiscountBusiness;
+
     public $fillable = [
         'name',
         'phone',

@@ -81,12 +81,14 @@
                                     {{ Form::text('address',(isset($booking)) ? $booking->consumer->address : '', ['class' => 'form-control input-sm', 'id' => 'address']) }}
                                 </div>
                             </div>
+                            @if((bool)$user->asOptions['show_employee_request'] == true)
                             <div class="form-group row">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     <label for="is_requested_employee">{{ Form::checkbox('is_requested_employee', 1, (isset($firstBookingService)) ? $firstBookingService->is_requested_employee : false, ['id' => 'is_requested_employee']) }} {{ trans('as.bookings.own_customer') }}
                                     </label>
                                 </div>
                             </div>
+                            @endif
                             @if(!empty($booking->consumer->id))
                             <div class="form-group row">
                                 <div class="col-sm-offset-4 col-sm-8">
