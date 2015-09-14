@@ -55,6 +55,8 @@ app.i18n = {
     'details': '@lang('as.embed.cp.details')',
     'how_to_pay': '@lang('as.embed.cp.how_to_pay')',
     'go_back': '@lang('as.embed.cp.go_back')',
+    'close': '@lang('common.close')',
+    'book': '@lang('as.embed.book')',
     'first_employee': '@lang('as.embed.cp.first_employee')'
 }
 app.assets = {
