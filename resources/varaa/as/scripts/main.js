@@ -399,6 +399,7 @@
             if (selected_action === 'book') {
                 $.fancybox.open({
                     padding: 5,
+                    margin: 10,
                     title: '',
                     autoSize: true,
                     autoScale: true,
@@ -425,6 +426,7 @@
             } else if (selected_action === 'freetime') {
                 $.fancybox.open({
                     padding: 5,
+                    margin: 10,
                     title: '',
                     autoSize: true,
                     autoScale: true,
@@ -489,6 +491,7 @@
             $('#start_time').val($(this).data('start-time'));
             $.fancybox.open({
                 padding: 5,
+                margin: 10,
                 width: 850,
                 title: '',
                 autoSize: true,
@@ -617,6 +620,7 @@
             $.fancybox.open({
                 padding: 5,
                 width: 590,
+		margin: 10,
                 title: '',
                 autoSize: true,
                 autoScale: true,

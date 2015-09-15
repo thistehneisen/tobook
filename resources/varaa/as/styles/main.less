@@ -1,4 +1,5 @@
 @import "../../core/styles/components/vars.import.less";
+@import "../../core/styles/components/utils.import.less";
 
 @as_light_green: #a8db66;
 @as_light_purple: #b5abf1;
@@ -20,7 +21,7 @@
 
     .as-date-nav {
         margin: 0 auto 5px auto;
-        @media (max-width: 768px) {
+        @media (max-width: @screen-sm) {
             padding: 0;
         }
     }
@@ -28,7 +29,7 @@
 
 
 
-@media (max-width: 768px) {
+@media (max-width: @screen-sm) {
     .as-home-navigator {
         margin-top: 5px;
         margin-bottom: 5px;
@@ -347,14 +348,16 @@
     width: 300px;
     margin: 20px;
 
-    @media (max-width: 768px) {
+    @media (max-width: @screen-sm) {
         width: auto;
         margin: 5px;
     }
 }
 .as-calendar-book {
-    // width: 800px;
     margin: 20px;
+    @media (max-width: @screen-sm) {
+      margin: 3px;
+    }
 }
 
 .as-edit-booking {
@@ -365,7 +368,7 @@
     width: 550px;
     margin: 20px;
 
-    @media (max-width: 768px) {
+    @media (max-width: @screen-sm) {
         width: auto;
         margin: 5px;
     }
