@@ -22,6 +22,7 @@ return [
     'register'              => 'Rekisteröidy',
     'no_records'            => 'Ei hakutuloksia',
     'save'                  => 'Tallenna',
+    'send'                  => 'Lähetä',
     'destroy'               => 'Poistaa',
     'warning'               => 'Varoitus',
     'success'               => 'Päivitetty onnistuneesti',
