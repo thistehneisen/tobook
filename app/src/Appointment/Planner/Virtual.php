@@ -63,6 +63,8 @@ class Virtual
 
         if ($user !== null) {
             $this->build($user, $date);
+            // delete yesterday key
+            $this->clean($user, $date);
         }
 
         Log::info('Finish building VC', $data);
@@ -77,6 +79,16 @@ class Virtual
 
         foreach ($timeslots as $timeslot) {
             $this->addToList($key, $timeslot);
+        }
+    }
+
+    public function clean($user, $date)
+    {
+        $key = $this->getKey($user, $date->copy()->subDay());
+        try {
+            $this->redis->del($key);
+        } catch(\Exception $ex){
+            Log::debug('Exception:', [$ex]);
         }
     }
 
