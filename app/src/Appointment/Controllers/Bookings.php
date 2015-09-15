@@ -19,16 +19,17 @@ class Bookings extends AsBase
     use \CRUD;
     protected $viewPath = 'modules.as.bookings';
     protected $crudOptions = [
-        'modelClass' => 'App\Appointment\Models\Booking',
-        'langPrefix' => 'as.bookings',
-        'layout' => 'modules.as.layout',
-        'showTab' => false,
+        'modelClass'   => 'App\Appointment\Models\Booking',
+        'langPrefix'   => 'as.bookings',
+        'layout'       => 'modules.as.layout',
+        'showTab'      => false,
         'deleteReason' => true,
-        'bulkActions' => [],
-        'indexFields' => ['uuid', 'date', 'consumer', 'total', 'notes', 'status'],
-        'presenters' => [
+        'bulkActions'  => [],
+        'indexFields'  => ['uuid', 'date', 'consumer', 'total', 'notes', 'status'],
+        'presenters'   => [
             'consumer' => ['App\Appointment\Controllers\Bookings', 'presentConsumer'],
-            'status' => ['App\Appointment\Controllers\Bookings', 'presentStatus'],
+            'status'   => ['App\Appointment\Controllers\Bookings', 'presentStatus'],
+            'date'     => ['App\Appointment\Controllers\Bookings', 'presentDate'],
         ],
     ];
 
@@ -40,6 +41,11 @@ class Bookings extends AsBase
     public static function presentStatus($value, $item)
     {
         return trans('as.bookings.' . Booking::getStatusByValue($value));
+    }
+
+    public static function presentDate($value, $item)
+    {
+        return str_standard_to_local($value);
     }
 
     /**
