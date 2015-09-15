@@ -73,7 +73,7 @@ class Index extends AsBase
 
         $start = $date->copy();
         foreach (range(1, 7) as $day) {
-           $weekDaysFromDate[$start->format('l')] = str_local_date($start);
+           $weekDaysFromDate[$start->format('l')] = str_date($start);
            $start->addDay();
         }
 
