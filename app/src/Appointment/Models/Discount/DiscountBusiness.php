@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Models\Discount;
 use App\Appointment\Models\Discount;
 use App\Appointment\Models\DiscountLastMinute;
+use App\Appointment\Planner\Virtual;
 use Carbon\Carbon;
 
 trait DiscountBusiness {
@@ -20,8 +21,7 @@ trait DiscountBusiness {
         }
 
         if (!$hasDiscount) {
-            $tomorrow = Carbon::tomorrow();
-            $dates = [$tomorrow, $tomorrow->copy()->addDay()];
+            $dates = [Carbon::now(), Carbon::tomorrow()];
 
             $discountLastMinute = DiscountLastMinute::find($this->user->id);
 
@@ -38,18 +38,28 @@ trait DiscountBusiness {
     private function hasLastMinuteDiscount($date, $discount)
     {
         $hasDiscount = false;
-        $now = Carbon::now();
+
+        if (empty($discount) || (!$discount->is_active)) {
+            return $hasDiscount;
+        }
+
+        $virtual     = new Virtual();
         $startOfDate = $date->copy()->hour(8)->minute(0);
         $endOfDate   = $date->copy()->hour(20)->minute(59);
 
+        $now = Carbon::now();
         $now = $this->compensateNightlyHours($now, $date);
 
-        if (!empty($discount) && ($discount->is_active)) {
-            if($now->diffInMinutes($endOfDate)   <= ($discount->before * 60)
-            || $now->diffInMinutes($startOfDate) <= ($discount->before * 60)) {
+        $timeslots = $virtual->getTimeslots($this->user, $date);
+
+        foreach ($timeslots as $timeslot) {
+            list($hour, $minute) = array_map('intval', explode(':', $timeslot));
+            $slot = $date->copy()->hour($hour)->minute($minute);
+            if($now->diffInMinutes($slot) <= ($discount->before * 60)) {
                 $hasDiscount = true;
             }
         }
+
         return $hasDiscount;
     }
 }
