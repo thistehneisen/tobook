@@ -29,7 +29,7 @@
 
     <div class="form-group">
         <div class="col-sm-6 col-sm-offset-3">
-            <button type="submit" class="btn btn-primary btn-sm" id="btn-submit">{{ trans('common.save') }}</button>
+            <button type="submit" class="btn btn-primary btn-sm" id="btn-submit">{{ trans('common.send') }}</button>
         </div>
     </div>
 
