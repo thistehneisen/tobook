@@ -36,6 +36,8 @@ Artisan::add(new App\Cart\Commands\UnlockCartItemsCommand());
 // Temporarily disable NAT builder
 // Artisan::add(new App\Appointment\NAT\Commands\ScheduledBuild());
 
+Artisan::add(new App\Appointment\Planner\Commands\VirtualCalendarBuilder());
+
 Artisan::add(new App\Search\Commands\BuildSearchIndecesCommand());
 
 Artisan::add(new App\Consumers\Commands\MergeComsumersCommand());
