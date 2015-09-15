@@ -1,11 +1,14 @@
 <?php namespace App\Appointment\Planner;
 
 use App, View, Confide, Redirect, Input, Config, Util, Response, Request, Validator, DB;
+use App\Core\Models\User;
 use App\Appointment\Models\NAT\CalendarKeeper;
 use App\Appointment\Models\Reception\BackendReceptionist;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\CustomTime;
 use Carbon\Carbon;
+use Redis;
+use Queue, Log;
 
 /**
  * Virtual Calendar Planner
@@ -16,6 +19,86 @@ class Virtual
 
     public $timeslots = [];
 
+    public $redis;
+
+    const QUEUE = 'varaa:vc';
+
+    public function __construct()
+    {
+        // Assign Redis connection as attribute for quickly access
+        $this->redis = Redis::connection();
+    }
+
+    public function enqueue($user, $date)
+    {
+        $i = 0;
+        while ($i < 2) {
+            Log::debug('Queue to build virtual calendar', ['userId' => $user->id, 'date' => $date->toDateString()]);
+
+            // Push this job into the special queue called 'varaa:vc'
+            Queue::push('App\Appointment\Planner\Virtual@scheduledBuild', [
+                'date'   => $date->toDateString(),
+                'userId' => $user->id,
+            ], static::QUEUE);
+
+            $date->addDay();
+            $i++;
+        }
+    }
+
+    /**
+     * This method will be run in queue to build VC of a user
+     *
+     * @param  $job
+     * @param array $data
+     *
+     * @return void
+     */
+    public function scheduledBuild($job, $data)
+    {
+        Log::info('Start to build VC', $data);
+
+        $user = User::find($data['userId']);
+        $date = new Carbon($data['date']);
+
+        if ($user !== null) {
+            $this->build($user, $date);
+        }
+
+        Log::info('Finish building VC', $data);
+        // Done
+        $job->delete();
+    }
+
+    public function build($user, $date)
+    {
+        $timeslots = $this->getBookableTimeslots($user, $date);
+        $key = $this->getKey($user, $date);
+
+        foreach ($timeslots as $timeslot) {
+            $this->addToList($key, $timeslot);
+        }
+    }
+
+    public function getKey($user, $date)
+    {
+        return sprintf('user_%s_%s', $user->id, $date->format('dmY'));
+    }
+
+    public function getTimeslots($user, $date)
+    {
+        return $this->redis->lrange($this->getKey($user, $date), 0, -1);
+    }
+
+    public function addToList($key, $slot)
+    {
+        try {
+            $this->redis->rpush($key, $slot);
+        } catch(\Exception $ex){
+            Log::debug('Exception:', [$ex]);
+        }
+    }
+
     /**
      * Get all possible bookable timeslots of all employees with their shortest services
      *
@@ -23,6 +106,8 @@ class Virtual
      */
     public function getBookableTimeslots($user, $date)
     {
+        $this->timeslots = [];
+
         foreach ($user->asEmployees as $employee) {
             $this->singleEmployeeTimeslots($user, $employee, $date);
         }
