@@ -15,7 +15,7 @@ class VirtualCalendarBuilder extends ScheduledCommand
      *
      * @var string
      */
-    protected $name = 'varaa:build-virtual-calendar';
+    protected $name = 'varaa:build-vc';
 
     /**
      * The console command description.
