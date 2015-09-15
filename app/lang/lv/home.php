@@ -62,7 +62,7 @@ return [
     'video_tutorial_text'   => 'Kā tas strādā?',
     'video_tutorial_link'   => 'https://www.youtube.com/watch?v=FrMUPi7Yo7U?rel=0&amp;showinfo=0&autoplay=1',
     'image_tutorial_link'   => asset_path('core/img/how-does-it-work.png'),
-    'current_total_bookings'=> 'Šobrid veikto rezervāciju skaits',
+    'current_total_bookings'=> 'Šobrīd veikto rezervāciju skaits',
     'search'        => [
         'tagline'         => 'Rezervē, ko vēlies',
         'query'           => 'Meklē uzņēmumu',
