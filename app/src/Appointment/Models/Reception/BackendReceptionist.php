@@ -115,6 +115,16 @@ class BackendReceptionist extends Receptionist
         return array($date, $startTime, $endTime, $plustime, $totalLength, $totalPrice);
     }
 
+    public function isBookable()
+    {
+        try {
+            $this->validateBooking();
+        } catch (\Exception $ex){
+            return false;
+        }
+        return true;
+    }
+
     public function upsertBooking()
     {
         $this->setBookingService();

@@ -42,14 +42,12 @@ class VirtualCalendarBuilder extends ScheduledCommand
      */
     public function fire()
     {
-        // $business = Business::with('user')->find(62);
-        $user = User::find(62);
+        $business = Business::with('user')->get();
         $today    = Carbon::today();
         $virual   = new Virtual();
-
-        // foreach ($businesses as $business) {
-           $virual->getBookableTimeslots($user, $today);
-        // }
+        foreach ($businesses as $business) {
+           $virual->getBookableTimeslots($business->user, $today);
+        }
     }
 
 }
