@@ -10,7 +10,7 @@ LRANGE user_62_16092015 0 -1
 
 ## To run the command to build virtual calendar manually
 
-`php artisan varaa:build-vc`
+`php artisan varaa:build-vic`
 
 This command is scheduled to run daily
 
@@ -25,7 +25,7 @@ sudo apt-get install redis-server
 ```
 
 Run this in the terminal.
-`nohup php /path/to/artisan queue:work --queue=varaa:vc --daemon > /dev/null 2>&1 &`
+`nohup php /path/to/artisan queue:work --queue=varaa:vic --daemon > /dev/null 2>&1 &`
 
 If you encounter `Call to undefined method Redis::connection()` error message, make sure the PHP Redis extension is not installed or enabled.
 

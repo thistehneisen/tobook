@@ -3,9 +3,8 @@
 use Indatus\Dispatcher\Scheduling\ScheduledCommand;
 use Indatus\Dispatcher\Scheduling\Schedulable;
 use Indatus\Dispatcher\Drivers\Cron\Scheduler;
-use Carbon\Carbon, NAT, Queue;
+use Carbon\Carbon, VIC, Queue;
 use App\Core\Models\Business;
-use App\Appointment\Planner\Virtual;
 use App\Core\Models\User;
 
 class VirtualCalendarBuilder extends ScheduledCommand
@@ -15,7 +14,7 @@ class VirtualCalendarBuilder extends ScheduledCommand
      *
      * @var string
      */
-    protected $name = 'varaa:build-vc';
+    protected $name = 'varaa:build-vic';
 
     /**
      * The console command description.
@@ -44,9 +43,9 @@ class VirtualCalendarBuilder extends ScheduledCommand
     {
         $businesses = Business::with('user')->get();
         $today = Carbon::today();
-        $virtual = new Virtual();
         foreach ($businesses as $business) {
-            $virtual->enqueue($business->user, $today);
+            if($business->user->id == 62)
+                VIC::enqueue($business->user, $today);
         }
     }
 

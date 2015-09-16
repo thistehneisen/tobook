@@ -21,7 +21,7 @@ class Virtual
 
     public $redis;
 
-    const QUEUE = 'varaa:vc';
+    const QUEUE = 'varaa:vic';
 
     public function __construct()
     {
@@ -45,6 +45,26 @@ class Virtual
             $date->addDay();
             $i++;
         }
+    }
+
+    /**
+     * When a user makes new booking for today or tomorrow,
+     * virtual calendar need to be re-calculated
+     */
+    public function enqueueToRebuild($user, $date)
+    {
+        $tomorrow = Carbon::tomorrow();
+        // if the booking is beyond tomorrow, no need to rebuild
+        if ($date >= $tomorrow->addDay()) {
+            return;
+        }
+        // Remove the old key, no need to keep it anymore
+        $key = $this->getKey($user, $date);
+        $this->redis->del($key);
+
+        // Queue to rebuild
+        Log::debug('Queue to re-build virtual calendar', ['userId' => $user->id, 'date' => $date->toDateString()]);
+        $this->enqueue($user, $date);
     }
 
     /**
