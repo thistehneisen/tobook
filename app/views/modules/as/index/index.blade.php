@@ -38,7 +38,7 @@
 @include('modules.as.index._date_nav')
 
 <div class="container-fluid row-no-padding">
-    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
         <ul class="as-col-left-header">
             <li id="as-left-col-header" class="as-col-header">&nbsp;</li>
             @foreach ($workingTimes as $hour => $minutes)
@@ -48,11 +48,11 @@
             @endforeach
         </ul>
     </div>
-    <div class="as-calendar col-lg-11 col-md-11 col-sm-11 col-xs-11">
+    <div class="as-calendar col-lg-11 col-md-11 col-sm-11 col-xs-10">
         @foreach ($employees as $employee)
             @if ($employee->is_active)
             <div class="as-col">
-            <ul id="as-ul">
+            <ul class="as-ul">
                 <li class="as-col-header as-col-fixed">
                     <a class="as-col-name" href="{{ route('as.employee', ['id'=> $employee->id ]) }}">{{ $employee->name }}</a>
                     @if($user->asOptions['show_quick_workshift_selection'])

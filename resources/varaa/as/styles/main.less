@@ -115,6 +115,7 @@
 }
 .as-col-left-header {
   padding: 0;
+  z-index: 10;
 
   li {
     height: 20px;
@@ -127,9 +128,6 @@
     text-align: center;
     z-index: 9;
     position: relative;
-    @media (max-width: @screen-sm) {
-      width: 50px;
-    }
 
     &.as-col-header {
       height: 25px;
@@ -197,7 +195,7 @@
     height: 25px;
     line-height: 22px;
     font-size: 13px;
-    z-index: 9;
+    z-index: 1;
     color: @link_color;
 
     .as-col-name {

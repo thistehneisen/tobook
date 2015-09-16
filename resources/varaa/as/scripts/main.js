@@ -4,6 +4,7 @@
   'use strict'
   $(function () {
     var $doc = $(document),
+      $w = $(window),
       dataStorage = { booking_service_id: 0},
       colHeaderTop = -1,
       originalOffset = [],
@@ -544,20 +545,24 @@
         colHeaderTop = $('.as-col-header').offset().top
       }
 
-      if ($(window).scrollTop() > colHeaderTop) {
-        $('.as-col-header').css('position', 'fixed')
-        $('.as-col-header').css('width', 163)
-        $('.as-col-header').css('top', 0)
+      if ($w.scrollTop() > colHeaderTop) {
+        $('.as-col-header').css({
+          position: 'fixed',
+          width: 163,
+          top: 0
+        })
+
+        $('#as-left-col-header').css('width', $('.as-col-left-header').first().width())
       }
 
-      if ($(window).scrollTop() <= colHeaderTop) {
+      if ($w.scrollTop() <= colHeaderTop) {
         if (scrolledLeft) {
-          if ($(window).scrollTop() === 0) {
+          if ($w.scrollTop() === 0) {
             $('.as-col-header').css('top', colHeaderTop)
           } else {
-            $('.as-col-header').css('top', colHeaderTop - $(window).scrollTop())
+            $('.as-col-header').css('top', colHeaderTop - $w.scrollTop())
             $('.as-col-left-header').css('margin-top', '25px')
-            $('#as-ul').css('margin-top', '25px')
+            $('.as-ul').css('margin-top', '25px')
           }
         } else {
           $('.as-col-header').css('position', 'relative')
@@ -565,7 +570,7 @@
       }
     }
 
-    $(window).scroll(fixedCalendarHeader)
+    $w.scroll(fixedCalendarHeader)
 
     $('.as-calendar').scroll(function () {
       scrolledLeft = true
@@ -574,7 +579,6 @@
           originalOffset.push($(item).offset().left)
         })
       }
-      console.log(originalOffset)
       $('.as-col-header').each(function (key, item) {
         var offset = parseInt(originalOffset[key], 10) - parseInt($('.as-calendar').scrollLeft(), 10)
         $(item).css('left', offset)
