@@ -29,9 +29,10 @@ class Virtual
         $this->redis = Redis::connection();
     }
 
-    public function enqueue($user, $date)
+    public function enqueue($user, $today)
     {
         $i = 0;
+        $date = $today->copy();
         while ($i < 2) {
             Log::debug('Queue to build virtual calendar', ['userId' => $user->id, 'date' => $date->toDateString()]);
 
@@ -62,9 +63,14 @@ class Virtual
         $date = new Carbon($data['date']);
 
         if ($user !== null) {
-            $this->build($user, $date);
-            // delete yesterday key
-            $this->clean($user, $date);
+            try {
+                // build
+                $this->build($user, $date);
+                // delete yesterday key
+                $this->clean($user, $date);
+            } catch(\Exception $ex){
+                Log::debug('Exception:', [$ex]);
+            }
         }
 
         Log::info('Finish building VC', $data);
@@ -84,12 +90,20 @@ class Virtual
 
     public function clean($user, $date)
     {
+        if($date->copy()->subDay() >= Carbon::today()) {
+            return;
+        }
+
+        Log::info('Start cleaning old keys', [$date->copy()->subDay()]);
+
         $key = $this->getKey($user, $date->copy()->subDay());
         try {
             $this->redis->del($key);
         } catch(\Exception $ex){
             Log::debug('Exception:', [$ex]);
         }
+
+        Log::info('Finnish cleaning old keys', [$date]);
     }
 
     public function getKey($user, $date)
@@ -136,6 +150,10 @@ class Virtual
     {
         $workingTimes = CalendarKeeper::getDefaultWorkingTimes($user, $date, true, $employee);
         $service = $employee->shortestService;
+
+        if (empty($service)) {
+            return;
+        }
 
         foreach ($workingTimes as $hour => $minutes){
             foreach ($minutes as $minute){
