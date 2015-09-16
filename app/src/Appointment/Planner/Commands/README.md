@@ -4,6 +4,9 @@ This command is used to prebuild the possible bookings timeslot for all business
 
 ## Data structure
 
+```
+LRANGE user_62_16092015 0 -1
+```
 
 ## To run the command to build virtual calendar manually
 

@@ -82,9 +82,9 @@ class Virtual
     {
         $timeslots = $this->getBookableTimeslots($user, $date);
         $key = $this->getKey($user, $date);
-
         foreach ($timeslots as $timeslot) {
-            $this->addToList($key, $timeslot);
+            $score = $this->getScore($date, $timeslot);
+            $this->addToSortedSet($key, $score, $timeslot);
         }
     }
 
@@ -111,15 +111,24 @@ class Virtual
         return sprintf('user_%s_%s', $user->id, $date->format('dmY'));
     }
 
-    public function getTimeslots($user, $date)
+    public function getScore($date, $time)
     {
-        return $this->redis->lrange($this->getKey($user, $date), 0, -1);
+        $carbon = Carbon::createFromFormat('Y-m-d H:i', sprintf("%s %s", $date->toDateString(), $time));
+        return $carbon->timestamp;
     }
 
-    public function addToList($key, $slot)
+    public function getTimeslots($user, $date)
+    {
+        return $this->redis->zrange($this->getKey($user, $date), 0, -1);
+    }
+
+    public function addToSortedSet($key, $score, $slot)
     {
         try {
-            $this->redis->rpush($key, $slot);
+            if (empty($this->redis->zscore($key, $slot))) {
+                Log::info("add", [$key, $score, $slot]);
+                $this->redis->zadd($key, $score, $slot);
+            }
         } catch(\Exception $ex){
             Log::debug('Exception:', [$ex]);
         }
