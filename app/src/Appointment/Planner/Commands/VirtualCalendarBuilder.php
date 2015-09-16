@@ -31,7 +31,7 @@ class VirtualCalendarBuilder extends ScheduledCommand
      */
     public function schedule(Schedulable $scheduler)
     {
-        return $scheduler->everyHours(24);
+        return $scheduler->daily()->hours(2)->minutes(0);
     }
 
     /**
