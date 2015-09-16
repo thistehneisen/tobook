@@ -36,7 +36,7 @@ class Virtual
         while ($i < 2) {
             Log::debug('Queue to build virtual calendar', ['userId' => $user->id, 'date' => $date->toDateString()]);
 
-            // Push this job into the special queue called 'varaa:vc'
+            // Push this job into the special queue called 'varaa:viåc'
             Queue::push('App\Appointment\Planner\Virtual@scheduledBuild', [
                 'date'   => $date->toDateString(),
                 'userId' => $user->id,
@@ -50,6 +50,8 @@ class Virtual
     /**
      * When a user makes new booking for today or tomorrow,
      * virtual calendar need to be re-calculated
+     *
+     * Don't take in account the case users cut/paste booking yet
      */
     public function enqueueToRebuild($user, $date)
     {
@@ -64,7 +66,12 @@ class Virtual
 
         // Queue to rebuild
         Log::debug('Queue to re-build virtual calendar', ['userId' => $user->id, 'date' => $date->toDateString()]);
-        $this->enqueue($user, $date);
+
+        // Push this job into the special queue called 'varaa:vic'
+        Queue::push('App\Appointment\Planner\Virtual@scheduledBuild', [
+            'date'   => $date->toDateString(),
+            'userId' => $user->id,
+        ], static::QUEUE);
     }
 
     /**
