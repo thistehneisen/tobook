@@ -23,7 +23,7 @@
     </div>
 
     <div class="form-group {{ Form::errorCSS('sms_id', $errors) }}">
-        <label for="group_id" class="col-sm-2 control-label">{{ trans('co.send_sms') }}</label>
+        <label for="group_id" class="col-sm-2 control-label">{{ trans('co.select_campaign') }}</label>
         <div class="col-sm-5">
            {{ Form::select('sms_id', $smsPairs, 0, ['id' => 'sms_id', 'class' => 'form-control']) }}
            {{ Form::errorText('sms_id', $errors) }}

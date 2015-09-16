@@ -663,6 +663,14 @@ class Employee extends \App\Appointment\Models\Base
     }
 
     /**
+     * Get shortest service length
+     */
+    public function getShortestServiceAttribute()
+    {
+        return $this->services()->orderBy('length', 'asc')->first();
+    }
+
+    /**
      * Return absolute URL of the avatar
      *
      * @return string

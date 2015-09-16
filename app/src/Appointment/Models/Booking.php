@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Config;
 use DB;
 use NAT;
+use VIC;
 use Request;
 use Settings;
 use Util;
@@ -110,6 +111,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         parent::boot();
         static::saving(function ($booking) {
             $booking->updateNAT();
+            $booking->updateVIC();
         });
 
         static::deleting(function ($booking) {
@@ -135,6 +137,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             && $this->status === static::STATUS_CONFIRM) {
             NAT::removeBookedTime($this);
         }
+    }
+
+    public function updateVIC()
+    {
+        VIC::enqueueToRebuild($this->user, (new Carbon($this->date)));
     }
 
     //--------------------------------------------------------------------------
