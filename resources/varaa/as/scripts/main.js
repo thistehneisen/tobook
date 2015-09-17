@@ -536,13 +536,13 @@
       })
     })
 
+    if (colHeaderTop === -1) {
+      colHeaderTop = $('.as-col-header').offset().top
+    }
+
     fixedCalendarHeader = function () {
       if ($('.as-col-header').length === 0) {
         return
-      }
-
-      if (colHeaderTop === -1) {
-        colHeaderTop = $('.as-col-header').offset().top
       }
 
       if ($w.scrollTop() > colHeaderTop) {
@@ -563,13 +563,19 @@
           if ($w.scrollTop() === 0) {
             $('.as-col-header').css('top', colHeaderTop)
           } else {
-            $('.as-col-header').css('top', colHeaderTop - $w.scrollTop())
             $('.as-col-left-header').css('margin-top', '25px')
             $('.as-ul').css('margin-top', '25px')
           }
-        } else {
-          $('.as-col-header').css('position', 'relative')
         }
+
+        $('.as-col-header').each(function () {
+          var $this = $(this)
+          if ($this.css('position') !== 'relative') {
+            $this.css('top', colHeaderTop - $w.scrollTop())
+          } else {
+            $this.css('top', 0)
+          }
+        })
       }
     }
 
@@ -582,10 +588,17 @@
           originalOffset.push($(item).offset().left)
         })
       }
+
       $('.as-col-header').each(function (key, item) {
-        var offset = parseInt(originalOffset[key], 10) - parseInt($('.as-calendar').scrollLeft(), 10)
+        var offset = 0
+        if ($(item).css('position') !== 'relative') {
+          offset = parseInt(originalOffset[key], 10) - parseInt($('.as-calendar').scrollLeft(), 10)
+        } else {
+          offset = originalOffset[key]
+        }
         $(item).css('left', offset)
-        if (offset < 15) {
+
+        if (offset < 0) {
           $(item).css('opacity', 0.2)
         } else {
           $(item).css('opacity', 1)
