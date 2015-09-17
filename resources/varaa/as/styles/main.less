@@ -133,7 +133,7 @@
       height: 25px;
       line-height: 22px;
       font-size: 13px;
-      z-index: 8;
+      z-index: 10;
     }
   }
 }
@@ -148,6 +148,10 @@
   margin-bottom: 0px;
   display: inline-block;
   vertical-align: top;
+
+  @media (max-width: @screen-sm) {
+    width: 100%;
+  }
 
   ul.selectpicker > li {
     background: none;
@@ -172,6 +176,9 @@
     padding: 0px;
     margin-left: -3px;
     margin-bottom: 0px;
+    @media (max-width: @screen-sm) {
+      margin: 0;
+    }
   }
   li {
     height: 20px;

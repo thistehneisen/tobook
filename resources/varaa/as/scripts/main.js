@@ -546,10 +546,13 @@
       }
 
       if ($w.scrollTop() > colHeaderTop) {
-        $('.as-col-header').css({
-          position: 'fixed',
-          width: 163,
-          top: 0
+        $('.as-col-header').each(function () {
+          var $this = $(this)
+          $this.css({
+            position: 'fixed',
+            width: $this.parent('ul').width(),
+            top: 0
+          })
         })
 
         $('#as-left-col-header').css('width', $('.as-col-left-header').first().width())
