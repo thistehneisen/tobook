@@ -248,7 +248,7 @@ class Employees extends AsBase
                 'employeeIds' => $employeeIds,
                 'startAt'     => $startAt,
                 'endAt'       => $endAt,
-                'dateRange'   => $endAt,
+                'dateRange'   => $dateRange,
                 'description' => $description,
                 'type'        => $type,
                 'user'        => $this->user

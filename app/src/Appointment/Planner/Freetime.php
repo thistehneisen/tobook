@@ -41,6 +41,7 @@ class Freetime
         $bookings = array();
         $dates = explode(',', $this->dateRange);
         foreach ($dates as $date) {
+            $date = str_standard_date($date);
             foreach ($this->employeeIds as $employeeId) {
                 $overlaps = Booking::getOverlappedBookings($employeeId, $date, $this->startAt, $this->endAt);
                 foreach ($overlaps as $booking) {
@@ -59,8 +60,9 @@ class Freetime
     public function getOverlappedFreetimes()
     {
         $freetimes = array();
-        for ($day = 0; $day < $this->days; $day++) {
-            $date = $this->fromDate->copy()->addDays($day);
+        $dates = explode(',', $this->dateRange);
+        foreach ($dates as $date) {
+            $date = str_standard_date($date);
             foreach ($this->employeeIds as $employeeId) {
                 $overlaps = EmployeeFreetime::getOverlappedFreetimes($employeeId, $date, $this->startAt, $this->endAt, $this->freetimeId);
                 foreach ($overlaps as $booking) {
@@ -106,13 +108,14 @@ class Freetime
     public function saveFreetimes()
     {
         $data = [];
-        for ($day = 0; $day < $this->days; $day++) {
+        $dates = explode(',', $this->dateRange);
+        foreach ($dates as $date) {
+            $date = str_standard_date($date);
             foreach ($this->employeeIds as $employeeId) {
                 $employeeFreetime = new EmployeeFreetime();
-                $date = $this->fromDate->copy()->addDays($day);
 
                 $employeeFreetime->fill([
-                    'date'        => $date->toDateString(),
+                    'date'        => $date,
                     'start_at'    => $this->startAt->toTimeString(),
                     'end_at'      => $this->endAt->toTimeString(),
                     'description' => $this->description,
