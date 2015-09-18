@@ -11,12 +11,10 @@ class Freetime
     public $freetimeId;
     public $startAt;
     public $endAt;
-    public $fromDate;
-    public $toDate;
+    public $dateRange;
     public $user;
     public $description;
     public $type;
-    protected $days;
 
     public function fill($data = [])
     {
@@ -24,19 +22,13 @@ class Freetime
             $this->$key = $value;
         }
 
-        if (empty($this->fromDate) || empty($this->toDate)) {
-            throw new \Exception('as.employees.error.missing_data', 1);
-        }
-
         if ($this->startAt->gt($this->endAt) || $this->startAt->eq($this->endAt)) {
             throw new \Exception(trans('as.employees.error.start_time_greater_than_end_time'), 1);
         }
 
-        if ($this->fromDate->gt($this->toDate)) {
-            throw new \Exception(trans('as.employees.error.from_date_greater_than_to_date'), 1);
+        if (empty($this->dateRange)) {
+            throw new \Exception(trans('as.employees.error.invalid_date_range'), 1);
         }
-
-        $this->days = (int) $this->fromDate->diffInDays($this->toDate)+1;
     }
 
     /**
@@ -47,8 +39,8 @@ class Freetime
     public function getOverlappedBookings()
     {
         $bookings = array();
-        for ($day = 0; $day < $this->days; $day++) {
-            $date = $this->fromDate->copy()->addDays($day);
+        $dates = explode(',', $this->dateRange);
+        foreach ($dates as $date) {
             foreach ($this->employeeIds as $employeeId) {
                 $overlaps = Booking::getOverlappedBookings($employeeId, $date, $this->startAt, $this->endAt);
                 foreach ($overlaps as $booking) {

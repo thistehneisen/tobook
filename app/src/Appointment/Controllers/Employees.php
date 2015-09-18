@@ -239,8 +239,7 @@ class Employees extends AsBase
         try {
             $startAt     = new Carbon(Input::get('start_at'));
             $endAt       = new Carbon(Input::get('end_at'));
-            $fromDate    = new Carbon(Input::get('from_date'));
-            $toDate      = new Carbon(Input::get('to_date'));
+            $dateRange   = Input::get('date_range');
             $description = Input::get('description');
             $type        = (int) Input::get('freetime_type');
 
@@ -249,8 +248,7 @@ class Employees extends AsBase
                 'employeeIds' => $employeeIds,
                 'startAt'     => $startAt,
                 'endAt'       => $endAt,
-                'fromDate'    => $fromDate,
-                'toDate'      => $toDate,
+                'dateRange'   => $endAt,
                 'description' => $description,
                 'type'        => $type,
                 'user'        => $this->user
