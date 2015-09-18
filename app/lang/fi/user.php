@@ -14,7 +14,7 @@ return [
     'password'               => 'Salasana',
     'password_confirmation'  => 'Vahvista salasana',
     'forced_change_password' => 'Olemme äskettäin muuttaneet järjestelmää ja kaikkia käyttäjiä pyydetään vaihtamaan salasanasi välittömästi.',
-    'change_profile_success' => 'Sinun profiili on päivittänyt',
+    'change_profile_success' => 'Profiili päivitetty onnistuneesti!',
     'change_profile_failed'  => 'Tietojen päivittäminen epäonnistui, ole hyvä ja yritä uudelleen.',
     'incorrect_old_password' => 'Vanha salasanasi on väärä. Yritä uudelleen.',
     'create_account'         => 'Luo tili',
@@ -41,6 +41,8 @@ return [
     'reset_password'         => 'Salasanan nollaaminen',
     'enter_new_password'     => 'Kirjoita uusi salasana',
     'business_name'          => 'Yrityksen nimi',
+    'business_id'            => 'Yrityksen ID',
+    'account'                => 'Pankkitili',
     'password_reminder' => [
         'reset' => [
             'heading' => 'Salasanasi on nyt resetoitu!',
@@ -149,6 +151,7 @@ return [
         ]
     ],
     'payment_options' => [
+        'disable'     => 'Disable payments',
         'index'       => 'Maksutavat',
         'venue'       => 'Maksu paikanpäällä',
         'deposit'     => 'Varausmaksu',
