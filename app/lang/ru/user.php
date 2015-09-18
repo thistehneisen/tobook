@@ -43,6 +43,8 @@ return [
     'business_name'          => 'Название предприятия',
     'activation'             => 'Активировано?',
     'payments'               => 'Платежи',
+    'business_id'            => 'Busienss ID',
+    'account'                => 'Bank account',
     'business' => [
         'is_activated'     => 'Активировано',
         'name'             => 'Название предприятия',
@@ -149,6 +151,7 @@ return [
         ],
     ],
     'payment_options' => [
+        'disable'     => 'Disable payments',
         'index'       => 'Payment options',
         'venue'       => 'Pay at the venue',
         'deposit'     => 'Deposit payment',

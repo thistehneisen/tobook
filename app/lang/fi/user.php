@@ -41,6 +41,8 @@ return [
     'reset_password'         => 'Salasanan nollaaminen',
     'enter_new_password'     => 'Kirjoita uusi salasana',
     'business_name'          => 'Yrityksen nimi',
+    'business_id'            => 'Yrityksen ID',
+    'account'                => 'Pankkitili',
     'password_reminder' => [
         'reset' => [
             'heading' => 'Salasanasi on nyt resetoitu!',
@@ -149,6 +151,7 @@ return [
         ]
     ],
     'payment_options' => [
+        'disable'     => 'Disable payments',
         'index'       => 'Maksutavat',
         'venue'       => 'Maksu paikanpäällä',
         'deposit'     => 'Varausmaksu',

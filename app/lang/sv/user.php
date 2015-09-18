@@ -39,6 +39,8 @@ return [
     'reset_password'         => 'Återställ lösenord',
     'enter_new_password'     => 'Ange ditt nya lösenord',
     'business_name'          => 'Företagsnamn',
+    'business_id'            => 'Business ID',
+    'account'                => 'Bank account',
     'business' => [
         'auto_confirm'     => 'Auto confirm this business?', // @todo
         'is_activated'     => 'Aktiverat',
