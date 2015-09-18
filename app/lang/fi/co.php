@@ -49,7 +49,7 @@ return [
     'group'             => 'Lisää ryhmään',
     'send_email'        => 'Lähetä sähköposti',
     'send_sms'          => 'Lähetä SMS',
-    'select_campaign'   => 'Valitse kampanja'
+    'select_campaign'   => 'Valitse kampanja',
     'send_all_email'    => 'Lähetä sähköposti kaikille',
     'send_all_sms'      => 'Lähetä SMS kaikille',
     'groups' => [

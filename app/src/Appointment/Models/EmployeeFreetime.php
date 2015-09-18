@@ -1,5 +1,7 @@
 <?php namespace App\Appointment\Models;
 use Carbon\Carbon;
+use VIC;
+
 class EmployeeFreetime extends \App\Appointment\Models\Base
 {
     protected $table = 'as_employee_freetime';
@@ -12,6 +14,26 @@ class EmployeeFreetime extends \App\Appointment\Models\Base
     public function getLength()
     {
        return (int) $this->getStartAt()->diffInMinutes($this->getEndAt());
+    }
+
+     /**
+     * @{@inheritdoc}
+     */
+    public static function boot()
+    {
+        parent::boot();
+        static::saving(function ($freetime) {
+            $freetime->updateVIC();
+        });
+
+        static::deleting(function ($booking) {
+            $freetime->updateVIC();
+        });
+    }
+
+    public function updateVIC()
+    {
+        VIC::enqueueToRebuild($this->user, (new Carbon($this->date)));
     }
 
     public static function getOverlappedFreetimes($employeeId, $date, Carbon $startTime, Carbon $endTime, $id = null)

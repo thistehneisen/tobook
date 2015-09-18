@@ -142,6 +142,7 @@ return array(
         'App\Olut\OlutServiceProvider',
         'App\Payment\PaymentServiceProvider',
         'App\Appointment\NAT\NATServiceProvider',
+        'App\Appointment\Planner\VirtualServiceProvider',
         'App\Validation\ValidationServiceProvider',
     ),
 
@@ -233,6 +234,7 @@ return array(
         'CRUD'          => 'App\Olut\Olut',
         'Payment'       => 'App\Payment\Payment',
         'NAT'           => 'App\Appointment\NAT\Facade',
+        'VIC'           => 'App\Appointment\Planner\Facade',
         'Settings'      => 'App\Core\Settings',
     ),
 

@@ -19,16 +19,17 @@ class Bookings extends AsBase
     use \CRUD;
     protected $viewPath = 'modules.as.bookings';
     protected $crudOptions = [
-        'modelClass' => 'App\Appointment\Models\Booking',
-        'langPrefix' => 'as.bookings',
-        'layout' => 'modules.as.layout',
-        'showTab' => false,
+        'modelClass'   => 'App\Appointment\Models\Booking',
+        'langPrefix'   => 'as.bookings',
+        'layout'       => 'modules.as.layout',
+        'showTab'      => false,
         'deleteReason' => true,
-        'bulkActions' => [],
-        'indexFields' => ['uuid', 'date', 'consumer', 'total', 'notes', 'status'],
-        'presenters' => [
+        'bulkActions'  => [],
+        'indexFields'  => ['uuid', 'date', 'consumer', 'total', 'notes', 'status'],
+        'presenters'   => [
             'consumer' => ['App\Appointment\Controllers\Bookings', 'presentConsumer'],
-            'status' => ['App\Appointment\Controllers\Bookings', 'presentStatus'],
+            'status'   => ['App\Appointment\Controllers\Bookings', 'presentStatus'],
+            'date'     => ['App\Appointment\Controllers\Bookings', 'presentDate'],
         ],
     ];
 
@@ -40,6 +41,11 @@ class Bookings extends AsBase
     public static function presentStatus($value, $item)
     {
         return trans('as.bookings.' . Booking::getStatusByValue($value));
+    }
+
+    public static function presentDate($value, $item)
+    {
+        return str_standard_to_local($value);
     }
 
     /**
@@ -211,6 +217,7 @@ class Bookings extends AsBase
             'serviceTimes'          => $serviceTimesList,
             'plustime'              => $plustime,
             'extras'                => $extras,
+            'user'                  => $this->user,
         ];
     }
 
@@ -255,6 +262,7 @@ class Bookings extends AsBase
             'startTime'       => $startTime,
             'bookingStatuses' => $bookingStatuses,
             'extras'          => $extras,
+            'user'            => $this->user
         ]);
     }
 
@@ -425,7 +433,7 @@ class Bookings extends AsBase
         $bookingServiceId    = Input::get('booking_service_id', 0);
         $modifyTime          = Input::get('modify_time', 0);
         $hash                = Input::get('hash');
-        $bookingDate         = Input::get('booking_date');
+        $bookingDate         = str_standard_date(Input::get('booking_date'));
         $startTimeStr        = Input::get('start_time');
         $uuid                = Input::get('uuid', '');// from ajax uuid
         $isRequestedEmployee = Input::get('is_requested_employee', false);

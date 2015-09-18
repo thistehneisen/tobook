@@ -1,7 +1,8 @@
 <?php
+    $strDate           = str_standard_date($selectedDate);
     $employee          = (!empty($theEmployee)) ? $theEmployee : $employee;
-    $booking           = $employee->getBooked($selectedDate, $hour, $minuteShift);
-    $freetime          = $employee->getFreetime($selectedDate, $hour, $minuteShift);
+    $booking           = $employee->getBooked($strDate, $hour, $minuteShift);
+    $freetime          = $employee->getFreetime($strDate, $hour, $minuteShift);
     $bookingId         = !empty($booking) ? $booking->id : -1;
     $slots             = !empty($booking) ? round($booking->total / 15) : 0;
     $freetimeSlots     = (int) !empty($freetime) ? round($freetime->getLength() / 15) : 0;

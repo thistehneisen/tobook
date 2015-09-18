@@ -85,7 +85,8 @@ abstract class Receptionist implements ReceptionistInterface
         if (empty($strStartTime)) {
             throw new Exception(trans('as.bookings.error.empty_start_time'), 1);
         }
-
+        // local format date is converted to standard format Y-m-d already
+        // see the function setBookingDate
         $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $this->date, $strStartTime));
         $this->startTime = $startTime;
         $this->bookingStartTime = $startTime;
@@ -572,7 +573,7 @@ abstract class Receptionist implements ReceptionistInterface
             }
         }
         $data = [
-            'datetime'           => $this->startTime->toDateString(),
+            'datetime'           => str_date($this->startTime),
             'booking_service_id' => $this->bookingServiceId,
             'booking_id'         => $this->bookingId,
             'start_time'         => $this->bookingStartTime->format('H:i'),

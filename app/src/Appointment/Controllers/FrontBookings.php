@@ -43,9 +43,16 @@ class FrontBookings extends Bookings
         $serviceTimeId   = Input::get('service_time', 'default');
         $extraServiceIds = Input::get('extra_services', []);
         $hash            = Input::get('hash');
-        $bookingDate     = Input::get('booking_date');
         $startTimeStr    = trim(Input::get('start_time'));
         $uuid            = Input::get('uuid', Booking::uuid());
+
+        try {
+            // if date format is dd.mm.yyyy
+            $bookingDate = str_standard_date(Input::get('booking_date'));
+        } catch(\Exception $ex) {
+            // if date format is yyyy-mm-dd
+            $bookingDate = Input::get('booking_date');
+        }
 
         //TODO check if is there any potential error
         //Always get user from hash in front end
@@ -82,7 +89,7 @@ class FrontBookings extends Bookings
         $cart->addDetail($bookingService);
 
         $data = [
-            'datetime'           => $bookingService->plainStartTime->toDateTimeString(),
+            'datetime'           => str_date($bookingService->plainStartTime),
             'price'              => $bookingService->calculcateTotalPrice(),
             'service_name'       => $bookingService->service->name,
             'employee_name'      => $bookingService->employee->name,

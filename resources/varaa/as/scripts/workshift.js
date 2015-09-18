@@ -6,7 +6,7 @@
     $(function () {
         $(document).on('focus', '.date-picker', function () {
             $(this).datepicker({
-                format: 'yyyy-mm-dd',
+                format: 'dd.mm.yyyy',
                 weekStart: 1,
                 autoclose: true,
                 language: $('body').data('locale')

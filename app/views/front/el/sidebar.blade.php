@@ -11,6 +11,9 @@
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
         </small> --}}
+        @if($business->hasDiscount)
+        <i class="fa fa-tag text-danger"></i>
+        @endif
         </h4>
         <address>{{{ $business->full_address }}}</address>
     </div>

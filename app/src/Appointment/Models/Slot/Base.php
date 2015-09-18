@@ -62,6 +62,7 @@ class Base implements Strategy
 
     /**
      * The initital class
+     * @see str_date_format in app/helpers.php
      * @var string
      */
     private $class = 'inactive';
@@ -69,7 +70,7 @@ class Base implements Strategy
     protected function init($date, $hour, $minute, $employee, $service = null)
     {
         $this->date     = $date;
-        $this->dateObj  = Carbon::createFromFormat('Y-m-d', $date);
+        $this->dateObj  = new Carbon($date);
         $this->hour     = (int) $hour;
         $this->minute   = (int) $minute;
         $this->service  = $service;
@@ -103,15 +104,16 @@ class Base implements Strategy
      */
     protected function defaultWorkingTimeClass()
     {
-        $defaultWorkingTime = $this->employee->getDefaulTimesByDayOfWeek($this->dateObj->dayOfWeek);
-        $start              = $this->employee->getTodayDefaultStartAt($this->dateObj->dayOfWeek);
-        $end                = $this->employee->getTodayDefaultEndAt($this->dateObj->dayOfWeek);
+        $default = $this->employee->getDefaulTimesByDayOfWeek($this->dateObj->dayOfWeek);
+        $start   = $this->employee->getTodayDefaultStartAt($this->dateObj->dayOfWeek);
+        $end     = $this->employee->getTodayDefaultEndAt($this->dateObj->dayOfWeek);
 
-        if ($this->rowTime >= $start && $this->rowTime < $end && !$defaultWorkingTime->is_day_off) {
-            $this->class = $this->getValue('active');
-        } else {
-            $this->class = $this->getValue('inactive');
-        }
+        $isActive = ($this->rowTime >= $start && $this->rowTime < $end)
+            ? (!$default->is_day_off) ? true : false
+            : false;
+
+        $value = ($isActive) ? 'active' : 'inactive';
+        $this->class = $this->getValue($value);
 
         return $this->class;
     }
@@ -131,13 +133,19 @@ class Base implements Strategy
         }
 
         foreach ($this->customTimeCache as $empCustomTime) {
+
             if (empty($empCustomTime->customTime)) {
                 continue;
             }
+
             $start =  $empCustomTime->customTime->getStartAt();
             $end   =  $empCustomTime->customTime->getEndAt();
 
-            if ($this->rowTime >= $start && $this->rowTime < $end && !$empCustomTime->customTime->is_day_off) {
+            $isActive = ($this->rowTime >= $start && $this->rowTime < $end)
+                ? (!$empCustomTime->customTime->is_day_off) ? true : false
+                : false;
+
+            if ($isActive) {
                 $this->class = $this->getValue('custom_active');
                 $this->customTimeSlot[$this->date][$this->hour][$this->minute] = $empCustomTime;
             } else {

@@ -5,18 +5,18 @@
             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
     </div>
-    <div class="col-md-8 hidden-print">
-        <a href="{{ route($routeName, ['date'=> Carbon\Carbon::today()->toDateString(), 'id'=> $employeeId]) }}" class="btn btn-default">{{ trans('as.index.today') }}</a>
-        <a href="{{ route($routeName, ['date'=> Carbon\Carbon::tomorrow()->toDateString(), 'id'=> $employeeId]) }}" class="btn btn-default">{{ trans('as.index.tomorrow') }}</a>
+    <div class="col-md-8 hidden-print as-home-navigator">
+        <a href="{{ route($routeName, ['date'=> Carbon\Carbon::today()->toDateString(), 'id'=> $employeeId]) }}" class="btn btn-default btn-as-day">{{ trans('as.index.today') }}</a>
+        <a href="{{ route($routeName, ['date'=> Carbon\Carbon::tomorrow()->toDateString(), 'id'=> $employeeId]) }}" class="btn btn-default btn-as-day">{{ trans('as.index.tomorrow') }}</a>
 
-        <div class="btn-group">
+        <div class="btn-group as-days-navigator">
             <a href="{{ route($routeName, ['date'=> with(clone $date)->subWeek()->toDateString(), 'id'=> $employeeId]) }}" class="btn btn-link" id="prev-week"><i class="fa fa-fast-backward"></i></a>
             <a href="{{ route($routeName, ['date'=> with(clone $date)->subDay()->toDateString(), 'id'=> $employeeId]) }}" class="btn btn-link" id="prev-day"><i class="fa fa-backward"></i></a>
             <a href="{{ route($routeName, ['date'=> with(clone $date)->addDay()->toDateString(), 'id'=> $employeeId]) }}" class="btn btn-link" id="next-day"><i class="fa fa-forward"></i></a>
             <a href="{{ route($routeName, ['date'=> with(clone $date)->addWeek()->toDateString(), 'id'=> $employeeId]) }}" class="btn btn-link" id="next-week"><i class="fa fa-fast-forward"></i></a>
         </div>
 
-        <div class="btn-group hidden-print">
+        <div class="btn-group as-days-of-week hidden-print">
             <?php
                 $startOfWeek = with(clone $date)->startOfWeek();
                 $endOfWeek = with(clone $date)->endOfWeek();
