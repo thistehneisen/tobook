@@ -231,7 +231,8 @@ return [
         'monthly_hours'                    => 'Рабочие часы за месяц',
         'weekly_hours'                     => 'Еженедельные часов',
         'error'                            => [
-        'freetime_overlapped_with_booking' => 'Свободное время совпадает с заказами',
+            'freetime_overlapped_with_booking' => 'Свободное время совпадает с заказами',
+            'empty_employee_ids'               => 'Please select at least one employee!',
         ],
     ],
     'embed' => [

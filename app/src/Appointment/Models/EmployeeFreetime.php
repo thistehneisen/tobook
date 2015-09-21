@@ -26,7 +26,7 @@ class EmployeeFreetime extends \App\Appointment\Models\Base
             $freetime->updateVIC();
         });
 
-        static::deleting(function ($booking) {
+        static::deleting(function ($freetime) {
             $freetime->updateVIC();
         });
     }
