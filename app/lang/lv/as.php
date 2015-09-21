@@ -79,7 +79,7 @@ return [
         'resource'     => 'Resurss',
         'room'         => 'Telpa',
         'extra'        => 'Papildpakalpojums',
-        'employees'    => 'Darbinieki',
+        'employees'    => 'Rēķins',
         'no_employees' => 'Nav darbinieka, ko izvēlēties',
         'no_name'      => 'Bez nosaukuma',
         'error'        => [
@@ -180,7 +180,7 @@ return [
         ],
     ],
     'employees' => [
-        'all'                              => 'Darbinieki',
+        'all'                              => 'Rēķins',
         'add'                              => 'Pievienot jaunu darbinieku',
         'edit'                             => 'Labot darbinieka datus',
         'name'                             => 'Vārds',
@@ -405,7 +405,7 @@ return [
     ],
     'reports' => [
         'index'     => 'Atskaites',
-        'employees' => 'Darbinieki',
+        'employees' => 'Rēķins',
         'services'  => 'Pakalpojumi',
         'generate'  => 'Ģenerēt',
         'start'     => 'Sākuma datums',
