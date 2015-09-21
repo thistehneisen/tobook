@@ -29,10 +29,10 @@ class Reports extends AsBase
     {
         $today = Carbon::now();
         $start = Input::has('start')
-            ? new Carbon(Input::get('start'))
-            : with(clone $today)->subMonth();
+            ? carbon_date(Input::get('start'))
+            : $today->copy()->subMonth();
         $end = Input::has('end')
-            ? new Carbon(Input::get('end'))
+            ? carbon_date(Input::get('end'))
             : $today;
         $selectedService = (int) Input::get('service', 0);
 
@@ -41,8 +41,8 @@ class Reports extends AsBase
         return $this->render('statistics', [
             'serviceOptions'    => $serviceOptions,
             'selectedService'   => $selectedService,
-            'start'             => $start->toDateString(),
-            'end'               => $end->toDateString(),
+            'start'             => str_date($start),
+            'end'               => str_date($end),
             'report'            => new Statistics($selectedService, $start, $end)
         ]);
     }

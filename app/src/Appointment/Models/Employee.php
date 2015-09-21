@@ -465,7 +465,7 @@ class Employee extends \App\Appointment\Models\Base
      */
     public function getWorkshiftDate($date)
     {
-        $current      = Carbon::now();
+        $current = Carbon::now();
 
         if (!empty($date)) {
             try {
@@ -660,6 +660,14 @@ class Employee extends \App\Appointment\Models\Base
         } else {
             return Config::get('varaa.upload_folder').'/images/'.$this->attributes['avatar'];
         }
+    }
+
+    /**
+     * Get shortest service length
+     */
+    public function getShortestServiceAttribute()
+    {
+        return $this->services()->orderBy('length', 'asc')->first();
     }
 
     /**

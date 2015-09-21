@@ -49,7 +49,7 @@
                                         {{ Form::select('end_at', $times, $endTime, ['class' => 'form-control input-sm', 'id' => 'end_time']) }}
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                {{--<div class="form-group row">
                                     <label for="from_date" class="col-sm-4 control-label">{{ trans('as.employees.from_date') }}</label>
                                     <div class="col-sm-8">
                                         {{ Form::text('from_date', $date, ['class' => 'datepicker form-control input-sm', 'id' => 'from_date', (!empty($freetime) ? 'disabled' : '')]) }}
@@ -59,6 +59,12 @@
                                     <label for="to_date" class="col-sm-4 control-label">{{ trans('as.employees.to_date') }}</label>
                                     <div class="col-sm-8">
                                         {{ Form::text('to_date', $date, ['class' => 'datepicker form-control input-sm', 'id' => 'to_date', !empty($freetime) ? 'disabled' : '']) }}
+                                    </div>
+                                </div> --}}
+                                <div class="form-group row">
+                                    <label for="to_date" class="col-sm-4 control-label">{{ trans('as.employees.date_range') }}</label>
+                                    <div class="col-sm-8">
+                                        {{ Form::text('date_range', $date, ['class' => 'form-control input-sm', 'id' => 'date_range', !empty($freetime) ? 'disabled' : '']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -79,13 +85,14 @@
 </div>
 <script>
 $(function () {
-    $('.datepicker').datepicker({
-        format: 'yyyy-mm-dd',
+    $('#date_range').datepicker({
+        format: 'dd.mm.yyyy',
         startDate: new Date(),
         todayBtn: true,
         todayHighlight: true,
         weekStart: 1,
         autoclose: true,
+        multidate: true,
         language: '{{ App::getLocale() }}',
     });
 });

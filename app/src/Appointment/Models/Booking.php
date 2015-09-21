@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Config;
 use DB;
 use NAT;
+use VIC;
 use Request;
 use Settings;
 use Util;
@@ -110,6 +111,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         parent::boot();
         static::saving(function ($booking) {
             $booking->updateNAT();
+            $booking->updateVIC();
         });
 
         static::deleting(function ($booking) {
@@ -135,6 +137,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             && $this->status === static::STATUS_CONFIRM) {
             NAT::removeBookedTime($this);
         }
+    }
+
+    public function updateVIC()
+    {
+        VIC::enqueueToRebuild($this->user, (new Carbon($this->date)));
     }
 
     //--------------------------------------------------------------------------
@@ -257,8 +264,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 $serviceInfo = str_replace(' {extraServices}', '', $serviceInfo);
             }
 
+            $date  = ($this->date instanceof Carbon) ? $this->date : new Carbon($this->date);
             $serviceInfo = str_replace('{employee}', $this->employee->name, $serviceInfo);
-            $serviceInfo = str_replace('{date}', $this->date, $serviceInfo);
+            $serviceInfo = str_replace('{date}', str_date($date), $serviceInfo);
             $serviceInfo = str_replace('{start}', $start->toTimeString(), $serviceInfo);
 
             if ($isFull && !empty($service->description)) {
@@ -1264,6 +1272,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public function saveCommission()
     {
+        if(empty($this->employee()) || empty($this->user)) {
+            return;
+        }
+
         $commissionRate = Settings::get('commission_rate');
         $depositRate    = $this->user->business->deposit_rate;
         $commission     = $this->total_price * $commissionRate;
@@ -1271,10 +1283,18 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $constantCommission    = 0;
         $newConsumerCommission = 0;
 
-        if (App::environment() === 'tobook') {
+        if (!empty($this->consumer) && !empty($this->consumer->isNew)) {
+            $isNew = ($this->consumer->isNew)
+                ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST;
+        } else {
+            $isNew = (!empty($this->consumer) && $this->consumer->created_at >= $this->created_at)
+                ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST;
+        }
+
+        if (is_tobook()) {
             $constantCommission    = Settings::get('constant_commission');
             $newConsumerRate       = Settings::get('new_consumer_commission_rate');
-            $newConsumerCommission = (!empty($this->consumer->isNew) && $this->consumer->isNew) ? ($newConsumerRate * $this->total_price) : 0;
+            $newConsumerCommission = ($isNew) ? ($newConsumerRate * $this->total_price) : 0;
         }
 
         $businessCommission = new BusinessCommission();
@@ -1286,7 +1306,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             'new_consumer_commission' => $newConsumerCommission,
             'deposit_rate'            => $depositRate,
             'total_price'             => $this->total_price,
-            'consumer_status'         => ((!empty($this->consumer->isNew) && $this->consumer->isNew) ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST)
+            'consumer_status'         => $isNew
         ]);
 
         $businessCommission->booking()->associate($this);
@@ -1294,6 +1314,30 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $businessCommission->employee()->associate($this->employee);
 
         return $businessCommission->save();
+    }
+
+    public function updateNewConsumerCommision()
+    {
+        if (!is_tobook()) {
+            return;
+        }
+
+        $isNew = (!empty($this->consumer->id) && (bool)$this->consumer->created_at->gte($this->created_at))
+            ? true : false;
+
+        $consumerStatus = $isNew ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST;
+
+        $newConsumerRate       = Settings::get('new_consumer_commission_rate');
+        $constantCommission    = Settings::get('constant_commission');
+        $newConsumerCommission = ($isNew) ? ($newConsumerRate * $this->total_price) : 0;
+
+        $businessCommission = BusinessCommission::where('booking_id', '=', $this->id)->first();
+
+        if (!empty($businessCommission->id)) {
+            $businessCommission->consumer_status = $consumerStatus;
+            $businessCommission->new_consumer_commission = $newConsumerCommission;
+            return $businessCommission->save();
+        }
     }
 
     /**

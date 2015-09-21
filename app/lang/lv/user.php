@@ -43,6 +43,8 @@ return [
     'business_name'          => 'Uzņēmuma nosaukums',
     'activation'             => 'Aktivizēts?',
     'payments'               => 'Maksājumi',
+    'business_id'            => 'Busienss ID',
+    'account'                => 'Bank account',
     'business' => [
         'is_activated'     => 'Aktivizēts',
         'name'             => 'Uzņēmuma nosaukums',
@@ -149,6 +151,7 @@ return [
         ],
     ],
     'payment_options' => [
+        'disable'     => 'Disable payments',
         'index'       => 'Payment options',
         'venue'       => 'Pay at the venue',
         'deposit'     => 'Deposit payment',

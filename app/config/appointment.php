@@ -108,7 +108,7 @@ return [
                 ],
                 'show_employee_request' => [
                     'type' => 'Radio',
-                    'default' => true
+                    'default' => false
                 ],
                 'default_nat_service' => [
                     'type' => 'DefaultNatDropdown',

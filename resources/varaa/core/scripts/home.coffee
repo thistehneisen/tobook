@@ -12,7 +12,7 @@ do ($ = jQuery) ->
     # Homepage modal
     # --------------------------------------------------------------------------
     $modal = $ '#js-homepage-modal'
-    if $modal.length > 0
+    if $modal.length > 0 and $(window).width() > 768
       $modal.modal()
         .on 'shown.bs.modal', (e) ->
           $modal.css('top', ($(window).height() - $modal.find('.modal-content').height()) / 2)

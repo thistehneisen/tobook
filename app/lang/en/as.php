@@ -201,6 +201,7 @@ return [
         'days_of_week'                     => 'Days of week',
         'start_time'                       => 'Start time',
         'end_time'                         => 'End time',
+        'date_range'                       => 'Date range',
         'day_off'                          => 'Is day off?',
         'confirm'                          => [
             'delete_freetime' => 'Are you sure to delete selected free time from the calendar?'
@@ -394,8 +395,8 @@ return [
             'terms_enabled'                                  => 'Enable terms',
             'default_nat_service'                            => 'Default next available service',
             'show_quick_workshift_selection'                 => 'Show on calendar workshift selection',
-            'min_distance'                                   => 'Min distance',
-            'max_distance'                                   => 'Max distance',
+            'min_distance'                                   => 'Min distance (hour)',
+            'max_distance'                                   => 'Max distance (day)',
             'auto_select_employee'                           => 'Auto select an employee',
             'auto_expand_all_categories'                     => 'Auto expand all categories',
             'show_employee_request'                          => 'Show option requesting for an employee',

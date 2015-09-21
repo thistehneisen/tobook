@@ -111,7 +111,7 @@ $(document).ready(function () {
                     <div class="panel-heading">{{{ $item->model->service_name }}}</div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-sm-6">{{ $item->model->datetime }}</div>
+                            <div class="col-sm-6">{{ $item->model->datetime  }}</div>
                             <div class="col-sm-4">
                                 @if ((bool)$user->asOptions['hide_prices'] === false) {{ $item->price }}{{ Settings::get('currency') }}
                                 @endif
@@ -136,8 +136,8 @@ $(document).ready(function () {
                 @if ($action === 'checkout') {{ trans('as.embed.booking_form') }}
                 @elseif ($action === 'confirm') {{ trans('as.embed.booking_form') }}
                 @else
-                    @if (empty($service)) {{ trans('as.embed.select_service') }} {{ $date->format('d/m/Y') }}
-                    @else {{ $service->name }} {{ $date->format('d/m/Y') }} <a href="{{ route('as.embed.embed', [ 'hash' => $hash ])}}">({{ trans('as.embed.back_to_services') }})</a>
+                    @if (empty($service)) {{ trans('as.embed.select_service') }} {{ str_date($date) }}
+                    @else {{ $service->name }} {{ str_date($date) }} <a href="{{ route('as.embed.embed', [ 'hash' => $hash ])}}">({{ trans('as.embed.back_to_services') }})</a>
                     @endif
                 @endif
             </div>

@@ -1,0 +1,50 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Roboto', Arial, Verdana, sans-serif;
+  font-weight: 300;
+  margin-bottom: 100px;
+
+  @media (max-width: @screen-sm) {
+    margin-bottom: 0;
+    padding-bottom: 0 !important;
+  }
+}
+
+a {
+  color: @link_color;
+
+  &:hover {
+    color: @link_color_hover;
+    text-decoration: none;
+  }
+}
+.navbar-toggle {
+  background: @primary_color;
+
+  .icon-bar {
+    background: #fff;
+  }
+}
+
+
+.main {
+  .pagination {
+    margin: 0 !important;
+  }
+}
+
+@media (max-width:@screen-sm) {
+  .img-responsive {
+    width: 100%;
+  }
+  .search-left .img-responsive {
+    width: auto;
+  }
+  .zopim {
+    display: none;
+  }
+}

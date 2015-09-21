@@ -199,6 +199,7 @@ return [
         'days_of_week'                     => 'Дни недели',
         'start_time'                       => 'Начало работы',
         'end_time'                         => 'Конец работы',
+        'date_range'                       => 'Date range',
         'day_off'                          => 'Выходной?',
         'confirm'                          => [
             'delete_freetime' => 'Вы уверены, что хотите удалить выбранное время из календаря?'

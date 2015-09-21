@@ -30,11 +30,15 @@ Artisan::add(new App\Core\Commands\ReleasePendingCommisions());
 Artisan::add(new App\Core\Commands\BroadcastConfirmationSettings());
 Artisan::add(new App\Core\Commands\FixPayAtVenueCommisions());
 Artisan::add(new App\Core\Commands\FixMissingCommissionsToBook());
+Artisan::add(new App\Core\Commands\FixMissingNewConsumerCommissions());
+Artisan::add(new App\Core\Commands\UpdateMinDistanceHourUnit());
 
 Artisan::add(new App\Cart\Commands\UnlockCartItemsCommand());
 
 // Temporarily disable NAT builder
 // Artisan::add(new App\Appointment\NAT\Commands\ScheduledBuild());
+
+Artisan::add(new App\Appointment\Planner\Commands\VirtualCalendarBuilder());
 
 Artisan::add(new App\Search\Commands\BuildSearchIndecesCommand());
 
