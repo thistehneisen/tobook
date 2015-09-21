@@ -1,8 +1,11 @@
-<?php
+<?php namespace App\Core\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use App\Appointment\Models\Option;
+use App, Config, Settings;
+use DB;
 
 class UpdateMinDistanceHourUnit extends Command {
 
@@ -11,14 +14,14 @@ class UpdateMinDistanceHourUnit extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'command:name';
+	protected $name = 'varaa:update-min-distance-unit';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Command description.';
+	protected $description = 'Update min distance days -> hours unit.';
 
 	/**
 	 * Create a new command instance.
@@ -37,31 +40,12 @@ class UpdateMinDistanceHourUnit extends Command {
 	 */
 	public function fire()
 	{
-		//
-	}
-
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array(
-			array('example', InputArgument::REQUIRED, 'An example argument.'),
-		);
-	}
-
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return array(
-			array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-		);
+        $options = Option::where('key', '=', 'min_distance')->get();
+        foreach ($options as $item) {
+            $item->value = intval($item->value) * 24;
+            $item->save();
+            print('.');
+        }
 	}
 
 }
