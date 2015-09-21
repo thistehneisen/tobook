@@ -234,14 +234,14 @@ class Employees extends AsBase
      */
     public function addEmployeeFreeTime()
     {
-        $employeeIds = Input::get('employees');
-        $data = [];
         try {
+            $employeeIds = Input::get('employees');
             $startAt     = new Carbon(Input::get('start_at'));
             $endAt       = new Carbon(Input::get('end_at'));
             $dateRange   = Input::get('date_range');
             $description = Input::get('description');
             $type        = (int) Input::get('freetime_type');
+            $data        = [];
 
             $planner = new Freetime();
             $planner->fill([

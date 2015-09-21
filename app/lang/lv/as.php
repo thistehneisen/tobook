@@ -231,8 +231,9 @@ return [
         'monthly_hours'                    => 'Mēneša darba laiks',
         'weekly_hours'                     => 'Nedēļas stundas',
         'error'                            => [
-        'freetime_overlapped_with_booking' => 'Brīvdienas pārklājas ar rezervāciju (-ām)',
-        'freetime_overlapped_with_others'  => 'Freetime is overlapped with other freetime(s)',//@todo
+            'freetime_overlapped_with_booking' => 'Brīvdienas pārklājas ar rezervāciju (-ām)',
+            'freetime_overlapped_with_others'  => 'Freetime is overlapped with other freetime(s)',//@todo
+            'empty_employee_ids'               => 'Please select at least one employee!',
         ],
     ],
     'embed' => [

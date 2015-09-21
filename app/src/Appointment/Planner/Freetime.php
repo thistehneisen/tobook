@@ -75,8 +75,20 @@ class Freetime
 
     public function validateData()
     {
-        $bookings = $this->getOverlappedBookings();
         $data = [];
+
+        //Check if there is any employee id
+        if (empty($this->employeeIds)) {
+            $data['success']  = false;
+            $data['message']  = '<ul>';
+            $data['message'] .= '<li>' . trans('as.employees.error.empty_employee_ids') . '</li>';
+            $data['message'] .= '<ul>';
+
+            return $data;
+        }
+
+        $bookings = $this->getOverlappedBookings();
+
         //Checking if freetime overlaps with any booking or not
         if (!empty($bookings)) {
             $data['success'] = false;
