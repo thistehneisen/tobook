@@ -121,9 +121,9 @@ trait Layout
 
         list($priceRange, $hasDiscount, $servicesDiscount) = $this->getDiscountData($categories, $layout);
 
-
-        $minDistance = ((int) $user->asOptions['min_distance'])
-            ? sprintf('+%dd', (int) $user->asOptions['min_distance'])
+        $minDay = ((int) $user->asOptions['min_distance']) / 24;
+        $minDistance = ($minDay)
+            ? sprintf('+%dd', $minDay)
             : 0;
 
         $maxDistance = ((int) $user->asOptions['max_distance'])
@@ -431,7 +431,7 @@ trait Layout
         $maxDistance = (int) $user->asOptions['max_distance']
             ? (int) $user->asOptions['max_distance']
             : 3650;
-        $start = $today->copy()->addDays($minDistance);
+        $start = $today->copy()->addHours($minDistance);
         $final = $today->copy()->addDays($maxDistance);
 
         $maxWeeks = (ceil($maxDistance / 7) <= 7)
