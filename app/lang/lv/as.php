@@ -199,6 +199,7 @@ return [
         'days_of_week'                     => 'Nedēļas dienas',
         'start_time'                       => 'Sākums',
         'end_time'                         => 'Beigas',
+        'date_range'                       => 'Date range',
         'day_off'                          => 'Brīvdiena?',
         'confirm'                          => [
             'delete_freetime' => 'Vai tiešām vēlaties dzēst izvēlēto brīvo laiku no kalendāra?'
