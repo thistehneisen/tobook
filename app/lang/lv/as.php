@@ -79,7 +79,7 @@ return [
         'resource'     => 'Resurss',
         'room'         => 'Telpa',
         'extra'        => 'Papildpakalpojums',
-        'employees'    => 'Darbinieki',
+        'employees'    => 'Rēķins',
         'no_employees' => 'Nav darbinieka, ko izvēlēties',
         'no_name'      => 'Bez nosaukuma',
         'error'        => [
@@ -180,7 +180,7 @@ return [
         ],
     ],
     'employees' => [
-        'all'                              => 'Darbinieki',
+        'all'                              => 'Rēķins',
         'add'                              => 'Pievienot jaunu darbinieku',
         'edit'                             => 'Labot darbinieka datus',
         'name'                             => 'Vārds',
@@ -365,8 +365,8 @@ return [
             'terms_enabled'                                  => 'Iespējot noteikumus',
             'default_nat_service'                            => 'Nākamais pieejamais pakalpojums pēc noklusējuma',
             'show_quick_workshift_selection'                 => 'Show on calendar workshift selection',
-            'min_distance'                                   => 'Min attālums',
-            'max_distance'                                   => 'Max attālums',
+            'min_distance'                                   => 'Min attālums (stundas)',
+            'max_distance'                                   => 'Max attālums (dienas)',
             'auto_select_employee'                           => 'Automātiski izvēlēties darbinieku',
             'auto_expand_all_categories'                     => 'Automātiksi aizpildīt visas kategorijas',
             'show_employee_request'                          => 'Laut izvēlēties darbinieku',
@@ -406,7 +406,7 @@ return [
     ],
     'reports' => [
         'index'     => 'Atskaites',
-        'employees' => 'Darbinieki',
+        'employees' => 'Rēķins',
         'services'  => 'Pakalpojumi',
         'generate'  => 'Ģenerēt',
         'start'     => 'Sākuma datums',
