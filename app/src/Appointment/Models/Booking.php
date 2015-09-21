@@ -1272,6 +1272,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public function saveCommission()
     {
+        if(empty($this->employee()) || empty($this->user)) {
+            return;
+        }
+
         $commissionRate = Settings::get('commission_rate');
         $depositRate    = $this->user->business->deposit_rate;
         $commission     = $this->total_price * $commissionRate;
@@ -1279,10 +1283,18 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $constantCommission    = 0;
         $newConsumerCommission = 0;
 
+        if (!empty($this->consumer) && !empty($this->consumer->isNew)) {
+            $isNew = ($this->consumer->isNew)
+                ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST;
+        } else {
+            $isNew = (!empty($this->consumer) && $this->consumer->created_at >= $this->created_at)
+                ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST;
+        }
+
         if (App::environment() === 'tobook') {
             $constantCommission    = Settings::get('constant_commission');
             $newConsumerRate       = Settings::get('new_consumer_commission_rate');
-            $newConsumerCommission = (!empty($this->consumer->isNew) && $this->consumer->isNew) ? ($newConsumerRate * $this->total_price) : 0;
+            $newConsumerCommission = ($isNew) ? ($newConsumerRate * $this->total_price) : 0;
         }
 
         $businessCommission = new BusinessCommission();
@@ -1294,7 +1306,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             'new_consumer_commission' => $newConsumerCommission,
             'deposit_rate'            => $depositRate,
             'total_price'             => $this->total_price,
-            'consumer_status'         => ((!empty($this->consumer->isNew) && $this->consumer->isNew) ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST)
+            'consumer_status'         => $isNew
         ]);
 
         $businessCommission->booking()->associate($this);
