@@ -237,6 +237,7 @@ return [
             'freetime_overlapped_with_others'  => 'Freetime is overlapped with other freetime(s)',
             'from_date_greater_than_to_date'   => 'Start date must be before end date',
             'start_time_greater_than_end_time' => 'Start time must be before end time',
+            'empty_employee_ids'               => 'Please select at least one employee!',
         ],
     ],
     'embed' => [
