@@ -1291,7 +1291,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST;
         }
 
-        if (App::environment() === 'tobook') {
+        if (is_tobook()) {
             $constantCommission    = Settings::get('constant_commission');
             $newConsumerRate       = Settings::get('new_consumer_commission_rate');
             $newConsumerCommission = ($isNew) ? ($newConsumerRate * $this->total_price) : 0;
@@ -1314,6 +1314,30 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $businessCommission->employee()->associate($this->employee);
 
         return $businessCommission->save();
+    }
+
+    public function updateNewConsumerCommision()
+    {
+        if (!is_tobook()) {
+            return;
+        }
+
+        $isNew = (!empty($this->consumer->id) && (bool)$this->consumer->created_at->gte($this->created_at))
+            ? true : false;
+
+        $consumerStatus = $isNew ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST;
+
+        $newConsumerRate       = Settings::get('new_consumer_commission_rate');
+        $constantCommission    = Settings::get('constant_commission');
+        $newConsumerCommission = ($isNew) ? ($newConsumerRate * $this->total_price) : 0;
+
+        $businessCommission = BusinessCommission::where('booking_id', '=', $this->id)->first();
+
+        if (!empty($businessCommission->id)) {
+            $businessCommission->consumer_status = $consumerStatus;
+            $businessCommission->new_consumer_commission = $newConsumerCommission;
+            return $businessCommission->save();
+        }
     }
 
     /**
