@@ -200,6 +200,7 @@ return [
         'days_of_week'        => 'Veckodagar',
         'start_time'          => 'Starttid',
         'end_time'            => 'Sluttid',
+        'date_range'          => 'Date range',
         'day_off'             => 'Ledig?',
         'confirm'             => [
             'delete_freetime' => 'Vill du ta bort ej bokningsbara tider från kalendern?'
