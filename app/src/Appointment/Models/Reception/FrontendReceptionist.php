@@ -54,7 +54,7 @@ class FrontendReceptionist extends Receptionist
         $minDistance = (int) $this->user->asOptions['min_distance'];
         $maxDistance = (int) $this->user->asOptions['max_distance'];
 
-        $start  = $today->copy()->addDays($minDistance);
+        $start  = $today->copy()->addHours($minDistance);
         $final  = ($maxDistance)
             ? $today->copy()->addDays($maxDistance)
             : $today->copy()->addDays(3650);
