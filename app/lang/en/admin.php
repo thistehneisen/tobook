@@ -137,6 +137,8 @@ return [
         'sms_length_limiter'           => 'SMS length limiter',
         'enable_homepage_modal'        => 'Enable homepage modal',
         'homepage_modal_url'           => 'Homepage modal URL',
+        'enable_business_modal'        => 'Enable business modal',
+        'business_modal_url'           => 'Business modal URL',
     ],
     'master-cats' => [
         'all'         => 'All master category',

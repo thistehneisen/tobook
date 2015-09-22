@@ -142,4 +142,17 @@ app.routes = {
     <div id="js-business-single" style="display: none;"></div>
 @endif
 </div>
+
+@if ($iframeUrl !== null)
+<div class="modal homepage-modal fade" id="js-business-modal">
+    <div class="modal-dialog homepage-modal-dialog">
+        <div class="modal-content homepage-modal-content">
+            <div class="modal-body homepage-modal-body">
+                <button type="button" class="close homepage-modal-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <iframe src="{{ $iframeUrl }}" frameborder="0" class="homepage-modal-iframe"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @stop
