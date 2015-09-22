@@ -73,6 +73,13 @@ class LayoutCp extends Base
 
         $selectedService = (empty($serviceTime)) ? $service : $serviceTime;
 
+        // Load the calendar of the first bookable day
+        list($start, $final, $maxWeeks) = $this->getMinMaxDistanceDay($hash);
+
+        if ($date->lt($start)) {
+            $date = $start->copy();
+        }
+
         // Get timetable data
         $timetable   = [];
         $showEndTime = false;
@@ -110,8 +117,9 @@ class LayoutCp extends Base
         $e = $s->copy()->endOfWeek();
         while ($s->lte($e)) {
             // Of course we cannot book on past days
-            if ($s->lt($today)) {
-                $unbookable[] = str_date($s);
+            // Or before min_distance
+            if ($s->lt($today) || $s->copy()->hour(23)->minute(59)->lt($start)) {
+                $unbookable[] = $s->toDateString();
                 $s->addDay();
 
                 continue;
@@ -125,15 +133,9 @@ class LayoutCp extends Base
 
             $t = call_user_func_array([$this, $timetableMethod], $params);
             if (empty($t)) {
-                $unbookable[] = str_date($s);
+                $unbookable[] = $s->toDateString();
             }
             $s->addDay();
-        }
-
-        list($start, $final, $maxWeeks) = $this->getMinMaxDistanceDay($hash);
-
-        if ($date->lt($start)) {
-            $date = $start->copy();
         }
 
         $startDate = $date->copy()->startOfWeek();
@@ -150,7 +152,8 @@ class LayoutCp extends Base
                 'dayOfWeek' => trans('common.short.'.strtolower($i->format('D'))),
                 'date' => $i->toDateString(),
                 'niceDate' => $i->format('j'),
-                'hasDiscount' => $selectedService->hasDiscount($i)
+                'hasDiscount' => $selectedService->hasDiscount($i),
+                'disabled' => ($i->lt($start)) ? true : false
             ];
             $i->addDay();
         }
@@ -177,6 +180,7 @@ class LayoutCp extends Base
             'nextWeek'     => str_date($nextWeek),
             'prevWeek'     => str_date($prevWeek),
             'selectedDate' => $dateStr,
+            'date'         => $date->toDateString(),
             'unbookable'   => $unbookable,
         ]);
     }
