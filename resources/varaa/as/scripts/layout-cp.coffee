@@ -83,13 +83,13 @@ app.VaraaCPLayout = (dom, hash) ->
                 m('.custom-time-service', {onclick: ctrl.selectService.bind(ctrl, service)}, [
                   if service.name? then m('p', service.name) else m.trust('&nbsp;'),
                   m('.service-description', service.description),
-                  m('p', "#{service.length}min")
+                  m('p', "#{service.during}min")
                 ]),
                 service.service_times.map((item) ->
                   m('.custom-time-service', {onclick: ctrl.selectServiceTime.bind(ctrl, item, service)}, [
                     if service.name? then m('p', service.name) else m.trust('&nbsp;'),
                     m('.service-description', item.description),
-                    m('p', "#{item.length}min")
+                    m('p', "#{item.during}min")
                   ])
                 )
               ])
