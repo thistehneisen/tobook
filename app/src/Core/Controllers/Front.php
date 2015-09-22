@@ -130,6 +130,8 @@ class Front extends Base
         $viewData['meta']    = (array) $meta;
         $viewData['title']   = $title ?: trans('common.home');
 
+        $viewData['iframeUrl'] = 'https://google.com';
+
         return $this->render('businesses', $viewData);
     }
 
