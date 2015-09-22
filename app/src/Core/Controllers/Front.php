@@ -130,7 +130,15 @@ class Front extends Base
         $viewData['meta']    = (array) $meta;
         $viewData['title']   = $title ?: trans('common.home');
 
-        $viewData['iframeUrl'] = 'https://google.com';
+        // @see: https://github.com/varaa/varaa/issues/662
+        $iframeUrl = null;
+        Cookie::queue('shown_business_modal', true, 60*24*14); // 14 days
+
+        if ((bool) Settings::get('enable_business_modal', false)
+            && Cookie::get('shown_business_modal') !== true) {
+            $iframeUrl = Settings::get('business_modal_url');
+        }
+        $viewData['iframeUrl'] = $iframeUrl;
 
         return $this->render('businesses', $viewData);
     }
