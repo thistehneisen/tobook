@@ -7,6 +7,13 @@ do ($ = jQuery) ->
       loop: true
       autoplayDisableOnInteraction: false
 
+    $businessModal = $ '#js-business-modal'
+    $w = $ window
+    if $businessModal.length > 0
+      $businessModal.modal()
+        .on 'shown.bs.modal', (e) ->
+          $businessModal.css('top', ($w.height() - $businessModal.find('.modal-content').height()) / 2)
+
     # Contact form
     $wrapper = $ '#js-search-results'
 
