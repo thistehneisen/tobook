@@ -356,6 +356,7 @@ app.VaraaCPLayout = (dom, hash) ->
         input = document.createElement 'input'
         input.name = name
         input.value = value
+        input.type = 'hidden'
         return input
 
       # Create a new form
@@ -366,6 +367,8 @@ app.VaraaCPLayout = (dom, hash) ->
       for key, value of inputs
         form.appendChild addInput key, value
 
+      # Firefox require the form to be attached to DOM tree in order to submit
+      document.body.appendChild form
       # Submit it
       form.submit()
 
