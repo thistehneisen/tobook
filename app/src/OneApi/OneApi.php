@@ -40,8 +40,10 @@ class OneApi
             return;
         }
 
-        $trimmer = new SMSTrimmer(Settings::get('sms_length_limiter'));
-        $message = $trimmer->trim($message);
+        if (!is_tobook()) {
+            $trimmer = new SMSTrimmer(Settings::get('sms_length_limiter'));
+            $message = $trimmer->trim($message);
+        }
 
         try {
             $smsClient = new SmsClient(
