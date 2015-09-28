@@ -69,7 +69,7 @@ class Statistics
             }
         }
 
-        $users = Business::orderBy('name')->lists('name', 'user_id');
+        $users = Business::orderBy('name')->whereNull('deleted_at')->lists('name', 'user_id');
 
         foreach ($users as $id => $name) {
             if (isset($data[$id])) {
@@ -93,7 +93,8 @@ class Statistics
         $count = User::rightJoin('as_bookings', 'users.id', '=', 'as_bookings.user_id')
         	->where('as_bookings.date', '>=', $this->start)
             ->where('as_bookings.date', '<=', $this->end)
-            ->whereNull('as_bookings.deleted_at');
+            ->whereNull('as_bookings.deleted_at')
+            ->whereNull('users.deleted_at');
 
         if ($groupByStatus) {
             $count = $count->select(
