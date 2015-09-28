@@ -79,3 +79,6 @@ bower_components/
 # Built assets
 public/assets
 public/deployment.json
+
+# Vagrant
+.vagrant/

@@ -170,7 +170,7 @@ app.VaraaCPLayout = (dom, hash) ->
           date: @selectedDate()
       .then @calendar
       .then =>
-        @selectedDate @calendar().selectedDate
+        @selectedDate @calendar().date
         @showLoading false
         m.redraw()
 
@@ -285,10 +285,15 @@ app.VaraaCPLayout = (dom, hash) ->
       m('.date-selector', [
         m('a[href=#].date-selector-link', {onclick: ctrl.selectDate.bind(ctrl, ctrl.calendar().prevWeek)}, m('i.fa.fa-chevron-left')),
         m('ul.date-selector-dates', ctrl.calendar().dates.map((item) ->
-          m('li', {
-            class: ctrl.getCssClass.call(ctrl, item.date),
-            onclick: ctrl.selectDate.bind(ctrl, item.date)
-          }, ctrl.showTime(item))
+          if(item.disabled == false)
+            m('li', {
+              class: ctrl.getCssClass.call(ctrl, item.date),
+              onclick: ctrl.selectDate.bind(ctrl, item.date)
+            }, ctrl.showTime(item))
+          else
+            m('li', {
+              class: ctrl.getCssClass.call(ctrl, item.date)
+            }, ctrl.showTime(item))
         )),
         m('a[href=#].date-selector-link', {onclick: ctrl.selectDate.bind(ctrl, ctrl.calendar().nextWeek)}, m('i.fa.fa-chevron-right'))
       ]),
