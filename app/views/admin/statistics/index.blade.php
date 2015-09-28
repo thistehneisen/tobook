@@ -39,7 +39,7 @@
             <tr>
                 <th>{{ trans('as.reports.business') }}</th>
                 <th>{{ trans('as.reports.booking.total') }}</th>
-                <th>{{ trans('as.reports.booking.inhouse') }}</th>
+                <th>{{ trans('as.reports.booking.portal') }}</th>
                 <th>{{ trans('as.reports.booking.front-end') }}</th>
                 <th>{{ trans('as.reports.booking.backend') }}</th>
             </tr>

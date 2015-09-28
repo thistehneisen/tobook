@@ -445,6 +445,7 @@ return [
         'end'       => 'End date',
         'booking'   => [
             'total'       => 'Total bookings',
+            'portal'      => 'Bookings from CP Layout and Inhouse',
             'confirmed'   => 'Confirmed bookings',
             'unconfirmed' => 'Unconfirmed bookings',
             'cancelled'   => 'Cancelled bookings',
