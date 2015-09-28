@@ -81,4 +81,4 @@ public/assets
 public/deployment.json
 
 # Vagrant
-.vagrant
+.vagrant/

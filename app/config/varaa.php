@@ -157,5 +157,7 @@ return [
         'booking_terms' => ['type' => 'Textarea',  'default' => '', 'options' => ['rows'=> 30, 'class' => 'form-control ckeditor'] ],
         'enable_homepage_modal' => ['type' => 'Radio',  'default' => false],
         'homepage_modal_url' => ['type' => 'Text',  'default' => ''],
+        'enable_business_modal' => ['type' => 'Radio',  'default' => false],
+        'business_modal_url' => ['type' => 'Text',  'default' => ''],
     ],
 ];
