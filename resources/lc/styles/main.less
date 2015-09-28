@@ -1,0 +1,39 @@
+@import "../../core/styles/components/vars.import.less";
+
+.main {
+    margin: 20px auto;
+
+    .top-buttons {
+        padding-bottom: 10px;
+    }
+
+    #consumer-table {
+        tbody tr {
+            cursor: pointer;
+        }
+
+        .no-display {
+            display: none;
+        }
+
+        .selected {
+            background: @active_light_orange;
+        }
+    }
+
+    #consumer-info {
+        .panel-heading h3 {
+            margin: 0;
+        }
+        .line {
+            padding-bottom: 15px;
+        }
+        hr {
+            margin: 0;
+        }
+    }
+
+    .pagination {
+        padding-top: 10px;
+    }
+}

@@ -1,0 +1,48 @@
+span.twitter-typeahead {
+    width: 100%;
+
+    .tt-dropdown-menu {
+        &:extend(.dropdown-menu);
+        padding: 5px 0;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        width: 100%;
+    }
+
+    .tt-suggestion {
+        padding: 3px 20px;
+
+        & > p {
+            &:extend(.dropdown-menu > li > a);
+            &:hover,
+            &:focus {
+                &:extend(.dropdown-menu > .active > a);
+            }
+            margin: 0;
+        }
+
+        &.tt-cursor {
+            color: #000;
+            background-color: lighten(@primary_color, 30%);
+        }
+    }
+    .input-group & {
+        display: block !important;
+        .tt-dropdown-menu {
+            text-align: left;
+            top:32px !important;
+        }
+    }
+    .input-group.input-group-lg & {
+        .tt-dropdown-menu {
+            top:44px !important;
+        }
+    }
+    .input-group.input-group-sm & {
+        .tt-dropdown-menu {
+            top:28px !important;
+        }
+    }
+}

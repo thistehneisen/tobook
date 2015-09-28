@@ -1,0 +1,183 @@
+//------------------------------------------------------------------------------
+// VARIABLES
+//------------------------------------------------------------------------------
+@gray: #333;
+@magenta: #e71a79;
+
+//------------------------------------------------------------------------------
+// MIXINS
+//------------------------------------------------------------------------------
+.border-radius (@radius: 5px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius:    @radius;
+    border-radius:         @radius;
+
+    -moz-background-clip:    padding;
+    -webkit-background-clip: padding-box;
+    background-clip:         padding-box;
+}
+
+.gradient (@startColor: #eee, @endColor: white) {
+    background-color: @startColor;
+    background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+    background: -webkit-linear-gradient(top, @startColor, @endColor);
+    background: -moz-linear-gradient(top, @startColor, @endColor);
+    background: -ms-linear-gradient(top, @startColor, @endColor);
+    background: -o-linear-gradient(top, @startColor, @endColor);
+}
+
+//------------------------------------------------------------------------------
+// RULES
+//------------------------------------------------------------------------------
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.better {
+    border: 1px solid #ddd;
+    .gradient(#fff, #f8f8f8);
+    .border-radius;
+}
+
+.to-upper {
+    text-transform: uppercase;
+}
+
+.as-header {
+    .row {
+        margin: 20px 0;
+        text-align: center;
+
+        .logo, .banner {
+            margin: 10px 20px;
+            display: inline-block;
+        }
+    }
+}
+
+.as-category,
+.as-service,
+.as-time,
+.as-employee {
+    display: block;
+    text-decoration: none;
+    color: @gray;
+    padding: 5px 7px;
+
+    &.active {
+        background-color: @magenta;
+        color: #fff;
+    }
+
+    &:hover {
+        background-color: rgba(231,26,121,0.15);
+        text-decoration: none;
+        color: @gray;
+    }
+}
+
+.as-categories,
+.as-employees-row {
+    p {
+        margin: 0;
+    }
+}
+
+.btn-selected {
+    background-color: @magenta;
+    color: #fff;
+    border-color: lighten(@magenta, 10%);
+}
+
+.as-services,
+.as-service-time,
+.as-extra-services {
+    display: none;
+}
+
+.as-service-time {
+    padding-bottom: 10px;
+
+    .btn-group {
+        margin: 5px 0 5px 20px;
+    }
+}
+
+.as-extra-service-row {
+    padding-left: 15px;
+}
+
+.as-timetable-wrapper {
+    margin-bottom: 10px;
+
+    .table-timetable {
+        width: 100%;
+
+        thead th {
+            text-align: center;
+        }
+
+        tbody {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+
+            td {
+                vertical-align: top;
+                border-left: 1px solid #ddd;
+
+                &.empty {
+                    vertical-align: middle;
+                }
+
+                &:first-child {
+                    border-left: none;
+                }
+            }
+        }
+    }
+}
+
+.as-checkout {
+    .item {
+        padding: 0 10px;
+        margin-bottom: 10px;
+    }
+}
+
+.as-success {
+    display: none;
+}
+
+.service-time {
+    margin-left: 0 !important;
+}
+.as-loading {
+    margin-top: 10px;
+}
+
+.js-loading {
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    top: 40%;
+    z-index: 2;
+    text-align: center;
+    display: none;
+}
+
+.relative {
+    position: relative;
+}
+
+#btn-date-next, #btn-date-prev {
+    padding: 15px;
+}
+
+.as-overlay-message {
+    padding-top: 15%;
+}
