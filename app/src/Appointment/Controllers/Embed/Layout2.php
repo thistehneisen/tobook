@@ -36,10 +36,13 @@ class Layout2 extends Base
 
         // Withdrawal time feature
         list($start, $final, $maxWeeks) = $this->getMinMaxDistanceDay($hash);
+        // Always show 7 weeks in this layout
+        $maxWeeks = 7;
 
         // Move to the start of week, so that Monday is always shown
         $date->startOfWeek();
         $start->startOfWeek();
+
         // if the selected day is not inside the fourth week in the list then use today
         if ($date->copy()->subDays(21) >= $today) {
             $start = $date->copy();
@@ -50,9 +53,10 @@ class Layout2 extends Base
             $j = 0;
             while ($j++ <= 5) {
                 $end = $start->copy()->addDays($j);
-                if ($end >= $final) {
-                    break;
-                }
+                // Show all date but don't show any timeslot
+                // if ($end >= $final) {
+                //     break;
+                // }
             }
             $nav[] = (object) [
                 'start' => $start->copy(),
@@ -70,9 +74,11 @@ class Layout2 extends Base
         }
 
         $start = $date->copy();
+
         $timetable = [];
         $dates = [];
         $i = 1;
+  
         while ($i++ <= 7) {
             if ($employee !== null) {
                 $time = $this->getTimetableOfSingle($employee, $service, $start, $serviceTime, true);
@@ -80,10 +86,11 @@ class Layout2 extends Base
                 $time = $this->getTimetableOfAnyone($service, $start, $serviceTime, true);
             }
 
-            $dates[]     = $start->copy();
+            $dates[] = $start->copy();
+
             $timetable[] = (object) [
                 'date' => $start->copy(),
-                'time' => $time
+                'time' => ($start->lte($final)) ? $time : [], // don't show timetable > max date
             ];
 
             $start = $start->addDay();
