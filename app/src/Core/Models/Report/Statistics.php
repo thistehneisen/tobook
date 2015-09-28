@@ -69,7 +69,8 @@ class Statistics
             }
         }
 
-        $users = Business::orderBy('name')->whereNull('deleted_at')->lists('name', 'user_id');
+        $users = Business::orderBy('name')->join('users', 'users.id', '=', 'businesses.user_id')
+            ->whereNull('users.deleted_at')->lists('name', 'user_id');
 
         foreach ($users as $id => $name) {
             if (isset($data[$id])) {
