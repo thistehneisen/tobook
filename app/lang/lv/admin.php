@@ -82,7 +82,7 @@ return [
         'total'                                => 'Kopā',
         'sum'                                  => 'Skaits',
         'domain_commission_total'              => '%s komisija kopā',
-        'domain_charged_from_visitor'          => '%s iekasētā summa no klientiem',
+        'domain_charged_from_visitor'          => '%s kredītkartes apstrādes komisija',
         'domain_amount_transfered_to_cusomter' => 'Summa pārskaitīta klientam',
         'commission_calculation'               => 'Komisijas aprēķins',
         'status' => [

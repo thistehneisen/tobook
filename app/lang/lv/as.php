@@ -13,7 +13,7 @@ return [
         'today'         => 'Šodien',
         'tomorrow'      => 'Rīt',
         'print'         => 'Izdrukāt',
-        'refresh'       => 'Refresh',//@todo
+        'refresh'       => 'Atsvaidzināt',
         'calendar'      => 'Kalendārs',
     ],
     'services' => [
@@ -79,7 +79,7 @@ return [
         'resource'     => 'Resurss',
         'room'         => 'Telpa',
         'extra'        => 'Papildpakalpojums',
-        'employees'    => 'Rēķins',
+        'employees'    => 'Darbinieki',
         'no_employees' => 'Nav darbinieka, ko izvēlēties',
         'no_name'      => 'Bez nosaukuma',
         'error'        => [
@@ -173,14 +173,14 @@ return [
             'delete_last_booking_service' => 'Pēdējās rezervācijas pakalpojumu nevar izdzēst. ',
             'before_min_distance'         => 'Rezervācija, kas agrāka par min distance dienām, nav iespējama',
             'after_max_distance'          => 'Rezervācija, kas vēlāka par max distance dienām, nav iespējama',
-            'missing_services'            => 'Add a service to continue!',//@todo
+            'missing_services'            => 'Pievienot pakalpojumus, lai turpinātu',
         ],
         'warning'      => [
             'existing_user'   => 'Sistēmā jau ir reģistrēts lietotājs ar šo e-pasta adresi. Vai vēlaties izmantot šos datus?',
         ],
     ],
     'employees' => [
-        'all'                              => 'Rēķins',
+        'all'                              => 'Darbinieki',
         'add'                              => 'Pievienot jaunu darbinieku',
         'edit'                             => 'Labot darbinieka datus',
         'name'                             => 'Vārds',
@@ -401,13 +401,13 @@ return [
             'is_active'           => 'Is Enabled',
             'before'              => 'Before',
             'error' => [
-                'evening_starts_before_afternoon' => 'Afternoon must starts before evening starts'
+                'evening_starts_before_afternoon' => 'Afternoon must starts before evening starts'// @todo
             ],
         ]
     ],
     'reports' => [
         'index'     => 'Atskaites',
-        'employees' => 'Rēķins',
+        'employees' => 'Darbinieki',
         'services'  => 'Pakalpojumi',
         'generate'  => 'Ģenerēt',
         'start'     => 'Sākuma datums',

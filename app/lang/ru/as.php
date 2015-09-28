@@ -92,7 +92,7 @@ return [
         'cancelled'         => 'Отменено',
         'arrived'           => 'Получено',
         'paid'              => 'Оплачено',
-        'not_show_up'       => 'Customer does not show up',
+        'not_show_up'       => 'Kлиент не пришел',
         'change_status'     => 'Изменить статус заказа',
         'all'               => 'Заказы',
         'add'               => 'Добавить новый заказ',
