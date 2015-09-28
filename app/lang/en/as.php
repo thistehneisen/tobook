@@ -438,6 +438,7 @@ return [
     'reports' => [
         'index'     => 'Reports',
         'employees' => 'Employees',
+        'business'  => 'Business',
         'services'  => 'Services',
         'generate'  => 'Generate',
         'start'     => 'Start date',
@@ -449,6 +450,7 @@ return [
             'cancelled'   => 'Cancelled bookings',
             'inhouse'     => 'In-house bookings',
             'front-end'   => 'Bookings from AS FEs',
+            'backend'     => 'Bookings from AS BE'
         ],
         'statistics'=> 'Statistics',
         'monthly'   => 'Monthly report',

@@ -392,7 +392,7 @@ return [
             'terms_enabled'                                  => 'Ehdot käytössä',
             'default_nat_service'                            => 'Default next available service',
             'show_quick_workshift_selection'                 => 'Työvuorojen pikavalitsin kalenterinäkymässä',
-            'min_distance'                                   => 'Varauksien varoaika (/vrk)',
+            'min_distance'                                   => 'Varauksien varoaika (/h)',
             'max_distance'                                   => 'Maksimietäisyys varauksille (/vrk)',
             'auto_select_employee'                           => 'Työntekijän automaattivalitsin',
             'auto_expand_all_categories'                     => 'Avaa varausnäkymän kategoriat automaattisesti',

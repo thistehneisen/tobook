@@ -36,6 +36,7 @@
                         <li><a href="{{ route('admin.booking.terms') }}"><i class="fa fa-clipboard"></i> {{ trans('admin.nav.booking_terms') }}</a></li>
                         <li><a href="{{ route('admin.seo') }}"><i class="fa fa-sitemap"></i> {{ trans('admin.nav.seo') }}</a></li>
                         <li><a href="{{ route('admin.pages') }}"><i class="fa fa-file-text"></i> @lang('admin.nav.pages')</a></li>
+                        <li><a href="{{ route('admin.statistics') }}"><i class="fa fa-line-chart"></i> @lang('admin.nav.stats')</a></li>
                     </ul>
                 </li>
             </ul>

@@ -173,4 +173,16 @@ Route::group([
     Route::post('seo', [
         'uses' => 'App\Core\Controllers\Admin\SEO@save'
     ]);
+
+    //--------------------------------------------------------------------------
+    // Statistics
+    //--------------------------------------------------------------------------
+    Route::get('statistics', [
+        'as' => 'admin.statistics',
+        'uses' => 'App\Core\Controllers\Admin\Statistics@index'
+    ]);
+
+    Route::post('statistics', [
+        'uses' => 'App\Core\Controllers\Admin\Statistics@index'
+    ]);
 });
