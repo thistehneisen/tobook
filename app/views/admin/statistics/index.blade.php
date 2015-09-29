@@ -48,10 +48,10 @@
             </tr>
             <tr>
                 <td><b>&Sigma;</b></td>
-                <td><b>{{ $report->getTotal('total')}}</b></td>
-                <td><b>{{ $report->getTotal('inhouse')}}</b></td>
-                <td><b>{{ $report->getTotal('frontend')}}</b></td>
-                <td><b>{{ $report->getTotal('backend')}}</b></td>
+                <td><b>{{ $report->getTotal('total') }}</b></td>
+                <td><b>{{ $report->getTotal('inhouse') }}</b></td>
+                <td><b>{{ $report->getTotal('frontend' )}}</b></td>
+                <td><b>{{ $report->getTotal('backend') }}</b></td>
             </tr>
         </thead>
         <tbody>

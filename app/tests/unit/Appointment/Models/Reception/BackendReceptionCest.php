@@ -341,7 +341,7 @@ class BackendReceptionCest
 
     private function _makeBooking($I, $user, $employee, $uuid, $service, $date, $startTime, $extraServices = [])
     {
-        $I->amLoggedAs($user);
+        //$I->amLoggedAs($user);
         $I->assertEquals($service->length, 60);
 
         $receptionist = new BackendReceptionist();
@@ -781,5 +781,30 @@ class BackendReceptionCest
 
         $bookingServices = BookingExtraService::where('tmp_uuid', $booking->uuid)->whereNull('deleted_at')->count();
         $I->assertEquals($bookingServices, 0);
+    }
+
+    public function testDuplicatedBookings(UnitTester $I)
+    {
+        $this->initData(true, true);
+        $this->initCustomTime();
+
+        $user      = User::find(70);
+        $employee  = $this->employee;
+
+        $service   = $this->service;
+        $uuid      = Booking::uuid();
+        $date      = $this->getDate();
+        $startTime = '09:45';
+        $booking   = $this->_makeBooking($I, $user, $employee,  $uuid, $service, $date, $startTime);
+        $I->assertEquals($booking->uuid, $uuid);
+
+        try{
+            $uuid      = Booking::uuid();
+            $startTime = '09:30';
+            $booking   = $this->_makeBooking($I, $user, $employee,  $uuid, $service, $date, $startTime);
+            $I->assertEquals($booking->uuid, $uuid);
+        } catch(\Exception $ex) {
+            $I->assertEquals($ex->getMessage(), trans('as.bookings.error.add_overlapped_booking'));
+        }
     }
 }
