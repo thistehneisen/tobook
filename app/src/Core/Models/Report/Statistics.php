@@ -26,6 +26,8 @@ class Statistics
      */
     protected $end;
 
+    protected $total;
+
     public function __construct(Carbon $start, Carbon $end)
     {
         $this->start = $start;
@@ -42,11 +44,20 @@ class Statistics
         return ($this->cache !== null) ? $this->cache : $this->fetch();
     }
 
+    public function getTotal($source)
+    {
+       if (empty($this->total)) {
+            $this->fetch();
+       }
+
+       return $this->total[$source];
+    }
+
     protected function fetch()
     {
         $data = [];
         $ret = [];
-        
+
         // Count total bookings in general
         $result = $this->countTotalBookings();
         foreach ($result as $item) {
@@ -61,15 +72,28 @@ class Statistics
         }
 
         // Count total bookings group by source
+        $this->total = [
+            'total'   => 0,
+            'inhouse' => 0,
+            'backend' => 0,
+            'frontend'=> 0,
+        ];
+
         $result = $this->countTotalBookings(false, true);
+        $source = '';
         foreach ($result as $item) {
             if ($item->source === 'inhouse' || $item->source === 'cp') {
+                $source = 'inhouse';
                 $data[$item->user_id]['inhouse'] = $item->total;
             } elseif ($item->source !== 'backend') {
+                $source = 'frontend';
                 $data[$item->user_id]['frontend'] = $item->total;
             } elseif($item->source == 'backend') {
+                $source = 'backend';
             	$data[$item->user_id]['backend'] = $item->total;
             }
+            $this->total[$source] += $item->total;
+            $this->total['total'] += $item->total;
         }
 
         $users = Business::orderBy('name')->join('users', 'users.id', '=', 'businesses.user_id')
