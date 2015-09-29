@@ -28,8 +28,8 @@ class Statistics
 
     public function __construct(Carbon $start, Carbon $end)
     {
-        $this->start        = $start;
-        $this->end          = $end;
+        $this->start = $start;
+        $this->end   = $end;
     }
 
      /**
@@ -46,18 +46,21 @@ class Statistics
     {
         $data = [];
         $ret = [];
-
+        
+        // Count total bookings in general
         $result = $this->countTotalBookings();
         foreach ($result as $item) {
             $data[$item->user_id]['total'] = $item->total;
         }
 
+        // Count total booking group by status
         $result = $this->countTotalBookings(true);
         foreach ($result as $item) {
             $status = Booking::getStatusByValue($item->status);
             $data[$item->user_id][$status] = $item->total;
         }
 
+        // Count total bookings group by source
         $result = $this->countTotalBookings(false, true);
         foreach ($result as $item) {
             if ($item->source === 'inhouse' || $item->source === 'cp') {
