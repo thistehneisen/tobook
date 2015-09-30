@@ -115,6 +115,7 @@ class LayoutCp extends Base
         $unbookable = [];
         $s = $date->copy()->startOfWeek();
         $e = $s->copy()->endOfWeek();
+
         while ($s->lte($e)) {
             // Of course we cannot book on past days
             // Or before min_distance
@@ -122,6 +123,12 @@ class LayoutCp extends Base
                 $unbookable[] = $s->toDateString();
                 $s->addDay();
 
+                continue;
+            }
+
+            if($s->gt($final)) {
+                $unbookable[] = $s->toDateString();
+                $s->addDay();
                 continue;
             }
 
