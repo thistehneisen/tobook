@@ -39,6 +39,11 @@ class Layout2 extends Base
         // Always show 7 weeks in this layout
         $maxWeeks = 7;
 
+        // min distance
+        if ($date->lt($start)) {
+            $date = $start->copy();
+        }
+
         // Move to the start of week, so that Monday is always shown
         $date->startOfWeek();
         $start->startOfWeek();
@@ -54,9 +59,9 @@ class Layout2 extends Base
             while ($j++ <= 5) {
                 $end = $start->copy()->addDays($j);
                 // Show all date but don't show any timeslot
-                // if ($end >= $final) {
-                //     break;
-                // }
+                if ($end >= $final) {
+                    break;
+                }
             }
             $nav[] = (object) [
                 'start' => $start->copy(),
