@@ -425,6 +425,7 @@ abstract class Receptionist implements ReceptionistInterface
                 $this->endTime->addMinutes($this->modifyTime);
             }
         }
+
         //Check is there any existed booking with this service time
         $isBookable = Booking::isBookable(
             $this->employeeId,

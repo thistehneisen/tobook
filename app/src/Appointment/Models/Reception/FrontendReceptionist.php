@@ -86,6 +86,12 @@ class FrontendReceptionist extends Receptionist
                 )
             : $this->bookingService->calculcateTotalPrice();
 
+        $this->employeeId = $this->bookingService->employee->id;
+        $this->date       = $this->bookingService->date;
+        $this->startTime  = $this->bookingService->startTime;
+        $this->endTime    = $this->bookingService->endTime;
+        $this->validateWithExistingBooking();
+
         $booking->fill([
             'date'        => $this->bookingService->date,
             'start_at'    => $this->bookingService->startTime->toTimeString(),
