@@ -426,6 +426,16 @@ abstract class Receptionist implements ReceptionistInterface
             }
         }
 
+        if (!empty($this->bookingService) && (
+            empty($this->employeeId) || empty($this->date) 
+          || empty($this->startTime) || empty($this->endTime)))
+        {
+            $this->employeeId = $this->bookingService->employee->id;
+            $this->date       = $this->bookingService->date;
+            $this->startTime  = $this->bookingService->startTime;
+            $this->endTime    = $this->bookingService->endTime;
+        }
+
         //Check is there any existed booking with this service time
         $isBookable = Booking::isBookable(
             $this->employeeId,
