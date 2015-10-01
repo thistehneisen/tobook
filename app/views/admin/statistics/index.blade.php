@@ -2,6 +2,7 @@
 
 @section ('styles')
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
+    {{ HTML::style(asset('packages/jquery.tablesorter/themes/plain/style.css')) }}
 @stop
 
 @section ('scripts')
@@ -9,6 +10,7 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
     @if (App::getLocale() !== 'en') {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
     @endif
+    {{ HTML::script(asset('packages/jquery.tablesorter/jquery.tablesorter.min.js')) }}
     <script type="text/javascript">
     $(document).ready(function(){
 		$('.date-picker').datepicker({
@@ -17,6 +19,7 @@
 			autoclose: true,
 			language: $('body').data('locale')
 		});
+        $("#statistics").tablesorter(); 
     });
     </script>
 @stop
@@ -34,7 +37,7 @@
         <button type="submit" class="btn btn-primary btn-sm">{{ trans('as.reports.generate') }}</button>
     {{ Form::close() }}
 	<br>
-    <table class="table table-stripped table-bordered">
+    <table id="statistics" class="table tablesorter table-stripped table-bordered">
         <thead>
             <tr>
                 <th>{{ trans('as.reports.business') }}</th>
@@ -42,6 +45,13 @@
                 <th>{{ trans('as.reports.booking.portal') }}</th>
                 <th>{{ trans('as.reports.booking.front-end') }}</th>
                 <th>{{ trans('as.reports.booking.backend') }}</th>
+            </tr>
+            <tr>
+                <td><b>&Sigma;</b></td>
+                <td><b>{{ $report->getTotal('total') }}</b></td>
+                <td><b>{{ $report->getTotal('inhouse') }}</b></td>
+                <td><b>{{ $report->getTotal('frontend' )}}</b></td>
+                <td><b>{{ $report->getTotal('backend') }}</b></td>
             </tr>
         </thead>
         <tbody>

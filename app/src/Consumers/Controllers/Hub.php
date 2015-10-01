@@ -4,6 +4,7 @@ use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
 use App\Core\Controllers\Base;
 use App, Confide, DB, Input, Lang, Redirect, View;
+use Session, Entrust;
 
 class Hub extends Base
 {
@@ -54,7 +55,9 @@ class Hub extends Base
      */
     protected function getOlutOptions($key, $default = null)
     {
-        if (App::environment() === 'tobook' && $key === 'bulkActions') {
+        // If environment is toobok and the user is not admin
+        if (App::environment() === 'tobook' && $key === 'bulkActions' 
+            && !Entrust::hasRole('Admin') && Session::get('stealthMode') === null) {
             if(!$this->user->isAdmin) {
                 return $this->crudOptions[$key. 'Tobook'];
             }
