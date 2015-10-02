@@ -1,4 +1,4 @@
-<div class="text-center">
+<div class="text-center" name="timetable">
     <h3>{{ trans('as.embed.layout_2.choose') }}</h3>
     <div class="btn-group">
         @if($prev >= $today)

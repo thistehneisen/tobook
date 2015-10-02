@@ -124,6 +124,13 @@
                     $timetable.find('a.btn-as-timetable[data-date=' + startDate + ']')
                         .removeClass('btn-default')
                         .addClass('btn-selected');
+
+                    var $target = $("div[name='timetable']");
+                    $('html, body').stop().animate({
+                        'scrollTop': $target.offset().top
+                    }, 900, 'swing', function () {
+                        window.location.hash = 'timetable';
+                    });
                 });
             };
 
