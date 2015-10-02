@@ -81,6 +81,11 @@
 
                 dataStorage.serviceId     = serviceId;
                 dataStorage.serviceTimeId = serviceTimeId;
+                dataStorage.employeeId    = null;
+
+                if ($('.as-timetable-wrapper').length) {
+                    $('.as-timetable-wrapper').find('div.text-center').slideUp();
+                }
 
                 // Hide all visible employee elements
                 $('div.as-employees').hide();
