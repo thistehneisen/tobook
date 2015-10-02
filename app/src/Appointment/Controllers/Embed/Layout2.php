@@ -39,6 +39,7 @@ class Layout2 extends Base
         // Always show 7 weeks in this layout
         $maxWeeks = 7;
 
+        $min = $start->copy();
         // min distance
         if ($date->lt($start)) {
             $date = $start->copy();
@@ -83,7 +84,7 @@ class Layout2 extends Base
         $timetable = [];
         $dates = [];
         $i = 1;
-  
+
         while ($i++ <= 7) {
             if ($employee !== null) {
                 $time = $this->getTimetableOfSingle($employee, $service, $start, $serviceTime, true);
@@ -92,10 +93,25 @@ class Layout2 extends Base
             }
 
             $dates[] = $start->copy();
+            $refine = [];
+
+            // Filter out unbookable time < min distance
+            foreach ($time as $key => $value) {
+                $timePart = current(explode(" - ", $key));
+                $slot = Carbon::createFromFormat('Y-m-d H:i', trim(sprintf('%s %s', $start->toDateString(), $timePart)));
+                if($slot->gte($min)) {
+                    $refine[$key] = $value;
+                }
+            }
+
+            // don't show timetable > max date
+            if($start->gte($final)) {
+                $refine = [];
+            }
 
             $timetable[] = (object) [
                 'date' => $start->copy(),
-                'time' => ($start->lte($final)) ? $time : [], // don't show timetable > max date
+                'time' => $refine,
             ];
 
             $start = $start->addDay();
