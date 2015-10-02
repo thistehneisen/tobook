@@ -39,6 +39,7 @@ class Layout2 extends Base
         // Always show 7 weeks in this layout
         $maxWeeks = 7;
 
+        $min = $start->copy();
         // min distance
         if ($date->lt($start)) {
             $date = $start->copy();
@@ -83,7 +84,7 @@ class Layout2 extends Base
         $timetable = [];
         $dates = [];
         $i = 1;
-  
+
         while ($i++ <= 7) {
             if ($employee !== null) {
                 $time = $this->getTimetableOfSingle($employee, $service, $start, $serviceTime, true);
@@ -95,7 +96,7 @@ class Layout2 extends Base
 
             $timetable[] = (object) [
                 'date' => $start->copy(),
-                'time' => ($start->lte($final)) ? $time : [], // don't show timetable > max date
+                'time' => ($start->lte($final) && $start->gte($min)) ? $time : [], // don't show timetable > max date
             ];
 
             $start = $start->addDay();
