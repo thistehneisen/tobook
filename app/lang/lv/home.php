@@ -133,29 +133,29 @@ return [
     ],
     // Business
     'business' => [
-        'about'          => 'Par uzņēmumu', // @todo
-        'openning_hours' => 'Darba laiks', // @todo
-        'map'            => 'Karte', // @todo
-        'phone'          => 'Telefons', // @todo
-        'email'          => 'E-pasts', // @todo
-        'online_booking' => 'Online booking', // @todo
+        'about'          => 'Par uzņēmumu',
+        'openning_hours' => 'Darba laiks',
+        'map'            => 'Karte',
+        'phone'          => 'Telefons',
+        'email'          => 'E-pasts',
+        'online_booking' => 'Online rezervācija',
         'request'        => [
-            'link'    => 'Jautāt tiešsaistes rezervācijas', // @todo
-            'info'    => 'Veikala īpašnieks tiks lūgts, lai izmantotu mūsu tiešsaistes rezervācijas sistēmu.', // @todo
-            'subject' => 'Pieprasījums izmantot tiešsaistes rezervēšanas sistēmu', // @todo
-            'mail'    => $requestMail, // @todo
+            'link'    => 'Jautāt tiešsaistes rezervācijas',
+            'info'    => 'Veikala īpašnieks tiks lūgts, lai izmantotu mūsu tiešsaistes rezervācijas sistēmu.',
+            'subject' => 'Pieprasījums izmantot tiešsaistes rezervēšanas sistēmu',
+            'mail'    => $requestMail,
         ],
         'contact'        => [
-            'index'   => 'Kontakts', // @todo
-            'heading' => 'Sazinieties ar mums', // @todo
-            'name'    => 'Vārds*', // @todo
-            'email'   => 'E-pasts*', // @todo
-            'phone'   => 'Telefons', // @todo
-            'captcha' => 'Lūdzu zemāk ievadiet simbolus*', // @todo
-            'message' => 'Ziņa*', // @todo
-            'sent'    => 'Jūsu ziņojums ir nosūtīts', // @todo
-            'subject' => 'Tev Kontakta ziņu', // @todo
-            'mail'    => $contactEmail, // @todo
+            'index'   => 'Kontakts',
+            'heading' => 'Sazinieties ar mums',
+            'name'    => 'Vārds*',
+            'email'   => 'E-pasts*',
+            'phone'   => 'Telefons',
+            'captcha' => 'Lūdzu zemāk ievadiet simbolus*',
+            'message' => 'Ziņa*',
+            'sent'    => 'Jūsu ziņojums ir nosūtīts',
+            'subject' => 'Tev Kontakta ziņu',
+            'mail'    => $contactEmail,
         ]
     ],
     // Contact form
