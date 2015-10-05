@@ -87,13 +87,13 @@ app.VaraaCPLayout = (dom, hash) ->
             m('.panel-body', [
               m('.text-center', [
                 m('.custom-time-service', {onclick: ctrl.selectService.bind(ctrl, service)}, [
-                  if service.description? then m('.service-description', service.description) else m.trust('&nbsp;'),
+                  if (service.description? && service.description != '') then m('.service-description', service.description) else m('.service-description', [m.trust("&nbsp;")]),
                   m('p', "#{service.during}min"),
                   m('p', [m.trust("#{service.price}&euro;")]),
                 ]),
                 service.service_times.map((item) ->
                   m('.custom-time-service', {onclick: ctrl.selectServiceTime.bind(ctrl, item, service)}, [
-                    if item.description? then m('.service-description', item.description) else m.trust('&nbsp;'),
+                    if (item.description? && item.description != '') then m('.service-description', item.description) else m('.service-description', [m.trust("&nbsp;")]),
                     m('p', "#{item.during}min"),
                     m('p', [m.trust("#{item.price}&euro;")]),
                   ])
