@@ -79,6 +79,7 @@ app.routes = {
     @endif
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js') }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
+    {{ HTML::script(asset('packages/jquery.dotdotdot/jquery.dotdotdot.min.js')) }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
     {{ HTML::script(asset_path(sprintf('as/scripts/%s.js', Settings::get('default_layout')))) }}
     {{ HTML::script(asset_path('core/scripts/business.js')) }}
@@ -104,6 +105,31 @@ $(function () {
         isAutoSelectEmployee: false
     });
     @endif
+    var truncateDescription = function() {
+        var lineHeight = $('div.description').css('line-height')
+        lineHeight = parseFloat(lineHeight)
+        var height = $('div.description').height()
+        var rows = height / lineHeight;
+        if (rows > 3) {
+            $('a.readmore').show();
+            $("#business-description").dotdotdot({
+                ellipsis    : '',
+                height : 60,
+                after: "a.readmore"
+            });
+        }
+    }
+    $(document).ready(function(){
+        truncateDescription();
+    });
+   
+    $('a.readmore').on('click', function(e){
+        e.preventDefault();
+        var content = $("#business-description").triggerHandler("originalContent");
+        $("#business-description").trigger("destroy");
+        $("#business-description").html(content);
+        $('a.readmore').hide();
+    });
 });
 
     </script>

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'online_booking'            => 'Online Booking',
+    'online_booking'            => 'Online rezervācija',
     'check_out'                 => 'Checkout',
 
     // LOYALTY CARD

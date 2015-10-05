@@ -3,7 +3,10 @@
     <div class="col-sm-8 col-md-8">
         <h1>{{{ $business->name }}}</h1>
         <address>{{{ $business->full_address }}}</address>
-
+        <div class="description" id="business-description">
+            <p>{{ $business->description_html }}</p>
+            <a href="#" style="display:none" class="readmore">...</a>
+        </div>
     @if (!$business->is_booking_disabled)
         <h3 class="sub-heading">@lang('as.embed.cp.heading')</h3>
         <div id="js-cp-booking-form">@lang('as.embed.loading')</div>
@@ -27,11 +30,6 @@
             <p class="text-center"><img src="{{ $business->image }}" alt="{{{ $business->name }}}"></p>
         </div>
     @endif
-
-        <h3 class="sub-heading">{{ trans('home.business.about') }}</h3>
-        <div class="description">
-            {{ $business->description_html }}
-        </div>
     </div>
 
     {{-- right sidebar --}}
@@ -71,6 +69,9 @@
 
                 <p><strong>{{ trans('home.business.email') }}</strong></p>
                 <p>{{{ $business->user->email }}}</p>
+
+                <p><strong>{{ trans('home.business.address') }}</strong></p>
+                <p>{{{ $business->full_address }}}</p>
             </div>
         </div>
     </div>
