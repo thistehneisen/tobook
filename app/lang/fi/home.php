@@ -117,6 +117,7 @@ return [
         'about'          => 'Yrityksestä',
         'openning_hours' => 'Aukioloajat',
         'map'            => 'Osoite',
+        'address'        => 'Osoite',
         'phone'          => 'Puh.',
         'email'          => 'Sähköposti',
         'online_booking' => 'Varaa aika',

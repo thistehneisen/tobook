@@ -70,7 +70,7 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
     public function paste()
     {
         $cutId        = Session::get('cutId', null);
-        $bookingDate  = Input::get('booking_date');
+        $bookingDate  = str_standard_date(Input::get('booking_date'));
         $startTimeStr = Input::get('start_time');
         $employeeId   = (int) Input::get('employee_id');
 

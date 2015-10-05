@@ -504,7 +504,7 @@ class Employee extends \App\Appointment\Models\Base
      */
     public function getActiveWorkshift($date)
     {
-        $workshift = $this->employeeCustomTimes()->where('date', '=', $date)->first();
+        $workshift = $this->employeeCustomTimes()->where('date', '=', str_standard_date($date))->first();
         return (!empty($workshift)) ? $workshift->customTime->id : -1;
     }
 

@@ -291,6 +291,7 @@ class Employees extends AsBase
                 'endAt'       => $endAt,
                 'fromDate'    => new Carbon($employeeFreetime->date),
                 'toDate'      => new Carbon($employeeFreetime->date),
+                'dateRange'   => str_standard_to_local($employeeFreetime->date),
                 'description' => $description,
                 'type'        => $type,
                 'freetimeId'  => $freetimeId

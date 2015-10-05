@@ -330,6 +330,8 @@
 
                 //Prevent user double click to the submit button
                 $submit.attr('disabled','disabled');
+                //remove the button to prevent empty service booking
+                $('a.as-remove-cart').hide();
 
                 $body.showLoading();
                 $.ajax({
@@ -347,7 +349,7 @@
                             $overlay.append(data.message[i]);
                         }
                         $overlay.show();
-
+                        
                         var counter = 9;
                         var id = setInterval(function () {
                             $('#as-counter').html(counter);
@@ -360,6 +362,7 @@
                 }).fail(function (data) {
                     alertify.alert(data.responseJSON.message);
                     $submit.removeAttr('disabled');
+                    $('a.as-remove-cart').show();
                 });
             });
         }

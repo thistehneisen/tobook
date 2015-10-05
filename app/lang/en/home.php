@@ -137,6 +137,7 @@ return [
         'about'          => 'About',
         'openning_hours' => 'Openning hours',
         'map'            => 'Map',
+        'address'        => 'Address',
         'phone'          => 'Phone',
         'email'          => 'Email',
         'online_booking' => 'Online booking',
