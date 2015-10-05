@@ -29,7 +29,7 @@ app.VaraaCPLayout = (dom, hash) ->
       return ''
 
     @showServicePriceRange = (category, priceRange, hasDiscount) ->
-      range = priceRange[category.id]
+      range = priceRange[category.id]['category']
       discount = hasDiscount[category.id]
       return m.trust("#{range}") if discount is false
       return [m.trust("#{range}&nbsp;"), m('i.fa.fa-tag.discount')] if discount is true
@@ -42,37 +42,43 @@ app.VaraaCPLayout = (dom, hash) ->
 
   Service.view = (ctrl) ->
 
-    normalService = (service) ->
+    normalService = (category, priceRange, service) ->
+      range = if priceRange[category.id]? then priceRange[category.id]['service'][service.id] else 0
       m('.single-service', {onclick: ctrl.selectService.bind(ctrl, service)},[
         m('.row', [
-          m('.col-xs-10', [
+          m('.col-xs-8', [
             m('h4.panel-title', ctrl.showServiceDiscount(service)),
             m('.service-description', service.description),
             m('p', "#{service.during}min")
           ]),
-          m('.col-xs-2', [
+          m('.col-xs-4',{class :'service-price'}, [
+            m('span.range', [m.trust("#{range}")]),
             m('button.btn.btn-orange.btn-square.pull-right', __('select'))
           ])
         ])
       ])
 
-    serviceWithCustomTimes = (service) ->
+    serviceWithCustomTimes = (category, priceRange, service) ->
+      range = if priceRange[category.id]? then priceRange[category.id]['service'][service.id] else 0
       m('.panel-group.panel-custom-times[id=js-cp-booking-form-categories-1][role=tablist]', {
           id: "js-cbf-service-#{service.id}"
         }, [
         m('.panel.panel-default', [
           m('.panel-heading[role=tab]', [
             m('.row', [
-              m('.col-xs-10', m('h4.panel-title',
+              m('.col-xs-8', m('h4.panel-title',
                 m('a[data-toggle=collapse][role=button]', {
                   'data-parent': "#js-cbf-service-#{service.id}",
                   href: "#js-cbf-service-#{service.id}-custom-times"
                 }, ctrl.showServiceDiscount(service))
               )),
-              m('.col-xs-2', m('a.btn.btn-orange.btn-square.pull-right[data-toggle=collapse]', {
+              m('.col-xs-4', {class :'service-price'}, [
+                m('span.range', [m.trust("#{range}")]),
+                m('a.btn.btn-orange.btn-square.pull-right[data-toggle=collapse]', {
                   'data-parent': "#js-cbf-service-#{service.id}",
                   href: "#js-cbf-service-#{service.id}-custom-times"
-                }, __('select')))
+                }, __('select'))
+              ])
             ])
           ]),
           m('.panel-collapse.collapse[id=js-service-1][role=tabpanel]', {
@@ -81,15 +87,15 @@ app.VaraaCPLayout = (dom, hash) ->
             m('.panel-body', [
               m('.text-center', [
                 m('.custom-time-service', {onclick: ctrl.selectService.bind(ctrl, service)}, [
-                  if service.name? then m('p', service.name) else m.trust('&nbsp;'),
-                  m('.service-description', service.description),
-                  m('p', "#{service.during}min")
+                  if (service.description? && service.description != '') then m('.service-description', service.description) else m('.service-description', [m.trust("&nbsp;")]),
+                  m('p', "#{service.during}min"),
+                  m('p', [m.trust("#{service.price}&euro;")]),
                 ]),
                 service.service_times.map((item) ->
                   m('.custom-time-service', {onclick: ctrl.selectServiceTime.bind(ctrl, item, service)}, [
-                    if service.name? then m('p', service.name) else m.trust('&nbsp;'),
-                    m('.service-description', item.description),
-                    m('p', "#{item.during}min")
+                    if (item.description? && item.description != '') then m('.service-description', item.description) else m('.service-description', [m.trust("&nbsp;")]),
+                    m('p', "#{item.during}min"),
+                    m('p', [m.trust("#{item.price}&euro;")]),
                   ])
                 )
               ])
@@ -120,7 +126,7 @@ app.VaraaCPLayout = (dom, hash) ->
               m('.panel-body', [
                 m('.panel-group-service', category.services.map((service) ->
                   v = if service.service_times? and service.service_times.length then serviceWithCustomTimes else normalService
-                  return v(service)
+                  return v(category, ctrl.priceRange, service)
                 ))
               ])
             ])

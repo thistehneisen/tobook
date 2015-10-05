@@ -58,17 +58,32 @@ class ServiceCategory extends \App\Core\Models\Base
 
     public function getPriceRangeAttribute()
     {
-        $mformatted = '%d&euro; &ndash; %d&euro;';
-        $oformatted = '%d&euro;';
-        $result = '';
-        $prices = [];
+       
+        $priceRange = '';
+        $result     = '';
+        $prices     = [];
 
+        $result['service'] = [];
+        
         foreach($this->services as $service) {
             $prices[] = $service->price;
+            $serviceRange[] = $service->price;
             foreach ($service->serviceTimes as $serviceTime) {
                 $prices[] = $serviceTime->price;
+                $serviceRange[] = $serviceTime->price;
             }
+            $result['service'][$service->id] = $this->getPriceRange($serviceRange);
         }
+
+      
+        $result['category'] = $this->getPriceRange($prices);
+        return $result;
+    }
+
+    private function getPriceRange($prices)
+    {
+        $mformatted = '%d&euro; &ndash; %d&euro;';
+        $oformatted = '%d&euro;';
 
         if (count($prices) < 1) {
             $prices[] = 0;
@@ -78,14 +93,14 @@ class ServiceCategory extends \App\Core\Models\Base
         $max = max($prices);
 
         if (count($prices) < 2) {
-           $result = sprintf($oformatted, $max);
+           $priceRange = sprintf($oformatted, $max);
         } else {
-           $result = ($min !== $max)
+           $priceRange = ($min !== $max)
                 ? sprintf($mformatted, $min, $max)
                 : sprintf($oformatted, $max);
         }
 
-        return $result;
+        return $priceRange;
     }
 
     public function getHasDiscountAttribute()

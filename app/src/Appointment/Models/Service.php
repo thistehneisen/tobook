@@ -152,6 +152,36 @@ class Service extends \App\Core\Models\Base
         return $hashDiscount;
     }
 
+    public function getPriceRangeAttribute()
+    {   
+        // m for multiple
+        $mformatted = '%d&euro; &ndash; %d&euro;';
+        // o for one
+        $oformatted = '%d&euro;';
+
+        $prices[] = $this->price;
+        foreach ($this->serviceTimes as $serviceTime) {
+            $prices[] = $serviceTime->price;
+        }
+
+        if (count($prices) < 1) {
+            $prices[] = 0;
+        }
+
+        $min = min($prices);
+        $max = max($prices);
+
+        if (count($prices) < 2) {
+           $result = sprintf($oformatted, $max);
+        } else {
+           $result = ($min !== $max)
+                ? sprintf($mformatted, $min, $max)
+                : sprintf($oformatted, $max);
+        }
+
+        return $result;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
