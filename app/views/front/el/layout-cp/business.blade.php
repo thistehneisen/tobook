@@ -69,6 +69,9 @@
 
                 <p><strong>{{ trans('home.business.email') }}</strong></p>
                 <p>{{{ $business->user->email }}}</p>
+
+                <p><strong>{{ trans('home.business.address') }}</strong></p>
+                <p>{{{ $business->full_address }}}</p>
             </div>
         </div>
     </div>
