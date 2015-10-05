@@ -708,6 +708,8 @@
         'custom_time_id': custom_time_id,
         'employee_id': employee_id,
         'date': date
+      }).fail(function (data) {
+        console.log(data);
       }).done(function (data) {
         location.reload()
       })

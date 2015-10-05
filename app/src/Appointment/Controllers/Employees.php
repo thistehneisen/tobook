@@ -476,7 +476,7 @@ class Employees extends AsBase
     {
         $customTimeId       = Input::get('custom_time_id');
         $employeeId         = Input::get('employee_id');
-        $date               = Input::get('date');
+        $date               = str_standard_date(Input::get('date'));
         try {
             $employee           = Employee::findOrFail($employeeId);
             $customTime         = (intval($customTimeId) !== 0)  ? CustomTime::find($customTimeId) : null;
