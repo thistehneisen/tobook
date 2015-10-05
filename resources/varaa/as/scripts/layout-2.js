@@ -362,7 +362,7 @@
                 }).fail(function (data) {
                     alertify.alert(data.responseJSON.message);
                     $submit.removeAttr('disabled');
-                    $('a.as-remove-cart').hide();
+                    $('a.as-remove-cart').show();
                 });
             });
         }
