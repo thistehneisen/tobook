@@ -152,6 +152,11 @@ class Service extends \App\Core\Models\Base
         return $hashDiscount;
     }
 
+    public function getHasEmployeeAttribute()
+    {
+        return boolval((int)$this->employees()->count());
+    }
+
     public function getPriceRangeAttribute()
     {   
         // m for multiple

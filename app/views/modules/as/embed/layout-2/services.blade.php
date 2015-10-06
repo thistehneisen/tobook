@@ -2,7 +2,9 @@
     <h5>{{ trans('as.embed.layout_2.select_service_type') }}</h5>
     <div class="as-categories better">
 @foreach ($categories as $category)
+    @if($category->hasService)
     <p><a class="as-category" data-category-id="{{ $category->id }}" href="#{{ $category->id }}" id="btn-category-{{ $category->id }}"><small><i class="glyphicon glyphicon-chevron-right"></i></small> {{ $category->name }}</a></p>
+    @endif
 @endforeach
     </div>
 </div>
@@ -12,6 +14,7 @@
     <h5>{{ trans('as.embed.layout_2.services') }}</h5>
     <div class="better">
     @foreach ($category->services as $service)
+        @if ($service->hasEmployee)
         <div class="as-service-row">
             <a data-service-id="{{ $service->id }}" href="#" class="as-service" id="btn-service-{{ $service->id }}"><small><i class="glyphicon glyphicon-chevron-right"></i></small> {{ $service->name }}</a>
             <div class="as-service-time">
@@ -35,6 +38,7 @@
             @endforeach
             </div>
         </div>
+        @endif
     @endforeach
     </div>
 </div>
