@@ -1294,7 +1294,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         if (is_tobook()) {
             $constantCommission    = Settings::get('constant_commission');
             $newConsumerRate       = Settings::get('new_consumer_commission_rate');
-            $newConsumerCommission = ($isNew) ? ($newConsumerRate * $this->total_price) : 0;
+            $newConsumerCommission = ($isNew && $this->source === 'cp') 
+                ? ($newConsumerRate * $this->total_price) : 0;
         }
 
         $businessCommission = new BusinessCommission();
