@@ -4,7 +4,7 @@
         <h1>{{{ $business->name }}}</h1>
         <address>{{{ $business->full_address }}}</address>
         <div class="description" id="business-description">
-            <p>{{ $business->description_html }}</p>
+            {{ $business->description_html }}
             <a href="#" style="display:none" class="readmore">...</a>
         </div>
     @if (!$business->is_booking_disabled)
