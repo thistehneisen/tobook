@@ -59,7 +59,7 @@ return [
             'description' => 'Kuvaus',
             'price'       => 'Hinta',
             'length'      => 'Kesto',
-            'is_hidden'   => 'Hidden from frontend',
+            'is_hidden'   => 'Piilossa asiakkailta',
             'msg_extra'   => 'Haluaisitko varata myös?',
         ],
         'all'          => 'Kaikki palvelut',
