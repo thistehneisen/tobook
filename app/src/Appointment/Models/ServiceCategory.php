@@ -56,6 +56,13 @@ class ServiceCategory extends \App\Core\Models\Base
         return (isset($this->attributes['is_show_front'])) ? (bool) $this->attributes['is_show_front'] : true;
     }
 
+    public function getHasServiceAttribute()
+    {
+        return boolval((int) $this->services()->get()->filter(function($item){
+            return boolval((int)$item->employees()->count());
+        })->count());
+    }
+
     public function getPriceRangeAttribute()
     {
        
