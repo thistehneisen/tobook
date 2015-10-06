@@ -1251,12 +1251,14 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $query = self::withTrashed()->where('as_bookings.created_at', '>=', $start)
             ->where('as_bookings.created_at', '<=', $end)
-            ->where(function($query){
-                $query->where('as_bookings.source', '=', 'inhouse')
-                ->orWhere('as_bookings.source', '=', 'cp');
-            })
             ->where('as_bookings.user_id', '=', $userId)
             ->whereNull('business_commissions.deleted_at');
+
+        if(!is_tobook()) {
+          $query = $query->where(function ($query) {
+                $query->where('as_bookings.source', '=', 'inhouse')->orWhere('as_bookings.source', '=', 'cp');
+            });
+        }
 
         //status == 0 mean empty
         if (isset($status)) {
@@ -1294,7 +1296,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         if (is_tobook()) {
             $constantCommission    = Settings::get('constant_commission');
             $newConsumerRate       = Settings::get('new_consumer_commission_rate');
-            $newConsumerCommission = ($isNew) ? ($newConsumerRate * $this->total_price) : 0;
+            $newConsumerCommission = ($isNew && $this->source === 'cp') 
+                ? ($newConsumerRate * $this->total_price) : 0;
         }
 
         $businessCommission = new BusinessCommission();
