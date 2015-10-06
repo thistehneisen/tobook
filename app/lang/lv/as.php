@@ -20,6 +20,8 @@ return [
         'heading'       => 'Pakalpojumi',
         'edit'          => 'Labot pakalpojumu',
         'custom_time'   => 'Brīvi izvēlēts laiks',
+        'master_categories'  => 'Galvenā kategorija',
+        'treatment_types'    => 'Apstrādes veids',
         'categories' => [
             'all'           => 'Visas kategorijas',
             'add'           => 'Pievienot jaunu kategoriju',

@@ -20,6 +20,8 @@ return [
         'heading'       => 'Услуги',
         'edit'          => 'Редактировать услугу',
         'custom_time'   => 'Выбранное время',
+        'master_categories'  => 'Oсновная категория',
+        'treatment_types'    => 'Тип обработки',
         'categories' => [
             'all'           => 'Все категории',
             'add'           => 'Добавить категорию',
