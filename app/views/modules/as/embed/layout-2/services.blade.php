@@ -1,4 +1,4 @@
-<div class="col-sm-3">
+<div class="col-sm-3" name="services">
     <h5>{{ trans('as.embed.layout_2.select_service_type') }}</h5>
     <div class="as-categories better">
 @foreach ($categories as $category)
@@ -50,7 +50,7 @@
 <div class="as-extra-services col-sm-3" id="as-service-{{ $service->id }}-extra-services">
     <h5>{{ trans('as.embed.layout_2.extra_services') }}</h5>
     <div class="better">
-        <div class="as-extra-service-row">
+        <div class="as-extra-service-row" name="extra-service">
             @foreach ($service->extraServices()->where('is_hidden', '=', false)->get() as $item)
                 <div class="checkbox">
                     <label>
