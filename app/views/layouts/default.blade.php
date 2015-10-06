@@ -81,7 +81,15 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     {{-- Language switcher --}}
                     <li>
                         <select id="js-language-switcher" class="form-control">
-                            @foreach (Config::get('varaa.languages') as $locale)
+                            <?php 
+                                $languages = Config::get('varaa.languages');
+                                if (is_tobook()) {
+                                    $languages = array_filter($languages, function($e){
+                                        return ($e !== 'en');
+                                    });
+                                }        
+                            ?>
+                            @foreach ($languages as $locale)
                             <option value="{{ UrlHelper::localizeCurrentUrl($locale) }}" {{ Config::get('app.locale') === $locale ? 'selected' : '' }}>{{ strtoupper($locale) }}</option>
                             @endforeach
                         </select>

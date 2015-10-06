@@ -11,7 +11,7 @@ $head_script = "<script>
 
 return [
     'name'             => 'ToBook.lv',
-    'languages'        => ['lv', 'ru'],
+    'languages'        => ['lv', 'ru', 'en'],
     'default_language' => 'lv',
     'default_coords'   => [56.9462031, 24.1042872], // Riga,
     'premium_modules'  => [
