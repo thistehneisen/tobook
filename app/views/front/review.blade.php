@@ -22,7 +22,28 @@
 
 @section('content')
 <div class="row" style="margin-top: 30px">
+	<div class="col-sm-12">
+		@if ($errors->top && $errors->top->isEmpty() === false)
+		    <div class="alert alert-danger">
+		        <p><strong>{{ trans('common.errors') }}!</strong></p>
+		    @foreach ($errors->top->all() as $message)
+		        <p>{{ $message }}</p>
+		    @endforeach
+		    </div>
+		@endif
+
+		@if ($errors->any())
+		<div class="alert alert-danger">
+		    <ul>
+		        {{ implode('', $errors->all('<li>:message</li>')) }}
+		    </ul>
+		</div>
+		@endif
+	</div>
+</div>
+<div class="row">
 	<div class="col-sm-offset-2 col-sm-6">
+
 		<h1 class="comfortaa orange text-center">{{ trans('as.review.leave_review') }}</h1>
 		{{ Form::open(['route' => ['businesses.doReview', $id, $name], 'method' => 'POST', 'class' => 'form-horizontal']) }}
 			<div class="form-group">

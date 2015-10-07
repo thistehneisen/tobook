@@ -5,7 +5,7 @@ class Review extends Base
 {
     protected $table = 'reviews';
 
-    const STATUS_FRESH   = 'fresh';
+    const STATUS_INIT   = 'init';
     const STATUS_VALID   = 'valid';
     const STATUS_INVALID = 'invalid';
 
@@ -15,6 +15,7 @@ class Review extends Base
         'environment',
         'service',
         'price_ratio',
+        'avg_rating',
         'status'
     ];
 

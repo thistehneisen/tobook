@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
 use Input;
 use Request;
 use Response;
+use Redirect;
 use Settings;
 use Util;
 use View;
@@ -273,7 +274,11 @@ class Front extends Base
 
     public function review($id)
     {
-        $user = User::findOrFail($id);
+        try {
+            $user = User::findOrFail($id);
+        } catch(\Exception $ex){
+            App::abort(404);
+        }
 
         return $this->render('review', [
             'id' => $id,
@@ -283,13 +288,17 @@ class Front extends Base
 
     public function doReview($id)
     {
-        $user = User::findOrFail($id);
-        
-        $review = new Review;
-        $review->fill(Input::all());
-        $review->user()->associate($user);
-        $review->saveOrFailed();
+        try {
+            $user = User::findOrFail($id);
+            $review = new Review;
+            $review->fill(Input::all());
+            $review->user()->associate($user);
+            $review->saveOrFail();
+        } catch(\Exception $ex){
+            $errors = $this->errorMessageBag([$ex->getMessage()]);
+            return Redirect::back()->withInput()->withErrors($errors, 'top');
+        }
 
-        return Redirect::back();
+        return Redirect::route('home');
     }
 }
