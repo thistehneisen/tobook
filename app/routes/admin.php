@@ -112,6 +112,11 @@ Route::group([
             'uses' => 'App\Core\Controllers\Admin\Commissions@sendReport'
         ]);
     });
+    
+    //--------------------------------------------------------------------------
+    // Reviews
+    //--------------------------------------------------------------------------
+    App\Core\Controllers\Admin\Reviews::crudRoutes('reviews', 'admin.reviews');
 
     //--------------------------------------------------------------------------
     // Master categories
