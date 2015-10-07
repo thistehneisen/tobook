@@ -19,6 +19,7 @@ use Redirect;
 use Settings;
 use Util;
 use View;
+use Validator;
 
 class Front extends Base
 {
@@ -290,13 +291,28 @@ class Front extends Base
     {
         try {
             $user = User::findOrFail($id);
-            $review = new Review;
+
+            $rules = array(
+               'environment'          => 'required',
+               'service'              => 'required',
+               'price_ratio'          => 'required',
+               'g-recaptcha-response' => 'required|recaptcha'
+            );
+
+            $validator = Validator::make(Input::all(), $rules);
+
+            if ($validator->fails()) {
+                $messages = $validator->messages();
+                return Redirect::back()->withInput()->withErrors($messages);
+            }
+
+            $review = new Review();
             $review->fill(Input::all());
             $review->user()->associate($user);
+            $review->setAvgRating();
             $review->saveOrFail();
-        } catch(\Exception $ex){
-            $errors = $this->errorMessageBag([$ex->getMessage()]);
-            return Redirect::back()->withInput()->withErrors($errors, 'top');
+        } catch(\Watson\Validating\ValidationException $ex){
+            return Redirect::back()->withInput()->withErrors($ex->getErrors());
         }
 
         return Redirect::route('home');

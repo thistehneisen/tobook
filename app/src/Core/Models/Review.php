@@ -16,16 +16,21 @@ class Review extends Base
         'service',
         'price_ratio',
         'avg_rating',
-        'status'
+        'status',
     ];
 
     public $rulesets = [
         'saving' => [
-            'environment' => 'required',
-            'service'     => 'required',
-            'price_ratio' => 'required',
+            'environment'              => 'required',
+            'service'                  => 'required',
+            'price_ratio'              => 'required',
         ]
     ];
+
+    public function setAvgRating()
+    {
+        $this->avg_rating = ($this->environment + $this->price_ratio + $this->service) / 3;
+    }
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS

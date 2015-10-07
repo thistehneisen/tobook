@@ -77,6 +77,12 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label">{{ trans('common.captcha') }}</label>
+				<div class="col-sm-9">
+					{{ Form::captcha(); }}
+				</div>
+			</div>
+			<div class="form-group">
 				<div class="col-sm-offset-3 col-sm-9">
 					<button type="submit" class="btn btn-lg btn-orange to-upper comfortaa">{{ trans('common.submit') }}</button>
 				</div>
