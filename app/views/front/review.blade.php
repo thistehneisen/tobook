@@ -24,7 +24,7 @@
 <div class="row" style="margin-top: 30px">
 	<div class="col-sm-offset-2 col-sm-6">
 		<h1 class="comfortaa orange text-center">{{ trans('as.review.leave_review') }}</h1>
-		<form class="form-horizontal">
+		{{ Form::open(['route' => ['businesses.doReview', $id, $name], 'method' => 'POST', 'class' => 'form-horizontal']) }}
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">{{ trans('as.review.environment') }}</label>
 				<div class="col-sm-9">
@@ -60,7 +60,7 @@
 					<button type="submit" class="btn btn-lg btn-orange to-upper comfortaa">{{ trans('common.submit') }}</button>
 				</div>
 			</div>
-		</form>
+		{{ Form::close() }}
 	</div>
 </div>
 @stop

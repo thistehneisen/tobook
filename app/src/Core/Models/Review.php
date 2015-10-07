@@ -5,12 +5,17 @@ class Review extends Base
 {
     protected $table = 'reviews';
 
+    const STATUS_FRESH   = 'fresh';
+    const STATUS_VALID   = 'valid';
+    const STATUS_INVALID = 'invalid';
+
     public $fillable = [
         'name',
         'comment',
         'environment',
         'service',
-        'price_ratio'
+        'price_ratio',
+        'status'
     ];
 
     public $rulesets = [

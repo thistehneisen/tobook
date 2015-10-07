@@ -7,6 +7,7 @@ use App\Appointment\Models\TreatmentType;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
+use App\Core\Models\Review;
 use App\Haku\Searchers\BusinessesByCategory;
 use App\Haku\Searchers\BusinessesByDistrict;
 use Cookie;
@@ -272,13 +273,23 @@ class Front extends Base
 
     public function review($id)
     {
+        $user = User::findOrFail($id);
+
         return $this->render('review', [
             'id' => $id,
+            'name' => $user->business->slug
         ]);
     }
 
     public function doReview($id)
     {
+        $user = User::findOrFail($id);
+        
+        $review = new Review;
+        $review->fill(Input::all());
+        $review->user()->associate($user);
+        $review->saveOrFailed();
 
+        return Redirect::back();
     }
 }

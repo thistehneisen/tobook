@@ -20,7 +20,8 @@ class CreateReviewsBusinessTable extends Migration {
             $table->double('environment');
             $table->double('service');
             $table->double('price_ratio');
-            $table->double('avg_rating');
+            $table->double('avg_rating'); 
+            $table->string('status')->default('fresh');
             $table->text('comment');
             $table->softDeletes();
             $table->timestamps();
