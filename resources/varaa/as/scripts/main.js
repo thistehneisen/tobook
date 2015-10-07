@@ -566,6 +566,8 @@
             $('.as-col-left-header').css('margin-top', '25px')
             $('.as-ul').css('margin-top', '25px')
           }
+        } else {
+          $('.as-col-header').removeAttr('style');
         }
 
         $('.as-col-header').each(function () {
