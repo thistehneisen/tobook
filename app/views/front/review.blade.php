@@ -10,6 +10,9 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.raty').raty({
+				scoreName: function() {
+				   return $(this).data('name');
+				},
 				starOff : '{{ asset('packages/jquery.raty/images') }}/star-off.png',
   				starOn  : '{{ asset('packages/jquery.raty/images') }}/star-on.png'
 			});
@@ -25,19 +28,19 @@
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">{{ trans('as.review.environment') }}</label>
 				<div class="col-sm-9">
-					<div data-path="packages/jquery.raty/images" class="raty"></div>
+					<div class="raty" data-name="environment"></div>
 				</div>
 			</div>			
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">{{ trans('as.review.service') }}</label>
 				<div class="col-sm-9">
-					<div data-path="packages/jquery.raty/images" class="raty"></div>
+					<div class="raty" data-name="service"></div>
 				</div>
 			</div>			
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">{{ trans('as.review.price_ratio') }}</label>
 				<div class="col-sm-9">
-					<div data-path="packages/jquery.raty/images" class="raty"></div>
+					<div class="raty" data-name="price_ratio"></div>
 				</div>
 			</div>
 			<div class="form-group">

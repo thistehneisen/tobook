@@ -12,14 +12,15 @@ class CreateReviewsBusinessTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('as_reviews', function(Blueprint $table)
+		Schema::create('reviews', function(Blueprint $table)
         {
             $table->increments('id');
             $table->unsignedInteger('business_id');
             $table->string('name');
-            $table->tinyInteger('environment');
-            $table->tinyInteger('service');
-            $table->tinyInteger('price_ratio');
+            $table->double('environment');
+            $table->double('service');
+            $table->double('price_ratio');
+            $table->double('avg_rating');
             $table->text('comment');
             $table->softDeletes();
             $table->timestamps();
@@ -37,7 +38,7 @@ class CreateReviewsBusinessTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('as_reviews');
+		Schema::drop('reviews');
 	}
 
 }
