@@ -10,8 +10,8 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.raty').raty({
-				 starOff : '{{ asset('packages/jquery.raty/images') }}/star-off.png',
-  				 starOn  : '{{ asset('packages/jquery.raty/images') }}/star-on.png'
+				starOff : '{{ asset('packages/jquery.raty/images') }}/star-off.png',
+  				starOn  : '{{ asset('packages/jquery.raty/images') }}/star-on.png'
 			});
 		});
 	</script>

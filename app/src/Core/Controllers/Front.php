@@ -269,4 +269,10 @@ class Front extends Base
 
         App::abort(404);
     }
+
+    public function review()
+    {
+        $id = Request::segment(1);        
+        return $this->render('review');
+    }
 }

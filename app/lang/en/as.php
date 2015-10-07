@@ -472,5 +472,12 @@ return [
         'success_bulk'   => 'Item was deleted successfully.',
         'sortable'       => 'Drag to reorder',
     ],
+    'review' => [
+        'environment' => 'Environment',
+        'service' => 'Service',
+        'price_ratio' => 'Price ratio',
+        'comment' => 'Comment',
+        'leave_review' => 'Leave a review',
+    ],
     'nothing_selected' => 'Nothing selected',
 ];
