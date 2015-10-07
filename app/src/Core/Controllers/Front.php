@@ -273,6 +273,11 @@ class Front extends Base
         App::abort(404);
     }
 
+     /**
+     * Show review page to consumer
+     *
+     * @return View
+     */
     public function review($id)
     {
         try {
@@ -287,6 +292,11 @@ class Front extends Base
         ]);
     }
 
+    /**
+     * Handle review submission
+     * 
+     * @return Redirect
+     */
     public function doReview($id)
     {
         try {
