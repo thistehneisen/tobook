@@ -483,6 +483,7 @@ return [
         'price_ratio'  => 'Price ratio',
         'service'      => 'Service',
         'status'       => 'Status',
+        'venue_rating' => 'Venue rating',
         'init'         => 'Init',
         'approved'     => 'Approved',
         'rejected'     => 'Rejected',

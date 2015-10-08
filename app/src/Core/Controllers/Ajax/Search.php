@@ -6,6 +6,7 @@ use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\Service;
 use App\Core\Models\Business;
 use App\Core\Models\User;
+use App\Core\Models\Review;
 use DB;
 use Input;
 use Request, Settings;
@@ -103,12 +104,22 @@ class Search extends Base
 
         Input::merge(array('l' => '3', 'hash' => $user->hash));
 
+
+        $review = Review::where('user_id', '=', $id)->where('status', '=', Review::STATUS_APPROVED)
+            ->select(DB::raw("AVG(environment) as avg_env"), 
+                DB::raw("AVG(service) as avg_service"),
+                DB::raw("AVG(price_ratio) as avg_price_ratio"),
+                DB::raw("AVG(avg_rating) as avg_total"))->first();
+
         $data = [
             'business'       => $user->business,
+            'review'         => $review,
             'lat'            => $user->business->lat,
             'lng'            => $user->business->lng,
             'businessesJson' => json_encode([$user->business]),
         ];
+
+        
 
         $data = array_merge($data, $this->getNextTimeSlotData());
 

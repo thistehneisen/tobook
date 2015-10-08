@@ -18,6 +18,7 @@
     @if(Settings::get('default_layout') === 'layout-3')
     {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
     @endif
+    {{ HTML::style(asset('packages/jquery.raty/jquery.raty.css')) }}
 @stop
 
 @section('scripts')
@@ -83,7 +84,7 @@ app.routes = {
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
     {{ HTML::script(asset_path(sprintf('as/scripts/%s.js', Settings::get('default_layout')))) }}
     {{ HTML::script(asset_path('core/scripts/business.js')) }}
-
+    {{ HTML::script(asset('packages/jquery.raty/jquery.raty.js')) }}
     <script>
 $(function () {
     var map = new GMaps({
@@ -160,6 +161,18 @@ $(function () {
 
     $(document).ready(function(){
         truncateDescription();
+        $('.raty').raty({
+            scoreName: function() {
+                return $(this).data('name');
+            },
+            score: function() {
+                return $(this).data('score');
+            },
+            starOff : '{{ asset('packages/jquery.raty/images') }}/star-off.png',
+            starOn  : '{{ asset('packages/jquery.raty/images') }}/star-on.png',
+            starHalf : '{{ asset('packages/jquery.raty/images') }}/star-half.png',
+            readOnly: true
+        });
     });
 });
 

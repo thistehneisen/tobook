@@ -13,8 +13,10 @@
 				scoreName: function() {
 				   return $(this).data('name');
 				},
+				halt: true,
 				starOff : '{{ asset('packages/jquery.raty/images') }}/star-off.png',
-  				starOn  : '{{ asset('packages/jquery.raty/images') }}/star-on.png'
+  				starOn  : '{{ asset('packages/jquery.raty/images') }}/star-on.png',
+  				starHalf : '{{ asset('packages/jquery.raty/images') }}/star-half.png',
 			});
 		});
 	</script>
