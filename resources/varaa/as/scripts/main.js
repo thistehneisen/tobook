@@ -536,7 +536,7 @@
       })
     })
 
-    if (colHeaderTop === -1) {
+    if ($('.as-col-header').length && colHeaderTop === -1) {
       colHeaderTop = $('.as-col-header').offset().top
     }
 
