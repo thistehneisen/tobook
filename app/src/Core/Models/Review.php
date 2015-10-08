@@ -6,8 +6,8 @@ class Review extends Base
     protected $table = 'reviews';
 
     const STATUS_INIT   = 'init';
-    const STATUS_VALID   = 'valid';
-    const STATUS_INVALID = 'invalid';
+    const STATUS_APPROVED   = 'approved';
+    const STATUS_REJECTED = 'rejected';
 
     public $fillable = [
         'name',
@@ -21,9 +21,9 @@ class Review extends Base
 
     public $rulesets = [
         'saving' => [
-            'environment'              => 'required',
-            'service'                  => 'required',
-            'price_ratio'              => 'required',
+            'environment' => 'required',
+            'service'     => 'required',
+            'price_ratio' => 'required',
         ]
     ];
 
