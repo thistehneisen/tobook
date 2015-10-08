@@ -15,16 +15,14 @@
 
     {{-- right sidebar --}}
     <div class="col-sm-4 col-md-4">
-        <div class="row">
-            <div class="col-sm-12">
-                <table class="table">
-                    <tr>
-                        <td><h1>{{ number_format($review->avg_total, 1) }}</h1></td>
-                        <td>
-                            <span>{{ trans('as.review.venue_rating') }}</span>
-                            <div class="raty star-big" data-score="{{ $review->avg_total }}"></div>
-                        </td>
-                    </tr>
+        <div class="row reviews-summary">
+            <div class="col-sm-4 venue-rating">
+                <div class="title">{{ trans('as.review.venue_rating') }}</div>
+                <div class="rating-value">{{ number_format($review->avg_total, 1) }}</div>
+                <div class="raty star-big" data-score="{{ $review->avg_total }}"></div>
+            </div>
+            <div class="col-sm-8">
+                <table class="table borderless">
                     <tr>
                         <td>{{ trans('as.review.environment') }}</td>
                         <td><div class="raty" data-score="{{ $review->avg_env }}"></div></td>
