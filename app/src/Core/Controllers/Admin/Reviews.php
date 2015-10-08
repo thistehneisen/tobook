@@ -33,6 +33,8 @@ class Reviews extends Base
         ]
     ];
 
+
+
     //--------------------------------------------------------------------------
     // PRESENTERS
     //--------------------------------------------------------------------------
@@ -73,5 +75,29 @@ class Reviews extends Base
         }
 
         return $this->model;
+    }
+
+    /**
+     * Approve a list of reviews
+     *
+     * @param array $ids
+     *
+     * @return void
+     */
+    protected function approve($ids)
+    {
+        Review::whereIn('id', $ids)->update(['status' => Review::STATUS_APPROVED]);
+    }
+
+    /**
+     * Reject a list of reviews
+     *
+     * @param array $ids
+     *
+     * @return void
+     */
+    protected function reject($ids)
+    {
+        Review::whereIn('id', $ids)->update(['status' => Review::STATUS_REJECTED]);
     }
 }
