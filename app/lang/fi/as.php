@@ -417,7 +417,7 @@ return [
             'index' => 'Kalenterinäkymä',
         ],
         'discount' => [
-            'discount'            => 'Alennukset',
+            'discount'            => 'Tarjoukset',
             'last-minute'         => 'Äkkilähdöt',
             'business-hour'       => 'tunti ennen',
             'business-hours'      => 'tuntia ennen',
