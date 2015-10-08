@@ -1,5 +1,9 @@
 <?php namespace App\Core\Models;
 
+use Carbon\Carbon;
+use App\Appointment\Models\Booking;
+use App, View, Mail, Log, Settings;
+use Queue;
 
 class Review extends Base
 {
@@ -26,6 +30,46 @@ class Review extends Base
             'price_ratio' => 'required',
         ]
     ];
+    
+    //--------------------------------------------------------------------------
+    // CUSTOM METHODS
+    //--------------------------------------------------------------------------
+    public static function sendReviewRequest()
+    {   
+        $now = Carbon::now();
+
+        $minutes = intval($now->copy()->minute);
+        $remove = $minutes % 15;
+        $compensate = 15 - $remove;
+
+        $bookings = Booking::where('date', '=', $now->toDateString())
+            ->where('end_at', '=', $now->copy()
+                    ->subHours(2)
+                    ->addMinutes($compensate)
+                    ->second(0)
+                    ->toTimeString()
+            )->get();
+
+        // Loop thourgh bookings and add to queue
+        foreach ($bookings as $booking) {
+            Log::info("Send review request to customer", [$booking->consumer->email, $booking->end_at]);
+            $emailSubject = 'Review request from varaaa';
+            $body = route('businesses.review', [$booking->user->id, $booking->user->business->slug]);
+            $receiver     = $booking->consumer->email;
+            $receiverName = $booking->consumer->name;
+            // Enque to send email
+            Queue::push(function ($job) use ($emailSubject, $body, $receiver, $receiverName) {
+                Mail::send('modules.as.emails.review', [
+                    'title' => $emailSubject,
+                    'body' => nl2br($body)
+                ], function ($message) use ($emailSubject, $receiver, $receiverName) {
+                    $message->subject($emailSubject);
+                    $message->to($receiver, $receiverName);
+                });
+                $job->delete();
+            });
+        }
+    }
 
     public function setAvgRating()
     {
