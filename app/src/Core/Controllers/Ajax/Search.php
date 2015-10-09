@@ -93,9 +93,17 @@ class Search extends Base
 
         $layout = $this->handleIndex($user->hash, $user, 'layout-3');
 
+
+        $review = Review::where('user_id', '=', $id)->where('status', '=', Review::STATUS_APPROVED)
+            ->select(DB::raw("AVG(environment) as avg_env"), 
+                DB::raw("AVG(service) as avg_service"),
+                DB::raw("AVG(price_ratio) as avg_price_ratio"),
+                DB::raw("AVG(avg_rating) as avg_total"))->first();
+            
         // Data to be passed to view
         $data = array_merge([
             'business'   => $user->business,
+            'review' => $review
         ], $layout);
 
         if (Request::ajax()) {
@@ -103,13 +111,6 @@ class Search extends Base
         }
 
         Input::merge(array('l' => '3', 'hash' => $user->hash));
-
-
-        $review = Review::where('user_id', '=', $id)->where('status', '=', Review::STATUS_APPROVED)
-            ->select(DB::raw("AVG(environment) as avg_env"), 
-                DB::raw("AVG(service) as avg_service"),
-                DB::raw("AVG(price_ratio) as avg_price_ratio"),
-                DB::raw("AVG(avg_rating) as avg_total"))->first();
 
         $data = [
             'business'       => $user->business,

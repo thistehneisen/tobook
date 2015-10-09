@@ -20,6 +20,7 @@
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css') }}
     @if(Settings::get('default_layout') === 'layout-3')
     {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
+    {{ HTML::style(asset('packages/jquery.raty/jquery.raty.css')) }}
     @endif
 @stop
 
@@ -29,6 +30,7 @@
     VARAA.Search.businesses = {{ json_encode($businesses) }};
     VARAA.Search.lat = {{ $lat or 0 }};
     VARAA.Search.lng = {{ $lng or 0 }};
+    VARAA.Search.assetPath  = '{{ asset('packages/jquery.raty/images') }}';
 @if(!empty($categoryId) && !empty($serviceId))
     VARAA.Search.categoryId = {{ $categoryId }};
     VARAA.Search.serviceId = {{ $serviceId }};
@@ -89,6 +91,7 @@ app.routes = {
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
     {{ HTML::script(asset_path('core/scripts/business.js')) }}
     {{ HTML::script(asset_path('core/scripts/search.js')) }}
+    {{ HTML::script(asset('packages/jquery.raty/jquery.raty.js')) }}
 @stop
 
 @section('main-classes') front @stop

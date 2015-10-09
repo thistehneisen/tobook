@@ -28,6 +28,7 @@
     VARAA.Search.businesses = {{ $businessesJson }};
     VARAA.Search.lat = {{ $lat }};
     VARAA.Search.lng = {{ $lng }};
+    VARAA.Search.assetPath  = '{{ asset('packages/jquery.raty/images') }}';
 @if(!empty($categoryId) && !empty($serviceId))
     VARAA.Search.categoryId = {{ $categoryId }};
     VARAA.Search.serviceId = {{ $serviceId }};

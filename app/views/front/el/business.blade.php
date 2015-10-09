@@ -11,7 +11,7 @@
 
     @if ($business->images->isEmpty() === false)
         <!-- Slider main container -->
-        <div class="slideshow swiper-container" id="js-swiper-{{ $business->user_id }}">
+        <div class="slideshow swiper-container gallery" id="js-swiper-{{ $business->user_id }}">
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
                 <!-- Slides -->

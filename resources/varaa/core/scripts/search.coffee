@@ -3,6 +3,7 @@ class VaraaSearch
     @businesses = input.businesses
     @lat = input.lat
     @lng = input.lng
+    @assetPath = input.assetPath
     # If user clicked on a NAT slot in front page and was redirected to this
     # page, we should automatically select booking form
     @categoryId = input.categoryId if input.categoryId?
@@ -57,6 +58,18 @@ class VaraaSearch
     if markers?
       @addMarkers gmap, markers
     return gmap
+
+  showRating: (assetPath) ->
+    $('.raty').raty
+      scoreName: () ->
+          return $(this).data('name');
+      score: () -> 
+          return $(this).data('score')
+      starOff : assetPath + '/star-off.png'
+      starOn  : assetPath + '/star-on.png'
+      starHalf : assetPath + '/star-half.png'
+      readOnly: true  
+    $('.raty').raty('reload');
 
   addMarkers: (gmap, markers) ->
     for marker in markers
@@ -213,7 +226,8 @@ class VaraaSearch
             loop: true
             autoplayDisableOnInteraction: false
 
-        slider.update().slideNext() if slider isnt null
+        slider.update().slideNext() if slider.update() isnt null && slider.update() isnt undefined
+        self.showRating(self.assetPath)
     ###*
      * Hover on a business will highlight its position on the map
      *
