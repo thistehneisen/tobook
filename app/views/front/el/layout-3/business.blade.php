@@ -7,10 +7,11 @@
             {{ $business->description_html }}
             <a href="#" style="display:none" class="readmore">...</a>
         </div>
-    @if (!$business->is_booking_disabled)
-        <h3 class="sub-heading">@lang('as.embed.cp.heading')</h3>
-        <div id="js-cp-booking-form">@lang('as.embed.loading')</div>
-    @endif
+
+        <h3 class="sub-heading">{{ trans('home.business.about') }}</h3>
+        <div class="description">
+            {{ $business->description_html }}
+        </div>
     </div>
 
 
@@ -58,11 +59,6 @@
                 <p class="text-center"><img src="{{ $business->image }}" alt="{{{ $business->name }}}"></p>
             </div>
         @endif
-
-            <h3 class="sub-heading">{{ trans('home.business.about') }}</h3>
-            <div class="description">
-                {{ $business->description_html }}
-            </div>
     
         @if ($business->is_booking_disabled)
             @include ('front.contact.form', ['business' => $business])
