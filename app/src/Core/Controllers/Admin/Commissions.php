@@ -196,6 +196,7 @@ class Commissions extends Base
         $filename = public_path() . '/tmp/' . 'report_' . $userId . '_' . $current->format('YmdHis') . '.pdf';
 
         $pdf = App::make('dompdf');
+        // $html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
         $pdf->loadHTML($html);
         $pdf->save($filename);
 
