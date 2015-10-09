@@ -63,7 +63,6 @@
             <div class="description">
                 {{ $business->description_html }}
             </div>
-        </div>
     
         @if ($business->is_booking_disabled)
             @include ('front.contact.form', ['business' => $business])
