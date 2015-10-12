@@ -10,6 +10,7 @@
       originalOffset = [],
       scrolledLeft = false,
       showBookingServiceResult,
+      handleScroll,
       fixedCalendarHeader
 
     $('.backend-tooltip').tooltip({
@@ -583,16 +584,13 @@
       }
     }
 
-    $w.scroll(fixedCalendarHeader)
-
-    $('.as-calendar').scroll(function () {
+    handleScroll = function () {
       scrolledLeft = true
       if ($.isEmptyObject(originalOffset)) {
         $('.as-col-header').each(function (key, item) {
           originalOffset.push($(item).offset().left)
         })
       }
-
       $('.as-col-header').each(function (key, item) {
         var offset = 0
         if ($(item).css('position') !== 'relative') {
@@ -608,8 +606,16 @@
           $(item).css('opacity', 1)
         }
       })
-    })
+    }
 
+    $w.scroll(fixedCalendarHeader);
+    $w.load(function(){
+      $w.scrollTop(250);
+      $('.as-calendar').scrollLeft(0);
+      $('.as-calendar').scroll(handleScroll);
+    });
+
+  
     // @see resources/varaa/co/scripts/main.coffee
     $doc.on('click', 'a.js-showHistory', function (e) {
       e.preventDefault()
