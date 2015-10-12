@@ -1,4 +1,4 @@
-<div class="as-employees col-sm-3" id="as-service-{{ $service->id }}-employees">
+<div class="as-employees col-sm-3" id="as-service-{{ $service->id }}-employees" name="employees">
     <h5>
         @if (empty($user->asOptions['factor']))
             {{ trans('as.embed.layout_2.employees') }}

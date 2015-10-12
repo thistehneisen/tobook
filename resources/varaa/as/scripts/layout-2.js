@@ -14,7 +14,7 @@
                 $elSuccess = $('#as-success'),
                 dataStorage = {hash: $body.data('hash')},
                 settings = settings || { isAutoSelectEmployee : false},
-                fnLoadTimetable;
+                fnLoadTimetable, fnScrollTo;
 
             //----------------------------------------------------------------------
             // Custom method
@@ -51,6 +51,8 @@
 
                 $('div.as-services').hide();
                 $service.slideDown();
+
+                fnScrollTo('services');
             });
 
             // When user clicks on a service
@@ -107,6 +109,7 @@
                     }).done(function (data) {
                         $main.append(data);
                         $body.hideLoadding();
+                        fnScrollTo('employees');
                     });
                 }
             });
@@ -124,15 +127,18 @@
                     $timetable.find('a.btn-as-timetable[data-date=' + startDate + ']')
                         .removeClass('btn-default')
                         .addClass('btn-selected');
-
-                    var $target = $("div[name='timetable']");
-                    $('html, body').stop().animate({
-                        'scrollTop': $target.offset().top
-                    }, 900, 'swing', function () {
-                        window.location.hash = 'timetable';
-                    });
+                    fnScrollTo('timetable');
                 });
             };
+
+            fnScrollTo = function(element) {
+                var $target = $("div[name='" + element +"']");
+                $('html, body').stop().animate({
+                    'scrollTop': $target.offset().top
+                }, 900, 'swing', function () {
+                    window.location.hash = element;
+                });
+            }
 
             $main.on('click', 'button.btn-service-time', function () {
                 var $this = $(this);

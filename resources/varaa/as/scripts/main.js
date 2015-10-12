@@ -10,6 +10,7 @@
       originalOffset = [],
       scrolledLeft = false,
       showBookingServiceResult,
+      handleScroll,
       fixedCalendarHeader
 
     $('.backend-tooltip').tooltip({
@@ -537,9 +538,11 @@
     })
 
     if (colHeaderTop === -1) {
-      colHeaderTop = $('.as-col-header').offset().top
+      if($('.as-col-header').length){
+        colHeaderTop = $('.as-col-header').offset().top
+      }
     }
-
+    
     fixedCalendarHeader = function () {
       if ($('.as-col-header').length === 0) {
         return
@@ -566,6 +569,8 @@
             $('.as-col-left-header').css('margin-top', '25px')
             $('.as-ul').css('margin-top', '25px')
           }
+        } else {
+          $('.as-col-header').removeAttr('style');
         }
 
         $('.as-col-header').each(function () {
@@ -579,16 +584,13 @@
       }
     }
 
-    $w.scroll(fixedCalendarHeader)
-
-    $('.as-calendar').scroll(function () {
+    handleScroll = function () {
       scrolledLeft = true
       if ($.isEmptyObject(originalOffset)) {
         $('.as-col-header').each(function (key, item) {
           originalOffset.push($(item).offset().left)
         })
       }
-
       $('.as-col-header').each(function (key, item) {
         var offset = 0
         if ($(item).css('position') !== 'relative') {
@@ -604,8 +606,16 @@
           $(item).css('opacity', 1)
         }
       })
-    })
+    }
 
+    $w.scroll(fixedCalendarHeader);
+    $w.load(function(){
+      $w.scrollTop(250);
+      $('.as-calendar').scrollLeft(0);
+      $('.as-calendar').scroll(handleScroll);
+    });
+
+  
     // @see resources/varaa/co/scripts/main.coffee
     $doc.on('click', 'a.js-showHistory', function (e) {
       e.preventDefault()

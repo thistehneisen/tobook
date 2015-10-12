@@ -4,36 +4,36 @@
         <h1>{{{ $business->name }}}</h1>
         <address>{{{ $business->full_address }}}</address>
         <div class="description" id="business-description">
-            <p>{{ $business->description_html }}</p>
+            {{ $business->description_html }}
             <a href="#" style="display:none" class="readmore">...</a>
         </div>
     @if (!$business->is_booking_disabled)
         <h3 class="sub-heading">@lang('as.embed.cp.heading')</h3>
         <div id="js-cp-booking-form">@lang('as.embed.loading')</div>
     @endif
-
-    @if ($business->images->isEmpty() === false)
-        <!-- Slider main container -->
-        <div class="slideshow swiper-container" id="js-swiper-{{ $business->user_id }}">
-            <!-- Additional required wrapper -->
-            <div class="swiper-wrapper">
-                <!-- Slides -->
-            @foreach ($business->images as $image)
-                <div class="swiper-slide text-center">
-                    <img style="max-width: 100%;" src="{{ $image->getPublicUrl() }}" alt="">
-                </div>
-            @endforeach
-            </div>
-        </div>
-    @else
-        <div class="slideshow">
-            <p class="text-center"><img src="{{ $business->image }}" alt="{{{ $business->name }}}"></p>
-        </div>
-    @endif
     </div>
 
     {{-- right sidebar --}}
     <div class="col-sm-4 col-md-4">
+        @if ($business->images->isEmpty() === false)
+            <!-- Slider main container -->
+            <div class="slideshow swiper-container" id="js-swiper-{{ $business->user_id }}">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                @foreach ($business->images as $image)
+                    <div class="swiper-slide text-center">
+                        <img style="max-width: 100%;" src="{{ $image->getPublicUrl() }}" alt="">
+                    </div>
+                @endforeach
+                </div>
+            </div>
+        @else
+            <div class="slideshow">
+                <p class="text-center"><img src="{{ $business->image }}" alt="{{{ $business->name }}}"></p>
+            </div>
+        @endif
+        <!--End slider-->
         <h3 class="sub-heading">{{ trans('home.business.map') }}</h3>
         <div data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}" id="js-map-{{ $business->user_id }}" class="small-map"></div>
 

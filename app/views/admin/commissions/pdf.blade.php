@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Commission Report</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style type="text/css">
+    * {
+        font-family: 'DejaVu Serif';
+        font-size: 14px;
+    }
+    </style>
+</head>
+<body>
 <center>
     <h1>{{ $user->business->name }}</h1>
     <p>{{ Str::upper(trans(strtolower('common.' . $current->format('F')))); }} {{ $current->format('Y') }} </p>
@@ -43,3 +57,5 @@
         'newConsumerCommission' => $newConsumerCommission
     ])
 @endif
+</body>
+</html>

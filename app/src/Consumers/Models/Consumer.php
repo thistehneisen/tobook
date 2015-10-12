@@ -132,11 +132,13 @@ class Consumer extends \App\Core\Models\Base
         if ($consumer === null) {
             $consumer = $draft;
         } else {
-        // otherwise, remove the draft for good
+            // otherwise, remove the draft for good
             $draft->forceDelete();
             //consumer is_new default is true
-            $consumer->is_new = false;
-            $consumer->save();
+            $consumer->is_new  = false;
+            $consumer->email   = trim($data['email']);
+            $consumer->address = trim($data['address']);
+            $consumer->saveOrFail();
         }
 
         try {

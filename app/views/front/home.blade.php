@@ -95,7 +95,7 @@
             @if ($category->treatments->isEmpty() === false)
             <div class="col-sm-2 col-md-2">
                 <p><img src="{{ $category->icon_url }}" alt=""></p>
-                <h4 class="heading">{{{ $category->name }}}</h4>
+                <h4 class="heading"><a href="{{ $category->url }}">{{{ $category->name }}}</a></h4>
                 <ul class="list-categories">
                 @foreach ($category->treatments as $treatment)
                     <li><a href="{{ $treatment->url }}">{{{ $treatment->name }}}</a></li>

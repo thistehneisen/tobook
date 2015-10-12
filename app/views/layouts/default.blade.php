@@ -2,6 +2,7 @@
 <html lang="{{ App::getLocale() }}">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -81,7 +82,15 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     {{-- Language switcher --}}
                     <li>
                         <select id="js-language-switcher" class="form-control">
-                            @foreach (Config::get('varaa.languages') as $locale)
+                            <?php 
+                                $languages = Config::get('varaa.languages');
+                                if (is_tobook()) {
+                                    $languages = array_filter($languages, function($e){
+                                        return ($e !== 'en');
+                                    });
+                                }        
+                            ?>
+                            @foreach ($languages as $locale)
                             <option value="{{ UrlHelper::localizeCurrentUrl($locale) }}" {{ Config::get('app.locale') === $locale ? 'selected' : '' }}>{{ strtoupper($locale) }}</option>
                             @endforeach
                         </select>
