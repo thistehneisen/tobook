@@ -542,7 +542,7 @@
         colHeaderTop = $('.as-col-header').offset().top
       }
     }
-
+    
     fixedCalendarHeader = function () {
       if ($('.as-col-header').length === 0) {
         return
