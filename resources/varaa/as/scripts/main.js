@@ -541,7 +541,7 @@
         colHeaderTop = $('.as-col-header').offset().top
       }
     }
-
+    
     fixedCalendarHeader = function () {
       if ($('.as-col-header').length === 0) {
         return
@@ -584,6 +584,18 @@
     }
 
     $w.scroll(fixedCalendarHeader)
+    $w.load(function(){
+        $('.as-col-header').each(function () {
+          var $this = $(this)
+          $this.css({
+            position: 'fixed',
+            width: $this.parent('ul').width(),
+            top: $this.parent('ul').top
+          })
+        })
+
+        $('#as-left-col-header').css('width', $('.as-col-left-header').first().width())
+    });
 
     $('.as-calendar').scroll(function () {
       scrolledLeft = true
