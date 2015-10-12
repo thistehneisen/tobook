@@ -44,20 +44,22 @@ class FixWorkshiftDuplicates extends Command {
 			->orderBy('employee_id')->orderBy('created_at', 'desc')->get();
 
 		foreach ($customTimes as $customTime) {
-			$duplicates[$customTime->employee_id][] =  $customTime;
+			$duplicates[$customTime->employee_id][$customTime->date][] =  $customTime;
 		}
 
 		foreach ($duplicates as $dupes) {
-			if(count($dupes) < 2) {
-				continue;
-			}
-			//Keep biggest id element
-			array_pop($dupes);
-			$first = current($dupes);
-			printf("\nRemove duplicate workshift for employee: %d\n", $first->employee_id);
-			foreach ($dupes as $dupe) {
-				print(".");
-				$dupe->delete();
+			foreach ($dupes as $date) {
+				if(count($date) < 2) {
+					continue;
+				}
+				//Keep biggest id element
+				array_pop($date);
+				$first = current($date);
+				printf("\nRemove duplicate workshift for employee: %d\n", $first->employee_id);
+				foreach ($date as $custom) {
+					print(".");
+					$custom->delete();
+				}			
 			}
 		}
 	}
