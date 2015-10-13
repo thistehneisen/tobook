@@ -593,15 +593,17 @@
       }
       $('.as-col-header').each(function (key, item) {
         var $this = $(this)
+
         $this.css({
           position: 'fixed',
           width: $this.parent('ul').width(),
-          top: function() {
-            if($w.scrollTop() > colHeaderTop) {
-              return 0;
-            } else {
-              return $this.parent('ul').top;
+          top: function(){
+            var parentTop = 0
+            // Adjust the column header height to match the rest cells
+            if($w.scrollTop() < colHeaderTop) {
+              parentTop = colHeaderTop - $w.scrollTop()
             }
+            return parentTop
           }
         })
 
