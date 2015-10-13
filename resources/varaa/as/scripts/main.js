@@ -612,6 +612,9 @@
         var offset = 0
         if ($(item).css('position') !== 'relative') {
           offset = parseInt(originalOffset[key], 10) - parseInt($('.as-calendar').scrollLeft(), 10)
+          if (parseInt(key, 10) > 0) {
+            offset += 1
+          }
         } else {
           offset = originalOffset[key]
         }
