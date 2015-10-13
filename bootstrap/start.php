@@ -29,7 +29,7 @@ $env = $app->detectEnvironment(function () {
             return 'acceptance';
         } else {
             // defaults to 'local' env
-            return 'tobook';
+            return 'local';
         }
     }
 });

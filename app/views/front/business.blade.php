@@ -18,6 +18,14 @@
     @if(Settings::get('default_layout') === 'layout-3')
     {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
     @endif
+    <style type="text/css">
+    .slideshow {
+        max-height: 300px;
+    }
+    .swiper-slide {
+        max-height: 300px;
+    }
+    </style>
 @stop
 
 @section('scripts')
@@ -170,6 +178,10 @@ $(function () {
 
 @section('content')
 <div class="container search-results" id="js-search-results">
-    @include (sprintf('front.el.%s.business', Settings::get('default_layout')))
+    @if (is_tobook())
+        @include (sprintf('front.el.%s.tobook-business', Settings::get('default_layout')))
+    @else
+        @include (sprintf('front.el.%s.business', Settings::get('default_layout')))
+    @endif
 </div>
 @stop
