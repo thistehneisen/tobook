@@ -630,7 +630,7 @@
 
     $w.scroll(fixedCalendarHeader);
     $w.load(function(){
-      $w.scrollTop(250);
+      $w.scrollTop(5);
       $('.as-calendar').scrollLeft(0);
       $('.as-calendar').scroll(handleScroll);
     });
