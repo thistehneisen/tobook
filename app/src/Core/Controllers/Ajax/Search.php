@@ -98,7 +98,11 @@ class Search extends Base
         ], $layout);
 
         if (Request::ajax()) {
-            return View::make(sprintf('front.el.%s.business', Settings::get('default_layout')), $data);
+            $view = sprintf('front.el.%s.business', Settings::get('default_layout'));
+            if (is_tobook()){
+                $view = sprintf('front.el.%s.tobook-business', Settings::get('default_layout'));
+            }
+            return View::make($view, $data);
         }
 
         Input::merge(array('l' => '3', 'hash' => $user->hash));
