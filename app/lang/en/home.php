@@ -141,6 +141,7 @@ return [
         'phone'          => 'Phone',
         'email'          => 'Email',
         'online_booking' => 'Online booking',
+        'payment_methods'=> 'Payment methods',
         'request'        => [
             'link'    => 'Ask for online booking',
             'info'    => 'The shop owner will be asked to use our online booking system.',

@@ -7,6 +7,7 @@ class Checkbox extends Base
         if (empty($this->values)) {
             throw new \InvalidArgumentException('You must provide `values` to use Checkbox');
         }
+        
         $params = [
             'name'    => $this->name,
             'values'  => $this->values,
