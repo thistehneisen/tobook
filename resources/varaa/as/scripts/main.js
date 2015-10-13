@@ -592,6 +592,21 @@
         })
       }
       $('.as-col-header').each(function (key, item) {
+        var $this = $(this)
+        $this.css({
+          position: 'fixed',
+          width: $this.parent('ul').width(),
+          top: function() {
+            if($w.scrollTop() > colHeaderTop) {
+              return 0;
+            } else {
+              return $this.parent('ul').top;
+            }
+          }
+        })
+
+        $('#as-left-col-header').css('width', $('.as-col-left-header').first().width())
+
         var offset = 0
         if ($(item).css('position') !== 'relative') {
           offset = parseInt(originalOffset[key], 10) - parseInt($('.as-calendar').scrollLeft(), 10)
