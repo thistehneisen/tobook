@@ -301,6 +301,22 @@ return [
             'confirm_service' => 'Apstiprināt rezervāciju',
             'heading_line'    => 'Rezervēt laiku',
         ]
+        'cp' => [
+            'heading' => 'Rezervējiet tiešsaistē',
+            'select' => 'Atlasīt',
+            'sg_service' => 'Pakalpojums',
+            'pl_service' => 'Pakalpojumi',
+            'employee' => 'Darbinieks',
+            'time' => 'Laiks',
+            'salon' => 'Salons',
+            'price' => 'Cena',
+            'service' => 'Pakalpojums',
+            'details' => 'Rezervācijas informācija',
+            'go_back' => 'Atgriezties',
+            'how_to_pay' => 'Kā jūs vēlaties maksāt?',
+            'almost_done' => 'Jūsu rezervācija ir gandrīz izdarīts',
+            'first_employee' => 'Pirmais darbinieks pieejams',
+        ],
     ],
      'options' => [
         'heading'                    => 'Iestatījumi',

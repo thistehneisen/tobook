@@ -136,9 +136,11 @@ return [
         'about'          => 'Par uzņēmumu',
         'openning_hours' => 'Darba laiks',
         'map'            => 'Karte',
+        'address'        => 'Adrese',
         'phone'          => 'Telefons',
         'email'          => 'E-pasts',
         'online_booking' => 'Online rezervācija',
+        'payment_methods'=> 'Maksājumu metodes',
         'request'        => [
             'link'    => 'Jautāt tiešsaistes rezervācijas',
             'info'    => 'Veikala īpašnieks tiks lūgts, lai izmantotu mūsu tiešsaistes rezervācijas sistēmu.',
