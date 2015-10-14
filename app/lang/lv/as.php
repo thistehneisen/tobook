@@ -316,7 +316,7 @@ return [
             'how_to_pay' => 'Kā jūs vēlaties maksāt?',
             'almost_done' => 'Jūsu rezervācija ir gandrīz izdarīts',
             'first_employee' => 'Pirmais darbinieks pieejams',
-        ],
+        ]
     ],
      'options' => [
         'heading'                    => 'Iestatījumi',
