@@ -50,9 +50,15 @@ def check_branch(instance=''):
     else:
         print(red("Instance not found!"))
 
-def _deploy(environment, host):
+def _deploy(environment, host, build_env):
     with settings(host_string=host):
         with cd('/srv/varaa/src'):
+            if build_env == '':
+                build_env = environment
+            
+            # write environment variable to file
+            run("echo '<?php return \"" + build_env + "\";' > bootstrap/environment.php")
+
             # set it to maintenance mode
             run('php artisan down')
             # pull latest source
@@ -69,9 +75,9 @@ def _deploy(environment, host):
             # install dependencies
             run('composer install')
             run('npm install')
-            run('ENV={} npm run build'.format(environment))
+            run('ENV={} npm run build'.format(build_env))
             # run migration
-            run('php artisan migrate --env={}'.format(environment))
+            run('php artisan migrate --env={}'.format(build_env))
             # run seeder
             run('php artisan db:seed')
             # chmod storage again
@@ -97,7 +103,7 @@ def _deploy(environment, host):
             # set it to live mode again
             run('php artisan up')
             # notify everyone for fun
-            run('php artisan varaa:deployed {} {}'.format(environment, branch))
+            run('php artisan varaa:deployed {} {} {}'.format(environment, branch, build_env))
             # remove all temporary css files
             run('rm *.css')
             # run CI
@@ -105,9 +111,9 @@ def _deploy(environment, host):
             write_deploy_log(environment)
 
 @task
-def deploy(instance=''):
+def deploy(instance='', build_env=''):
     if instance in instance_dict:
-        _deploy(instance, instance_dict[instance])
+        _deploy(instance, instance_dict[instance], build_env)
     elif instance == 'all':
         for inst in instance_dict:
             _deploy(inst, instance_dict[inst])

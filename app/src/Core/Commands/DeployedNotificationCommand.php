@@ -29,6 +29,7 @@ class DeployedNotificationCommand extends Command
     {
         $instance = $this->argument('instance');
         $branch = $this->argument('branch');
+        $build_env = $this->argument('build_env');
 
         $emoji = [
             ':shipit:',
@@ -140,7 +141,7 @@ class DeployedNotificationCommand extends Command
             ':trollface:',
         ];
 
-        Slack::send("Server `$instance` has been deployed at branch `$branch` ".$emoji[array_rand($emoji)]);
+        Slack::send("Server `$instance` has been deployed at branch `$branch` (build environment = `$build_env`)".$emoji[array_rand($emoji)]);
     }
 
     /**
