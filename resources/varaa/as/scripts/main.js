@@ -629,6 +629,29 @@
     }
 
     $w.scroll(fixedCalendarHeader);
+    
+    $w.resize(function(){
+      if ($('.as-col-header').length) {
+        colHeaderTop = $('.as-col-header').offset().top
+        if(scrollLeft){
+          $('.as-col-header').each(function (key, item) {
+            var $this = $(this)
+            $this.css({
+              position: 'fixed',
+              width: $this.parent('ul').width(),
+              top: function(){
+                var parentTop = 0
+                // Adjust the column header height to match the rest cells
+                if($w.scrollTop() < colHeaderTop) {
+                  parentTop = colHeaderTop - $w.scrollTop()
+                }
+                return parentTop
+              }
+            });
+        }
+      }
+    });
+
     $w.load(function(){
       $w.scrollTop(5);
       $('.as-calendar').scrollLeft(0);
