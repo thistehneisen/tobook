@@ -385,7 +385,8 @@ app.VaraaCPLayout = (dom, hash) ->
               form.appendChild addInput k, v
           else
             form.appendChild addInput key, value.id
-
+      addInput 'terms', true
+      
       # Firefox require the form to be attached to DOM tree in order to submit
       document.body.appendChild form
       # Submit it
