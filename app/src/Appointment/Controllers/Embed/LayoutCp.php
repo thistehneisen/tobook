@@ -221,7 +221,7 @@ class LayoutCp extends Base
 
         $result['disabled_payment'] = false;
         $result['force_pay_at_venue'] = (bool) Settings::get('force_pay_at_venue');
-        $result['url'] = route('as.bookings.frontend.add');
+        $result['url'] = route('business.booking.pay_at_venue');
         return Response::json($result);
     }
 
