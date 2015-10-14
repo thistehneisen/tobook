@@ -159,15 +159,19 @@ $(function () {
             $("#business-description").html(content);
         } else {
             $('div.description').html(originalContent);
-            $('a.readmore').show();
         }
-        $('a.readmore').unbind('click');
+        $('a.readmore').remove();
+        $('div.description > p').last().append(" ");
+        var showmore = $('<a/>', { class: 'readmore', href: '#business-description'}).appendTo($('div.description > p').last());
+        $('<i/>', { class : 'fa fa-caret-up'}).appendTo(showmore);
         $('a.readmore').on('click', showLess);
     }
 
     var showLess = function() {
         truncateDescription();
-        $('a.readmore').unbind('click');
+        $('a.readmore').remove();
+        var showmore = $('<a/>', { class: 'readmore', href: '#business-description'}).appendTo($('div.description'));
+        $('<i/>', { class : 'fa fa-caret-down'}).appendTo(showmore);
         $('a.readmore').on('click', showMore);
     }
 
