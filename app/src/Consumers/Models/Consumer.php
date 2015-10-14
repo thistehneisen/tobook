@@ -137,7 +137,7 @@ class Consumer extends \App\Core\Models\Base
             //consumer is_new default is true
             $consumer->is_new  = false;
             $consumer->email   = trim($data['email']);
-            if (!empty(trim($data['address']))) {
+            if (!empty($data['address'])) {
                 $consumer->address = trim($data['address']);
             }
             $consumer->saveOrFail();
