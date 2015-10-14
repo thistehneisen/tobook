@@ -151,7 +151,8 @@ $(function () {
         }
        
     }
-    var showMore = function() {
+    var showMore = function(event) {
+        event.preventDefault();
         var rows = countRows();
         if (ps == 1) {
             var content = $("#business-description").triggerHandler("originalContent");
@@ -167,7 +168,8 @@ $(function () {
         $('a.readmore').on('click', showLess);
     }
 
-    var showLess = function() {
+    var showLess = function(event) {
+        event.preventDefault();
         truncateDescription();
         $('a.readmore').remove();
         var showmore = $('<a/>', { class: 'readmore', href: '#business-description'}).appendTo($('div.description'));
@@ -175,9 +177,7 @@ $(function () {
         $('a.readmore').on('click', showMore);
     }
 
-    $('a.readmore').on('click', function(e){
-        showMore();
-    });
+    $('a.readmore').on('click', showMore);
 
     $(document).ready(function(){
         truncateDescription();
