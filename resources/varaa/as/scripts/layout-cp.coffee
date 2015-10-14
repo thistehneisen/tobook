@@ -377,7 +377,14 @@ app.VaraaCPLayout = (dom, hash) ->
       form.action = action
 
       for key, value of inputs
-        form.appendChild addInput key, value
+        if key not in ['customer', 'business', 'serviceTime', 'service', 'employee']
+          form.appendChild addInput key, value
+        else
+          if key == 'customer'
+            for k, v of value
+              form.appendChild addInput k, v
+          else
+            form.appendChild addInput key, value.id
 
       # Firefox require the form to be attached to DOM tree in order to submit
       document.body.appendChild form
