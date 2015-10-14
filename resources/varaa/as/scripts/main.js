@@ -631,9 +631,18 @@
     $w.scroll(fixedCalendarHeader);
     
     $w.resize(function(){
-      $w.scrollTop(5);
-      $('.as-calendar').scrollLeft(0);
-      $('.as-col-header').removeAttr('style');
+      if($('.as-col-header').length){
+        $w.scrollTop(5);
+        $('.as-calendar').scrollLeft(0);
+        $('.as-col-header').removeAttr('style');
+        colHeaderTop = $('.as-col').offset().top;
+        originalOffset = [];
+        $('.as-col-header').each(function (key, item) {
+            originalOffset.push($(item).offset().left);
+        })
+        $w.scrollTop(5);
+        $('.as-calendar').scrollLeft(0);
+      }
     });
 
     $w.load(function(){
