@@ -190,7 +190,7 @@ class FrontBookings extends Bookings
             $data['success'] = true;
             $data['message'] = $messages;
 
-            if (Input::get('l') === '3' && ($source === 'inhouse' || $source === 'cp')) {
+            if ((Input::get('l') === '3' && $source === 'inhouse') || $source === 'cp') {
                 if ((bool) Settings::get('force_pay_at_venue')) {
                     $cart->completePayAtVenue();
                     $data['checkout_url'] = route('payment.success', ['id' => $cart->id]);

@@ -11,6 +11,7 @@ use CheckoutFinland\Client;
 use CheckoutFinland\Payment;
 use Config;
 use Input;
+use Settings;
 use Redirect;
 use Response;
 use WebToPay;
@@ -219,6 +220,8 @@ class LayoutCp extends Base
         ];
 
         $result['disabled_payment'] = false;
+        $result['force_pay_at_venue'] = (bool) Settings::get('force_pay_at_venue');
+        $result['url'] = route('as.bookings.frontend.add');
         return Response::json($result);
     }
 
