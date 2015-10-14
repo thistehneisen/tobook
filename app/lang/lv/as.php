@@ -300,7 +300,7 @@ return [
             'payment_note'    => 'Apstiprinot rezervāciju, atvērsies lapa, kurā veikt apmaksu.',
             'confirm_service' => 'Apstiprināt rezervāciju',
             'heading_line'    => 'Rezervēt laiku',
-        ]
+        ],
         'cp' => [
             'heading' => 'Rezervējiet tiešsaistē',
             'select' => 'Atlasīt',
