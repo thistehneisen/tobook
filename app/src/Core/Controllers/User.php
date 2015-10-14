@@ -62,6 +62,12 @@ class User extends Base
                     'size'             => ['type' => false],
                     'note'             => ['type' => false],
                     'payment_options'  => ['type' => false],
+                    'payment_methods'  => ['type' => 'checkbox', 'values' => [
+                            'cash'        => trans('user.business.cash'), 
+                            'credit_card' => trans('user.business.credit_card'),
+                            'online'      => trans('user.business.online'),
+                        ], 'hidden' => !is_tobook()
+                    ],
                     'disabled_payment' => ['type' => false],
                     'deposit_rate'     => ['type' => false],
                     'bank_account'     => ['type' => 'text', 'hidden' => !$isAdmin],

@@ -3,18 +3,7 @@
     <div class="col-sm-8 col-md-8">
         <h1>{{{ $business->name }}}</h1>
         <address>{{{ $business->full_address }}}</address>
-        <div class="description" id="business-description">
-            {{ $business->description_html }}
-            <a href="#business-description" style="display:none" class="readmore">...</a>
-        </div>
-    @if (!$business->is_booking_disabled)
-        <h3 class="sub-heading">@lang('as.embed.cp.heading')</h3>
-        <div id="js-cp-booking-form">@lang('as.embed.loading')</div>
-    @endif
-    </div>
-
-    {{-- right sidebar --}}
-    <div class="col-sm-4 col-md-4">
+        {{-- Slider  --}}
         @if ($business->images->isEmpty() === false)
             <!-- Slider main container -->
             <div class="slideshow swiper-container" id="js-swiper-{{ $business->user_id }}">
@@ -33,6 +22,19 @@
                 <p class="text-center"><img src="{{ $business->image }}" alt="{{{ $business->name }}}"></p>
             </div>
         @endif
+        {{-- End slider  --}}
+        <div class="description" id="business-description">
+            {{ $business->description_html }}
+            <a href="#business-description" style="display:none" class="readmore"><i class="fa fa-caret-down"></i></a>
+        </div>
+    @if (!$business->is_booking_disabled)
+        <h3 class="sub-heading">@lang('as.embed.cp.heading')</h3>
+        <div id="js-cp-booking-form">@lang('as.embed.loading')</div>
+    @endif
+    </div>
+
+    {{-- right sidebar --}}
+    <div class="col-sm-4 col-md-4">
         <!--End slider-->
         <h3 class="sub-heading">{{ trans('home.business.map') }}</h3>
         <div data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}" id="js-map-{{ $business->user_id }}" class="small-map"></div>
@@ -72,6 +74,15 @@
 
                 <p><strong>{{ trans('home.business.address') }}</strong></p>
                 <p>{{{ $business->full_address }}}</p>
+
+                <p><strong>{{ trans('home.business.payment_methods') }}</strong></p>
+                <p>
+                    <ul>
+                    @foreach($business->paymentMethods as $method)
+                        <li>{{  trans('user.business.' . $method) }}</li>
+                    @endforeach
+                    </ul>
+                </p>
             </div>
         </div>
     </div>

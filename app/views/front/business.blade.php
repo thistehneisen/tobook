@@ -18,6 +18,14 @@
     @if(Settings::get('default_layout') === 'layout-3')
     {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
     @endif
+    <style type="text/css">
+    .slideshow {
+        max-height: 300px;
+    }
+    .swiper-slide {
+        max-height: 300px;
+    }
+    </style>
 @stop
 
 @section('scripts')
@@ -105,7 +113,6 @@ $(function () {
         isAutoSelectEmployee: false
     });
     @endif
-    
     var countPs = function (element) {
       var cnt = 0;
       $(element).children().each(function(){
@@ -144,19 +151,33 @@ $(function () {
         }
        
     }
-
-    $('a.readmore').on('click', function(e){
-        e.preventDefault();
+    var showMore = function(event) {
+        event.preventDefault();
         var rows = countRows();
         if (ps == 1) {
             var content = $("#business-description").triggerHandler("originalContent");
             $("#business-description").trigger("destroy");
             $("#business-description").html(content);
-            $('a.readmore').hide();
         } else {
             $('div.description').html(originalContent);
         }
-    });
+        $('a.readmore').remove();
+        $('div.description > p').last().append(" ");
+        var showmore = $('<a/>', { class: 'readmore', href: '#business-description'}).appendTo($('div.description > p').last());
+        $('<i/>', { class : 'fa fa-caret-up'}).appendTo(showmore);
+        $('a.readmore').on('click', showLess);
+    }
+
+    var showLess = function(event) {
+        event.preventDefault();
+        truncateDescription();
+        $('a.readmore').remove();
+        var showmore = $('<a/>', { class: 'readmore', href: '#business-description'}).appendTo($('div.description'));
+        $('<i/>', { class : 'fa fa-caret-down'}).appendTo(showmore);
+        $('a.readmore').on('click', showMore);
+    }
+
+    $('a.readmore').on('click', showMore);
 
     $(document).ready(function(){
         truncateDescription();
@@ -170,6 +191,10 @@ $(function () {
 
 @section('content')
 <div class="container search-results" id="js-search-results">
-    @include (sprintf('front.el.%s.business', Settings::get('default_layout')))
+    @if (is_tobook())
+        @include (sprintf('front.el.%s.tobook-business', Settings::get('default_layout')))
+    @else
+        @include (sprintf('front.el.%s.business', Settings::get('default_layout')))
+    @endif
 </div>
 @stop

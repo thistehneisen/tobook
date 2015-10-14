@@ -64,6 +64,10 @@ return [
         'bank_account'        => 'Bank account',
         'is_hidden'           => 'Is hidden business?',
         'preview'             => 'Preview your page',
+        'payment_methods'     => 'Payment methods',
+        'credit_card'         => 'Credit card',
+        'cash'                => 'Cash',
+        'online'              => 'Online payment',
         'is_booking_disabled' => 'Disable booking widget?', // @todo
         'sizes'               => [
             '1',
