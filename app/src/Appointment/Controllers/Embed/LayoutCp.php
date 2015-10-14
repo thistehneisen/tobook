@@ -310,6 +310,11 @@ class LayoutCp extends Base
     public function getWebToPayOptions()
     {
         // $language = App::getLocale() ?: 'en';
+
+        $transaction = $this->getTransaction();
+        $transaction->paygate = \Payment::PAYSERA;
+        $transaction->save();
+
         $language = 'lt';
         $amount = Input::get('amount', 10.00);
         $options = WebToPay::getPaymentMethodList(Config::get('services.paysera.id'), 'EUR')
@@ -326,7 +331,12 @@ class LayoutCp extends Base
                 ];
             }
         }
-        return $methods;
+        
+        return [
+            'cart_id' => $transaction->cart !== null ? $transaction->cart->id : null,
+            'transaction' => $transaction->id,
+            'payment_methods' => $methods,
+        ];
     }
 
     public function payAtVenue()
