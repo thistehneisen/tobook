@@ -67,6 +67,7 @@ return [
         'payment_methods'     => 'Payment methods',
         'credit_card'         => 'Credit card',
         'cash'                => 'Cash',
+        'online'              => 'Online payment',
         'is_booking_disabled' => 'Disable booking widget?', // @todo
         'sizes'               => [
             '1',

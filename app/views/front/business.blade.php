@@ -113,7 +113,6 @@ $(function () {
         isAutoSelectEmployee: false
     });
     @endif
-    
     var countPs = function (element) {
       var cnt = 0;
       $(element).children().each(function(){
@@ -152,18 +151,28 @@ $(function () {
         }
        
     }
-
-    $('a.readmore').on('click', function(e){
-        e.preventDefault();
+    var showMore = function() {
         var rows = countRows();
         if (ps == 1) {
             var content = $("#business-description").triggerHandler("originalContent");
             $("#business-description").trigger("destroy");
             $("#business-description").html(content);
-            $('a.readmore').hide();
         } else {
             $('div.description').html(originalContent);
+            $('a.readmore').show();
         }
+        $('a.readmore').unbind('click');
+        $('a.readmore').on('click', showLess);
+    }
+
+    var showLess = function() {
+        truncateDescription();
+        $('a.readmore').unbind('click');
+        $('a.readmore').on('click', showMore);
+    }
+
+    $('a.readmore').on('click', function(e){
+        showMore();
     });
 
     $(document).ready(function(){
