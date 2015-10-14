@@ -318,6 +318,7 @@ app.VaraaCPLayout = (dom, hash) ->
       @layout.setCustomerInfo field, el.value
 
     @isDisabledPayment = m.prop false
+    @isForcePayAtVenue = m.prop false
     # This URL will be submitted to if payment was disabled
     @payAtVenueUrl = m.prop null
     @paymentOptions = m.prop []
@@ -333,8 +334,8 @@ app.VaraaCPLayout = (dom, hash) ->
       .then (data) =>
         # Should we disable payment options?
         @isDisabledPayment data.disabled_payment
-
-        if data.disabled_payment is true
+        @isForcePayAtVenue data.force_pay_at_venue
+        if data.disabled_payment is true or data.force_pay_at_venue is true
           @payAtVenueUrl data.url
         else
           @paymentOptions data.payment_methods
@@ -376,7 +377,7 @@ app.VaraaCPLayout = (dom, hash) ->
       form.action = action
 
       for key, value of inputs
-        form.appendChild addInput key, value
+          form.appendChild addInput key, value
 
       # Firefox require the form to be attached to DOM tree in order to submit
       document.body.appendChild form
@@ -423,7 +424,7 @@ app.VaraaCPLayout = (dom, hash) ->
     # --------------------------------------------------------------------------
     @shouldOpenModal = (e) ->
       return false if e.target.disabled is true
-      if @isDisabledPayment() is false
+      if @isDisabledPayment() is false and @isForcePayAtVenue() is false
         $('#js-cbf-payment-modal').modal('show')
         return
 
