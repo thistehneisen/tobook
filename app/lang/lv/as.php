@@ -300,7 +300,7 @@ return [
             'payment_note'    => 'Apstiprinot rezervāciju, atvērsies lapa, kurā veikt apmaksu.',
             'confirm_service' => 'Apstiprināt rezervāciju',
             'heading_line'    => 'Rezervēt laiku',
-        ]
+        ],
         'cp' => [
             'heading' => 'Rezervējiet tiešsaistē',
             'select' => 'Atlasīt',
@@ -316,7 +316,7 @@ return [
             'how_to_pay' => 'Kā jūs vēlaties maksāt?',
             'almost_done' => 'Jūsu rezervācija ir gandrīz izdarīts',
             'first_employee' => 'Pirmais darbinieks pieejams',
-        ],
+        ]
     ],
      'options' => [
         'heading'                    => 'Iestatījumi',
