@@ -87,3 +87,4 @@
         </div>
     </div>
 </div>
+@include ('front.el.layout-cp.truncateScript')
