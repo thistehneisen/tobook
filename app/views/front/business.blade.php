@@ -105,7 +105,7 @@ $(function () {
     });
 
     @if(Settings::get('default_layout') === 'layout-cp')
-    app.VaraaCPLayout(document.getElementById('js-cp-booking-form'), '{{ $business->user->hash }}')
+    app.VaraaCPLayout(document.getElementById('js-cp-booking-form'), '{{ $business->user->hash }}');
     @endif
 
     @if(Settings::get('default_layout') === 'layout-3')
@@ -113,6 +113,7 @@ $(function () {
         isAutoSelectEmployee: false
     });
     @endif
+})
     </script>
     @include ('front.el.layout-cp.truncateScript')
 @stop

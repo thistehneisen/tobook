@@ -76,4 +76,6 @@
         </div>
     </div>
 </div>
+@if (!empty($ajax) && $ajax)
 @include ('front.el.layout-cp.truncateScript')
+@endif
