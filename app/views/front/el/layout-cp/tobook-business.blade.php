@@ -75,6 +75,7 @@
                 <p><strong>{{ trans('home.business.address') }}</strong></p>
                 <p>{{{ $business->full_address }}}</p>
 
+                @if (!empty($business->paymentMethods))
                 <p><strong>{{ trans('home.business.payment_methods') }}</strong></p>
                 <p>
                     <ul>
@@ -83,6 +84,7 @@
                     @endforeach
                     </ul>
                 </p>
+                @endif
             </div>
         </div>
     </div>

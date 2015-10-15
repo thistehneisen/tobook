@@ -8,6 +8,8 @@ class Checkbox extends Base
             throw new \InvalidArgumentException('You must provide `values` to use Checkbox');
         }
         
+        $this->default = (!is_string($this->default)) ? $this->default : [];
+
         $params = [
             'name'    => $this->name,
             'values'  => $this->values,
