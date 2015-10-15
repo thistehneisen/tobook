@@ -52,7 +52,7 @@ return [
         'size'             => 'Размер бизнеса',
         'phone'            => 'Телефон',
         'address'          => 'Адрес',
-        'district'         => 'District', // @todo
+        'district'         => 'район',
         'city'             => 'Город',
         'postcode'         => 'Почтовый код',
         'country'          => 'Страна',
@@ -62,7 +62,11 @@ return [
         'meta_keywords'    => 'Мета-ключевые слова',
         'bank_account'     => 'Банковский счет',
         'is_hidden'        => 'Скрытое предприятие?',
-        'preview'          => 'Preview your page', // @todo
+        'preview'             => 'предварительный просмотр',
+        'payment_methods'     => 'Способы оплаты',
+        'credit_card'         => 'Кредитная карта',
+        'cash'                => 'Денежные средства',
+        'online'              => 'онлайн оплата',
         'is_booking_disabled' => 'Disable booking widget?', // @todo
         'sizes'            => [
             '1',
