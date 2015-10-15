@@ -23,6 +23,7 @@ $(function () {
         if (ps > 1) {
             var firstP = $("p", $('div.description')).first().text();
             $('div.description').find("p").remove();
+            $('div.description').find("ul").remove();
             $('div.description').prepend(firstP);
             $('a.readmore').show();
         }
