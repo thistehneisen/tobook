@@ -15,6 +15,7 @@ use Settings;
 use Redirect;
 use Response;
 use WebToPay;
+use Log;
 
 class LayoutCp extends Base
 {
@@ -170,6 +171,12 @@ class LayoutCp extends Base
         $dateStr = str_date($date);
 
         foreach ($timetable as $time => $employee) {
+            
+            $timeslot = Carbon::createFromFormat("d.m.Y H:i", sprintf("%s %s", $dateStr, $time));
+            if ($timeslot->lt($start)) {
+                continue;
+            }
+
             $calendar[] = [
                 'time' => $time,
                 'date' => $dateStr,
