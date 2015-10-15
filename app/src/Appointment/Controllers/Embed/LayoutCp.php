@@ -172,6 +172,7 @@ class LayoutCp extends Base
 
         foreach ($timetable as $time => $employee) {
             
+            // Filter out time slot < min disntance (in hours)
             $timeslot = Carbon::createFromFormat("d.m.Y H:i", sprintf("%s %s", $dateStr, $time));
             if ($timeslot->lt($start)) {
                 continue;
