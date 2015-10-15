@@ -102,6 +102,7 @@ class Search extends Base
             if (is_tobook()){
                 $view = sprintf('front.el.%s.tobook-business', Settings::get('default_layout'));
             }
+            $data['ajax'] = true;
             return View::make($view, $data);
         }
 

@@ -5,7 +5,7 @@
         <address>{{{ $business->full_address }}}</address>
         <div class="description" id="business-description">
             {{ $business->description_html }}
-            <a href="#business-description" style="display:none" class="readmore">...</a>
+            <a href="#business-description" style="display:none" class="readmore"><i class="fa fa-caret-down"></i></a>
         </div>
     @if (!$business->is_booking_disabled)
         <h3 class="sub-heading">@lang('as.embed.cp.heading')</h3>
@@ -76,3 +76,6 @@
         </div>
     </div>
 </div>
+@if (!empty($ajax) && $ajax)
+@include ('front.el.layout-cp.truncateScript')
+@endif
