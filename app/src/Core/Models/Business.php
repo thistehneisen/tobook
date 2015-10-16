@@ -30,6 +30,7 @@ class Business extends Base
         'postcode',
         'country',
         'is_booking_disabled',
+        'payment_methods',
         'lat',
         'lng',
         'bank_account',
@@ -293,6 +294,7 @@ class Business extends Base
             'is_booking_disabled' => array_get($input, 'is_booking_disabled', true),
             'note'                => array_get($input, 'note', ''),
             'is_hidden'           => array_get($input, 'is_hidden', false),
+            'payment_methods'     => array_get($input, 'payment_methods', ''),
         ]);
         $this->user()->associate($user);
         $this->saveOrFail();
@@ -431,9 +433,23 @@ class Business extends Base
         return $opts ? json_decode($opts, true) : $default;
     }
 
+    public function getPaymentMethodsAttribute()
+    {
+        $opts = array_get($this->attributes, 'payment_methods');
+
+        $default = [];
+
+        return $opts ? json_decode($opts, true) : $default;
+    }
+
     public function setPaymentOptionsAttribute($value)
     {
         $this->attributes['payment_options'] = json_encode($value);
+    }
+
+    public function setPaymentMethodsAttribute($value)
+    {
+        $this->attributes['payment_methods'] = json_encode($value);
     }
 
     public function getWorkingHoursArrayAttribute()

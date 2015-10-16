@@ -19,6 +19,14 @@
     {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
     @endif
     {{ HTML::style(asset('packages/jquery.raty/jquery.raty.css')) }}
+    <style type="text/css">
+    .slideshow {
+        max-height: 300px;
+    }
+    .swiper-slide {
+        max-height: 300px;
+    }
+    </style>
 @stop
 
 @section('scripts')
@@ -99,7 +107,7 @@ $(function () {
     });
 
     @if(Settings::get('default_layout') === 'layout-cp')
-    app.VaraaCPLayout(document.getElementById('js-cp-booking-form'), '{{ $business->user->hash }}')
+    app.VaraaCPLayout(document.getElementById('js-cp-booking-form'), '{{ $business->user->hash }}');
     @endif
 
     @if(Settings::get('default_layout') === 'layout-3')
@@ -107,6 +115,7 @@ $(function () {
         isAutoSelectEmployee: false
     });
     @endif
+<<<<<<< HEAD
     
     var countPs = function (element) {
       var cnt = 0;
@@ -177,13 +186,21 @@ $(function () {
     });
 });
 
+=======
+})
+>>>>>>> develop
     </script>
+    @include ('front.el.layout-cp.truncateScript')
 @stop
 
 @section('main-classes') front @stop
 
 @section('content')
 <div class="container search-results" id="js-search-results">
-    @include (sprintf('front.el.%s.business', Settings::get('default_layout')))
+    @if (is_tobook())
+        @include (sprintf('front.el.%s.tobook-business', Settings::get('default_layout')))
+    @else
+        @include (sprintf('front.el.%s.business', Settings::get('default_layout')))
+    @endif
 </div>
 @stop

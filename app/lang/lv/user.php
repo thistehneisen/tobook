@@ -62,7 +62,11 @@ return [
         'meta_keywords'    => 'Meta keywords',
         'bank_account'     => 'Bankas rekvizīti',
         'is_hidden'        => 'Slēptais uzņēmums?',
-        'preview'          => 'Preview your page', // @todo
+        'preview'          => 'Preview',
+        'payment_methods'     => 'Maksājumu metodes',
+        'credit_card'         => 'Kredītkarte',
+        'cash'                => 'Skaidra nauda',
+        'online'              => 'Tiešsaistes maksājumu',
         'is_booking_disabled' => 'Disable booking widget?', // @todo
         'sizes'            => [
             '1',

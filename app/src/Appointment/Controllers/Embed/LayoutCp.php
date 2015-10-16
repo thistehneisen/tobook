@@ -11,9 +11,11 @@ use CheckoutFinland\Client;
 use CheckoutFinland\Payment;
 use Config;
 use Input;
+use Settings;
 use Redirect;
 use Response;
 use WebToPay;
+use Log;
 
 class LayoutCp extends Base
 {
@@ -169,6 +171,13 @@ class LayoutCp extends Base
         $dateStr = str_date($date);
 
         foreach ($timetable as $time => $employee) {
+            
+            // Filter out time slot < min disntance (in hours)
+            $timeslot = Carbon::createFromFormat("d.m.Y H:i", sprintf("%s %s", $dateStr, $time));
+            if ($timeslot->lt($start)) {
+                continue;
+            }
+
             $calendar[] = [
                 'time' => $time,
                 'date' => $dateStr,
@@ -219,6 +228,8 @@ class LayoutCp extends Base
         ];
 
         $result['disabled_payment'] = false;
+        $result['force_pay_at_venue'] = (bool) Settings::get('force_pay_at_venue');
+        $result['url'] = route('business.booking.pay_at_venue');
         return Response::json($result);
     }
 
@@ -310,6 +321,11 @@ class LayoutCp extends Base
     public function getWebToPayOptions()
     {
         // $language = App::getLocale() ?: 'en';
+
+        $transaction = $this->getTransaction();
+        $transaction->paygate = \Payment::PAYSERA;
+        $transaction->save();
+
         $language = 'lt';
         $amount = Input::get('amount', 10.00);
         $options = WebToPay::getPaymentMethodList(Config::get('services.paysera.id'), 'EUR')
@@ -326,7 +342,12 @@ class LayoutCp extends Base
                 ];
             }
         }
-        return $methods;
+        
+        return [
+            'cart_id' => $transaction->cart !== null ? $transaction->cart->id : null,
+            'transaction' => $transaction->id,
+            'payment_methods' => $methods,
+        ];
     }
 
     public function payAtVenue()

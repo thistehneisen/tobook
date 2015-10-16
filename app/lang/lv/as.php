@@ -20,6 +20,8 @@ return [
         'heading'       => 'Pakalpojumi',
         'edit'          => 'Labot pakalpojumu',
         'custom_time'   => 'Brīvi izvēlēts laiks',
+        'master_categories'  => 'Galvenā kategorija',
+        'treatment_types'    => 'Apstrādes veids',
         'categories' => [
             'all'           => 'Visas kategorijas',
             'add'           => 'Pievienot jaunu kategoriju',
@@ -298,6 +300,22 @@ return [
             'payment_note'    => 'Apstiprinot rezervāciju, atvērsies lapa, kurā veikt apmaksu.',
             'confirm_service' => 'Apstiprināt rezervāciju',
             'heading_line'    => 'Rezervēt laiku',
+        ],
+        'cp' => [
+            'heading' => 'Rezervējiet tiešsaistē',
+            'select' => 'Atlasīt',
+            'sg_service' => 'Pakalpojums',
+            'pl_service' => 'Pakalpojumi',
+            'employee' => 'Darbinieks',
+            'time' => 'Laiks',
+            'salon' => 'Salons',
+            'price' => 'Cena',
+            'service' => 'Pakalpojums',
+            'details' => 'Rezervācijas informācija',
+            'go_back' => 'Atgriezties',
+            'how_to_pay' => 'Kā jūs vēlaties maksāt?',
+            'almost_done' => 'Jūsu rezervācija ir gandrīz izdarīts',
+            'first_employee' => 'Pirmais darbinieks pieejams',
         ]
     ],
      'options' => [

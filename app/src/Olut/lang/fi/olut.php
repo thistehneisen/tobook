@@ -5,7 +5,7 @@ return [
     'success_edit'   => 'Päivitys onnistui!',
     'success_delete' => 'Poisto onnistui!',
     'success_bulk'   => 'Valitsemasi tiedot on päivitetty onnistuneesti!',
-    'sortable'       => 'Vaihda järjestystä vetämällä',
+    'sortable'       => 'Vaihda järjestystä raahaamalla',
     'per_page'       => 'Yksiköitä yhteensä',
     'with_selected'  => 'Valitse toiminto',
     'save'           => 'Tallenna',

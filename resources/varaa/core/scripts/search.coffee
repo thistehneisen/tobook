@@ -202,7 +202,7 @@ class VaraaSearch
           VARAA.initLayout3()
         else
           app.VaraaCPLayout(document.getElementById('js-cp-booking-form'), $$.data 'hash')
-
+        
         # Set current business flag
         $list.data 'current-business-id', businessId
 
@@ -226,8 +226,9 @@ class VaraaSearch
             loop: true
             autoplayDisableOnInteraction: false
 
-        slider.update().slideNext() if slider.update() isnt null && slider.update() isnt undefined
+        slider.update().slideNext() if (slider isnt null and  slider.update() is not undefined)
         self.showRating(self.assetPath)
+
     ###*
      * Hover on a business will highlight its position on the map
      *

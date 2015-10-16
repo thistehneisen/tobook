@@ -10,6 +10,7 @@
       originalOffset = [],
       scrolledLeft = false,
       showBookingServiceResult,
+      handleScroll,
       fixedCalendarHeader
 
     $('.backend-tooltip').tooltip({
@@ -537,9 +538,11 @@
     })
 
     if (colHeaderTop === -1) {
-      colHeaderTop = $('.as-col-header').offset().top
+      if($('.as-col-header').length){
+        colHeaderTop = $('.as-col-header').offset().top
+      }
     }
-
+    
     fixedCalendarHeader = function () {
       if ($('.as-col-header').length === 0) {
         return
@@ -581,20 +584,37 @@
       }
     }
 
-    $w.scroll(fixedCalendarHeader)
-
-    $('.as-calendar').scroll(function () {
+    handleScroll = function () {
       scrolledLeft = true
       if ($.isEmptyObject(originalOffset)) {
         $('.as-col-header').each(function (key, item) {
           originalOffset.push($(item).offset().left)
         })
       }
-
       $('.as-col-header').each(function (key, item) {
+        var $this = $(this)
+
+        $this.css({
+          position: 'fixed',
+          width: $this.parent('ul').width(),
+          top: function(){
+            var parentTop = 0
+            // Adjust the column header height to match the rest cells
+            if($w.scrollTop() < colHeaderTop) {
+              parentTop = colHeaderTop - $w.scrollTop()
+            }
+            return parentTop
+          }
+        })
+
+        $('#as-left-col-header').css('width', $('.as-col-left-header').first().width())
+
         var offset = 0
         if ($(item).css('position') !== 'relative') {
           offset = parseInt(originalOffset[key], 10) - parseInt($('.as-calendar').scrollLeft(), 10)
+          if (parseInt(key, 10) > 0) {
+            offset += 1
+          }
         } else {
           offset = originalOffset[key]
         }
@@ -606,8 +626,32 @@
           $(item).css('opacity', 1)
         }
       })
-    })
+    }
 
+    $w.scroll(fixedCalendarHeader);
+    
+    $w.resize(function(){
+      if($('.as-col-header').length){
+        $w.scrollTop(5);
+        $('.as-calendar').scrollLeft(0);
+        $('.as-col-header').removeAttr('style');
+        colHeaderTop = $('.as-col').offset().top;
+        originalOffset = [];
+        $('.as-col-header').each(function (key, item) {
+            originalOffset.push($(item).offset().left);
+        })
+        $w.scrollTop(5);
+        $('.as-calendar').scrollLeft(0);
+      }
+    });
+
+    $w.load(function(){
+      $w.scrollTop(5);
+      $('.as-calendar').scrollLeft(0);
+      $('.as-calendar').scroll(handleScroll);
+    });
+
+  
     // @see resources/varaa/co/scripts/main.coffee
     $doc.on('click', 'a.js-showHistory', function (e) {
       e.preventDefault()

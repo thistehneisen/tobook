@@ -22,6 +22,14 @@
     {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
     {{ HTML::style(asset('packages/jquery.raty/jquery.raty.css')) }}
     @endif
+    <style type="text/css">
+    .slideshow {
+        max-height: 300px;
+    }
+    .swiper-slide {
+        max-height: 300px;
+    }
+    </style>
 @stop
 
 @section('scripts')
@@ -92,6 +100,7 @@ app.routes = {
     {{ HTML::script(asset_path('core/scripts/business.js')) }}
     {{ HTML::script(asset_path('core/scripts/search.js')) }}
     {{ HTML::script(asset('packages/jquery.raty/jquery.raty.js')) }}
+    {{ HTML::script(asset('packages/jquery.dotdotdot/jquery.dotdotdot.min.js')) }}
 @stop
 
 @section('main-classes') front @stop
