@@ -14,7 +14,11 @@
                 $elSuccess = $('#as-success'),
                 dataStorage = {hash: $body.data('hash')},
                 settings = settings || { isAutoSelectEmployee : false},
-                fnLoadTimetable, fnScrollTo;
+                fnLoadTimetable, fnScrollTo, fnCreateDesktopView;
+            
+            var trans = function (key) {
+                return (app.i18n[key] !== undefined) ? app.i18n[key] : key;
+            }
 
             //----------------------------------------------------------------------
             // Custom method
@@ -122,7 +126,9 @@
                     data: dataStorage
                 }).done(function (data) {
                     $body.hideLoadding();
-                    $timetable.html(data);
+                    console.log(data);
+                    fnCreateDesktopView(document.getElementById('as-timetable'), data);
+                    m.redraw(true);
                     var startDate = $timetable.find('input[name=start-date]').val();
                     $timetable.find('a.btn-as-timetable[data-date=' + startDate + ']')
                         .removeClass('btn-default')
@@ -130,6 +136,41 @@
                     fnScrollTo('timetable');
                 });
             };
+
+            fnCreateDesktopView = function(element, data) {
+                m.render(element, [
+                    m('.text-center[name=timetable]', [
+                        m('h3', trans('as.embed.layout_2.choose')),
+                        m('.btn-group', [
+                            m('a.btn.btn-lg.btn-as-timetable[href=#][id=btn-date-prev]', [
+                                m('i.glyphicon.glyphicon-chevron-left')
+                            ]),
+                            data.nav.map(function(item){
+                                return m("a.btn.btn-default.btn-as-timetable#btn-timetable", {
+                                        href: '#', 
+                                        'data-date': item.start.date, 
+                                        id: 'btn-timetable-' + item.start.Ymd
+                                    }, [
+                                    m('.week-of-year', [
+                                        m.trust(trans('common.short.week')),
+                                        m.trust(' '),
+                                        m.trust(item.start.weekOfYear)
+                                    ]),
+                                    m.trust(item.start.d),
+                                    m.trust('. '),
+                                    m.trust(trans('common.short.' + item.start.M)),
+                                    m.trust(' &ndash; '),
+                                    m.trust(item.end.d),
+                                ]) 
+                            }),
+                            m('a.btn.btn-lg.btn-as-timetable[href=#][id=btn-date-prev]', [
+                                m('i.glyphicon.glyphicon-chevron-right')
+                            ])
+                        ]),
+                        m('input[type=hidden][name=start-date]', { value : data.date}),
+                    ])
+                ]);
+            }
 
             fnScrollTo = function(element) {
                 var $target = $("div[name='" + element +"']");

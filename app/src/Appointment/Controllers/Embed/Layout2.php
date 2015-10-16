@@ -64,9 +64,21 @@ class Layout2 extends Base
                     break;
                 }
             }
-            $nav[] = (object) [
-                'start' => $start->copy(),
-                'end'   => $end->copy()
+            $nav[] = [
+                'start' => [
+                    'date'      => $start->copy()->format('Y-m-d'),
+                    'Ymd'       => $start->copy()->format('Ymd'),
+                    'd'         => $start->copy()->format('d'),
+                    'M'         => $start->copy()->format('M'),
+                    'weekOfYear'=> $start->copy()->weekOfYear,
+                ],
+                'end'   => [
+                    'date'      => $end->copy()->format('Y-m-d'),
+                    'Ymd'       => $start->copy()->format('Ymd'),
+                    'weekOfYear'=> $start->copy()->weekOfYear,
+                    'd'         => $start->copy()->format('d'),
+                    'M'         => $start->copy()->format('M'),
+                ],
             ];
 
             $start = $end->addDay();
@@ -117,15 +129,27 @@ class Layout2 extends Base
             $start = $start->addDay();
         }
 
-        return $this->render('timetable', [
-            'date'      => $date,
+        $data = [
+            'date'      => $date->toDateString(),
             'today'     => $today,
             'nav'       => $nav,
             'prev'      => $date->copy()->subDays(7),
             'next'      => $date->copy()->addDays(7),
             'timetable' => $timetable,
             'dates'     => $dates
-        ]);
+        ];
+
+        return Response::json($data);
+
+        // return $this->render('timetable', [
+        //     'date'      => $date,
+        //     'today'     => $today,
+        //     'nav'       => $nav,
+        //     'prev'      => $date->copy()->subDays(7),
+        //     'next'      => $date->copy()->addDays(7),
+        //     'timetable' => $timetable,
+        //     'dates'     => $dates
+        // ]);
     }
 
     /**
