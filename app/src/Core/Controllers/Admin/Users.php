@@ -148,6 +148,7 @@ class Users extends Base
                 'payment_options'  => ['type' => false],
                 'payment_methods'  => ['type' => false],
                 'deposit_rate'     => ['type' => false],
+                'disabled_payment' => ['type' => false],
                 'bank_account'     => ['type' => 'text', 'hidden' => !$isAdmin],
                 'meta_title'       => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
                 'meta_description' => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
