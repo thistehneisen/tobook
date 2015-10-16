@@ -102,6 +102,7 @@ return [
     'discount'              => 'Rabatt',
     'book'                  => 'Boka',
     'submit'                => 'Skicka',
+    'captcha'               => 'Captcha',
     'short' => [
         'week'=> 'Vecka',
         'mon' => 'Mån',

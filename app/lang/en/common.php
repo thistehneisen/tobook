@@ -109,6 +109,7 @@ return [
     'decline'               => 'Decline',
     'history'               => 'History',
     'placeholders'          => 'Placeholders',
+    'captcha'               => 'Captcha',
     'short' => [
         'week'  => 'week',
         'hour'  => 'hr',

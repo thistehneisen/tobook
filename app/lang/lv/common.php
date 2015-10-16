@@ -108,6 +108,7 @@ return [
     'decline'               => 'Nepiekrītu',
     'history'               => 'Arhīvs',
     'placeholders'          => 'Placeholders',//@todo
+    'captcha'               => 'Captcha',
     'short' => [
         'week'  => 'nedēļa',
         'hour'  => 'stunda',

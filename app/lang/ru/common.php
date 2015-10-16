@@ -107,6 +107,7 @@ return [
     'accept'                => 'Согласен',
     'decline'               => 'Не Согласен',
     'history'               => 'История',
+    'captcha'               => 'Captcha',
     'short' => [
         'week'  => 'неделя',
         'hour'  => 'ч',
