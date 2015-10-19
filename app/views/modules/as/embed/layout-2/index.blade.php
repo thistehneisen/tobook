@@ -9,6 +9,28 @@
 
 @section ('extra_js')
 {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
+{{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
+{{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/mithril/0.2.0/mithril.min.js') }}
+<script type="text/javascript">
+    var app = app || {}
+app.i18n = {
+    'as.embed.layout_2.choose'      : '@lang('as.embed.layout_2.choose')',
+    'as.embed.layout_2.unavailable' : '@lang('as.embed.layout_2.unavailable')',
+    'common.short.week'             : '@lang('common.short.week')',
+    'common.short.Jan'              : '@lang('common.short.jan')',
+    'common.short.Feb'              : '@lang('common.short.feb')',
+    'common.short.Mar'              : '@lang('common.short.mar')',
+    'common.short.Apr'              : '@lang('common.short.apr')',
+    'common.short.May'              : '@lang('common.short.may')',
+    'common.short.Jun'              : '@lang('common.short.jun')',
+    'common.short.July'             : '@lang('common.short.july')',
+    'common.short.Aug'              : '@lang('common.short.aug')',
+    'common.short.Sep'              : '@lang('common.short.sep')',
+    'common.short.Oct'              : '@lang('common.short.oct')',
+    'common.short.Nov'              : '@lang('common.short.nov')',
+    'common.short.Dec'              : '@lang('common.short.dec')',
+}
+</script>
 @stop
 
 @section ('content')

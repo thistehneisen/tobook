@@ -13,8 +13,14 @@
                 $elCheckout = $('#as-checkout'),
                 $elSuccess = $('#as-success'),
                 dataStorage = {hash: $body.data('hash')},
+                cache = {},
                 settings = settings || { isAutoSelectEmployee : false},
-                fnLoadTimetable, fnScrollTo;
+                fnLoadTimetable, fnScrollTo, fnCreateDesktopView, fnCreateMobileView, fnPrevDay, fnNextDay, 
+                selectedWd = 0;
+            
+            var trans = function (key) {
+                return (app.i18n[key] !== undefined) ? app.i18n[key] : key;
+            }
 
             //----------------------------------------------------------------------
             // Custom method
@@ -122,7 +128,13 @@
                     data: dataStorage
                 }).done(function (data) {
                     $body.hideLoadding();
-                    $timetable.html(data);
+                    cache.timetable = data;
+                    var width = $(window).width();
+                    var fnMethod = fnCreateDesktopView;
+                    if (width < 1024) {
+                        fnMethod = fnCreateMobileView;
+                    }
+                    fnMethod(document.getElementById('as-timetable'), cache.timetable);
                     var startDate = $timetable.find('input[name=start-date]').val();
                     $timetable.find('a.btn-as-timetable[data-date=' + startDate + ']')
                         .removeClass('btn-default')
@@ -130,6 +142,191 @@
                     fnScrollTo('timetable');
                 });
             };
+
+            $timetable.on('click', 'a#btn-weekday-prev', function (e) {
+                e.preventDefault();
+                if (selectedWd > 0) selectedWd--;
+                return fnCreateMobileView(document.getElementById('as-timetable'), cache.timetable);
+            })
+
+            $timetable.on('click', 'a#btn-weekday-next', function (e) {
+                e.preventDefault();
+                if (selectedWd < 6) selectedWd++;
+                return fnCreateMobileView(document.getElementById('as-timetable'), cache.timetable);
+            });
+
+            fnCreateMobileView = function(element, data) {
+                var selIndex = 0;
+                for (var i = 0; i < data.nav.length; i++) {
+                    if(data.nav[i].start.date === data.date) selIndex = i;
+                }; 
+                m.render(element, [
+                    m('.text-center[name=timetable]', [
+                        m('h3', trans('as.embed.layout_2.choose')),
+                        m('.btn-group', [
+                            m('a.btn.btn-lg.btn-as-timetable[href=#][id=btn-date-prev]', {
+                                'data-date': data.prev
+                            },[
+                                m('i.glyphicon.glyphicon-chevron-left')
+                            ]),
+                            m("a.btn.btn-default.btn-as-timetable#btn-timetable.btn-selected", {
+                                    href: '#', 
+                                    'data-date': data.nav[selIndex].start.date, 
+                                    id: 'btn-timetable-' + data.nav[selIndex].start.Ymd
+                                }, [
+                                m('.week-of-year', [
+                                    m.trust(trans('common.short.week')),
+                                    m.trust(' '),
+                                    m.trust(data.nav[selIndex].start.weekOfYear)
+                                ]),
+                                m.trust(data.nav[selIndex].start.d),
+                                m.trust('. '),
+                                m.trust(trans('common.short.' + data.nav[selIndex].start.M)),
+                                m.trust(' &ndash; '),
+                                m.trust(data.nav[selIndex].end.d),
+                            ]),
+                            m('a.btn.btn-lg.btn-as-timetable[href=#][id=btn-date-next]', {
+                                'data-date': data.next
+                            },[
+                                m('i.glyphicon.glyphicon-chevron-right')
+                            ])
+                        ]),
+                        m('input[type=hidden][name=start-date]', { value : data.date}),
+                        m('.row', [
+                            m('.button-group', [
+                                m('a.btn.btn-lg[href=#btn-weekday-prev][id=btn-weekday-prev]', {
+                                    'data-date': (selectedWd == 0) ? null : (data.dates[selectedWd-1].iso),
+                                },[
+                                    m('i.glyphicon.glyphicon-chevron-left')
+                                ]),
+                                m("a.btn.btn-default", {
+                                        href: '#', 
+                                        'data-date': data.dates[selectedWd].formatted, 
+                                        id: 'btn-timetable-' + m.trust(data.dates[selectedWd].D),
+                                        style : 'border-radius:0px; min-width: 105px',
+                                    }, [
+                                    m('h5.text-muted', [
+                                        m('.day-in-week', [ m.trust(data.dates[selectedWd].D)]),
+                                        m.trust(data.dates[selectedWd].formatted)
+                                    ])
+                                ]), 
+                                m('a.btn.btn-lg[href=#btn-weekday-next][id=btn-weekday-next]', {
+                                    'data-date': (selectedWd < 6) ? (data.dates[selectedWd+1].iso) : null,
+
+                                },[
+                                    m('i.glyphicon.glyphicon-chevron-right')
+                                ])
+                            ]),
+                            m('div', [ m.trust('&nbsp;')]),
+                            m('table.table-timetable', [
+                                m('tbody', [
+                                    m('tr', [
+                                        data.timetable.map(function(item){
+                                            if (item.date.iso !== data.dates[selectedWd].iso) {
+                                                return;
+                                            }
+                                            if (item.time.length === 0) {
+                                                return m('td.empty', [ 
+                                                    m('p',[ m.trust(trans('as.embed.layout_2.unavailable'))])
+                                                ]);
+                                            }
+                                            return m('td', [
+                                                Object.keys(item.time).map(function(date, index){
+                                                    return m('p', [
+                                                        m('a.as-time', { 
+                                                            href : '#',
+                                                            'data-date' : item.date['date'],
+                                                            'id' : 'btn-slot-' + item.date['Ymd'],
+                                                            'data-employee-id': item.time[date].id,
+                                                        }, [ m.trust(date)])
+                                                    ])
+                                                })
+                                            ])
+                                        })
+                                    ])
+                                ])
+                            ])
+                        ])
+                    ])
+                ], true);
+                fnScrollTo('timetable');
+            }
+
+            fnCreateDesktopView = function(element, data) {
+                m.render(element, [
+                    m('.text-center[name=timetable]', [
+                        m('h3', trans('as.embed.layout_2.choose')),
+                        m('.btn-group', [
+                            m('a.btn.btn-lg.btn-as-timetable[href=#][id=btn-date-prev]', {
+                                'data-date': data.prev
+                            },[
+                                m('i.glyphicon.glyphicon-chevron-left')
+                            ]),
+                            data.nav.map(function(item){
+                                return m("a.btn.btn-default.btn-as-timetable#btn-timetable", {
+                                        href: '#', 
+                                        'data-date': item.start.date, 
+                                        id: 'btn-timetable-' + item.start.Ymd
+                                    }, [
+                                    m('.week-of-year', [
+                                        m.trust(trans('common.short.week')),
+                                        m.trust(' '),
+                                        m.trust(item.start.weekOfYear)
+                                    ]),
+                                    m.trust(item.start.d),
+                                    m.trust('. '),
+                                    m.trust(trans('common.short.' + item.start.M)),
+                                    m.trust(' &ndash; '),
+                                    m.trust(item.end.d),
+                                ]) 
+                            }),
+                            m('a.btn.btn-lg.btn-as-timetable[href=#][id=btn-date-next]', {
+                                'data-date': data.next
+                            },[
+                                m('i.glyphicon.glyphicon-chevron-right')
+                            ])
+                        ]),
+                        m('input[type=hidden][name=start-date]', { value : data.date}),
+                        m('.row', [
+                            m('table.table-timetable', [
+                                m('thead', [
+                                    data.dates.map(function(item){
+                                        return m('th', [
+                                            m('h5.text-muted', [
+                                                m('.day-in-week', [ m.trust(item.D)]),
+                                                m.trust(item.formatted)
+                                            ])
+                                        ]);
+                                    })
+                                ]),
+                                m('tbody', [
+                                    m('tr', [
+                                        data.timetable.map(function(item){
+                                            if (item.time.length === 0) {
+                                                return m('td.empty', [ 
+                                                    m('p',[ m.trust(trans('as.embed.layout_2.unavailable'))])
+                                                ]);
+                                            }
+                                            return m('td', [
+                                                Object.keys(item.time).map(function(date, index){
+                                                    return m('p', [
+                                                        m('a.as-time', { 
+                                                            href : '#',
+                                                            'data-date' : item.date['date'],
+                                                            'id' : 'btn-slot-' + item.date['Ymd'],
+                                                            'data-employee-id': item.time[date].id,
+                                                        }, [ m.trust(date)])
+                                                    ])
+                                                })
+                                            ])
+                                        })
+                                    ])
+                                ])
+                            ])
+                        ])
+                    ])
+                ], true);
+            }
 
             fnScrollTo = function(element) {
                 var $target = $("div[name='" + element +"']");
@@ -206,8 +403,8 @@
             // When user clicks on a date in nav
             $timetable.on('click', 'a.btn-as-timetable', function (e) {
                 e.preventDefault();
-
                 dataStorage.date = $(this).data('date');
+                selectedWd = 0;
                 fnLoadTimetable();
             });
 
