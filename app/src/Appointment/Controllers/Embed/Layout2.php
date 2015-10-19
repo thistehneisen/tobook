@@ -5,6 +5,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
 use App\Consumers\Models\Consumer;
 use Illuminate\Support\ViewErrorBag;
+use Util;
 
 class Layout2 extends Base
 {
@@ -104,7 +105,11 @@ class Layout2 extends Base
                 $time = $this->getTimetableOfAnyone($service, $start, $serviceTime, true);
             }
 
-            $dates[] = $start->copy();
+            $dates[] = [ 
+                'D' => Util::td($start->copy()->format('D')),
+                'formatted' => str_date($start->copy()),
+            ];
+
             $refine = [];
 
             // Filter out unbookable time < min distance
@@ -122,7 +127,10 @@ class Layout2 extends Base
             }
 
             $timetable[] = (object) [
-                'date' => $start->copy(),
+                'date' => [
+                    'date' => $start->copy()->toDateString(),
+                    'Ymd'  => $start->copy()->format('Ymd')
+                ],
                 'time' => $refine,
             ];
 

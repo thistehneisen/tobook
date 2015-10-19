@@ -168,8 +168,46 @@
                             ])
                         ]),
                         m('input[type=hidden][name=start-date]', { value : data.date}),
+                        m('.row', [
+                            m('table.table-timetable', [
+                                m('thead', [
+                                    data.dates.map(function(item){
+                                        console.log(item);
+                                        return m('th', [
+                                            m('h5.text-muted', [
+                                                m('.day-in-week', [ m.trust(item.D)]),
+                                                m.trust(item.formatted)
+                                            ])
+                                        ]);
+                                    })
+                                ]),
+                                m('tbody', [
+                                    m('tr', [
+                                        data.timetable.map(function(item){
+                                            if (item.time.length === 0) {
+                                                return m('td.empty', [ 
+                                                    m('p',[ m.trust(trans('as.embed.layout_2.unavailable'))])
+                                                ]);
+                                            }
+                                            return m('td', [
+                                                Object.keys(item.time).map(function(date, index){
+                                                    return m('p', [
+                                                        m('a.as-time', { 
+                                                            href : '#',
+                                                            'data-date' : item.date['date'],
+                                                            'id' : 'btn-slot-' + item.date['Ymd'],
+                                                            'data-employee-id': item.time[date].id,
+                                                        }, [ m.trust(date)])
+                                                    ])
+                                                })
+                                            ])
+                                        })
+                                    ])
+                                ])
+                            ])
+                        ])
                     ])
-                ]);
+                ], true);
             }
 
             fnScrollTo = function(element) {
