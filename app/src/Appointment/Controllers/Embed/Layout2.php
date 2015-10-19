@@ -108,6 +108,7 @@ class Layout2 extends Base
             $dates[] = [ 
                 'D' => Util::td($start->copy()->format('D')),
                 'formatted' => str_date($start->copy()),
+                'iso' => $start->copy()->toDateString(),
             ];
 
             $refine = [];
@@ -129,7 +130,8 @@ class Layout2 extends Base
             $timetable[] = (object) [
                 'date' => [
                     'date' => $start->copy()->toDateString(),
-                    'Ymd'  => $start->copy()->format('Ymd')
+                    'Ymd'  => $start->copy()->format('Ymd'),
+                    'iso'  => $start->copy()->toDateString(),
                 ],
                 'time' => $refine,
             ];
