@@ -141,8 +141,8 @@ class Layout2 extends Base
             'date'      => $date->toDateString(),
             'today'     => $today,
             'nav'       => $nav,
-            'prev'      => $date->copy()->subDays(7),
-            'next'      => $date->copy()->addDays(7),
+            'prev'      => $date->copy()->subDays(7)->format('Y-m-d'),
+            'next'      => $date->copy()->addDays(7)->format('Y-m-d'),
             'timetable' => $timetable,
             'dates'     => $dates
         ];

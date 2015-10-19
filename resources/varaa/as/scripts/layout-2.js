@@ -142,7 +142,9 @@
                     m('.text-center[name=timetable]', [
                         m('h3', trans('as.embed.layout_2.choose')),
                         m('.btn-group', [
-                            m('a.btn.btn-lg.btn-as-timetable[href=#][id=btn-date-prev]', [
+                            m('a.btn.btn-lg.btn-as-timetable[href=#][id=btn-date-prev]', {
+                                'data-date': data.prev
+                            },[
                                 m('i.glyphicon.glyphicon-chevron-left')
                             ]),
                             data.nav.map(function(item){
@@ -163,7 +165,9 @@
                                     m.trust(item.end.d),
                                 ]) 
                             }),
-                            m('a.btn.btn-lg.btn-as-timetable[href=#][id=btn-date-prev]', [
+                            m('a.btn.btn-lg.btn-as-timetable[href=#][id=btn-date-next]', {
+                                'data-date': data.next
+                            },[
                                 m('i.glyphicon.glyphicon-chevron-right')
                             ])
                         ]),
