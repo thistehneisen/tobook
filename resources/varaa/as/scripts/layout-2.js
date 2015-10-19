@@ -90,6 +90,7 @@
                 dataStorage.serviceId     = serviceId;
                 dataStorage.serviceTimeId = serviceTimeId;
                 dataStorage.employeeId    = null;
+                cache.timetable = null;
 
                 if ($('.as-timetable-wrapper').length) {
                     $('.as-timetable-wrapper').find('div.text-center').slideUp();
@@ -129,9 +130,8 @@
                 }).done(function (data) {
                     $body.hideLoadding();
                     cache.timetable = data;
-                    var width = $(window).width();
                     var fnMethod = fnCreateDesktopView;
-                    if (width < 1024) {
+                    if ($(window).width() < 1136) { // iphone 5 wide screen
                         fnMethod = fnCreateMobileView;
                     }
                     fnMethod(document.getElementById('as-timetable'), cache.timetable);
@@ -143,6 +143,16 @@
                 });
             };
 
+            $(window).resize(function() {
+                if(cache.timetable !== null) {
+                    var fnMethod = fnCreateDesktopView;
+                    if ($(window).width() < 1136) { // iphone 5 wide screen
+                        fnMethod = fnCreateMobileView;
+                    }
+                    fnMethod(document.getElementById('as-timetable'), cache.timetable);
+                }
+            });
+            
             $timetable.on('click', 'a#btn-weekday-prev', function (e) {
                 e.preventDefault();
                 if (selectedWd > 0) selectedWd--;
