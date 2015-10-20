@@ -95,7 +95,7 @@ class Layout2 extends Base
 
             $dates[] = [ 
                 'D'         => trans('common.short.'.strtolower($start->format('D'))),
-                'dm'        => $start->copy()->format('d.m'),
+                'd'        => $start->copy()->format('d'),
                 'formatted' => str_date($start->copy()),
                 'iso'       => $start->copy()->toDateString(),
             ];
