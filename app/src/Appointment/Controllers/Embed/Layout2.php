@@ -5,6 +5,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
 use App\Consumers\Models\Consumer;
 use Illuminate\Support\ViewErrorBag;
+use Util;
 
 class Layout2 extends Base
 {
@@ -64,9 +65,9 @@ class Layout2 extends Base
                     break;
                 }
             }
-            $nav[] = (object) [
-                'start' => $start->copy(),
-                'end'   => $end->copy()
+            $nav[] = [
+                'start' => Util::preformatDate($start),
+                'end'   => Util::preformatDate($end),
             ];
 
             $start = $end->addDay();
@@ -92,7 +93,13 @@ class Layout2 extends Base
                 $time = $this->getTimetableOfAnyone($service, $start, $serviceTime, true);
             }
 
-            $dates[] = $start->copy();
+            $dates[] = [ 
+                'D'         => trans('common.short.'.strtolower($start->format('D'))),
+                'd'        => $start->copy()->format('d'),
+                'formatted' => str_date($start->copy()),
+                'iso'       => $start->copy()->toDateString(),
+            ];
+
             $refine = [];
 
             // Filter out unbookable time < min distance
@@ -110,22 +117,38 @@ class Layout2 extends Base
             }
 
             $timetable[] = (object) [
-                'date' => $start->copy(),
+                'date' => [
+                    'date' => $start->copy()->toDateString(),
+                    'Ymd'  => $start->copy()->format('Ymd'),
+                    'iso'  => $start->copy()->toDateString(),
+                ],
                 'time' => $refine,
             ];
 
             $start = $start->addDay();
         }
 
-        return $this->render('timetable', [
-            'date'      => $date,
+        $data = [
+            'date'      => $date->toDateString(),
             'today'     => $today,
             'nav'       => $nav,
-            'prev'      => $date->copy()->subDays(7),
-            'next'      => $date->copy()->addDays(7),
+            'prev'      => $date->copy()->subDays(7)->format('Y-m-d'),
+            'next'      => $date->copy()->addDays(7)->format('Y-m-d'),
             'timetable' => $timetable,
             'dates'     => $dates
-        ]);
+        ];
+
+        return Response::json($data);
+
+        // return $this->render('timetable', [
+        //     'date'      => $date,
+        //     'today'     => $today,
+        //     'nav'       => $nav,
+        //     'prev'      => $date->copy()->subDays(7),
+        //     'next'      => $date->copy()->addDays(7),
+        //     'timetable' => $timetable,
+        //     'dates'     => $dates
+        // ]);
     }
 
     /**

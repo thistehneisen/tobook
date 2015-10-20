@@ -80,6 +80,114 @@ html {
     }
 }
 
+.mobile-view {
+    .date-selector-link {
+        color: #bbb;
+        font-size: 18px;
+    }
+    .date-selector-dates {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        display: inline-block;
+
+        li:first-child {
+            border: none;
+            padding-top: 15px;
+        }
+        li:last-child {
+            border: none;
+            padding-top: 15px;
+        }
+
+        li:nth-child(2) {
+            border-left: 1px solid #ddd;
+        }
+
+        li {
+            display: inline-block;
+            border-radius: none;
+            border: 1px solid #ddd;
+            border-left: none;
+            cursor: pointer;
+            float: left;
+            text-align: center;
+            width: 11.11%;
+            .btn {
+                padding: 0px;
+                width: 100%;
+                border-radius: 0px;
+            }
+        }
+    }
+    .day-in-week {
+        text-transform: uppercase;
+        font-size: .8em;
+    }
+    em {
+        font-style: normal;
+        font-size: 1.2em;
+    }
+    .date-selector {
+        border-bottom: 1px solid #dedede;
+        margin: 10px 0;
+        padding-bottom: 20px;
+        font-size: 14px;
+        display: inline-flex;
+        width: 100%;
+    }
+
+    .js-loading {
+        position: absolute;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+        top: 40%;
+        z-index: 2;
+        text-align: center;
+        display: none;
+    }
+    .mobile-view-body {
+        position: relative;
+        padding-bottom: 20px;
+    }
+}
+.mobile-view-list {
+    .time-options {
+        list-style-type: none;
+        margin: 0px;
+        padding: 5px;
+
+        li {
+            padding: 15px;
+            cursor: pointer;
+            position: relative;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+
+            .as-time {
+                display: inline-block;
+                color:@gray;
+            }
+
+            .btn {
+                position: absolute;
+                top: 7px;
+                right: 10px;
+
+            }
+            
+            &:hover {
+                background-color: rgba(231,26,121,0.15);
+                text-decoration: none;
+                color: @gray;
+            }
+        }
+    }
+}
+
 .as-categories,
 .as-employees-row {
     p {

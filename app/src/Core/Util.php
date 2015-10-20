@@ -223,6 +223,19 @@ class Util
         return $location;
     }
 
+    public static function preformatDate($date)
+    {
+        return [
+            'date'      => $date->copy()->format('Y-m-d'),
+            'iso'       => $date->copy()->toDateString(),
+            'Ymd'       => $date->copy()->format('Ymd'),
+            'dm'        => $date->copy()->format('d-m'),
+            'd'         => $date->copy()->format('d'),
+            'M'         => $date->copy()->format('M'),
+            'weekOfYear'=> $date->copy()->weekOfYear,
+        ];
+    }
+
     /**
      * Return the operating country of the environment
      * for more geocoder easier to find a location

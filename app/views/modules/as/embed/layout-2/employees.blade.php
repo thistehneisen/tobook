@@ -7,7 +7,7 @@
         @endif
     </h5>
     <div class="better">
-        <div class="js-loading"><i class="fa fa-refresh fa-spin fa-5x"></i></div>
+        {{-- <div class="js-loading"><i class="fa fa-refresh fa-spin fa-5x"></i></div> --}}
         <div class="as-employees-row">
             <p><a href="#" class="as-employee" id="btn-employee-0"><small><i class="glyphicon glyphicon-user"></i></small> {{ trans('common.anyone') }}</a></p>
         @foreach ($employees as $employee)
