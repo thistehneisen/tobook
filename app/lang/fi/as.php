@@ -277,7 +277,7 @@ return [
             'extra_services'      => 'Lisäpalvelut',
             'employees'           => 'Työntekijä',
             'choose'              => 'Valitse päivämäärä',
-            'unavailable'         => 'Ei saatavilla',
+            'unavailable'         => 'Aikoja ei saatavilla',
             'form'                => 'Varauslomake',
             'date'                => 'Päivämäärä',
             'price'               => 'Hinta',
