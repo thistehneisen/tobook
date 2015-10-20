@@ -80,6 +80,41 @@ html {
     }
 }
 
+.mobile-view-list {
+    .time-options {
+        list-style-type: none;
+        margin: 0px;
+        padding: 5px;
+
+        li {
+            padding: 15px;
+            cursor: pointer;
+            position: relative;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+
+            .as-time {
+                display: inline-block;
+                color:@gray;
+            }
+
+            .btn {
+                position: absolute;
+                top: 7px;
+                right: 10px;
+
+            }
+            
+            &:hover {
+                background-color: rgba(231,26,121,0.15);
+                text-decoration: none;
+                color: @gray;
+            }
+        }
+    }
+}
+
 .as-categories,
 .as-employees-row {
     p {
