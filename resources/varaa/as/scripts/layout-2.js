@@ -227,31 +227,29 @@
                                     m('i.glyphicon.glyphicon-chevron-right')
                                 ])
                             ]),
-                            m('div', [ m.trust('&nbsp;')]),
-                            m('table.table-timetable', [
-                                m('tbody', [
-                                    m('tr', [
+                            m('.mobile-view-list', [ 
+                                m('.col-sm-12', [
+                                    m('ul.time-options', [
                                         data.timetable.map(function(item){
                                             if (item.date.iso !== data.dates[selectedWd].iso) {
                                                 return;
                                             }
                                             if (item.time.length === 0) {
-                                                return m('td.empty', [ 
+                                                return m('li.empty', [ 
                                                     m('p',[ m.trust(trans('as.embed.layout_2.unavailable'))])
                                                 ]);
                                             }
-                                            return m('td', [
-                                                Object.keys(item.time).map(function(date, index){
-                                                    return m('p', [
-                                                        m('a.as-time', { 
-                                                            href : '#',
-                                                            'data-date' : item.date['date'],
-                                                            'id' : 'btn-slot-' + item.date['Ymd'],
-                                                            'data-employee-id': item.time[date].id,
-                                                        }, [ m.trust(date)])
-                                                    ])
-                                                })
-                                            ])
+                                            return Object.keys(item.time).map(function(date, index){
+                                                return m('li.as-time', { 
+                                                        href : '#',
+                                                        'data-date' : item.date['date'],
+                                                        'id' : 'btn-slot-' + item.date['Ymd'],
+                                                        'data-employee-id': item.time[date].id,
+                                                    }, [
+                                                    m.trust(date),
+                                                    m('a.btn.btn-success', [ trans('common.select') ])
+                                                ])
+                                            })
                                         })
                                     ])
                                 ])
@@ -419,7 +417,7 @@
             });
 
             // When user clicks on a time in timetable
-            $timetable.on('click', 'a.as-time', function (e) {
+            $timetable.on('click', '.as-time', function (e) {
                 e.preventDefault();
                 var $this = $(this), token;
 
@@ -432,7 +430,7 @@
                 dataStorage.employeeId = $this.data('employee-id');
 
                 // Highlight
-                $timetable.find('a.as-time.active').removeClass('active');
+                $timetable.find('.as-time.active').removeClass('active');
                 $this.addClass('active');
 
 

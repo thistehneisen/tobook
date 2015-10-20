@@ -29,6 +29,7 @@ app.i18n = {
     'common.short.Oct'              : '@lang('common.short.oct')',
     'common.short.Nov'              : '@lang('common.short.nov')',
     'common.short.Dec'              : '@lang('common.short.dec')',
+    'common.select'                 : '@lang('common.select')',
 }
 </script>
 @stop
