@@ -496,6 +496,10 @@
                     }
                 }).done(function () {
                     $body.hideLoadding();
+                    dataStorage.employeeId = null;
+                    selectedWd = 0;
+                    $elCheckout.hide();
+                    $elSelect.show();
                     $('#as-cart-item-' + $this.data('cart-detail-id')).slideUp();
                 });
             });
