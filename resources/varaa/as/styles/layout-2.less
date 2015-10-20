@@ -80,6 +80,69 @@ html {
     }
 }
 
+.mobile-view {
+    .btn-as-week-select {
+        border-left: none;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        float: left;
+        padding: 5px;
+        text-align: center;
+        width: 14.28%;
+    }
+    .date-selector-link {
+        color: #bbb;
+        font-size: 18px;
+        display: inline-block;
+        text-align: center;
+        width: 5%;
+        margin-top: 20px;
+    }
+
+    .date-selector-dates {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 90%;
+        display: inline-block;
+        li {
+            display: inline-block;
+            border-radius: none;
+            border: 1px solid #ddd;
+        }
+    }
+    .day-in-week {
+        text-transform: uppercase;
+        font-size: .8em;
+    }
+    em {
+        font-style: normal;
+        font-size: 1.2em;
+    }
+    .date-selector {
+        border-bottom: 1px solid #dedede;
+        margin: 10px 0;
+        padding-bottom: 20px;
+        font-size: 14px;
+        display: inline-flex;
+        width: 100%;
+    }
+
+    .js-loading {
+        position: absolute;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+        top: 40%;
+        z-index: 2;
+        text-align: center;
+        display: none;
+    }
+    .mobile-view-body {
+        position: relative;
+        padding-bottom: 20px;
+    }
+}
 .mobile-view-list {
     .time-options {
         list-style-type: none;
