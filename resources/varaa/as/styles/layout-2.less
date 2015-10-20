@@ -84,19 +84,21 @@ html {
     .date-selector-link {
         color: #bbb;
         font-size: 18px;
-        display: inline-block;
-        margin-top: 5px;
-        text-align: left;
     }
     .date-selector-dates {
         list-style-type: none;
         margin: 0;
         padding: 0;
-        width: 90%;
+        width: 100%;
         display: inline-block;
 
         li:first-child {
-            border-left: 1px solid #ddd;
+            border: none;
+            padding-top: 15px;
+        }
+        li:last-child {
+            border: none;
+            padding-top: 15px;
         }
 
         li {
@@ -107,7 +109,7 @@ html {
             cursor: pointer;
             float: left;
             text-align: center;
-            width: 14.28%;
+            width: 11.11%;
             .btn {
                 padding: 0px;
                 width: 100%;

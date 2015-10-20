@@ -194,12 +194,14 @@
                         m('input[type=hidden][name=start-date]', { value : data.date}),
                         m('.row.mobile-view-body', [
                             m('.button-group.date-selector', [
-                                m('a.btn.btn-lg.date-selector-link[href=#btn-weekday-prev][id=btn-weekday-prev]', {
-                                    'data-date': (selectedWd == 0) ? null : (data.dates[selectedWd-1].iso),
-                                },[
-                                    m('i.glyphicon.glyphicon-chevron-left')
-                                ]),
                                 m('ul.date-selector-dates', [
+                                    m('li',[
+                                        m('a.btn.btn-lg.date-selector-link[href=#btn-weekday-prev][id=btn-weekday-prev]', {
+                                            'data-date': (selectedWd == 0) ? null : (data.dates[selectedWd-1].iso),
+                                        },[
+                                            m('i.glyphicon.glyphicon-chevron-left')
+                                        ])
+                                    ]),
                                     data.dates.map(function(item, index){
                                         return m('li',[ m("a.btn.btn-default", {
                                                 href: '#', 
@@ -215,14 +217,16 @@
                                                 ])
                                             ])
                                         ])
-                                    })
-                                ]), 
-                                m('a.btn.btn-lg.date-selector-link[href=#btn-weekday-next][id=btn-weekday-next]', {
-                                    'data-date': (selectedWd < 6) ? (data.dates[selectedWd+1].iso) : data.next,
+                                    }),
+                                    m('li', [
+                                        m('a.btn.btn-lg.date-selector-link[href=#btn-weekday-next][id=btn-weekday-next]', {
+                                            'data-date': (selectedWd < 6) ? (data.dates[selectedWd+1].iso) : data.next,
 
-                                },[
-                                    m('i.glyphicon.glyphicon-chevron-right')
-                                ])
+                                        },[
+                                            m('i.glyphicon.glyphicon-chevron-right')
+                                        ])
+                                    ])
+                                ]), 
                             ]),
                             m('.mobile-view-list', [ 
                                 m('.col-sm-12', [
