@@ -31,6 +31,12 @@
              * @return {void}
              */
             $body.showLoading = function () {
+                if($('.mobile-view-body').length) {
+                    $('.mobile-view-body').empty();
+                    var jsLoading = $('<div>', {class: 'js-loading', style:'display: none'}).appendTo($('.mobile-view-body'));
+                    $('<i>', { class : 'fa fa-spinner fa-spin fa-2x'}).appendTo(jsLoading);
+                    $('.js-loading').show();
+                }
                 $(this).css('cursor', 'progress');
                 $('.js-loading').show();
             };
@@ -161,67 +167,54 @@
 
             $timetable.on('click', 'a#btn-weekday-next', function (e) {
                 e.preventDefault();
-                if (selectedWd < 6) selectedWd++;
+                if (selectedWd < 6) {
+                    selectedWd++;
+                    return fnCreateMobileView(document.getElementById('as-timetable'), cache.timetable);
+                } else {
+                    dataStorage.date = $(this).data('date');
+                    selectedWd = 0;
+                    return fnLoadTimetable();
+                }
+            });
+
+             $timetable.on('click', 'a.btn-date-selector', function (e) {
+                e.preventDefault();
+                selectedWd = $(this).data('index');
                 return fnCreateMobileView(document.getElementById('as-timetable'), cache.timetable);
             });
 
             fnCreateMobileView = function(element, data) {
-                var selIndex = 0;
-                for (var i = 0; i < data.nav.length; i++) {
-                    if(data.nav[i].start.date === data.date) selIndex = i;
-                }; 
                 m.render(element, [
-                    m('.text-center[name=timetable]', [
+                    m('.text-center.mobile-view[name=timetable]', [
                         m('h3', trans('as.embed.layout_2.choose')),
-                        m('.btn-group', [
-                            m('a.btn.btn-lg.btn-as-timetable[href=#][id=btn-date-prev]', {
-                                'data-date': data.prev
-                            },[
-                                m('i.glyphicon.glyphicon-chevron-left')
-                            ]),
-                            m("a.btn.btn-default.btn-as-timetable#btn-timetable.btn-selected", {
-                                    href: '#', 
-                                    'data-date': data.nav[selIndex].start.date, 
-                                    id: 'btn-timetable-' + data.nav[selIndex].start.Ymd
-                                }, [
-                                m('.week-of-year', [
-                                    m.trust(trans('common.short.week')),
-                                    m.trust(' '),
-                                    m.trust(data.nav[selIndex].start.weekOfYear)
-                                ]),
-                                m.trust(data.nav[selIndex].start.d),
-                                m.trust('. '),
-                                m.trust(trans('common.short.' + data.nav[selIndex].start.M)),
-                                m.trust(' &ndash; '),
-                                m.trust(data.nav[selIndex].end.d),
-                            ]),
-                            m('a.btn.btn-lg.btn-as-timetable[href=#][id=btn-date-next]', {
-                                'data-date': data.next
-                            },[
-                                m('i.glyphicon.glyphicon-chevron-right')
-                            ])
-                        ]),
                         m('input[type=hidden][name=start-date]', { value : data.date}),
-                        m('.row', [
-                            m('.button-group', [
-                                m('a.btn.btn-lg[href=#btn-weekday-prev][id=btn-weekday-prev]', {
+                        m('.row.mobile-view-body', [
+                            m('.button-group.date-selector', [
+                                m('a.btn.btn-lg.date-selector-link[href=#btn-weekday-prev][id=btn-weekday-prev]', {
                                     'data-date': (selectedWd == 0) ? null : (data.dates[selectedWd-1].iso),
                                 },[
                                     m('i.glyphicon.glyphicon-chevron-left')
                                 ]),
-                                m("a.btn.btn-default", {
-                                        href: '#', 
-                                        'data-date': data.dates[selectedWd].formatted, 
-                                        id: 'btn-timetable-' + m.trust(data.dates[selectedWd].D),
-                                        style : 'border-radius:0px; min-width: 105px',
-                                    }, [
-                                    m('h5.text-muted', [
-                                        m('.day-in-week', [ m.trust(data.dates[selectedWd].D)]),
-                                        m.trust(data.dates[selectedWd].formatted)
-                                    ])
+                                m('ul.date-selector-dates', [
+                                    data.dates.map(function(item, index){
+                                        return m('li',[ m("a.btn.btn-default", {
+                                                href: '#', 
+                                                'data-date': item.formatted, 
+                                                'data-index' : index,
+                                                id: 'btn-timetable-' + m.trust(item.D),
+                                                style : 'border: none; border-radius: none',
+                                                class : (index === selectedWd) ? 'btn btn-date-selector btn-selected' : 'btn btn-date-selector btn-default'
+                                            }, [
+                                                m('h5.text-muted', [
+                                                    m('em', [m.trust(item.dm)]),
+                                                    m('.day-in-week', [ m.trust(item.D)])
+                                                ])
+                                            ])
+                                        ])
+                                    })
                                 ]), 
-                                m('a.btn.btn-lg[href=#btn-weekday-next][id=btn-weekday-next]', {
-                                    'data-date': (selectedWd < 6) ? (data.dates[selectedWd+1].iso) : null,
+                                m('a.btn.btn-lg.date-selector-link[href=#btn-weekday-next][id=btn-weekday-next]', {
+                                    'data-date': (selectedWd < 6) ? (data.dates[selectedWd+1].iso) : data.next,
 
                                 },[
                                     m('i.glyphicon.glyphicon-chevron-right')

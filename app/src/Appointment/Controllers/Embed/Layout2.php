@@ -66,20 +66,8 @@ class Layout2 extends Base
                 }
             }
             $nav[] = [
-                'start' => [
-                    'date'      => $start->copy()->format('Y-m-d'),
-                    'Ymd'       => $start->copy()->format('Ymd'),
-                    'd'         => $start->copy()->format('d'),
-                    'M'         => $start->copy()->format('M'),
-                    'weekOfYear'=> $start->copy()->weekOfYear,
-                ],
-                'end'   => [
-                    'date'      => $end->copy()->format('Y-m-d'),
-                    'Ymd'       => $start->copy()->format('Ymd'),
-                    'weekOfYear'=> $start->copy()->weekOfYear,
-                    'd'         => $start->copy()->format('d'),
-                    'M'         => $start->copy()->format('M'),
-                ],
+                'start' => Util::preformatDate($start),
+                'end'   => Util::preformatDate($end),
             ];
 
             $start = $end->addDay();
@@ -106,9 +94,10 @@ class Layout2 extends Base
             }
 
             $dates[] = [ 
-                'D' => Util::td($start->copy()->format('D')),
+                'D'         => trans('common.short.'.strtolower($start->format('D'))),
+                'dm'        => $start->copy()->format('d.m'),
                 'formatted' => str_date($start->copy()),
-                'iso' => $start->copy()->toDateString(),
+                'iso'       => $start->copy()->toDateString(),
             ];
 
             $refine = [];

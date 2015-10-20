@@ -4,6 +4,7 @@
 @section ('extra_css')
 {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
 {{ HTML::style(asset('packages/alertify/css/themes/bootstrap.min.css')) }}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 @include('modules.as.embed.layout-2._style')
 @stop
 
