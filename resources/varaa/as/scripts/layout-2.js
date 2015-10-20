@@ -197,7 +197,7 @@
                                 m('ul.date-selector-dates', [
                                     m('li',[
                                         m('a.btn.btn-lg.date-selector-link[href=#btn-weekday-prev][id=btn-weekday-prev]', {
-                                            'data-date': (selectedWd == 0) ? null : (data.dates[selectedWd-1].iso),
+                                            'data-date': (selectedWd == 0) ? data.prev : (data.dates[selectedWd-1].iso),
                                         },[
                                             m('i.glyphicon.glyphicon-chevron-left')
                                         ])
