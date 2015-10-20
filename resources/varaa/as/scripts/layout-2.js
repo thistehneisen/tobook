@@ -165,8 +165,14 @@
             
             $timetable.on('click', 'a#btn-weekday-prev', function (e) {
                 e.preventDefault();
-                if (selectedWd > 0) selectedWd--;
-                return fnCreateMobileView(document.getElementById('as-timetable'), cache.timetable);
+                if (selectedWd > 0) { 
+                    selectedWd--;
+                    return fnCreateMobileView(document.getElementById('as-timetable'), cache.timetable);
+                } else {
+                    dataStorage.date = $(this).data('date');
+                    selectedWd = 0;
+                    return fnLoadTimetable();
+                }
             })
 
             $timetable.on('click', 'a#btn-weekday-next', function (e) {
