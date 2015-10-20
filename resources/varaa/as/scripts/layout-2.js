@@ -156,6 +156,10 @@
                         fnMethod = fnCreateMobileView;
                     }
                     fnMethod(document.getElementById('as-timetable'), cache.timetable);
+                    var startDate = $timetable.find('input[name=start-date]').val();
+                    $timetable.find('a.btn-as-timetable[data-date=' + startDate + ']')
+                        .removeClass('btn-default')
+                        .addClass('btn-selected');
                 }
             });
             

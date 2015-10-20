@@ -81,34 +81,40 @@ html {
 }
 
 .mobile-view {
-    .btn-as-week-select {
-        border-left: none;
-        border: 1px solid #ddd;
-        cursor: pointer;
-        float: left;
-        padding: 5px;
-        text-align: center;
-        width: 14.28%;
-    }
     .date-selector-link {
         color: #bbb;
         font-size: 18px;
         display: inline-block;
         text-align: center;
         width: 5%;
-        margin-top: 20px;
+        margin-top: 5px;
+        text-align: left;
     }
-
     .date-selector-dates {
         list-style-type: none;
         margin: 0;
         padding: 0;
         width: 90%;
         display: inline-block;
+
+        li:first-child {
+            border-left: 1px solid #ddd;
+        }
+
         li {
             display: inline-block;
             border-radius: none;
             border: 1px solid #ddd;
+            border-left: none;
+            cursor: pointer;
+            float: left;
+            text-align: center;
+            width: 14.28%;
+            .btn {
+                padding: 0px;
+                width: 100%;
+                border-radius: 0px;
+            }
         }
     }
     .day-in-week {
