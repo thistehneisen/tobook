@@ -221,8 +221,8 @@
                                             }, [
                                                 m('h5.text-muted', [
                                                     m('em', { 
-                                                        'id' : 'text-date-' + item.iso, 
-                                                        style : (data.timetable[index].time.length === 0) 
+                                                        'id'    : 'text-date-' + item.iso, 
+                                                        'style' : (data.timetable[index].time.length === 0) 
                                                             ? 'text-decoration: line-through' 
                                                             : ''
                                                     }, [m.trust(item.d)]),
@@ -286,9 +286,9 @@
                             ]),
                             data.nav.map(function(item){
                                 return m("a.btn.btn-default.btn-as-timetable#btn-timetable", {
-                                        href: '#', 
-                                        'data-date': item.start.date, 
-                                        id: 'btn-timetable-' + item.start.Ymd
+                                        'href'      : '#',
+                                        'data-date' : item.start.date,
+                                        'id'        : 'btn-timetable-' + item.start.Ymd
                                     }, [
                                     m('.week-of-year', [
                                         m.trust(trans('common.short.week')),
@@ -333,10 +333,10 @@
                                                 Object.keys(item.time).map(function(date, index){
                                                     return m('p', [
                                                         m('a.as-time', { 
-                                                            href : '#',
-                                                            'data-date' : item.date['date'],
-                                                            'id' : 'btn-slot-' + item.date['Ymd'],
-                                                            'data-employee-id': item.time[date].id,
+                                                            'href'             : '#',
+                                                            'data-date'        : item.date['date'],
+                                                            'id'               : 'btn-slot-' + item.date['Ymd'],
+                                                            'data-employee-id' : item.time[date].id,
                                                         }, [ m.trust(date)])
                                                     ])
                                                 })
