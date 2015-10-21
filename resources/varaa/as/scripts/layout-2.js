@@ -218,7 +218,7 @@
                                                 class : (index === selectedWd) ? 'btn btn-date-selector btn-selected' : 'btn btn-date-selector btn-default'
                                             }, [
                                                 m('h5.text-muted', [
-                                                    m('em', [m.trust(item.d)]),
+                                                    m('em', { id : 'text-date-' + item.iso, style : ((data.timetable[index].time.length === 0) ? 'text-decoration: line-through' : '')}, [m.trust(item.d)]),
                                                     m('.day-in-week', [ m.trust(item.D)])
                                                 ])
                                             ])
