@@ -210,15 +210,22 @@
                                     ]),
                                     data.dates.map(function(item, index){
                                         return m('li',[ m("a.btn.btn-default", {
-                                                href: '#', 
-                                                'data-date': item.formatted, 
+                                                'href'       : '#',
+                                                'data-date'  : item.formatted,
                                                 'data-index' : index,
-                                                id: 'btn-timetable-' + m.trust(item.D),
-                                                style : 'border: none; border-radius: none',
-                                                class : (index === selectedWd) ? 'btn btn-date-selector btn-selected' : 'btn btn-date-selector btn-default'
+                                                'id'         : 'btn-timetable-' + m.trust(item.D),
+                                                'style'      : 'border: none; border-radius: none',
+                                                'class'      : (index === selectedWd) 
+                                                    ? 'btn btn-date-selector btn-selected' 
+                                                    : 'btn btn-date-selector btn-default'
                                             }, [
                                                 m('h5.text-muted', [
-                                                    m('em', { id : 'text-date-' + item.iso, style : ((data.timetable[index].time.length === 0) ? 'text-decoration: line-through' : '')}, [m.trust(item.d)]),
+                                                    m('em', { 
+                                                        'id' : 'text-date-' + item.iso, 
+                                                        style : (data.timetable[index].time.length === 0) 
+                                                            ? 'text-decoration: line-through' 
+                                                            : ''
+                                                    }, [m.trust(item.d)]),
                                                     m('.day-in-week', [ m.trust(item.D)])
                                                 ])
                                             ])
@@ -248,10 +255,10 @@
                                             }
                                             return Object.keys(item.time).map(function(date, index){
                                                 return m('li.as-time', { 
-                                                        href : '#',
-                                                        'data-date' : item.date['date'],
-                                                        'id' : 'btn-slot-' + item.date['Ymd'],
-                                                        'data-employee-id': item.time[date].id,
+                                                        'href'             : '#',
+                                                        'data-date'        : item.date['date'],
+                                                        'id'               : 'btn-slot-' + item.date['Ymd'],
+                                                        'data-employee-id' : item.time[date].id,
                                                     }, [
                                                     m.trust(date),
                                                     m('a.btn.btn-success', [ trans('common.select') ])
