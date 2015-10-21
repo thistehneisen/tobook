@@ -26,9 +26,17 @@ class Search extends Front
             ? $location
             : $q;
 
+        $coordinates = [0, 0];
+
+        try {
+            $coordinates = Util::getCoordinates();
+        } catch(\Exception $ex){
+            Log::warning('Cannot geocode location: '.$ex->getMessage());
+        }
+
         $searchParams = [
             'keyword' => $keyword,
-            'location' => Util::getCoordinates(),
+            'location' => $coordinates,
         ];
 
         $searcher = new BusinessesByName($searchParams);
