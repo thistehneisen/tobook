@@ -59,11 +59,11 @@ class LayoutCp extends Base
 
     public function getTimetable()
     {
-        $today      = Carbon::today();
-        $date       = Input::has('date') ? new Carbon(Input::get('date')) : $today;
-        $hash       = Input::get('hash');
-        $service    = Service::findOrFail(Input::get('serviceId'));
-        $employeeId = (int) Input::get('employeeId');
+        $today       = Carbon::today();
+        $date        = Input::has('date') ? new Carbon(Input::get('date')) : $today;
+        $hash        = Input::get('hash');
+        $service     = Service::findOrFail(Input::get('serviceId'));
+        $employeeId  = (int) Input::get('employeeId');
         $serviceTime = null;
 
         if (Input::has('serviceTimeId')) {
@@ -158,11 +158,11 @@ class LayoutCp extends Base
         $i = $startDate->copy();
         while ($i->lte($endDate)) {
             $dates[] = [
-                'dayOfWeek' => trans('common.short.'.strtolower($i->format('D'))),
-                'date' => $i->toDateString(),
-                'niceDate' => $i->format('j'),
+                'dayOfWeek'   => trans('common.short.'.strtolower($i->format('D'))),
+                'date'        => $i->toDateString(),
+                'niceDate'    => $i->format('j'),
                 'hasDiscount' => $selectedService->hasDiscount($i),
-                'disabled' => ($i->lt($start)) ? true : false
+                'disabled'    => ($i->lt($start)) ? true : false
             ];
             $i->addDay();
         }
@@ -179,12 +179,12 @@ class LayoutCp extends Base
             }
 
             $calendar[] = [
-                'time' => $time,
-                'date' => $dateStr,
+                'time'          => $time,
+                'date'          => $dateStr,
                 'discountPrice' => $this->getDiscountPrice($date, $time, $selectedService),
-                'price' => $selectedService->price,
+                'price'         => $selectedService->price,
                 'employee' => [
-                    'id' => $employee->id,
+                    'id'   => $employee->id,
                     'name' => $employee->name,
                 ]
             ];
@@ -220,10 +220,10 @@ class LayoutCp extends Base
         $result['payment_methods'][] = [
             'url' => route('business.booking.pay_at_venue', ['hash' => $hash]),
             'key' => 'pay_at_venue',
-            'attr' => [
+            'attr'=> [
                 'cart_id' => $result['cart_id']
             ],
-            'logo' => asset_path('core/img/pay-at-venue.png'),
+            'logo'  => asset_path('core/img/pay-at-venue.png'),
             'title' => trans('home.cart.pay_venue'),
         ];
 
