@@ -202,11 +202,9 @@
                             m('.button-group.date-selector', [
                                 m('ul.date-selector-dates', [
                                     m('li',[
-                                        m('a.btn.btn-lg.date-selector-link[href=#btn-weekday-prev][id=btn-weekday-prev]', {
-                                            'data-date': (selectedWd == 0) ? data.prev : (data.dates[selectedWd-1].iso),
-                                        },[
-                                            m('i.glyphicon.glyphicon-chevron-left')
-                                        ])
+                                        m('a.btn.btn-lg.date-selector-link[href=#][id=btn-weekday-prev]', {
+                                            'data-date': (selectedWd == 0) ? data.prev : (data.dates[selectedWd-1].iso)
+                                        },[ m('i.glyphicon.glyphicon-chevron-left') ])
                                     ]),
                                     data.dates.map(function(item, index){
                                         return m('li',[ m("a.btn.btn-default", {
@@ -232,12 +230,9 @@
                                         ])
                                     }),
                                     m('li', [
-                                        m('a.btn.btn-lg.date-selector-link[href=#btn-weekday-next][id=btn-weekday-next]', {
-                                            'data-date': (selectedWd < 6) ? (data.dates[selectedWd+1].iso) : data.next,
-
-                                        },[
-                                            m('i.glyphicon.glyphicon-chevron-right')
-                                        ])
+                                        m('a.btn.btn-lg.date-selector-link[href=#][id=btn-weekday-next]', {
+                                            'data-date': (selectedWd < 6) ? (data.dates[selectedWd+1].iso) : data.next
+                                        },[ m('i.glyphicon.glyphicon-chevron-right') ])
                                     ])
                                 ]), 
                             ]),
