@@ -23,10 +23,10 @@
     @endif
     <style type="text/css">
     .slideshow {
-        max-height: 300px;
+        max-height: @if(is_tobook()) 333px @else 300px @endif
     }
     .swiper-slide {
-        max-height: 300px;
+        max-height: @if(is_tobook()) 333px @else 300px @endif
     }
     </style>
 @stop
