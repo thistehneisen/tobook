@@ -21,11 +21,11 @@
                     </li>
                     @endforeach
                 </ul>
-                @if (App::environment() === 'tobook' || App::environment() === 'stag')
+{{--                 @if (App::environment() === 'tobook' || App::environment() === 'stag')
                 <ul class="nav navbar-nav front-nav">
                     <li class="tutorial-video-link"><a class="view-video" title="ToBook.lv - {{ trans('home.video_tutorial_text')}}?" href="{{ trans('home.video_tutorial_link') }}">{{ trans('home.video_tutorial_text')}}</a></li>
                 </ul>
-                @endif
+                @endif --}}
             </div>
         </div>
     </div>
