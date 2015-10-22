@@ -139,6 +139,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         }
     }
 
+    /**
+     * VIC : Virtual Calendar Builder
+     * 
+     */
     public function updateVIC()
     {
         VIC::enqueueToRebuild($this->user, (new Carbon($this->date)));

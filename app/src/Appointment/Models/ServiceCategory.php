@@ -79,7 +79,7 @@ class ServiceCategory extends \App\Core\Models\Base
                 $prices[] = $serviceTime->price;
                 $serviceRange[] = $serviceTime->price;
             }
-            $result['service'][$service->id] = $this->getPriceRange($serviceRange);
+            $result['service'][$service->id] = $service->priceRange;
         }
 
       

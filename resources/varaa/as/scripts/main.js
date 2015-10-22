@@ -168,9 +168,8 @@
         var position = $(source).position(),
           width = $(source).width(),
           fullwidth = $('.as-calendar').width(),
-          popover_width = $('.popover-content').width(),
+          popover_width = ($('.popover-content').width()) ? $('.popover-content').width()  : 350,
           placement = 'right'
-
         if (position.left + width + popover_width > fullwidth) {
           placement = 'left'
         }

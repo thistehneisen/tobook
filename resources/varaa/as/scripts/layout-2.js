@@ -202,35 +202,37 @@
                             m('.button-group.date-selector', [
                                 m('ul.date-selector-dates', [
                                     m('li',[
-                                        m('a.btn.btn-lg.date-selector-link[href=#btn-weekday-prev][id=btn-weekday-prev]', {
-                                            'data-date': (selectedWd == 0) ? data.prev : (data.dates[selectedWd-1].iso),
-                                        },[
-                                            m('i.glyphicon.glyphicon-chevron-left')
-                                        ])
+                                        m('a.btn.btn-lg.date-selector-link[href=#][id=btn-weekday-prev]', {
+                                            'data-date': (selectedWd == 0) ? data.prev : (data.dates[selectedWd-1].iso)
+                                        },[ m('i.glyphicon.glyphicon-chevron-left') ])
                                     ]),
                                     data.dates.map(function(item, index){
                                         return m('li',[ m("a.btn.btn-default", {
-                                                href: '#', 
-                                                'data-date': item.formatted, 
+                                                'href'       : '#',
+                                                'data-date'  : item.formatted,
                                                 'data-index' : index,
-                                                id: 'btn-timetable-' + m.trust(item.D),
-                                                style : 'border: none; border-radius: none',
-                                                class : (index === selectedWd) ? 'btn btn-date-selector btn-selected' : 'btn btn-date-selector btn-default'
+                                                'id'         : 'btn-timetable-' + m.trust(item.D),
+                                                'style'      : 'border: none; border-radius: none',
+                                                'class'      : (index === selectedWd) 
+                                                    ? 'btn btn-date-selector btn-selected' 
+                                                    : 'btn btn-date-selector btn-default'
                                             }, [
                                                 m('h5.text-muted', [
-                                                    m('em', [m.trust(item.d)]),
+                                                    m('em', { 
+                                                        'id'    : 'text-date-' + item.iso, 
+                                                        'style' : (data.timetable[index].time.length === 0) 
+                                                            ? 'text-decoration: line-through' 
+                                                            : ''
+                                                    }, [m.trust(item.d)]),
                                                     m('.day-in-week', [ m.trust(item.D)])
                                                 ])
                                             ])
                                         ])
                                     }),
                                     m('li', [
-                                        m('a.btn.btn-lg.date-selector-link[href=#btn-weekday-next][id=btn-weekday-next]', {
-                                            'data-date': (selectedWd < 6) ? (data.dates[selectedWd+1].iso) : data.next,
-
-                                        },[
-                                            m('i.glyphicon.glyphicon-chevron-right')
-                                        ])
+                                        m('a.btn.btn-lg.date-selector-link[href=#][id=btn-weekday-next]', {
+                                            'data-date': (selectedWd < 6) ? (data.dates[selectedWd+1].iso) : data.next
+                                        },[ m('i.glyphicon.glyphicon-chevron-right') ])
                                     ])
                                 ]), 
                             ]),
@@ -248,10 +250,10 @@
                                             }
                                             return Object.keys(item.time).map(function(date, index){
                                                 return m('li.as-time', { 
-                                                        href : '#',
-                                                        'data-date' : item.date['date'],
-                                                        'id' : 'btn-slot-' + item.date['Ymd'],
-                                                        'data-employee-id': item.time[date].id,
+                                                        'href'             : '#',
+                                                        'data-date'        : item.date['date'],
+                                                        'id'               : 'btn-slot-' + item.date['Ymd'],
+                                                        'data-employee-id' : item.time[date].id,
                                                     }, [
                                                     m.trust(date),
                                                     m('a.btn.btn-success', [ trans('common.select') ])
@@ -279,9 +281,9 @@
                             ]),
                             data.nav.map(function(item){
                                 return m("a.btn.btn-default.btn-as-timetable#btn-timetable", {
-                                        href: '#', 
-                                        'data-date': item.start.date, 
-                                        id: 'btn-timetable-' + item.start.Ymd
+                                        'href'      : '#',
+                                        'data-date' : item.start.date,
+                                        'id'        : 'btn-timetable-' + item.start.Ymd
                                     }, [
                                     m('.week-of-year', [
                                         m.trust(trans('common.short.week')),
@@ -326,10 +328,10 @@
                                                 Object.keys(item.time).map(function(date, index){
                                                     return m('p', [
                                                         m('a.as-time', { 
-                                                            href : '#',
-                                                            'data-date' : item.date['date'],
-                                                            'id' : 'btn-slot-' + item.date['Ymd'],
-                                                            'data-employee-id': item.time[date].id,
+                                                            'href'             : '#',
+                                                            'data-date'        : item.date['date'],
+                                                            'id'               : 'btn-slot-' + item.date['Ymd'],
+                                                            'data-employee-id' : item.time[date].id,
                                                         }, [ m.trust(date)])
                                                     ])
                                                 })
