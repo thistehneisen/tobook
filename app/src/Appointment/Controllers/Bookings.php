@@ -352,6 +352,10 @@ class Bookings extends AsBase
         try {
             $booking  = Booking::findOrFail($bookingId);
 
+            $isRequestedEmployee = (!empty($booking->bookingServices()->first()->is_requested_employee))
+                ? $booking->bookingServices()->first()->is_requested_employee
+                : false;
+                
             $receptionist = new BackendReceptionist();
             $receptionist->setBookingId($bookingId)
                 ->setUUID($booking->uuid)
@@ -363,6 +367,7 @@ class Bookings extends AsBase
                 ->setIsRequestedEmployee($booking->isRequestedEmployee)
                 ->setConsumer($booking->consumer)
                 ->setExtraServiceIds($extraServiceIds)
+                ->setIsRequestedEmployee($isRequestedEmployee)
                 ->setClientIP(Request::getClientIp())
                 ->setSource('backend');
 
@@ -388,13 +393,13 @@ class Bookings extends AsBase
     public function changeStatus()
     {
         $bookingId   = Input::get('booking_id');
-        $status_text = Input::get('booking_status');
+        $statusText  = Input::get('booking_status');
         $cutId       = Session::get('cutId', null);
-        $data = [];
+        $data        = [];
         try {
             $booking = Booking::ofCurrentUser()->find($bookingId);
-            $status  =  $booking->getStatus($status_text);
-            $booking->setStatus($status_text);
+            $status  = $booking->getStatus($statusText);
+            $booking->setStatus($statusText);
 
             if ((int) $status === Booking::STATUS_CANCELLED) {
                 $booking->delete_reason = 'Cancelled by admin';
