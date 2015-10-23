@@ -8,7 +8,6 @@ use App\Core\Models\Business;
 use App\Core\Models\Multilanguage;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
-use App\Core\Models\Multilanguage;
 
 class CopyServicesCommand extends Command {
 
@@ -43,28 +42,29 @@ class CopyServicesCommand extends Command {
 	 */
 	public function fire()
 	{
-		$source = $this->argument('source');
-		$target = $this->argument('target');
+		$original = $this->argument('original');
+		$target   = $this->argument('target');
 
-		$userSrc = User::find($source);
-		$userTgt = User::find($target);
+		$userSource = User::find($original);
+		$userTarget = User::find($target);
 		//Copy categories
-		foreach ($userSrc->categories as $category) {
+		foreach ($userSource->asServiceCategories as $category) {
 			print('(');
 			$cat = $category->replicate();
 
-			$cat->user()->associate($userTgt)->save();
+			$cat->user()->associate($userTarget)->save();
 
-			// Save the translation
+			// Replicate the translation
 			$context = ServiceCategory::getContext();
-
 			$this->copyTranslation($context, $category->id, $cat->id);
 
 			//Copy services
 			foreach ($category->services as $service) {
 				print('.');
 				$srv = $service->replicate();
-				$srv->category()->associate($cat)->save();
+				$srv->category()->associate($cat);
+				$srv->user()->associate($userTarget)->save();
+				// Replicate the translation
 				$context = Service::getContext();
 				$this->copyTranslation($context, $service->id, $srv->id);
 			}
