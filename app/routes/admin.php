@@ -35,7 +35,12 @@ Route::group([
             'as' => 'admin.coupon.index',
             'uses' => 'App\Core\Controllers\Admin\Coupon@index'
         ]);
-        
+
+        Route::get('campaigns', [
+            'as' => 'admin.coupon.campaigns',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@campaigns'
+        ]);
+
     });
 
     //--------------------------------------------------------------------------
