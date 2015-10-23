@@ -20,6 +20,7 @@ class CreateVaraaCouponCampaignsTable extends Migration {
             $table->datetime('begin_at');
             $table->integer('discount');
             $table->string('discount_type');
+            $table->boolean('is_reusable')->default(false);
             $table->string('reusable_code');//for reusable campaign type
             $table->tinyInteger('amount');
             $table->boolean('is_active')->default(true);

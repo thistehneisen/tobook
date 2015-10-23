@@ -16,7 +16,7 @@ class CreateVaraaCouponBookingTable extends Migration {
         {
             $table->unsignedInteger('booking_id');
             $table->unsignedInteger('coupon_id');
-            $table->primary(array('booking_id', 'coupon_id'));
+            $table->primary('booking_id');//resuable coupon can be used multiple time
             $table->foreign('coupon_id')
                 ->references('id')
                 ->on('as_coupons')
