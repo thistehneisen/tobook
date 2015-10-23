@@ -67,15 +67,15 @@ class CopyServicesCommand extends Command {
 	{
 		foreach ($source->services as $service) {
 			print('.');
-			$srv = $service->replicate();
-			$srv->category()->associate($target);
-			$srv->user()->associate($userTarget)->save();
+			$_service = $service->replicate();
+			$_service->category()->associate($target);
+			$_service->user()->associate($userTarget)->save();
 			// Replicate the translation
 			$context = Service::getContext();
-			$this->copyTranslation($context, $service->id, $srv->id);
+			$this->copyTranslation($context, $service->id, $_service->id);
 
-			$this->copyServiceTimes($service, $target);
-			$this->copyExtraService($service, $target, $userTarget);
+			$this->copyServiceTimes($service, $_service);
+			$this->copyExtraService($service, $_service, $userTarget);
 		}
 	}
 
