@@ -8,6 +8,8 @@ use App\Core\Models\Business;
 use App\Core\Models\Multilanguage;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
+use App\Appointment\Models\ServiceTime;
+use App\Appointment\Models\ServiceExtraService;
 
 class CopyServicesCommand extends Command {
 
@@ -50,25 +52,55 @@ class CopyServicesCommand extends Command {
 		//Copy categories
 		foreach ($userSource->asServiceCategories as $category) {
 			print('(');
-			$cat = $category->replicate();
-
-			$cat->user()->associate($userTarget)->save();
-
+			$_category = $category->replicate();
+			$_category->user()->associate($userTarget)->save();
 			// Replicate the translation
 			$context = ServiceCategory::getContext();
-			$this->copyTranslation($context, $category->id, $cat->id);
-
+			$this->copyTranslation($context, $category->id, $_category->id);
 			//Copy services
-			foreach ($category->services as $service) {
-				print('.');
-				$srv = $service->replicate();
-				$srv->category()->associate($cat);
-				$srv->user()->associate($userTarget)->save();
-				// Replicate the translation
-				$context = Service::getContext();
-				$this->copyTranslation($context, $service->id, $srv->id);
-			}
+			$this->copyServices($category, $_category, $userTarget);
 			print(')');
+		}
+	}
+
+	public function copyServices($source, $target, $userTarget)
+	{
+		foreach ($source->services as $service) {
+			print('.');
+			$srv = $service->replicate();
+			$srv->category()->associate($target);
+			$srv->user()->associate($userTarget)->save();
+			// Replicate the translation
+			$context = Service::getContext();
+			$this->copyTranslation($context, $service->id, $srv->id);
+
+			$this->copyServiceTimes($service, $target);
+			$this->copyExtraService($service, $target, $userTarget);
+		}
+	}
+
+	public function copyServiceTimes($source, $target)
+	{
+		foreach ($source->serviceTimes as $serviceTime) {
+			print('@');
+			$_serviceTime = $serviceTime->replicate();
+			$_serviceTime->service()->associate($target)->save();
+			$context = ServiceTime::getContext();
+			$this->copyTranslation($context, $serviceTime->id, $_serviceTime->id);
+		}
+	}
+
+	public function copyExtraService($source, $target, $userTarget)
+	{
+		foreach ($source->extraServices as $extraService) {
+			print('x');
+			$_extraService = $extraService->replicate();
+			$_extraService->user()->associate($userTarget)->save();
+			// Link extra service and service
+			$serviceExtraService = new ServiceExtraService();
+            $serviceExtraService->service()->associate($target);
+            $serviceExtraService->extraService()->associate($_extraService);
+            $serviceExtraService->save();
 		}
 	}
 
