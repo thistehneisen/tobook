@@ -43,9 +43,6 @@ class CopyServicesCommand extends Command {
 	 */
 	public function fire()
 	{
-		$categoriesMap = [];
-		$servicesMap = [];
-
 		$source = $this->argument('source');
 		$target = $this->argument('target');
 
@@ -55,26 +52,40 @@ class CopyServicesCommand extends Command {
 		foreach ($userSrc->categories as $category) {
 			print('(');
 			$cat = $category->replicate();
-			// $cat->fill([
-			// 	'name' => $category->name,
-			// 	'description' => $category->description,
-			// 	'is_show_front' => $category->is_show_front
-			// ]);
+
 			$cat->user()->associate($userTgt)->save();
 
-			$categoriesMap[$category->id] = $cat->id;
 			// Save the translation
-			//$multilangs = Multilanguage::find()
+			$context = ServiceCategory::getContext();
 
+			$this->copyTranslation($context, $category->id, $cat->id);
 
 			//Copy services
 			foreach ($category->services as $service) {
 				print('.');
 				$srv = $service->replicate();
 				$srv->category()->associate($cat)->save();
+				$context = Service::getContext();
+				$this->copyTranslation($context, $service->id, $srv->id);
 			}
 			print(')');
 		}
+	}
+
+	public function copyTranslation($context, $object_id, $new_id)
+	{
+		$keys = ['name', 'description'];
+		foreach ($keys as $key) {
+			$multilangs = Multilanguage::where('context', '=', $context . $object_id)
+				->where('key', '=' , $key)->get();
+
+			foreach ($multilangs as $multilang) {
+				$lang = $multilang->replicate();
+				$lang->context = $context . $new_id;
+				$lang->save();
+			}
+        }
+
 	}
 
 	/**
