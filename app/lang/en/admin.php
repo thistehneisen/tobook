@@ -15,6 +15,7 @@ return [
         'seo'               => 'SEO',
         'pages'             => 'Static pages',
         'misc'              => 'Misc.',
+        'coupons'           => 'Coupons',
     ],
     'edit_heading'       => 'Edit :model #:id',
     'create_heading'     => 'Create a new :model',

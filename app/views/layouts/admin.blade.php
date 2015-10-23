@@ -32,7 +32,7 @@
                 <li><a href="{{ route('admin.settings') }}"><i class="fa fa-cog"></i> {{ trans('admin.nav.settings') }}</a></li>
                 <li><a href="{{ route('admin.statistics') }}"><i class="fa fa-line-chart"></i> @lang('admin.nav.stats')</a></li>
 {{--                 <li><a href="{{ route('admin.reviews.index') }}"><i class="fa fa-thumbs-o-up"></i> @lang('admin.nav.reviews')</a></li> --}}
-                <li><a href="{{ route('admin.reviews.index') }}"><i class="fa fa-thumbs-o-up"></i> @lang('admin.nav.reviews')</a></li>
+                <li><a href="{{ route('admin.coupon.index') }}"><i class="fa fa-scissors"></i> @lang('admin.nav.coupons')</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cubes"></i> @lang('admin.nav.misc') <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">

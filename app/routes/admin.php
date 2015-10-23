@@ -29,6 +29,18 @@ Route::group([
     //--------------------------------------------------------------------------
     // Users
     //--------------------------------------------------------------------------
+    Route::group(['prefix' => 'coupon'], function () {
+
+        Route::get('index', [
+            'as' => 'admin.coupon.index',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@index'
+        ]);
+        
+    });
+
+    //--------------------------------------------------------------------------
+    // Users
+    //--------------------------------------------------------------------------
     App\Core\Controllers\Admin\Users::crudRoutes('users', 'admin.users');
     Route::group(['prefix' => 'users'], function () {
 
