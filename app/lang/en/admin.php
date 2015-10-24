@@ -181,5 +181,14 @@ return [
         'campaigns' => 'Campaigns',
         'index' => 'Main',
         'create' => 'Create campaign',
+        'campaign' => [
+            'add' => 'Add new campaign',
+            'name' => 'Name',
+            'discount' => 'Discount',
+            'amount' => 'Amount',
+            'is_reusable' => 'Reusable',
+            'begin_at' => 'Begin at',
+            'expire_at' => 'Expire at'
+        ]
     ],
 ];

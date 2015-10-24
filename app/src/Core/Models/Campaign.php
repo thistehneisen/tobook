@@ -32,6 +32,7 @@ class Campaign extends Base
         'saving' => [
             'name' => 'required',
             'discount' => 'required',
+            'amount' => 'required',
             'discount_type' => 'required',
             'is_reusable' => 'required',
             'begin_at' => 'required',
