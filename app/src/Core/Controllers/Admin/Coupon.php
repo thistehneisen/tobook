@@ -13,4 +13,9 @@ class Coupon extends Base
     {
     	return $this->render('coupon.campaigns', []);
     }
+
+    public function create()
+    {
+    	return $this->render('coupon.create', []);
+    }
 }

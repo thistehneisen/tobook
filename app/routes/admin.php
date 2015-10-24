@@ -41,6 +41,11 @@ Route::group([
             'uses' => 'App\Core\Controllers\Admin\Coupon@campaigns'
         ]);
 
+        Route::get('create', [
+            'as' => 'admin.coupon.create',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@create'
+        ]);
+
     });
 
     //--------------------------------------------------------------------------

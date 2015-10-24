@@ -175,4 +175,10 @@ return [
         'mapped'          => 'Mapping to',
         'duplicated'      => 'The keyword has already existed. Keyword must be unique.',
     ],
+    'coupon' => [
+        'title' => 'Coupons',
+        'campaigns' => 'Campaigns',
+        'index' => 'Main',
+        'create' => 'Create campaign',
+    ],
 ];
