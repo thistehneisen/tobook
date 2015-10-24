@@ -1,11 +1,11 @@
 <?php namespace App\Core\Controllers\Admin;
 use App;
 use App\Core\Settings;
-use App\Lomake\FieldFactory;
+use App\Core\Models\Campaign;
 use Config;
 use Input;
 use Redirect;
-use Settings;
+use Lomake;
 
 class Coupon extends Base
 {
@@ -43,6 +43,10 @@ class Coupon extends Base
 
     public function create()
     {
-    	return $this->render('coupon.create', []);
+    	$campaign = new Campaign;
+    	
+    	return $this->render('coupon.create', [ 
+    		'campaign' => $campaign
+    	]);
     }
 }

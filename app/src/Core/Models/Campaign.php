@@ -28,6 +28,17 @@ class Campaign extends Base
         'is_active'
     ];
 
+    public $rulesets = [
+        'saving' => [
+            'name' => 'required',
+            'discount' => 'required',
+            'discount_type' => 'required',
+            'is_reusable' => 'required',
+            'begin_at' => 'required',
+            'expire_at' => 'required',
+        ]
+    ];
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

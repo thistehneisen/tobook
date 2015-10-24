@@ -51,6 +51,11 @@ Route::group([
             'uses' => 'App\Core\Controllers\Admin\Coupon@create'
         ]);
 
+        Route::post('upsert', [
+            'as' => 'admin.coupon.campaigns.upsert',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@campaigns'
+        ]);
+
     });
 
     //--------------------------------------------------------------------------
