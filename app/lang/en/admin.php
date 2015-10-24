@@ -177,6 +177,7 @@ return [
     ],
     'coupon' => [
         'title' => 'Coupons',
+        'setting' => 'Setting',
         'campaigns' => 'Campaigns',
         'index' => 'Main',
         'create' => 'Create campaign',

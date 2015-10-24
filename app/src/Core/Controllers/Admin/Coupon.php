@@ -1,4 +1,11 @@
 <?php namespace App\Core\Controllers\Admin;
+use App;
+use App\Core\Settings;
+use App\Lomake\FieldFactory;
+use Config;
+use Input;
+use Redirect;
+use Settings;
 
 class Coupon extends Base
 {
@@ -6,7 +13,27 @@ class Coupon extends Base
 
     public function index()
     {
-        return $this->render('coupon.index', []);
+    	$definition = Config::get('varaa.settings.coupon');
+        $definition['name'] = $name = 'coupon';
+        $definition['default'] = isset($definition['default'])
+            ? $definition['default']
+            : '';
+
+        // Overwrite with settings in database
+        $definition['default'] = \Settings::get($name) !== null
+            ? \Settings::get($name)
+            : $definition['default'];
+
+        $control = FieldFactory::create($definition);
+
+        return $this->render('coupon.index', [
+        	'control' => $control
+        ]);
+    }
+
+    public function setting()
+    {
+    	return;
     }
 
     public function campaigns()
