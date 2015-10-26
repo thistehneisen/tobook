@@ -17,7 +17,7 @@ use Response;
 class Coupon extends Base
 {
     use \CRUD;
-	protected $viewPath = 'admin.coupon';
+	protected $viewPath = 'admin';
 
     protected $customViewPath = [
         'index' => 'admin.coupon.campaigns'
@@ -57,7 +57,7 @@ class Coupon extends Base
 
     public function edit()
     {
-        
+
     }
 
     public function campaigns()
@@ -106,10 +106,17 @@ class Coupon extends Base
     {
         $campaign = new Campaign();
         $isReusable = (boolean) Input::get('is_reusable');
+        $reusableCode =  Input::get('reusable_code');
 
         if ($isReusable) {
             $validator  = $campaign->getResuableCodeValidator();
             if ($validator->fails()) {
+                dd($validator->errors());
+                return Redirect::back()->withInput()->withErrors($validator->errors());
+            }
+
+            $isExisted = Campaign::where('reusable_code', '=', $reusableCode)->first();
+            if ( ! empty($isExisted)) {
                 return Redirect::back()->withInput()->withErrors($validator->errors());
             }
         }
