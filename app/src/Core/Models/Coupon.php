@@ -24,8 +24,8 @@ class Coupon extends Base
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
-    public function campagin()
+    public function campaign()
     {
-        return $this->belongsTo('App\Core\Models\Campagin');
+        return $this->belongsTo('App\Core\Models\Campaign');
     }
 }

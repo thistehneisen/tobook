@@ -88,5 +88,6 @@ class Coupon extends Base
             return Redirect::back()->withInput()->withErrors($ex->getErrors());
         }
 
+        return Redirect::route('admin.coupon.campaigns');
     }
 }
