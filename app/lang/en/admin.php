@@ -187,6 +187,8 @@ return [
             'discount' => 'Discount',
             'amount' => 'Amount',
             'is_reusable' => 'Reusable',
+            'is_disposable' => 'Diposable',
+            'reusable_code' => 'Resuable code',
             'begin_at' => 'Begin at',
             'expire_at' => 'Expire at'
         ]

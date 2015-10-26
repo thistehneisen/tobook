@@ -35,10 +35,31 @@ class Campaign extends Base
             'amount' => 'required',
             'discount_type' => 'required',
             'is_reusable' => 'required',
-            'begin_at' => 'required',
             'expire_at' => 'required',
         ]
     ];
+
+
+    //--------------------------------------------------------------------------
+    // CUSTOM METHODS
+    //--------------------------------------------------------------------------
+
+    public function generateCodes($amount = 0)
+    {  
+        if ($amount < 1) return [];
+        
+        $codes = [];
+
+        while($amount) {
+            $code = Str::quickRandom(10);
+            if( ! in_array($code, $codes)) {
+                $codes[] = $code;
+                $amount--;
+            }
+        }
+
+        return $codes;
+    }
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS

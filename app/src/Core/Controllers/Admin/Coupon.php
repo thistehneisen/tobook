@@ -7,6 +7,7 @@ use Config;
 use Input;
 use Redirect;
 use Lomake;
+use Carbon\Carbon;
 
 class Coupon extends Base
 {
@@ -47,7 +48,13 @@ class Coupon extends Base
     	$campaign = new Campaign;
     	
     	return $this->render('coupon.create', [ 
-    		'campaign' => $campaign
+    		'campaign' => $campaign,
+            'today' => Carbon::today(),
     	]);
+    }
+
+    public function doCreate()
+    {
+
     }
 }
