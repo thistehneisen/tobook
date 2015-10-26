@@ -182,6 +182,7 @@ return [
         'index' => 'Main',
         'create' => 'Create campaign',
         'campaign' => [
+            'all' => 'All campaigns',
             'add' => 'Add new campaign',
             'name' => 'Name',
             'discount' => 'Discount',

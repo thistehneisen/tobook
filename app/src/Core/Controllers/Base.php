@@ -20,6 +20,8 @@ class Base extends \Controller
      */
     protected $viewPath;
 
+    protected $customViewPath = [];
+
     /**
      * Constructor
      */
@@ -37,6 +39,31 @@ class Base extends \Controller
     protected function getViewPath()
     {
         return $this->viewPath;
+    }
+
+    /**
+     * Array keeps custom view paths
+     *
+     * @return string
+     */
+    protected function customViewPath()
+    {
+        return $this->customViewPath;
+    }
+
+    /**
+     * Change custom view for renderList function
+     * Sometimes we don't use index page for listing
+     *
+     * @return string
+     */
+    public function makeViewPath($view)
+    {
+        $viewPath =  $this->customViewPath();
+        if (array_key_exists($view, $this->customViewPath())) {
+            return $viewPath[$view];
+        }
+        return $this->getViewPath() . '.' . $view;
     }
 
     /**

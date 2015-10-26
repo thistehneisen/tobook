@@ -222,13 +222,13 @@ trait Olut
         $fields = $this->getViewableFields();
 
         // User can overwrite default CRUD list template
-        $view = View::exists($this->getViewPath().'.index')
-            ? $this->getViewPath().'.index'
+        $view = View::exists($this->makeViewPath('index'))
+            ? $this->makeViewPath('index')
             : 'olut::index';
 
         // user can overwrite default CRUD tabs template
-        $tabsView = View::exists($this->getViewPath().'.tabs')
-            ? $this->getViewPath().'.tabs'
+        $tabsView = View::exists($this->makeViewPath('tabs'))
+            ? $this->makeViewPath('tabs')
             : 'olut::tabs';
 
         // Get language prefix

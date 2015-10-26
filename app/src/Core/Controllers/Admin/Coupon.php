@@ -16,7 +16,19 @@ use Response;
 
 class Coupon extends Base
 {
-	protected $viewPath = 'admin';
+    use \CRUD;
+	protected $viewPath = 'admin.coupon';
+
+    protected $customViewPath = [
+        'index' => 'admin.coupon.campaigns'
+    ];
+
+    protected $crudOptions = [
+        'modelClass'  => 'App\Core\Models\Campaign',
+        'layout'      => 'layouts.admin',
+        'langPrefix'  => 'admin.coupon.campaign',
+        'indexFields' => ['name']
+    ];
 
     public function index()
     {
@@ -43,9 +55,37 @@ class Coupon extends Base
     	return;
     }
 
+    public function edit()
+    {
+        
+    }
+
     public function campaigns()
     {
-    	return $this->render('coupon.campaigns', []);
+        // To make sure that we only show records of current user
+        $query = $this->getModel();
+
+        // Allow to filter results in query string
+        $query = $this->applyQueryStringFilter($query);
+
+        // If this controller is sortable
+        if ($this->getOlutOptions('sortable') === true) {
+            $query = $query->orderBy('order');
+        }
+
+        // Eager loading
+        if ($prefetch = $this->getOlutOptions('prefetch')) {
+            $query = $query->with($prefetch);
+        }
+
+        $query = $this->oulutCustomIndexQuery($query);
+
+        // Pagination please
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+        $perPage = $perPage < 0 ? 0 : $perPage;
+        $items = $query->paginate($perPage);
+
+        return $this->renderList($items);
     }
 
     public function create()

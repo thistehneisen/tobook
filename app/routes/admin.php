@@ -54,6 +54,26 @@ Route::group([
         Route::post('campaigns/create', [
             'as' => 'admin.coupon.campaigns.create',
             'uses' => 'App\Core\Controllers\Admin\Coupon@doCreate'
+        ]); 
+
+        Route::get('campaigns/search', [
+            'as' => 'admin.coupon.campaigns.search',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@search'
+        ]);
+
+        Route::get('campaigns/bulk', [
+            'as' => 'admin.coupon.campaigns.bulk',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@bulk'
+        ]);
+
+        Route::get('campaigns/edit', [
+            'as' => 'admin.coupon.campaigns.edit',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@edit'
+        ]);
+
+        Route::get('campaigns/delete', [
+            'as' => 'admin.coupon.campaigns.delete',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@delete'
         ]);
 
     });
