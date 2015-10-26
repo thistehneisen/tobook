@@ -185,6 +185,7 @@ return [
             'add' => 'Add new campaign',
             'name' => 'Name',
             'discount' => 'Discount',
+            'discount_type' => 'Discount type',
             'amount' => 'Amount',
             'is_reusable' => 'Reusable',
             'is_disposable' => 'Diposable',

@@ -55,6 +55,10 @@ class Coupon extends Base
     	return $this->render('coupon.create', [ 
     		'campaign' => $campaign,
             'today' => Carbon::today(),
+            'discountType' => [
+                'percentage' => '%',
+                'amount'     => '&euro;'
+            ]
     	]);
     }
 
@@ -73,7 +77,7 @@ class Coupon extends Base
         try {
             $campaign->fill(Input::all());
             $campaign->saveOrFail();
-            
+
             if (! $isReusable) {
                 $campaign->makeCoupons();
             } else {

@@ -68,7 +68,14 @@
                 {{ Form::text('discount','', ['class' => 'form-control input-sm', 'id' => 'discount']) }}
                 {{ Form::errorText('discount', $errors) }}
             </div>
-        </div>        
+        </div>
+        <div class="form-group {{ Form::errorCSS('discount_type', $errors) }}">
+            <label for="discount" class="col-sm-2 control-label">{{ trans('admin.coupon.campaign.discount_type') }} {{ Form::required('discount_type', $campaign) }}</label>
+            <div class="col-sm-5">
+                {{ Form::select('discount_type', [trans('common.options_select')]+$discountType, '', ['class' => 'form-control input-sm', 'id' => 'discount_type']) }}
+                {{ Form::errorText('discount_type', $errors) }}
+            </div>
+        </div>              
         <div class="form-group {{ Form::errorCSS('begin_at', $errors) }} reusable_code">
             <label for="reusable_code" class="col-sm-2 control-label">{{ trans('admin.coupon.campaign.reusable_code') }} {{ Form::required('reusable_code', $campaign) }}</label>
             <div class="col-sm-5">
