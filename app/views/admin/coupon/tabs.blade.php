@@ -6,4 +6,9 @@
 	    </a>
     </li>
     <li @if (Route::currentRouteName() === 'admin.coupon.create') {{ 'class="active"' }} @endif><a href="{{ route('admin.coupon.create')}}">{{ trans('admin.coupon.create') }}</a></li>
+    @if (Route::currentRouteName() === 'admin.coupon.campaigns.edit')
+    <li class="active">
+    	<a href="{{ route('admin.coupon.campaigns.edit') }}">{{ trans('admin.coupon.campaign.edit') }}</a>
+    </li>
+    @endif
 </ul>

@@ -181,9 +181,12 @@ return [
         'campaigns' => 'Campaigns',
         'index' => 'Main',
         'create' => 'Create campaign',
+        'is_used' => 'Is Used',
+        'code' => 'Code',
         'campaign' => [
             'all' => 'All campaigns',
             'add' => 'Add new campaign',
+            'edit' => 'Modify campaign',
             'name' => 'Name',
             'discount' => 'Discount',
             'discount_type' => 'Discount type',
@@ -192,7 +195,9 @@ return [
             'is_disposable' => 'Diposable',
             'reusable_code' => 'Resuable code',
             'begin_at' => 'Begin at',
-            'expire_at' => 'Expire at'
+            'expire_at' => 'Expire at',
+            'used' => 'Used',
+            'not_used' => 'Not used',
         ]
     ],
 ];

@@ -28,7 +28,7 @@
 @stop
 
 @section('content')
-    <h3>{{ trans('admin.coupon.title')}}</h3>
+     <h4 class="comfortaa">{{ trans('admin.coupon.title')}}</h4>
     @include ('admin.coupon.tabs')
      {{ Form::open(['route' => ['admin.coupon.campaigns.create', (isset($campaign->id)) ? $campaign->id: null], 'class' => 'form-horizontal well', 'role' => 'form', 'enctype' => 'multipart/form-data']) }}
         @include ('el.messages')

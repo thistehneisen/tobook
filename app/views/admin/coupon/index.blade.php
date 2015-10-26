@@ -3,7 +3,7 @@
 @section('content')
     @include ('admin.coupon.tabs')
 
- <h3>{{ trans('admin.coupon.title')}}</h3>
+  <h4 class="comfortaa">{{ trans('admin.coupon.title')}}</h4>
 
 {{ Form::open(['route' => 'admin.coupon.setting', 'class' => 'form-horizontal']) }}
      <div class="form-group">

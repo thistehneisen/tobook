@@ -49,7 +49,7 @@ class Campaign extends Base
         $codes = [];
 
         while($amount) {
-            $code = Str::quickRandom(10);
+            $code = Str::upper(Str::random(10));
             if( ! in_array($code, $codes)) {
                 $codes[] = $code;
                 $amount--;
@@ -88,6 +88,14 @@ class Campaign extends Base
         ];
 
         return Validator::make($field, $validator);
+    }
+
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    public function getExpireAtAttribute()
+    {
+        return new \Carbon\Carbon($this->attributes['expire_at']);
     }
 
     //--------------------------------------------------------------------------

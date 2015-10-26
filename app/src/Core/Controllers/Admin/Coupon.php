@@ -27,7 +27,7 @@ class Coupon extends Base
         'modelClass'  => 'App\Core\Models\Campaign',
         'layout'      => 'layouts.admin',
         'langPrefix'  => 'admin.coupon.campaign',
-        'indexFields' => ['name']
+        'indexFields' => ['name', 'discount_type', 'discount','reusable_code']
     ];
 
     public function index()
@@ -55,9 +55,14 @@ class Coupon extends Base
     	return;
     }
 
-    public function edit()
+    public function edit($id)
     {
+        $campaign = Campaign::findOrFail($id);
 
+        return $this->render('coupon.edit', [ 
+            'campaign' => $campaign,
+            'today' => Carbon::today()
+        ]);
     }
 
     public function campaigns()

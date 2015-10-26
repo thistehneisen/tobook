@@ -66,7 +66,7 @@ Route::group([
             'uses' => 'App\Core\Controllers\Admin\Coupon@bulk'
         ]);
 
-        Route::get('campaigns/edit', [
+        Route::get('campaigns/edit/{id}', [
             'as' => 'admin.coupon.campaigns.edit',
             'uses' => 'App\Core\Controllers\Admin\Coupon@edit'
         ]);
