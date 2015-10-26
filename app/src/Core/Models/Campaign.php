@@ -8,9 +8,8 @@ use Carbon\Carbon;
 use Config;
 use Illuminate\Support\Collection;
 use Input;
-use Settings;
-use Str;
-use Util;
+use Settings, Str, Util;
+use Validator;
 
 class Campaign extends Base
 {
@@ -59,6 +58,37 @@ class Campaign extends Base
         }
 
         return $codes;
+    }
+
+    public function makeCoupons()
+    {
+        $amount = $this->amount;
+
+        $codes = $this->generateCodes($amount);
+
+        foreach ($codes as $code) {
+           $this->makeCoupon($code);
+        }
+    }
+
+    public function makeCoupon($code)
+    {
+        $coupon = new Coupon;
+        $coupon->fill(['code' => $code]);
+        $coupon->campaign()->associate($this)->save();
+    }
+
+    public function getResuableCodeValidator()
+    {
+        $field = [
+            'reusable_code' => Input::get('reusable_code'),
+        ];
+
+        $validator = [
+            'reusable_code' => ['required'],
+        ];
+
+        return Validator::make($field, $validator);
     }
 
     //--------------------------------------------------------------------------

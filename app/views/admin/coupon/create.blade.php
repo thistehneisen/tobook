@@ -30,8 +30,6 @@
 @section('content')
     <h3>{{ trans('admin.coupon.title')}}</h3>
     @include ('admin.coupon.tabs')
-
-    @include ('el.messages')
      {{ Form::open(['route' => ['admin.coupon.campaigns.create', (isset($campaign->id)) ? $campaign->id: null], 'class' => 'form-horizontal well', 'role' => 'form', 'enctype' => 'multipart/form-data']) }}
         @include ('el.messages')
         <div class="form-group">
@@ -50,7 +48,7 @@
                 {{ Form::errorText('name', $errors) }}
             </div>
         </div>
-        <div class="form-group {{ Form::errorCSS('name', $errors) }}">
+        <div class="form-group {{ Form::errorCSS('is_reusable', $errors) }}">
             <label for="is_reusable" class="col-sm-2 control-label">{{ trans('admin.coupon.campaign.is_reusable') }} {{ Form::required('is_reusable', $campaign) }}</label>
             <div class="col-sm-5">
                 {{ Form::checkbox('is_reusable', 1, null,  ['class' => 'input-sm', 'id' => 'is_reusable']) }}
@@ -64,28 +62,28 @@
                 {{ Form::errorText('amount', $errors) }}
             </div>
         </div>
-        <div class="form-group {{ Form::errorCSS('name', $errors) }}">
+        <div class="form-group {{ Form::errorCSS('discount', $errors) }}">
             <label for="discount" class="col-sm-2 control-label">{{ trans('admin.coupon.campaign.discount') }} {{ Form::required('discount', $campaign) }}</label>
             <div class="col-sm-5">
                 {{ Form::text('discount','', ['class' => 'form-control input-sm', 'id' => 'discount']) }}
                 {{ Form::errorText('discount', $errors) }}
             </div>
         </div>        
-        <div class="form-group {{ Form::errorCSS('name', $errors) }} reusable_code">
+        <div class="form-group {{ Form::errorCSS('begin_at', $errors) }} reusable_code">
             <label for="reusable_code" class="col-sm-2 control-label">{{ trans('admin.coupon.campaign.reusable_code') }} {{ Form::required('reusable_code', $campaign) }}</label>
             <div class="col-sm-5">
                 {{ Form::text('reusable_code','', ['class' => 'form-control input-sm', 'id' => 'reusable_code']) }}
-                {{ Form::errorText('reusable_code', $errors) }}
+                {{ Form::errorText('begin_at', $errors) }}
             </div>
         </div>
-        <div class="form-group {{ Form::errorCSS('name', $errors) }}">
+        <div class="form-group {{ Form::errorCSS('begin_at', $errors) }}">
             <label for="begin_at" class="col-sm-2 control-label">{{ trans('admin.coupon.campaign.begin_at') }} {{ Form::required('begin_at', $campaign) }}</label>
             <div class="col-sm-5">
                 {{ Form::text('begin_at', str_date($today), ['class' => 'form-control input-sm date-picker', 'id' => 'begin_at']) }}
                 {{ Form::errorText('begin_at', $errors) }}
             </div>
         </div>
-        <div class="form-group {{ Form::errorCSS('name', $errors) }}">
+        <div class="form-group {{ Form::errorCSS('expire_at', $errors) }}">
             <label for="expire_at" class="col-sm-2 control-label">{{ trans('admin.coupon.campaign.expire_at') }} {{ Form::required('expire_at', $campaign) }}</label>
             <div class="col-sm-5">
                 {{ Form::text('expire_at','', ['class' => 'form-control input-sm date-picker', 'id' => 'expire_at']) }}

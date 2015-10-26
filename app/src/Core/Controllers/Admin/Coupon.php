@@ -3,11 +3,16 @@ use App;
 use App\Core\Settings;
 use App\Core\Models\Campaign;
 use App\Lomake\FieldFactory;
+use Illuminate\Support\ViewErrorBag;
 use Config;
 use Input;
-use Redirect;
 use Lomake;
 use Carbon\Carbon;
+use Validator;
+use Redirect;
+use Request;
+use Response;
+
 
 class Coupon extends Base
 {
@@ -55,6 +60,29 @@ class Coupon extends Base
 
     public function doCreate()
     {
+        $campaign = new Campaign();
+        $isReusable = (boolean) Input::get('is_reusable');
+
+        if ($isReusable) {
+            $validator  = $campaign->getResuableCodeValidator();
+            if ($validator->fails()) {
+                return Redirect::back()->withInput()->withErrors($validator->errors());
+            }
+        }
+
+        try {
+            $campaign->fill(Input::all());
+            $campaign->saveOrFail();
+            
+            if (! $isReusable) {
+                $campaign->makeCoupons();
+            } else {
+                $campaign->makeCoupon($campaign->reusable_code);
+            }
+
+        } catch(\Watson\Validating\ValidationException $ex){
+            return Redirect::back()->withInput()->withErrors($ex->getErrors());
+        }
 
     }
 }
