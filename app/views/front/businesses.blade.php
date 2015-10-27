@@ -46,6 +46,7 @@
 
 var app = app || {}
 app.default_layout = '{{ Settings::get('default_layout') }}'
+app.coupon = '{{ Settings::get('coupon') }}'
 app.i18n = {
     'select': '@lang('as.embed.cp.select')',
     'pl_service': '@lang('as.embed.cp.pl_service')',
