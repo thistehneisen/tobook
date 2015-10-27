@@ -67,7 +67,9 @@ class Coupon extends Base
     {
         $campaign = Campaign::findOrFail($id);
 
-        return $this->render('coupon.edit', [ 
+        $view = ($campaign->isReusable) ? 'reuseable' : 'disposable';
+
+        return $this->render('coupon.' . $view , [ 
             'campaign' => $campaign,
             'today' => Carbon::today()
         ]);

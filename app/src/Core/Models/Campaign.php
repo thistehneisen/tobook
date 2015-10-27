@@ -98,6 +98,11 @@ class Campaign extends Base
         return new \Carbon\Carbon($this->attributes['expire_at']);
     }
 
+    public function getIsReusableAttribute()
+    {
+        return (boolean) $this->attributes['is_reusable'];
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
