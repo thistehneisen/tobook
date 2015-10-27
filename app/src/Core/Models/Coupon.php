@@ -15,7 +15,7 @@ use Util;
 class Coupon extends Base
 {
 	protected $table = 'as_coupons';
-
+    
 	public $fillable = [
         'code',
         'is_used',

@@ -15,6 +15,9 @@ class Campaign extends Base
 {
 	protected $table = 'as_coupon_campaigns';
 	
+    const DISCOUNT_TYPE_PERCENTAGE = 'percentage';
+    const DISCOUNT_TYPE_CASH       = 'cash';
+
 	public $fillable = [
         'name',
         'discount_type',
