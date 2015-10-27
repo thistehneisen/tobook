@@ -424,6 +424,12 @@ app.VaraaCPLayout = (dom, hash) ->
     # --------------------------------------------------------------------------
     @shouldOpenModal = (e) ->
       return false if e.target.disabled is true
+
+      if (parseInt(app.coupon, 10) is 1 and @layout.dataStore().coupon == undefined)
+        $('.payment-section').hide();
+        $('#coupon-panel').removeClass('hidden');
+        return
+
       if @isDisabledPayment() is false and @isForcePayAtVenue() is false
         $('#js-cbf-payment-modal').modal('show')
         return
@@ -431,6 +437,10 @@ app.VaraaCPLayout = (dom, hash) ->
       @layout.placeBooking()
         .then => createFormAndSubmit @payAtVenueUrl(), @layout.dataStore()
         .then null, whenPlacingBookingFailed
+
+    @setCouponCode = (e) ->
+      el = e.target
+      @layout.setCouponCode el.value
 
 
     # Kickstart
@@ -455,7 +465,7 @@ app.VaraaCPLayout = (dom, hash) ->
       m('.cbf-loading', m('i.fa.fa-spin.fa-2x.fa-spinner'))
 
     m('.payment', [
-      m('.payment-section', [
+      m('.payment-section', { id : 'payment-section-panel'}, [
         m('h4', __('almost_done')),
         m('form.row', [
           ['first_name', 'last_name', 'email', 'phone'].map (field) ->
@@ -498,6 +508,28 @@ app.VaraaCPLayout = (dom, hash) ->
             ])
           ])
         ])
+      ]),
+      m('.coupon', {
+          class: 'hidden',
+          id : 'coupon-panel'
+        }, [
+        m('.coupon-section.text-center', [
+          m('h4', __('coupon_code')),
+            m('form.row', [
+              m('.form-group.col-sm-offset-4.col-sm-4', [
+                m('label', [__('coupon_code')]),
+                m('input.form-control.btn-square[type=text]',{
+                  value: dataStore.coupon or '',
+                  onkeyup: ctrl.setCouponCode.bind(ctrl)
+                })
+              ])
+          ])
+        ]),
+        m('.coupon-section.text-center', [
+          m('button.btn.btn-lg.btn-square.btn-book.btn-success', {
+            onclick: ctrl.shouldOpenModal.bind(ctrl)
+          }, __('save'))
+        ]),
       ])
     ])
 
@@ -526,7 +558,8 @@ app.VaraaCPLayout = (dom, hash) ->
     @panels = [
       m.component(Service, args),
       m.component(Time, args),
-      m.component(Payment, args)
+      m.component(Payment, args),
+      m.component(Coupon, args),
     ]
     # Default panel is the first one
     @activePanel = m.prop 0
@@ -540,6 +573,10 @@ app.VaraaCPLayout = (dom, hash) ->
     @moveNext = -> @move(1)
 
     @moveBack = -> @move(-1)
+
+    @moveTo = (index) ->
+      @activePanel(index) if @panels[index]?
+      return
 
     # Return the active panel in panel list
     @getActivePanel = -> @panels[@activePanel()]
@@ -582,6 +619,9 @@ app.VaraaCPLayout = (dom, hash) ->
       @dataStore().time = time
       @addBookingService()
         .then => @moveNext()
+
+    @setCouponCode = (code) ->
+      @dataStore().coupon = code
 
     @setTransactionId = (id) -> @dataStore().transaction_id = id
     @setBookingId = (id) -> @dataStore().booking_id = id

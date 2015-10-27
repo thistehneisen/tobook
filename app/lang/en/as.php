@@ -320,6 +320,7 @@ return [
             'how_to_pay' => 'How do you want to pay for your booking?',
             'almost_done' => 'Your booking is almost done',
             'first_employee' => 'The first employee available',
+            'coupon_code' => 'Coupon code',
         ],
         'receipt' => [
             'thanks' => 'Thanks for booking via Varaa.com!',
