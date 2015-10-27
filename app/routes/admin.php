@@ -36,9 +36,9 @@ Route::group([
             'uses' => 'App\Core\Controllers\Admin\Coupon@index'
         ]);
 
-        Route::post('setting', [
-            'as' => 'admin.coupon.setting',
-            'uses' => 'App\Core\Controllers\Admin\Coupon@setting'
+        Route::post('save', [
+            'as' => 'admin.coupon.save',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@save'
         ]);
 
         Route::get('campaigns', [

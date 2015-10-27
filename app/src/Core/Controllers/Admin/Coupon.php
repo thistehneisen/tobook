@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers\Admin;
 use App;
-use App\Core\Settings;
+use App\Core\Models\Setting;
 use App\Core\Models\Campaign;
 use App\Lomake\FieldFactory;
 use Illuminate\Support\ViewErrorBag;
@@ -50,9 +50,17 @@ class Coupon extends Base
         ]);
     }
 
-    public function setting()
+    public function save()
     {
-    	return;
+        $key   = 'coupon';
+        $value = Input::get('coupon');
+
+        $setting = Setting::findOrNew($key);
+        $setting->key   = $key;
+        $setting->value = $value;
+        $setting->save();
+
+        return Redirect::route('admin.coupon.index');
     }
 
     public function edit($id)

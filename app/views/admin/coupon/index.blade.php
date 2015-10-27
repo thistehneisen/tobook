@@ -5,7 +5,7 @@
 
   <h4 class="comfortaa">{{ trans('admin.coupon.title')}}</h4>
 
-{{ Form::open(['route' => 'admin.coupon.setting', 'class' => 'form-horizontal']) }}
+{{ Form::open(['route' => 'admin.coupon.save', 'class' => 'form-horizontal']) }}
      <div class="form-group">
         <label class="control-label col-sm-3">{{ trans('admin.coupon.setting') }}</label>
         <div class="col-sm-6">{{ $control->render() }}</div>
