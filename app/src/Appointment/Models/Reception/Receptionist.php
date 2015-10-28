@@ -691,14 +691,15 @@ abstract class Receptionist implements ReceptionistInterface
     {
         if (empty($this->coupon)) return;
 
-        $coupon = Coupon::where('code', '=', $this->coupon)->first();
+        $coupon = Coupon::where('code', '=', $this->coupon)
+            ->where('is_used', '=', 0)->first();
         
         if (empty($coupon)) return;
 
         $couponBooking = new CouponBooking();
         $couponBooking->coupon()->associate($coupon);
         $couponBooking->booking()->associate($booking);
-        
+
         $coupon->is_used = true;
         $coupon->save();
 
