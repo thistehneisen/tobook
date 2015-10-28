@@ -32,9 +32,19 @@ class Coupon extends Base
         if (!empty($code) && (boolean) Settings::get('coupon')) {
             $coupon = self::where('code', '=', $code)
                 ->where('is_used', '=', 0)->with('campaign')->first();
-                
+
+            $now = Carbon::now();
+
+            // Datetime vs date?
+            $expireAt = new Carbon($coupon->campaign->expired_at);
+            $beginAt  = new Carbon($coupon->campaign->begin_at);
+
+            if($now->gt($expireAt) || $now->lt($beginAt)) {
+                return $price;
+            }
+
             if ($coupon->campaign->discount_type === Campaign::DISCOUNT_TYPE_PERCENTAGE) {
-                $price = $price * ($coupon->campaign->discount / 100);
+                $price = $price - ($price * ($coupon->campaign->discount / 100));
             } else if ($coupon->campaign->discount_type === Campaign::DISCOUNT_TYPE_CASH) {
                 # What if total price is negative?
                 $price -= $coupon->campaign->discount;

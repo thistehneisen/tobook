@@ -127,7 +127,12 @@ class Campaign extends Base
     //--------------------------------------------------------------------------
     public function getExpireAtAttribute()
     {
-        return new \Carbon\Carbon($this->attributes['expire_at']);
+        return new Carbon($this->attributes['expire_at']);
+    }
+
+    public function getBeginAtAttribute()
+    {
+        return new Carbon($this->attributes['begin_at']);
     }
 
     public function getIsReusableAttribute()
