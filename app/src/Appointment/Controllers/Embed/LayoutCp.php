@@ -359,15 +359,4 @@ class LayoutCp extends Base
 
         return Redirect::route('payment.success', ['id' => $cart->id]);
     }
-
-    // public function getDiscountPrice()
-    // {
-    //     $coupon = Input::get('coupon');
-    //     $price  = Input::get('price');
-    //     $discountPrice = Coupon::computePrice($coupon, $price);
-
-    //     return Response::json([
-    //         'price' => $discountPrice,
-    //     ]);
-    // }
 }
