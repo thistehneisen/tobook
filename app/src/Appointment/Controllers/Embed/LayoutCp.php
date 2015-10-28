@@ -5,6 +5,8 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Payment\Models\Transaction;
+use App\Core\Models\Coupon;
+use App\Core\Models\Campaign;
 use Carbon\Carbon;
 use Cart;
 use CheckoutFinland\Client;
@@ -357,4 +359,15 @@ class LayoutCp extends Base
 
         return Redirect::route('payment.success', ['id' => $cart->id]);
     }
+
+    // public function getDiscountPrice()
+    // {
+    //     $coupon = Input::get('coupon');
+    //     $price  = Input::get('price');
+    //     $discountPrice = Coupon::computePrice($coupon, $price);
+
+    //     return Response::json([
+    //         'price' => $discountPrice,
+    //     ]);
+    // }
 }

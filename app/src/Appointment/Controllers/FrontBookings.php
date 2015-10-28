@@ -191,6 +191,7 @@ class FrontBookings extends Bookings
             }
             $data['success'] = true;
             $data['message'] = $messages;
+            $data['price']   = $booking->total_price;
 
             if ((Input::get('l') === '3' && $source === 'inhouse') || $source === 'cp') {
                 if ((bool) Settings::get('force_pay_at_venue')) {

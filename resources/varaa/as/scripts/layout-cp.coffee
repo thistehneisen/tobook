@@ -407,10 +407,18 @@ app.VaraaCPLayout = (dom, hash) ->
 
       # Assume the response is fine, submit payment info to paygate
       submitToPaygate = =>
-        results = @paymentOptions().filter (item) -> item.key is paygate
-        option = results[0]
-        if option?
-          createFormAndSubmit option.url, option.attr
+        if (@layout.dataStore().coupon != undefined)
+          @fetchPaymentOptions(@layout.dataStore().price)
+          .then =>
+            results = @paymentOptions().filter (item) -> item.key is paygate
+            option = results[0]
+            if option?
+              createFormAndSubmit option.url, option.attr
+        else
+          results = @paymentOptions().filter (item) -> item.key is paygate
+          option = results[0]
+          if option?
+            createFormAndSubmit option.url, option.attr
 
       # Send request to place the booking
       @lock true
@@ -669,6 +677,8 @@ app.VaraaCPLayout = (dom, hash) ->
           first_name: ds.customer.first_name
           coupon: ds.coupon
           json_messages: true
+      .then (data) ->
+        ds.price = data.price
 
     return
 

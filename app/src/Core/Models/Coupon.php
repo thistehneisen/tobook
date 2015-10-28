@@ -1,6 +1,7 @@
 <?php namespace App\Core\Models;
 
 use App;
+use App\Core\Models\Campaign;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\Discount\DiscountBusiness;
 use App\Core\Models\Relations\BusinessBusinessCategory;
@@ -20,6 +21,28 @@ class Coupon extends Base
         'code',
         'is_used',
     ];
+
+
+    //--------------------------------------------------------------------------
+    // CUSTOM METHODS
+    //--------------------------------------------------------------------------
+    public static function computePrice($code, $price)
+    {
+        # Calculate discount price from coupon and from other rules
+        if (!empty($code) && (boolean) Settings::get('coupon')) {
+            $coupon = self::where('code', '=', $code)
+                ->where('is_used', '=', 0)->with('campaign')->first();
+                
+            if ($coupon->campaign->discount_type === Campaign::DISCOUNT_TYPE_PERCENTAGE) {
+                $price = $price * ($coupon->campaign->discount / 100);
+            } else if ($coupon->campaign->discount_type === Campaign::DISCOUNT_TYPE_CASH) {
+                # What if total price is negative?
+                $price -= $coupon->campaign->discount;
+            }
+        }
+        return $price;
+    }
+
 
     //--------------------------------------------------------------------------
     // ATTRIBUTES

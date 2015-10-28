@@ -91,18 +91,7 @@ class FrontendReceptionist extends Receptionist
 
         $this->validateWithExistingBooking();
 
-        # Calculate discount price from coupon and from other rules
-        if (!empty($this->coupon) && (boolean) Settings::get('coupon')) {
-            $coupon = Coupon::where('code', '=', $this->coupon)
-                ->where('is_used', '=', 0)->with('campaign')->first();
-
-            if ($coupon->campaign->discount_type === Campaign::DISCOUNT_TYPE_PERCENTAGE) {
-                $totalPrice = $totalPrice * ($coupon->campaign->discount / 100);
-            } else if ($coupon->campaign->discount_type === Campaign::DISCOUNT_TYPE_CASH) {
-                # What if total price is negative?
-                $totalPrice -= $coupon->campaign->discount;
-            }
-        }
+        $totalPrice = Coupon::computePrice($this->coupon, $totalPrice);
 
         $booking->fill([
             'date'        => $this->bookingService->date,
