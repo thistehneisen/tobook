@@ -4,6 +4,9 @@ use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\ExtraService;
+use App\Core\Models\Coupon;
+use App\Core\Models\Campaign;
+use Settings;
 use Exception;
 
 class FrontendReceptionist extends Receptionist
@@ -87,6 +90,19 @@ class FrontendReceptionist extends Receptionist
             : $this->bookingService->calculcateTotalPrice();
 
         $this->validateWithExistingBooking();
+
+        # Calculate discount price from coupon and from other rules
+        if (!empty($this->coupon) && (boolean) Settings::get('coupon')) {
+            $coupon = Coupon::where('code', '=', $this->coupon)
+                ->where('is_used', '=', 0)->with('campaign')->first();
+
+            if ($coupon->campaign->discount_type === Campaign::DISCOUNT_TYPE_PERCENTAGE) {
+                $totalPrice = $totalPrice * ($coupon->campaign->discount / 100);
+            } else if ($coupon->campaign->discount_type === Campaign::DISCOUNT_TYPE_CASH) {
+                # What if total price is negative?
+                $totalPrice -= $coupon->campaign->discount;
+            }
+        }
 
         $booking->fill([
             'date'        => $this->bookingService->date,
