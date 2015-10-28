@@ -698,6 +698,9 @@ abstract class Receptionist implements ReceptionistInterface
         $couponBooking = new CouponBooking();
         $couponBooking->coupon()->associate($coupon);
         $couponBooking->booking()->associate($booking);
+        
+        $coupon->is_used = true;
+        $coupon->save();
 
         return $couponBooking->save();
     }
