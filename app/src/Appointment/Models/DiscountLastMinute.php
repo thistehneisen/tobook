@@ -1,4 +1,4 @@
-<?php namespace App\Appointment\Models;
+ggg<?php namespace App\Appointment\Models;
 
 use Config, Util, Validator;
 use Carbon\Carbon;

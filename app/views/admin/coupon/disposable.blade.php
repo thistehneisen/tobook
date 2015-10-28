@@ -40,11 +40,7 @@ $(function () {
 	  element: 'date-used-chart',
 	  // Chart data records -- each entry in this array corresponds to a point on
 	  // the chart.
-	  data: [
-	  	{"date":"25.01.2015", "used" : 5 }, 
-	  	{"date":"26.01.2015", "used" : 3 }, 
-	  	{"date":"27.01.2015", "used" : 15 }
-	  ],
+	  data: {{ $campaign->getBarChartData() }},
 	  // The name of the data record attribute that contains x-values.
 	  xkey: 'date',
 	  // A list of names of data record attributes that contain y-values.

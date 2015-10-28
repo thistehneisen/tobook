@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use Input;
 use Settings, Str, Util;
 use Validator;
+use DB;
 
 class Campaign extends Base
 {
@@ -91,6 +92,26 @@ class Campaign extends Base
         ];
 
         return Validator::make($field, $validator);
+    }
+
+    public function getBarChartData()
+    {
+        $bookings = Booking::join('as_coupon_booking', 'as_coupon_booking.booking_id', '=', 'as_bookings.id')
+            ->join('as_coupons', 'as_coupons.id','=','as_coupon_booking.coupon_id')
+            ->where('as_coupons.campaign_id', '=', $this->id)
+            ->select('as_bookings.created_at', DB::raw('count(varaa_as_coupons.id) as couponCount'))
+            ->groupBy(DB::raw('DATE(varaa_as_bookings.created_at)'))->get();
+
+        $data = [];
+
+        foreach ($bookings as $booking) {
+            $data[] = [
+                'date' => $booking->created_at->toDateString(),
+                'used' => $booking->couponCount
+            ];
+        }
+
+        return json_encode($data);
     }
 
     //--------------------------------------------------------------------------
