@@ -122,6 +122,10 @@ class FrontendReceptionist extends Receptionist
             $extraService->save();
         }
 
+        if ( ! empty($this->coupon)) {
+            $this->saveCoupon($booking);
+        }
+
         return $booking;
     }
 }

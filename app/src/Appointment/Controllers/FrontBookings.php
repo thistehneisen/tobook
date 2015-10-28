@@ -150,6 +150,7 @@ class FrontBookings extends Bookings
                     ->setConsumer($consumer)
                     ->setClientIP(Request::getClientIp())
                     ->setSource($source)
+                    ->setCoupon($coupon)
                     ->setLayout($layout);
 
                 $booking = $receptionist->upsertBooking();
