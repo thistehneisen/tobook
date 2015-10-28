@@ -99,7 +99,7 @@ class Campaign extends Base
         $bookings = Booking::join('as_coupon_booking', 'as_coupon_booking.booking_id', '=', 'as_bookings.id')
             ->join('as_coupons', 'as_coupons.id','=','as_coupon_booking.coupon_id')
             ->where('as_coupons.campaign_id', '=', $this->id)
-            ->select('as_bookings.created_at', DB::raw('count(varaa_as_coupons.id) as couponCount'))
+            ->select('as_bookings.created_at', DB::raw('count(varaa_as_coupon_booking.coupon_id) as couponCount'))
             ->groupBy(DB::raw('DATE(varaa_as_bookings.created_at)'))->get();
 
         $data = [];
@@ -112,6 +112,14 @@ class Campaign extends Base
         }
 
         return json_encode($data);
+    }
+
+    public function getPieChartData()
+    {
+        $total = $this->coupons()->where('is_used', '=', 0)->count();
+        $used = $this->coupons()->where('is_used', '=', 1)->count();
+
+        return json_encode([$total, $used]);
     }
 
     //--------------------------------------------------------------------------

@@ -14,7 +14,7 @@
     <script>
 $(function () {
 	var r = Raphael("used-chart");
-	pie = r.piechart(320, 125, 100, [100, 0.0], { legend: ["%%.%% - Not used", "%%.%% - Used"], legendpos: "west", href: ["http://raphaeljs.com", "http://g.raphaeljs.com"]});
+	pie = r.piechart(320, 125, 100, {{ $campaign->getPieChartData() }}, { legend: ["%%.%% - Not used", "%%.%% - Used"], legendpos: "west", href: ["http://raphaeljs.com", "http://g.raphaeljs.com"]});
 
     r.text(320, 10, "Interactive Pie Chart").attr({ font: "20px sans-serif" });
     pie.hover(function () {
