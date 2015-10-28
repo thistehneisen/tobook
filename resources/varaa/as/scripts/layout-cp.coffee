@@ -558,8 +558,7 @@ app.VaraaCPLayout = (dom, hash) ->
     @panels = [
       m.component(Service, args),
       m.component(Time, args),
-      m.component(Payment, args),
-      m.component(Coupon, args),
+      m.component(Payment, args)
     ]
     # Default panel is the first one
     @activePanel = m.prop 0
@@ -668,6 +667,7 @@ app.VaraaCPLayout = (dom, hash) ->
           cart_id: ds.cart_id
           last_name: ds.customer.last_name
           first_name: ds.customer.first_name
+          coupon: ds.coupon
           json_messages: true
 
     return
