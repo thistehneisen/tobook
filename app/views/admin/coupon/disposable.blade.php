@@ -16,7 +16,7 @@ $(function () {
 	var r = Raphael("used-chart");
 	pie = r.piechart(320, 125, 100, {{ $campaign->getPieChartData() }}, { legend: ["%%.%% - Not used", "%%.%% - Used"], legendpos: "west", href: ["http://raphaeljs.com", "http://g.raphaeljs.com"]});
 
-    r.text(320, 10, "Interactive Pie Chart").attr({ font: "20px sans-serif" });
+    r.text(320, 10, "{{ trans('admin.coupon.campaign.bar_chart') }}").attr({ font: "20px sans-serif" });
     pie.hover(function () {
         this.sector.stop();
         this.sector.scale(1.1, 1.1, this.cx, this.cy);

@@ -188,6 +188,7 @@ return [
             'add' => 'Add new campaign',
             'edit' => 'Modify campaign',
             'name' => 'Name',
+            'bar_chart' => 'Used / Unused coupons',
             'discount' => 'Discount',
             'discount_type' => 'Discount type',
             'amount' => 'Amount',
