@@ -16,8 +16,26 @@ class SmsTemplate extends \App\Core\Models\Base
     protected $rulesets = ['saving' => [
         'title' => 'required',
         'content' => 'required|max:160',
-        'from_name' => 'required||max:10|alpha_num',
+        'from_name' => 'required||max:11|alpha_num',
     ]];
+
+    /**
+     * Get all the rulesets.
+     *
+     * @return array
+     */
+    public function getRulesets()
+    {
+        // Custom rule for tobook
+        if(!is_tobook()) {
+            if (!empty($this->rulesets['saving']['content'])) {
+                $this->rulesets['saving']['content'] = 'required';
+            }
+        }
+
+        return $this->rulesets ?: [];
+    }
+
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
