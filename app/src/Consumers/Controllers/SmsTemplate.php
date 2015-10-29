@@ -22,8 +22,35 @@ class SmsTemplate extends Base
                 'type' => 'textarea',
                 'options' => ['class' => 'form-control', 'maxlength' => 160, 'rows' => 5]
             ]
+        ],
+        'lomakeTobook' => [
+            'content' => [
+                'type' => 'textarea',
+                'options' => ['class' => 'form-control', 'rows' => 5]
+            ]
         ]
     ];
+
+     /**
+     * Return options defined in $this->crudOptions
+     *
+     * @param string $key
+     *
+     * @return mixed
+     */
+    protected function getOlutOptions($key, $default = null)
+    {
+        // If environment is toobok and the user is not admin
+        if (is_tobook() && $key === 'lomake') {
+            return $this->crudOptions[$key. 'Tobook'];
+        }
+
+        if (isset($this->crudOptions) && isset($this->crudOptions[$key])) {
+            return $this->crudOptions[$key];
+        } else {
+            return $default;
+        }
+    }
 
     protected function upsertHandler($item)
     {
