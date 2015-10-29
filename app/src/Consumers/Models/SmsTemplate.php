@@ -27,7 +27,7 @@ class SmsTemplate extends \App\Core\Models\Base
     public function getRulesets()
     {
         // Custom rule for tobook
-        if(!is_tobook()) {
+        if(is_tobook()) {
             if (!empty($this->rulesets['saving']['content'])) {
                 $this->rulesets['saving']['content'] = 'required';
             }
