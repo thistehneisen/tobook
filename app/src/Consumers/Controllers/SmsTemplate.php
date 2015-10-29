@@ -21,13 +21,21 @@ class SmsTemplate extends Base
             'content' => [
                 'type' => 'textarea',
                 'options' => ['class' => 'form-control', 'maxlength' => 160, 'rows' => 5]
-            ]
+            ],
+            'from_name' => [
+                'text' => 'text',
+                'options' => ['class' => 'form-control', 'maxlength' => 11, 'rows' => 5]
+            ],
         ],
         'lomakeTobook' => [
             'content' => [
                 'type' => 'textarea',
                 'options' => ['class' => 'form-control', 'rows' => 5]
-            ]
+            ],
+            'from_name' => [
+                'text' => 'text',
+                'options' => ['class' => 'form-control', 'maxlength' => 11, 'rows' => 5]
+            ],
         ]
     ];
 
