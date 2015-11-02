@@ -121,6 +121,7 @@ class FrontBookings extends Bookings
             $layout              = Input::get('l', '');
             $cart                = Cart::find($cartId);
             $isRequestedEmployee = Input::get('is_requested_employee', false);
+            $coupon              = Input::get('coupon');
             $consumer            = (!empty($cart->consumer))  ? $cart->consumer : null;
 
             if ($consumer === null) {
@@ -149,6 +150,7 @@ class FrontBookings extends Bookings
                     ->setConsumer($consumer)
                     ->setClientIP(Request::getClientIp())
                     ->setSource($source)
+                    ->setCoupon($coupon)
                     ->setLayout($layout);
 
                 $booking = $receptionist->upsertBooking();
@@ -189,6 +191,7 @@ class FrontBookings extends Bookings
             }
             $data['success'] = true;
             $data['message'] = $messages;
+            $data['price']   = $booking->total_price;
 
             if ((Input::get('l') === '3' && $source === 'inhouse') || $source === 'cp') {
                 if ((bool) Settings::get('force_pay_at_venue')) {

@@ -29,6 +29,68 @@ Route::group([
     //--------------------------------------------------------------------------
     // Users
     //--------------------------------------------------------------------------
+    Route::group(['prefix' => 'coupon'], function () {
+
+        Route::get('index', [
+            'as' => 'admin.coupon.index',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@index'
+        ]);
+
+        Route::post('save', [
+            'as' => 'admin.coupon.save',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@save'
+        ]);
+
+        Route::get('campaigns', [
+            'as' => 'admin.coupon.campaigns',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@campaigns'
+        ]);
+
+        Route::get('campaigns/create', [
+            'as' => 'admin.coupon.create',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@create'
+        ]);
+
+        Route::post('campaigns/create', [
+            'as' => 'admin.coupon.campaigns.create',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@doCreate'
+        ]); 
+
+        Route::get('campaigns/search', [
+            'as' => 'admin.coupon.campaigns.search',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@search'
+        ]);
+
+        Route::get('campaigns/bulk', [
+            'as' => 'admin.coupon.campaigns.bulk',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@bulk'
+        ]);
+
+        Route::get('campaigns/edit/{id}', [
+            'as' => 'admin.coupon.campaigns.edit',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@edit'
+        ]);
+
+        Route::post('campaigns/edit/{id}', [
+            'as' => 'admin.coupon.campaigns.doEdit',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@doEdit'
+        ]); 
+
+        Route::get('campaigns/stats/{id}', [
+            'as' => 'admin.coupon.campaigns.stats',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@stats'
+        ]);
+
+        Route::get('campaigns/delete', [
+            'as' => 'admin.coupon.campaigns.delete',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@delete'
+        ]);
+
+    });
+
+    //--------------------------------------------------------------------------
+    // Users
+    //--------------------------------------------------------------------------
     App\Core\Controllers\Admin\Users::crudRoutes('users', 'admin.users');
     Route::group(['prefix' => 'users'], function () {
 

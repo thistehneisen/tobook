@@ -4,6 +4,9 @@ use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\ExtraService;
+use App\Core\Models\Coupon;
+use App\Core\Models\Campaign;
+use Settings;
 use Exception;
 
 class FrontendReceptionist extends Receptionist
@@ -88,6 +91,8 @@ class FrontendReceptionist extends Receptionist
 
         $this->validateWithExistingBooking();
 
+        $totalPrice = Coupon::computePrice($this->coupon, $totalPrice);
+
         $booking->fill([
             'date'        => $this->bookingService->date,
             'start_at'    => $this->bookingService->startTime->toTimeString(),
@@ -120,6 +125,10 @@ class FrontendReceptionist extends Receptionist
         foreach ($this->extraServices as $extraService) {
             $extraService->booking()->associate($booking);
             $extraService->save();
+        }
+
+        if ( ! empty($this->coupon)) {
+            $this->saveCoupon($booking);
         }
 
         return $booking;

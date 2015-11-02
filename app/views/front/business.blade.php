@@ -44,6 +44,7 @@
 
 var app = app || {}
 app.default_layout = '{{ Settings::get('default_layout') }}'
+app.coupon = '{{ Settings::get('coupon') }}'
 app.i18n = {
     'select': '@lang('as.embed.cp.select')',
     'pl_service': '@lang('as.embed.cp.pl_service')',
@@ -63,7 +64,9 @@ app.i18n = {
     'go_back': '@lang('as.embed.cp.go_back')',
     'close': '@lang('common.close')',
     'book': '@lang('as.embed.book')',
-    'first_employee': '@lang('as.embed.cp.first_employee')'
+    'first_employee': '@lang('as.embed.cp.first_employee')',
+    'coupon_code' : '@lang('as.embed.cp.coupon_code')',
+    'save': '@lang('common.save')'
 }
 app.assets = {
     'employee_avatar': '{{ asset_path('core/img/avatar-round.png') }}'

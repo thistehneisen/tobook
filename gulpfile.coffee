@@ -72,7 +72,7 @@ gulp.task 'less', ->
     .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
     .pipe gulpif production, gulp.dest(__dirname)
 
-gulp.task 'default', ['es6', 'coffee', 'js', 'less', 'static']
+gulp.task 'default', ['coffee', 'js', 'es6', 'less', 'static']
 
 gulp.task 'watch', ['default'], ->
   # Special rule for LESS files
