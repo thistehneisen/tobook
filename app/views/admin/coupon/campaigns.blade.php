@@ -44,6 +44,7 @@
     					@if ($actionsView !== null)
     					@include ($actionsView, ['item' => $item, 'routes' => $routes])
     					@endif
+                        <a href="{{ route('admin.coupon.campaigns.stats', ['id'=> $item->id ]) }}" class="btn btn-xs btn-primary" title="" id="row-{{ $item->id }}-stats"><i class="fa fa-bar-chart"></i></a>
     					<a href="{{ route('admin.coupon.campaigns.edit', ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title="" id="row-{{ $item->id }}-edit"><i class="fa fa-edit"></i></a>
     					<a href="{{ route('admin.coupon.campaigns.delete', ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title="" id="row-{{ $item->id }}-delete"><i class="fa fa-trash-o"></i></a>
     				</div>

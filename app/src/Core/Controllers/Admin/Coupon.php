@@ -75,6 +75,18 @@ class Coupon extends Base
         ]);
     }
 
+    public function stats($id)
+    {
+        $campaign = Campaign::findOrFail($id);
+
+        $view = ($campaign->isReusable) ? 'reuseable' : 'disposable';
+
+        return $this->render('coupon.' . $view , [ 
+            'campaign' => $campaign,
+            'today' => Carbon::today()
+        ]);
+    }
+
     public function campaigns()
     {
         // To make sure that we only show records of current user
