@@ -69,7 +69,7 @@ class Coupon extends Base
 
         $view = ($campaign->isReusable) ? 'reuseable' : 'disposable';
 
-        return $this->render('coupon.create', [ 
+        return $this->render('coupon.upsert', [ 
             'campaign' => $campaign,
             'today' => Carbon::today(),
             'discountType' => [
@@ -123,7 +123,7 @@ class Coupon extends Base
     {
     	$campaign = new Campaign;
     	
-    	return $this->render('coupon.create', [ 
+    	return $this->render('coupon.upsert', [ 
     		'campaign' => $campaign,
             'today' => Carbon::today(),
             'discountType' => [
