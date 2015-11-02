@@ -51,7 +51,7 @@
         <div class="form-group {{ Form::errorCSS('is_reusable', $errors) }}">
             <label for="is_reusable" class="col-sm-2 control-label">{{ trans('admin.coupon.campaign.is_reusable') }} {{ Form::required('is_reusable', $campaign) }}</label>
             <div class="col-sm-5">
-                {{ Form::checkbox('is_reusable', 1, !empty($campaign->id) ? $campaign->is_reusable : false,  ['class' => 'input-sm', 'id' => 'is_reusable', 'disabled' => !empty($campaign->id) ? true : false]) }}
+                {{ Form::checkbox('is_reusable', 1, !empty($campaign->id) ? $campaign->is_reusable : false,  ['class' => 'input-sm', 'id' => 'is_reusable', 'disabled' => !empty($campaign->id) ? true : null]) }}
                 {{ Form::errorText('is_reusable', $errors) }}
             </div>
         </div>
