@@ -11,12 +11,40 @@ use Input;
 use Settings;
 use Str;
 use Util;
+use Log;
 
-class CouponBooking extends Base
+class CouponBooking extends \Eloquent
 {
+    protected $primaryKey = 'booking_id';
 	protected $table = 'as_coupon_booking';
 
 	public $timestamps = false;
+
+
+    //--------------------------------------------------------------------------
+    // CUSTOM METHODS
+    //--------------------------------------------------------------------------
+    public static function releaseCoupon($cutoff)
+    {
+        Log::info('Started to unlock coupon codes');
+
+        $couponBookings = self::where('as_bookings.status','!=', Booking::STATUS_PAID)
+            ->join('as_bookings', 'as_bookings.id', '=', 'as_coupon_booking.booking_id')
+            ->where('as_bookings.status', '!=', Booking::STATUS_CONFIRM)
+            ->where('as_bookings.created_at', '<=', $cutoff)
+            ->whereNull('as_bookings.deleted_at')
+            ->orderBy('as_bookings.id', 'desc')
+            ->get();
+
+        Log::info('Found ' . $couponBookings->count() . ' commissions');
+
+        // Go through all cart details and release them
+        foreach ($couponBookings as $coupon) {
+            $coupon->forceDelete();
+        }
+
+        Log::info('Release coupons are done');
+    }
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
