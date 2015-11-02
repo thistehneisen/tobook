@@ -156,9 +156,15 @@ class Coupon extends Base
 
         try {
             $data = Input::all();
-            $data['begin_at']  = carbon_date(Input::get('begin_at'));
-            $data['expire_at'] = carbon_date(Input::get('expire_at'));
+
+            if (!empty(Input::get('begin_at'))) {
+                $data['begin_at']  = carbon_date(Input::get('begin_at'));
+            }
             
+            if (!empty(Input::get('expire_at'))) {
+                $data['expire_at'] = carbon_date(Input::get('expire_at'));
+            }
+
             $campaign->fill($data);
             $campaign->saveOrFail();
 
@@ -189,7 +195,7 @@ class Coupon extends Base
         } catch(\Watson\Validating\ValidationException $ex){
             return Redirect::back()->withInput()->withErrors($ex->getErrors());
         }
-        
+
         return Redirect::route('admin.coupon.campaigns');
     }
 }
