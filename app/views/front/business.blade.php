@@ -26,6 +26,9 @@
     .swiper-slide {
         max-height: @if (is_tobook()) 333px @else 300px @endif
     }
+    .readmore .fa-caret-up , .readmore .fa-caret-down {
+        font-size: 2em;
+    }
     </style>
 @stop
 
@@ -118,6 +121,7 @@ $(function () {
         isAutoSelectEmployee: false
     });
     @endif
+});
     </script>
     @include ('front.el.layout-cp.truncateScript')
 @stop
