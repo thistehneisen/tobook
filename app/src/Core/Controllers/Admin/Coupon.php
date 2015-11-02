@@ -72,6 +72,7 @@ class Coupon extends Base
         return $this->render('coupon.upsert', [ 
             'campaign' => $campaign,
             'today' => Carbon::today(),
+            'route' => ['admin.coupon.campaigns.doEdit', $id],
             'discountType' => [
                 'percentage' => '%',
                 'amount'     => '&euro;'
@@ -126,6 +127,7 @@ class Coupon extends Base
     	return $this->render('coupon.upsert', [ 
     		'campaign' => $campaign,
             'today' => Carbon::today(),
+            'route' => ['admin.coupon.campaigns.create', (isset($campaign->id)) ? $campaign->id: null],
             'discountType' => [
                 'percentage' => '%',
                 'amount'     => '&euro;'
@@ -170,6 +172,24 @@ class Coupon extends Base
             return Redirect::back()->withInput()->withErrors($ex->getErrors());
         }
 
+        return Redirect::route('admin.coupon.campaigns');
+    }
+
+    public function doEdit($id)
+    {
+        try {
+
+            $campaign          = Campaign::findOrFail($id);
+            $data['name']      = Input::get('name');
+            $data['begin_at']  = carbon_date(Input::get('begin_at'));
+            $data['expire_at'] = carbon_date(Input::get('expire_at'));    
+            $campaign->fill($data);
+            $campaign->saveOrFail();
+
+        } catch(\Watson\Validating\ValidationException $ex){
+            return Redirect::back()->withInput()->withErrors($ex->getErrors());
+        }
+        
         return Redirect::route('admin.coupon.campaigns');
     }
 }

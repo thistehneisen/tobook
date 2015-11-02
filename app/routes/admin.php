@@ -71,6 +71,11 @@ Route::group([
             'uses' => 'App\Core\Controllers\Admin\Coupon@edit'
         ]);
 
+        Route::post('campaigns/edit/{id}', [
+            'as' => 'admin.coupon.campaigns.doEdit',
+            'uses' => 'App\Core\Controllers\Admin\Coupon@doEdit'
+        ]); 
+
         Route::get('campaigns/stats/{id}', [
             'as' => 'admin.coupon.campaigns.stats',
             'uses' => 'App\Core\Controllers\Admin\Coupon@stats'

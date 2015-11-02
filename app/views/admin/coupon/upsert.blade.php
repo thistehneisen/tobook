@@ -30,7 +30,7 @@
 @section('content')
      <h4 class="comfortaa">{{ trans('admin.coupon.title')}}</h4>
     @include ('admin.coupon.tabs')
-     {{ Form::open(['route' => ['admin.coupon.campaigns.create', (isset($campaign->id)) ? $campaign->id: null], 'class' => 'form-horizontal well', 'role' => 'form', 'enctype' => 'multipart/form-data']) }}
+     {{ Form::open(['route' => $route, 'class' => 'form-horizontal well', 'role' => 'form', 'enctype' => 'multipart/form-data']) }}
         @include ('el.messages')
         <div class="form-group">
             <div class="col-sm-5">
@@ -51,35 +51,35 @@
         <div class="form-group {{ Form::errorCSS('is_reusable', $errors) }}">
             <label for="is_reusable" class="col-sm-2 control-label">{{ trans('admin.coupon.campaign.is_reusable') }} {{ Form::required('is_reusable', $campaign) }}</label>
             <div class="col-sm-5">
-                {{ Form::checkbox('is_reusable', 1, !empty($campaign->id) ? $campaign->is_reusable : false,  ['class' => 'input-sm', 'id' => 'is_reusable']) }}
+                {{ Form::checkbox('is_reusable', 1, !empty($campaign->id) ? $campaign->is_reusable : false,  ['class' => 'input-sm', 'id' => 'is_reusable', 'disabled' => !empty($campaign->id) ? true : false]) }}
                 {{ Form::errorText('is_reusable', $errors) }}
             </div>
         </div>
         <div class="form-group {{ Form::errorCSS('amount', $errors) }}">
             <label for="amount" class="col-sm-2 control-label">{{ trans('admin.coupon.campaign.amount') }} {{ Form::required('amount', $campaign) }}</label>
             <div class="col-sm-5">
-                {{ Form::text('amount', !empty($campaign->id) ? $campaign->amount : '', ['class' => 'form-control input-sm', 'id' => 'amount']) }}
+                {{ Form::text('amount', !empty($campaign->id) ? $campaign->amount : '', ['class' => 'form-control input-sm', 'id' => 'amount', 'disabled' => !empty($campaign->id) ? true : null]) }}
                 {{ Form::errorText('amount', $errors) }}
             </div>
         </div>
         <div class="form-group {{ Form::errorCSS('discount', $errors) }}">
             <label for="discount" class="col-sm-2 control-label">{{ trans('admin.coupon.campaign.discount') }} {{ Form::required('discount', $campaign) }}</label>
             <div class="col-sm-5">
-                {{ Form::text('discount',!empty($campaign->id) ? $campaign->discount : '', ['class' => 'form-control input-sm', 'id' => 'discount']) }}
+                {{ Form::text('discount',!empty($campaign->id) ? $campaign->discount : '', ['class' => 'form-control input-sm', 'id' => 'discount', 'disabled' => !empty($campaign->id) ? true : null]) }}
                 {{ Form::errorText('discount', $errors) }}
             </div>
         </div>
         <div class="form-group {{ Form::errorCSS('discount_type', $errors) }}">
             <label for="discount" class="col-sm-2 control-label">{{ trans('admin.coupon.campaign.discount_type') }} {{ Form::required('discount_type', $campaign) }}</label>
             <div class="col-sm-5">
-                {{ Form::select('discount_type', [trans('common.options_select')]+$discountType, !empty($campaign->id) ? $campaign->discount_type : '', ['class' => 'form-control input-sm', 'id' => 'discount_type']) }}
+                {{ Form::select('discount_type', [trans('common.options_select')]+$discountType, !empty($campaign->id) ? $campaign->discount_type : '', ['class' => 'form-control input-sm', 'id' => 'discount_type', 'disabled' => !empty($campaign->id) ? true : null]) }}
                 {{ Form::errorText('discount_type', $errors) }}
             </div>
         </div>              
         <div class="form-group {{ Form::errorCSS('begin_at', $errors) }} reusable_code">
             <label for="reusable_code" class="col-sm-2 control-label">{{ trans('admin.coupon.campaign.reusable_code') }} {{ Form::required('reusable_code', $campaign) }}</label>
             <div class="col-sm-5">
-                {{ Form::text('reusable_code', !empty($campaign->id) ? $campaign->reusable_code : '', ['class' => 'form-control input-sm', 'id' => 'reusable_code']) }}
+                {{ Form::text('reusable_code', !empty($campaign->id) ? $campaign->reusable_code : '', ['class' => 'form-control input-sm', 'id' => 'reusable_code', 'disabled' => !empty($campaign->id) ? true : null]) }}
                 {{ Form::errorText('begin_at', $errors) }}
             </div>
         </div>
