@@ -15,9 +15,32 @@
 
     {{-- right sidebar --}}
     <div class="col-sm-4 col-md-4">
+        <div class="row reviews-summary">
+            <div class="col-sm-4 venue-rating">
+                <div class="title">{{ trans('as.review.venue_rating') }}</div>
+                <div class="rating-value">{{ number_format($review->avg_total, 1) }}</div>
+                <div class="raty star-big" data-score="{{ $review->avg_total }}"></div>
+            </div>
+            <div class="col-sm-8">
+                <table class="table borderless">
+                    <tr>
+                        <td>{{ trans('as.review.environment') }}</td>
+                        <td><div class="raty" data-score="{{ $review->avg_env }}"></div></td>
+                    </tr>
+                    <tr>
+                        <td>{{ trans('as.review.service') }}</td>
+                        <td><div class="raty" data-score="{{ $review->avg_service }}"></div></td>
+                    </tr>
+                    <tr>
+                        <td>{{ trans('as.review.price_ratio') }}</td>
+                        <td><div class="raty" data-score="{{ $review->avg_price_ratio }}"></div></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         @if ($business->images->isEmpty() === false)
             <!-- Slider main container -->
-            <div class="slideshow swiper-container" id="js-swiper-{{ $business->user_id }}">
+            <div class="slideshow swiper-container gallery" id="js-swiper-{{ $business->user_id }}">
                 <!-- Additional required wrapper -->
                 <div class="swiper-wrapper">
                     <!-- Slides -->
@@ -63,7 +86,6 @@
             </div>
             <div class="col-sm-6 col-md-6">
                 <h3 class="sub-heading">{{ trans('home.business.contact.index') }}</h3>
-
                 <p><strong>{{ trans('home.business.phone') }}</strong></p>
                 <p>{{{ $business->phone }}}</p>
 

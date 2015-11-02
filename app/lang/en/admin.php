@@ -14,6 +14,7 @@ return [
         'keywords'          => 'Keywords',
         'seo'               => 'SEO',
         'pages'             => 'Static pages',
+        'reviews'           => 'Reviews',
         'misc'              => 'Misc.',
         'coupons'           => 'Coupons',
     ],

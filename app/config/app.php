@@ -132,6 +132,7 @@ return array(
         'Clowdy\Raven\RavenServiceProvider',
         'Maknz\Slack\SlackServiceProvider',
         'Barryvdh\DomPDF\ServiceProvider',
+        'Greggilbert\Recaptcha\RecaptchaServiceProvider',
 
         // Homemade
         'App\Hashids\HashidsServiceProvider',

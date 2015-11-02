@@ -26,6 +26,16 @@ Route::group(['prefix' => 'businesses'], function () {
         'uses'  => 'App\Core\Controllers\Front@businesses'
     ]);
 
+    Route::get('/review/{id}-{slug?}', [
+        'as'    => 'businesses.review',
+        'uses'  => 'App\Core\Controllers\Front@review'
+    ]);
+
+    Route::post('/review/{id}-{slug?}', [
+        'as'    => 'businesses.doReview',
+        'uses'  => 'App\Core\Controllers\Front@doReview'
+    ]);
+
     //--------------------------------------------------------------------------
     // CP booking form
     //--------------------------------------------------------------------------

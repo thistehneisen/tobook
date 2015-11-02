@@ -18,6 +18,7 @@
     @if(Settings::get('default_layout') === 'layout-3')
     {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
     @endif
+    {{ HTML::style(asset('packages/jquery.raty/jquery.raty.css')) }}
     <style type="text/css">
     .slideshow {
         max-height: @if (is_tobook()) 333px @else 300px @endif
@@ -35,6 +36,7 @@
     VARAA.Search.businesses = {{ $businessesJson }};
     VARAA.Search.lat = {{ $lat }};
     VARAA.Search.lng = {{ $lng }};
+    VARAA.Search.assetPath  = '{{ asset('packages/jquery.raty/images') }}';
 @if(!empty($categoryId) && !empty($serviceId))
     VARAA.Search.categoryId = {{ $categoryId }};
     VARAA.Search.serviceId = {{ $serviceId }};
@@ -94,7 +96,7 @@ app.routes = {
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
     {{ HTML::script(asset_path(sprintf('as/scripts/%s.js', Settings::get('default_layout')))) }}
     {{ HTML::script(asset_path('core/scripts/business.js')) }}
-
+    {{ HTML::script(asset('packages/jquery.raty/jquery.raty.js')) }}
     <script>
 $(function () {
     var map = new GMaps({
@@ -116,7 +118,80 @@ $(function () {
         isAutoSelectEmployee: false
     });
     @endif
+<<<<<<< HEAD
+    
+    var countPs = function (element) {
+      var cnt = 0;
+      $(element).children().each(function(){
+        cnt += this.tagName === 'P' ? 1 : countPs(this);
+      })
+      return cnt;
+    }
+
+    var countRows = function () {
+        var lineHeight = $('div.description').css('line-height')
+        lineHeight = parseFloat(lineHeight)
+        var height = $('div.description').height()
+        var rows = height / lineHeight;
+        return rows;
+    }
+
+    var ps = countPs($('div.description'));
+    var originalContent = $('div.description').html();
+    var truncateDescription = function() {
+        var originalContent = $('div.description').html();
+        if (ps > 1) {
+            var firstP = $("p", $('div.description')).first().text();
+            $('div.description').find("p").remove();
+            $('div.description').prepend(firstP);
+            $('a.readmore').show();
+        }
+       
+        var rows = countRows();
+        if (rows > 3) {
+            $('a.readmore').show();
+            $("#business-description").dotdotdot({
+                ellipsis : '',
+                height   : 60,
+                after    : "a.readmore",
+            });
+        }
+       
+    }
+
+    $('a.readmore').on('click', function(e){
+        e.preventDefault();
+        var rows = countRows();
+        if (ps == 1) {
+            var content = $("#business-description").triggerHandler("originalContent");
+            $("#business-description").trigger("destroy");
+            $("#business-description").html(content);
+            $('a.readmore').hide();
+        } else {
+            $('div.description').html(originalContent);
+        }
+    });
+
+    $(document).ready(function(){
+        truncateDescription();
+        $('.raty').raty({
+            scoreName: function() {
+                return $(this).data('name');
+            },
+            score: function() {
+                return $(this).data('score');
+            },
+            starOff : '{{ asset('packages/jquery.raty/images') }}/star-off.png',
+            starOn  : '{{ asset('packages/jquery.raty/images') }}/star-on.png',
+            starHalf : '{{ asset('packages/jquery.raty/images') }}/star-half.png',
+            readOnly: true
+        });
+    });
+});
+
+=======
 })
+>>>>>>> develop
     </script>
     @include ('front.el.layout-cp.truncateScript')
 @stop
