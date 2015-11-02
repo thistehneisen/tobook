@@ -69,9 +69,13 @@ class Coupon extends Base
 
         $view = ($campaign->isReusable) ? 'reuseable' : 'disposable';
 
-        return $this->render('coupon.' . $view , [ 
+        return $this->render('coupon.create', [ 
             'campaign' => $campaign,
-            'today' => Carbon::today()
+            'today' => Carbon::today(),
+            'discountType' => [
+                'percentage' => '%',
+                'amount'     => '&euro;'
+            ]
         ]);
     }
 
