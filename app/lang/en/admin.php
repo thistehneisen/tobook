@@ -199,6 +199,7 @@ return [
             'expire_at' => 'Expire at',
             'used' => 'Used',
             'not_used' => 'Not used',
+            'stats' => 'Statistics'
         ]
     ],
 ];

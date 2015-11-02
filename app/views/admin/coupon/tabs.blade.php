@@ -11,4 +11,9 @@
     	<a href="{{ route('admin.coupon.campaigns.edit') }}">{{ trans('admin.coupon.campaign.edit') }}</a>
     </li>
     @endif
+    @if (Route::currentRouteName() === 'admin.coupon.campaigns.stats')
+    <li class="active">
+        <a href="{{ route('admin.coupon.campaigns.stats') }}">{{ trans('admin.coupon.campaign.stats') }}</a>
+    </li>
+    @endif
 </ul>
