@@ -491,6 +491,7 @@ return [
         'rejected'     => 'Rejected',
         'approve'      => 'Approve',
         'reject'       => 'Reject',
+        'leave_review' => 'Leave a review',
     ],
     'nothing_selected' => 'Nothing selected',
 ];

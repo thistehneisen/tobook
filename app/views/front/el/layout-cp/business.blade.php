@@ -19,23 +19,28 @@
             <div class="col-sm-4 venue-rating">
                 <div class="title">{{ trans('as.review.venue_rating') }}</div>
                 <div class="rating-value">{{ number_format($review->avg_total, 1) }}</div>
-                <div class="raty star-big" data-score="{{ $review->avg_total }}"></div>
+                <div class="raty star-big" data-score="{{ !empty($review->avg_total) ? $review->avg_total : 0 }}"></div>
             </div>
             <div class="col-sm-8">
                 <table class="table borderless">
                     <tr>
                         <td>{{ trans('as.review.environment') }}</td>
-                        <td><div class="raty" data-score="{{ $review->avg_env }}"></div></td>
+                        <td><div class="raty" data-score="{{ !empty($review->avg_env) ? $review->avg_env : 0  }}"></div></td>
                     </tr>
                     <tr>
                         <td>{{ trans('as.review.service') }}</td>
-                        <td><div class="raty" data-score="{{ $review->avg_service }}"></div></td>
+                        <td><div class="raty" data-score="{{ !empty($review->avg_service) ? $review->avg_service : 0 }}"></div></td>
                     </tr>
                     <tr>
                         <td>{{ trans('as.review.price_ratio') }}</td>
-                        <td><div class="raty" data-score="{{ $review->avg_price_ratio }}"></div></td>
+                        <td><div class="raty" data-score="{{ !empty($review->avg_price_ratio) ?  $review->avg_price_ratio : 0}}"></div></td>
                     </tr>
                 </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-center"><a href="{{ route('businesses.review', [$business->user_id, $business->slug])}}" class="btn btn-success">{{ trans('as.review.leave_review') }}</a></div>
             </div>
         </div>
         @if ($business->images->isEmpty() === false)

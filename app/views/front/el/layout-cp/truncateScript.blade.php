@@ -69,6 +69,19 @@ $(function () {
 
     $(document).ready(function(){
         truncateDescription();
+        $('.raty').raty({
+            scoreName: function() {
+                return $(this).data('name');
+            },
+            score: function() {
+                return $(this).data('score');
+            },
+            starOff : '{{ asset('packages/jquery.raty/images') }}/star-off.png',
+            starOn  : '{{ asset('packages/jquery.raty/images') }}/star-on.png',
+            starHalf : '{{ asset('packages/jquery.raty/images') }}/star-half.png',
+            readOnly: true
+        });
+        $('.raty').raty('reload');
     });
 });
 

@@ -110,6 +110,7 @@ return [
     'history'               => 'History',
     'placeholders'          => 'Placeholders',
     'captcha'               => 'Captcha',
+    'review'                => 'Review',
     'short' => [
         'week'  => 'week',
         'hour'  => 'hr',
