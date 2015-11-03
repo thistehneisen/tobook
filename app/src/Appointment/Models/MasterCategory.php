@@ -15,6 +15,7 @@ class MasterCategory extends \App\Core\Models\Base
 
     public $fillable = ['name', 'description', 'order'];
 
+    use App\Search\ElasticSearchTrait;
     /**
      * @see \App\Core\Models\Base
      */

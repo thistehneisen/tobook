@@ -18,7 +18,8 @@ use Util;
 class Business extends Base
 {
     use DiscountBusiness;
-
+    use App\Search\ElasticSearchTrait;
+    
     public $fillable = [
         'name',
         'phone',

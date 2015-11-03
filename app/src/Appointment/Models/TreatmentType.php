@@ -10,6 +10,8 @@ use Str;
 class TreatmentType extends \App\Core\Models\Base
 {
 
+    use App\Search\ElasticSearchTrait;
+
     protected $table = 'as_treatment_types';
 
     public $fillable = [
@@ -17,6 +19,8 @@ class TreatmentType extends \App\Core\Models\Base
         'name',
         'description',
     ];
+
+   
 
     /**
      * @see \App\Core\Models\Base
