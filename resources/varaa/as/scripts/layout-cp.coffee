@@ -433,11 +433,6 @@ app.VaraaCPLayout = (dom, hash) ->
     @shouldOpenModal = (e) ->
       return false if e.target.disabled is true
 
-      if (parseInt(app.coupon, 10) is 1 and @layout.dataStore().coupon == undefined)
-        $('.payment-section').hide();
-        $('#coupon-panel').removeClass('hidden');
-        return
-
       if @isDisabledPayment() is false and @isForcePayAtVenue() is false
         $('#js-cbf-payment-modal').modal('show')
         return
@@ -445,6 +440,9 @@ app.VaraaCPLayout = (dom, hash) ->
       @layout.placeBooking()
         .then => createFormAndSubmit @payAtVenueUrl(), @layout.dataStore()
         .then null, whenPlacingBookingFailed
+    
+    @getCouponClass = (e) ->
+        return (parseInt(app.coupon, 10) is 1 and @layout.dataStore().coupon == undefined)  ? '' : 'hidden'
 
     @setCouponCode = (e) ->
       el = e.target
@@ -487,6 +485,17 @@ app.VaraaCPLayout = (dom, hash) ->
             ])
         ])
       ]),
+      m('.coupon-section.text-center', { class: ctrl.getCouponClass() }, [
+        m('form.row', [
+          m('.form-group.col-sm-offset-4.col-sm-4', [
+            m('label', [__('coupon_code')]),
+            m('input.form-control.btn-square[type=text]',{
+              value: dataStore.coupon or '',
+              onkeyup: ctrl.setCouponCode.bind(ctrl)
+            })
+          ])
+        ])
+      ]),
       m('.payment-section', [
         m('h4', __('details')),
         m('.row', [
@@ -516,28 +525,6 @@ app.VaraaCPLayout = (dom, hash) ->
             ])
           ])
         ])
-      ]),
-      m('.coupon', {
-          class: 'hidden',
-          id : 'coupon-panel'
-        }, [
-        m('.coupon-section.text-center', [
-          m('h4', __('coupon_code')),
-            m('form.row', [
-              m('.form-group.col-sm-offset-4.col-sm-4', [
-                m('label', [__('coupon_code')]),
-                m('input.form-control.btn-square[type=text]',{
-                  value: dataStore.coupon or '',
-                  onkeyup: ctrl.setCouponCode.bind(ctrl)
-                })
-              ])
-          ])
-        ]),
-        m('.coupon-section.text-center', [
-          m('button.btn.btn-lg.btn-square.btn-book.btn-success', {
-            onclick: ctrl.shouldOpenModal.bind(ctrl)
-          }, __('save'))
-        ]),
       ])
     ])
 
