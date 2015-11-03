@@ -97,9 +97,9 @@ class Coupon extends Base
     {
         $campaign = Campaign::findOrFail($id);
 
-        $output = '';
+        $output = sprintf("%s;%s\n", trans('admin.coupon.code'), trans('admin.coupon.is_used'));
         foreach ($campaign->coupons as $coupon) {
-            $output .= sprintf("%s\n", $coupon->code);
+            $output .= sprintf("%s;%s\n", $coupon->code, trans('admin.coupon.campaign.' . $coupon->isUsed));
         }
 
         $name = sprintf('campaign_%d_coupons.csv', $id);
