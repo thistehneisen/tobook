@@ -110,6 +110,7 @@ return [
     'history'               => 'History',
     'placeholders'          => 'Placeholders',
     'captcha'               => 'Captcha',
+    'export_csv'             => 'Export to CSV',
     'short' => [
         'week'  => 'week',
         'hour'  => 'hr',

@@ -65,11 +65,18 @@ $(function () {
 
  	 <h4 class="comfortaa">{{ trans('admin.coupon.campaign.edit')}}</h4>
  	 <div class="row">
- 	 	<div class="col-md-6">
+        <div class="col-md-6">
+ 	 	    <div class="col-md-6">
  	 		<ul>
  	 			<li>{{ $campaign->name }}</li>
  	 			<li>{{ $campaign->expireAt->toDateString(); }}</li>
- 	 		</ul>
+ 	 		</ul> 
+            </div>
+            <div class="col-md-6">
+            {{ Form::open(['route' => ['admin.coupon.campaigns.export', $id], 'role' => 'form']) }}
+                <button class="btn btn-primary btn-sm pull-right"><i class="fa fa-file-excel-o "> {{ trans('common.export_csv')}}</i></button>
+            {{ Form::close() }}
+            </div>
  	 	</div>
  	 </div>
 

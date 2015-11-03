@@ -88,9 +88,27 @@ class Coupon extends Base
 
         return $this->render('coupon.' . $view , [ 
             'campaign' => $campaign,
-            'today' => Carbon::today()
+            'today' => Carbon::today(),
+            'id' => $id,
         ]);
     }
+
+    public function export($id)
+    {
+        $campaign = Campaign::findOrFail($id);
+
+        $output = '';
+        foreach ($campaign->coupons as $coupon) {
+            $output .= sprintf("%s\n", $coupon->code);
+        }
+
+        $name = sprintf('campaign_%d_coupons.csv', $id);
+        $file = public_path() . '/tmp/' . $name;
+
+        file_put_contents($file, $output);
+
+        return Response::download($file, $name, ['content-type' => 'text/cvs']);
+    }      
 
     public function campaigns()
     {
