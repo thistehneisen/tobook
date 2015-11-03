@@ -36,6 +36,11 @@ class BusinessIndexer extends AbstractIndexer
             $keywords = array_merge($keywords, $item->keywords);
         }
 
+        if (empty($document->user)) {
+            //User is deleted
+            return;
+        }
+        
         foreach ($document->user->asServices as $asService) {
             if (!empty($asService->masterCategory->id)) {
                 $masterCategories['mc_'.$asService->masterCategory->id] = true;

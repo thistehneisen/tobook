@@ -121,7 +121,7 @@ class Statistics
         $count = User::rightJoin('as_bookings', 'users.id', '=', 'as_bookings.user_id')
         	->where('as_bookings.date', '>=', $this->start)
             ->where('as_bookings.date', '<=', $this->end)
-            ->whereNull('as_bookings.deleted_at')
+            // ->whereNull('as_bookings.deleted_at')
             ->whereNull('users.deleted_at');
 
         if ($groupByStatus) {
@@ -137,7 +137,7 @@ class Statistics
                     'as_bookings.user_id',
                     'as_bookings.source'
                 )
-                ->whereNull('as_bookings.deleted_at')
+                // ->whereNull('as_bookings.deleted_at')
                 ->groupBy('user_id', 'source')->get();
         } else {
             $count = $count->select(

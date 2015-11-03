@@ -79,5 +79,5 @@ $(function () {
         });
     }
     setUp('content', 160, 70);
-    setUp('from_name', 10, 10);
+    setUp('from_name', 11, 11);
 });

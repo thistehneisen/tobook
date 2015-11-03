@@ -302,8 +302,8 @@ return [
             'heading_line'    => 'Rezervēt laiku',
         ],
         'cp' => [
-            'heading' => 'Rezervējiet tiešsaistē',
-            'select' => 'Atlasīt',
+            'heading' => 'Rezervējiet pakalpojumu',
+            'select' => 'Izvēlēties',
             'sg_service' => 'Pakalpojums',
             'pl_service' => 'Pakalpojumi',
             'employee' => 'Darbinieks',
@@ -314,7 +314,7 @@ return [
             'details' => 'Rezervācijas informācija',
             'go_back' => 'Atgriezties',
             'how_to_pay' => 'Kā jūs vēlaties maksāt?',
-            'almost_done' => 'Jūsu rezervācija ir gandrīz izdarīts',
+            'almost_done' => 'Jūsu rezervācija ir gandrīz pabeigta',
             'first_employee' => 'Pirmais darbinieks pieejams',
         ]
     ],
