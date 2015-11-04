@@ -367,6 +367,14 @@ class Util
         return $months;
     }
 
+    public static function formatIgnoreSeconds($input)
+    {
+        if (!($input instanceof Carbon)) {
+            $input = new Carbon($input);
+        }
+        return $input->format('d-m-Y H:i');
+    }
+
     /**
      * Convert real number to percentage format
      * e.g: 0.3 --> 30%

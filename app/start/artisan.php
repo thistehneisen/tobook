@@ -33,6 +33,7 @@ Artisan::add(new App\Core\Commands\FixMissingCommissionsToBook());
 Artisan::add(new App\Core\Commands\FixMissingNewConsumerCommissions());
 Artisan::add(new App\Core\Commands\UpdateMinDistanceHourUnit());
 Artisan::add(new App\Core\Commands\FixWorkshiftDuplicates());
+Artisan::add(new App\Core\Commands\FixConsumerStatusTobook());
 
 Artisan::add(new App\Cart\Commands\UnlockCartItemsCommand());
 
