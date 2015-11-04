@@ -1140,6 +1140,12 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                         $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
                 });
+        
+
+        // Other layouts don't go through paygate, excepts cp and inhouse 
+        $query = $query->where(function($query){
+            $query->where('as_bookings.source', '=', 'cp')->orWhere('as_bookings.source','=', 'inhouse');
+        });
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
