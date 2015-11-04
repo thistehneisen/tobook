@@ -55,7 +55,7 @@ class FixConsumerStatusTobook extends Command {
 				if ($consumerCreatedAt === $bookingCreatedAt) {
 					$businessCommission = BusinessCommission::find($commission->id);
 					if (!empty($businessCommission)) {
-						$businessCommission->consumer_status = Consumer::STATUS_NEWs;
+						$businessCommission->consumer_status = Consumer::STATUS_NEW;
 						$businessCommission->save();
 						print('.');
 					}
