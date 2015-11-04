@@ -601,7 +601,8 @@ app.VaraaCPLayout = (dom, hash) ->
         method: 'POST'
         url: app.routes['business.booking.book_service']
         data:
-          service_id: ds.service.id
+          service_id: ds.service.id,
+          service_time:  ds.serviceTime.id
           employee_id: ds.employee.id
           hash: ds.hash
           booking_date: ds.date
