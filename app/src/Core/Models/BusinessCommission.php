@@ -8,6 +8,8 @@ use Config, App;
 
 class BusinessCommission extends Base
 {
+    protected $table = 'business_commissions'; 
+    
     const STATUS_INITIAL   = 'initial';
     const STATUS_SUSPEND   = 'suspend';
     const STATUS_PAID      = 'paid';
