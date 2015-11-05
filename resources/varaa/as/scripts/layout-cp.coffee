@@ -667,6 +667,8 @@ app.VaraaCPLayout = (dom, hash) ->
           json_messages: true
       .then (data) ->
         ds.price = data.price
+        if (!data.success)
+          alertify.error(data.message)
 
     return
 

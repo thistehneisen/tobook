@@ -33,6 +33,10 @@ class Coupon extends Base
             $coupon = self::where('code', '=', $code)
                 ->where('is_used', '=', 0)->with('campaign')->first();
 
+            if (empty($coupon)) {
+                return $price;
+            }
+            
             $now = Carbon::now();
 
             // Datetime vs date?
