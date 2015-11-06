@@ -10,7 +10,7 @@
 <script type="text/javascript">
     $(function(){
         $('#is_reusable').click(function(e){
-            var fn = $(this).is(':checked') ? 'slideUp' : 'slideDown';
+            var fn = $(this).is(':checked') ? 'slideDown' : 'slideUp';
             $('.reusable_code')[fn]();
         });
 
@@ -76,7 +76,7 @@
                 {{ Form::errorText('discount_type', $errors) }}
             </div>
         </div>              
-        <div class="form-group {{ Form::errorCSS('begin_at', $errors) }} reusable_code">
+        <div class="form-group {{ Form::errorCSS('begin_at', $errors) }} reusable_code" @if(empty($campaign->id) || empty($campaign->reusable_code)) style="display: none" @endif>
             <label for="reusable_code" class="col-sm-2 control-label">{{ trans('admin.coupon.campaign.reusable_code') }} {{ Form::required('reusable_code', $campaign) }}</label>
             <div class="col-sm-5">
                 {{ Form::text('reusable_code', !empty($campaign->id) ? $campaign->reusable_code : '', ['class' => 'form-control input-sm', 'id' => 'reusable_code', 'disabled' => !empty($campaign->id) ? true : null]) }}
