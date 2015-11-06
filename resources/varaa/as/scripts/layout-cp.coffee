@@ -555,7 +555,7 @@ app.VaraaCPLayout = (dom, hash) ->
 
   LayoutCP = {}
   LayoutCP.controller = ->
-    @dataStore = m.prop {hash: hash, customer: {}}
+    @dataStore = m.prop {hash: hash, customer: {}, serviceTime : 'default'}
 
     # Fetch services JSON data
     @data = m.prop {}
