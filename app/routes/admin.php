@@ -86,7 +86,7 @@ Route::group([
             'uses' => 'App\Core\Controllers\Admin\Coupon@export'
         ]);
 
-        Route::get('campaigns/delete', [
+        Route::get('campaigns/delete/{id}', [
             'as' => 'admin.coupon.campaigns.delete',
             'uses' => 'App\Core\Controllers\Admin\Coupon@delete'
         ]);
