@@ -498,6 +498,7 @@ return [
         'used_coupon'  => 'This coupon code is used',
         'invalid_date' => 'This coupon can be only used in this period: %s - %s',
         'valid_coupon' => 'Discount %d%s for this coupon',
+        'invalid_coupon' => 'Invalid coupon',
     ],
     'nothing_selected' => 'Nothing selected',
 ];

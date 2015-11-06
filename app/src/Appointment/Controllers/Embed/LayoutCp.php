@@ -365,16 +365,18 @@ class LayoutCp extends Base
         $code = trim(Input::get('coupon'));
         $data = [
             'success' => false,
-            'message' => trans('invalid coupon'),
+            'message' => trans('as.coupon.invalid_coupon'),
         ];
 
         if (!empty($code) && Settings::get('coupon') == 1) {
 
             $coupon = Coupon::where('code', '=', $code)->with('campaign')->first();
+
             $data['success'] = false;
 
-            if (empty($coupon->code)) {
+            if (empty($coupon)) {
                 $data['message'] = trans('as.coupon.not_found');
+                return Response::json($data);
             }
 
             if (!empty($coupon) && $coupon->is_used === 'used')
