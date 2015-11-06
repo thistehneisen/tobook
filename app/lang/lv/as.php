@@ -316,6 +316,7 @@ return [
             'how_to_pay' => 'Kā jūs vēlaties maksāt?',
             'almost_done' => 'Jūsu rezervācija ir gandrīz pabeigta',
             'first_employee' => 'Pirmais darbinieks pieejams',
+            'coupon_code' => 'Kupona kods',
         ]
     ],
      'options' => [

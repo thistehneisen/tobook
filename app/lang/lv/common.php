@@ -22,6 +22,7 @@ return [
     'register'              => 'Reģistrēties',
     'no_records'            => 'Diemžēl neviens ieraksts netika atrasts!',
     'save'                  => 'Saglabāt',
+    'validate'              => 'Apstiprināt',
     'destroy'               => 'Dzēst',
     'warning'               => 'Brīdinājums',
     'success'               => 'Veiksmīgi',
