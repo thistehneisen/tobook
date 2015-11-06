@@ -71,7 +71,8 @@ app.i18n = {
     'book': '@lang('as.embed.book')',
     'first_employee': '@lang('as.embed.cp.first_employee')',
     'coupon_code' : '@lang('as.embed.cp.coupon_code')',
-    'save': '@lang('common.save')'
+    'save': '@lang('common.save')',
+    'validate': '@lang('common.validate')'
 }
 app.assets = {
     'employee_avatar': '{{ asset_path('core/img/avatar-round.png') }}'
@@ -82,7 +83,8 @@ app.routes = {
     'business.booking.services': '{{ route('business.booking.services') }}',
     'business.booking.timetable': '{{ route('business.booking.timetable') }}',
     'business.booking.payments': '{{ route('business.booking.payments') }}',
-    'business.booking.employees': '{{ route('business.booking.employees') }}'
+    'business.booking.employees': '{{ route('business.booking.employees') }}',
+    'business.booking.validate.coupon': '{{ route('business.booking.validate.coupon') }}'
 }
 </script>
 

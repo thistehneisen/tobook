@@ -493,5 +493,11 @@ return [
         'approve'      => 'Approve',
         'reject'       => 'Reject',
     ],
+    'coupon' => [
+        'not_found'    => 'This coupon code is not found in our system!',
+        'used_coupon'  => 'This coupon code is used',
+        'invalid_date' => 'This coupon can be only used in this period: %s - %s',
+        'valid_coupon' => 'Discount %d%s for this coupon',
+    ],
     'nothing_selected' => 'Nothing selected',
 ];

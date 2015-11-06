@@ -448,6 +448,23 @@ app.VaraaCPLayout = (dom, hash) ->
       el = e.target
       @layout.setCouponCode el.value
 
+    @validateCoupon = (e) ->
+      e.preventDefault();
+      ds = @layout.dataStore()
+      m.request
+        method: 'POST'
+        url: app.routes['business.booking.validate.coupon']
+        data:
+          l: 'cp'
+          coupon: ds.coupon
+          json_messages: true
+      .then (data) ->
+        $('#coupon-help').text(data.message);
+        if (!data.success)
+          $('#coupon-help').removeClass('text-primary').addClass('text-danger')
+        else
+          $('#coupon-help').removeClass('text-danger').addClass('text-primary')
+      return false
 
     # Kickstart
     @fetchPaymentOptions @layout.dataStore().price
@@ -492,7 +509,11 @@ app.VaraaCPLayout = (dom, hash) ->
             m('input.form-control.btn-square[type=text]',{
               value: dataStore.coupon or '',
               onkeyup: ctrl.setCouponCode.bind(ctrl)
-            })
+            }),
+            m('p#coupon-help'),
+            m('button.btn.btn-square.btn-book.btn-success', {
+              onclick: ctrl.validateCoupon.bind(ctrl)
+            }, __('validate'))
           ])
         ])
       ]),

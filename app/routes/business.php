@@ -64,6 +64,11 @@ Route::group(['prefix' => 'businesses'], function () {
         'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@payAtVenue'
     ]);
 
+    Route::post('booking/validate_coupon', [
+        'as'    => 'business.booking.validate.coupon',
+        'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@validateCoupon'
+    ]);
+
     Route::get('category/{id}-{slug?}', [
         'as'    => 'business.category',
         'uses'  => 'App\Core\Controllers\Front@category'

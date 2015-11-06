@@ -359,4 +359,54 @@ class LayoutCp extends Base
 
         return Redirect::route('payment.success', ['id' => $cart->id]);
     }
+
+    public function validateCoupon()
+    {
+        $code = trim(Input::get('coupon'));
+        $data = [
+            'success' => false,
+            'message' => trans('invalid coupon'),
+        ];
+
+        if (!empty($code) && Settings::get('coupon') == 1) {
+
+            $coupon = Coupon::where('code', '=', $code)->with('campaign')->first();
+            $data['success'] = false;
+
+            if (empty($coupon->code)) {
+                $data['message'] = trans('as.coupon.not_found');
+            }
+
+            if (!empty($coupon) && $coupon->is_used === 'used')
+            {
+                $data['message'] = trans('as.coupon.used_coupon');
+            }
+
+            $now = Carbon::now();
+            
+            if(!empty($coupon) && $coupon->is_used === 'not_used')
+            {
+                $discount     = $coupon->campaign->discount;
+                $discountType = ($coupon->campaign->discount_type === Campaign::DISCOUNT_TYPE_PERCENTAGE)
+                    ? '%' : '€';
+
+                $data['success'] = true;
+                $data['message'] = sprintf(trans('as.coupon.valid_coupon'), $discount, $discountType);
+            }
+            
+            // Datetime vs date?
+            $expireAt = new Carbon($coupon->campaign->expired_at);
+            $beginAt  = new Carbon($coupon->campaign->begin_at);
+
+            if($now->gt($expireAt) || $now->lt($beginAt)) {
+                $data['success'] = false;
+                $data['message'] = sprintf(trans('as.coupon.invalid_date'), str_date($beginAt), str_date($expireAt));
+            }
+
+         
+            return Response::json($data);
+        }
+
+        return Response::json($data);
+    }
 }
