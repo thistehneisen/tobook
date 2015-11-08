@@ -442,10 +442,7 @@ app.VaraaCPLayout = (dom, hash) ->
         .then null, whenPlacingBookingFailed
     
     @getCouponClass = (e) ->
-        if (parseInt(app.coupon, 10) is 1 and @layout.dataStore().coupon == undefined)
-          return ''
-        else
-          return 'hidden'
+        if (parseInt(app.coupon, 10) is 1) then '' else 'hidden'
 
     @setCouponCode = (e) ->
       el = e.target
