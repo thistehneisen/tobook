@@ -184,6 +184,12 @@ return [
         'create' => 'Create campaign',
         'is_used' => 'Is Used',
         'code' => 'Code',
+        'consumer_name' => 'Consumer name',
+        'datetime' => 'Date',
+        'discount_amount' => 'Discount',
+        'salon' => 'Business',
+        'reusable_usage' => 'Usage',
+        'reusable' => 'Reusable',
         'campaign' => [
             'all' => 'All campaigns',
             'add' => 'Add new campaign',

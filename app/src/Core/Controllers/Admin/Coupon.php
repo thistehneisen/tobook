@@ -86,9 +86,17 @@ class Coupon extends Base
 
         $view = ($campaign->isReusable) ? 'reuseable' : 'disposable';
 
+        if ($campaign->isReusable) {
+            $coupon = $campaign->coupons()->first();
+            $coupons = $coupon->couponBookings;
+        } else {
+            $coupons = $campaign->coupons;
+        }
+
         return $this->render('coupon.' . $view , [ 
             'campaign' => $campaign,
             'today' => Carbon::today(),
+            'coupons' => $coupons,
             'id' => $id,
         ]);
     }

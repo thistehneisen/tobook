@@ -67,8 +67,9 @@ $(function () {
  	 <div class="row">
  	 	<div class="col-md-6">
  	 		<ul>
- 	 			<li>Resuable: {{ $campaign->name }}</li>
- 	 			<li>{{ $campaign->expireAt->toDateString(); }}</li>
+ 	 			<li>{{ trans('admin.coupon.reusable')}}: {{ $campaign->name }}</li>
+                <li>{{ $campaign->expireAt->toDateString(); }}</li>
+ 	 			<li>{{ trans('admin.coupon.reusable_usage')}}: {{ $campaign->reusable_usage; }}</li>
  	 		</ul>
  	 	</div>
  	 </div>
@@ -80,16 +81,22 @@ $(function () {
  	 				<tr>
  	 					<th>#</th>
  	 					<th>{{ trans('admin.coupon.code') }}</th>
- 	 					<th>{{ trans('admin.coupon.campaign.used') }} </th>
+                        <th>{{ trans('admin.coupon.consumer_name') }}</th>
+                        <th>{{ trans('admin.coupon.datetime') }}</th>
+                        <th>{{ trans('admin.coupon.discount_amount') }}</th>
+ 	 					<th>{{ trans('admin.coupon.salon') }}</th>
  	 				</tr>
  	 			</thead>
  	 			<tbody>
  	 				<?php $count = 1;?>
- 	 				@foreach($campaign->coupons as $coupon)
+ 	 				@foreach($coupons as $coupon)
  	 				<tr>
  	 					<td>{{ $count }}</td>
- 	 					<td>{{ $coupon->code }}</td>
- 	 					<td>{{ $campaign->reusable_usage }}</td>
+ 	 					<td>{{ $coupon->coupon->code }}</td>
+                        <td>{{ !empty($coupon->booking->id) ? $coupon->booking->consumer->name : ''; }}</td>
+                        <td>{{ !empty($coupon->booking->id) ? str_date($coupon->booking->created_at) : ''; }}</td>
+                        <td>{{ !empty($coupon->booking->id) ? $coupon->booking->total_price : ''}}</td>
+ 	 					<td>{{ !empty($coupon->booking->id) ? $coupon->booking->user->business->name : ''}}</td>
  	 				</tr>
  	 				<?php $count++;?>
  	 				@endforeach

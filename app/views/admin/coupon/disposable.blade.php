@@ -84,25 +84,33 @@ $(function () {
  	 	<div class="col-md-6">
  	 		@if (!(boolean)$campaign->is_reusable)
  	 		<table class="table table-hover">
- 	 			<thead>
- 	 				<tr>
- 	 					<th>#</th>
- 	 					<th>{{ trans('admin.coupon.code') }}</th>
- 	 					<th>{{ trans('admin.coupon.is_used') }} </th>
- 	 				</tr>
- 	 			</thead>
- 	 			<tbody>
- 	 				<?php $count = 1;?>
- 	 				@foreach($campaign->coupons as $coupon)
- 	 				<tr>
- 	 					<td>{{ $count }}</td>
- 	 					<td>{{ $coupon->code }}</td>
- 	 					<td>{{ trans('admin.coupon.campaign.' . $coupon->isUsed) }}</td>
- 	 				</tr>
- 	 				<?php $count++;?>
- 	 				@endforeach
- 	 			</tbody>
- 	 		</table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ trans('admin.coupon.code') }}</th>
+                        <th>{{ trans('admin.coupon.is_used') }}</th>
+                        <th>{{ trans('admin.coupon.consumer_name') }}</th>
+                        <th>{{ trans('admin.coupon.datetime') }}</th>
+                        <th>{{ trans('admin.coupon.discount_amount') }}</th>
+                        <th>{{ trans('admin.coupon.salon') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $count = 1;?>
+                    @foreach($coupons as $coupon)
+                    <tr>
+                        <td>{{ $count }}</td>
+                        <td>{{ $coupon->code }}</td>
+                        <td>{{ trans('admin.coupon.campaign.'.$coupon->is_used) }}</td>
+                        <td>{{ !empty($coupon->couponBooking->booking->id) ? $coupon->couponBooking->booking->consumer->name : '-'; }}</td>
+                        <td>{{ !empty($coupon->couponBooking->booking->id) ? str_date($coupon->couponBooking->booking->created_at) : '-'; }}</td>
+                        <td>{{ !empty($coupon->couponBooking->booking->id) ? $coupon->couponBooking->booking->total_price : '-'}}</td>
+                        <td>{{ !empty($coupon->couponBooking->booking->id) ? $coupon->couponBooking->booking->user->business->name : '-'}}</td>
+                    </tr>
+                    <?php $count++;?>
+                    @endforeach
+                </tbody>
+            </table>
  	 		@endif
  	 	</div>
  	 	<div class="col-md-6">

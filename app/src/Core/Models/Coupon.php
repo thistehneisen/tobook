@@ -81,4 +81,14 @@ class Coupon extends Base
     {
         return $this->belongsTo('App\Core\Models\Campaign');
     }
+
+    public function couponBookings()
+    {
+        return $this->hasMany('App\Core\Models\CouponBooking');
+    }
+
+    public function couponBooking()
+    {
+        return $this->hasOne('App\Core\Models\CouponBooking');
+    }
 }
