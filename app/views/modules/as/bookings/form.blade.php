@@ -257,7 +257,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="total_price" class="col-sm-4 control-label">{{ trans('as.bookings.total_price') }}</label>
-                                <div class="col-sm-8">
+                                <div class="col-sm-8 @if($couponApplied) coupon-price @endif">
                                     {{ Form::text('total_price', isset($totalPrice) ? $totalPrice : '', ['class' => 'form-control input-sm', 'id' => 'total_price', 'disabled'=>'disabled']) }}
                                 </div>
                             </div>

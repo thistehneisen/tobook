@@ -196,8 +196,12 @@ class Bookings extends AsBase
         $endAt   = with(new Carbon($booking->end_at))->format('H:i');
         $extras  = $booking->getDisplayExtraServices();
 
-        //$couponBooking = CouponBooking::find($bookingId);
-
+        $couponBooking = CouponBooking::find($bookingId);
+        $couponApplied = false;
+        if (!empty($couponBooking->coupon->campaign->id) ){
+            $couponApplied = true;
+        }
+        
         return [
             'booking'               => $booking,
             'uuid'                  => $booking->uuid,
@@ -221,7 +225,7 @@ class Bookings extends AsBase
             'plustime'              => $plustime,
             'extras'                => $extras,
             'user'                  => $this->user,
-            // 'couponBooking'         => $couponBooking,
+            'couponApplied'         => $couponApplied,
         ];
     }
 
