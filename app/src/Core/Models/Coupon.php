@@ -74,6 +74,22 @@ class Coupon extends Base
         return ((boolean) $this->attributes['is_used']) ? 'used' : 'not_used';
     }
 
+    public function getDiscountAmountAttribute()
+    {
+        $price = 0;
+        
+        if ($this->campaign->discount_type === \App\Core\Models\Campaign::DISCOUNT_TYPE_CASH)
+        {
+            return $this->campaign->discount;
+        }
+
+        if (!empty($this->couponBooking->booking->bookingServices()->first())) {
+            $service = $this->couponBooking->booking->bookingServices()->first()->selectedService;
+            $price = $service->price;
+        }
+        return $price * $this->campaign->discount/100;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

@@ -95,7 +95,7 @@ $(function () {
  	 					<td>{{ $coupon->coupon->code }}</td>
                         <td>{{ !empty($coupon->booking->id) ? $coupon->booking->consumer->name : ''; }}</td>
                         <td>{{ !empty($coupon->booking->id) ? str_date($coupon->booking->created_at) : ''; }}</td>
-                        <td>{{ !empty($coupon->booking->id) ? $coupon->booking->total_price : ''}}</td>
+                        <td>{{ $coupon->coupon->discountAmount }}&euro;</td>
  	 					<td>{{ !empty($coupon->booking->id) ? $coupon->booking->user->business->name : ''}}</td>
  	 				</tr>
  	 				<?php $count++;?>

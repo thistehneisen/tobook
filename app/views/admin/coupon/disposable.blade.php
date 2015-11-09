@@ -104,7 +104,9 @@ $(function () {
                         <td>{{ trans('admin.coupon.campaign.'.$coupon->is_used) }}</td>
                         <td>{{ !empty($coupon->couponBooking->booking->id) ? $coupon->couponBooking->booking->consumer->name : '-'; }}</td>
                         <td>{{ !empty($coupon->couponBooking->booking->id) ? str_date($coupon->couponBooking->booking->created_at) : '-'; }}</td>
-                        <td>{{ !empty($coupon->couponBooking->booking->id) ? $coupon->couponBooking->booking->total_price : '-'}}</td>
+                        <td>
+                            {{ $coupon->discountAmount }}&euro;
+                        </td>
                         <td>{{ !empty($coupon->couponBooking->booking->id) ? $coupon->couponBooking->booking->user->business->name : '-'}}</td>
                     </tr>
                     <?php $count++;?>
