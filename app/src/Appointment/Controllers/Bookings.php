@@ -5,6 +5,7 @@ use Util, Hashids, Session, Request, Mail, Sms;
 use Carbon\Carbon;
 use App\Core\Models\User;
 use App\Core\Models\CartDetail;
+use App\Core\Models\CouponBooking;
 use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
@@ -195,6 +196,8 @@ class Bookings extends AsBase
         $endAt   = with(new Carbon($booking->end_at))->format('H:i');
         $extras  = $booking->getDisplayExtraServices();
 
+        //$couponBooking = CouponBooking::find($bookingId);
+
         return [
             'booking'               => $booking,
             'uuid'                  => $booking->uuid,
@@ -218,6 +221,7 @@ class Bookings extends AsBase
             'plustime'              => $plustime,
             'extras'                => $extras,
             'user'                  => $this->user,
+            // 'couponBooking'         => $couponBooking,
         ];
     }
 
