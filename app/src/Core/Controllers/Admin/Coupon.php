@@ -216,4 +216,34 @@ class Coupon extends Base
 
         return Redirect::route('admin.coupon.campaigns');
     }
+
+   /**
+     * Delete a category
+     *
+     * @param int $id
+     *
+     * @return Redirect
+     */
+    public function delete($id)
+    {
+        $item = Campaign::findOrFail($id);
+
+        if ( ! empty($item->id)) {
+            foreach ($item->coupons as $coupon) {
+                $coupon->delete();
+            }
+        }
+
+        $item->delete();
+
+        if (Request::ajax() === true) {
+            return Response::json(['success' => true]);
+        }
+
+        $referer = Request::instance()->header('referer');
+
+        return Redirect::to(!empty($referer) ? $referer : static::$crudRoutes['index'])
+            ->with('messages',
+                $this->successMessageBag(trans('olut::olut.success_delete')));
+    }
 }
