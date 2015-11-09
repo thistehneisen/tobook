@@ -704,6 +704,9 @@ abstract class Receptionist implements ReceptionistInterface
         $couponBooking->coupon()->associate($coupon);
         $couponBooking->booking()->associate($booking);
 
+        $coupon->campaign->reusable_usage += 1;
+        $coupon->campaign->save();
+
         if (!$coupon->campaign->is_reusable){
             $coupon->is_used = true;
         } else {
@@ -711,9 +714,6 @@ abstract class Receptionist implements ReceptionistInterface
                 $coupon->is_used = true;
             }
         }
-
-        $coupon->campaign->reusable_usage += 1;
-        $coupon->campaign->save();
 
         $coupon->save();
 
