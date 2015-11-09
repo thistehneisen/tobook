@@ -200,7 +200,10 @@ return [
             'expire_at' => 'Expire at',
             'used' => 'Used',
             'not_used' => 'Not used',
-            'stats' => 'Statistics'
+            'stats' => 'Statistics',
+            'errors' => [
+                'duplicated_code' => 'This reusable code must be unique for each campaign!'
+            ]
         ]
     ],
 ];

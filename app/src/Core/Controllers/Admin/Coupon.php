@@ -156,19 +156,22 @@ class Coupon extends Base
     public function doCreate()
     {
         $campaign = new Campaign();
-        $isReusable = (boolean) Input::get('is_reusable');
+        $isReusable = (int) Input::get('is_reusable');
         $reusableCode =  Input::get('reusable_code');
 
-        if ($isReusable) {
+           
+        if ($isReusable === 1) {
             $validator  = $campaign->getResuableCodeValidator();
+
             if ($validator->fails()) {
-                dd($validator->errors());
                 return Redirect::back()->withInput()->withErrors($validator->errors());
             }
 
             $isExisted = Campaign::where('reusable_code', '=', $reusableCode)->first();
             if ( ! empty($isExisted)) {
-                return Redirect::back()->withInput()->withErrors($validator->errors());
+                return Redirect::back()->withInput()->withErrors([
+                    'duplicated_code' => trans('admin.coupon.campaign.errors.duplicated_code')]
+                );
             }
         }
 
