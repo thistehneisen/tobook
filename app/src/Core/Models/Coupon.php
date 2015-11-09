@@ -36,6 +36,12 @@ class Coupon extends Base
             if (empty($coupon)) {
                 return $price;
             }
+
+            if ($coupon->campaign->amount === $coupon->campaign->reusable_usage
+                && $coupon->campaign->is_reusable)
+            {
+                return price;
+            }
             
             $now = Carbon::now();
 
@@ -47,12 +53,13 @@ class Coupon extends Base
                 return $price;
             }
 
-            if ($coupon->campaign->discount_type === Campaign::DISCOUNT_TYPE_PERCENTAGE) {
+            if (strval($coupon->campaign->discount_type) === Campaign::DISCOUNT_TYPE_PERCENTAGE) {
                 $price = $price - ($price * ($coupon->campaign->discount / 100));
-            } else if ($coupon->campaign->discount_type === Campaign::DISCOUNT_TYPE_CASH) {
+            } else if (strval($coupon->campaign->discount_type) === Campaign::DISCOUNT_TYPE_CASH) {
                 # What if total price is negative?
                 $price -= $coupon->campaign->discount;
             }
+           
         }
         return $price;
     }

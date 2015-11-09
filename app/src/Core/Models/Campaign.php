@@ -25,10 +25,11 @@ class Campaign extends Base
         'discount',
         'is_reusable',
         'reusable_code',
+        'reusable_usage',
         'amount',
         'begin_at',
         'expire_at',
-        'is_active'
+        'is_active',
     ];
 
     public $rulesets = [

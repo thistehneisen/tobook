@@ -706,7 +706,15 @@ abstract class Receptionist implements ReceptionistInterface
 
         if (!$coupon->campaign->is_reusable){
             $coupon->is_used = true;
+        } else {
+            if (intval($coupon->campaign->amount) === intval($coupon->campaign->reusable_usage)) {
+                $coupon->is_used = true;
+            }
         }
+
+        $coupon->campaign->reusable_usage += 1;
+        $coupon->campaign->save();
+        
         $coupon->save();
 
         return $couponBooking->save();
