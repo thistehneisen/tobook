@@ -80,7 +80,7 @@ $(function () {
  	 				<tr>
  	 					<th>#</th>
  	 					<th>{{ trans('admin.coupon.code') }}</th>
- 	 					<th>{{ trans('admin.coupon.is_used') }} </th>
+ 	 					<th>{{ trans('admin.coupon.campaign.used') }} </th>
  	 				</tr>
  	 			</thead>
  	 			<tbody>
@@ -89,7 +89,7 @@ $(function () {
  	 				<tr>
  	 					<td>{{ $count }}</td>
  	 					<td>{{ $coupon->code }}</td>
- 	 					<td>{{ trans('admin.coupon.campaign.' . $coupon->isUsed) }}</td>
+ 	 					<td>{{ $campaign->reusable_usage }}</td>
  	 				</tr>
  	 				<?php $count++;?>
  	 				@endforeach
