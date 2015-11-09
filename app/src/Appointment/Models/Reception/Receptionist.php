@@ -714,7 +714,7 @@ abstract class Receptionist implements ReceptionistInterface
 
         $coupon->campaign->reusable_usage += 1;
         $coupon->campaign->save();
-        
+
         $coupon->save();
 
         return $couponBooking->save();
