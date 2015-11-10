@@ -669,17 +669,33 @@ class Employee extends \App\Appointment\Models\Base
 
     public function isShowOnCalendar($date)
     {
+        if (!(bool)$this->user->asOptions['hide_empty_workshift_employees']) {
+            return $this->is_active;
+        }
+
+        $isShow = true;
         if (!$this->is_active) {
             return false;
         }
 
-        
         $dayOfWeek = Util::getDayOfWeekText($date->dayOfWeek);
         $defaultTimes = $this->getDefaulTimesByDayOfWeek($dayOfWeek);
 
         if ($defaultTimes->is_day_off) {
-            return false;
+            $isShow = false;
         }
+
+        $customTime = $this->employeeCustomTimes()
+            ->with('customTime')
+            ->where('date', '=', $date->toDateString())->first();
+
+        if (!empty($customTime->id)) {
+            if ( ! $isShow) {
+                $isShow = true;
+            }
+        }
+
+        return $isShow;
     }
 
     /**
