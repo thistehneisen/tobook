@@ -670,6 +670,23 @@
       return false
     })
 
+    $doc.on('click', 'a.js-show-consumer-info', function (e) {
+      e.preventDefault()
+      var $this = $(this)
+      $.ajax({
+        type: 'GET',
+        url: $this.prop('href'),
+        data: {
+          id: $this.data('consumerid'),
+        },
+        dataType: 'text'
+      }).done(function (data) {
+        $('#js-consumer-info-modal').find('.modal-body').text(data)
+        $('#js-consumer-info-modal').modal('show')
+      })
+      return false
+    })
+
     $doc.keyup(function (e) {
       if (e.keyCode === 27) {
         $('.modal-backdrop').remove()

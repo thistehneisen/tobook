@@ -20,6 +20,21 @@ do ($ = jQuery) ->
             .html content
           $modal.modal 'show'
 
+      $ '.js-showConsumerInfo' .on 'click', (e) ->
+        e.preventDefault()
+        $me = $ @
+
+        $.ajax
+          url: $me.prop 'href'
+          type: 'GET'
+          data:
+            id: $me.data 'consumerid'
+        .done (content) ->
+          $modal = $ '#js-showConsumerInfo'
+          $modal.find '.modal-body'
+            .html content
+          $modal.modal 'show'
+
     # inject ids input to bypass bulk validation
     $ '#olut-mass-action'
       .on 'change', (e) ->
