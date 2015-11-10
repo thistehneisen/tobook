@@ -271,7 +271,7 @@ class Bookings extends AsBase
             'bookingStatuses' => $bookingStatuses,
             'extras'          => $extras,
             'user'            => $this->user,
-            'couponApplied'   => $couponApplied,
+            'couponApplied'   => false,
         ]);
     }
 
