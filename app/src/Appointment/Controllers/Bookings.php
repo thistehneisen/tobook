@@ -270,7 +270,8 @@ class Bookings extends AsBase
             'startTime'       => $startTime,
             'bookingStatuses' => $bookingStatuses,
             'extras'          => $extras,
-            'user'            => $this->user
+            'user'            => $this->user,
+            'couponApplied'   => $couponApplied,
         ]);
     }
 
