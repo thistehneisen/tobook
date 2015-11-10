@@ -111,7 +111,9 @@ return [
     'history'               => 'History',
     'placeholders'          => 'Placeholders',
     'captcha'               => 'Captcha',
-    'export_csv'             => 'Export to CSV',
+    'export_csv'            => 'Export to CSV',
+    'info'                  => 'Information',
+    'empty'                 => 'Empty',
     'short' => [
         'week'  => 'week',
         'hour'  => 'hr',

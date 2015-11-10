@@ -679,9 +679,10 @@
         data: {
           id: $this.data('consumerid'),
         },
-        dataType: 'text'
+        dataType: 'json'
       }).done(function (data) {
-        $('#js-consumer-info-modal').find('.modal-body').text(data)
+        console.log(data);
+        $('#js-consumer-info-modal').find('.modal-body').text(data.notes)
         $('#js-consumer-info-modal').modal('show')
       })
       return false

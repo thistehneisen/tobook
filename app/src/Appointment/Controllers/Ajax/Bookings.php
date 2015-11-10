@@ -149,7 +149,7 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
             $data['notes'] =  $consumer->notes;
         }
 
-        Response::json($data);
+       return Response::json($data);
     }
 
 }
