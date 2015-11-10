@@ -5,6 +5,7 @@ use App\Appointment\Models\Booking;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Reception\Rescheduler;
+use App\Consumers\Models\Consumer;
 
 class Bookings extends \App\Core\Controllers\Ajax\Base
 {
@@ -131,6 +132,24 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
             'consumer_id' => $consumerId,
             'history'     => $items,
         ]);
+    }
+
+    /**
+     * Return consumer notes of a specific consumer
+     *
+     * @return string
+     */
+    public function getConsumerInfo()
+    {
+        $id = Input::get('id');
+        $consumer = Consumer::find($id);
+        $data = ['notes' => trans('common.empty') ];
+
+        if (!empty($consumer->notes)) {
+            $data['notes'] =  $consumer->notes;
+        }
+
+       return Response::json($data);
     }
 
 }

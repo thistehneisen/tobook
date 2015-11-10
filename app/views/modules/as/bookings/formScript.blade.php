@@ -168,7 +168,7 @@ $(function () {
                 $.each(response, function (i){
                     $data[response[i].id] = response[i];
                 });
-                $('#consumer_data').data('customerData', $data)
+                $('#consumer_data').data('customerData', $data);
                 return { results: response };
             },
         },
@@ -181,6 +181,8 @@ $(function () {
         $('#phone').val(data[index].phone);
         $('#email').val(data[index].email);
         $('#address').val(data[index].address);
+        $('#show-consumer-info').show();
+        $('#js-show-consumer-info').attr('data-consumerid', data[index].id);
     });
 });
 

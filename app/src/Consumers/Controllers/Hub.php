@@ -30,6 +30,9 @@ class Hub extends Base
                 'type' => 'radio',
                 'default' => 1,
             ],
+            'notes' => [
+                'type' => 'textarea'
+            ]
         ],
         'layout' => 'modules.co.layout',
         'bulkActions' => [

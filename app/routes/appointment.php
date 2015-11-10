@@ -258,6 +258,11 @@ Route::group([
             'as' => 'bookings.history',
             'uses' => 'App\Appointment\Controllers\Ajax\Bookings@getHistory',
         ]);
+
+        Route::get('ajax/consumer-info', [
+            'as' => 'bookings.consumer_info',
+            'uses' => 'App\Appointment\Controllers\Ajax\Bookings@getConsumerInfo',
+        ]);
     });
 
     Route::group([
