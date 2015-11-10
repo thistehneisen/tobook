@@ -667,6 +667,12 @@ class Employee extends \App\Appointment\Models\Base
         }
     }
 
+    /**
+     * if the feature hide empty workshift employee is off : return is_active
+     * otherwise return false when there is no default working hours or custom workshift
+     * 
+     * @return boolean
+     */
     public function isShowOnCalendar($date)
     {
         if (!(bool)$this->user->asOptions['hide_empty_workshift_employees']) {
