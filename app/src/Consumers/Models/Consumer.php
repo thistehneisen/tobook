@@ -15,6 +15,7 @@ class Consumer extends \App\Core\Models\Base
         'city',
         'postcode',
         'country',
+        'notes',
         'receive_email',
         'receive_sms'
     ];
