@@ -2,6 +2,8 @@
 namespace App\Consumers\Models;
 
 use Mail;
+use Log;
+use Validator;
 
 class EmailTemplate extends \App\Core\Models\Base
 {
@@ -61,6 +63,16 @@ class EmailTemplate extends \App\Core\Models\Base
             if (empty($consumer->email) || !$consumer->receive_email) {
                 continue;
             }
+            
+            $validator = Validator::make(
+                ['email' => $consumer->email],
+                ['email' => 'required|email']
+            );
+
+            if ($validator->fails()) {
+                continue;
+            }
+
 
             Mail::send('modules.co.email_templates.email', [
                 'subject' => $campaign->subject,
@@ -72,7 +84,6 @@ class EmailTemplate extends \App\Core\Models\Base
 
                 History::quickSave($campaign->user, $campaign, $consumer, $group);
             });
-
             $count++;
         }
 
