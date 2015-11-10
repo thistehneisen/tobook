@@ -404,7 +404,8 @@ return [
             'auto_select_employee'                           => 'Auto select an employee',
             'auto_expand_all_categories'                     => 'Auto expand all categories',
             'show_employee_request'                          => 'Show option requesting for an employee',
-            'factor'                                         => 'Factor'
+            'factor'                                         => 'Factor',
+            'hide_empty_workshift_employees'                 => 'Hide employees with no workshift',
         ],
         'style' => [
             'heading'                           => '',

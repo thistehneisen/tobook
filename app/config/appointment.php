@@ -118,6 +118,10 @@ return [
                     'type' => 'Radio',
                     'default' => true
                 ],
+                'hide_empty_workshift_employees' => [
+                    'type' => 'Radio',
+                    'default' => false
+                ],
                 'min_distance' => [
                     'type' => 'Spinner',
                     'default' => '0',
