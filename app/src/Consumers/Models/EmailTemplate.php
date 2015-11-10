@@ -2,6 +2,7 @@
 namespace App\Consumers\Models;
 
 use Mail;
+use Log;
 
 class EmailTemplate extends \App\Core\Models\Base
 {
@@ -61,17 +62,20 @@ class EmailTemplate extends \App\Core\Models\Base
             if (empty($consumer->email) || !$consumer->receive_email) {
                 continue;
             }
+            try{
+                Mail::send('modules.co.email_templates.email', [
+                    'subject' => $campaign->subject,
+                    'content' => $campaign->content,
+                ], function ($message) use ($campaign, $consumer, $group) {
+                    $message->from($campaign->from_email, $campaign->from_name);
+                    $message->subject($campaign->subject);
+                    $message->to($consumer->email, $consumer->name);
 
-            Mail::send('modules.co.email_templates.email', [
-                'subject' => $campaign->subject,
-                'content' => $campaign->content,
-            ], function ($message) use ($campaign, $consumer, $group) {
-                $message->from($campaign->from_email, $campaign->from_name);
-                $message->subject($campaign->subject);
-                $message->to($consumer->email, $consumer->name);
-
-                History::quickSave($campaign->user, $campaign, $consumer, $group);
-            });
+                    History::quickSave($campaign->user, $campaign, $consumer, $group);
+                });
+            } catch(\Exception $ex){
+                Log::info($ex->getMessage(), [$consumer]);
+            }
 
             $count++;
         }

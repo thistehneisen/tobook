@@ -87,6 +87,11 @@ class Employee extends \App\Appointment\Models\Base
         return $defaultTimes;
     }
 
+    /**
+     * $day in ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+     * 
+     * @return Collection
+     */
     public function getDefaulTimesByDay($day)
     {
         $defaultTimes = $this->getDefaultTimes();
@@ -659,6 +664,21 @@ class Employee extends \App\Appointment\Models\Base
             return Config::get('varaa.upload_folder').'/avatars/'.$this->attributes['avatar'];
         } else {
             return Config::get('varaa.upload_folder').'/images/'.$this->attributes['avatar'];
+        }
+    }
+
+    public function isShowOnCalendar($date)
+    {
+        if (!$this->is_active) {
+            return false;
+        }
+
+        
+        $dayOfWeek = Util::getDayOfWeekText($date->dayOfWeek);
+        $defaultTimes = $this->getDefaulTimesByDayOfWeek($dayOfWeek);
+
+        if ($defaultTimes->is_day_off) {
+            return false;
         }
     }
 
