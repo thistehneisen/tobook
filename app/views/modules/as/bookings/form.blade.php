@@ -93,10 +93,11 @@
                             <div class="form-group row">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     <a class="js-showHistory btn btn-primary" href="{{ route('bookings.history') }}" data-consumerid="{{$booking->consumer->id}}" data-service="as">{{ trans('common.history')}}</a>
+                                    <a id="js-show-consumer-info" class="js-show-consumer-info btn btn-primary" href="{{ route('bookings.consumer_info') }}" data-consumerid="{{ !empty($booking->consumer->id) ? $booking->consumer->id : '' }}">{{ trans('common.info')}}</a>
                                 </div>
                             </div>
                             @endif
-                            <div id="show-consumer-info" class="form-group row" @if(empty($booking->consumer->id)) style="display:none" @endif>
+                            <div id="show-consumer-info" class="form-group row" style="display:none">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     <a id="js-show-consumer-info" class="js-show-consumer-info btn btn-primary" href="{{ route('bookings.consumer_info') }}" data-consumerid="{{ !empty($booking->consumer->id) ? $booking->consumer->id : '' }}">{{ trans('common.info')}}</a>
                                 </div>
