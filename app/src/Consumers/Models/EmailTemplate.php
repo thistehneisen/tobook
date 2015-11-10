@@ -3,6 +3,7 @@ namespace App\Consumers\Models;
 
 use Mail;
 use Log;
+use Validator;
 
 class EmailTemplate extends \App\Core\Models\Base
 {
@@ -62,21 +63,27 @@ class EmailTemplate extends \App\Core\Models\Base
             if (empty($consumer->email) || !$consumer->receive_email) {
                 continue;
             }
-            try{
-                Mail::send('modules.co.email_templates.email', [
-                    'subject' => $campaign->subject,
-                    'content' => $campaign->content,
-                ], function ($message) use ($campaign, $consumer, $group) {
-                    $message->from($campaign->from_email, $campaign->from_name);
-                    $message->subject($campaign->subject);
-                    $message->to($consumer->email, $consumer->name);
+            
+            $validator = Validator::make(
+                ['email' => $consumer->email],
+                ['email' => 'required|email']
+            );
 
-                    History::quickSave($campaign->user, $campaign, $consumer, $group);
-                });
-            } catch(\Exception $ex){
-                Log::info($ex->getMessage(), [$consumer]);
+            if ($validator->fails()) {
+                continue;
             }
 
+
+            Mail::send('modules.co.email_templates.email', [
+                'subject' => $campaign->subject,
+                'content' => $campaign->content,
+            ], function ($message) use ($campaign, $consumer, $group) {
+                $message->from($campaign->from_email, $campaign->from_name);
+                $message->subject($campaign->subject);
+                $message->to($consumer->email, $consumer->name);
+
+                History::quickSave($campaign->user, $campaign, $consumer, $group);
+            });
             $count++;
         }
 
