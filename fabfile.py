@@ -21,7 +21,8 @@ instance_dict = {
     'prod': '178.62.37.23',
     'clearbooking': '178.62.52.193',
     'tobook': '178.62.41.125',
-    'yellowpage': '178.62.123.243'
+    'yellowpage': '178.62.123.243',
+    'aws': '52.28.181.131'
 }
 src_path = '/srv/varaa/src'
 env.user = 'root'
