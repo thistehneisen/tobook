@@ -36,7 +36,7 @@ class BusinessIndexer extends AbstractIndexer
             $keywords = array_merge($keywords, $item->keywords);
         }
 
-        if (empty($document->user)) {
+        if (empty($document->user->id)) {
             //User is deleted
             return;
         }

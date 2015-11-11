@@ -72,7 +72,7 @@ def _deploy(environment, host, build_env):
             if current_branch != branch:
                 run('git pull')
             # update composer
-            run('composer self-update')
+            #run('composer self-update')
             # install dependencies
             run('composer install')
             run('npm install')
@@ -113,6 +113,10 @@ def _deploy(environment, host, build_env):
 
 @task
 def deploy(instance='', build_env=''):
+    if instance == 'aws':
+        env.user = 'ec2-user'
+        env.key_filename = '~/ec2-key.pem'
+
     if instance in instance_dict:
         _deploy(instance, instance_dict[instance], build_env)
     elif instance == 'all':
