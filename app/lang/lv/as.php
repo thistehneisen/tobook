@@ -458,5 +458,12 @@ return [
         'success_bulk'   => 'Ieraksts veiksmīgi izdzēsts.',
         'sortable'       => 'Velciet ar peli, lai pārkārtotu secību',
     ],
+    'coupon' => [
+        'not_found'    => 'Šis kupona kods nav atrodams tobook.lv sistēmā',
+        'used_coupon'  => 'Šis kupons kods jau ir izmantots',
+        'invalid_date' => 'Kupona kods nav aktīvs, vai jau ir beidzies',
+        'valid_coupon' => 'Jūs saņemsiet %d%s atlaidi ar šo kuponu',
+        'invalid_coupon' => 'Nederīgs kupona kods',
+    ],
     'nothing_selected' => 'Izvēlēties',
 ];
