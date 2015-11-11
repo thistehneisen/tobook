@@ -1,6 +1,6 @@
 <?php
 return [
-    'languages' => ['fi', 'sv', 'en'],
+    'languages' => ['en', 'ru'],
     'default_language' => 'fi',
     'commission_style' => '',
     'tutorial_video'   => 'https://www.youtube.com/watch?v=YNVCHyxY-kg',
