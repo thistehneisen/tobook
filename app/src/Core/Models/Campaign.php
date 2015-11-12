@@ -54,7 +54,7 @@ class Campaign extends Base
         $codes = [];
 
         while($amount) {
-            $code = Str::upper(Str::random(10));
+            $code = Str::upper(Str::random(16));
             if( ! in_array($code, $codes)) {
                 $codes[] = $code;
                 $amount--;
