@@ -40,6 +40,32 @@
 
 <div class="container">
 
+<div class="hidden-xs">
+     <div class="row">
+        <div class="col-sm-12">
+            <h2 class="text-center orange comfortaa">{{ trans('Recommend for you') }}</h2>
+        </div>
+    </div>
+
+    <div class="row">
+    @foreach ([1,2,3,4] as $discount)
+        <div class="col-sm-3">
+            <div class="discount-widget-containter">
+                <div class="ribbon-wrapper-green"><div class="ribbon-green">40% OFF</div></div>
+                <img data-src="holder.js/100%x180" alt="100%x180" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTcxIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE3MSAxODAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MTgwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTUxMDExZWVmZTAgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTEwMTFlZWZlMCI+PHJlY3Qgd2lkdGg9IjE3MSIgaGVpZ2h0PSIxODAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI1OS41NTQ2ODc1IiB5PSI5NC41Ij4xNzF4MTgwPC90ZXh0PjwvZz48L2c+PC9zdmc+" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;">
+                <div class="discount-service-info">
+                     <a href="https://www.wahanda.com/service/1062325-high-quality-strip-waxing-at-house-of-wax-and-massage/" class="offer-title action-uri">High Quality Strip Waxing </a>
+                    <span class="business-description">House of Wax &amp; Massage, Bloomsbury</span>
+                </div>
+                <div class="discount-action">
+                    <button class="btn btn-success btn-square">Valitse</button>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    </div>
+</div>
+
 @if (App::environment() !== 'tobook')
 <div class="hidden-xs hidden-sm">
     <div class="row">
