@@ -139,7 +139,7 @@ return [
         'terms'             => 'Terms',
         'terms_agree'       => 'I\'ve read and agreed to the booking terms',
         'cancel_message'    => $cancelMessage,
-        'cancel_confirm'    => 'Are you sure to cancel this booking %s?',
+        'cancel_confirm'    => 'Are you sure to cancel the booking below?',
         'modify_booking'    => 'Modify booking',
         'reschedule'        => 'Reschedule',
         'confirm_reschedule'=> 'Confirm reschedule',

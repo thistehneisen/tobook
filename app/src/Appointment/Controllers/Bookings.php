@@ -130,8 +130,10 @@ class Bookings extends AsBase
                 ->where('status','!=', Booking::STATUS_CANCELLED)
                 ->firstOrFail();
 
-            $data['confirm'] = sprintf(trans('as.bookings.cancel_confirm'), $uuid);
+            $data['confirm'] = trans('as.bookings.cancel_confirm');
             $data['uuid']    = $uuid;
+            $data['booking'] = $booking;
+
         } catch (\Exception $ex) {
             $data['error'] = trans('as.bookings.error.uuid_notfound');
         }

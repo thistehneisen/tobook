@@ -18,8 +18,12 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="alert alert-warning">
-                {{ $confirm }}
-               <a href="{{ route('as.bookings.doCancel', ['uuid' => $uuid]) }}" class="btn btn-primary">{{ trans('common.yes') }}</a>
+                <p>{{ $confirm }}</p>
+                <p>{{ $booking->getServiceInfo(true)}}<p>
+                <div class="clearfix">
+                    <a href="{{ route('as.bookings.doCancel', ['uuid' => $uuid]) }}" class="btn btn-danger">{{ trans('common.yes') }}</a>
+                    <a href="{{ route('home') }}" class="btn btn-primary">{{ trans('common.no') }}</a>
+                </div>
             </div>
         </div>
     </div>
