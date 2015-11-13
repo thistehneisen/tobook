@@ -9,18 +9,25 @@
                         <div class="col-sm-6">
                             <!-- Begin MailChimp Signup Form -->
                             <div class="form-subscribe" id="mc_embed_signup">
-                                <form action="//tobook.us11.list-manage.com/subscribe/post?u=70f4e6554b0f5f56638d31c0f&amp;id=fb962672f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form-inline" target="_blank" novalidate>
+                                <form action="//delfi.us11.list-manage.com/subscribe/post?u=50667485df2d51039fa2fbde0&amp;id=46088f3ebb" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="form-inline validate" target="_blank" novalidate>
                                     <div class="form-group" id="mc_embed_signup_scroll">
-                                        <label class="sr-only" for="mce-EMAIL">Subscribe to our mailing list</label>
-                                        <input type="email" value="" name="EMAIL" class="form-control" id="mce-EMAIL" placeholder="@lang('home.footer.email')" required>
-                                        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                                        <div style="position: absolute; left: -5000px;"><input type="text" name="b_70f4e6554b0f5f56638d31c0f_fb962672f0" tabindex="-1" value=""></div>
+                                        <div class="mc-field-group">
+                                            <label class="sr-only" for="mce-EMAIL">Subscribe to our mailing list</label>
+                                            <input type="submit" value="@lang('home.footer.btn_subscribe')" name="subscribe" id="mc-embedded-subscribe" class="btn btn-orange pull-right">
+                                            <input type="email" style="margin-right: 3px;margin-bottom:3px" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="@lang('home.footer.email')" required>
+                                        </div>
                                     </div>
-                                    <input type="submit" value="@lang('home.footer.btn_subscribe')" name="subscribe" id="mc-embedded-subscribe" class="btn btn-orange">
+                                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                    <div style="position: absolute; left: -5000px;"><input type="text" name="b_50667485df2d51039fa2fbde0_46088f3ebb" tabindex="-1" value=""></div>
+                                     <div id="mce-responses" class="clear">
+                                        <div class="response" id="mce-error-response" style="display:none"></div>
+                                        <div class="response" id="mce-success-response" style="display:none"></div>
+                                    </div> 
                                 </form>
                             </div>
 
                             <!--End mc_embed_signup-->
+
                         </div>
                         <div class="col-sm-6">
                             <ul class="list-unstyled list-inline">
