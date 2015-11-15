@@ -44,6 +44,9 @@ class VirtualCalendarBuilder extends ScheduledCommand
         $businesses = Business::with('user')->get();
         $today = Carbon::today();
         foreach ($businesses as $business) {
+            if (empty($business->user->id)) {
+                continue;
+            }
             VIC::enqueue($business->user, $today);
         }
     }
