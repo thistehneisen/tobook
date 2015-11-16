@@ -740,7 +740,6 @@ class Business extends Base
     public static function getRamdomBusinesesHasDiscount($quantity)
     {
         return static::orderBy(\DB::raw('RAND()'))
-            ->join('business_category_user', 'business_category_user.user_id', '=', 'businesses.user_id')
             ->join('as_last_minute_discounts', 'as_last_minute_discounts.user_id', '=', 'businesses.user_id')
             ->join('as_discounts', 'as_discounts.user_id', '=', 'businesses.user_id')
             ->where('businesses.name', '!=', '')
