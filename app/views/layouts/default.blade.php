@@ -78,7 +78,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
             </div>
 
             <div class="collapse navbar-collapse pull-right" id="main-menu">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav hidden-print">
                     {{-- Language switcher --}}
                     <li>
                         <select id="js-language-switcher" class="form-control">
