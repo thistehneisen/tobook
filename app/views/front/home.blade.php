@@ -71,7 +71,7 @@
     @foreach ($randomBusinesses as $business)
         <div class="col-sm-3">
             <div class="discount-widget-containter">
-                <div class="ribbon-wrapper-green"><div class="ribbon-green">{{ $business->discountPercent }}% OFF</div></div>
+                @if($business->discountPercent> 0)<div class="ribbon-wrapper-green"><div class="ribbon-green">{{ $business->discountPercent }}% OFF</div></div>@endif
                 <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug]) }}" class="offer-title action-uri"><img alt="100%x180" style="height: 180px; width: 100%; display: block;" src="{{ $business->image }}" alt="{{ $business->name }}"></a>
                 <div class="discount-service-rating">
                     <span class="raty" data-score="5"></span><span class="pull-right">{{ $business->reviewCount }} {{ trans('common.review') }}</span>
