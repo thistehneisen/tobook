@@ -68,11 +68,14 @@ class Front extends Base
             $iframeUrl = Settings::get('homepage_modal_url');
         }
 
+        $randomBusinesses = Business::getRamdomBusinesesHasDiscount(4);
+
         return $this->render('home', [
             'bookingCount'     => $bookingCount,
             'categories'       => $categories,
             'iframeUrl'        => $iframeUrl,
             'masterCategories' => $masterCategories,
+            'randomBusinesses' => $randomBusinesses,
         ]);
     }
 

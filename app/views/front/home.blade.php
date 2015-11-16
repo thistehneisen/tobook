@@ -48,14 +48,14 @@
     </div>
 
     <div class="row">
-    @foreach ([1,2,3,4] as $discount)
+    @foreach ($randomBusinesses as $business)
         <div class="col-sm-3">
             <div class="discount-widget-containter">
                 <div class="ribbon-wrapper-green"><div class="ribbon-green">40% OFF</div></div>
-                <img data-src="holder.js/100%x180" alt="100%x180" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTcxIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE3MSAxODAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MTgwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTUxMDExZWVmZTAgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTEwMTFlZWZlMCI+PHJlY3Qgd2lkdGg9IjE3MSIgaGVpZ2h0PSIxODAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI1OS41NTQ2ODc1IiB5PSI5NC41Ij4xNzF4MTgwPC90ZXh0PjwvZz48L2c+PC9zdmc+" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;">
+                <img alt="100%x180" style="height: 180px; width: 100%; display: block;" src="{{ $business->image }}" alt="{{ $business->name }}">
                 <div class="discount-service-info">
-                     <a href="https://www.wahanda.com/service/1062325-high-quality-strip-waxing-at-house-of-wax-and-massage/" class="offer-title action-uri">High Quality Strip Waxing </a>
-                    <span class="business-description">House of Wax &amp; Massage, Bloomsbury</span>
+                     <a href="https://www.wahanda.com/service/1062325-high-quality-strip-waxing-at-house-of-wax-and-massage/" class="offer-title action-uri">{{ $business->name }}</a>
+                    <span class="business-description">{{ $business->address }} {{ $business->city }}</span>
                 </div>
                 <div class="discount-action">
                     <button class="btn btn-success btn-square">Valitse</button>

@@ -730,6 +730,27 @@ class Business extends Base
             ->limit($quantity)->get();
     }
 
+     /**
+     * Get a number of random businesses has discount
+     *
+     * @param int quantity
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public static function getRamdomBusinesesHasDiscount($quantity)
+    {
+        return static::orderBy(\DB::raw('RAND()'))
+            ->join('business_category_user', 'business_category_user.user_id', '=', 'businesses.user_id')
+            ->join('as_last_minute_discounts', 'as_last_minute_discounts.user_id', '=', 'businesses.user_id')
+            ->join('as_discounts', 'as_discounts.user_id', '=', 'businesses.user_id')
+            ->where('businesses.name', '!=', '')
+            ->where('businesses.is_hidden', 0)
+            ->where(function($query){
+                return $query->whereNotNull('as_last_minute_discounts.user_id')
+                    ->orwhereNotNull('as_discounts.user_id');
+            })->groupBy('businesses.user_id')->limit($quantity)->get();
+    }
+
     /**
      * Update ES index of this business
      *
