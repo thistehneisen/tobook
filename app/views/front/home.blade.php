@@ -8,6 +8,7 @@
     @parent
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css') }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css') }}
+    {{ HTML::style(asset('packages/jquery.raty/jquery.raty.css')) }}
 @stop
 
 @section ('scripts')
@@ -17,6 +18,25 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.14/jquery.scrollTo.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js') }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
+    {{ HTML::script(asset('packages/jquery.raty/jquery.raty.js')) }}
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var assetPath = '{{ asset('packages/jquery.raty/images') }}';
+        $('.raty').raty({
+            scoreName: function(){
+                return $(this).data('name');
+            },
+            score: function(){
+              return $(this).data('score')
+            },
+            starOff : assetPath + '/star-off.png',
+            starOn  : assetPath + '/star-on.png',
+            starHalf : assetPath + '/star-half.png',
+            readOnly: true  
+        });
+        $('.raty').raty('reload');
+    });
+    </script>
 @stop
 
 @section('main-classes') front @stop
@@ -53,6 +73,9 @@
             <div class="discount-widget-containter">
                 <div class="ribbon-wrapper-green"><div class="ribbon-green">40% OFF</div></div>
                 <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug]) }}" class="offer-title action-uri"><img alt="100%x180" style="height: 180px; width: 100%; display: block;" src="{{ $business->image }}" alt="{{ $business->name }}"></a>
+                <div class="discount-service-rating">
+                    <span class="raty" data-score="5"></span><span class="pull-right">{{ $business->reviewCount }} {{ trans('common.review') }}</span>
+                </div>
                 <div class="discount-service-info">
                      <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug]) }}" class="offer-title action-uri">{{ $business->name }}</a>
                     <span class="business-description">{{ $business->address }} {{ $business->city }}</span>

@@ -623,6 +623,11 @@ class Business extends Base
         return sprintf('%s :: %s', $this->name, Settings::get('meta_title'));
     }
 
+    public function getReviewCountAttribute()
+    {
+        return $this->user->reviews->count();
+    }
+
     /**
      * Get an attribute with its translation
      *
