@@ -8,10 +8,12 @@ use App\Appointment\Models\Discount;
 use App\Appointment\Models\DiscountLastMinute;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Haku\Indexers\BusinessIndexer;
+use App\Core\Models\Review;
+use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use Config;
+use DB;
 use Exception;
-use Illuminate\Support\Collection;
 use Input;
 use NAT;
 use Settings;
@@ -636,6 +638,11 @@ class Business extends Base
         return $this->user->reviews->count();
     }
 
+    /**
+     * Get maximum discount percentage of current business
+     * 
+     * @return integer
+     */
     public function getDiscountPercentAttribute()
     {
         //$originalPrice = Service::where('user_id', '=', $this->user_id)->max('price');
@@ -652,6 +659,18 @@ class Business extends Base
         $discount = ($discount1 > $discount2) ? $discount1 : $discount2;
 
         return  $discount;
+    }
+
+    /**
+     * Retrieve the average rating score of current business
+     * 
+     * @return double
+     */
+    public function getReviewScoreAttribute()
+    {
+        $review = Review::where('user_id', '=', $this->user->id)->where('status', '=', Review::STATUS_APPROVED)
+            ->select(DB::raw("AVG(avg_rating) as avg_rating"))->first();
+        return $review->avg_rating;
     }
 
     /**
