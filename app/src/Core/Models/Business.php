@@ -638,7 +638,7 @@ class Business extends Base
 
     public function getDiscountPercentAttribute()
     {
-        $originalPrice = Service::where('user_id', '=', $this->user_id)->max('price');
+        //$originalPrice = Service::where('user_id', '=', $this->user_id)->max('price');
 
         $discount1  = Discount::where('user_id', '=', $this->user->id)
             ->where('is_active', '=', true)->max('discount');
@@ -648,13 +648,10 @@ class Business extends Base
             ->where('is_active', '=', true)->first();
         $discount2 = (!empty($discount2->discount)) ? $discount2->discount : 0;
 
-        $price     = 0;
-        $price1 = $originalPrice * $discount1;
-        $price2 = $originalPrice * $discount2;
+    
+        $discount = ($discount1 > $discount2) ? $discount1 : $discount2;
 
-        $price = ($price1 < $price2) ? $price1 : $price2;
-
-        return  $price / $originalPrice;
+        return  $discount;
     }
 
     /**
