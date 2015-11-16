@@ -2,7 +2,10 @@
 
 use App;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\Service;
 use App\Appointment\Models\Discount\DiscountBusiness;
+use App\Appointment\Models\Discount;
+use App\Appointment\Models\DiscountLastMinute;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Haku\Indexers\BusinessIndexer;
 use Carbon\Carbon;
@@ -623,9 +626,35 @@ class Business extends Base
         return sprintf('%s :: %s', $this->name, Settings::get('meta_title'));
     }
 
+    /**
+     * Count number of reviews for this business
+     * 
+     * @return int
+     */
     public function getReviewCountAttribute()
     {
         return $this->user->reviews->count();
+    }
+
+    public function getDiscountPercentAttribute()
+    {
+        $originalPrice = Service::where('user_id', '=', $this->user_id)->max('price');
+
+        $discount1  = Discount::where('user_id', '=', $this->user->id)
+            ->where('is_active', '=', true)->max('discount');
+        $discount1 = (!empty($discount1)) ? $discount1 : 0;
+
+        $discount2 = DiscountLastMinute::where('user_id', '=', $this->user->id)
+            ->where('is_active', '=', true)->first();
+        $discount2 = (!empty($discount2->discount)) ? $discount2->discount : 0;
+
+        $price     = 0;
+        $price1 = $originalPrice * $discount1;
+        $price2 = $originalPrice * $discount2;
+
+        $price = ($price1 < $price2) ? $price1 : $price2;
+
+        return  $price / $originalPrice;
     }
 
     /**
