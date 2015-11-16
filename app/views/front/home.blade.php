@@ -52,13 +52,13 @@
         <div class="col-sm-3">
             <div class="discount-widget-containter">
                 <div class="ribbon-wrapper-green"><div class="ribbon-green">40% OFF</div></div>
-                <img alt="100%x180" style="height: 180px; width: 100%; display: block;" src="{{ $business->image }}" alt="{{ $business->name }}">
+                <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug]) }}" class="offer-title action-uri"><img alt="100%x180" style="height: 180px; width: 100%; display: block;" src="{{ $business->image }}" alt="{{ $business->name }}"></a>
                 <div class="discount-service-info">
-                     <a href="https://www.wahanda.com/service/1062325-high-quality-strip-waxing-at-house-of-wax-and-massage/" class="offer-title action-uri">{{ $business->name }}</a>
+                     <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug]) }}" class="offer-title action-uri">{{ $business->name }}</a>
                     <span class="business-description">{{ $business->address }} {{ $business->city }}</span>
                 </div>
                 <div class="discount-action">
-                    <button class="btn btn-success btn-square">Valitse</button>
+                    <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug]) }}" class="btn btn-square btn-success">{{ trans('common.select') }}</a>
                 </div>
             </div>
         </div>
