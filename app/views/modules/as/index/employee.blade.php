@@ -26,7 +26,7 @@
     $dayOfWeek    = $date->dayOfWeek;
     $routeName    = 'as.employee';
 ?>
-<div class="container alert alert-info">
+<div class="container alert alert-info hidden-print">
     <p><strong>{{ trans('as.index.heading') }}</strong></p>
     <p>{{ trans('as.index.description') }}</p>
 </div>
@@ -37,7 +37,7 @@
     <ul class="nav nav-tabs" role="tablist">
         @foreach ($employees as $employee)
             @if ($employee->is_active)
-            <li class="@if(intval($employee->id) === intval($employeeId)) active @endif">
+            <li class="@if(intval($employee->id) === intval($employeeId)) active @else hidden-print @endif">
                 <a href="{{ route('as.employee', ['id'=> $employee->id ]) }}">{{ $employee->name }}</a>
             </li>
             @endif

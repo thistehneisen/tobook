@@ -1,4 +1,8 @@
 <div class="container as-date-nav">
+    <div class="visible-print">
+        {{ str_standard_to_local($selectedDate) }}
+    </div>
+
     <div class="col-md-2">
         <div class="input-group hidden-print">
             <input type="text" data-index-url="{{ route($routeName, ['id' => $employeeId]) }}" id="calendar_date" class="form-control" value="{{ str_standard_to_local($selectedDate) }}">
