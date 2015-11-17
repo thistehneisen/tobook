@@ -783,13 +783,16 @@
     iframe.css('height', $doc.height());
 
     $doc.on('click', '#print-calendar', function (e) {
-      iframe.attr('src', function() {
-        return $(this).data('src');
-      });
-     
-      iframe.on("load", function () {
+      if(iframe.attr('src') == '' || iframe.attr('src') == undefined) { 
+        iframe.attr('src', function() {
+          return $(this).data('src');
+        });
+        iframe.on("load", function () {
+          frames['calendar'].print();
+        });
+      } else {
         frames['calendar'].print();
-      });
+      }
     });
   })
 }(jQuery))
