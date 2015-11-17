@@ -778,5 +778,22 @@
       })
     })
 
+    var iframes = $('iframe');
+
+    $doc.on('click', '#print-calendar', function (e) {
+      iframes.attr('src', function() {
+        return $(this).data('src');
+      });
+
+    });
+
+    iframes.each(function() {
+        var src = $(this).attr('src');
+        $(this).data('src', src).attr('src', '');
+        $(this).load(function(){
+          frames['calendar'].print();
+        });
+    });
+
   })
 }(jQuery))
