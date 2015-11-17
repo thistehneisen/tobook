@@ -9,6 +9,13 @@
 
 body {-webkit-print-color-adjust: exact;}
 
+.as-calendar {
+  background: #eee;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
 ul {
   padding: 0px;
   margin-left: -3px;
@@ -57,14 +64,21 @@ li {
   }
 }
 
+#as-left-col-header {
+  width: 83px!important;
+  position: relative!important;
+  top: 0px!important;
+}
+
 li.as-col-header {
-  position: relative;
+  position: relative!important;
   background: #ccc!important;
   font-weight: 700;
   height: 25px;
   line-height: 22px;
   font-size: 13px;
   z-index: 1;
+  top: 0px!important;
   color: @link_color;
 
   .as-col-name {
@@ -97,10 +111,10 @@ li.booked {
   }
 }
 li.booked p {
-  color: #000000;
+  color: #000000!important;
 }
 li.confirmed {
-  background-color: @as_light_red;
+  background-color: @as_light_red!important;
 }
 li.pending {
   background-color: #ffff00!important;
@@ -150,10 +164,10 @@ li.freetime-body {
   border-bottom: 0;
 
   a {
-    color: #ff0000;
+    color: #ff0000!important;
   }
   span {
-    color: #000000;
+    color: #000000!important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -173,7 +187,7 @@ li.slot-booked-head {
   border-bottom: 0;
 
   & > a {
-    color: #fff;
+    color: #fff!important;
     position: absolute;
     display: inline-block;
     overflow: hidden;
