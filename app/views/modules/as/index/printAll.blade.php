@@ -31,7 +31,9 @@
     $routeName = 'as.index';
 ?>
 
-@include('modules.as.index._date_nav')
+<div class="visible-print">
+    {{ str_standard_to_local($selectedDate) }}
+</div>
 
 @foreach ($groups as $group)
     <div class="print-group container-fluid row-no-padding">

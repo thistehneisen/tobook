@@ -778,22 +778,18 @@
       })
     })
 
-    var iframes = $('iframe');
+    var iframe = $('#print-all-frame');
+    iframe.css('width', $doc.width());
+    iframe.css('height', $doc.height());
 
     $doc.on('click', '#print-calendar', function (e) {
-      iframes.attr('src', function() {
+      iframe.attr('src', function() {
         return $(this).data('src');
       });
-
+     
+      iframe.on("load", function () {
+        frames['calendar'].print();
+      });
     });
-
-    iframes.each(function() {
-        var src = $(this).attr('src');
-        $(this).data('src', src).attr('src', '');
-        $(this).load(function(){
-          frames['calendar'].print();
-        });
-    });
-
   })
 }(jQuery))

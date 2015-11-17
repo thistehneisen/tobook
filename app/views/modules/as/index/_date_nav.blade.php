@@ -1,8 +1,4 @@
 <div class="container as-date-nav">
-    <div class="visible-print">
-        {{ str_standard_to_local($selectedDate) }}
-    </div>
-
     <div class="col-md-2">
         <div class="input-group hidden-print">
             <input type="text" data-index-url="{{ route($routeName, ['id' => $employeeId]) }}" id="calendar_date" class="form-control" value="{{ str_standard_to_local($selectedDate) }}">
@@ -36,7 +32,7 @@
     </div>
     @if(empty($employeeId))
     <a id="print-calendar" href="#" class="btn btn-primary pull-right">{{ trans('as.index.print') }}</a>
-    <iframe src="{{ route('as.printall', ['date'=> $selectedDate]) }}" style="display:none" name="calendar"></iframe></iframe>
+    <iframe id="print-all-frame" data-src="{{ route('as.printall', ['date'=> $selectedDate]) }}" style="position: absolute;top: -2000px;" name="calendar"></iframe>
     @else
     <a href="#" onclick="window.print();" class="btn btn-primary pull-right">{{ trans('as.index.print') }}</a>
     @endif
