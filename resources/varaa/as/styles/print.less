@@ -23,9 +23,9 @@ ul {
 }
 
 li {
-  height: 20px;
-  line-height: 18px;
-  font-size: 12px;
+  height: 18px;
+  line-height: 16px;
+  font-size: 10px;
   list-style: none;
   margin: 0;
   color: @text_light;
@@ -230,4 +230,12 @@ li.active, li.inactive
     background: @primary_color !important;
     color: #fff !important;
   }
+}
+
+.print-group {
+  page-break-after: always;
+}
+
+.print-group:last-child {
+  page-break-after:avoid;
 }
