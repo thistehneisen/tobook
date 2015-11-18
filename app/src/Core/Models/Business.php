@@ -25,6 +25,8 @@ class Business extends Base
     use DiscountBusiness;
     use App\Search\ElasticSearchTrait;
     
+    private $mostDiscountedService = null;
+
     public $fillable = [
         'name',
         'phone',
@@ -802,19 +804,22 @@ class Business extends Base
 
     public function getRandomMostDiscountedServiceAttribute()
     {
-         $services = Service::where('user_id', '=', $this->user_id)
-            ->orderBy('price','desc')->where('price', '>', 0)->get();
-            
-         $rand = mt_rand(0, 3);
-         $service = null;
+        if (!empty($mostDiscountedService)) {
+            return $this->mostDiscountedService;
+        }
+        
+        $services = Service::where('user_id', '=', $this->user_id)
+            ->orderBy('price','asc')->where('price', '>', 0)->get();
 
-         foreach ($services as $key => $_service) {
+        $rand = mt_rand(0, 3);
+
+        foreach ($services as $key => $_service) {
             if ($rand == $key){
-                $service = $_service;
+                $this->mostDiscountedService = $_service;
             }
-         }
+        }
 
-         return $service;
+         return $this->mostDiscountedService;
     }
 
     /**
