@@ -52,7 +52,7 @@ class Index extends AsBase
 
 
     /**
-     * Show booking calendar
+     * Display a view for printing backend calendar for all employees
      *
      * @return View
      */
@@ -113,6 +113,11 @@ class Index extends AsBase
             ]);
     }
 
+    /**
+     * Display a view for printing backend calendar for one employee
+     * 
+     * @return View
+     */
     public function printOne($id = null, $date = null)
     {
         $employees = Employee::ofCurrentUser()->get();
