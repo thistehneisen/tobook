@@ -77,6 +77,12 @@ class Index extends AsBase
                     $group = [];
                 }
             }
+        } else {
+            foreach ($all as $employee) {
+                $group[] = $employee;
+            }
+            $employees[] = $group;
+            $group = [];
         }
 
 
