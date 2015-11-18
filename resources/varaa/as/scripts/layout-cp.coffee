@@ -598,6 +598,7 @@ app.VaraaCPLayout = (dom, hash) ->
 
     @showPreviousPanel = (e) ->
       e.preventDefault()
+      app.initData.serviceId = 0;
       @moveBack()
 
     # Hide Back button if active panel is the first one
@@ -654,7 +655,7 @@ app.VaraaCPLayout = (dom, hash) ->
       if app.initData.serviceId > 0
           @dataStore().service.id = app.initData.serviceId;
           @dataStore().employee.id = -1;
-          @moveTo(1);
+          @moveTo(1)
 
     @addBookingService = ->
       ds = @dataStore()
