@@ -150,6 +150,9 @@ class Bookings extends AsBase
     {
         try {
             $booking = Booking::where('uuid', $uuid)->first();
+            
+            Event::fire('booking.cancelled', [$booking]);
+
             $booking->status = Booking::STATUS_CANCELLED;
             $booking->delete_reason = 'Cancelled by UUID';
             $booking->save();

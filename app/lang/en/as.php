@@ -1,7 +1,7 @@
 <?php
 
 $cancelMessage = <<< HTML
-You have cancelled the booking {BookingID}
+You have successfully cancelled the booking {BookingID}
 
 {Services}
 HTML;
@@ -148,6 +148,8 @@ return [
         'request_employee'  => 'Requesting for a specific employee',
         'deposit'           => 'Deposit payment',
         'search_placeholder'=> 'Search for a consumer',
+        'cancel_email_title'=> 'A booking has been cancelled',
+        'cancel_email_body' => 'The booking below has been cancelled by consumer: <br> %s',
         'error'             => [
             'add_overlapped_booking'      => 'Overlapped booking time!',
             'insufficient_slots'          => 'There is no enough time slots for this booking!',

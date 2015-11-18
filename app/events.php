@@ -8,3 +8,5 @@ Event::listen('payment.cancelled', 'App\Appointment\Listeners\PaymentCancelledLi
 Event::listen('cart.removed', 'App\Appointment\Listeners\CartRemovedListener');
 
 Event::listen('employee.calendar.invitation.send', 'App\Appointment\Listeners\EmployeeCalendarInvidationListener');
+
+Event::listen('booking.cancelled', 'App\Appointment\Listeners\BookingCancelledListener');
