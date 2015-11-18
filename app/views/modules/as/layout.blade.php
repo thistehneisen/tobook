@@ -11,6 +11,7 @@
     {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
     {{ HTML::style(asset('packages/alertify/css/themes/default.min.css')) }}
     {{ HTML::style(asset_path('as/styles/main.css')) }}
+    {{ HTML::style(asset_path('as/styles/print.css'), array('media' => 'print')) }}
 <style>
 .pagination { margin: 0 !important; }
 </style>

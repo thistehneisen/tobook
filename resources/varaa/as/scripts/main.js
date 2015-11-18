@@ -778,5 +778,21 @@
       })
     })
 
+    var iframe = $('#print-all-frame');
+    iframe.css('width', $doc.width());
+    iframe.css('height', $doc.height());
+
+    $doc.on('click', '#print-calendar', function (e) {
+      if(iframe.attr('src') == '' || iframe.attr('src') == undefined) { 
+        iframe.attr('src', function() {
+          return $(this).data('src');
+        });
+        iframe.on("load", function () {
+          frames['calendar'].print();
+        });
+      } else {
+        frames['calendar'].print();
+      }
+    });
   })
 }(jQuery))

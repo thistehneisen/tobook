@@ -23,7 +23,6 @@ Artisan::add(new App\Core\Commands\MappingServicesMasterCategories());
 Artisan::add(new App\Core\Commands\MoveBusinessDescriptionCommand());
 Artisan::add(new App\Core\Commands\MoveMetaCommand());
 Artisan::add(new App\Core\Commands\DeployedNotificationCommand());
-Artisan::add(new App\Core\Commands\BuildNewIndexForBusinesses());
 Artisan::add(new App\Core\Commands\SimpleReportCommand());
 Artisan::add(new App\Core\Commands\RecuseOldDataFromBackupImporter());
 Artisan::add(new App\Core\Commands\ReleasePendingCommisions());

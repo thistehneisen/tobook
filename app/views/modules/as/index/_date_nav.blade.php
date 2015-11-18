@@ -30,4 +30,10 @@
             <a href="{{ route($routeName, ['date'=> str_date($endOfWeek), 'id'=> $employeeId]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::SUNDAY) btn-primary @endif" id="day-sun">{{ trans('common.short.sun') }}</a>
         </div>
     </div>
+    @if(empty($employeeId))
+    <a id="print-calendar" href="#" class="btn btn-primary pull-right">{{ trans('as.index.print') }}</a>
+    <iframe id="print-all-frame" data-src="{{ route('as.printall', ['date'=> $selectedDate]) }}" style="position: absolute;top: -2000px;" name="calendar"></iframe>
+    @else
+    <a href="#" onclick="window.print();" class="btn btn-primary pull-right">{{ trans('as.index.print') }}</a>
+    @endif
 </div>

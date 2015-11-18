@@ -342,11 +342,22 @@ Route::group([
         ]);
     });
 
+    Route::get('/printall/{date?}', [
+        'as' => 'as.printall',
+        'uses' => 'App\Appointment\Controllers\Index@printAll'
+    ]);
+
+    Route::get('/printOne/{id}/{date?}', [
+        'as' => 'as.printone',
+        'uses' => 'App\Appointment\Controllers\Index@printOne'
+    ]);
+
     // Catch-all route should always be at the bottom
     Route::get('/{date?}', [
         'as' => 'as.index',
         'uses' => 'App\Appointment\Controllers\Index@index'
     ]);
+
 });
 
 /*
