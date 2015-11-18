@@ -88,6 +88,14 @@ $(document).ready(function () {
     </div>
 </header>
 @endif
+
+@if((boolean)$user->asOptions['announcement_enable'])
+<div class="container alert alert-info announcement hidden-print hidden-xs hidden-sm">
+    <p><strong>{{ trans('as.index.heading') }}</strong></p>
+    <p>{{ $user->asOptions['announcement_content'] }}</p>
+</div>
+@endif
+
 <div class="container-fluid">
     <!-- Sidebar -->
     <div class="col-lg-3 col-md-4 col-sm-4">

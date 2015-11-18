@@ -249,6 +249,16 @@ return [
                     'default' => $confirmSmsEmployee
                 ],
             ],
+            'announcements' => [
+                'announcement_enable' => [
+                    'type'   => 'Radio',
+                    'default' => false
+                ],
+                'announcement_content' => [
+                    'type'   => 'Textarea',
+                    'default' => ''
+                ],
+            ],
             // 'reminders' => [
             //     'reminder_enable' => [
             //         'type' => 'Radio',
@@ -287,6 +297,12 @@ return [
                     'type' => 'Text'
                 ],
                 'style_banner' => [
+                    'type' => 'Text'
+                ],
+                'style_announcement_color' => [
+                    'type' => 'Text'
+                ],
+                'style_announcement_background' => [
                     'type' => 'Text'
                 ],
                 'style_heading_color' => [

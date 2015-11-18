@@ -406,6 +406,9 @@ return [
             'show_employee_request'                          => 'Show option requesting for an employee',
             'factor'                                         => 'Factor',
             'hide_empty_workshift_employees'                 => 'Hide employees with no workshift',
+            'announcements'                                  => 'Announcements',
+            'announcement_enable'                            => 'Enable announcement',
+            'announcement_content'                           => 'Announcement content', 
         ],
         'style' => [
             'heading'                           => '',
@@ -420,6 +423,8 @@ return [
             'style_external_css'                => 'External CSS Link',
             'style_main_color'                  => 'Main color',
             'style_heading_background'          => 'Heading background',
+            'style_announcement_color'          => 'Announcement color',
+            'style_announcement_background'     => 'Announcement background',
         ],
         'working_time' => [
             'index' => 'Calendar view',

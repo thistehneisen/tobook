@@ -28,6 +28,18 @@
         color: #fff;
     }
     @endif
+
+    @if((boolean)$user->asOptions['announcement_enable'])
+    .announcement {
+        @if (!empty($user->asOptions['style_announcement_color']))
+        color: {{ $user->asOptions['style_announcement_color']; }} !important;
+        @endif
+
+        @if (!empty($user->asOptions['style_announcement_background']))
+        background-color: {{ $user->asOptions['style_announcement_background']; }} !important;
+        @endif
+    }
+    @endif
 </style>
 @if(!empty($user->asOptions['style_external_css']))
 <link rel="stylesheet" type"text/css" href="{{ $user->asOptions['style_external_css'] }}">
