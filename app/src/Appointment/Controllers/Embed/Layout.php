@@ -143,6 +143,7 @@ trait Layout
             'cart'               => $cart,
             'consumer'           => $consumer,
             'service'            => $service,
+            'serviceId'          => Input::get('serviceId', 0),
             'serviceTime'        => $serviceTime,
             'extraServiceLength' => $extraServiceLength,
             'extraServicePrice'  => $extraServicePrice,
@@ -152,7 +153,7 @@ trait Layout
             'date'               => $date,
             'minDistance'        => $minDistance,
             'maxDistance'        => $maxDistance,
-            'action'             => $action
+            'action'             => $action,
         ];
     }
 
