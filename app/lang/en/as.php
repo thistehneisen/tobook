@@ -423,6 +423,8 @@ return [
             'style_external_css'                => 'External CSS Link',
             'style_main_color'                  => 'Main color',
             'style_heading_background'          => 'Heading background',
+            'style_announcement_color'          => 'Announcement color',
+            'style_announcement_background'     => 'Announcement background',
         ],
         'working_time' => [
             'index' => 'Calendar view',

@@ -299,6 +299,12 @@ return [
                 'style_banner' => [
                     'type' => 'Text'
                 ],
+                'style_announcement_color' => [
+                    'type' => 'Text'
+                ],
+                'style_announcement_background' => [
+                    'type' => 'Text'
+                ],
                 'style_heading_color' => [
                     'type' => 'Text'
                 ],
