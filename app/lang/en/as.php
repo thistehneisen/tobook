@@ -406,6 +406,9 @@ return [
             'show_employee_request'                          => 'Show option requesting for an employee',
             'factor'                                         => 'Factor',
             'hide_empty_workshift_employees'                 => 'Hide employees with no workshift',
+            'announcements'                                  => 'Announcements',
+            'announcement_enable'                            => 'Enable announcement',
+            'announcement_content'                           => 'Announcement content', 
         ],
         'style' => [
             'heading'                           => '',

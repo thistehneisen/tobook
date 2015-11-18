@@ -249,6 +249,16 @@ return [
                     'default' => $confirmSmsEmployee
                 ],
             ],
+            'announcements' => [
+                'announcement_enable' => [
+                    'type'   => 'Radio',
+                    'default' => false
+                ],
+                'announcement_content' => [
+                    'type'   => 'Textarea',
+                    'default' => ''
+                ],
+            ],
             // 'reminders' => [
             //     'reminder_enable' => [
             //         'type' => 'Radio',
