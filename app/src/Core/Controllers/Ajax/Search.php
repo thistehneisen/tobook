@@ -122,10 +122,9 @@ class Search extends Base
             'review'         => $review,
             'lat'            => $user->business->lat,
             'lng'            => $user->business->lng,
-            'businessesJson' => json_encode([$user->business]),
+            'businessesJson' => json_encode([$user->business])
         ];
 
-        
 
         $data = array_merge($data, $this->getNextTimeSlotData());
 

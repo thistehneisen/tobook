@@ -555,7 +555,7 @@ app.VaraaCPLayout = (dom, hash) ->
 
   LayoutCP = {}
   LayoutCP.controller = ->
-    @dataStore = m.prop {hash: hash, customer: {}, serviceTime : 'default'}
+    @dataStore = m.prop {hash: hash, customer: {}, serviceTime : 'default', service : {}, employee: {}}
 
     # Fetch services JSON data
     @data = m.prop {}
@@ -598,6 +598,7 @@ app.VaraaCPLayout = (dom, hash) ->
 
     @showPreviousPanel = (e) ->
       e.preventDefault()
+      app.initData.serviceId = 0;
       @moveBack()
 
     # Hide Back button if active panel is the first one
@@ -650,6 +651,12 @@ app.VaraaCPLayout = (dom, hash) ->
       @dataStore().customer = customer
       return
 
+    @jump = () ->
+      if app.initData.serviceId > 0
+          @dataStore().service.id = app.initData.serviceId;
+          @dataStore().employee.id = -1;
+          @moveTo(1)
+
     @addBookingService = ->
       ds = @dataStore()
       return m.request
@@ -694,6 +701,7 @@ app.VaraaCPLayout = (dom, hash) ->
     return
 
   LayoutCP.view = (ctrl) ->
+    ctrl.jump();
     m('.cp-booking-form', [
       m('.content', ctrl.getActivePanel()),
       m('.navigation', {

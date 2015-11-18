@@ -77,6 +77,10 @@ app.i18n = {
 app.assets = {
     'employee_avatar': '{{ asset_path('core/img/avatar-round.png') }}'
 }
+
+app.initData = {
+    serviceId: {{ $serviceId }},
+}
 app.routes = {
     'business.booking.book': '{{ route('as.bookings.frontend.add') }}',
     'business.booking.book_service': '{{ route('as.bookings.service.front.add') }}',

@@ -77,11 +77,17 @@
                     <span class="raty" data-score="{{ $business->reviewScore }}"></span><span class="pull-right">{{ $business->reviewCount }} {{ trans('common.review') }}</span>
                 </div>
                 <div class="discount-service-info">
-                     <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug]) }}" class="offer-title action-uri">{{ $business->name }}</a>
+                     <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug, 'serviceId' => $business->randomMostDiscountedService->id ]) }}" class="offer-title action-uri">{{ $business->randomMostDiscountedService->name }} - 
+                     @if ($business->discountPercent > 0) 
+                     <i class="fa fa-tag"></i>{{ $business->randomMostDiscountedService->price *  ( 1 - ($business->discountPercent /100)) }}&euro;
+                     @else
+                     {{ $business->randomMostDiscountedService->price }}&euro;
+                     @endif
+                     </a>
                     <span class="business-description">{{ $business->address }} {{ $business->city }}</span>
                 </div>
                 <div class="discount-action">
-                    <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug]) }}" class="btn btn-square btn-success">{{ trans('common.select') }}</a>
+                    <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug, 'serviceId' => $business->randomMostDiscountedService->id]) }}" class="btn btn-square btn-success">{{ trans('common.select') }}</a>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-<?php namespace App\Appointment\Controllers;
+<?php namespace App\Appointment\Traits;
 
 use View, Input, Confide, Util, Config, Event, Session;
 use Carbon\Carbon;
@@ -6,23 +6,43 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking;
 use App\Appointment\Planner\Workshift;
 
-class Index extends AsBase
+
+trait Printing
 {
-    use \App\Appointment\Traits\Printing;
-    
-    /**
-     * Show booking calendar
+	 /**
+     * Display a view for printing backend calendar for all employees
      *
      * @return View
      */
-    public function index($date = null)
-    {
-        $employees = Employee::ofCurrentUser()->orderBy('order')->get();
+    public function printAll($date = null)
+    {   
+        /** @var $employees \Illuminate\Support\Collection **/
+        $all = Employee::ofCurrentUser()->orderBy('order')->get();
+        $employees = [];
 
-        // show employee view by default if business has only 1 employee
-        if (count($employees) === 1) {
-            return $this->employee($employees[0]->id, $date);
+        //show employee view by default if business has only 1 employee
+        if (count($all) === 1) {
+            return $this->printOne($all[0]->id, $date);
         }
+
+        if ($all->count() >= 5) {
+            $group = [];
+            $count = 0;
+            foreach ($all as $employee) {
+                $group[] = $employee;
+                if (count($group) == 5) {
+                    $employees[] = $group;
+                    $group = [];
+                }
+            }
+        } else {
+            foreach ($all as $employee) {
+                $group[] = $employee;
+            }
+            $employees[] = $group;
+            $group = [];
+        }
+
 
         $date = (empty($date)) ? Carbon::today() : $date;
 
@@ -33,7 +53,6 @@ class Index extends AsBase
                 $date = Carbon::today();
             }
         }
-        $cutId = Session::get('cutId', 0);
 
         $workingTimes = $this->getDefaultWorkingTimes($date);
 
@@ -41,25 +60,23 @@ class Index extends AsBase
         $customTimes  = $planner->getDisplayCustomTimes();
 
         //TODO settings for day off such as Sunday
-        return View::make('modules.as.index.index', [
+        return View::make('modules.as.index.printAll', [
                 'employeeId'   => null, //because use the same view with employee
-                'employees'    => $employees,
+                'groups'       => $employees,
                 'workingTimes' => $workingTimes,
                 'date'         => $date,
-                'cutId'        => $cutId,
+                'cutId'        => 0,
                 'user'         => $this->user,
                 'customTimes'  => json_encode($customTimes)
             ]);
     }
 
     /**
-     * Handle and reder employee weekly
-     * @param integer $id
-     * @param string $date
-     *
+     * Display a view for printing backend calendar for one employee
+     * 
      * @return View
      */
-    public function employee($id = null, $date = null)
+    public function printOne($id = null, $date = null)
     {
         $employees = Employee::ofCurrentUser()->get();
         $employee  = Employee::ofCurrentUser()->find($id);
@@ -84,7 +101,7 @@ class Index extends AsBase
         $planner      = new Workshift();
         $customTimes  = $planner->getDisplayCustomTimes();
 
-        return View::make('modules.as.index.employee', [
+        return View::make('modules.as.index.printOne', [
                 'employeeId'       => $id,
                 'theEmployee'      => $employee,
                 'employees'        => $employees,
