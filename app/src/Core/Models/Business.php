@@ -800,6 +800,23 @@ class Business extends Base
             })->groupBy('businesses.user_id')->limit($quantity)->get();
     }
 
+    public function getRandomMostDiscountedServiceAttribute()
+    {
+         $services = Service::where('user_id', '=', $this->user_id)
+            ->orderBy('price','desc')->where('price', '>', 0)->get();
+            
+         $rand = mt_rand(0, 3);
+         $service = null;
+
+         foreach ($services as $key => $_service) {
+            if ($rand == $key){
+                $service = $_service;
+            }
+         }
+
+         return $service;
+    }
+
     /**
      * Update ES index of this business
      *

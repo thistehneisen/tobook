@@ -68,6 +68,7 @@ class Front extends Base
             $iframeUrl = Settings::get('homepage_modal_url');
         }
 
+        // Get 4 random busiensses which have discount #718
         $randomBusinesses = Business::getRamdomBusinesesHasDiscount(4);
 
         return $this->render('home', [

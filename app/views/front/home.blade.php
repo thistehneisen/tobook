@@ -77,7 +77,7 @@
                     <span class="raty" data-score="{{ $business->reviewScore }}"></span><span class="pull-right">{{ $business->reviewCount }} {{ trans('common.review') }}</span>
                 </div>
                 <div class="discount-service-info">
-                     <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug]) }}" class="offer-title action-uri">{{ $business->name }}</a>
+                     <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug]) }}" class="offer-title action-uri">{{ $business->randomMostDiscountedService->name }} {{ $business->randomMostDiscountedService->price }}&euro;</a>
                     <span class="business-description">{{ $business->address }} {{ $business->city }}</span>
                 </div>
                 <div class="discount-action">
