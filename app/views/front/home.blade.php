@@ -84,6 +84,7 @@
                      {{ $business->randomMostDiscountedService->price }}&euro;
                      @endif
                      </a>
+                    <span class="business-description">{{ $business->randomMostDiscountedService->description }}</span>
                     <span class="business-description">{{ $business->address }} {{ $business->city }}</span>
                 </div>
                 <div class="discount-action">

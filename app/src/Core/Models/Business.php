@@ -811,11 +811,20 @@ class Business extends Base
         $services = Service::where('user_id', '=', $this->user_id)
             ->orderBy('price','asc')->where('price', '>', 0)->get();
 
+        $collection = [];
+
+        foreach ($services as $service) {
+            $collection[] = $_service;
+            foreach ($_service->serviceTimes() as $time) {
+                $collection[] = $time;
+            }
+        }
+
         $rand = mt_rand(0, 3);
 
-        foreach ($services as $key => $_service) {
+        foreach ($collection as $key => $service) {
             if ($rand == $key){
-                $this->mostDiscountedService = $_service;
+                $this->mostDiscountedService = $service;
             }
         }
 
