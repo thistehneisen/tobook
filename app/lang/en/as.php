@@ -178,6 +178,7 @@ return [
             'before_min_distance'         => 'You cannot make a booking before the min distance day',
             'after_max_distance'          => 'You cannot make a booking after the max distance day',
             'missing_services'            => 'Add a service to continue!',
+            'late_cancellation'           => 'You can only cancel the booking before %d hour(s)',
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',
@@ -408,6 +409,7 @@ return [
             'show_employee_request'                          => 'Show option requesting for an employee',
             'factor'                                         => 'Factor',
             'hide_empty_workshift_employees'                 => 'Hide employees with no workshift',
+            'cancel_before_limit'                            => 'Cancellation valid before (hours)',
         ],
         'style' => [
             'heading'                           => '',

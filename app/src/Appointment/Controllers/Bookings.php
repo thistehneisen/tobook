@@ -149,18 +149,27 @@ class Bookings extends AsBase
     public function doCancel($uuid)
     {
         try {
+
+            $limit = (int) $this->user->asOptions['cancel_before_limit'];
+
             $booking = Booking::where('uuid', $uuid)->first();
             
-            Event::fire('booking.cancelled', [$booking]);
+            $now = Carbon::now();
 
-            $booking->status = Booking::STATUS_CANCELLED;
-            $booking->delete_reason = 'Cancelled by UUID';
-            $booking->save();
-            $booking->delete();
+            if ($now < $booking->startTime->copy()->subHours($limit)) {
+                Event::fire('booking.cancelled', [$booking]);
 
-            $msg = str_replace('{BookingID}', $uuid, trans('as.bookings.cancel_message'));
-            $msg = str_replace('{Services}', $booking->getServiceInfo(), $msg);
-            $data['message'] =  $msg;
+                $booking->status = Booking::STATUS_CANCELLED;
+                $booking->delete_reason = 'Cancelled by UUID';
+                $booking->save();
+                $booking->delete();
+
+                $msg = str_replace('{BookingID}', $uuid, trans('as.bookings.cancel_message'));
+                $msg = str_replace('{Services}', $booking->getServiceInfo(), $msg);
+                $data['message'] =  $msg;
+            } else {
+                $data['message'] = sprintf(trans('as.bookings.error.late_cancellation'), $limit);
+            }
         } catch (\Exception $ex) {
             $data['error'] = trans('as.bookings.error.uuid_notfound');
         }
