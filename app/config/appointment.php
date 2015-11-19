@@ -132,6 +132,11 @@ return [
                     'default' => '0',
                     'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
                 ],
+                'cancel_before_limit' => [
+                    'type' => 'Spinner',
+                    'default' => '1',
+                    'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
+                ]   
             ],
             'booking_form' => [
                 'email' => [
