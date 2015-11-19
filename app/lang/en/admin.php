@@ -141,6 +141,8 @@ return [
         'homepage_modal_url'           => 'Homepage modal URL',
         'enable_business_modal'        => 'Enable business modal',
         'business_modal_url'           => 'Business modal URL',
+        'coupon'                       => 'Coupon',
+        'show_discount_suggestion'     => 'Discount suggestions on fronpage',
     ],
     'master-cats' => [
         'all'         => 'All master category',

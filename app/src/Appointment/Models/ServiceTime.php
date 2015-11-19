@@ -66,6 +66,11 @@ class ServiceTime extends \App\Core\Models\Base
         return show_money($this->attributes['price']);
     }
 
+    public function getNameAttribute()
+    {
+        return $this->service->name;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
