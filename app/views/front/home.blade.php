@@ -66,7 +66,7 @@
             <h2 class="text-center orange comfortaa">{{ trans('Recommend for you') }}</h2>
         </div>
     </div>
-
+    @if(Settings::get('show_discount_suggestion'))
     <div class="row">
     @foreach ($randomBusinesses as $business)
         <div class="col-sm-3">
@@ -93,6 +93,7 @@
         </div>
     @endforeach
     </div>
+    @endif
 </div>
 
 @if (App::environment() !== 'tobook')
