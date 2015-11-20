@@ -127,6 +127,21 @@ $(function () {
         isAutoSelectEmployee: false
     });
     @endif
+    var assetPath  = '{{ asset('packages/jquery.raty/images') }}'
+    $('.raty').raty({
+        scoreName: function() {
+          return $(this).data('name');
+        },
+        score: function() {
+          return $(this).data('score');
+        },
+        starOff: assetPath + '/star-off.png',
+        starOn: assetPath + '/star-on.png',
+        starHalf: assetPath + '/star-half.png',
+        readOnly: true
+    });
+    
+    return $('.raty').raty('reload');
 });
     </script>
     @include ('front.el.layout-cp.truncateScript')
