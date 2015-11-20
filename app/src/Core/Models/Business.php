@@ -814,8 +814,8 @@ class Business extends Base
         $collection = [];
 
         foreach ($services as $service) {
-            $collection[] = $_service;
-            foreach ($_service->serviceTimes() as $time) {
+            $collection[] = $service;
+            foreach ($service->serviceTimes() as $time) {
                 $collection[] = $time;
             }
         }
