@@ -16,7 +16,7 @@
             <span class="icon-bar"></span>
             </button>
         </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
+    <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="admin-menu">
             <ul class="nav navbar-nav">
                 <li><a href="{{ route('admin.create') }}"><i class="fa fa-plus"></i> {{ trans('admin.nav.admin') }}</a></li>
@@ -29,14 +29,17 @@
                         <li><a href="{{ route('admin.keywords.index') }}"><i class="fa fa-key"></i> {{ trans('admin.nav.keywords') }}</a></li>
                     </ul>
                 </li>
+                <li><a href="{{ route('admin.settings') }}"><i class="fa fa-cog"></i> {{ trans('admin.nav.settings') }}</a></li>
+                <li><a href="{{ route('admin.statistics') }}"><i class="fa fa-line-chart"></i> @lang('admin.nav.stats')</a></li>
+                <li><a href="{{ route('admin.coupon.index') }}"><i class="fa fa-scissors"></i> @lang('admin.nav.coupons')</a></li>
+                <li><a href="{{ route('admin.reviews.index') }}"><i class="fa fa-thumbs-o-up"></i> @lang('admin.nav.reviews')</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cubes"></i> @lang('admin.nav.misc') <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('admin.settings') }}"><i class="fa fa-cog"></i> {{ trans('admin.nav.settings') }}</a></li>
+                        
                         <li><a href="{{ route('admin.booking.terms') }}"><i class="fa fa-clipboard"></i> {{ trans('admin.nav.booking_terms') }}</a></li>
                         <li><a href="{{ route('admin.seo') }}"><i class="fa fa-sitemap"></i> {{ trans('admin.nav.seo') }}</a></li>
                         <li><a href="{{ route('admin.pages') }}"><i class="fa fa-file-text"></i> @lang('admin.nav.pages')</a></li>
-                        <li><a href="{{ route('admin.statistics') }}"><i class="fa fa-line-chart"></i> @lang('admin.nav.stats')</a></li>
                     </ul>
                 </li>
             </ul>

@@ -18,12 +18,16 @@
     @if(Settings::get('default_layout') === 'layout-3')
     {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
     @endif
+    {{ HTML::style(asset('packages/jquery.raty/jquery.raty.css')) }}
     <style type="text/css">
     .slideshow {
         max-height: @if (is_tobook()) 333px @else 300px @endif
     }
     .swiper-slide {
         max-height: @if (is_tobook()) 333px @else 300px @endif
+    }
+    .readmore .fa-caret-up , .readmore .fa-caret-down {
+        font-size: 2em;
     }
     </style>
 @stop
@@ -35,6 +39,7 @@
     VARAA.Search.businesses = {{ $businessesJson }};
     VARAA.Search.lat = {{ $lat }};
     VARAA.Search.lng = {{ $lng }};
+    VARAA.Search.assetPath  = '{{ asset('packages/jquery.raty/images') }}';
 @if(!empty($categoryId) && !empty($serviceId))
     VARAA.Search.categoryId = {{ $categoryId }};
     VARAA.Search.serviceId = {{ $serviceId }};
@@ -44,6 +49,7 @@
 
 var app = app || {}
 app.default_layout = '{{ Settings::get('default_layout') }}'
+app.coupon = '{{ Settings::get('coupon') }}'
 app.i18n = {
     'select': '@lang('as.embed.cp.select')',
     'pl_service': '@lang('as.embed.cp.pl_service')',
@@ -63,10 +69,17 @@ app.i18n = {
     'go_back': '@lang('as.embed.cp.go_back')',
     'close': '@lang('common.close')',
     'book': '@lang('as.embed.book')',
-    'first_employee': '@lang('as.embed.cp.first_employee')'
+    'first_employee': '@lang('as.embed.cp.first_employee')',
+    'coupon_code' : '@lang('as.embed.cp.coupon_code')',
+    'save': '@lang('common.save')',
+    'validate': '@lang('common.validate')'
 }
 app.assets = {
     'employee_avatar': '{{ asset_path('core/img/avatar-round.png') }}'
+}
+
+app.initData = {
+    serviceId: {{ $serviceId }},
 }
 app.routes = {
     'business.booking.book': '{{ route('as.bookings.frontend.add') }}',
@@ -74,7 +87,8 @@ app.routes = {
     'business.booking.services': '{{ route('business.booking.services') }}',
     'business.booking.timetable': '{{ route('business.booking.timetable') }}',
     'business.booking.payments': '{{ route('business.booking.payments') }}',
-    'business.booking.employees': '{{ route('business.booking.employees') }}'
+    'business.booking.employees': '{{ route('business.booking.employees') }}',
+    'business.booking.validate.coupon': '{{ route('business.booking.validate.coupon') }}'
 }
 </script>
 
@@ -91,7 +105,7 @@ app.routes = {
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
     {{ HTML::script(asset_path(sprintf('as/scripts/%s.js', Settings::get('default_layout')))) }}
     {{ HTML::script(asset_path('core/scripts/business.js')) }}
-
+    {{ HTML::script(asset('packages/jquery.raty/jquery.raty.js')) }}
     <script>
 $(function () {
     var map = new GMaps({
@@ -113,7 +127,22 @@ $(function () {
         isAutoSelectEmployee: false
     });
     @endif
-})
+    var assetPath  = '{{ asset('packages/jquery.raty/images') }}'
+    $('.raty').raty({
+        scoreName: function() {
+          return $(this).data('name');
+        },
+        score: function() {
+          return $(this).data('score');
+        },
+        starOff: assetPath + '/star-off.png',
+        starOn: assetPath + '/star-on.png',
+        starHalf: assetPath + '/star-half.png',
+        readOnly: true
+    });
+    
+    return $('.raty').raty('reload');
+});
     </script>
     @include ('front.el.layout-cp.truncateScript')
 @stop

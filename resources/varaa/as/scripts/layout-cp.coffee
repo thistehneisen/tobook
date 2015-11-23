@@ -407,10 +407,18 @@ app.VaraaCPLayout = (dom, hash) ->
 
       # Assume the response is fine, submit payment info to paygate
       submitToPaygate = =>
-        results = @paymentOptions().filter (item) -> item.key is paygate
-        option = results[0]
-        if option?
-          createFormAndSubmit option.url, option.attr
+        if (@layout.dataStore().coupon != undefined)
+          @fetchPaymentOptions(@layout.dataStore().price)
+          .then =>
+            results = @paymentOptions().filter (item) -> item.key is paygate
+            option = results[0]
+            if option?
+              createFormAndSubmit option.url, option.attr
+        else
+          results = @paymentOptions().filter (item) -> item.key is paygate
+          option = results[0]
+          if option?
+            createFormAndSubmit option.url, option.attr
 
       # Send request to place the booking
       @lock true
@@ -424,6 +432,7 @@ app.VaraaCPLayout = (dom, hash) ->
     # --------------------------------------------------------------------------
     @shouldOpenModal = (e) ->
       return false if e.target.disabled is true
+
       if @isDisabledPayment() is false and @isForcePayAtVenue() is false
         $('#js-cbf-payment-modal').modal('show')
         return
@@ -431,7 +440,31 @@ app.VaraaCPLayout = (dom, hash) ->
       @layout.placeBooking()
         .then => createFormAndSubmit @payAtVenueUrl(), @layout.dataStore()
         .then null, whenPlacingBookingFailed
+    
+    @getCouponClass = (e) ->
+        if (parseInt(app.coupon, 10) is 1) then '' else 'hidden'
 
+    @setCouponCode = (e) ->
+      el = e.target
+      @layout.setCouponCode el.value
+
+    @validateCoupon = (e) ->
+      e.preventDefault();
+      ds = @layout.dataStore()
+      m.request
+        method: 'POST'
+        url: app.routes['business.booking.validate.coupon']
+        data:
+          l: 'cp'
+          coupon: ds.coupon
+          json_messages: true
+      .then (data) ->
+        $('#coupon-help').text(data.message);
+        if (!data.success)
+          $('#coupon-help').removeClass('text-primary').addClass('text-danger')
+        else
+          $('#coupon-help').removeClass('text-danger').addClass('text-primary')
+      return false
 
     # Kickstart
     @fetchPaymentOptions @layout.dataStore().price
@@ -455,7 +488,7 @@ app.VaraaCPLayout = (dom, hash) ->
       m('.cbf-loading', m('i.fa.fa-spin.fa-2x.fa-spinner'))
 
     m('.payment', [
-      m('.payment-section', [
+      m('.payment-section', { id : 'payment-section-panel'}, [
         m('h4', __('almost_done')),
         m('form.row', [
           ['first_name', 'last_name', 'email', 'phone'].map (field) ->
@@ -467,6 +500,21 @@ app.VaraaCPLayout = (dom, hash) ->
               }),
               m('p.help-block', ctrl.getValidationError.call(ctrl, field))
             ])
+        ])
+      ]),
+      m('.coupon-section.text-center', { class: ctrl.getCouponClass() }, [
+        m('form.row', [
+          m('.form-group.col-sm-offset-4.col-sm-4', [
+            m('label', [__('coupon_code')]),
+            m('input.form-control.btn-square[type=text]',{
+              value: dataStore.coupon or '',
+              onkeyup: ctrl.setCouponCode.bind(ctrl)
+            }),
+            m('p#coupon-help'),
+            m('button.btn.btn-square.btn-book.btn-success', {
+              onclick: ctrl.validateCoupon.bind(ctrl)
+            }, __('validate'))
+          ])
         ])
       ]),
       m('.payment-section', [
@@ -507,7 +555,7 @@ app.VaraaCPLayout = (dom, hash) ->
 
   LayoutCP = {}
   LayoutCP.controller = ->
-    @dataStore = m.prop {hash: hash, customer: {}}
+    @dataStore = m.prop {hash: hash, customer: {}, serviceTime : 'default', service : {}, employee: {}}
 
     # Fetch services JSON data
     @data = m.prop {}
@@ -541,11 +589,16 @@ app.VaraaCPLayout = (dom, hash) ->
 
     @moveBack = -> @move(-1)
 
+    @moveTo = (index) ->
+      @activePanel(index) if @panels[index]?
+      return
+
     # Return the active panel in panel list
     @getActivePanel = -> @panels[@activePanel()]
 
     @showPreviousPanel = (e) ->
       e.preventDefault()
+      app.initData.serviceId = 0;
       @moveBack()
 
     # Hide Back button if active panel is the first one
@@ -583,6 +636,9 @@ app.VaraaCPLayout = (dom, hash) ->
       @addBookingService()
         .then => @moveNext()
 
+    @setCouponCode = (code) ->
+      @dataStore().coupon = code
+
     @setTransactionId = (id) -> @dataStore().transaction_id = id
     @setBookingId = (id) -> @dataStore().booking_id = id
 
@@ -595,13 +651,20 @@ app.VaraaCPLayout = (dom, hash) ->
       @dataStore().customer = customer
       return
 
+    @jump = () ->
+      if app.initData.serviceId > 0
+          @dataStore().service.id = app.initData.serviceId;
+          @dataStore().employee.id = -1;
+          @moveTo(1)
+
     @addBookingService = ->
       ds = @dataStore()
       return m.request
         method: 'POST'
         url: app.routes['business.booking.book_service']
         data:
-          service_id: ds.service.id
+          service_id: ds.service.id,
+          service_time:  ds.serviceTime.id
           employee_id: ds.employee.id
           hash: ds.hash
           booking_date: ds.date
@@ -628,11 +691,17 @@ app.VaraaCPLayout = (dom, hash) ->
           cart_id: ds.cart_id
           last_name: ds.customer.last_name
           first_name: ds.customer.first_name
+          coupon: ds.coupon
           json_messages: true
+      .then (data) ->
+        ds.price = data.price
+        if (!data.success)
+          alertify.error(data.message)
 
     return
 
   LayoutCP.view = (ctrl) ->
+    ctrl.jump();
     m('.cp-booking-form', [
       m('.content', ctrl.getActivePanel()),
       m('.navigation', {

@@ -1,0 +1,241 @@
+@import "../../core/styles/components/vars.import.less";
+@import "../../core/styles/components/utils.import.less";
+@as_light_green: #a8db66;
+@as_light_purple: #b5abf1;
+@as_light_yellow: #f8ef85;
+@as_light_orange: #f5b869;
+@as_light_red: #ee4a42;
+@as_border_gray: #f0f0f0;
+
+body {-webkit-print-color-adjust: exact;}
+
+.as-calendar {
+  background: #eee;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+ul {
+  padding: 0px;
+  margin-left: -3px;
+  margin-bottom: 0px;
+}
+
+li {
+  height: 18px;
+  line-height: 16px;
+  font-size: 10px;
+  list-style: none;
+  margin: 0;
+  color: @text_light;
+  background-color: @as_light_green!important;
+  border: 1px solid @as_border_gray;
+  text-align: center;
+  cursor: pointer;
+
+  label {
+    color: @text_dark
+  }
+}
+
+.as-col-left-header {
+  padding: 0;
+  z-index: 10;
+
+  li {
+    height: 20px;
+    line-height: 18px;
+    font-size: 12px;
+    list-style: none;
+    color: @text_dark;
+    background-color: #ddd!important;
+    border: 1px solid #fff;
+    text-align: center;
+    z-index: 9;
+    position: relative;
+
+    &.as-col-header {
+      height: 25px;
+      line-height: 22px;
+      font-size: 13px;
+      z-index: 10;
+    }
+  }
+}
+
+.nav.nav-tabs {
+  li.active{
+    display: block;
+    color: #000;
+    background-color: white!important;
+    padding-top: 0px!important;
+    font-size: 14px!important;
+    line-height: 24px!important;
+    a {
+      padding-top: 0px!important;
+    }
+  }
+}
+
+#as-left-col-header {
+  width: 83px!important;
+  position: relative!important;
+  top: 0px!important;
+}
+
+li.as-col-header {
+  position: relative!important;
+  background: #ccc!important;
+  font-weight: 700;
+  height: 25px;
+  line-height: 22px;
+  font-size: 13px;
+  z-index: 1;
+  top: 0px!important;
+  color: @link_color;
+
+  .as-col-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 135px;
+    display: inline-block;
+  }
+  .as-workshift-switch {
+    overflow: hidden;
+    display: inline-block;
+    height: 18px;
+  }
+  .as-weekly-col .as-workshift-switch {
+    overflow: visible;
+  }
+}
+li.inactive {
+  background-color: #fff!important;
+}
+li.booked {
+  color: #fff!important;
+  font-size: 13px;
+  text-align: left;
+  padding: 0;
+
+  span.caret {
+    width: auto;
+  }
+}
+li.booked p {
+  color: #000000!important;
+}
+li.confirmed {
+  background-color: @as_light_red!important;
+}
+li.pending {
+  background-color: #ffff00!important;
+  color: #000 !important;
+
+  a {
+    color: #000 !important;
+  }
+}
+li.arrived {
+  background-color: #add8e6!important;
+}
+li.paid {
+  background-color: #00008b!important;
+}
+li.not_show_up {
+  background-color: #a9a9a9!important;
+}
+li.freetime-head {
+  background-color: @as_light_yellow!important;
+  text-align: left;
+  padding: 0 10px;
+  border-bottom: 0;
+
+  a {
+    color: #ff0000;
+  }
+  a.backend-tooltip {
+    color: #000;
+    display: inline-block;
+  }
+  span {
+    color: #000;
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    white-space: pre-wrap;
+    max-width: 150px;
+    padding: 0 10px 0 0;
+  }
+}
+li.freetime-body {
+  background-color: @as_light_yellow!important;
+  text-align: left;
+  padding: 0 10px;
+  border-top: 0;
+  border-bottom: 0;
+
+  a {
+    color: #ff0000!important;
+  }
+  span {
+    color: #000000!important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 160px;
+    display: inline-block;
+  }
+}
+li.freetime-working {
+  background: @as_light_purple!important;
+
+  a.backend-tooltip {
+    color: #fff;
+    display: inline-block;
+  }
+}
+li.slot-booked-head {
+  border-bottom: 0;
+
+  & > a {
+    color: #fff!important;
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    width: 160px;
+    padding: 0 10px;
+  }
+}
+li.slot-booked-body {
+  border-top: 0;
+  border-bottom: 0;
+
+  .btn-popover {
+    margin: 0px;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+  }
+}
+li.active, li.inactive
+
+/*, li.freetime*/
+{
+  &:hover {
+    background: @primary_color !important;
+    color: #fff !important;
+  }
+}
+
+.print-group {
+  page-break-after: always;
+}
+
+.print-group:last-child {
+  page-break-after:avoid;
+}

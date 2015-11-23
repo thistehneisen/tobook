@@ -261,10 +261,16 @@ class BookingService extends Base implements CartDetailInterface
      */
     public function getCartDetailName()
     {
-        return sprintf('%s (%d %s)',
-            $this->service->name,
-            $this->service->length,
-            trans('common.minutes'));
+        return (empty($this->serviceTime)) 
+            ? sprintf('%s (%d %s)', $this->service->name, 
+                    $this->service->length, 
+                    trans('common.minutes'))
+            
+            : sprintf('%s - %s (%d %s)', 
+                    $this->service->name, 
+                    $this->serviceTime->description, 
+                    $this->serviceTime->length, 
+                    trans('common.minutes'));
     }
 
     /**

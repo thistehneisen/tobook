@@ -2,13 +2,18 @@
 
 use App;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\Service;
 use App\Appointment\Models\Discount\DiscountBusiness;
+use App\Appointment\Models\Discount;
+use App\Appointment\Models\DiscountLastMinute;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Haku\Indexers\BusinessIndexer;
+use App\Core\Models\Review;
+use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use Config;
+use DB;
 use Exception;
-use Illuminate\Support\Collection;
 use Input;
 use NAT;
 use Settings;
@@ -20,6 +25,8 @@ class Business extends Base
     use DiscountBusiness;
     use App\Search\ElasticSearchTrait;
     
+    private $mostDiscountedService = null;
+
     public $fillable = [
         'name',
         'phone',
@@ -624,6 +631,51 @@ class Business extends Base
     }
 
     /**
+     * Count number of reviews for this business
+     * 
+     * @return int
+     */
+    public function getReviewCountAttribute()
+    {
+        return $this->user->reviews->count();
+    }
+
+    /**
+     * Get maximum discount percentage of current business
+     * 
+     * @return integer
+     */
+    public function getDiscountPercentAttribute()
+    {
+        //$originalPrice = Service::where('user_id', '=', $this->user_id)->max('price');
+
+        $discount1  = Discount::where('user_id', '=', $this->user->id)
+            ->where('is_active', '=', true)->max('discount');
+        $discount1 = (!empty($discount1)) ? $discount1 : 0;
+
+        $discount2 = DiscountLastMinute::where('user_id', '=', $this->user->id)
+            ->where('is_active', '=', true)->first();
+        $discount2 = (!empty($discount2->discount)) ? $discount2->discount : 0;
+
+    
+        $discount = ($discount1 > $discount2) ? $discount1 : $discount2;
+
+        return  $discount;
+    }
+
+    /**
+     * Retrieve the average rating score of current business
+     * 
+     * @return double
+     */
+    public function getReviewScoreAttribute()
+    {
+        $review = Review::where('user_id', '=', $this->user->id)->where('status', '=', Review::STATUS_APPROVED)
+            ->select(DB::raw("AVG(avg_rating) as avg_rating"))->first();
+        return $review->avg_rating;
+    }
+
+    /**
      * Get an attribute with its translation
      *
      * @param string $attr
@@ -728,6 +780,55 @@ class Business extends Base
             ->where('businesses.name', '!=', '')
             ->where('businesses.is_hidden', 0)
             ->limit($quantity)->get();
+    }
+
+     /**
+     * Get a number of random businesses has discount
+     *
+     * @param int quantity
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public static function getRamdomBusinesesHasDiscount($quantity)
+    {
+        return static::orderBy(\DB::raw('RAND()'))
+            ->join('as_last_minute_discounts', 'as_last_minute_discounts.user_id', '=', 'businesses.user_id')
+            ->join('as_discounts', 'as_discounts.user_id', '=', 'businesses.user_id')
+            ->where('businesses.name', '!=', '')
+            ->where('businesses.is_hidden', 0)
+            ->where(function($query){
+                return $query->whereNotNull('as_last_minute_discounts.user_id')
+                    ->orwhereNotNull('as_discounts.user_id');
+            })->groupBy('businesses.user_id')->limit($quantity)->get();
+    }
+
+    public function getRandomMostDiscountedServiceAttribute()
+    {
+        if (!empty($mostDiscountedService)) {
+            return $this->mostDiscountedService;
+        }
+        
+        $services = Service::where('user_id', '=', $this->user_id)
+            ->orderBy('price','asc')->where('price', '>', 0)->get();
+
+        $collection = [];
+
+        foreach ($services as $service) {
+            $collection[] = $service;
+            foreach ($service->serviceTimes() as $time) {
+                $collection[] = $time;
+            }
+        }
+
+        $rand = mt_rand(0, 3);
+
+        foreach ($collection as $key => $service) {
+            if ($rand == $key){
+                $this->mostDiscountedService = $service;
+            }
+        }
+
+         return $this->mostDiscountedService;
     }
 
     /**

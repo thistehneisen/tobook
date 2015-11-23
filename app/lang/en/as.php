@@ -1,7 +1,7 @@
 <?php
 
 $cancelMessage = <<< HTML
-You have cancelled the booking {BookingID}
+You have successfully cancelled the booking {BookingID}
 
 {Services}
 HTML;
@@ -139,7 +139,7 @@ return [
         'terms'             => 'Terms',
         'terms_agree'       => 'I\'ve read and agreed to the booking terms',
         'cancel_message'    => $cancelMessage,
-        'cancel_confirm'    => 'Are you sure to cancel this booking %s?',
+        'cancel_confirm'    => 'Are you sure to cancel the booking below?',
         'modify_booking'    => 'Modify booking',
         'reschedule'        => 'Reschedule',
         'confirm_reschedule'=> 'Confirm reschedule',
@@ -148,6 +148,8 @@ return [
         'request_employee'  => 'Requesting for a specific employee',
         'deposit'           => 'Deposit payment',
         'search_placeholder'=> 'Search for a consumer',
+        'cancel_email_title'=> 'A booking has been cancelled',
+        'cancel_email_body' => 'The booking below has been cancelled by consumer: <br> %s',
         'error'             => [
             'add_overlapped_booking'      => 'Overlapped booking time!',
             'insufficient_slots'          => 'There is no enough time slots for this booking!',
@@ -176,6 +178,7 @@ return [
             'before_min_distance'         => 'You cannot make a booking before the min distance day',
             'after_max_distance'          => 'You cannot make a booking after the max distance day',
             'missing_services'            => 'Add a service to continue!',
+            'late_cancellation'           => 'You can only cancel the booking before %d hour(s)',
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',
@@ -320,6 +323,7 @@ return [
             'how_to_pay' => 'How do you want to pay for your booking?',
             'almost_done' => 'Your booking is almost done',
             'first_employee' => 'The first employee available',
+            'coupon_code' => 'Coupon code',
         ],
         'receipt' => [
             'thanks' => 'Thanks for booking via Varaa.com!',
@@ -403,7 +407,12 @@ return [
             'auto_select_employee'                           => 'Auto select an employee',
             'auto_expand_all_categories'                     => 'Auto expand all categories',
             'show_employee_request'                          => 'Show option requesting for an employee',
-            'factor'                                         => 'Factor'
+            'factor'                                         => 'Factor',
+            'hide_empty_workshift_employees'                 => 'Hide employees with no workshift',
+            'announcements'                                  => 'Announcements',
+            'announcement_enable'                            => 'Enable announcement',
+            'announcement_content'                           => 'Announcement content', 
+            'cancel_before_limit'                            => 'Cancellation valid before (hours)',
         ],
         'style' => [
             'heading'                           => '',
@@ -418,6 +427,8 @@ return [
             'style_external_css'                => 'External CSS Link',
             'style_main_color'                  => 'Main color',
             'style_heading_background'          => 'Heading background',
+            'style_announcement_color'          => 'Announcement color',
+            'style_announcement_background'     => 'Announcement background',
         ],
         'working_time' => [
             'index' => 'Calendar view',
@@ -473,6 +484,31 @@ return [
         'success_delete' => 'Item was deleted successfully.',
         'success_bulk'   => 'Item was deleted successfully.',
         'sortable'       => 'Drag to reorder',
+    ],
+    'review' => [
+        'all'          => 'All reviews',
+        'avg_rating'   => 'Avg. Rating',
+        'comment'      => 'Comment',
+        'environment'  => 'Environment',
+        'edit'         => 'Edit',
+        'name'         => 'Name',
+        'leave_review' => 'Leave a review',
+        'price_ratio'  => 'Price ratio',
+        'service'      => 'Service',
+        'status'       => 'Status',
+        'venue_rating' => 'Venue rating',
+        'init'         => 'Init',
+        'approved'     => 'Approved',
+        'rejected'     => 'Rejected',
+        'approve'      => 'Approve',
+        'reject'       => 'Reject',
+    ],
+    'coupon' => [
+        'not_found'    => 'This coupon code is not found in our system!',
+        'used_coupon'  => 'This coupon code is used',
+        'invalid_date' => 'This coupon can be only used in this period: %s - %s',
+        'valid_coupon' => 'Discount %d%s for this coupon',
+        'invalid_coupon' => 'Invalid coupon',
     ],
     'nothing_selected' => 'Nothing selected',
 ];

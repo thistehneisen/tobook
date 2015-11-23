@@ -8,6 +8,7 @@
     @parent
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css') }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css') }}
+    {{ HTML::style(asset('packages/jquery.raty/jquery.raty.css')) }}
 @stop
 
 @section ('scripts')
@@ -17,6 +18,32 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.14/jquery.scrollTo.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js') }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
+    {{ HTML::script(asset('packages/jquery.raty/jquery.raty.js')) }}
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var assetPath = '{{ asset('packages/jquery.raty/images') }}';
+        $('.raty').raty({
+            scoreName: function(){
+                return $(this).data('name');
+            },
+            score: function(){
+              return $(this).data('score')
+            },
+            starOff : assetPath + '/star-off.png',
+            starOn  : assetPath + '/star-on.png',
+            starHalf : assetPath + '/star-half.png',
+            readOnly: true  
+        });
+        $('.raty').raty('reload');
+        $('.service-tooltip').tooltip({
+          selector: '',
+          placement: 'top',
+          container: 'body',
+          trigger: 'hover',
+          html: true
+        });
+    });
+    </script>
 @stop
 
 @section('main-classes') front @stop
@@ -39,6 +66,42 @@
 </div>
 
 <div class="container">
+
+<div class="hidden-xs">
+     <div class="row">
+        <div class="col-sm-12">
+            <h2 class="text-center orange comfortaa">{{ trans('Recommend for you') }}</h2>
+        </div>
+    </div>
+    @if(Settings::get('show_discount_suggestion'))
+    <div class="row">
+    @foreach ($randomBusinesses as $business)
+        <div class="col-sm-3">
+            <div class="discount-widget-containter">
+                @if($business->discountPercent> 0)<div class="ribbon-wrapper"><div class="ribbon-red">-{{ $business->discountPercent }}%</div></div>@endif
+                <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug]) }}" class="offer-title action-uri"><img alt="100%x180" style="height: 180px; width: 100%; display: block;" src="{{ $business->image }}" alt="{{ $business->name }}"></a>
+                <div class="discount-service-rating">
+                    <span class="raty" data-score="{{ $business->reviewScore }}"></span><span class="pull-right">{{ $business->reviewCount }} {{ trans('common.review') }}</span>
+                </div>
+                <div class="discount-service-info">
+                     <a title="{{{ $business->randomMostDiscountedService->description }}}" href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug, 'serviceId' => $business->randomMostDiscountedService->id ]) }}" class="offer-title action-uri service-tooltip">{{ $business->randomMostDiscountedService->name }} - 
+                     @if ($business->discountPercent > 0) 
+                     <i class="fa fa-tag"></i>{{ $business->randomMostDiscountedService->price *  ( 1 - ($business->discountPercent /100)) }}&euro;
+                     @else
+                     {{ $business->randomMostDiscountedService->price }}&euro;
+                     @endif
+                     </a>
+                    <span class="business-description">{{ $business->address }} {{ $business->city }}</span>
+                </div>
+                <div class="discount-action">
+                    <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug, 'serviceId' => $business->randomMostDiscountedService->id]) }}" class="btn btn-square btn-success">{{ trans('common.select') }}</a>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    </div>
+    @endif
+</div>
 
 @if (App::environment() !== 'tobook')
 <div class="hidden-xs hidden-sm">

@@ -68,6 +68,7 @@ composer.phar
 # Local config files
 /config.php
 /public/appointment/app/config/config.inc.php
+/public/rev.txt
 
 # Node.js module
 node_modules/

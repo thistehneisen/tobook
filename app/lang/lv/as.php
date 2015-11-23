@@ -316,6 +316,7 @@ return [
             'how_to_pay' => 'Kā jūs vēlaties maksāt?',
             'almost_done' => 'Jūsu rezervācija ir gandrīz pabeigta',
             'first_employee' => 'Pirmais darbinieks pieejams',
+            'coupon_code' => 'Kupona kods',
         ]
     ],
      'options' => [
@@ -389,7 +390,12 @@ return [
             'auto_select_employee'                           => 'Automātiski izvēlēties darbinieku',
             'auto_expand_all_categories'                     => 'Automātiksi aizpildīt visas kategorijas',
             'show_employee_request'                          => 'Laut izvēlēties darbinieku',
-            'factor'                                         => 'Factor'
+            'factor'                                         => 'Factor',
+            'hide_empty_workshift_employees'                 => 'Slēpt darbinieki bez workshift',
+            'announcements'                                  => 'Sludinājumi',
+            'announcement_enable'                            => 'Ieslēgt paziņojumus',
+            'announcement_content'                           => 'AIeslēgt paziņojumus',
+            'cancel_before_limit'                            => 'Anulēšana derīga līdz (stundas)',
         ],
         'style' => [
             'heading'                           => '',
@@ -456,6 +462,13 @@ return [
         'success_delete' => 'Ieraksts veiksmīgi izdzēsts.',
         'success_bulk'   => 'Ieraksts veiksmīgi izdzēsts.',
         'sortable'       => 'Velciet ar peli, lai pārkārtotu secību',
+    ],
+    'coupon' => [
+        'not_found'    => 'Šis kupona kods nav atrodams tobook.lv sistēmā',
+        'used_coupon'  => 'Šis kupons kods jau ir izmantots',
+        'invalid_date' => 'Kupona kods nav aktīvs, vai jau ir beidzies',
+        'valid_coupon' => 'Jūs saņemsiet %d%s atlaidi ar šo kuponu',
+        'invalid_coupon' => 'Nederīgs kupona kods',
     ],
     'nothing_selected' => 'Izvēlēties',
 ];

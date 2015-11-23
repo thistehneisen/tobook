@@ -26,6 +26,16 @@ Route::group(['prefix' => 'businesses'], function () {
         'uses'  => 'App\Core\Controllers\Front@businesses'
     ]);
 
+    Route::get('/review/{id}-{slug?}', [
+        'as'    => 'businesses.review',
+        'uses'  => 'App\Core\Controllers\Front@review'
+    ]);
+
+    Route::post('/review/{id}-{slug?}', [
+        'as'    => 'businesses.doReview',
+        'uses'  => 'App\Core\Controllers\Front@doReview'
+    ]);
+
     //--------------------------------------------------------------------------
     // CP booking form
     //--------------------------------------------------------------------------
@@ -52,6 +62,11 @@ Route::group(['prefix' => 'businesses'], function () {
     Route::post('booking/pay_at_venue', [
         'as'    => 'business.booking.pay_at_venue',
         'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@payAtVenue'
+    ]);
+
+    Route::post('booking/validate_coupon', [
+        'as'    => 'business.booking.validate.coupon',
+        'uses'  => 'App\Appointment\Controllers\Embed\LayoutCp@validateCoupon'
     ]);
 
     Route::get('category/{id}-{slug?}', [

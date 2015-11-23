@@ -26,13 +26,17 @@ Artisan::add(new App\Core\Commands\DeployedNotificationCommand());
 Artisan::add(new App\Core\Commands\SimpleReportCommand());
 Artisan::add(new App\Core\Commands\RecuseOldDataFromBackupImporter());
 Artisan::add(new App\Core\Commands\ReleasePendingCommisions());
+Artisan::add(new App\Core\Commands\ReleaseCouponCodeCommand());
 Artisan::add(new App\Core\Commands\BroadcastConfirmationSettings());
 Artisan::add(new App\Core\Commands\FixPayAtVenueCommisions());
 Artisan::add(new App\Core\Commands\FixMissingCommissionsToBook());
 Artisan::add(new App\Core\Commands\FixMissingNewConsumerCommissions());
 Artisan::add(new App\Core\Commands\UpdateMinDistanceHourUnit());
+Artisan::add(new App\Core\Commands\SendReviewRequestCommand());
 Artisan::add(new App\Core\Commands\FixWorkshiftDuplicates());
+Artisan::add(new App\Core\Commands\CopyServicesCommand());
 Artisan::add(new App\Core\Commands\FixConsumerStatusTobook());
+Artisan::add(new App\Core\Commands\GenerateDeploymentInfo());
 
 Artisan::add(new App\Cart\Commands\UnlockCartItemsCommand());
 

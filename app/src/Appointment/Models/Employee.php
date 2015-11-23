@@ -87,6 +87,11 @@ class Employee extends \App\Appointment\Models\Base
         return $defaultTimes;
     }
 
+    /**
+     * $day in ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+     * 
+     * @return Collection
+     */
     public function getDefaulTimesByDay($day)
     {
         $defaultTimes = $this->getDefaultTimes();
@@ -660,6 +665,43 @@ class Employee extends \App\Appointment\Models\Base
         } else {
             return Config::get('varaa.upload_folder').'/images/'.$this->attributes['avatar'];
         }
+    }
+
+    /**
+     * if the feature hide empty workshift employee is off : return is_active
+     * otherwise return false when there is no default working hours or custom workshift
+     * 
+     * @return boolean
+     */
+    public function isShowOnCalendar($date)
+    {
+        if (!(bool)$this->user->asOptions['hide_empty_workshift_employees']) {
+            return $this->is_active;
+        }
+
+        $isShow = true;
+        if (!$this->is_active) {
+            return false;
+        }
+
+        $dayOfWeek = Util::getDayOfWeekText($date->dayOfWeek);
+        $defaultTimes = $this->getDefaulTimesByDayOfWeek($dayOfWeek);
+
+        if ($defaultTimes->is_day_off) {
+            $isShow = false;
+        }
+
+        $customTime = $this->employeeCustomTimes()
+            ->with('customTime')
+            ->where('date', '=', $date->toDateString())->first();
+
+        if (!empty($customTime->id)) {
+            if ( ! $isShow) {
+                $isShow = true;
+            }
+        }
+
+        return $isShow;
     }
 
     /**

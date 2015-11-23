@@ -5,6 +5,7 @@ use Util, Hashids, Session, Request, Mail, Sms;
 use Carbon\Carbon;
 use App\Core\Models\User;
 use App\Core\Models\CartDetail;
+use App\Core\Models\CouponBooking;
 use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
@@ -129,8 +130,10 @@ class Bookings extends AsBase
                 ->where('status','!=', Booking::STATUS_CANCELLED)
                 ->firstOrFail();
 
-            $data['confirm'] = sprintf(trans('as.bookings.cancel_confirm'), $uuid);
+            $data['confirm'] = trans('as.bookings.cancel_confirm');
             $data['uuid']    = $uuid;
+            $data['booking'] = $booking;
+
         } catch (\Exception $ex) {
             $data['error'] = trans('as.bookings.error.uuid_notfound');
         }
@@ -146,15 +149,27 @@ class Bookings extends AsBase
     public function doCancel($uuid)
     {
         try {
-            $booking = Booking::where('uuid', $uuid)->first();
-            $booking->status = Booking::STATUS_CANCELLED;
-            $booking->delete_reason = 'Cancelled by UUID';
-            $booking->save();
-            $booking->delete();
 
-            $msg = str_replace('{BookingID}', $uuid, trans('as.bookings.cancel_message'));
-            $msg = str_replace('{Services}', $booking->getServiceInfo(), $msg);
-            $data['message'] =  $msg;
+            $limit = (int) $this->user->asOptions['cancel_before_limit'];
+
+            $booking = Booking::where('uuid', $uuid)->first();
+            
+            $now = Carbon::now();
+
+            if ($now < $booking->startTime->copy()->subHours($limit)) {
+                Event::fire('booking.cancelled', [$booking]);
+
+                $booking->status = Booking::STATUS_CANCELLED;
+                $booking->delete_reason = 'Cancelled by UUID';
+                $booking->save();
+                $booking->delete();
+
+                $msg = str_replace('{BookingID}', $uuid, trans('as.bookings.cancel_message'));
+                $msg = str_replace('{Services}', $booking->getServiceInfo(), $msg);
+                $data['message'] =  $msg;
+            } else {
+                $data['message'] = sprintf(trans('as.bookings.error.late_cancellation'), $limit);
+            }
         } catch (\Exception $ex) {
             $data['error'] = trans('as.bookings.error.uuid_notfound');
         }
@@ -195,6 +210,12 @@ class Bookings extends AsBase
         $endAt   = with(new Carbon($booking->end_at))->format('H:i');
         $extras  = $booking->getDisplayExtraServices();
 
+        $couponBooking = CouponBooking::find($bookingId);
+        $couponApplied = false;
+        if (!empty($couponBooking->coupon->campaign->id) ){
+            $couponApplied = true;
+        }
+        
         return [
             'booking'               => $booking,
             'uuid'                  => $booking->uuid,
@@ -218,6 +239,7 @@ class Bookings extends AsBase
             'plustime'              => $plustime,
             'extras'                => $extras,
             'user'                  => $this->user,
+            'couponApplied'         => $couponApplied,
         ];
     }
 
@@ -262,7 +284,8 @@ class Bookings extends AsBase
             'startTime'       => $startTime,
             'bookingStatuses' => $bookingStatuses,
             'extras'          => $extras,
-            'user'            => $this->user
+            'user'            => $this->user,
+            'couponApplied'   => false,
         ]);
     }
 

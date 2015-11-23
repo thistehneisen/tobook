@@ -93,9 +93,15 @@
                             <div class="form-group row">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     <a class="js-showHistory btn btn-primary" href="{{ route('bookings.history') }}" data-consumerid="{{$booking->consumer->id}}" data-service="as">{{ trans('common.history')}}</a>
+                                    <a id="js-show-consumer-info" class="js-show-consumer-info btn btn-primary" href="{{ route('bookings.consumer_info') }}" data-consumerid="{{ !empty($booking->consumer->id) ? $booking->consumer->id : '' }}">{{ trans('common.info')}}</a>
                                 </div>
                             </div>
                             @endif
+                            <div id="show-consumer-info" class="form-group row" style="display:none">
+                                <div class="col-sm-offset-4 col-sm-8">
+                                    <a id="js-show-consumer-info" class="js-show-consumer-info btn btn-primary" href="{{ route('bookings.consumer_info') }}" data-consumerid="{{ !empty($booking->consumer->id) ? $booking->consumer->id : '' }}">{{ trans('common.info')}}</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- endrow -->
@@ -257,7 +263,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="total_price" class="col-sm-4 control-label">{{ trans('as.bookings.total_price') }}</label>
-                                <div class="col-sm-8">
+                                <div class="col-sm-8 @if($couponApplied) coupon-price @endif">
                                     {{ Form::text('total_price', isset($totalPrice) ? $totalPrice : '', ['class' => 'form-control input-sm', 'id' => 'total_price', 'disabled'=>'disabled']) }}
                                 </div>
                             </div>
@@ -347,6 +353,21 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">{{ trans('common.history') }}</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('OK') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="js-consumer-info-modal" role="dialog" aria-labelledby="js-consumer-info-modal-label" aria-hidden="true" style="z-index: 99999">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{ trans('common.info') }}</h4>
             </div>
             <div class="modal-body">
             </div>

@@ -49,6 +49,12 @@ app.i18n = {
 </header>
 @endif
 
+@if((boolean)$user->asOptions['announcement_enable'])
+<div class="container alert alert-info announcement hidden-print hidden-xs hidden-sm">
+    <p>{{ $user->asOptions['announcement_content'] }}</p>
+</div>
+@endif
+
 <div class="container">
     <div class="row">
         <div id="as-select">

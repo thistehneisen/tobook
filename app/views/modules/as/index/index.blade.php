@@ -50,7 +50,7 @@
     </div>
     <div class="as-calendar col-lg-11 col-md-11 col-sm-11 col-xs-10">
         @foreach ($employees as $employee)
-            @if ($employee->is_active)
+            @if ($employee->isShowOnCalendar(carbon_date($selectedDate)))
             <div class="as-col">
             <ul class="as-ul">
                 <li class="as-col-header as-col-fixed">

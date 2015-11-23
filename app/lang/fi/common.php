@@ -108,6 +108,7 @@ return [
     'decline'               => 'Peruuta',
     'submit'                => 'Hyväksy',
     'placeholders'          => 'Placeholders',//@todo
+    'captcha'               => 'Captcha',
     'short' => [
         'week'  => 'vko',
         'hour'  => 'tunti',

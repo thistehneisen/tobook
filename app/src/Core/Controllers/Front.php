@@ -7,6 +7,7 @@ use App\Appointment\Models\TreatmentType;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
+use App\Core\Models\Review;
 use App\Haku\Searchers\BusinessesByCategory;
 use App\Haku\Searchers\BusinessesByDistrict;
 use Cookie;
@@ -14,9 +15,11 @@ use Illuminate\Support\Collection;
 use Input;
 use Request;
 use Response;
+use Redirect;
 use Settings;
 use Util;
 use View;
+use Validator;
 
 class Front extends Base
 {
@@ -65,11 +68,15 @@ class Front extends Base
             $iframeUrl = Settings::get('homepage_modal_url');
         }
 
+        // Get 4 random busiensses which have discount #718
+        $randomBusinesses = Business::getRamdomBusinesesHasDiscount(4);
+
         return $this->render('home', [
             'bookingCount'     => $bookingCount,
             'categories'       => $categories,
             'iframeUrl'        => $iframeUrl,
             'masterCategories' => $masterCategories,
+            'randomBusinesses' => $randomBusinesses,
         ]);
     }
 
@@ -268,5 +275,60 @@ class Front extends Base
         }
 
         App::abort(404);
+    }
+
+     /**
+     * Show review page to consumer
+     *
+     * @return View
+     */
+    public function review($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+        } catch(\Exception $ex){
+            App::abort(404);
+        }
+
+        return $this->render('review', [
+            'id' => $id,
+            'name' => $user->business->slug
+        ]);
+    }
+
+    /**
+     * Handle review submission
+     * 
+     * @return Redirect
+     */
+    public function doReview($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+
+            $rules = array(
+               'environment'          => 'required',
+               'service'              => 'required',
+               'price_ratio'          => 'required',
+               'g-recaptcha-response' => 'required|recaptcha'
+            );
+
+            $validator = Validator::make(Input::all(), $rules);
+
+            if ($validator->fails()) {
+                $messages = $validator->messages();
+                return Redirect::back()->withInput()->withErrors($messages);
+            }
+
+            $review = new Review();
+            $review->fill(Input::all());
+            $review->user()->associate($user);
+            $review->setAvgRating();
+            $review->saveOrFail();
+        } catch(\Watson\Validating\ValidationException $ex){
+            return Redirect::back()->withInput()->withErrors($ex->getErrors());
+        }
+
+        return Redirect::route('home');
     }
 }

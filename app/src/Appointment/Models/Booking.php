@@ -285,6 +285,15 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return !empty($serviceInfos) ? implode(" \n", $serviceInfos) : '';
     }
 
+    public function getCancelInfo()
+    {
+        $serviceInfo = $this->getServiceInfo(true);
+        
+        $msg = trans('as.bookings.cancel_email_body');
+
+        return sprintf($msg, $serviceInfo);
+    }
+
     /**
      * Get deposit amount of an booking
      * @see https://github.com/varaa/varaa/issues/491
@@ -997,6 +1006,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $body  = str_replace('{BookingID}', $this->uuid, $body);
         $body  = str_replace('{Phone}', $this->consumer->phone, $body);
         $body  = str_replace('{Email}', $this->consumer->email, $body);
+        $body  = str_replace('{Address}', $this->consumer->address, $body);
         $body  = str_replace('{Notes}', $this->notes, $body);
         $body  = str_replace('{Deposit}', $this->deposit, $body);
 

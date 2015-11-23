@@ -10,6 +10,9 @@ use App\Appointment\Models\Room;
 use App\Appointment\Models\BookingServiceRoom;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
+use App\Core\Models\Coupon;
+use App\Core\Models\CouponBooking;
+
 use Exception;
 
 abstract class Receptionist implements ReceptionistInterface
@@ -48,6 +51,7 @@ abstract class Receptionist implements ReceptionistInterface
     protected $notes               = null;
     protected $roomId              = null;
     protected $layout              = null;
+    protected $coupon              = '';
 
     public function setBookingId($bookingId)
     {
@@ -304,6 +308,17 @@ abstract class Receptionist implements ReceptionistInterface
     public function getLayout()
     {
         return $this->layout;
+    }
+
+    public function setCoupon($code)
+    {
+        $this->coupon = $code;
+        return $this;
+    }
+
+    public function getCoupon()
+    {
+        return $this->coupon;
     }
 
     public function getRoomId()
@@ -670,6 +685,39 @@ abstract class Receptionist implements ReceptionistInterface
             : sprintf("%d", $totalLength);
 
         return $ret;
+    }
+
+    protected function saveCoupon($booking)
+    {
+        if (empty($this->coupon)) {
+            return;
+        }
+
+        $coupon = Coupon::where('code', '=', $this->coupon)
+            ->where('is_used', '=', 0)->first();
+            
+        if (empty($coupon->code)) {
+            return;
+        }
+
+        $couponBooking = new CouponBooking();
+        $couponBooking->coupon()->associate($coupon);
+        $couponBooking->booking()->associate($booking);
+
+        $coupon->campaign->reusable_usage += 1;
+        $coupon->campaign->save();
+
+        if (!$coupon->campaign->is_reusable){
+            $coupon->is_used = true;
+        } else {
+            if (intval($coupon->campaign->amount) === intval($coupon->campaign->reusable_usage)) {
+                $coupon->is_used = true;
+            }
+        }
+
+        $coupon->save();
+
+        return $couponBooking->save();
     }
 
     abstract public function upsertBooking();

@@ -22,6 +22,7 @@ return [
     'register'              => 'Зарегистрироваться',
     'no_records'            => 'Извините, записи не найдены!',
     'save'                  => 'Сохранить',
+    'validate'              => 'проверить',
     'destroy'               => 'Удалить',
     'warning'               => 'Внимание',
     'success'               => 'Успешно',
@@ -107,6 +108,7 @@ return [
     'accept'                => 'Согласен',
     'decline'               => 'Не Согласен',
     'history'               => 'История',
+    'captcha'               => 'Captcha',
     'short' => [
         'week'  => 'неделя',
         'hour'  => 'ч',

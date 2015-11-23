@@ -8,6 +8,8 @@ use App\Appointment\Planner\Workshift;
 
 class Index extends AsBase
 {
+    use \App\Appointment\Traits\Printing;
+    
     /**
      * Show booking calendar
      *

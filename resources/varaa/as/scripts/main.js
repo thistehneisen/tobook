@@ -670,6 +670,24 @@
       return false
     })
 
+    $doc.on('click', 'a.js-show-consumer-info', function (e) {
+      e.preventDefault()
+      var $this = $(this)
+      $.ajax({
+        type: 'GET',
+        url: $this.prop('href'),
+        data: {
+          id: $this.data('consumerid'),
+        },
+        dataType: 'json'
+      }).done(function (data) {
+        console.log(data);
+        $('#js-consumer-info-modal').find('.modal-body').text(data.notes)
+        $('#js-consumer-info-modal').modal('show')
+      })
+      return false
+    })
+
     $doc.keyup(function (e) {
       if (e.keyCode === 27) {
         $('.modal-backdrop').remove()
@@ -760,5 +778,21 @@
       })
     })
 
+    var iframe = $('#print-all-frame');
+    iframe.css('width', $doc.width());
+    iframe.css('height', $doc.height());
+
+    $doc.on('click', '#print-calendar', function (e) {
+      if(iframe.attr('src') == '' || iframe.attr('src') == undefined) { 
+        iframe.attr('src', function() {
+          return $(this).data('src');
+        });
+        iframe.on("load", function () {
+          frames['calendar'].print();
+        });
+      } else {
+        frames['calendar'].print();
+      }
+    });
   })
 }(jQuery))

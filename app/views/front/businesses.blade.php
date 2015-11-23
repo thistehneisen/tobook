@@ -20,6 +20,7 @@
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css') }}
     @if(Settings::get('default_layout') === 'layout-3')
     {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
+    {{ HTML::style(asset('packages/jquery.raty/jquery.raty.css')) }}
     @endif
     <style type="text/css">
     .slideshow {
@@ -27,6 +28,9 @@
     }
     .swiper-slide {
         max-height: @if(is_tobook()) 333px @else 300px @endif
+    }
+    .readmore .fa-caret-up , .readmore .fa-caret-down {
+        font-size: 2em;
     }
     </style>
 @stop
@@ -37,6 +41,7 @@
     VARAA.Search.businesses = {{ json_encode($businesses) }};
     VARAA.Search.lat = {{ $lat or 0 }};
     VARAA.Search.lng = {{ $lng or 0 }};
+    VARAA.Search.assetPath  = '{{ asset('packages/jquery.raty/images') }}';
 @if(!empty($categoryId) && !empty($serviceId))
     VARAA.Search.categoryId = {{ $categoryId }};
     VARAA.Search.serviceId = {{ $serviceId }};
@@ -46,6 +51,7 @@
 
 var app = app || {}
 app.default_layout = '{{ Settings::get('default_layout') }}'
+app.coupon = '{{ Settings::get('coupon') }}'
 app.i18n = {
     'select': '@lang('as.embed.cp.select')',
     'pl_service': '@lang('as.embed.cp.pl_service')',
@@ -97,6 +103,7 @@ app.routes = {
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
     {{ HTML::script(asset_path('core/scripts/business.js')) }}
     {{ HTML::script(asset_path('core/scripts/search.js')) }}
+    {{ HTML::script(asset('packages/jquery.raty/jquery.raty.js')) }}
     {{ HTML::script(asset('packages/jquery.dotdotdot/jquery.dotdotdot.min.js')) }}
 @stop
 

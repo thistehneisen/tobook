@@ -121,12 +121,12 @@ return [
     'hiw' => [
         'heading' => 'How it works?', // @todo
         'steps' => [
-            '1'      => 'Step 1', // @todo
-            '2'      => 'Step 2', // @todo
-            '3'      => 'Step 3', // @todo
-            '1_text' => 'Select a service', // @todo
-            '2_text' => 'Select a business', // @todo
-            '3_text' => 'Book a time', // @todo
+            '1'      => 'Шаг 1',
+            '2'      => 'Шаг 2',
+            '3'      => 'Шаг 3',
+            '1_text' => 'Выберите услугу',
+            '2_text' => 'Выберите бизнес',
+            '3_text' => 'Бронирование времени',
         ],
     ],
     // Business

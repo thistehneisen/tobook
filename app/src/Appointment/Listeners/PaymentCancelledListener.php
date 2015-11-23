@@ -4,6 +4,7 @@ use Cart;
 use App\Payment\Models\Transaction;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Booking;
+use App\Core\Models\CouponBooking;
 
 class PaymentCancelledListener
 {
@@ -45,6 +46,10 @@ class PaymentCancelledListener
                 if ($item->booking !== null) {
                     $item->booking->status = Booking::STATUS_CANCELLED;
                     $item->booking->save();
+                    
+                    //Force delete a coupon booking in db
+                    $couponBooking = CouponBooking::where('booking_id', '=', $item->booking->id)->first();
+                    $couponBooking->forceDelete();
                 }
             }
         }

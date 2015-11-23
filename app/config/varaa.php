@@ -159,5 +159,13 @@ return [
         'homepage_modal_url' => ['type' => 'Text',  'default' => ''],
         'enable_business_modal' => ['type' => 'Radio',  'default' => false],
         'business_modal_url' => ['type' => 'Text',  'default' => ''],
+        //----------------------------------------------------------------------
+        // Coupon feature
+        //----------------------------------------------------------------------
+        'coupon' => ['type' => 'Radio', 'default' => false],
+        //----------------------------------------------------------------------
+        // Front page suggestion
+        //----------------------------------------------------------------------
+        'show_discount_suggestion' => ['type' => 'Radio', 'default' => false],
     ],
 ];

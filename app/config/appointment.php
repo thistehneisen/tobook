@@ -118,6 +118,10 @@ return [
                     'type' => 'Radio',
                     'default' => true
                 ],
+                'hide_empty_workshift_employees' => [
+                    'type' => 'Radio',
+                    'default' => false
+                ],
                 'min_distance' => [
                     'type' => 'Spinner',
                     'default' => '0',
@@ -128,6 +132,11 @@ return [
                     'default' => '0',
                     'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
                 ],
+                'cancel_before_limit' => [
+                    'type' => 'Spinner',
+                    'default' => '1',
+                    'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
+                ]   
             ],
             'booking_form' => [
                 'email' => [
@@ -245,6 +254,16 @@ return [
                     'default' => $confirmSmsEmployee
                 ],
             ],
+            'announcements' => [
+                'announcement_enable' => [
+                    'type'   => 'Radio',
+                    'default' => false
+                ],
+                'announcement_content' => [
+                    'type'   => 'Textarea',
+                    'default' => ''
+                ],
+            ],
             // 'reminders' => [
             //     'reminder_enable' => [
             //         'type' => 'Radio',
@@ -283,6 +302,12 @@ return [
                     'type' => 'Text'
                 ],
                 'style_banner' => [
+                    'type' => 'Text'
+                ],
+                'style_announcement_color' => [
+                    'type' => 'Text'
+                ],
+                'style_announcement_background' => [
                     'type' => 'Text'
                 ],
                 'style_heading_color' => [

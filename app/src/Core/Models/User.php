@@ -157,6 +157,11 @@ class User extends ConfideUser
         return $this->hasMany('App\Core\Models\CommissionLog');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany('App\Core\Models\Review');
+    }
+
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------

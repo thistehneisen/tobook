@@ -78,7 +78,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
             </div>
 
             <div class="collapse navbar-collapse pull-right" id="main-menu">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav hidden-print">
                     {{-- Language switcher --}}
                     <li>
                         <select id="js-language-switcher" class="form-control">
@@ -217,6 +217,38 @@ app.lang.home = {
     {{-- Disable user custom scripts in local environment --}}
 @if (App::environment() !== 'local')
     {{ Settings::get('bottom_script') }}
+@endif
+
+@if (is_tobook())
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+<script type='text/javascript'>
+(function($) {
+    window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email'; 
+    /*
+     * Translated default messages for the $ validation plugin.
+     * Locale: LV
+     */
+    $.extend($.validator.messages, {
+            required: "Šis lauks ir obligāts.",
+            remote: "Lūdzu, pārbaudiet šo lauku.",
+            email: "Lūdzu, ievadiet derīgu e-pasta adresi.",
+            url: "Lūdzu, ievadiet derīgu URL adresi.",
+            date: "Lūdzu, ievadiet derīgu datumu.",
+            dateISO: "Lūdzu, ievadiet derīgu datumu (ISO).",
+            number: "Lūdzu, ievadiet derīgu numuru.",
+            digits: "Lūdzu, ievadiet tikai ciparus.",
+            creditcard: "Lūdzu, ievadiet derīgu kredītkartes numuru.",
+            equalTo: "Lūdzu, ievadiet to pašu vēlreiz.",
+            accept: "Lūdzu, ievadiet vērtību ar derīgu paplašinājumu.",
+            maxlength: $.validator.format("Lūdzu, ievadiet ne vairāk kā {0} rakstzīmes."),
+            minlength: $.validator.format("Lūdzu, ievadiet vismaz {0} rakstzīmes."),
+            rangelength: $.validator.format("Lūdzu ievadiet {0} līdz {1} rakstzīmes."),
+            range: $.validator.format("Lūdzu, ievadiet skaitli no {0} līdz {1}."),
+            max: $.validator.format("Lūdzu, ievadiet skaitli, kurš ir mazāks vai vienāds ar {0}."),
+            min: $.validator.format("Lūdzu, ievadiet skaitli, kurš ir lielāks vai vienāds ar {0}.")
+    });
+}(jQuery));var $mcj = jQuery.noConflict(true);
+</script>
 @endif
 </body>
 </html>
