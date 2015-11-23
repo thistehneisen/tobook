@@ -398,6 +398,11 @@ return [
             'auto_expand_all_categories'                     => 'Avaa varausnäkymän kategoriat automaattisesti',
             'show_employee_request'                          => '\'Oma asiakas\' painike käytössä',
             'factor'                                         => 'Varausnäkymän työntekijämuuttuja',
+            'hide_empty_workshift_employees'                 => 'Piilota työntekijän sarake jos ei työvuoroa',
+            'announcements'                                  => 'Asiakastiedote',
+            'announcement_enable'                            => 'Asiakastiedote käytössä',
+            'announcement_content'                           => 'Tiedotteen sisältö',
+            'cancel_before_limit'                            => 'Peruutus viimeistään ennen (tunteina)',
         ],
         'style' => [
             'heading'                           => '',

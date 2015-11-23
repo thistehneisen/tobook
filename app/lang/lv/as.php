@@ -390,7 +390,12 @@ return [
             'auto_select_employee'                           => 'Automātiski izvēlēties darbinieku',
             'auto_expand_all_categories'                     => 'Automātiksi aizpildīt visas kategorijas',
             'show_employee_request'                          => 'Laut izvēlēties darbinieku',
-            'factor'                                         => 'Factor'
+            'factor'                                         => 'Factor',
+            'hide_empty_workshift_employees'                 => 'Slēpt darbinieki bez workshift',
+            'announcements'                                  => 'Sludinājumi',
+            'announcement_enable'                            => 'Ieslēgt paziņojumus',
+            'announcement_content'                           => 'AIeslēgt paziņojumus',
+            'cancel_before_limit'                            => 'Anulēšana derīga līdz (stundas)',
         ],
         'style' => [
             'heading'                           => '',

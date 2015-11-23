@@ -388,6 +388,12 @@ return [
             'auto_select_employee'                           => 'Автоматический выбор работника',
             'auto_expand_all_categories'                     => 'Автоматическое заполнение категорию',
             'show_employee_request'                          => 'Показать опции просьбой для работника',
+            'factor'                                         => 'Factor',
+            'hide_empty_workshift_employees'                 => 'Скрыть сотрудники с не рабочей смены',
+            'announcements'                                  => 'Объявления',
+            'announcement_enable'                            => 'Включить объявления',
+            'announcement_content'                           => 'Содержание анонса прошло',
+            'cancel_before_limit'                            => 'Отменить действует до (часов)',
         ],
         'style' => [
             'heading'                           => '',
