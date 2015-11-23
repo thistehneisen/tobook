@@ -51,7 +51,6 @@ app.i18n = {
 
 @if((boolean)$user->asOptions['announcement_enable'])
 <div class="container alert alert-info announcement hidden-print hidden-xs hidden-sm">
-    <p>{{ trans('as.index.heading') }}</p>
     <p>{{ $user->asOptions['announcement_content'] }}</p>
 </div>
 @endif
