@@ -132,6 +132,9 @@ return [
             '3_text' => 'Book a time',
         ],
     ],
+    'discount' => [
+        'heading' => 'Recommend for you',
+    ],
     // Business
     'business' => [
         'about'          => 'About',

@@ -71,7 +71,7 @@
 <div class="hidden-xs">
      <div class="row">
         <div class="col-sm-12">
-            <h2 class="text-center orange comfortaa">{{ trans('Recommend for you') }}</h2>
+            <h2 class="text-center orange comfortaa">{{ trans('home.discount.heading') }}</h2>
         </div>
     </div>
     <div class="row">
