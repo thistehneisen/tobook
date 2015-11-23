@@ -1,7 +1,7 @@
 <?php
 
 $cancelMessage = <<< HTML
-You have cancelled the booking {BookingID}
+Varaus ID:{BookingID} peruutettu onnistuneesti.
 
 {Services}
 HTML;
@@ -148,6 +148,8 @@ return [
         'request_employee'  => 'Työntekijää ei saa vaihtaa',
         'deposit'           => 'Varausmaksu',
         'search_placeholder'=> 'Asiakashaku',
+        'cancel_email_title'=> 'Varaus on peruttu onnistuneesti.',
+        'cancel_email_body' => 'Asiakas on peruuttanut seuraavan varauksen: <br> %s',
         'error'             => [
             'add_overlapped_booking'      => 'Varauksia ei voi asettaa päällekäin!',
             'insufficient_slots'          => 'Varaus ei mahdu valitsemaasi kohtaan.',
@@ -481,7 +483,7 @@ return [
         'price_ratio'  => 'Hinta-laatu',
         'service'      => 'Palvelu',
         'status'       => 'Status',
-        'venue_rating' => 'Venue rating',
+        'venue_rating' => 'Arvosana',
         'init'         => 'Init',
         'approved'     => 'Approved',
         'rejected'     => 'Rejected',
