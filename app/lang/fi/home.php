@@ -112,6 +112,9 @@ return [
             '3_text' => 'Varaa aika',
         ],
     ],
+    'discount' => [
+        'heading' => 'Suositeltuja tarjouksia',
+    ],
     // Business
     'business' => [
         'about'          => 'Yrityksestä',

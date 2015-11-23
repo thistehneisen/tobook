@@ -131,6 +131,9 @@ return [
             '3_text' => 'Rezervējiet laiku',
         ],
     ],
+    'discount' => [
+        'heading' => 'Ieteicams, lai jūs',
+    ],
     // Business
     'business' => [
         'about'          => 'Par uzņēmumu',

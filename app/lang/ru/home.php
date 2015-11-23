@@ -129,6 +129,9 @@ return [
             '3_text' => 'Бронирование времени',
         ],
     ],
+    'discount' => [
+        'heading' => 'Рекомендуется для вас',
+    ],
     // Business
     'business' => [
         'about'          => 'о нас',
