@@ -549,6 +549,12 @@ class Bookings extends AsBase
         $modifyTime          = (int) Input::get('modify_times', 0);
         $notes               = Input::get('booking_notes');
         $isRequestedEmployee = Input::get('is_requested_employee', false);
+        $isConfirmationSms   = Input::get('is_confirmation_sms', false);
+        $isConfirmationEmail = Input::get('is_confirmation_email', false);
+        $isReminderSms       = Input::get('is_reminder_sms', false);
+        $isReminderEmail     = Input::get('is_reminder_email', false);
+        $reminderSmsAt       = Input::get('reminder_sms_at');
+        $reminderEmailAt     = Input::get('reminder_email');
         $extraServiceIds     = Input::get('extra_services');
 
         try {
@@ -565,6 +571,12 @@ class Bookings extends AsBase
                 ->setModifyTime($modifyTime)
                 ->setExtraServiceIds($extraServiceIds)
                 ->setClientIP(Request::getClientIp())
+                ->setConfirmationSms($isConfirmationSms)
+                ->setConfirmationEmail($isConfirmationEmail)
+                ->setReminderSms($isReminderSms)
+                ->setReminderEmail($isReminderEmail)
+                ->setReminderSmsAt($reminderSmsAt)
+                ->setReminderEmailAt($reminderEmailAt)
                 ->setSource('backend');
 
             $booking = $receptionist->upsertBooking();
