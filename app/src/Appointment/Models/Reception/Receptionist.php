@@ -47,6 +47,12 @@ abstract class Receptionist implements ReceptionistInterface
     protected $clientIP            = null;
     protected $consumer            = null;
     protected $source              = null;
+    protected $isReminderSms       = 0;
+    protected $reminderSmsAt       = null;
+    protected $isReminderEmail     = 0;
+    protected $reminderEmailAt     = null;
+    protected $isConfirmationSms   = 0;
+    protected $isConfirmationEmail = 0;
     protected $status              = null;
     protected $notes               = null;
     protected $roomId              = null;
@@ -265,6 +271,48 @@ abstract class Receptionist implements ReceptionistInterface
     public function setClientIP($ip)
     {
         $this->clientIP = $ip;
+
+        return $this;
+    }
+
+    public function setIsReminderSms($value)
+    {
+        $this->isReminderSms = $value;
+
+        return $this;
+    }
+
+    public function setReminderSmsAt($value)
+    {
+        $this->reminderSmsAt = $value;
+
+        return $this;
+    }
+
+    public function setIsReminderEmail($value)
+    {
+        $this->isReminderEmail = $value;
+        
+        return $this;
+    }
+
+    public function setReminderEmailAt($value)
+    {
+        $this->reminderEmailAt = $value;
+
+        return $this;
+    }
+
+    public function setIsConfimationSms($value)
+    {
+        $this->isConfirmationSms = $value;
+
+        return $this;
+    }
+
+    public function setIsConfimationEmail($value)
+    {
+        $this->isConfirmationSms = $value;
 
         return $this;
     }
