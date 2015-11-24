@@ -150,6 +150,10 @@ return [
         'search_placeholder'=> 'Search for a consumer',
         'cancel_email_title'=> 'A booking has been cancelled',
         'cancel_email_body' => 'The booking below has been cancelled by consumer: <br> %s',
+        'confirmation_email'=> 'Email confirmation',
+        'confirmation_sms'  => 'Sms confirmation',
+        'reminder_email'    => 'Email reminder',
+        'reminder_sms'      => 'Sms reminder',
         'error'             => [
             'add_overlapped_booking'      => 'Overlapped booking time!',
             'insufficient_slots'          => 'There is no enough time slots for this booking!',

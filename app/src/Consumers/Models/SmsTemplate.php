@@ -74,7 +74,7 @@ class SmsTemplate extends \App\Core\Models\Base
         }
 
         foreach ($consumers as $consumer) {
-            if (empty($consumer->phone) || !$consumer->receive_sms) {
+            if (empty($consumer->phone) || !(bool)$consumer->receive_sms) {
                 continue;
             }
 

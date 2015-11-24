@@ -280,14 +280,19 @@
                 </div>
             </div>
         </div>
-          @if(!empty($bookingExtraServices) && !$bookingExtraServices->isEmpty())
+        
+        <!--- Start Confirmation and reminder settings tab --> 
+        @include ('modules.as.bookings.el.settings')
+        <!--- End confirmation and reminder settings tab -->
+
+        @if(!empty($bookingExtraServices) && !$bookingExtraServices->isEmpty())
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">3. {{ trans('as.bookings.extra_service') }}</a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">3. {{ trans('as.bookings.extra_service') }}</a>
                 </h4>
             </div>
-            <div id="collapseThree" class="panel-collapse collapse">
+            <div id="collapseFour" class="panel-collapse collapse">
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12">
