@@ -13,12 +13,12 @@
                         <div class="col-sm-6">
                             <div class="radio-group">
                                 <label>
-                                    {{ Form::radio('confirmation_email', 1, false) }}
+                                    {{ Form::radio('is_confirmation_sms', 1, false) }}
                                     {{ trans('common.yes') }}
                                 </label>
                                 &nbsp;
                                 <label>
-                                    {{ Form::radio('confirmation_email', 0, false) }}
+                                    {{ Form::radio('is_confirmation_sms', 0, false) }}
                                     {{ trans('common.no') }}
                                 </label>
                             </div>
@@ -29,12 +29,12 @@
                           <div class="col-sm-6">
                             <div class="radio-group">
                                 <label>
-                                    {{ Form::radio('confirmation_email', 1, false) }}
+                                    {{ Form::radio('is_confirmation_email', 1, false) }}
                                     {{ trans('common.yes') }}
                                 </label>
                                 &nbsp;
                                 <label>
-                                    {{ Form::radio('confirmation_email', 0, false) }}
+                                    {{ Form::radio('is_confirmation_email', 0, false) }}
                                     {{ trans('common.no') }}
                                 </label>
                             </div>
@@ -47,12 +47,12 @@
                         <div class="col-sm-6">
                             <div class="radio-group">
                                 <label>
-                                    {{ Form::radio('reminder_sms', 1, false) }}
+                                    {{ Form::radio('is_reminder_sms', 1, false) }}
                                     {{ trans('common.yes') }}
                                 </label>
                                 &nbsp;
                                 <label>
-                                    {{ Form::radio('reminder_sms', 0, false) }}
+                                    {{ Form::radio('is_reminder_sms', 0, false) }}
                                     {{ trans('common.no') }}
                                 </label>
                             </div>
@@ -63,12 +63,12 @@
                         <div class="col-sm-6">
                             <div class="radio-group">
                                 <label>
-                                    {{ Form::radio('reminder_email', 1, false) }}
+                                    {{ Form::radio('is_reminder_email', 1, false) }}
                                     {{ trans('common.yes') }}
                                 </label>
                                 &nbsp;
                                 <label>
-                                    {{ Form::radio('reminder_email', 0, false) }}
+                                    {{ Form::radio('is_reminder_email', 0, false) }}
                                     {{ trans('common.no') }}
                                 </label>
                             </div>
