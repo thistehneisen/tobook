@@ -150,6 +150,7 @@ return [
         'search_placeholder'=> 'Search for a consumer',
         'cancel_email_title'=> 'A booking has been cancelled',
         'cancel_email_body' => 'The booking below has been cancelled by consumer: <br> %s',
+        'confirmation_settings'=> 'Confirmation settings',
         'confirmation_email'=> 'Email confirmation',
         'confirmation_sms'  => 'Sms confirmation',
         'reminder_email'    => 'Email reminder',

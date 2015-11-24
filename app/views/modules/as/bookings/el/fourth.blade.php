@@ -1,7 +1,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">3. {{ trans('as.bookings.extra_service') }}</a>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">4. {{ trans('as.bookings.extra_service') }}</a>
         </h4>
     </div>
     <div id="collapseFour" class="panel-collapse collapse">
