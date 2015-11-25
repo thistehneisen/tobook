@@ -295,9 +295,9 @@ abstract class Receptionist implements ReceptionistInterface
     {
         if(!empty($this->startTime)) {
             if($this->reminderSmsTimeUnit == ConfirmationReminder::DAY){
-                $this->reminderSmsAt = $this->startTime->copy()->addDays($this->reminderSmsBefore);
+                $this->reminderSmsAt = $this->startTime->copy()->subDays($this->reminderSmsBefore);
             } elseif ($this->reminderSmsTimeUnit == ConfirmationReminder::HOUR) {
-                $this->reminderSmsAt = $this->startTime->copy()->addHours($this->reminderSmsBefore);
+                $this->reminderSmsAt = $this->startTime->copy()->subHours($this->reminderSmsBefore);
             }
             
         }
@@ -349,9 +349,9 @@ abstract class Receptionist implements ReceptionistInterface
     {
         if(!empty($this->startTime)) {
             if($this->reminderEmailTimeUnit == ConfirmationReminder::DAY){
-                $this->reminderEmailAt = $this->startTime->copy()->addDays($this->reminderEmailBefore);
+                $this->reminderEmailAt = $this->startTime->copy()->subDays($this->reminderEmailBefore);
             } elseif ($this->reminderEmailTimeUnit == ConfirmationReminder::HOUR) {
-                $this->reminderEmailAt = $this->startTime->copy()->addHours($this->reminderEmailBefore);
+                $this->reminderEmailAt = $this->startTime->copy()->subHours($this->reminderEmailBefore);
             }
             
         }
