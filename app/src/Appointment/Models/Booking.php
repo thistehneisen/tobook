@@ -1018,6 +1018,15 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $body;
     }
 
+    public function getSmsReminderContent()
+    {
+        $body = "Hi {Name}:  {Services}";
+        $body  = str_replace('{Services}', $this->getServiceInfo(), $body);
+        $body  = str_replace('{Name}', $this->consumer->name, $body);
+
+        return $body;
+    }
+
     public function generateIcsFile()
     {
         date_default_timezone_set(Config::get('app.timezone'));
