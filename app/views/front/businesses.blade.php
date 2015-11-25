@@ -50,6 +50,9 @@
 @endif
 
 var app = app || {}
+app.initData = {
+    serviceId: 0
+}
 app.default_layout = '{{ Settings::get('default_layout') }}'
 app.coupon = '{{ Settings::get('coupon') }}'
 app.i18n = {
