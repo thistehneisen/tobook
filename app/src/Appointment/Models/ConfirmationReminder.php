@@ -48,20 +48,24 @@ class ConfirmationReminder extends \Eloquent
         $datetime = $now->copy()->addMinutes($compensate)
             ->second(0)
             ->toDateTimeString();
+        $datetime = '2015-11-27 11:30:00';
 
-        $reminders = self::where('is_reminder_email', '=', true)
-            ->orWhere('is_reminder_sms', '=', true)
-            ->where('reminder_email_at', '=', $datetime)
-            ->orWhere('reminder_sms_at', '=', $datetime)->get();
+        $reminders = self::where(function($query) use ($datetime) {
+                return $query->where('reminder_email_at', '=', $datetime)
+                ->where('is_reminder_email', '=', 1);
+            })->orWhere(function($query) use ($datetime) {
+                return $query->where('reminder_sms_at', '=', $datetime)
+                ->where('is_reminder_sms', '=', 1);
+            })->get();
 
         // Loop thourgh bookings and add to queue
         foreach ($reminders as $reminder) {
             
-            if ($reminder->isReminderEmail) {
+            if ($reminder->isReminderEmail == 1) {
                 self::sendEmailReminder($reminder->booking);
             }
 
-            if ($reminder->isReminderSms) {
+            if ($reminder->isReminderSms == 1) {
                 self::sendSmsReminder($reminder->booking);
             }
             
@@ -115,12 +119,12 @@ class ConfirmationReminder extends \Eloquent
 
     public function getIsReminderEmailAttribute()
     {
-        return (bool) $this->attributes['is_reminder_email'];
+        return $this->attributes['is_reminder_email'];
     }
 
     public function getIsReminderSmsAttribute()
     {
-        return (bool) $this->attributes['is_reminder_sms'];
+        return $this->attributes['is_reminder_sms'];
     }
 
     //--------------------------------------------------------------------------
