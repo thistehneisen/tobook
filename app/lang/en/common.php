@@ -116,6 +116,8 @@ return [
     'empty'                 => 'Empty',
     'review'                => 'Review',
     'reviews'               => 'Reviews',
+    'hour'                  => 'Hour',
+    'day'                   => 'Day',
     'short' => [
         'week'  => 'week',
         'hour'  => 'hr',
