@@ -11,9 +11,12 @@ use Watson\Validating\ValidationException;
 use App;
 use Log;
 
-class ConfirmationReminder extends \App\Appointment\Models\Base
+class ConfirmationReminder extends \Eloquent
 {
-	protected $table = 'as_booking_confirmation_reminder';
+	protected $table = 'as_booking_confirmation_reminders';
+
+    const HOUR = 'hour';
+    const DAY  = 'day';
 
     public $fillable = [
         'is_reminder_sms',

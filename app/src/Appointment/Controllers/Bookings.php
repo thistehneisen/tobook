@@ -573,14 +573,14 @@ class Bookings extends AsBase
                 ->setModifyTime($modifyTime)
                 ->setExtraServiceIds($extraServiceIds)
                 ->setClientIP(Request::getClientIp())
-                ->setConfirmationSms($isConfirmationSms)
-                ->setConfirmationEmail($isConfirmationEmail)
-                ->setReminderSms($isReminderSms)
-                ->setReminderEmail($isReminderEmail)
+                ->setIsConfimationSms($isConfirmationSms)
+                ->setIsConfirmationEmail($isConfirmationEmail)
+                ->setIsReminderSms($isReminderSms)
+                ->setISReminderEmail($isReminderEmail)
                 ->setReminderSmsUnit($reminderSmsUnit)
-                ->setReminderSmsBefore($reminderSmsAt)
+                ->setReminderSmsBefore($reminderSmsBefore)
                 ->setReminderEmailUnit($reminderEmailUnit)
-                ->setReminderEmailBefore($reminderEmailAt)
+                ->setReminderEmailBefore($reminderEmailBefore)
                 ->setSource('backend');
 
             $booking = $receptionist->upsertBooking();

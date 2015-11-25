@@ -10,6 +10,7 @@ use App\Appointment\Models\Room;
 use App\Appointment\Models\BookingServiceRoom;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
+use App\Appointment\Models\ConfirmationReminder;
 use App\Core\Models\Coupon;
 use App\Core\Models\CouponBooking;
 
@@ -52,11 +53,11 @@ abstract class Receptionist implements ReceptionistInterface
     protected $reminderSmsBefore     = null;
     protected $isReminderEmail       = 0;
     protected $reminderSmsTimeUnit   = null;
+    protected $isConfirmationEmail   = 0;
     protected $reminderEmailTimeUnit = null;
     protected $reminderEmailBefore   = null;
     protected $reminderEmailAt       = null;
     protected $isConfirmationSms     = 0;
-    protected $isConfirmationEmail   = 0;
     protected $status                = null;
     protected $notes                 = null;
     protected $roomId                = null;
@@ -279,6 +280,10 @@ abstract class Receptionist implements ReceptionistInterface
         return $this;
     }
 
+
+    //--------------------------------------------------------------------------
+    // SMS REMINDER
+    //--------------------------------------------------------------------------
     public function setIsReminderSms($value)
     {
         $this->isReminderSms = $value;
@@ -286,12 +291,23 @@ abstract class Receptionist implements ReceptionistInterface
         return $this;
     }
 
-    public function setReminderSmsAt($value)
+    public function setReminderSmsAt()
     {
-        if(!!empty($this->startTime)) {
-            $this->reminderSmsAt = $this->startTime;
+        if(!empty($this->startTime)) {
+            if($this->reminderSmsTimeUnit == ConfirmationReminder::DAY){
+                $this->reminderSmsAt = $this->startTime->copy()->addDays($this->reminderSmsBefore);
+            } elseif ($this->reminderSmsTimeUnit == ConfirmationReminder::HOUR) {
+                $this->reminderSmsAt = $this->startTime->copy()->addHours($this->reminderSmsBefore);
+            }
             
         }
+
+        return $this;
+    }
+
+    public function setReminderSmsUnit($value)
+    {
+        $this->reminderSmsTimeUnit = $value;
 
         return $this;
     }
@@ -303,6 +319,18 @@ abstract class Receptionist implements ReceptionistInterface
         return $this;
     }
 
+    public function setIsConfimationSms($value)
+    {
+        $this->isConfirmationSms = $value;
+
+        return $this;
+    }
+
+
+    //--------------------------------------------------------------------------
+    // EMAIL REMINDER
+    //--------------------------------------------------------------------------
+
     public function setIsReminderEmail($value)
     {
         $this->isReminderEmail = $value;
@@ -310,9 +338,23 @@ abstract class Receptionist implements ReceptionistInterface
         return $this;
     }
 
-    public function setReminderEmailAt($value)
+    public function setReminderEmailUnit($value)
     {
-        $this->reminderEmailAt = $value;
+        $this->reminderEmailTimeUnit = $value;
+
+        return $this;
+    }
+
+    public function setReminderEmailAt()
+    {
+        if(!empty($this->startTime)) {
+            if($this->reminderEmailTimeUnit == ConfirmationReminder::DAY){
+                $this->reminderEmailAt = $this->startTime->copy()->addDays($this->reminderEmailBefore);
+            } elseif ($this->reminderEmailTimeUnit == ConfirmationReminder::HOUR) {
+                $this->reminderEmailAt = $this->startTime->copy()->addHours($this->reminderEmailBefore);
+            }
+            
+        }
 
         return $this;
     }
@@ -324,16 +366,9 @@ abstract class Receptionist implements ReceptionistInterface
         return $this;
     }
 
-    public function setIsConfimationSms($value)
+    public function setIsConfirmationEmail($value)
     {
-        $this->isConfirmationSms = $value;
-
-        return $this;
-    }
-
-    public function setIsConfimationEmail($value)
-    {
-        $this->isConfirmationSms = $value;
+        $this->isConfirmationEmail = $value;
 
         return $this;
     }
