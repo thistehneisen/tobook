@@ -149,7 +149,7 @@ return [
                     'type' => 'Radio',
                     'default' => false
                 ],
-                'reminder_sms_at' => [
+                'reminder_sms_before' => [
                     'type' => 'Spinner',
                     'default' => '1',
                     'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
@@ -157,10 +157,10 @@ return [
                 'reminder_sms_time_unit' => [
                     'type' => 'Dropdown',
                     'values' => [
-                        1 => trans('common.day'),
-                        2 => trans('common.hour'),
+                        'day' => trans('common.day'),
+                        'hour' => trans('common.hour'),
                     ],
-                    'default' => 2,
+                    'default' => 'hour',
                     'flipValues' => false,
                     'options' => ['class' => 'form-control input-sm']
                 ],
@@ -168,7 +168,7 @@ return [
                     'type' => 'Radio',
                     'default' => false
                 ],
-                'reminder_email_at' => [
+                'reminder_email_before' => [
                     'type' => 'Spinner',
                     'default' => '1',
                     'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
@@ -176,10 +176,10 @@ return [
                 'reminder_email_time_unit' => [
                     'type' => 'Dropdown',
                     'values' => [
-                        1 => trans('common.day'),
-                        2 => trans('common.hour'),
+                        'day' => trans('common.day'),
+                        'hour' => trans('common.hour'),
                     ],
-                    'default' => 2,
+                    'default' => 'hour',
                     'flipValues' => false,
                     'options' => ['class' => 'form-control input-sm']
                 ], 

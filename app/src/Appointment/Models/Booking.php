@@ -684,7 +684,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $this->belongsTo('App\Consumers\Models\Consumer');
     }
 
-    public function confirmationReminder()
+    public function reminder()
     {
         return $this->hasOne('App\Appointment\Models\ConfirmationReminder');
     }
