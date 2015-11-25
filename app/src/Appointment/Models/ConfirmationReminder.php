@@ -1,4 +1,5 @@
-<?php
+<?php namespace App\Appointment\Models;
+
 use App\Core\Models\User;
 use Carbon\Carbon;
 use Config;
@@ -10,7 +11,7 @@ use Watson\Validating\ValidationException;
 use App;
 use Log;
 
-class ConfirmationReminder extends \App\Appointment\Models\Base implements \SplSubject
+class ConfirmationReminder extends \App\Appointment\Models\Base
 {
 	protected $table = 'as_booking_confirmation_reminder';
 
