@@ -155,6 +155,10 @@ return [
         'confirmation_sms'  => 'Sms confirmation',
         'reminder_email'    => 'Email reminder',
         'reminder_sms'      => 'Sms reminder',
+        'reminder_sms_at'   => 'Sms reminder before',
+        'reminder_email_at' => 'Email reminder before',
+        'reminder_sms_time_unit'   => 'Hour/day',
+        'reminder_email_time_unit' => 'Hour/day',
         'error'             => [
             'add_overlapped_booking'      => 'Overlapped booking time!',
             'insufficient_slots'          => 'There is no enough time slots for this booking!',

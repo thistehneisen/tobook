@@ -34,12 +34,6 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         'uuid',
         'source',//layout
         'ip',
-        'is_reminder_sms',
-        'reminder_sms_at',
-        'is_reminder_email',
-        'reminder_email_at',
-        'is_confirmation_email',
-        'is_confirmation_sms',
         'notes',
         // Why this booking is deleted. Possible reason: asked by customer,
         // abandoned and auto-deleted by a task runner
@@ -688,6 +682,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function consumer()
     {
         return $this->belongsTo('App\Consumers\Models\Consumer');
+    }
+
+    public function confirmationReminder()
+    {
+        return $this->hasOne('App\Appointment\Models\ConfirmationReminder');
     }
 
     public function employee()

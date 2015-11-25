@@ -59,6 +59,24 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="reminder_sms_at" class="col-sm-6 control-label">{{ trans('as.bookings.reminder_sms_at') }}</label>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm spinner" data-inc="1">
+                                 {{ Form::text('reminder_sms_at', '', ['class' => 'form-control input-sm', 'id' => 'reminder_sms_at', 'data-positive' => 'true']) }}
+                                 <div class="input-group-btn-vertical">
+                                    <button type="button" class="btn btn-default"><i class="fa fa-caret-up"></i></button>
+                                    <button type="button" class="btn btn-default"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="reminder_sms_time_unit" class="col-sm-6 control-label">{{ trans('as.bookings.reminder_sms_time_unit') }}</label>
+                        <div class="col-sm-6">
+                            {{ Form::select('reminder_sms_time_unit', [1 => trans('common.hour'), 2 => trans('common.day')], !(empty($booking->reminder_sms_time_unit)) ?  $booking->reminder_sms_time_unit : $user->asOptions['reminder_sms_time_unit'], ['class'=> 'form-control input-sm', 'id' => 'reminder_sms_time_unit']) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="reminder_email" class="col-sm-6 control-label">{{ trans('as.bookings.reminder_email') }}</label>
                         <div class="col-sm-6">
                             <div class="radio-group">
@@ -74,6 +92,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="reminder_sms_at" class="col-sm-6 control-label">{{ trans('as.bookings.reminder_email_at') }}</label>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm spinner" data-inc="1">
+                                 {{ Form::text('reminder_email_at', '', ['class' => 'form-control input-sm spinner', 'id' => 'reminder_email_at', 'data-positive' => 'true']) }}
+                                 <div class="input-group-btn-vertical">
+                                    <button type="button" class="btn btn-default"><i class="fa fa-caret-up"></i></button>
+                                    <button type="button" class="btn btn-default"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="reminder_email_time_unit" class="col-sm-6 control-label">{{ trans('as.bookings.reminder_email_time_unit') }}</label>
+                        <div class="col-sm-6">
+                            {{ Form::select('reminder_email_time_unit', [1 => trans('common.hour'), 2 => trans('common.day')], 0 , ['class'=> 'form-control input-sm', 'id' => 'reminder_email_time_unit']) }}
+                        </div>
+                    </div>
+                    <!---end-->
                 </div>
             </div>
         </div>
