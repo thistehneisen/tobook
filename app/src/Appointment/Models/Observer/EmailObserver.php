@@ -90,6 +90,10 @@ class EmailObserver implements \SplObserver
             return;
         }
 
+        if(!empty($subject->reminder) && !$subject->reminder->isConfirmationEmail) {
+            return;
+        }
+
         $emailSubject = $subject->user->asOptions['confirm_subject_client'];
         $body         = $subject->user->asOptions['confirm_tokens_client'];
         $body         = $this->getEmailBody($subject, $body);

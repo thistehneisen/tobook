@@ -93,6 +93,10 @@ class SmsObserver implements \SplObserver
             return;
         }
 
+        if(!empty($subject->reminder) && !(bool)$subject->reminder->isConfirmationSms) {
+            return;
+        }
+
         $msg = $subject->user->asOptions['confirm_consumer_sms_message'];
         $cancelURL = route('as.bookings.cancel', ['uuid' => $subject->uuid]);
         $address = sprintf('%s, %s %s',

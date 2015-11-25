@@ -32,6 +32,21 @@ class ConfirmationReminder extends \Eloquent
         'reminder_sms_time_unit',
     ];
 
+
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+
+    public function getIsConfirmationEmailAttribute()
+    {
+        return (bool) $this->attributes['is_confirmation_email'];
+    }
+
+    public function getIsConfirmationSmsAttribute()
+    {
+        return (bool) $this->attributes['is_confirmation_sms'];
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
