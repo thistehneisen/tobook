@@ -212,7 +212,7 @@ return [
         'days_of_week'                     => 'Viikonpäivä',
         'start_time'                       => 'Aloitusaika',
         'end_time'                         => 'Lopetusaika',
-        'date_range'                       => 'Date range',
+        'date_range'                       => 'Päivämäärät',
         'day_off'                          => 'Vapaapäivä',
         'confirm'                          => [
         'delete_freetime'                  => 'Oletko varma, että haluat poistaa valitun vapaa-ajan kalenterista?'
