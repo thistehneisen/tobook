@@ -177,5 +177,7 @@ return [
     'logged_in_as'  => 'Logged in as',
     'about'         => 'About us',
     'business'      => 'Business',
-    'intro'         => 'Introduction'
+    'intro'         => 'Introduction',
+    'hour'          => 'Hour',
+    'day'           => 'Day'
 ];

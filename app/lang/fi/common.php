@@ -169,5 +169,7 @@ return [
     'logged_in_as'  => 'Kirjautuneena',
     'about'         => 'Meistä',
     'business'      => 'Business',
-    'intro'         => 'Introduction'
+    'intro'         => 'Introduction',
+    'hour'          => 'Tunti',
+    'day'           => 'Päivä'
 ];
