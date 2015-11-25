@@ -56,8 +56,7 @@ class ConfirmationReminder extends \Eloquent
 
         // Loop thourgh bookings and add to queue
         foreach ($reminders as $reminder) {
-            Log::info("Send reminder to customer", [$reminder->booking->consumer->email, $reminder->booking->end_at]);
-
+            
             if ($reminder->isReminderEmail) {
                 self::sendEmailReminder($reminder->booking);
             }
@@ -74,6 +73,8 @@ class ConfirmationReminder extends \Eloquent
        $from = Config::get('sms.from');
        $content = $booking->getSmsReminderContent();
        Sms::queue($from, $booking->consumer->phone, $content);
+
+       Log::info("Send sms reminder to customer", [$booking->consumer->phone, $booking->start_at]);
     }
 
     public static function sendEmailReminder($booking)
@@ -94,6 +95,8 @@ class ConfirmationReminder extends \Eloquent
             });
             $job->delete();
         });
+
+        Log::info("Send email reminder to customer", [$booking->consumer->email, $booking->start_at]);
     }
 
     //--------------------------------------------------------------------------
