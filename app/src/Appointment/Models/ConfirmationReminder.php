@@ -14,6 +14,7 @@ use Log;
 class ConfirmationReminder extends \Eloquent
 {
 	protected $table = 'as_booking_confirmation_reminders';
+    protected $primaryKey = 'booking_id';
 
     const HOUR = 'hour';
     const DAY  = 'day';
