@@ -2,6 +2,7 @@
 namespace App\Consumers\Models;
 
 use Sms, Config;
+use Log;
 
 class SmsTemplate extends \App\Core\Models\Base
 {
@@ -74,7 +75,7 @@ class SmsTemplate extends \App\Core\Models\Base
         }
 
         foreach ($consumers as $consumer) {
-            if (empty($consumer->phone) || !$consumer->receive_sms) {
+            if (empty($consumer->phone) || !(bool)$consumer->receive_sms) {
                 continue;
             }
 
