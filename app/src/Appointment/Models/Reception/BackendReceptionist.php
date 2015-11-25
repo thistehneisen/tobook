@@ -153,6 +153,8 @@ class BackendReceptionist extends Receptionist
             ? $booking->reminder
             : new ConfirmationReminder();
 
+        $this->setReminderEmailAt()->setReminderSmsAt();
+        
         $confirmationReminder->fill([
             'is_reminder_sms'          => $this->isReminderSms,
             'reminder_sms_before'      => $this->reminderSmsBefore,

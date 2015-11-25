@@ -88,7 +88,7 @@
                     <div class="form-group row">
                         <label for="reminder_sms_time_unit" class="col-sm-6 control-label">{{ trans('as.bookings.reminder_sms_time_unit') }}</label>
                         <div class="col-sm-6">
-                            {{ Form::select('reminder_sms_time_unit', [1 => trans('common.hour'), 2 => trans('common.day')], !(empty($booking->reminder->reminder_sms_time_unit)) ?  $booking->reminder->reminder_sms_time_unit : $user->asOptions['reminder_sms_time_unit'], ['class'=> 'form-control input-sm', 'id' => 'reminder_sms_time_unit']) }}
+                            {{ Form::select('reminder_sms_time_unit', ['hour' => trans('common.hour'), 'day' => trans('common.day')], !(empty($booking->reminder->reminder_sms_time_unit)) ?  $booking->reminder->reminder_sms_time_unit : $user->asOptions['reminder_sms_time_unit'], ['class'=> 'form-control input-sm', 'id' => 'reminder_sms_time_unit']) }}
                         </div>
                     </div>
                     <div class="form-group row">
@@ -127,7 +127,7 @@
                     <div class="form-group row">
                         <label for="reminder_email_time_unit" class="col-sm-6 control-label">{{ trans('as.bookings.reminder_email_time_unit') }}</label>
                         <div class="col-sm-6">
-                            {{ Form::select('reminder_email_time_unit', [1 => trans('common.hour'), 2 => trans('common.day')], 0 , ['class'=> 'form-control input-sm', 'id' => 'reminder_email_time_unit']) }}
+                            {{ Form::select('reminder_email_time_unit', ['hour' => trans('common.hour'), 'day' => trans('common.day')], 0 , ['class'=> 'form-control input-sm', 'id' => 'reminder_email_time_unit']) }}
                         </div>
                     </div>
                     <!---end-->

@@ -30,6 +30,7 @@ class CreateBookingBookingConfirmationReminderTable extends Migration {
                 ->references('id')
                 ->on('as_bookings')
                 ->onDelete('cascade');
+            $table->timestamps();
 
         });
 	}
