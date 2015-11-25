@@ -17,47 +17,51 @@ use Exception;
 
 abstract class Receptionist implements ReceptionistInterface
 {
-    protected $bookingId           = null;
-    protected $date                = null;
-    protected $startTime           = null;
-    protected $bookingStartTime    = null;
-    protected $endTime             = null;
-    protected $uuid                = null;
-    protected $serviceId           = null;
-    protected $service             = null;
-    protected $serviceTimeId       = null;
-    protected $serviceTime         = null;
-    protected $extraServiceIds     = null;
-    protected $extraServices       = null;
-    protected $extraServicePrice   = 0;
-    protected $extraServiceLength  = 0;
-    protected $bookingService      = null;
-    protected $bookingServices     = null;
-    protected $bookingServiceId    = null;
-    protected $selectedService     = null;
-    protected $baseLength          = null;
-    protected $total               = null;
-    protected $price               = null;
-    protected $employeeId          = null;
-    protected $employee            = null;
-    protected $plustime            = 0;
-    protected $modifyTime          = 0;
-    protected $user                = null;
-    protected $isRequestedEmployee = false;
-    protected $clientIP            = null;
-    protected $consumer            = null;
-    protected $source              = null;
-    protected $isReminderSms       = 0;
-    protected $reminderSmsAt       = null;
-    protected $isReminderEmail     = 0;
-    protected $reminderEmailAt     = null;
-    protected $isConfirmationSms   = 0;
-    protected $isConfirmationEmail = 0;
-    protected $status              = null;
-    protected $notes               = null;
-    protected $roomId              = null;
-    protected $layout              = null;
-    protected $coupon              = '';
+    protected $bookingId             = null;
+    protected $date                  = null;
+    protected $startTime             = null;
+    protected $bookingStartTime      = null;
+    protected $endTime               = null;
+    protected $uuid                  = null;
+    protected $serviceId             = null;
+    protected $service               = null;
+    protected $serviceTimeId         = null;
+    protected $serviceTime           = null;
+    protected $extraServiceIds       = null;
+    protected $extraServices         = null;
+    protected $extraServicePrice     = 0;
+    protected $extraServiceLength    = 0;
+    protected $bookingService        = null;
+    protected $bookingServices       = null;
+    protected $bookingServiceId      = null;
+    protected $selectedService       = null;
+    protected $baseLength            = null;
+    protected $total                 = null;
+    protected $price                 = null;
+    protected $employeeId            = null;
+    protected $employee              = null;
+    protected $plustime              = 0;
+    protected $modifyTime            = 0;
+    protected $user                  = null;
+    protected $isRequestedEmployee   = false;
+    protected $clientIP              = null;
+    protected $consumer              = null;
+    protected $source                = null;
+    protected $isReminderSms         = 0;
+    protected $reminderSmsAt         = null;
+    protected $reminderSmsBefore     = null;
+    protected $isReminderEmail       = 0;
+    protected $reminderSmsTimeUnit   = null;
+    protected $reminderEmailTimeUnit = null;
+    protected $reminderEmailBefore   = null;
+    protected $reminderEmailAt       = null;
+    protected $isConfirmationSms     = 0;
+    protected $isConfirmationEmail   = 0;
+    protected $status                = null;
+    protected $notes                 = null;
+    protected $roomId                = null;
+    protected $layout                = null;
+    protected $coupon                = '';
 
     public function setBookingId($bookingId)
     {
@@ -284,7 +288,17 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function setReminderSmsAt($value)
     {
-        $this->reminderSmsAt = $value;
+        if(!!empty($this->startTime)) {
+            $this->reminderSmsAt = $this->startTime;
+            
+        }
+
+        return $this;
+    }
+
+    public function setReminderSmsBefore($value)
+    {
+        $this->reminderSmsBefore = $value;
 
         return $this;
     }
@@ -299,6 +313,13 @@ abstract class Receptionist implements ReceptionistInterface
     public function setReminderEmailAt($value)
     {
         $this->reminderEmailAt = $value;
+
+        return $this;
+    }
+
+    public function setReminderEmailBefore($value)
+    {
+        $this->reminderEmailBefore = $value;
 
         return $this;
     }
