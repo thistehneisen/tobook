@@ -48,7 +48,6 @@ class ConfirmationReminder extends \Eloquent
         $datetime = $now->copy()->addMinutes($compensate)
             ->second(0)
             ->toDateTimeString();
-        $datetime = '2015-11-27 11:30:00';
 
         $reminders = self::where(function($query) use ($datetime) {
                 return $query->where('reminder_email_at', '=', $datetime)
