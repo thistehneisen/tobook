@@ -42,12 +42,14 @@ class ConfirmationReminder extends \Eloquent
 
         $minutes = intval($now->copy()->minute);
         $remove = $minutes % 15;
-        $compensate = 15 - $remove;
+        $compensate = ($remove > 0) ? (15 - $remove) : 0;
 
 
         $datetime = $now->copy()->addMinutes($compensate)
             ->second(0)
             ->toDateTimeString();
+        
+        Log::info('Reminder check', [$datetime]);
 
         $reminders = self::where(function($query) use ($datetime) {
                 return $query->where('reminder_email_at', '=', $datetime)
