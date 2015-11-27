@@ -19,6 +19,7 @@
             <div class="col-sm-4 venue-rating">
                 <div class="title">{{ trans('as.review.venue_rating') }}</div>
                 <div class="rating-value">{{ number_format($review->avg_total, 1) }}</div>
+                <a class="btn btn-success" href="{{ route('businesses.review', [$business->user_id, $business->slug])}}">{{ trans('as.review.leave_review') }}</a>
             </div>
             <div class="col-sm-8">
                 <table class="table borderless review-table">
