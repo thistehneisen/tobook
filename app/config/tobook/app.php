@@ -6,5 +6,5 @@ return [
     'key' => $_ENV['SECRET_KEY'],
     'timezone' => 'Europe/Riga',
     'locale' => 'lv',
-    'send_review_request' => false,
+    'send_review_request' => false
 ];

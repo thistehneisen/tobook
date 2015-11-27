@@ -2,6 +2,7 @@
 namespace App\Consumers\Models;
 
 use Sms, Config;
+use Log;
 
 class SmsTemplate extends \App\Core\Models\Base
 {

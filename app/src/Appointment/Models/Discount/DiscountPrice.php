@@ -141,7 +141,7 @@ trait DiscountPrice {
      * @param Carbon $date
      * @return booelan
      */
-    public function hasDiscount($date)
+    public function hasDiscount($date, $timetable = null)
     {
         $hasDiscount = false;
         $now = Carbon::now();
@@ -175,6 +175,25 @@ trait DiscountPrice {
             if($now->diffInMinutes($endOfDate)   <= ($discountLastMinute->before * 60)
             || $now->diffInMinutes($startOfDate) <= ($discountLastMinute->before * 60)) {
                 $hasDiscount = true;
+            }
+        } else {
+            $hasDiscount = false;
+        }
+
+        // If the latest time slot is over, then do not display the discount tag
+        if ($timetable !== null) {
+            $last = end($timetable);
+            
+            $key  = key($timetable);
+            
+            list($hour, $minute) = explode(':', $key);
+            
+            $lastTime = $date->copy()->hour($hour)->minute($minute);
+            
+            $current = Carbon::now();
+
+            if ($current->gt($lastTime)) {
+                $hasDiscount = false;
             }
         }
 
