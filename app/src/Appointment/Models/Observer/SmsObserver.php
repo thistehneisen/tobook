@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Models\Observer;
 
 use App, Config, Queue, Settings, Sms, Log;
+use App\Appointment\Models\ConfirmationReminder;
 
 class SmsObserver implements \SplObserver
 {
@@ -93,7 +94,9 @@ class SmsObserver implements \SplObserver
             return;
         }
 
-        if(!empty($subject->reminder) && !(bool)$subject->reminder->isConfirmationSms) {
+        $reminder = ConfirmationReminder::find($subject->id);
+
+        if(!empty($reminder) && !(bool)$reminder->isConfirmationSms) {
             return;
         }
 

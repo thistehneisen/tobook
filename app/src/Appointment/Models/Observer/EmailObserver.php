@@ -2,6 +2,7 @@
 
 use App, View, Confide, Mail, Log, Settings;
 use Queue;
+use App\Appointment\Models\ConfirmationReminder;
 
 class EmailObserver implements \SplObserver
 {
@@ -89,8 +90,9 @@ class EmailObserver implements \SplObserver
                     && !(bool) $subject->consumer->receive_email)) {
             return;
         }
-
-        if(!empty($subject->reminder) && !(bool)$subject->reminder->isConfirmationEmail) {
+        
+        $reminder = ConfirmationReminder::find($subject->id);
+        if(!empty($reminder) && !(bool)$reminder->isConfirmationEmail) {
             return;
         }
 
