@@ -90,7 +90,7 @@ class EmailObserver implements \SplObserver
             return;
         }
 
-        if(!empty($subject->reminder) && !$subject->reminder->isConfirmationEmail) {
+        if(!empty($subject->reminder) && !(bool)$subject->reminder->isConfirmationEmail) {
             return;
         }
 
