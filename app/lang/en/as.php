@@ -432,6 +432,7 @@ return [
             'reminder_email_unit'                            => 'Email reminder time unit',
             'reminder_sms_time_unit'                         => 'Hour/day',
             'reminder_email_time_unit'                       => 'Hour/day',
+            'reminder_content'                               => 'This is a reminder for your booking: {Services}',
         ],
         'style' => [
             'heading'                           => '',

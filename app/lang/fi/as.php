@@ -159,6 +159,7 @@ return [
         'reminder_email_before' => 'Lähetä sähköposti ennen',
         'reminder_sms_time_unit'   => 'Tuntia/päivää',
         'reminder_email_time_unit' => 'Tuntia/päivää',
+        'reminder_content' => 'Muistathan varauksesi: {Services}',
         'error'             => [
             'add_overlapped_booking'      => 'Varauksia ei voi asettaa päällekäin!',
             'insufficient_slots'          => 'Varaus ei mahdu valitsemaasi kohtaan.',
