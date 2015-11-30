@@ -461,9 +461,9 @@ app.VaraaCPLayout = (dom, hash) ->
       .then (data) ->
         $('#coupon-help').text(data.message);
         if (!data.success)
-          $('#coupon-help').removeClass('text-primary').addClass('text-danger')
+          $('#coupon-help').removeClass('bg-success').addClass('bg-danger')
         else
-          $('#coupon-help').removeClass('text-danger').addClass('text-primary')
+          $('#coupon-help').removeClass('bg-danger').addClass('bg-success')
       return false
 
     # Kickstart
