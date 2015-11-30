@@ -159,7 +159,6 @@ return [
         'reminder_email_before' => 'Lähetä sähköposti ennen',
         'reminder_sms_time_unit'   => 'Tuntia/päivää',
         'reminder_email_time_unit' => 'Tuntia/päivää',
-        'reminder_content' => 'Muistathan varauksesi: {Services}',
         'error'             => [
             'add_overlapped_booking'      => 'Varauksia ei voi asettaa päällekäin!',
             'insufficient_slots'          => 'Varaus ei mahdu valitsemaasi kohtaan.',
@@ -188,6 +187,7 @@ return [
             'before_min_distance'         => 'Valitettavasti et voi tehdä varausta näin lähelle',
             'after_max_distance'          => 'Olet tekemässä varauksen liian kauas tulevaisuuteen',
             'missing_services'            => 'Muista lisätä varaukseen palvelu!<br>(Klikkaa \'Lisää\')',
+            'invalid_reminder_time'       => 'Reminder time cannot be in the past!',
         ],
         'warning'      => [
             'existing_user'   => 'Järjestelmästä löytyy käyttäjäprofiili antamallesi sähköpostiosoitteelle. Ovatko nämä sinun tietosi?',
@@ -501,4 +501,7 @@ return [
         'reject'       => 'Reject',
     ],
     'nothing_selected' => 'Valitse',
+    'reminder' => [
+        'reminder_content' => 'Muistathan varauksesi: {Services}',
+    ]
 ];

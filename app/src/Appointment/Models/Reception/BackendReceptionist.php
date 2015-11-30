@@ -10,6 +10,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
 use Exception;
+use Carbon\Carbon;
 
 class BackendReceptionist extends Receptionist
 {
@@ -167,6 +168,13 @@ class BackendReceptionist extends Receptionist
             'reminder_email_time_unit' => $this->reminderEmailTimeUnit,
             'reminder_sms_time_unit'   => $this->reminderSmsTimeUnit,
         ]);
+
+        if ((bool)$this->isReminderEmail || (bool)$this->isReminderSms) {
+            $now = Carbon::now();
+            if ($this->reminderSmsAt->lt($now) || $this->reminderEmailAt->lt($now)) {
+                throw new Exception(trans('as.bookings.error.invalid_reminder_time'), 1);
+            }
+        }
 
         $booking->fill([
             'date'        => $date,

@@ -160,7 +160,7 @@ class Bookings extends AsBase
             if ($now < $booking->startTime->copy()->subHours($limit)) {
                 Event::fire('booking.cancelled', [$booking]);
 
-                if (!empty($booking->reminder)) {
+                if (!empty($booking->reminder->booking_id)) {
                     $reminder = ConfirmationReminder::find($booking->id);
                     $reminder->delete();
                 }
@@ -432,7 +432,7 @@ class Bookings extends AsBase
 
             if ((int) $status === Booking::STATUS_CANCELLED) {
 
-                 if (!empty($booking->reminder->booking_id)) {
+                if (!empty($booking->reminder->booking_id)) {
                     $reminder = ConfirmationReminder::find($booking->id);
                     $reminder->delete();
                 }
