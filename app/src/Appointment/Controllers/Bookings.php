@@ -13,6 +13,7 @@ use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
+use App\Appointment\Models\ConfirmationReminder;
 use App\Appointment\Models\Reception\BackendReceptionist;
 
 class Bookings extends AsBase
@@ -159,10 +160,14 @@ class Bookings extends AsBase
             if ($now < $booking->startTime->copy()->subHours($limit)) {
                 Event::fire('booking.cancelled', [$booking]);
 
+                if (!empty($booking->reminder)) {
+                    $reminder = ConfirmationReminder::find($booking->id);
+                    $reminder->delete();
+                }
+
                 $booking->status = Booking::STATUS_CANCELLED;
                 $booking->delete_reason = 'Cancelled by UUID';
                 $booking->save();
-                $booking->reminder->delete();
                 $booking->delete();
 
                 $msg = str_replace('{BookingID}', $uuid, trans('as.bookings.cancel_message'));
@@ -426,6 +431,12 @@ class Bookings extends AsBase
             $booking->setStatus($statusText);
 
             if ((int) $status === Booking::STATUS_CANCELLED) {
+
+                 if (!empty($booking->reminder->booking_id)) {
+                    $reminder = ConfirmationReminder::find($booking->id);
+                    $reminder->delete();
+                }
+
                 $booking->delete_reason = 'Cancelled by admin';
                 $booking->save();
                 $booking->delete();
