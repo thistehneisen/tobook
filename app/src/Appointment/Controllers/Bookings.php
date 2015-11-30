@@ -162,6 +162,7 @@ class Bookings extends AsBase
                 $booking->status = Booking::STATUS_CANCELLED;
                 $booking->delete_reason = 'Cancelled by UUID';
                 $booking->save();
+                $booking->reminder->delete();
                 $booking->delete();
 
                 $msg = str_replace('{BookingID}', $uuid, trans('as.bookings.cancel_message'));
