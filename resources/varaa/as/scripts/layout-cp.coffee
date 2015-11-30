@@ -652,7 +652,8 @@ app.VaraaCPLayout = (dom, hash) ->
       return
 
     @jump = () ->
-      if app.initData.serviceId > 0
+      ds = @dataStore()
+      if app.initData.serviceId > 0 and ds['cart_id'] is undefined
           @dataStore().service.id = app.initData.serviceId;
           @dataStore().employee.id = -1;
           @moveTo(1)
