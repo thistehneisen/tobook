@@ -136,7 +136,53 @@ return [
                     'type' => 'Spinner',
                     'default' => '1',
                     'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
-                ]   
+                ],
+                'confirmation_sms' => [
+                    'type' => 'Radio',
+                    'default' => false
+                ],
+                'confirmation_email' => [
+                    'type' => 'Radio',
+                    'default' => false
+                ],
+                'reminder_sms' => [
+                    'type' => 'Radio',
+                    'default' => false
+                ],
+                'reminder_sms_before' => [
+                    'type' => 'Spinner',
+                    'default' => '1',
+                    'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
+                ],
+                'reminder_sms_time_unit' => [
+                    'type' => 'Dropdown',
+                    'values' => [
+                        'day' => trans('common.day'),
+                        'hour' => trans('common.hour'),
+                    ],
+                    'default' => 'hour',
+                    'flipValues' => false,
+                    'options' => ['class' => 'form-control input-sm']
+                ],
+                'reminder_email' => [
+                    'type' => 'Radio',
+                    'default' => false
+                ],
+                'reminder_email_before' => [
+                    'type' => 'Spinner',
+                    'default' => '1',
+                    'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
+                ],
+                'reminder_email_time_unit' => [
+                    'type' => 'Dropdown',
+                    'values' => [
+                        'day' => trans('common.day'),
+                        'hour' => trans('common.hour'),
+                    ],
+                    'default' => 'hour',
+                    'flipValues' => false,
+                    'options' => ['class' => 'form-control input-sm']
+                ], 
             ],
             'booking_form' => [
                 'email' => [

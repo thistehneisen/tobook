@@ -684,8 +684,7 @@ class Employee extends \App\Appointment\Models\Base
             return false;
         }
 
-        $dayOfWeek = Util::getDayOfWeekText($date->dayOfWeek);
-        $defaultTimes = $this->getDefaulTimesByDayOfWeek($dayOfWeek);
+        $defaultTimes = $this->getDefaulTimesByDayOfWeek($date->dayOfWeek);
 
         if ($defaultTimes->is_day_off) {
             $isShow = false;

@@ -116,6 +116,8 @@ return [
     'empty'                 => 'Empty',
     'review'                => 'Review',
     'reviews'               => 'Reviews',
+    'hour'                  => 'Hour',
+    'day'                   => 'Day',
     'short' => [
         'week'  => 'week',
         'hour'  => 'hr',
@@ -175,5 +177,7 @@ return [
     'logged_in_as'  => 'Logged in as',
     'about'         => 'About us',
     'business'      => 'Business',
-    'intro'         => 'Introduction'
+    'intro'         => 'Introduction',
+    'hour'          => 'Hour',
+    'day'           => 'Day'
 ];

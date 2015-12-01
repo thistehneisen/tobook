@@ -13,6 +13,7 @@ use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
+use App\Appointment\Models\ConfirmationReminder;
 use App\Appointment\Models\Reception\BackendReceptionist;
 
 class Bookings extends AsBase
@@ -158,6 +159,11 @@ class Bookings extends AsBase
 
             if ($now < $booking->startTime->copy()->subHours($limit)) {
                 Event::fire('booking.cancelled', [$booking]);
+
+                if (!empty($booking->reminder->booking_id)) {
+                    $reminder = ConfirmationReminder::find($booking->id);
+                    $reminder->delete();
+                }
 
                 $booking->status = Booking::STATUS_CANCELLED;
                 $booking->delete_reason = 'Cancelled by UUID';
@@ -425,6 +431,12 @@ class Bookings extends AsBase
             $booking->setStatus($statusText);
 
             if ((int) $status === Booking::STATUS_CANCELLED) {
+
+                if (!empty($booking->reminder->booking_id)) {
+                    $reminder = ConfirmationReminder::find($booking->id);
+                    $reminder->delete();
+                }
+
                 $booking->delete_reason = 'Cancelled by admin';
                 $booking->save();
                 $booking->delete();
@@ -549,6 +561,14 @@ class Bookings extends AsBase
         $modifyTime          = (int) Input::get('modify_times', 0);
         $notes               = Input::get('booking_notes');
         $isRequestedEmployee = Input::get('is_requested_employee', false);
+        $isConfirmationSms   = Input::get('is_confirmation_sms', false);
+        $isConfirmationEmail = Input::get('is_confirmation_email', false);
+        $isReminderSms       = Input::get('is_reminder_sms', false);
+        $isReminderEmail     = Input::get('is_reminder_email', false);
+        $reminderSmsBefore   = Input::get('reminder_sms_before');
+        $reminderSmsUnit     = Input::get('reminder_sms_time_unit');
+        $reminderEmailBefore = Input::get('reminder_email_before');
+        $reminderEmailUnit   = Input::get('reminder_email_time_unit');
         $extraServiceIds     = Input::get('extra_services');
 
         try {
@@ -565,6 +585,14 @@ class Bookings extends AsBase
                 ->setModifyTime($modifyTime)
                 ->setExtraServiceIds($extraServiceIds)
                 ->setClientIP(Request::getClientIp())
+                ->setIsConfimationSms($isConfirmationSms)
+                ->setIsConfirmationEmail($isConfirmationEmail)
+                ->setIsReminderSms($isReminderSms)
+                ->setISReminderEmail($isReminderEmail)
+                ->setReminderSmsUnit($reminderSmsUnit)
+                ->setReminderSmsBefore($reminderSmsBefore)
+                ->setReminderEmailUnit($reminderEmailUnit)
+                ->setReminderEmailBefore($reminderEmailBefore)
                 ->setSource('backend');
 
             $booking = $receptionist->upsertBooking();

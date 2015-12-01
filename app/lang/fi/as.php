@@ -150,6 +150,15 @@ return [
         'search_placeholder'=> 'Asiakashaku',
         'cancel_email_title'=> 'Varaus on peruttu onnistuneesti.',
         'cancel_email_body' => 'Asiakas on peruuttanut seuraavan varauksen: <br> %s',
+        'confirmation_settings'=> 'Viestiasetukset',
+        'confirmation_email'=> 'Sähköpostivahvistus',
+        'confirmation_sms'  => 'Tekstiviestivahvistus',
+        'reminder_email'    => 'Sähköpostimuistutus',
+        'reminder_sms'      => 'Tekstiviestimuistutus',
+        'reminder_sms_before'   => 'Lähetä SMS ennen',
+        'reminder_email_before' => 'Lähetä sähköposti ennen',
+        'reminder_sms_time_unit'   => 'Tuntia/päivää',
+        'reminder_email_time_unit' => 'Tuntia/päivää',
         'error'             => [
             'add_overlapped_booking'      => 'Varauksia ei voi asettaa päällekäin!',
             'insufficient_slots'          => 'Varaus ei mahdu valitsemaasi kohtaan.',
@@ -178,6 +187,7 @@ return [
             'before_min_distance'         => 'Valitettavasti et voi tehdä varausta näin lähelle',
             'after_max_distance'          => 'Olet tekemässä varauksen liian kauas tulevaisuuteen',
             'missing_services'            => 'Muista lisätä varaukseen palvelu!<br>(Klikkaa \'Lisää\')',
+            'invalid_reminder_time'       => 'Reminder time cannot be in the past!',
         ],
         'warning'      => [
             'existing_user'   => 'Järjestelmästä löytyy käyttäjäprofiili antamallesi sähköpostiosoitteelle. Ovatko nämä sinun tietosi?',
@@ -203,7 +213,7 @@ return [
         'days_of_week'                     => 'Viikonpäivä',
         'start_time'                       => 'Aloitusaika',
         'end_time'                         => 'Lopetusaika',
-        'date_range'                       => 'Date range',
+        'date_range'                       => 'Päivämäärät',
         'day_off'                          => 'Vapaapäivä',
         'confirm'                          => [
         'delete_freetime'                  => 'Oletko varma, että haluat poistaa valitun vapaa-ajan kalenterista?'
@@ -491,4 +501,8 @@ return [
         'reject'       => 'Reject',
     ],
     'nothing_selected' => 'Valitse',
+    'reminder' => [
+        'sms_reminder_content' => 'Muistathan varauksesi: {Services}',
+        'email_reminder_content' => 'Muistathan varauksesi: {Services}, {Address}',
+    ]
 ];

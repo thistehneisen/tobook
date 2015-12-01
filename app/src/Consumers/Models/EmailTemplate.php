@@ -61,7 +61,6 @@ class EmailTemplate extends \App\Core\Models\Base
 
         foreach ($consumers as $consumer) {
             if (empty($consumer->email) || !(bool)$consumer->receive_email) {
-                Log::info('Skipp email', [$consumer->email]);
                 continue;
             }
             

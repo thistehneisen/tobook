@@ -150,6 +150,15 @@ return [
         'search_placeholder'=> 'Search for a consumer',
         'cancel_email_title'=> 'A booking has been cancelled',
         'cancel_email_body' => 'The booking below has been cancelled by consumer: <br> %s',
+        'confirmation_settings'=> 'Confirmation settings',
+        'confirmation_email'=> 'Email confirmation',
+        'confirmation_sms'  => 'Sms confirmation',
+        'reminder_email'    => 'Email reminder',
+        'reminder_sms'      => 'Sms reminder',
+        'reminder_sms_before'   => 'Send sms before',
+        'reminder_email_before' => 'Send email before',
+        'reminder_sms_time_unit'   => 'Hour/day',
+        'reminder_email_time_unit' => 'Hour/day',
         'error'             => [
             'add_overlapped_booking'      => 'Overlapped booking time!',
             'insufficient_slots'          => 'There is no enough time slots for this booking!',
@@ -179,6 +188,7 @@ return [
             'after_max_distance'          => 'You cannot make a booking after the max distance day',
             'missing_services'            => 'Add a service to continue!',
             'late_cancellation'           => 'You can only cancel the booking before %d hour(s)',
+            'invalid_reminder_time'       => 'Reminder time cannot be in the past!',
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',
@@ -335,7 +345,7 @@ return [
             'company' => 'Y: 2536946-1 - yritys@varaa.com - 045 146 3755 <br>Varaa.com Digital Oy - Pasilan Puistotie 10B, 00240 Helsinki',
         ],
     ],
-     'options' => [
+    'options' => [
         'heading'                    => 'Options',
         'updated'                    => 'Options updated',
         'invalid_data'               => 'Invalid input data',
@@ -413,6 +423,16 @@ return [
             'announcement_enable'                            => 'Enable announcement',
             'announcement_content'                           => 'Announcement content', 
             'cancel_before_limit'                            => 'Cancellation valid before (hours)',
+            'confirmation_sms'                               => 'Sms Confirmation',
+            'confirmation_email'                             => 'Email confirmation',
+            'reminder_sms'                                   => 'Sms reminder',
+            'reminder_email'                                 => 'Email reminder',
+            'reminder_sms_before'                            => 'Remind via sms before',
+            'reminder_email_before'                          => 'Remind via email before',
+            'reminder_sms_unit'                              => 'Hour/day',
+            'reminder_email_unit'                            => 'Email reminder time unit',
+            'reminder_sms_time_unit'                         => 'Hour/day',
+            'reminder_email_time_unit'                       => 'Hour/day',
         ],
         'style' => [
             'heading'                           => '',
@@ -511,4 +531,8 @@ return [
         'invalid_coupon' => 'Invalid coupon',
     ],
     'nothing_selected' => 'Nothing selected',
+    'reminder' => [
+        'sms_reminder_content' => 'This is a reminder for your booking: {Services}',
+        'email_reminder_content' => 'This is a reminder for your booking: {Services}, {Address}',
+    ]
 ];

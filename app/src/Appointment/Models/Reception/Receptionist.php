@@ -10,6 +10,7 @@ use App\Appointment\Models\Room;
 use App\Appointment\Models\BookingServiceRoom;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
+use App\Appointment\Models\ConfirmationReminder;
 use App\Core\Models\Coupon;
 use App\Core\Models\CouponBooking;
 
@@ -17,41 +18,51 @@ use Exception;
 
 abstract class Receptionist implements ReceptionistInterface
 {
-    protected $bookingId           = null;
-    protected $date                = null;
-    protected $startTime           = null;
-    protected $bookingStartTime    = null;
-    protected $endTime             = null;
-    protected $uuid                = null;
-    protected $serviceId           = null;
-    protected $service             = null;
-    protected $serviceTimeId       = null;
-    protected $serviceTime         = null;
-    protected $extraServiceIds     = null;
-    protected $extraServices       = null;
-    protected $extraServicePrice   = 0;
-    protected $extraServiceLength  = 0;
-    protected $bookingService      = null;
-    protected $bookingServices     = null;
-    protected $bookingServiceId    = null;
-    protected $selectedService     = null;
-    protected $baseLength          = null;
-    protected $total               = null;
-    protected $price               = null;
-    protected $employeeId          = null;
-    protected $employee            = null;
-    protected $plustime            = 0;
-    protected $modifyTime          = 0;
-    protected $user                = null;
-    protected $isRequestedEmployee = false;
-    protected $clientIP            = null;
-    protected $consumer            = null;
-    protected $source              = null;
-    protected $status              = null;
-    protected $notes               = null;
-    protected $roomId              = null;
-    protected $layout              = null;
-    protected $coupon              = '';
+    protected $bookingId             = null;
+    protected $date                  = null;
+    protected $startTime             = null;
+    protected $bookingStartTime      = null;
+    protected $endTime               = null;
+    protected $uuid                  = null;
+    protected $serviceId             = null;
+    protected $service               = null;
+    protected $serviceTimeId         = null;
+    protected $serviceTime           = null;
+    protected $extraServiceIds       = null;
+    protected $extraServices         = null;
+    protected $extraServicePrice     = 0;
+    protected $extraServiceLength    = 0;
+    protected $bookingService        = null;
+    protected $bookingServices       = null;
+    protected $bookingServiceId      = null;
+    protected $selectedService       = null;
+    protected $baseLength            = null;
+    protected $total                 = null;
+    protected $price                 = null;
+    protected $employeeId            = null;
+    protected $employee              = null;
+    protected $plustime              = 0;
+    protected $modifyTime            = 0;
+    protected $user                  = null;
+    protected $isRequestedEmployee   = false;
+    protected $clientIP              = null;
+    protected $consumer              = null;
+    protected $source                = null;
+    protected $isReminderSms         = 0;
+    protected $reminderSmsAt         = null;
+    protected $reminderSmsBefore     = null;
+    protected $isReminderEmail       = 0;
+    protected $reminderSmsTimeUnit   = null;
+    protected $isConfirmationEmail   = 0;
+    protected $reminderEmailTimeUnit = null;
+    protected $reminderEmailBefore   = null;
+    protected $reminderEmailAt       = null;
+    protected $isConfirmationSms     = 0;
+    protected $status                = null;
+    protected $notes                 = null;
+    protected $roomId                = null;
+    protected $layout                = null;
+    protected $coupon                = '';
 
     public function setBookingId($bookingId)
     {
@@ -265,6 +276,99 @@ abstract class Receptionist implements ReceptionistInterface
     public function setClientIP($ip)
     {
         $this->clientIP = $ip;
+
+        return $this;
+    }
+
+
+    //--------------------------------------------------------------------------
+    // SMS REMINDER
+    //--------------------------------------------------------------------------
+    public function setIsReminderSms($value)
+    {
+        $this->isReminderSms = $value;
+
+        return $this;
+    }
+
+    public function setReminderSmsAt()
+    {
+        if(!empty($this->startTime)) {
+            if($this->reminderSmsTimeUnit == ConfirmationReminder::DAY){
+                $this->reminderSmsAt = $this->startTime->copy()->subDays($this->reminderSmsBefore);
+            } elseif ($this->reminderSmsTimeUnit == ConfirmationReminder::HOUR) {
+                $this->reminderSmsAt = $this->startTime->copy()->subHours($this->reminderSmsBefore);
+            }
+            
+        }
+
+        return $this;
+    }
+
+    public function setReminderSmsUnit($value)
+    {
+        $this->reminderSmsTimeUnit = $value;
+
+        return $this;
+    }
+
+    public function setReminderSmsBefore($value)
+    {
+        $this->reminderSmsBefore = $value;
+
+        return $this;
+    }
+
+    public function setIsConfimationSms($value)
+    {
+        $this->isConfirmationSms = $value;
+
+        return $this;
+    }
+
+
+    //--------------------------------------------------------------------------
+    // EMAIL REMINDER
+    //--------------------------------------------------------------------------
+
+    public function setIsReminderEmail($value)
+    {
+        $this->isReminderEmail = $value;
+        
+        return $this;
+    }
+
+    public function setReminderEmailUnit($value)
+    {
+        $this->reminderEmailTimeUnit = $value;
+
+        return $this;
+    }
+
+    public function setReminderEmailAt()
+    {
+        if(!empty($this->startTime)) {
+            if($this->reminderEmailTimeUnit == ConfirmationReminder::DAY){
+                $this->reminderEmailAt = $this->startTime->copy()->subDays($this->reminderEmailBefore);
+            } elseif ($this->reminderEmailTimeUnit == ConfirmationReminder::HOUR) {
+                $this->reminderEmailAt = $this->startTime->copy()->subHours($this->reminderEmailBefore);
+            }
+            
+        }
+
+        return $this;
+    }
+
+    public function setReminderEmailBefore($value)
+    {
+        $this->reminderEmailBefore = $value;
+
+        return $this;
+    }
+
+    public function setIsConfirmationEmail($value)
+    {
+        $this->isConfirmationEmail = $value;
 
         return $this;
     }

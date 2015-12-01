@@ -3,12 +3,14 @@
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\BookingExtraService;
+use App\Appointment\Models\ConfirmationReminder;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
 use Exception;
+use Carbon\Carbon;
 
 class BackendReceptionist extends Receptionist
 {
@@ -148,6 +150,32 @@ class BackendReceptionist extends Receptionist
             $this->setSource($booking->source);
         }
 
+        $confirmationReminder = (!empty($booking->reminder->booking_id)) 
+            ? $booking->reminder
+            : new ConfirmationReminder();
+
+        $this->setReminderEmailAt()->setReminderSmsAt();
+        
+        $confirmationReminder->fill([
+            'is_reminder_sms'          => $this->isReminderSms,
+            'reminder_sms_before'      => $this->reminderSmsBefore,
+            'reminder_sms_at'          => $this->reminderSmsAt,
+            'is_reminder_email'        => $this->isReminderEmail,
+            'reminder_email_before'    => $this->reminderEmailBefore,
+            'reminder_email_at'        => $this->reminderEmailAt,
+            'is_confirmation_email'    => $this->isConfirmationEmail,
+            'is_confirmation_sms'      => $this->isConfirmationSms,
+            'reminder_email_time_unit' => $this->reminderEmailTimeUnit,
+            'reminder_sms_time_unit'   => $this->reminderSmsTimeUnit,
+        ]);
+
+        if ((bool)$this->isReminderEmail || (bool)$this->isReminderSms) {
+            $now = Carbon::now();
+            if ($this->reminderSmsAt->lt($now) || $this->reminderEmailAt->lt($now)) {
+                throw new Exception(trans('as.bookings.error.invalid_reminder_time'), 1);
+            }
+        }
+
         $booking->fill([
             'date'        => $date,
             'start_at'    => $startTime->toTimeString(),
@@ -173,6 +201,8 @@ class BackendReceptionist extends Receptionist
             $booking->delete();
         } else {
             $booking->save();
+            $confirmationReminder->booking()->associate($booking);
+            $confirmationReminder->save();
         }
 
         //Users can check this option before or after save a booking service
