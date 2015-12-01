@@ -425,6 +425,7 @@ return [
             'cancel_before_limit'                            => 'Cancellation valid before (hours)',
             'confirmation_sms'                               => 'Sms Confirmation',
             'confirmation_email'                             => 'Email confirmation',
+            'confirmation_reminder'                          => 'Message default',
             'reminder_sms'                                   => 'Sms reminder',
             'reminder_email'                                 => 'Email reminder',
             'reminder_sms_before'                            => 'Remind via sms before',

@@ -137,6 +137,8 @@ return [
                     'default' => '1',
                     'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
                 ],
+            ],
+            'confirmation_reminder' => [
                 'confirmation_sms' => [
                     'type' => 'Radio',
                     'default' => false
