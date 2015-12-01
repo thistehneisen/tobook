@@ -1029,7 +1029,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $body = trans('as.reminder.email_reminder_content');
         $body  = str_replace('{Services}', $this->getServiceInfo(), $body);
-        $body  = str_replace('{Address}', $this->business->address, $body);
+        $body  = str_replace('{Address}', $this->user->business->address, $body);
         return $body;
     }
 
