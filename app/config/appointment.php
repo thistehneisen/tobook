@@ -139,14 +139,14 @@ return [
                 ],
             ],
             'confirmation_reminder' => [
-                'confirmation_sms' => [
-                    'type' => 'Radio',
-                    'default' => false
-                ],
-                'confirmation_email' => [
-                    'type' => 'Radio',
-                    'default' => false
-                ],
+                // 'confirmation_sms' => [
+                //     'type' => 'Radio',
+                //     'default' => false
+                // ],
+                // 'confirmation_email' => [
+                //     'type' => 'Radio',
+                //     'default' => false
+                // ],
                 'reminder_sms' => [
                     'type' => 'Radio',
                     'default' => false

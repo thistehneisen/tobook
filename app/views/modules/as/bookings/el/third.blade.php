@@ -15,7 +15,7 @@
                                 <?php 
                                     $is_confirmation_sms = !(empty($booking->reminder->is_confirmation_sms)) 
                                      ? (bool) $booking->reminder->is_confirmation_sms
-                                     : $user->asOptions['confirmation_sms']
+                                     : $user->asOptions['confirm_sms_enable']
                                 ?>
                                 <label>
                                     {{ Form::radio('is_confirmation_sms', 1, $is_confirmation_sms) }}
@@ -36,7 +36,7 @@
                                 <?php 
                                     $is_confirmation_email = !(empty($booking->reminder->is_confirmation_email)) 
                                      ? (bool) $booking->reminder->is_confirmation_email
-                                     : $user->asOptions['confirmation_email']
+                                     : $user->asOptions['confirm_email_enable']
                                 ?>
                                 <label>
                                     {{ Form::radio('is_confirmation_email', 1, $is_confirmation_email) }}
