@@ -698,6 +698,10 @@ class Employee extends \App\Appointment\Models\Base
             if ( ! $isShow) {
                 $isShow = true;
             }
+
+            if ((bool)$customTime->customTime->is_day_off) {
+                $isShow = false;
+            }
         }
 
         return $isShow;
