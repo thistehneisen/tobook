@@ -1310,7 +1310,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         }
 
         if ($excludeCancelled) {
-            $query = $query->where('business_commissions.employee_id', '=', $employeeId);
+            $query = $query->where('business_commissions.status', '!=', BusinessCommission::STATUS_CANCELLED);
         }
 
         return $query;
