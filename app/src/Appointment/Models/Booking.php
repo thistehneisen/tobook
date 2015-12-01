@@ -1221,7 +1221,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public static function getBookingsByEmployeeStatus($userId, $status, $employeeId, $perPage, $start, $end)
     {
-        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end, false);
 
         $result = $query->join('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
@@ -1287,7 +1287,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $result;
     }
 
-    protected static function getCommissionQuery($userId, $status, $employeeId, $start, $end)
+    protected static function getCommissionQuery($userId, $status, $employeeId, $start, $end, $excludeCancelled = true)
     {
         $query = self::withTrashed()->where('as_bookings.created_at', '>=', $start)
             ->where('as_bookings.created_at', '<=', $end)
@@ -1306,6 +1306,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         }
 
         if (!empty($employeeId)) {
+            $query = $query->where('business_commissions.employee_id', '=', $employeeId);
+        }
+
+        if ($excludeCancelled) {
             $query = $query->where('business_commissions.employee_id', '=', $employeeId);
         }
 
