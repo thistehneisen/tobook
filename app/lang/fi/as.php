@@ -502,6 +502,7 @@ return [
     ],
     'nothing_selected' => 'Valitse',
     'reminder' => [
-        'reminder_content' => 'Muistathan varauksesi: {Services}',
+        'sms_reminder_content' => 'Muistathan varauksesi: {Services}',
+        'email_reminder_content' => 'Muistathan varauksesi: {Services}, {Address}',
     ]
 ];

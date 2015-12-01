@@ -532,6 +532,7 @@ return [
     ],
     'nothing_selected' => 'Nothing selected',
     'reminder' => [
-        'reminder_content' => 'This is a reminder for your booking: {Services}',
+        'sms_reminder_content' => 'This is a reminder for your booking: {Services}',
+        'email_reminder_content' => 'This is a reminder for your booking: {Services}, {Address}',
     ]
 ];

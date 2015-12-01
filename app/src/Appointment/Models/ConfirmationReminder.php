@@ -85,7 +85,7 @@ class ConfirmationReminder extends \Eloquent
     public static function sendEmailReminder($booking)
     {
         $emailSubject = Config::get('sms.from');//TODO
-        $body         = $booking->getSmsReminderContent();
+        $body         = $booking->getEmailReminderContent();
         $receiver     = $booking->consumer->email;
         $receiverName = $booking->consumer->name;
 

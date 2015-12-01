@@ -1020,8 +1020,16 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public function getSmsReminderContent()
     {
-        $body = trans('as.reminder.reminder_content');
+        $body = trans('as.reminder.sms_reminder_content');
         $body  = str_replace('{Services}', $this->getServiceInfo(), $body);
+        return $body;
+    }
+
+    public function getEmailReminderContent()
+    {
+        $body = trans('as.reminder.email_reminder_content');
+        $body  = str_replace('{Services}', $this->getServiceInfo(), $body);
+        $body  = str_replace('{Address}', $this->business->address, $body);
         return $body;
     }
 
