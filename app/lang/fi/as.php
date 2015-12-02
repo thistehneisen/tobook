@@ -364,7 +364,7 @@ return [
         'booking'                                        => [
             'heading'                                        => '',
             'info'                                           => '',
-            'index'                                          => 'Varaukset',
+            'index'                                          => 'Yleiset',
             'booking_form'                                   => 'Varauslomake',
             'reminders'                                      => 'Muistutus',
             'confirmations'                                  => 'Vahvistus',

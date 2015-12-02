@@ -371,7 +371,7 @@ return [
             'heading'                                        => '',
             'info'                                           => '',
             'disable_booking'                                => 'Disable booking widget',
-            'index'                                          => 'Bookings',
+            'index'                                          => 'General',
             'booking_form'                                   => 'Booking Form',
             'reminders'                                      => 'Reminder',
             'confirmations'                                  => 'Confirmation',
