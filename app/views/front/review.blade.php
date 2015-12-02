@@ -81,7 +81,7 @@
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label">{{ trans('common.captcha') }}</label>
 				<div class="col-sm-9">
-					{{ Form::captcha(); }}
+					{{ Form::captcha([ 'lang' => App::getLocale() ]); }}
 				</div>
 			</div>
 			<div class="form-group">
