@@ -290,9 +290,10 @@ class Front extends Base
             App::abort(404);
         }
 
-        return $this->render('review', [
+        return $this->render('neo-review', [
             'id' => $id,
-            'name' => $user->business->slug
+            'name' => $user->business->slug,
+            'showForm' => true
         ]);
     }
 
@@ -314,6 +315,10 @@ class Front extends Base
             );
 
             $validator = Validator::make(Input::all(), $rules);
+            
+            $validator->setAttributeNames([
+                'g-recaptcha-response' => 'reCaptcha'
+            ]); 
 
             if ($validator->fails()) {
                 $messages = $validator->messages();
@@ -329,6 +334,7 @@ class Front extends Base
             return Redirect::back()->withInput()->withErrors($ex->getErrors());
         }
 
-        return Redirect::route('home');
+        return Redirect::route('businesses.review', ['id' => $user->id, 'slug' => $user->business->slug])
+            ->with('showSuccess', true);
     }
 }
