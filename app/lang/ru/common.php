@@ -109,6 +109,10 @@ return [
     'decline'               => 'Не Согласен',
     'history'               => 'История',
     'captcha'               => 'Captcha',
+    'review'                => 'Обзор',
+    'reviews'               => 'Отзывы',
+    'hour'                  => 'час',
+    'day'                   => 'День',
     'short' => [
         'week'  => 'неделя',
         'hour'  => 'ч',
@@ -163,4 +167,9 @@ return [
     'per_page'      => 'Позиций на странице',
     'show_all'      => 'Показать все',
     'logged_in_as'  => 'Подключен как',
+    'about'         => 'Meistä',
+    'business'      => 'Business',
+    'intro'         => 'Введение',
+    'hour'          => 'час',
+    'day'           => 'День'
 ];

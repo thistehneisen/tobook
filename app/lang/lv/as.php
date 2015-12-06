@@ -148,6 +148,17 @@ return [
         'request_employee'  => 'Pieprasīt konkrētu darbinieku',
         'deposit'           => 'Depozīta maksājuma',
         'search_placeholder'=> 'Meklēt patērētājs',
+        'cancel_email_title'=> 'Rezervācija ir atcelta veiksmīgi',
+        'cancel_email_body' => 'Klients ir atcēlis šo rezervāciju: <br> %s',
+        'confirmation_settings'=> 'Apstiprinājuma iestatījumi',
+        'confirmation_email'=> 'Apstiprinājuma e-pasts',
+        'confirmation_sms'  => 'Apstiprinājuma SMS',
+        'reminder_email'    => 'Atgādinājuma e-pasts',
+        'reminder_sms'      => ' Atgādinājuma sms',
+        'reminder_sms_before'   => 'Sūtīt atgādinājuma sms pirms',
+        'reminder_email_before' => 'Sūtīt atgādinājuma e-pastu pirms',
+        'reminder_sms_time_unit'   => 'Stundas/diena',
+        'reminder_email_time_unit' => 'Stundas/diena',
         'error'             => [
             'add_overlapped_booking'      => 'Rezervācijas laiki pārklājas!',
             'insufficient_slots'          => 'Kalendārā nav pieejams izvēlētajai rezervācijai atbilstošs brīvais laiks!',
@@ -201,7 +212,7 @@ return [
         'days_of_week'                     => 'Nedēļas dienas',
         'start_time'                       => 'Sākums',
         'end_time'                         => 'Beigas',
-        'date_range'                       => 'Date range',
+        'date_range'                       => 'Periods',
         'day_off'                          => 'Brīvdiena?',
         'confirm'                          => [
             'delete_freetime' => 'Vai tiešām vēlaties dzēst izvēlēto brīvo laiku no kalendāra?'

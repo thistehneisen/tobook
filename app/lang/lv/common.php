@@ -110,6 +110,10 @@ return [
     'history'               => 'Arhīvs',
     'placeholders'          => 'Placeholders',//@todo
     'captcha'               => 'Captcha',
+    'review'                => 'Atsauksme',
+    'reviews'               => 'Atsauksmes',
+    'hour'                  => 'Stundas',
+    'day'                   => 'Diena',
     'short' => [
         'week'  => 'nedēļa',
         'hour'  => 'stunda',
@@ -164,4 +168,9 @@ return [
     'per_page'      => 'Piedāvājumi lapā',
     'show_all'      => 'Rādīt visus',
     'logged_in_as'  => 'Ienācis',
+    'about'         => 'Par',
+    'business'      => 'Business',
+    'intro'         => 'Ievads',
+    'hour'          => 'Stundas',
+    'day'           => 'Diena'
 ];
