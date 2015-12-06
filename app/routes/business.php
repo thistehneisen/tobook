@@ -36,6 +36,11 @@ Route::group(['prefix' => 'businesses'], function () {
         'uses'  => 'App\Core\Controllers\Front@doReview'
     ]);
 
+    Route::get('/test', [
+        'as'    => 'business.test',
+        'uses'  => 'App\Core\Controllers\Front@test'
+    ]);
+
     //--------------------------------------------------------------------------
     // CP booking form
     //--------------------------------------------------------------------------
