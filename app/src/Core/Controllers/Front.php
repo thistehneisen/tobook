@@ -337,4 +337,14 @@ class Front extends Base
         return Redirect::route('businesses.review', ['id' => $user->id, 'slug' => $user->business->slug])
             ->with('showSuccess', true);
     }
+
+    /**
+     * Test new layout
+     * 
+     * @return View
+     */
+    public function test()
+    {
+        return $this->render('test');
+    }
 }
