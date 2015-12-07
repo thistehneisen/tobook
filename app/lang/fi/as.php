@@ -494,8 +494,8 @@ return [
         'sortable'       => 'Järjestä sarakkeet uudelleen nappaamalla kiinni haluamastasi sarakkeesta, ja vetämällä sitä hiirellä ylös tai alas!',
     ],
     'review' => [
-        'review-form'  => 'Review form',
-        'review-sent'  => 'Your review was successfully sent!',
+        'review-form'  => 'Arvostele yritys',
+        'review-sent'  => 'Arostelu jätetty onnistuneesti!',
         'all'          => 'Kaikki arvostelut',
         'avg_rating'   => 'Keskiarvo',
         'comment'      => 'Palaute',
