@@ -650,19 +650,20 @@
         $('.as-calendar').scrollLeft(0);
       }
     });
-
+  
     $w.load(function(){
       $w.scrollTop(5);
       $('.as-calendar').scrollLeft(0);
       $('.as-calendar').on('scroll', handleScroll);
-      $('body').mousewheel(function(e, delta, deltaX, deltaY){
-        if (deltaX) {
-          var scrollLeft = $('.as-calendar').scrollLeft();
-          $('.as-calendar').scrollLeft(scrollLeft - (deltaX * 40));
-          e.preventDefault();
-        }
-      })
     });
+
+    $w.mousewheel(function(e, delta, deltaX, deltaY){
+      if (deltaX) {
+        var scrollLeft = $('.as-calendar').scrollLeft();
+        $('.as-calendar').scrollLeft(scrollLeft - (deltaX * 1));
+        e.preventDefault();
+      }
+    })
 
     // @see resources/varaa/co/scripts/main.coffee
     $doc.on('click', 'a.js-showHistory', function (e) {
