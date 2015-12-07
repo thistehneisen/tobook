@@ -113,7 +113,7 @@ bg-orange
 			<section>
 				<label class="input">
 					<i class="icon-append fa fa-user"></i>
-					<input type="text" name="name" id="name" placeholder="Your name">
+					<input type="text" name="name" id="name" placeholder="{{ trans('common.name') }}">
 				</label>
 			</section>
 			
@@ -121,7 +121,7 @@ bg-orange
 				<label class="label"></label>
 				<label class="textarea">
 					<i class="icon-append fa fa-comment"></i>
-					<textarea rows="3" name="review" id="review" placeholder="Text of the review"></textarea>
+					<textarea rows="3" name="review" id="review" placeholder="{{ trans('as.review.comment') }}"></textarea>
 				</label>
 			</section>
 			
