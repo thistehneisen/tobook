@@ -171,5 +171,6 @@ return [
     'business'      => 'Business',
     'intro'         => 'Introduction',
     'hour'          => 'Tunti',
-    'day'           => 'Päivä'
+    'day'           => 'Päivä',
+    'validate'      => 'Käytä',
 ];
