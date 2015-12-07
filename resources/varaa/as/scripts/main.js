@@ -660,7 +660,7 @@
     $w.mousewheel(function(e, delta, deltaX, deltaY){
       if (deltaX) {
         var scrollLeft = $('.as-calendar').scrollLeft();
-        $('.as-calendar').scrollLeft(scrollLeft - (deltaX * 1));
+        $('.as-calendar').scrollLeft(scrollLeft + (deltaX * 1));
         e.preventDefault();
       }
     })
