@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="panel-heading">
+    <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThird">
         <h4 class="panel-title">
              <a data-toggle="collapse" data-parent="#accordion" href="#collapseThird">3. {{ trans('as.bookings.confirmation_settings') }}</a>
         </h4>

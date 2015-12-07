@@ -317,15 +317,16 @@
 #coupon-help {
   font-weight: bold;
 }
-  
-.reviews-summary {
+
+.review-link {
   margin-bottom: 10px;
 }
+.reviews-summary {
+  table.review-table  tr:first-child td {
+    padding-bottom:  0px !important;
+  } 
 
-table.review-table  tr:first-child td {
-  padding-bottom:  0px !important;
-} 
-
-table.review-table tr:last-child td {
-  padding-top: 0px!important;
-} 
+  table.review-table tr:last-child td {
+    padding-top: 0px!important;
+  } 
+}

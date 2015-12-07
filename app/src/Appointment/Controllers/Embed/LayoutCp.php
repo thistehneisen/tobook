@@ -50,7 +50,7 @@ class LayoutCp extends Base
                 ->find(Input::get('serviceId'));
         }
 
-        return Response::json($service->employees->map(function ($employee) {
+        return Response::json($service->employees()->where('is_active', '=', 1)->get()->map(function ($employee) {
             return [
                 'id' => $employee->id,
                 'name' => $employee->name,

@@ -583,13 +583,15 @@
       }
     }
 
-    handleScroll = function () {
+    handleScroll = function (e) {
+      e.preventDefault();
       scrolledLeft = true
       if ($.isEmptyObject(originalOffset)) {
         $('.as-col-header').each(function (key, item) {
           originalOffset.push($(item).offset().left)
         })
       }
+    
       $('.as-col-header').each(function (key, item) {
         var $this = $(this)
 
@@ -608,6 +610,10 @@
 
         $('#as-left-col-header').css('width', $('.as-col-left-header').first().width())
 
+        if ($('#as-left-col-header').offset().left > 15) {
+            return false;
+        }
+
         var offset = 0
         if ($(item).css('position') !== 'relative') {
           offset = parseInt(originalOffset[key], 10) - parseInt($('.as-calendar').scrollLeft(), 10)
@@ -617,6 +623,7 @@
         } else {
           offset = originalOffset[key]
         }
+
         $(item).css('left', offset)
 
         if (offset < 0) {
@@ -627,8 +634,8 @@
       })
     }
 
-    $w.scroll(fixedCalendarHeader);
-    
+    $w.on('scroll touchmove mousewheel', fixedCalendarHeader);
+
     $w.resize(function(){
       if($('.as-col-header').length){
         $w.scrollTop(5);
@@ -643,14 +650,21 @@
         $('.as-calendar').scrollLeft(0);
       }
     });
-
+  
     $w.load(function(){
       $w.scrollTop(5);
       $('.as-calendar').scrollLeft(0);
-      $('.as-calendar').scroll(handleScroll);
+      $('.as-calendar').on('scroll', handleScroll);
     });
 
-  
+    $w.mousewheel(function(e, delta, deltaX, deltaY){
+      if (deltaX) {
+        var scrollLeft = $('.as-calendar').scrollLeft();
+        $('.as-calendar').scrollLeft(scrollLeft - (deltaX * 1));
+        e.preventDefault();
+      }
+    })
+
     // @see resources/varaa/co/scripts/main.coffee
     $doc.on('click', 'a.js-showHistory', function (e) {
       e.preventDefault()

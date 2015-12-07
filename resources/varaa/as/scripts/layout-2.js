@@ -85,6 +85,11 @@
                     $this.addClass('active');
                     $serviceTime.show();
 
+                    //Dont automatically select the 1st service in mobile mode
+                    if ($('body').width() < 400) {
+                        return;
+                    }
+
                     // Select the first service time
                     $serviceTime.find('.btn-group:first button').addClass('active');
                 }
@@ -370,8 +375,25 @@
                 $this.addClass('active');
                 $this.siblings('button').addClass('active');
 
+                var $employee = $('#as-service-' + dataStorage.serviceId + '-employees');
+                if ($employee.length > 0) {
+                    $employee.show();
+                } else {
+                    $body.showLoading();
+                    // Send AJAX to load employees of this service
+                    $.ajax({
+                        url: $('input[name=employee-url]').val(),
+                        type: 'POST',
+                        data: dataStorage
+                    }).done(function (data) {
+                        $main.append(data);
+                        $body.hideLoadding();
+                        fnScrollTo('employees');
+                    });
+                }
+
                 // Reload the timetable
-                if ($timetable.is(':empty') === false) {
+                if ($timetable.is(':empty') === false && dataStorage.date != undefined) {
                     fnLoadTimetable();
                 }
             });

@@ -371,7 +371,7 @@ return [
             'heading'                                        => '',
             'info'                                           => '',
             'disable_booking'                                => 'Disable booking widget',
-            'index'                                          => 'Bookings',
+            'index'                                          => 'General',
             'booking_form'                                   => 'Booking Form',
             'reminders'                                      => 'Reminder',
             'confirmations'                                  => 'Confirmation',
@@ -507,6 +507,8 @@ return [
         'sortable'       => 'Drag to reorder',
     ],
     'review' => [
+        'review-form'  => 'Review form',
+        'review-sent'  => 'Your review was successfully sent!',
         'all'          => 'All reviews',
         'avg_rating'   => 'Avg. Rating',
         'comment'      => 'Comment',

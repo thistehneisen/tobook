@@ -364,7 +364,7 @@ return [
         'booking'                                        => [
             'heading'                                        => '',
             'info'                                           => '',
-            'index'                                          => 'Varaukset',
+            'index'                                          => 'Yleiset',
             'booking_form'                                   => 'Varauslomake',
             'reminders'                                      => 'Muistutus',
             'confirmations'                                  => 'Vahvistus',
@@ -494,6 +494,8 @@ return [
         'sortable'       => 'Järjestä sarakkeet uudelleen nappaamalla kiinni haluamastasi sarakkeesta, ja vetämällä sitä hiirellä ylös tai alas!',
     ],
     'review' => [
+        'review-form'  => 'Review form',
+        'review-sent'  => 'Your review was successfully sent!',
         'all'          => 'All reviews',
         'avg_rating'   => 'Avg. Rating',
         'comment'      => 'Comment',
