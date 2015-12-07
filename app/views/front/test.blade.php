@@ -27,6 +27,7 @@
     @endif
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js') }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
+    {{ HTML::script(asset_path('as/scripts/business.js')) }}
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
       $(function() {
@@ -41,14 +42,43 @@
         });
         $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
           " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-      });
+        });
+        var app = app || {}
+        app.i18n = {
+            'select': '@lang('as.embed.cp.select')',
+            'pl_service': '@lang('as.embed.cp.pl_service')',
+            'sg_service': '@lang('as.embed.cp.sg_service')',
+            'first_name': '@lang('as.bookings.first_name')',
+            'last_name': '@lang('as.bookings.last_name')',
+            'email': '@lang('as.bookings.email')',
+            'phone': '@lang('as.bookings.phone')',
+            'almost_done': '@lang('as.embed.cp.almost_done')',
+            'time': '@lang('as.embed.cp.time')',
+            'employee': '@lang('as.embed.cp.employee')',
+            'salon': '@lang('as.embed.cp.salon')',
+            'price': '@lang('as.embed.cp.price')',
+            'service': '@lang('as.embed.cp.service')',
+            'details': '@lang('as.embed.cp.details')',
+            'how_to_pay': '@lang('as.embed.cp.how_to_pay')',
+            'go_back': '@lang('as.embed.cp.go_back')',
+            'close': '@lang('common.close')',
+            'book': '@lang('as.embed.book')',
+            'first_employee': '@lang('as.embed.cp.first_employee')',
+            'coupon_code' : '@lang('as.embed.cp.coupon_code')',
+            'save': '@lang('common.save')',
+            'validate': '@lang('common.validate')',
+            'location_placeholder': '@lang('home.search.location')',
+            'query_placeholder': '@lang('home.search.query')',
+            'price_range': '@lang('as.bookings.price_range')',
+        }
+        app.VaraaBusiness(document.getElementById('business-container'), null, null, null, null);
     </script>
 @stop
 
 @section('main-classes') front @stop
 
 @section('content')
-<div class="container business-container">
+<div class="container business-container" id="business-container">
     <div class="col-sm-3 search-panel">
         <div class="row">
             <i class="fa fa-map-marker fa-2x"></i> View result on map
@@ -65,7 +95,7 @@
             <form class="form-horizontal">
                  <div class="form-group">
                     <div class="col-sm-12">
-                      <input type="query" class="form-control" id="query" placeholder="{{ trans('home.search.query') }}">
+                      <input type="text" class="form-control" id="query" placeholder="{{ trans('home.search.query') }}">
                     </div>
                   </div>
                   <div class="form-group">
@@ -85,7 +115,7 @@
             <div id="slider-range"></div>
         </div>
     </div>
-    <div class="col-sm-9 business-list">
+    <div class="col-sm-9 business-list" id="business-list">
         <div class="business-item">
             <h3 class="venue-title">Venue title</h3>
             <span class="venue-desc">
