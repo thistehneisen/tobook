@@ -348,7 +348,6 @@ class Front extends Base
         return $this->render('test');
     }
 
-
     public function search()
     {
          // Get all businesses
@@ -365,4 +364,5 @@ class Front extends Base
             'businesses' => $businesses
         ]);
     }
+
 }

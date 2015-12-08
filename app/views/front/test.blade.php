@@ -75,7 +75,6 @@
         app.routes = {
             'business.search': '{{ route('business.search') }}',
         }
-
         app.VaraaBusiness(document.getElementById('business-container'), null, null, null, null);
     </script>
 @stop
