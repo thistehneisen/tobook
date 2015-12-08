@@ -355,11 +355,18 @@ class Front extends Base
             ->whereHas('user', function ($query) {
                 $query->whereNull('deleted_at');
             })
-            ->with('user.images')
             ->simplePaginate();
 
-        $businesses = $paginator->getItems();
-        
+        $items = $paginator->getItems();
+
+        $businesses = [];
+
+        foreach ($items as $item) {
+            //TODO
+            $item['services'] = $item->user->asServices()->limit(2)->get();
+            $businesses[] = $item;
+        }
+
         return Response::json([
             'businesses' => $businesses
         ]);

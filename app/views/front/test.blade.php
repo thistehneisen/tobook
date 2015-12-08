@@ -31,7 +31,7 @@
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
       $(function() {
-        $( "#slider-range" ).slider({
+        $("#slider-range").slider({
           range: true,
           min: 0,
           max: 500,
@@ -83,7 +83,7 @@
 
 @section('content')
 <div class="container business-container" id="business-container">
-    <div class="col-sm-3 search-panel">
+   {{--  <div class="col-sm-3 search-panel">
         <div class="row">
             <i class="fa fa-map-marker fa-2x"></i> View result on map
         </div>
@@ -144,6 +144,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 @stop

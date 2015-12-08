@@ -13,7 +13,7 @@ app.VaraaBusiness = (dom, keyword, location, mc, tc) ->
     @dataStore = m.prop {keyword: keyword, location: location, priceRange: {}}
     
     @data = m.prop {}
-    @businesses = m.prop {}
+    @businesses = m.prop []
     # Kickstart
 
     m.request
@@ -25,7 +25,20 @@ app.VaraaBusiness = (dom, keyword, location, mc, tc) ->
     .then (data) =>
       @businesses  = data.businesses
       console.log(@businesses)
-    .then -> m.redraw();
+    .then () =>
+      m.redraw()
+      @init()
+    
+    @init = ->
+      $("#slider-range").slider
+        range: true,
+        min: 0,
+        max: 500,
+        values: [ 75, 300 ],
+        slide: ( event, ui ) ->
+          $("#amount").val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+
+       $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $( "#slider-range" ).slider("values", 1));
 
     return
 
@@ -82,19 +95,21 @@ app.VaraaBusiness = (dom, keyword, location, mc, tc) ->
                 m('a', [ m.trust('Show map &raquo;')])
               ]),
               m('.popular-services', [
-                m('.row popular-service', [
-                  m('.col-xs-8', [
-                    m('a', [ business.description ]) 
-                  ]),
-                  m('.col-xs-4', [
-                    m('button.btn.btn-orange.btn-square.pull-right', [ __('select') ])
+                business.services.map((service) ->
+                  m('.row popular-service', [
+                    m('.col-xs-8', [
+                      m('a', [ service.name ]) 
+                    ]),
+                    m('.col-xs-4', [
+                      m('button.btn.btn-orange.btn-square.pull-right', [ __('select') ])
+                    ])
                   ])
-                ])
+                )
               ])
             ])
           )
         else
-          m('i.fa.fa-spin.fa-2x.fa-spinner')
+          m('.loading', m('i.fa.fa-spin.fa-2x.fa-spinner'))
       ])
     ])
 
