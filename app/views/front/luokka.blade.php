@@ -70,6 +70,7 @@
             'location_placeholder': '@lang('home.search.location')',
             'query_placeholder': '@lang('home.search.query')',
             'price_range': '@lang('as.bookings.price_range')',
+            'show_more': '@lang('home.show_more')',
         }
 
         app.routes = {
