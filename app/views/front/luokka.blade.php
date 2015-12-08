@@ -83,67 +83,13 @@
 
 @section('content')
 <div class="container business-container" id="business-container">
-   {{--  <div class="col-sm-3 search-panel">
-        <div class="row">
-            <i class="fa fa-map-marker fa-2x"></i> View result on map
+   <div class="row">
+        <div class="col-sm-6">
+            &nbsp;
         </div>
-        <div class="row">
-            <hr>
-            <label for="show_discount">
-                <input type="checkbox" name="show_discount"> Only off-peak discounts
-            </label>
+        <div class="col-sm-6">
+            <i class="fa fa-spin fa-2x fa-spinner"></i>
         </div>
-        <div class="row">
-            <hr>
-            <h4>Filter search result</h4>
-            <form class="form-horizontal">
-                 <div class="form-group">
-                    <div class="col-sm-12">
-                      <input type="text" class="form-control" id="query" placeholder="{{ trans('home.search.query') }}">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-sm-12">
-                      <input type="location" class="form-control" id="query" placeholder="{{ trans('home.search.location') }}">
-                    </div>
-                  </div>
-            </form>
-        </div>
-        <div class="row">
-            <hr>
-            <h4>Price range</h4>
-            <p>
-              <label for="amount">Price range:</label>
-              <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-            </p>
-            <div id="slider-range"></div>
-        </div>
-    </div>
-    <div class="col-sm-9 business-list" id="business-list">
-        <div class="business-item">
-            <h3 class="venue-title">Venue title</h3>
-            <span class="venue-desc">
-                Addresss <a href="#">Show map &raquo;</a>
-            </span>
-            <div class="popular-services">
-                <div class="row popular-service">
-                    <div class="col-xs-8">
-                        <a href="">Haircuts and Hairdressing</a>
-                    </div>
-                    <div class="col-xs-4">
-                        <button class="btn btn-orange btn-square pull-right">Valitse</button>
-                    </div>
-                </div>
-                 <div class="row popular-service">
-                    <div class="col-xs-8">
-                        <a href="">Haircuts and Hairdressing</a>
-                    </div>
-                    <div class="col-xs-4">
-                        <button class="btn btn-orange btn-square pull-right">Valitse</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
+   </div>
 </div>
 @stop
