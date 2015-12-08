@@ -71,6 +71,11 @@
             'query_placeholder': '@lang('home.search.query')',
             'price_range': '@lang('as.bookings.price_range')',
         }
+
+        app.routes = {
+            'business.search': '{{ route('business.search') }}',
+        }
+
         app.VaraaBusiness(document.getElementById('business-container'), null, null, null, null);
     </script>
 @stop

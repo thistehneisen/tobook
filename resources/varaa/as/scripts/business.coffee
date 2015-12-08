@@ -11,6 +11,22 @@ app.VaraaBusiness = (dom, keyword, location, mc, tc) ->
   BusinessList = {}
   BusinessList.controller = ->
     @dataStore = m.prop {keyword: keyword, location: location, priceRange: {}}
+    
+    @data = m.prop {}
+    @businesses = m.prop {}
+    # Kickstart
+
+    m.request
+      method: 'GET'
+      url: app.routes['business.search']
+      data:
+        hash: @dataStore().keyword
+        location: @dataStore().location
+    .then (data) =>
+      @businesses  = data.businesses
+      console.log(@businesses)
+    .then -> m.redraw();
+
     return
 
   BusinessList.view = (ctrl) ->
@@ -56,23 +72,28 @@ app.VaraaBusiness = (dom, keyword, location, mc, tc) ->
         ])
       ]),
       m('.col-sm-9.business-list', [
-        m('.business-item',[
-          m('h3.venue-title', 'Venue title'),
-          m('span.venue-desc', [
-            m.trust('Address '),
-            m('a', [ m.trust('Show map &raquo;')])
-            ]),
-          m('.popular-services', [
-            m('.row popular-service', [
-              m('.col-xs-8', [
-                m('a', ['Haircuts and Hairdressing']) 
+        if (ctrl.businesses.length > 0)
+          ctrl.businesses.map((business, index) ->
+            m('.business-item',[
+              m('h3.venue-title', business.name),
+              m('span.venue-desc', [
+                __('address'),
+                m('a', [ m.trust('Show map &raquo;')])
               ]),
-              m('.col-xs-4', [
-                m('button.btn.btn-orange.btn-square.pull-right', [ __('select') ])
+              m('.popular-services', [
+                m('.row popular-service', [
+                  m('.col-xs-8', [
+                    m('a', [ business.description ]) 
+                  ]),
+                  m('.col-xs-4', [
+                    m('button.btn.btn-orange.btn-square.pull-right', [ __('select') ])
+                  ])
+                ])
               ])
             ])
-          ])
-        ])
+          )
+        else
+          m('i.fa.fa-spin.fa-2x.fa-spinner')
       ])
     ])
 

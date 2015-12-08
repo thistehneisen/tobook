@@ -41,6 +41,11 @@ Route::group(['prefix' => 'businesses'], function () {
         'uses'  => 'App\Core\Controllers\Front@test'
     ]);
 
+    Route::get('/search', [
+        'as'    => 'business.search',
+        'uses'  => 'App\Core\Controllers\Front@search'
+    ]);
+
     //--------------------------------------------------------------------------
     // CP booking form
     //--------------------------------------------------------------------------

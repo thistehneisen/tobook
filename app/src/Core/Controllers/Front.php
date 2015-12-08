@@ -347,4 +347,22 @@ class Front extends Base
     {
         return $this->render('test');
     }
+
+
+    public function search()
+    {
+         // Get all businesses
+        $paginator = Business::notHidden()
+            ->whereHas('user', function ($query) {
+                $query->whereNull('deleted_at');
+            })
+            ->with('user.images')
+            ->simplePaginate();
+
+        $businesses = $paginator->getItems();
+        
+        return Response::json([
+            'businesses' => $businesses
+        ]);
+    }
 }
