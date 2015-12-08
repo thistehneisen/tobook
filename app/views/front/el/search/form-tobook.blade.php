@@ -35,14 +35,14 @@
             </div>
         </div>
         <div class="form-group row">
-            <div class="col-sm-8 col-md-8">
+            <div class="@if (App::getLocale() !== 'ru') col-sm-8 col-md-8 @else col-sm-9 col-md-9 @endif">
                 <div class="input-group margin-bottom-lg" id="location-dropdown-wrapper">
                     <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
                     <input autocomplete="off" data-current-location="1" data-trigger="manual" data-placement="bottom" title="@lang('home.search.validation.location')" data-target="#" name="location" class="form-control input-lg input-keyword {{ App::getLocale() }}" type="text" placeholder="{{ trans('home.search.location') }}" value="@lang('home.search.current_location')">
                     <ul id="big-cities-dropdown" class="dropdown-menu big-cities-dropdown" role="menu"></ul>
                 </div>
             </div>
-            <div class="col-sm-4 col-md-4">
+            <div class="@if (App::getLocale() !== 'ru') col-sm-4 col-md-4 @else col-sm-3 col-md-3 @endif">
                 <button type="submit" class="btn btn-lg btn-success btn-search">{{ trans('home.search.button') }}</button>
             </div>
         </div>
