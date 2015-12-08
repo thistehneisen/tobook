@@ -343,19 +343,50 @@ class Front extends Base
      * 
      * @return View
      */
-    public function test()
-    {
-        return $this->render('test');
+    public function luokka($id, $slug)
+    {   
+        // Get the correct model based on first URL segment
+        $isMasterCategory = strpos(Request::path(), 'categories') !== false;
+        $type = $isMasterCategory ? 'mc' : 'tm';
+
+        return $this->render('luokka',[
+            'id'   => $id,
+            'type' => $type,
+        ]);
     }
 
     public function search()
     {
-         // Get all businesses
-        $paginator = Business::notHidden()
-            ->whereHas('user', function ($query) {
-                $query->whereNull('deleted_at');
-            })
-            ->simplePaginate();
+        $id   = Input::get('id');
+        $type = Input::get('type');
+
+        $categoryKeyword = $type . '_' . $id;
+
+        $model = ($type === 'mc')
+            ? '\App\Appointment\Models\MasterCategory'
+            : '\App\Appointment\Models\TreatmentType';
+        $instance = $model::findOrFail($id);
+
+        $perPage = 15;
+        $params = [
+            'location' => Util::getCoordinates(),
+            'from' => (Input::get('page', 1) - 1) * $perPage,
+            'size' => $perPage
+        ];
+
+        $searchType = Input::get('type');
+        if (!empty($searchType) && $searchType === 'district') {
+            $params['keyword'] = Input::get('location');
+            $params['category'] = $categoryKeyword;
+
+            $s = new BusinessesByDistrict($params);
+        } else {
+            $params['keyword'] = $categoryKeyword;
+
+            $s = new BusinessesByCategory($params);
+        }
+
+        $paginator = $s->search();
 
         $items = $paginator->getItems();
 
