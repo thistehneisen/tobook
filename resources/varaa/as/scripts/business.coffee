@@ -123,7 +123,7 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
                   business.services.map((service) ->
                     m('.row popular-service', [
                       m('.col-xs-8', [
-                        m('span.orange', [service.name]) 
+                        m('span.orange.service-name', [service.name]) 
                       ]),
                       m('.col-xs-4', [
                         m('a.btn.btn-orange.btn-square.pull-right', { 

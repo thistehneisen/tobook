@@ -55,6 +55,10 @@
         color: @primary_color
     }
 
+    a.btn {
+        color: #ffffff;
+    }
+
     .search-panel {
         padding: 0 25px;
     }
@@ -73,10 +77,19 @@
 
     .popular-services {
         padding: 10px;
+        
+        .popular-service:first-child {
+            border-bottom: none;
+        }
 
         .popular-service {
-            border: 1px solid #ccc;
+            border: 1px dotted #ccc;
             padding: 10px 0;
+            
+            .service-name { 
+                display: inline-block;
+                padding: 6px 12px;
+            }
         }
     }
 }
