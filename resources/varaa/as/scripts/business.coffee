@@ -10,11 +10,12 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
 
   BusinessList = {}
   BusinessList.controller = ->
-    @dataStore = m.prop {id: id, type: type, keyword: keyword, location: location, page: 1, count: 1, priceRange: {}}
+    @dataStore = m.prop {id: id, type: type, keyword: keyword, search_type: '', location: location, page: 1, count: 1, priceRange: {}}
     
     @data       = m.prop {}
     @businesses = m.prop []
     @cache = []
+    @append = true
 
     @search = ->
       $('#show-more-spin').show()
@@ -24,13 +25,18 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
         data:
           id: @dataStore().id
           type: @dataStore().type
+          search_type: @dataStore().search_type
           keyword: @dataStore().keyword
           location: @dataStore().location
           page: @dataStore().page
       .then (data) =>
-        for business in data.businesses
-          @cache.push business
-        @businesses = @cache
+        if (@append)
+          for business in data.businesses
+            @cache.push business
+          @businesses = @cache
+        else
+          @businesses = data.businesses
+
         @dataStore().page = data.current
         @dataStore().count = data.count
       .then () =>
@@ -46,7 +52,21 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
         @search()
         if(@dataStore().page == @dataStore().count)
           $('.show-more').hide()
-    
+
+    @setLocation = (e) ->
+      el = e.target
+      @dataStore().location = el.value
+      @dataStore().search_type = 'district'
+      @append = false
+      @search()
+
+    @setKeyword = (e) ->
+      el = e.target
+      @dataStore().keyword = el.value
+      @dataStore().search_type = 'keyword'
+      @append = false
+      @search()
+
     @init = ->
       $("#slider-range").slider
         range: true,
@@ -86,12 +106,20 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
             m('form', { class : 'form-horizontal'}, [
               m('.form-group', [
                 m('.col-sm-12', [
-                  m('input#query[type=text]', { class : 'form-control', placeholder: __('query_placeholder')})
+                  m('input#query[type=text]', { 
+                    class : 'form-control', 
+                    placeholder: __('query_placeholder'),
+                    onkeyup: ctrl.setKeyword.bind(ctrl)
+                  })
                 ])
               ]),
               m('.form-group', [
                 m('.col-sm-12', [
-                  m('input#location[type=text]', { class : 'form-control', placeholder: __('location_placeholder')})
+                  m('input#location[type=text]', { 
+                    class : 'form-control', 
+                    placeholder: __('location_placeholder'),
+                    onkeyup: ctrl.setLocation.bind(ctrl)
+                  })
                 ])
               ])
             ])
@@ -116,6 +144,8 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
                 ]),
                 m('span.venue-desc', [
                   m.trust(business.address),
+                  m.trust(',&nbsp;'),
+                  m.trust(business.city),
                   m.trust('&nbsp;'),
                   m('a', [
                     __('show_map'),

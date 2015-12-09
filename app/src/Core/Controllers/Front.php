@@ -9,6 +9,7 @@ use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
 use App\Core\Models\Review;
 use App\Haku\Searchers\BusinessesByCategory;
+use App\Haku\Searchers\BusinessesByCategoryAdvanced;
 use App\Haku\Searchers\BusinessesByDistrict;
 use Cookie;
 use Illuminate\Support\Collection;
@@ -378,16 +379,17 @@ class Front extends Base
             'size' => $perPage
         ];
 
-        $searchType = Input::get('type');
-        if (!empty($searchType) && $searchType === 'district') {
+        $searchType = Input::get('search_type');
+        if (!empty($searchType) && $searchType === 'district' && !empty(Input::get('location'))) {
             $params['keyword'] = Input::get('location');
             $params['category'] = $categoryKeyword;
 
             $s = new BusinessesByDistrict($params);
         } else {
-            $params['keyword'] = $categoryKeyword;
+            $params['keyword']  = Input::get('keyword');
+            $params['category'] = $categoryKeyword;
 
-            $s = new BusinessesByCategory($params);
+            $s = new BusinessesByCategoryAdv($params);
         }
 
         $paginator = $s->search();
