@@ -82,6 +82,10 @@
 
 @section('main-classes') front @stop
 
+@section('search')
+    @include ('front.el.search.front', ['categories' => $mcs])
+@stop
+
 @section('content')
 <div class="container business-container" id="business-container">
    <div class="row">

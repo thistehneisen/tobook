@@ -349,9 +349,13 @@ class Front extends Base
         $isMasterCategory = strpos(Request::path(), 'categories') !== false;
         $type = $isMasterCategory ? 'mc' : 'tm';
 
+        // Master categories
+        $masterCategories = MasterCategory::getAll();
+
         return $this->render('luokka',[
             'id'   => $id,
             'type' => $type,
+            'mcs'  => $masterCategories
         ]);
     }
 
