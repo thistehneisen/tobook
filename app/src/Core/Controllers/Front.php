@@ -400,8 +400,8 @@ class Front extends Base
 
         return Response::json([
             'businesses' => $businesses,
-            'pages'      => $paginator->count(),
-            'current'    => $paginator->getCurrentPage()
+            'current'    => $paginator->getCurrentPage(),
+            'count'      => $paginator->count(),
         ]);
     }
 
