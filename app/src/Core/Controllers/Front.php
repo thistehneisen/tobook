@@ -385,11 +385,15 @@ class Front extends Base
             $params['category'] = $categoryKeyword;
 
             $s = new BusinessesByDistrict($params);
-        } else {
+        } else if (!empty($searchType) && $searchType === 'keyword' && !empty(Input::get('keyword'))) {
             $params['keyword']  = Input::get('keyword');
             $params['category'] = $categoryKeyword;
 
-            $s = new BusinessesByCategoryAdv($params);
+            $s = new BusinessesByCategoryAdvanced($params);
+        } else {
+            $params['keyword'] = $categoryKeyword;
+
+            $s = new BusinessesByCategory($params);
         }
 
         $paginator = $s->search();
