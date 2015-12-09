@@ -120,6 +120,7 @@ return [
     'map'                 => 'Map',
     'no_offers'           => 'There is no offer available.',
     'show_more'           => 'Show more',
+    'show_map'            => 'Show map',
     'view_on_map'         => 'View result on map',
     // How it works?
     'hiw' => [

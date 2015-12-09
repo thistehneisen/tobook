@@ -117,7 +117,10 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
                 m('span.venue-desc', [
                   m.trust(business.address),
                   m.trust('&nbsp;'),
-                  m('a', [ m.trust('Show map &raquo;')])
+                  m('a', [
+                    __('show_map'),
+                    m.trust('&nbsp;&raquo;')
+                  ])
                 ]),
                 m('.popular-services', [
                   business.services.map((service) ->
