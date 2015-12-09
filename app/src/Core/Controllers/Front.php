@@ -399,6 +399,7 @@ class Front extends Base
         foreach ($items as $item) {
             //TODO
             $item['services'] = $item->user->asServices()->limit(2)->get();
+            $item['businessUrl'] = $item->businessUrl;
             $businesses[] = $item;
         }
 
