@@ -71,6 +71,7 @@
             'query_placeholder': '@lang('home.search.query')',
             'price_range': '@lang('as.bookings.price_range')',
             'show_more': '@lang('home.show_more')',
+            'view_on_map': '@lang('home.view_on_map')',
         }
 
         app.routes = {

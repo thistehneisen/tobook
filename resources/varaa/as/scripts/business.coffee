@@ -68,8 +68,9 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
       m('.row',[
         m('.col-sm-3.search-panel', [
           m('.row', [
-            m('i.fa.fa-map-marker.fa-2x'),
-            m.trust('View result on map')
+            m('i.fa.fa-map-marker.fa-2x.orange'),
+            m.trust('&nbsp;'),
+            m.trust(__('view_on_map'))
           ]),
           m('.row', [
             m('hr'),
@@ -111,7 +112,7 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
             ctrl.businesses.map((business, index) ->
               m('.business-item',[
                 m('h3.venue-title', [ 
-                  m('a[href=#]', [business.name]) 
+                  m('a', { href: business.businessUrl }, [business.name]) 
                 ]),
                 m('span.venue-desc', [
                   m.trust(business.address),
@@ -122,10 +123,12 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
                   business.services.map((service) ->
                     m('.row popular-service', [
                       m('.col-xs-8', [
-                        m('a', { href: business.businessUrl + '/?serviceId=' + service.id }, [ service.name ]) 
+                        m('span.orange', [service.name]) 
                       ]),
                       m('.col-xs-4', [
-                        m('button.btn.btn-orange.btn-square.pull-right', [ __('select') ])
+                        m('a.btn.btn-orange.btn-square.pull-right', { 
+                            href: business.businessUrl + '/?serviceId=' + service.id 
+                          }, [ __('select') ])
                       ])
                     ])
                   )
