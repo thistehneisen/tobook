@@ -37,11 +37,11 @@
           min: 0,
           max: 500,
           values: [ 75, 300 ],
-          slide: function( event, ui ) {
-            $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-          }
+          slide: function(event, ui) {
+            $( "#amount" ).val( "$" + ui.values[0] + " - $" + ui.values[1] );
+          },
         });
-        $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+        $("#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
           " - $" + $( "#slider-range" ).slider( "values", 1 ) );
         });
         $('.fancybox').fancybox({
@@ -52,7 +52,7 @@
             autoWidth: false,
             autoHeight: true,
         });
-        var app = app || {}
+        var app = app || {};
         app.i18n = {
             'select': '@lang('as.embed.cp.select')',
             'pl_service': '@lang('as.embed.cp.pl_service')',
@@ -82,11 +82,11 @@
             'show_more': '@lang('home.show_more')',
             'show_map': '@lang('home.show_map')',
             'view_on_map': '@lang('home.view_on_map')',
-        }
+        };
 
         app.routes = {
             'business.search': '{{ route('business.search') }}',
-        }
+        };
         app.VaraaBusiness(document.getElementById('business-container'), {{ $id }}, '{{ $type }}', null, null);
     </script>
 @stop

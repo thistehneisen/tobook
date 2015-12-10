@@ -14,7 +14,7 @@ class BusinessesByCategoryAdvanced extends Businesses
                     ['match' => ['name' => $this->getParam('keyword')]],
                     ['match' => ['keywords' => $this->getParam('keyword')]],
                     ['match' => ['description' => $this->getParam('keyword')]],
-                    ['match' => ['city' => $this->getParam('location')]],
+                    ['match' => ['city' => $this->getParam('location')]]
                 ],
                 'must' => [
                     [
@@ -24,7 +24,7 @@ class BusinessesByCategoryAdvanced extends Businesses
                     ]
                 ],
                 "minimum_should_match" => 1
-            ]
+            ],
         ];
     }
 }

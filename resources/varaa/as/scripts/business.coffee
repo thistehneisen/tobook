@@ -10,7 +10,7 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
 
   BusinessList = {}
   BusinessList.controller = ->
-    @dataStore = m.prop {id: id, type: type, keyword: keyword, search_type: '', location: location, page: 1, count: 1, priceRange: {}}
+    @dataStore = m.prop {id: id, type: type, keyword: keyword, search_type: '', location: location, page: 1, count: 1, min_price: 0, max_price: 500}
     
     @data       = m.prop {}
     @businesses = m.prop []
@@ -28,6 +28,8 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
           search_type: @dataStore().search_type
           keyword: @dataStore().keyword
           location: @dataStore().location
+          min_price: @dataStore().min_price
+          max_price: @dataStore().max_price
           page: @dataStore().page
       .then (data) =>
         if (@append)
@@ -115,9 +117,14 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
         range: true,
         min: 0,
         max: 500,
-        values: [ 75, 300 ],
-        slide: ( event, ui ) ->
-          $("#amount").val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        values: [@dataStore().min_price, @dataStore().max_price],
+        slide: (event, ui) ->
+          $("#amount").val( "$" + ui.values[0] + " - $" + ui.values[1]);
+        stop: (event, ui) =>
+          @dataStore().min_price = ui.values[0]
+          @dataStore().max_price = ui.values[1]
+          @append = false
+          @search()
 
        $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $( "#slider-range" ).slider("values", 1));
 
