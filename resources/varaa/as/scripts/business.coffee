@@ -140,7 +140,12 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
             ctrl.businesses.map((business, index) ->
               m('.business-item',[
                 m('h3.venue-title', [ 
-                  m('a', { href: business.businessUrl }, [business.name]) 
+                  m('a', { href: business.businessUrl }, [
+                    business.name,
+                    m.trust('&nbsp;'), 
+                    if (business.hasDiscount)
+                      m('i.fa.fa-tags.orange')
+                  ]) 
                 ]),
                 m('span.venue-desc', [
                   m.trust(business.address),

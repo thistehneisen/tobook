@@ -411,6 +411,7 @@ class Front extends Base
             //TODO
             $item['services'] = $item->user->asServices()->limit(2)->get();
             $item['businessUrl'] = $item->businessUrl;
+            $item['hasDiscount'] = $item->hasDiscount;
             $businesses[] = $item;
         }
 
