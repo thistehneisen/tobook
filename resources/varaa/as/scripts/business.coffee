@@ -1,5 +1,5 @@
 # global m, app
-app.VaraaBusiness = (dom, id, type, keyword, location) ->
+app.VaraaBusiness = (dom, id, type) ->
   'use strict'
   # Translation helper
   __ = (key) -> if app.i18n[key]? then app.i18n[key] else ''
@@ -10,7 +10,7 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
 
   BusinessList = {}
   BusinessList.controller = ->
-    @dataStore = m.prop {id: id, type: type, keyword: keyword, search_type: '', location: location, page: 1, count: 1, min_price: 0, max_price: 500}
+    @dataStore = m.prop {id: id, type: type, keyword: '', search_type: '', city: '', page: 1, count: 1, min_price: 0, max_price: 500}
     
     @data       = m.prop {}
     @businesses = m.prop []
@@ -27,7 +27,7 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
           type: @dataStore().type
           search_type: @dataStore().search_type
           keyword: @dataStore().keyword
-          location: @dataStore().location
+          city: @dataStore().city
           min_price: @dataStore().min_price
           max_price: @dataStore().max_price
           page: @dataStore().page
@@ -55,9 +55,9 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
         if(@dataStore().page == @dataStore().count)
           $('.show-more').hide()
 
-    @setLocation = (e) ->
+    @setCity = (e) ->
       el = e.target
-      @dataStore().location = el.value
+      @dataStore().city = el.value
       @dataStore().search_type = 'city'
       @append = false
       @search()
@@ -165,10 +165,10 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
               ]),
               m('.form-group', [
                 m('.col-sm-12', [
-                  m('input#location[type=text]', { 
+                  m('input#city[type=text]', { 
                     class : 'form-control', 
                     placeholder: __('location_placeholder'),
-                    onkeyup: ctrl.setLocation.bind(ctrl)
+                    onkeyup: ctrl.setCity.bind(ctrl)
                   })
                 ])
               ])
