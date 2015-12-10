@@ -784,7 +784,7 @@ class Business extends Base
     public function getMinServicePriceAttribute()
     {
         $minPrice = Service::where('user_id', '=', $this->user_id)
-            ->where('is_active', '=', 'true')
+            ->where('is_active', '=', true)
             ->min('price');
 
         return (!empty($minPrice)) ? $minPrice : 0;
@@ -798,7 +798,7 @@ class Business extends Base
     public function getMaxServicePriceAttribute()
     {
         $maxPrice = Service::where('user_id', '=', $this->user_id)
-            ->where('is_active', '=', 'true')
+            ->where('is_active', '=', true)
             ->max('price');
 
         return (!empty($maxPrice)) ? $maxPrice : 0;

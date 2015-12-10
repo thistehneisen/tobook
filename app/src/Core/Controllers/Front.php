@@ -11,6 +11,7 @@ use App\Core\Models\Review;
 use App\Haku\Searchers\BusinessesByCategory;
 use App\Haku\Searchers\BusinessesByCategoryAdvanced;
 use App\Haku\Searchers\BusinessesByDistrict;
+use App\Haku\Searchers\BusinessesByCity;
 use Cookie;
 use Illuminate\Support\Collection;
 use Input;
