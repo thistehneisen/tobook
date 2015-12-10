@@ -67,9 +67,50 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
       @append = false
       @search()
 
-    @showMap = (lat, lon, e) ->
+    @addMarkers = (gmap, markers) ->
+      for marker in markers
+        do (marker) ->
+          obj = gmap.addMarker marker
+          google.maps.event.addListener gmap.map, 'center_changed', (e) ->
+            center = gmap.map.getCenter()
+            if center.equals new google.maps.LatLng marker.lat, marker.lng
+              obj.infoWindow.open gmap.map, obj
+
+    @renderMap =  (domId, lat, lng, markers) ->
+      gmap = new GMaps
+        div: domId
+        lat: lat
+        lng: lng
+        zoom: 13
+
+      if markers?
+        @addMarkers gmap, markers
+      return gmap
+
+    @makeMarker =  (business) ->
+      markers = []
+      markers.push
+        lat: business.lat
+        lng: business.lng
+        title: business.name
+        infoWindow:
+          content: "<p><strong>#{business.name}</strong></p><p>#{business.full_address}</p>"
+      return markers
+
+    @showMap = (business, e) ->
       e.preventDefault()
-      console.log([lat, lon]);
+      console.log([business.lat, business.lng]);
+      marker = @makeMarker(business)
+      @renderMap('gmap', business.lat, business.lng, marker)
+      $('.fancybox').fancybox
+        padding: 5,
+        width: 500,
+        title: '',
+        autoSize: false,
+        autoWidth: false,
+        autoHeight: true,
+        onComplete = ->
+          google.maps.event.trigger(map, "resize")
 
     @init = ->
       $("#slider-range").slider
@@ -136,7 +177,8 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
               m.trust('&nbsp;'),
               m('input#amount[type=text]', { readonly: true, style: 'border:0; color:#f6931f; font-weight:bold;'} ),
               m('#slider-range')
-            ])
+            ]),
+            m('.fancybox#gmap', { style: 'height: 270px; width: 270px' },[])
           ])
         ]),
         m('.col-sm-9.business-list', [
@@ -156,7 +198,7 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
                   m.trust(',&nbsp;'),
                   m.trust(business.city),
                   m.trust('&nbsp;'),
-                  m('a[href=#]', { onclick: ctrl.showMap.bind(ctrl, business.lat, business.lng) }, [
+                  m('a[href=#]', { onclick: ctrl.showMap.bind(ctrl, business) }, [
                     __('show_map'),
                     m.trust('&nbsp;&raquo;')
                   ])
