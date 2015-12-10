@@ -67,6 +67,10 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
       @append = false
       @search()
 
+    @showMap = (lat, lon, e) ->
+      e.preventDefault()
+      console.log([lat, lon]);
+
     @init = ->
       $("#slider-range").slider
         range: true,
@@ -152,7 +156,7 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
                   m.trust(',&nbsp;'),
                   m.trust(business.city),
                   m.trust('&nbsp;'),
-                  m('a', [
+                  m('a[href=#]', { onclick: ctrl.showMap.bind(ctrl, business.lat, business.lng) }, [
                     __('show_map'),
                     m.trust('&nbsp;&raquo;')
                   ])
