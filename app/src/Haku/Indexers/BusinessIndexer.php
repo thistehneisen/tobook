@@ -64,6 +64,9 @@ class BusinessIndexer extends AbstractIndexer
             'country'           => $document->country ?: '',
             'phone'             => $document->phone ?: '',
             'description'       => $document->description ?: '',
+            'has_discount'      => $document->hasDiscount ?: false,
+            'min_price'         => $document->minServicePrice ?: 0,
+            'max_price'         => $document->maxServicePrice ?: 0,
             'location'          => [
                 'lat' => $document->lat ?: 0,
                 'lon' => $document->lng ?: 0
@@ -85,6 +88,9 @@ class BusinessIndexer extends AbstractIndexer
             'country'           => ['type' => 'string'],
             'phone'             => ['type' => 'string'],
             'description'       => ['type' => 'string'],
+            'has_discount'      => ['type' => 'boolean'],
+            'min_price'         => ['type' => 'integer'],
+            'max_price'         => ['type' => 'integer'],
             'location'          => ['type' => 'geo_point'],
         ];
     }

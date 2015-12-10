@@ -360,6 +360,11 @@ class Front extends Base
         ]);
     }
 
+    /**
+     * Handle request from new business list layout 
+     * 
+     * @return json
+     */
     public function search()
     {
         $id   = Input::get('id');
