@@ -385,11 +385,11 @@ class Front extends Base
         ];
 
         $searchType = Input::get('search_type');
-        if (!empty($searchType) && $searchType === 'district' && !empty(Input::get('location'))) {
+        if (!empty($searchType) && $searchType === 'city' && !empty(Input::get('location'))) {
             $params['keyword'] = Input::get('location');
             $params['category'] = $categoryKeyword;
 
-            $s = new BusinessesByDistrict($params);
+            $s = new BusinessesByCity($params);
         } else if (!empty($searchType) && $searchType === 'keyword' && !empty(Input::get('keyword'))) {
             $params['keyword']  = Input::get('keyword');
             $params['category'] = $categoryKeyword;

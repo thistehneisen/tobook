@@ -56,7 +56,7 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
     @setLocation = (e) ->
       el = e.target
       @dataStore().location = el.value
-      @dataStore().search_type = 'district'
+      @dataStore().search_type = 'city'
       @append = false
       @search()
 
@@ -105,7 +105,6 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
 
     @showMap = (business, e) ->
       e.preventDefault()
-      console.log([business.lat, business.lng]);
       marker = @makeMarker(business)
       @makeMapContainer()
       @renderMap('gmap', business.lat, business.lng, marker)
