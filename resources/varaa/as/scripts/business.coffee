@@ -97,20 +97,19 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
           content: "<p><strong>#{business.name}</strong></p><p>#{business.full_address}</p>"
       return markers
 
+    @makeMapContainer = () ->
+      if $('#gmap').length 
+        $('#gmap').remove()
+      gmap = $('<div>', { class: 'fancybox', id: 'gmap', style: 'height: 500px; width: 500px' })
+      gmap.appendTo($('body'));
+
     @showMap = (business, e) ->
       e.preventDefault()
       console.log([business.lat, business.lng]);
       marker = @makeMarker(business)
+      @makeMapContainer()
       @renderMap('gmap', business.lat, business.lng, marker)
-      $('.fancybox').fancybox
-        padding: 5,
-        width: 500,
-        title: '',
-        autoSize: false,
-        autoWidth: false,
-        autoHeight: true,
-        onComplete = ->
-          google.maps.event.trigger(map, "resize")
+      $('#gmap').trigger('click');
 
     @init = ->
       $("#slider-range").slider
@@ -178,7 +177,6 @@ app.VaraaBusiness = (dom, id, type, keyword, location) ->
               m('input#amount[type=text]', { readonly: true, style: 'border:0; color:#f6931f; font-weight:bold;'} ),
               m('#slider-range')
             ]),
-            m('.fancybox#gmap', { style: 'height: 270px; width: 270px' },[])
           ])
         ]),
         m('.col-sm-9.business-list', [

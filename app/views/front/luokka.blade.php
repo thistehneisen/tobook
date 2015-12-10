@@ -44,6 +44,14 @@
         $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
           " - $" + $( "#slider-range" ).slider( "values", 1 ) );
         });
+        $('.fancybox').fancybox({
+            padding: 5,
+            width: 500,
+            title: '',
+            autoSize: false,
+            autoWidth: false,
+            autoHeight: true,
+        });
         var app = app || {}
         app.i18n = {
             'select': '@lang('as.embed.cp.select')',
