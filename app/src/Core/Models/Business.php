@@ -758,6 +758,52 @@ class Business extends Base
         return $str;
     }
 
+     /**
+     * Check if business has discount option
+     *
+     * @return bool
+     */
+    public function getHasDiscountAttribute()
+    {  
+        $discount = Discount::where('user_id', '=', $this->user_id)
+            ->where('is_active', '=', true)->first();
+        $lastMinuteDiscount = DiscountLastMinute::find($this->user_id);
+
+        if (!empty($discount) || !empty($lastMinuteDiscount)) {
+            return true;
+        }
+
+        return false;
+    }
+
+     /**
+     * Find the min service price belong to this business
+     *
+     * @return integer
+     */
+    public function getMinServicePriceAttribute()
+    {
+        $minPrice = Service::where('user_id', '=', $this->user_id)
+            ->where('is_active', '=', true)
+            ->min('price');
+
+        return (!empty($minPrice)) ? $minPrice : 0;
+    }
+
+     /**
+     * Find the max service price belong to this business
+     *
+     * @return integer
+     */
+    public function getMaxServicePriceAttribute()
+    {
+        $maxPrice = Service::where('user_id', '=', $this->user_id)
+            ->where('is_active', '=', true)
+            ->max('price');
+
+        return (!empty($maxPrice)) ? $maxPrice : 0;
+    }
+
     /**
      * Get a number of random businesses
      *

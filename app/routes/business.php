@@ -6,12 +6,22 @@
 */
 Route::get('categories/{id}-{slug?}', [
     'as'    => 'business.master_category',
-    'uses'  => 'App\Core\Controllers\Front@category'
+    'uses'  => 'App\Core\Controllers\Front@luokka'
 ]);
 
 Route::get('treatments/{id}-{slug?}', [
     'as'    => 'business.treatment',
-    'uses'  => 'App\Core\Controllers\Front@category'
+    'uses'  => 'App\Core\Controllers\Front@luokka'
+]);
+
+// Route::get('/test/{id}-{slug?}', [
+//     'as'    => 'business.test',
+//     'uses'  => 'App\Core\Controllers\Front@test'
+// ]);
+    
+Route::get('/search', [
+    'as'    => 'business.search',
+    'uses'  => 'App\Core\Controllers\Front@search'
 ]);
 
 /*

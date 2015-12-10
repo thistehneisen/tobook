@@ -9,7 +9,9 @@ use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
 use App\Core\Models\Review;
 use App\Haku\Searchers\BusinessesByCategory;
+use App\Haku\Searchers\BusinessesByCategoryAdvanced;
 use App\Haku\Searchers\BusinessesByDistrict;
+use App\Haku\Searchers\BusinessesByCity;
 use Cookie;
 use Illuminate\Support\Collection;
 use Input;
@@ -337,4 +339,83 @@ class Front extends Base
         return Redirect::route('businesses.review', ['id' => $user->id, 'slug' => $user->business->slug])
             ->with('showSuccess', true);
     }
+
+    /**
+     * Test new layout
+     * 
+     * @return View
+     */
+    public function luokka($id, $slug)
+    {   
+        // Get the correct model based on first URL segment
+        $isMasterCategory = strpos(Request::path(), 'categories') !== false;
+        $type = $isMasterCategory ? 'mc' : 'tm';
+
+        // Master categories
+        $masterCategories = MasterCategory::getAll();
+
+        return $this->render('luokka',[
+            'id'   => $id,
+            'type' => $type,
+            'mcs'  => $masterCategories
+        ]);
+    }
+
+    /**
+     * Handle request from new business list layout 
+     * 
+     * @return json
+     */
+    public function search()
+    {
+        $id   = Input::get('id');
+        $type = Input::get('type');
+
+        $categoryKeyword = $type . '_' . $id;
+
+        $model = ($type === 'mc')
+            ? '\App\Appointment\Models\MasterCategory'
+            : '\App\Appointment\Models\TreatmentType';
+        $instance = $model::findOrFail($id);
+
+        $perPage = 15;
+        $params = [
+            'location' => Util::getCoordinates(),
+            'from' => (Input::get('page', 1) - 1) * $perPage,
+            'size' => $perPage
+        ];
+
+        $searchType = Input::get('search_type');
+        
+        if (!empty(Input::get('location')) || !empty(Input::get('keyword'))) {
+            $params['keyword']  = Input::get('keyword');
+            $params['category'] = $categoryKeyword;
+            $s = new BusinessesByCategoryAdvanced($params);
+        } else {
+            $params['keyword'] = $categoryKeyword;
+
+            $s = new BusinessesByCategory($params);
+        }
+
+        $paginator = $s->search();
+
+        $items = $paginator->getItems();
+
+        $businesses = [];
+
+        foreach ($items as $item) {
+            //TODO
+            $item['services'] = $item->user->asServices()->limit(2)->get();
+            $item['businessUrl'] = $item->businessUrl;
+            $item['hasDiscount'] = $item->hasDiscount;
+            $businesses[] = $item;
+        }
+
+        return Response::json([
+            'businesses' => $businesses,
+            'current'    => $paginator->getCurrentPage(),
+            'count'      => $paginator->count(),
+        ]);
+    }
+
 }
