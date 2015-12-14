@@ -66,6 +66,7 @@ class Front extends Base
         if ((bool) Settings::get('enable_homepage_modal', false)
             && Cookie::get('shown_homepage_modal') !== true) {
             $iframeUrl = Settings::get('homepage_modal_url');
+            $iframeUrl .= '?lang=' . App::getLocale();
         }
 
         // Get 4 random busiensses which have discount #718
