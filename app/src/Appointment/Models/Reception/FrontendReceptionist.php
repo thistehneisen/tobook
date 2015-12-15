@@ -41,6 +41,7 @@ class FrontendReceptionist extends Receptionist
     public function validateBooking()
     {
         $this->validateWithEmployeeFreetime();
+        $this->isValidWithCustomTime();
         $this->validateWithExistingBooking();
         $this->validateWithResources();
         $this->validateWithRooms();

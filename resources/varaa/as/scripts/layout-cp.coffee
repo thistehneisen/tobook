@@ -555,7 +555,7 @@ app.VaraaCPLayout = (dom, hash) ->
 
   LayoutCP = {}
   LayoutCP.controller = ->
-    @dataStore = m.prop {hash: hash, customer: {}, serviceTime : 'default', service : {}, employee: {}}
+    @dataStore = m.prop {hash: hash, customer: {}, serviceTime : 'default', service : {}, employee: {}, isOK : true}
 
     # Fetch services JSON data
     @data = m.prop {}
@@ -585,7 +585,9 @@ app.VaraaCPLayout = (dom, hash) ->
       @activePanel(index) if @panels[index]?
       return
 
-    @moveNext = -> @move(1)
+    @moveNext = () =>
+      if (@dataStore().isOK == true)
+        @move(1)
 
     @moveBack = -> @move(-1)
 
@@ -670,11 +672,19 @@ app.VaraaCPLayout = (dom, hash) ->
           hash: ds.hash
           booking_date: ds.date
           start_time: ds.time
-      .then (data) ->
-        ['uuid', 'cart_id', 'booking_service_id'].map (field) ->
-          ds[field] = data[field]
-          return
-        return ds
+      .then \
+        (data) ->
+          ['uuid', 'cart_id', 'booking_service_id'].map (field) ->
+            ds[field] = data[field]
+            return
+          ds['isOK'] = true
+          return ds
+        ,(data) ->
+          console.log(data)
+          if (data.message)
+            alertify.alert(data.message)
+            ds['isOK'] = false
+          return false
 
     @placeBooking = ->
       ds = @dataStore()

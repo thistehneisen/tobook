@@ -316,6 +316,37 @@ class Employee extends \App\Appointment\Models\Base
         return (!empty($freetime)) ? true : false;
     }
 
+     /**
+     * Check if the booking start time and end time valid with
+     * current employee custom time
+     *
+     * @param string $date
+     * @param Carbon $startTime
+     * @param Carbon $endTime
+     *
+     * @return boolean
+     */
+    public function isValidWithCustomTime($date, $startTime, $endTime)
+    {
+        $empCustomTime = $this->employeeCustomTimes()->where('date', '=', $date)->first();
+
+        if (empty($empCustomTime)) {
+            return false;
+        }
+
+        $customTime = $empCustomTime->customTime;
+
+        if ($startTime->lt($customTime->getStartAt()) || $endTime->gt($customTime->getEndAt())) {
+            return true;
+        }
+
+        if ((bool)$customTime->is_day_off) {
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Check if the booking start time and end time overlap with
      * current employee freetime, mimic isOverllapedWithFreetime but
