@@ -3,6 +3,14 @@
 @section('content')
 <h3>{{ trans('admin.nav.settings') }}</h3>
 
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        {{ implode('', $errors->all('<li>:message</li>')) }}
+    </ul>
+</div>
+@endif
+
 {{ Form::open(['route' => 'admin.settings', 'class' => 'form-horizontal']) }}
 
 @foreach ($controls as $field)
