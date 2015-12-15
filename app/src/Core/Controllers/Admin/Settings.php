@@ -61,7 +61,7 @@ class Settings extends Base
             $setting = Setting::findOrNew($key);
             // Need to validate in somewhere else
             if ($key === 'homepage_modal_cookie_expiry_duration') {
-                if (!is_int($value)){
+                if (!is_numeric($value)){
                     $errors[] = trans('admin.settings.errors.invalid_value_for_expiry_duration');
                     continue;
                 }
