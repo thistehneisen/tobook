@@ -190,6 +190,7 @@ return [
             'missing_services'            => 'Add a service to continue!',
             'late_cancellation'           => 'You can only cancel the booking before %d hour(s)',
             'invalid_reminder_time'       => 'Reminder time cannot be in the past!',
+            'invalid_with_custom_time'    => 'Booking time is not valid. Please refresh the page!',
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',
