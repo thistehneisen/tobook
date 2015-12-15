@@ -141,6 +141,8 @@ return [
         'homepage_modal_url'           => 'Homepage modal URL',
         'enable_business_modal'        => 'Enable business modal',
         'business_modal_url'           => 'Business modal URL',
+        'homepage_modal_cookie_name'   => 'Cookie name',
+        'homepage_modal_cookie_expiry_duration' => 'Expiry duration (minutes)',
         'coupon'                       => 'Coupon',
         'show_discount_suggestion'     => 'Discount suggestions on fronpage',
     ],

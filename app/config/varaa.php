@@ -155,8 +155,16 @@ return [
         //----------------------------------------------------------------------
         'contact_email' => ['type' => 'Text',  'default' => ''],
         'booking_terms' => ['type' => 'Textarea',  'default' => '', 'options' => ['rows'=> 30, 'class' => 'form-control ckeditor'] ],
+        //----------------------------------------------------------------------
+        // Homepage marketing modal
+        //----------------------------------------------------------------------
         'enable_homepage_modal' => ['type' => 'Radio',  'default' => false],
         'homepage_modal_url' => ['type' => 'Text',  'default' => ''],
+        'homepage_modal_cookie_name' => ['type' => 'Text',  'default' => 'shown_homepage_modal'],
+        'homepage_modal_cookie_expiry_duration' => ['type' => 'Text',  'default' => '20160'],
+        //----------------------------------------------------------------------
+        // Business modal
+        //----------------------------------------------------------------------
         'enable_business_modal' => ['type' => 'Radio',  'default' => false],
         'business_modal_url' => ['type' => 'Text',  'default' => ''],
         //----------------------------------------------------------------------
