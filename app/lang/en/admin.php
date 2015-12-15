@@ -145,6 +145,9 @@ return [
         'homepage_modal_cookie_expiry_duration' => 'Expiry duration (minutes)',
         'coupon'                                => 'Coupon',
         'show_discount_suggestion'              => 'Discount suggestions on fronpage',
+        'errors' => [
+            'invalid_value_for_expiry_duration' => 'Expiry duration must be a number!',
+        ]
     ],
     'master-cats' => [
         'all'         => 'All master category',

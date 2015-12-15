@@ -53,16 +53,31 @@ class Settings extends Base
     {
         // Don't use CSRF token
         $input = Input::except('_token');
+        // Error message bag
+        $errors = null;
 
         // Save all input as
         foreach ($input as $key => $value) {
             $setting = Setting::findOrNew($key);
+            // Need to validate in somewhere else
+            if ($key === 'homepage_modal_cookie_expiry_duration') {
+                if (!is_int($value)){
+                    $errors[] = trans('admin.settings.errors.invalid_value_for_expiry_duration');
+                    continue;
+                }
+            }
             $setting->key   = $key;
             $setting->value = $value;
             $setting->save();
         }
 
-        return Redirect::route('admin.settings');
+        $redirect = Redirect::route('admin.settings');
+
+        if (!empty($errors)) {
+            $redirect = $redirect->withErrors($errors);
+        }
+
+        return $redirect;
     }
 
     /**
