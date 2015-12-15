@@ -61,10 +61,12 @@ class Front extends Base
         // Should we display the modal in homepage?
         // @see: https://github.com/varaa/varaa/issues/644
         $iframeUrl = null;
-        Cookie::queue('shown_homepage_modal', true, 60*24*14); // 14 days
+        $cookieName = Settings::get('homepage_modal_cookie_name');
+        $duration   = Settings::get('homepage_modal_cookie_expiry_duration');
+        Cookie::queue($cookieName, true, $duration); // 14 days
 
         if ((bool) Settings::get('enable_homepage_modal', false)
-            && Cookie::get('shown_homepage_modal') !== true) {
+            && Cookie::get($cookieName) !== true) {
             $iframeUrl = Settings::get('homepage_modal_url');
             $iframeUrl .= '?lang=' . App::getLocale();
         }
