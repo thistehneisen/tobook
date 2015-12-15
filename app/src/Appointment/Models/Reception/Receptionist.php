@@ -534,6 +534,26 @@ abstract class Receptionist implements ReceptionistInterface
         return true;
     }
 
+    /**
+     * Check if booking time is valid within possible custom time
+     * @see https://github.com/varaa/varaa/issues/740
+     */
+    public function isValidWithCustomTime()
+    {
+        //Check if the book overllap with custom time
+        $isOverllapedWithFreetime = $this->employee->isValidWithCustomTime(
+            $this->date,
+            $this->getStartTime(),
+            $this->getEndTime()
+        );
+
+        if ($isOverllapedWithFreetime) {
+            throw new Exception(trans('as.bookings.error.invalid_with_custom_time'), 1);
+        }
+
+        return true;
+    }
+
     public function validateWithExistingBooking()
     {
         //upsert booking service
