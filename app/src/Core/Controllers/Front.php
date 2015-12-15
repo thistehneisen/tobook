@@ -62,12 +62,12 @@ class Front extends Base
         // @see: https://github.com/varaa/varaa/issues/644
         $iframeUrl = null;
         $cookieName = Settings::get('homepage_modal_cookie_name');
-        $duration   = Settings::get('homepage_modal_cookie_expiry_duration');
-        Cookie::queue($cookieName, true, $duration); // 14 days
+        $duration   = (int) Settings::get('homepage_modal_cookie_expiry_duration');
+        Cookie::queue($cookieName, true, $duration);
 
         if ((bool) Settings::get('enable_homepage_modal', false)
             && Cookie::get($cookieName) !== true) {
-            $iframeUrl = Settings::get('homepage_modal_url');
+            $iframeUrl  = Settings::get('homepage_modal_url');
             $iframeUrl .= '?lang=' . App::getLocale();
         }
 
