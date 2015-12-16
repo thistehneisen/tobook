@@ -174,7 +174,6 @@ app.VaraaBusiness = (dom, id, type) ->
       $('#gmap').trigger('click');
 
     @getShowMoreStyle = () ->
-      console.log([@count(), @page()])
       if (@count() == 1 || @page() == @count())
         return 'display:none'
 
