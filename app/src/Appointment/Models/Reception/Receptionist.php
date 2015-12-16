@@ -540,11 +540,25 @@ abstract class Receptionist implements ReceptionistInterface
      */
     public function isNotValidWithCustomTime()
     {
+        $employee = (!empty($this->employee->id))
+            ? $this->employee
+            : $this->bookingService->employee;
+
+
+        // There is no booking service before booking service is placed 
+        $startTime = (!empty($this->startTime))
+            ? $this->getStartTime()
+            : $this->bookingService->startTime;
+
+        $endTime = (!empty($this->endTime))
+            ? $this->getEndTime()
+            : $this->bookingService->EndTime;
+
         //Check if the book overllap with custom time
-        $isNotValidWithCustomTime = $this->employee->isNotValidWithCustomTime(
+        $isNotValidWithCustomTime = $employee->isNotValidWithCustomTime(
             $this->date,
-            $this->getStartTime(),
-            $this->getEndTime()
+            $startTime,
+            $endTime
         );
 
         if ($isNotValidWithCustomTime) {
