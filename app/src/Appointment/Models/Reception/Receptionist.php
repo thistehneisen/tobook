@@ -550,7 +550,7 @@ abstract class Receptionist implements ReceptionistInterface
             ? $this->getStartTime()
             : $this->bookingService->startTime;
 
-        $endTime = (!empty($this->endTime))
+        $endTime = (!empty($this->startTime))
             ? $this->getEndTime()
             : $this->bookingService->EndTime;
 
