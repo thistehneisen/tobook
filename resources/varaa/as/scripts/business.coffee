@@ -10,7 +10,7 @@ app.VaraaBusiness = (dom, id, type) ->
 
   BusinessList = {}
   BusinessList.controller = ->
-    @dataStore = m.prop {id: id, type: type, keyword: '', search_type: '', city: '', page: 1, count: 1, min_price: 0, max_price: 500}
+    @dataStore = m.prop { id: id, type: type, keyword: '', search_type: '', city: '', show_discount: false, page: 1, count: 1, min_price: 0, max_price: 500}
     
     @data       = m.prop {}
     @businesses = m.prop []
@@ -28,27 +28,29 @@ app.VaraaBusiness = (dom, id, type) ->
           search_type: @dataStore().search_type
           keyword: @dataStore().keyword
           city: @dataStore().city
+          show_discount: @dataStore().show_discount
           min_price: @dataStore().min_price
           max_price: @dataStore().max_price
           page: @dataStore().page
       .then (data) =>
         if (@append)
           for business in data.businesses
-            @cache.push business
-          @businesses = @cache
+            @businesses().push business
         else
           @businesses = data.businesses
 
         @dataStore().page = data.current
         @dataStore().count = data.count
       .then () =>
+        m.redraw.strategy("diff")
         m.redraw()
         $('#show-more-spin').hide()
-        window.location.hash = 'show-more'
+        # window.location.hash = 'show-more'
         @init()
 
-    @showMore = () ->
-      window.location.hash = 'show-more'
+    @showMore = (e) ->
+      e.preventDefault()
+      # window.location.hash = 'show-more'
       if (@dataStore().page < @dataStore().count)
         @dataStore().page += 1
         @search()
@@ -195,8 +197,8 @@ app.VaraaBusiness = (dom, id, type) ->
           ])
         ]),
         m('.col-sm-9.business-list', [
-          if (ctrl.businesses.length > 0)
-            ctrl.businesses.map((business, index) ->
+          if (ctrl.businesses().length > 0)
+            ctrl.businesses().map((business, index) ->
               m('.business-item',[
                 m('h3.venue-title', [ 
                   m('a', { href: business.businessUrl }, [
