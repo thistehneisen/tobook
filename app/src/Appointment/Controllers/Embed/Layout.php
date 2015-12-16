@@ -339,6 +339,10 @@ trait Layout
 
     /**
      * Generate the timetable of all employees and merge them into one
+     * 
+     * The point is to generate all possible timeslot of selected service
+     * regardless to who serve it. All employee-specific factor need to be
+     * validated later
      *
      * @param Service $service
      * @param Carbon  $date

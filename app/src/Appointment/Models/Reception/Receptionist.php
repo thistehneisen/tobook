@@ -541,13 +541,13 @@ abstract class Receptionist implements ReceptionistInterface
     public function isValidWithCustomTime()
     {
         //Check if the book overllap with custom time
-        $isOverllapedWithFreetime = $this->employee->isValidWithCustomTime(
+        $isNotValidWithCustomTime = $this->employee->isValidWithCustomTime(
             $this->date,
             $this->getStartTime(),
             $this->getEndTime()
         );
 
-        if ($isOverllapedWithFreetime) {
+        if ($isNotValidWithCustomTime) {
             throw new Exception(trans('as.bookings.error.invalid_with_custom_time'), 1);
         }
 
@@ -646,6 +646,7 @@ abstract class Receptionist implements ReceptionistInterface
         $this->validateBooking();
         $this->validateEmployee();
         $this->validateWithRooms();
+        $this->isValidWithCustomTime();
 
         $this->setBookingService();
 
