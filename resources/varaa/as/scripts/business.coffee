@@ -57,17 +57,26 @@ app.VaraaBusiness = (dom, id, type) ->
 
     @setCity = (e) ->
       el = e.target
+      init = el.value
       @dataStore().city = el.value
       @dataStore().search_type = 'city'
       @append = false
-      @search()
+      setTimeout( =>
+        if (el.value == init)
+          @search()
+      , 300)
 
     @setKeyword = (e) ->
       el = e.target
+      init = el.value
       @dataStore().keyword = el.value
       @dataStore().search_type = 'keyword'
       @append = false
-      @search()
+
+      setTimeout( =>
+        if (el.value == init)
+          @search()
+      , 300)
 
     @addMarkers = (gmap, markers) ->
       for marker in markers
