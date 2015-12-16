@@ -44,14 +44,21 @@
         $("#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
           " - $" + $( "#slider-range" ).slider( "values", 1 ) );
         });
-        $('.fancybox').fancybox({
-            padding: 5,
+        // $('.fancybox').fancybox({
+        //     padding: 0,
+        //     width: 500,
+        //     title: '',
+        //     autoSize: false,
+        //     autoWidth: false,
+        //     autoHeight: true,
+        // });
+        $(".fancybox").dialog({
+            height: 500,
             width: 500,
-            title: '',
-            autoSize: false,
-            autoWidth: false,
-            autoHeight: true,
+            resizable: false,
+            title: "Edit"
         });
+
         var app = app || {};
         app.i18n = {
             'select': '@lang('as.embed.cp.select')',

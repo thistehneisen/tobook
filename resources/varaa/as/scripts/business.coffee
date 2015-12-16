@@ -64,6 +64,7 @@ app.VaraaBusiness = (dom, id, type) ->
       @dataStore().search_type = 'city'
       @dataStore().page = 1
       @append = false
+
       setTimeout( =>
         if (el.value == init)
           @search()
@@ -112,17 +113,49 @@ app.VaraaBusiness = (dom, id, type) ->
           content: "<p><strong>#{business.name}</strong></p><p>#{business.full_address}</p>"
       return markers
 
-    @makeMapContainer = () ->
+    @makeMarkers =  (businesses) ->
+      markers = []
+      for business in businesses    
+        markers.push
+          lat: business.lat
+          lng: business.lng
+          title: business.name
+          infoWindow:
+            content: "<p><strong>#{business.name}</strong></p><p>#{business.full_address}</p>"
+      return markers
+
+    @makeMapContainer = (width = '500px', height = '500px') ->
       if $('#gmap').length 
         $('#gmap').remove()
-      gmap = $('<div>', { class: 'fancybox', id: 'gmap', style: 'height: 500px; width: 500px' })
+      gmap = $('<div>', { class: 'dialog', id: 'gmap', style: "height: #{height}; width: #{width}" })
       gmap.appendTo($('body'));
 
     @showMap = (business, e) ->
       e.preventDefault()
       marker = @makeMarker(business)
       @makeMapContainer()
+      $(".dialog").dialog({
+            height: 500,
+            width: 500,
+            resizable: false,
+            title: ""
+      });
+      $('.dialog').dialog('open');
       @renderMap('gmap', business.lat, business.lng, marker)
+      $('#gmap').trigger('click');
+
+    @viewOnMap = (businesses, e) ->
+      e.preventDefault()
+      markers = @makeMarkers(businesses)
+      @makeMapContainer('800px', '500px');
+      $(".dialog").dialog({
+            height: 500,
+            width: 800,
+            resizable: false,
+            title: ""
+      });
+      $('.dialog').dialog('open');
+      @renderMap('gmap', businesses[0].lat, businesses[0].lng, markers)
       $('#gmap').trigger('click');
 
     @init = ->
@@ -153,7 +186,9 @@ app.VaraaBusiness = (dom, id, type) ->
           m('.row', [
             m('i.fa.fa-map-marker.fa-2x.orange'),
             m.trust('&nbsp;'),
-            m.trust(__('view_on_map'))
+            m('a[href=#]', { onclick: ctrl.viewOnMap.bind(ctrl, ctrl.businesses()) }, [
+                __('view_on_map'),
+            ])
           ]),
           m('.row', [
             m('hr'),
