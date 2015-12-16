@@ -75,7 +75,7 @@ class FrontendReceptionist extends Receptionist
     {
         $this->setBookingService();
         $this->validateEmptyBookingService();
-        $this->isValidWithCustomTime();
+        $this->isNotValidWithCustomTime();
 
         $booking = new Booking();
 

@@ -326,7 +326,7 @@ class Employee extends \App\Appointment\Models\Base
      *
      * @return boolean
      */
-    public function isValidWithCustomTime($date, $startTime, $endTime)
+    public function isNotValidWithCustomTime($date, $startTime, $endTime)
     {
         $empCustomTime = $this->employeeCustomTimes()->where('date', '=', $date)->first();
 
