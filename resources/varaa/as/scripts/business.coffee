@@ -37,7 +37,7 @@ app.VaraaBusiness = (dom, id, type) ->
           for business in data.businesses
             @businesses().push business
         else
-          @businesses = data.businesses
+          @businesses(data.businesses) 
 
         @dataStore().page = data.current
         @dataStore().count = data.count
@@ -62,6 +62,7 @@ app.VaraaBusiness = (dom, id, type) ->
       init = el.value
       @dataStore().city = el.value
       @dataStore().search_type = 'city'
+      @dataStore().page = 1
       @append = false
       setTimeout( =>
         if (el.value == init)
@@ -73,6 +74,7 @@ app.VaraaBusiness = (dom, id, type) ->
       init = el.value
       @dataStore().keyword = el.value
       @dataStore().search_type = 'keyword'
+      @dataStore().page = 1
       @append = false
 
       setTimeout( =>
