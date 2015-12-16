@@ -14,6 +14,8 @@ app.VaraaBusiness = (dom, id, type) ->
     
     @data       = m.prop {}
     @businesses = m.prop []
+    @count = m.prop 1
+    @page = m.prop 1
     @cache = []
     @append = true
 
@@ -41,6 +43,9 @@ app.VaraaBusiness = (dom, id, type) ->
 
         @dataStore().page = data.current
         @dataStore().count = data.count
+
+        @page(data.current)
+        @count(data.count)
       .then () =>
         m.redraw.strategy("diff")
         m.redraw()
@@ -82,6 +87,16 @@ app.VaraaBusiness = (dom, id, type) ->
         if (el.value == init)
           @search()
       , 300)
+
+    @setShowDiscount = (e) ->
+      el = e.target
+      if (el.checked)
+        @dataStore().show_discount = 1
+      else
+        @dataStore().show_discount = 0
+      @dataStore().page = 1
+      @append = false
+      @search()
 
     @addMarkers = (gmap, markers) ->
       for marker in markers
@@ -158,6 +173,11 @@ app.VaraaBusiness = (dom, id, type) ->
       @renderMap('gmap', businesses[0].lat, businesses[0].lng, markers)
       $('#gmap').trigger('click');
 
+    @getShowMoreStyle = () ->
+      console.log([@count(), @page()])
+      if (@count() == 1 || @page() == @count())
+        return 'display:none'
+
     @init = ->
       $("#slider-range").slider
         range: true,
@@ -193,7 +213,7 @@ app.VaraaBusiness = (dom, id, type) ->
           m('.row', [
             m('hr'),
             m('label[for=show_discount]',[
-              m('input[type=checkbox][name=show_discount]'),
+              m('input[type=checkbox][name=show_discount]', { onclick: ctrl.setShowDiscount.bind(ctrl), value: true }),
               m.trust('&nbsp;'),
               m.trust('Only off-peak discounts'),
             ])
@@ -275,7 +295,7 @@ app.VaraaBusiness = (dom, id, type) ->
             m('.loading', m('i.fa.fa-spin.fa-2x.fa-spinner'))
         ])
       ]),
-      m('.row', [
+      m('.row', { style : ctrl.getShowMoreStyle(ctrl) } , [
         m('.col-sm-3.search-panel',[]),
         m('.col-sm-9.show-more-panel',[
           m('nav.text-center.show-more', [

@@ -390,7 +390,7 @@ class Front extends Base
 
         $searchType = Input::get('search_type');
         
-        if (!empty(Input::get('city')) || !empty(Input::get('keyword'))) {
+        if ( !empty(Input::get('city')) || !empty(Input::get('keyword')) ) {
             $params['keyword']  = Input::get('keyword');
             $params['category'] = $categoryKeyword;
             $params['city'] = Input::get('city');
@@ -418,7 +418,7 @@ class Front extends Base
         return Response::json([
             'businesses' => $businesses,
             'current'    => $paginator->getCurrentPage(),
-            'count'      => $paginator->count(),
+            'count'      => $paginator->getLastPage(),
         ]);
     }
 

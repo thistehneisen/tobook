@@ -20,11 +20,11 @@ class BusinessesByCategoryAdvanced extends Businesses
                     [
                         'match' => [
                             'master_categories' => $this->getParam('category')
-                        ]
+                        ],
                     ]
                 ],
                 "minimum_should_match" => 1
-            ],
+            ]
         ];
     }
 }
