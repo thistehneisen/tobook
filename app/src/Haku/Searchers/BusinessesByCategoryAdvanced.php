@@ -36,8 +36,24 @@ class BusinessesByCategoryAdvanced extends Businesses
     public function getPostFilter()
     {
         return [
-            'term' => [
-                'has_discount' =>  $this->getParam('has_discount')
+            'bool' => [
+                'must' =>[
+                    [
+                        'term' => [
+                            'has_discount' =>  $this->getParam('has_discount')
+                        ]
+                    ],
+                    [
+                        'range' => [
+                            'max_price' => [
+                                'lte' => $this->params['max_price']
+                            ],
+                            'min_price' => [
+                                'gte' => $this->params['min_price']
+                            ]
+                        ]
+                    ]
+                ]
             ]
         ];
     }

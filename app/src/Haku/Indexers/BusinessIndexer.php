@@ -65,8 +65,8 @@ class BusinessIndexer extends AbstractIndexer
             'phone'             => $document->phone ?: '',
             'description'       => $document->description ?: '',
             'has_discount'      => $document->hasDiscount ?: false,
-            'min_price'         => $document->minServicePrice ?: 0,
-            'max_price'         => $document->maxServicePrice ?: 0,
+            'min_price'         => intval($document->minServicePrice) ?: 0,
+            'max_price'         => intval($document->maxServicePrice) ?: 0,
             'location'          => [
                 'lat' => $document->lat ?: 0,
                 'lon' => $document->lng ?: 0

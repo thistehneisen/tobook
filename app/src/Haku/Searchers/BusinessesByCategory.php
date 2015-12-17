@@ -16,6 +16,16 @@ class BusinessesByCategory extends Businesses
                     ],
                     'match' => [
                         'has_discount' => $this->params['has_discount']
+                    ],
+                ],
+                'filter' => [
+                    'range' => [
+                        'max_price' => [
+                            'lte' => $this->params['max_price']
+                        ],
+                        'min_price' => [
+                            'gte' => $this->params['min_price']
+                        ]
                     ]
                 ]
             ]

@@ -390,15 +390,18 @@ class Front extends Base
 
         $searchType = Input::get('search_type');
         
+        $params['category']     = $categoryKeyword;
+        $params['has_discount'] = (Input::get('show_discount') == 'true') ? true : false;
+        $params['min_price']    = (int)Input::get('min_price');
+        $params['max_price']    = (int)Input::get('max_price');
+
         if ( !empty(Input::get('city')) || !empty(Input::get('keyword')) ) {
-            $params['keyword']      = Input::get('keyword', '*');
+            $params['keyword']      = Input::get('keyword');
             $params['category']     = $categoryKeyword;
-            $params['city']         = Input::get('city', '*');
-            $params['has_discount'] = (Input::get('show_discount') == 'true') ? true : false;
+            $params['city']         = Input::get('city');
             $s = new BusinessesByCategoryAdvanced($params);
         } else {
             $params['keyword'] = $categoryKeyword;
-            $params['has_discount'] = (Input::get('show_discount') == 'true') ? true : false;
             $s = new BusinessesByCategory($params);
         }
 
