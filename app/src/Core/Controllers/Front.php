@@ -391,13 +391,14 @@ class Front extends Base
         $searchType = Input::get('search_type');
         
         if ( !empty(Input::get('city')) || !empty(Input::get('keyword')) ) {
-            $params['keyword']  = Input::get('keyword');
-            $params['category'] = $categoryKeyword;
-            $params['city'] = Input::get('city');
+            $params['keyword']      = Input::get('keyword', '*');
+            $params['category']     = $categoryKeyword;
+            $params['city']         = Input::get('city', '*');
+            $params['has_discount'] = (Input::get('show_discount') == 'true') ? true : false;
             $s = new BusinessesByCategoryAdvanced($params);
         } else {
             $params['keyword'] = $categoryKeyword;
-
+            $params['has_discount'] = (Input::get('show_discount') == 'true') ? true : false;
             $s = new BusinessesByCategory($params);
         }
 
@@ -424,7 +425,7 @@ class Front extends Base
         return Response::json([
             'businesses' => $businesses,
             'current'    => $paginator->getCurrentPage(),
-            'count'      => $paginator->getTotal(),
+            'count'      => $paginator->getLastPage(),
         ]);
     }
 

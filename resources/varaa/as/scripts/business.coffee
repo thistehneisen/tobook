@@ -90,10 +90,7 @@ app.VaraaBusiness = (dom, id, type) ->
 
     @setShowDiscount = (e) ->
       el = e.target
-      if (el.checked)
-        @dataStore().show_discount = 1
-      else
-        @dataStore().show_discount = 0
+      @dataStore().show_discount = el.checked
       @dataStore().page = 1
       @append = false
       @search()
@@ -293,6 +290,12 @@ app.VaraaBusiness = (dom, id, type) ->
                 ])
               ])
             )
+          else if (@count == 0)
+            m('.business-item',[
+              m('h3.venue-title', [
+                m.trust('No record found') 
+              ])
+            ])
           else
             m('.loading', m('i.fa.fa-spin.fa-2x.fa-spinner'))
         ])

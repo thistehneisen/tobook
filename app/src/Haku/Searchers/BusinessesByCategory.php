@@ -13,6 +13,9 @@ class BusinessesByCategory extends Businesses
                 'query' => [
                     'match' => [
                         'master_categories' => $this->params['keyword']
+                    ],
+                    'match' => [
+                        'has_discount' => $this->params['has_discount']
                     ]
                 ]
             ]
