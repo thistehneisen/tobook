@@ -409,7 +409,13 @@ class Front extends Base
 
         foreach ($items as $item) {
             //TODO
-            $item['services'] = $item->user->asServices()->limit(2)->get();
+            $services = $item->user->asServices()->limit(2)->get();
+            $item['services'] = $services;
+            $priceRanges = [];
+            foreach ($services as $service) {
+                $priceRanges[$service->id] = $service->priceRange;
+            }
+            $item['price_range'] = $priceRanges;
             $item['businessUrl'] = $item->businessUrl;
             $item['hasDiscount'] = $item->hasDiscount;
             $businesses[] = $item;
@@ -418,7 +424,7 @@ class Front extends Base
         return Response::json([
             'businesses' => $businesses,
             'current'    => $paginator->getCurrentPage(),
-            'count'      => $paginator->getLastPage(),
+            'count'      => $paginator->getTotal(),
         ]);
     }
 

@@ -157,6 +157,12 @@ class Service extends \App\Core\Models\Base
         return boolval((int)$this->employees()->count());
     }
 
+    /**
+     * Get price range of current service inlucding all service times
+     * 
+     * @author hung@varaa.com
+     * @return string
+     */ 
     public function getPriceRangeAttribute()
     {   
         // m for multiple

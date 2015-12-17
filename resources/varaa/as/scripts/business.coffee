@@ -276,14 +276,17 @@ app.VaraaBusiness = (dom, id, type) ->
                 ]),
                 m('.popular-services', [
                   business.services.map((service) ->
-                    m('.row popular-service', [
+                    m('.row popular-service',  [
                       m('.col-xs-8', [
                         m('span.orange.service-name', [service.name]) 
                       ]),
                       m('.col-xs-4', [
-                        m('a.btn.btn-orange.btn-square.pull-right', { 
-                            href: business.businessUrl + '/?serviceId=' + service.id 
-                          }, [ __('select') ])
+                        m('.select-block.pull-right', [
+                          m('span.range', [ m.trust(business['price_range'][service.id]) ]),
+                          m('a.btn.btn-orange.btn-square', { 
+                              href: business.businessUrl + '/?serviceId=' + service.id 
+                            }, [ __('select') ])
+                        ])
                       ])
                     ])
                   )
