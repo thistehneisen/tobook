@@ -36,6 +36,8 @@ class BusinessIndexer extends AbstractIndexer
             $keywords = array_merge($keywords, $item->keywords);
         }
 
+        $services = $document->getAllServiceNames();
+
         if (empty($document->user->id)) {
             //User is deleted
             return;
@@ -57,6 +59,7 @@ class BusinessIndexer extends AbstractIndexer
             'categories'        => $categories,
             'master_categories' => array_keys($masterCategories),
             'keywords'          => $keywords,
+            'services'          => $services,
             'address'           => $document->address ?: '',
             'district'          => $document->district ?: '',
             'postcode'          => $document->postcode ?: '',

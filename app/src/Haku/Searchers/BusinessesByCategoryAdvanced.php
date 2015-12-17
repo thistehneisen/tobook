@@ -65,6 +65,7 @@ class BusinessesByCategoryAdvanced extends Businesses
                 'should' => [
                     ['match' => ['name' => $this->getParam('keyword')]],
                     ['match' => ['keywords' => $this->getParam('keyword')]],
+                    ['match' => ['services' => $this->getParam('keyword')]],
                     ['match' => ['description' => $this->getParam('keyword')]],
                     ['match' => ['city' => $this->getParam('city')]]
                 ],

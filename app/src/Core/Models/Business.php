@@ -631,6 +631,25 @@ class Business extends Base
     }
 
     /**
+     * Fetch all service names belong to this business user
+     * 
+     * @return string
+     */
+    public function getAllServiceNames()
+    {
+        $names = [];
+
+        $services = Service::where('user_id', '=', $this->user_id)
+            ->where('is_active', '=', true)->get();
+
+        foreach ($services as $service) {
+            $names[] = $service->name;
+        }
+
+        return implode(" ", $names);
+    }
+
+    /**
      * Count number of reviews for this business
      * 
      * @return int
