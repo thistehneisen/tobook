@@ -44,21 +44,6 @@
         $("#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
           " - $" + $( "#slider-range" ).slider( "values", 1 ) );
         });
-        // $('.fancybox').fancybox({
-        //     padding: 0,
-        //     width: 500,
-        //     title: '',
-        //     autoSize: false,
-        //     autoWidth: false,
-        //     autoHeight: true,
-        // });
-        $(".fancybox").dialog({
-            height: 500,
-            width: 500,
-            resizable: false,
-            title: "Edit"
-        });
-
         var app = app || {};
         app.i18n = {
             'select': '@lang('as.embed.cp.select')',
@@ -89,6 +74,7 @@
             'show_more': '@lang('home.show_more')',
             'show_map': '@lang('home.show_map')',
             'view_on_map': '@lang('home.view_on_map')',
+            'no_record_found': '@lang('common.err.no_record_found')',
         };
 
         app.routes = {

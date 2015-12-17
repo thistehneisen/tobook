@@ -290,10 +290,10 @@ app.VaraaBusiness = (dom, id, type) ->
                 ])
               ])
             )
-          else if (@count == 0)
+          else if (ctrl.count() == 1)
             m('.business-item',[
               m('h3.venue-title', [
-                m.trust('No record found') 
+                m.trust(__('no_record_found'))
               ])
             ])
           else
