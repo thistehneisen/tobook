@@ -158,6 +158,8 @@ app.VaraaBusiness = (dom, id, type) ->
 
     @viewOnMap = (businesses, e) ->
       e.preventDefault()
+      if (businesses.length == 0)
+        return
       markers = @makeMarkers(businesses)
       @makeMapContainer('800px', '500px');
       $(".dialog").dialog({
