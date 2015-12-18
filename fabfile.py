@@ -104,7 +104,7 @@ def _deploy(environment, host, build_env):
             # set it to live mode again
             run('php artisan up')
             # notify everyone for fun
-            run('php artisan varaa:deployed {} {} {}'.format(environment, branch, build_env))
+            # run('php artisan varaa:deployed {} {} {}'.format(environment, branch, build_env))
             # write deployment info to public/rev.txt
             run('php artisan varaa:generate-deployment-info')
             # remove all temporary css files
