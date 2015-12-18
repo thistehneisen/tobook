@@ -53,17 +53,18 @@ class PopularServicesForSearch extends ScheduledCommand {
 		printf('Business count: %d', $businesses->count());
 
 		foreach ($businesses as $business) {
+			// There are some deleted users
+			if (empty($business->user->id)) 
+				continue;
+			
 			$items = DB::table('as_booking_services')
 				->select(['service_id', DB::raw('count(*) as total')])
+				->where('user_id', '=', $business->user->id)
 				->groupBy('service_id')
 				->orderBy('total')
 				->limit(2)
 				->get();
 			$bucket = [];
-
-			// There are some deleted users
-			if (empty($business->user->id)) 
-				continue;
 
 			$key = sprintf('popular_services_%s', $business->user->id);
         	$redis->del($key);

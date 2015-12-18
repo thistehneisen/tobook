@@ -2,6 +2,7 @@
 
 use App;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\Service;
 use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\TreatmentType;
 use App\Core\Models\Business;
@@ -12,8 +13,8 @@ use App\Haku\Searchers\BusinessesByCategory;
 use App\Haku\Searchers\BusinessesByCategoryAdvanced;
 use App\Haku\Searchers\BusinessesByDistrict;
 use App\Haku\Searchers\BusinessesByCity;
-use Cookie;
 use Illuminate\Support\Collection;
+use Cookie;
 use Input;
 use Request;
 use Response;
@@ -410,15 +411,18 @@ class Front extends Base
         $items = $paginator->getItems();
 
         $businesses = [];
+        $services = [];
 
         foreach ($items as $item) {
             //TODO
-            $services = $item->user->asServices()->limit(2)->get();
+            $services = Service::getMostPopularServices($item->user->id);
             $item['services'] = $services;
+
             $priceRanges = [];
             foreach ($services as $service) {
                 $priceRanges[$service->id] = $service->priceRange;
             }
+            
             $item['price_range'] = $priceRanges;
             $item['businessUrl'] = $item->businessUrl;
             $item['hasDiscount'] = $item->hasDiscount;
