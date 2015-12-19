@@ -45,6 +45,9 @@ class OneApi
             $message = $trimmer->trim($message);
         }
 
+        // see app/helpers.php
+        $message = sms_normalize($message);
+
         try {
             $smsClient = new SmsClient(
                 Config::get('services.oneapi.username'),
