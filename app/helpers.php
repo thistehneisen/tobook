@@ -103,3 +103,27 @@ if (!function_exists('str_standard_to_local')) {
             : $date->format(str_datetime_format());
     }
 }
+
+if (!function_exists('sms_normalize')) {
+    function sms_normalize($str)
+    {
+        $original = $str;
+
+        $str = preg_replace('@\x{00101}@u', "a", $str);// ā => a
+        $str = preg_replace('@\x{0010D}@u', "c", $str);// č => c
+        $str = preg_replace('@\x{00113}@u', "e", $str);// ē => e
+        $str = preg_replace('@\x{00123}@u', "g", $str);// ģ => g
+        $str = preg_replace('@\x{0012B}@u', "i", $str);// ī => i
+        $str = preg_replace('@\x{00137}@u', "k", $str);// ķ => k
+        $str = preg_replace('@\x{0013C}@u', "l", $str);// ļ => l
+        $str = preg_replace('@\x{00146}@u', "n", $str);// ņ => n
+        $str = preg_replace('@\x{00161}@u', "s", $str);// š => s
+        $str = preg_replace('@\x{0016B}@u', "u", $str);// ū => u
+        $str = preg_replace('@\x{0017E}@u', "z", $str);// ž => z
+
+        if (empty($str))
+            return $original;
+        else
+            return $str; 
+    }
+}
