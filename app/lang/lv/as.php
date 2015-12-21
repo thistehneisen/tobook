@@ -377,7 +377,7 @@ return [
             'reminder_enable'                                => 'Iespējot paziņojumus',
             'reminder_email_before'                          => 'Nosūtīt atgādinājuma e-pastu',
             'reminder_subject'                               => 'Atgādinājuma e-pasta tēmas nosaukums',
-            'reminder_subject_default'                       => 'Muistutus varauksestasi',
+            'reminder_subject_default'                       => 'Atgādinājums par Jūsu rezervāciju',
             'reminder_body'                                  => 'Atgādinājuma e-pasta teksts',
             'reminder_sms_hours'                             => 'Nosūtīt atgādinājuma SMS',
             'reminder_sms_country_code'                      => 'SMS valsts kods',
@@ -407,6 +407,17 @@ return [
             'announcement_enable'                            => 'Ieslēgt paziņojumus',
             'announcement_content'                           => 'AIeslēgt paziņojumus',
             'cancel_before_limit'                            => 'Anulēšana derīga līdz (stundas)',
+            'confirmation_sms'                               => 'Sms apstiprinājums',
+            'confirmation_email'                             => 'E-pastu apstiprinājums',
+            'confirmation_reminder'                          => 'Atgādinājumi',
+            'reminder_sms'                                   => 'SMS atgādinātājs',
+            'reminder_email'                                 => 'E-pastu atgādinātājs',
+            'reminder_sms_before'                            => 'Sūtīt sms pirms',
+            'reminder_email_before'                          => 'Sūtīt E-pastu pirms',
+            'reminder_sms_unit'                              => 'SMS vienība',
+            'reminder_email_unit'                            => 'E-pastu vienība',
+            'reminder_sms_time_unit'                         => 'Stundas / dienas pirms',
+            'reminder_email_time_unit'                       => 'Stundas / dienas pirms',
         ],
         'style' => [
             'heading'                           => '',
@@ -482,4 +493,8 @@ return [
         'invalid_coupon' => 'Nederīgs kupona kods',
     ],
     'nothing_selected' => 'Izvēlēties',
+    'reminder' => [
+        'sms_reminder_content' => 'Atgādinājums par Jūsu rezervāciju: {Services}',
+        'email_reminder_content' => 'Atgādinājums par Jūsu rezervāciju: {Services}, {Address}',
+    ]
 ];

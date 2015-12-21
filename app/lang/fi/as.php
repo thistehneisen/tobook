@@ -417,7 +417,7 @@ return [
             'cancel_before_limit'                            => 'Peruutus viimeistään ennen (tunteina)',
             'confirmation_sms'                               => 'Tekstiviestivahvistus',
             'confirmation_email'                             => 'Sähköpostivahvistus',
-            'confirmation_reminder'                          => 'Muistutusviestin oletussisältö',
+            'confirmation_reminder'                          => 'Muistutusviestit',
             'reminder_sms'                                   => 'Tekstiviestimuistutus',
             'reminder_email'                                 => 'Sähköpostimuistutus',
             'reminder_sms_before'                            => 'Lähetä SMS muistutus',

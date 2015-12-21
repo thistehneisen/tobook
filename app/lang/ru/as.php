@@ -405,6 +405,17 @@ return [
             'announcement_enable'                            => 'Включить объявления',
             'announcement_content'                           => 'Содержание анонса прошло',
             'cancel_before_limit'                            => 'Отменить действует до (часов)',
+            'confirmation_sms'                               => 'Hастройки cmc',
+            'confirmation_email'                             => 'Hастройки е-мейл',
+            'confirmation_reminder'                          => 'Message default',
+            'reminder_sms'                                   => 'SMS-напоминание',
+            'reminder_email'                                 => 'Напоминаниена e-mail',
+            'reminder_sms_before'                            => 'Отправить SMS до',
+            'reminder_email_before'                          => 'Отправить e-mail до',
+            'reminder_sms_unit'                              => 'Время СМС устройство',
+            'reminder_email_unit'                            => 'E-mail Блок время',
+            'reminder_sms_time_unit'                         => 'Часы/дни до',
+            'reminder_email_time_unit'                       => 'Часы/дни до',
         ],
         'style' => [
             'heading'                           => '',
@@ -478,4 +489,8 @@ return [
         'invalid_coupon' => 'Неверный купон',
     ],
     'nothing_selected' => 'Выберите',
+    'reminder' => [
+        'sms_reminder_content' => 'Напоминание о Вашей резервации: {Services}',
+        'email_reminder_content' => 'Atgādinājums par Jūsu rezervāciju: {Services}, {Address}',
+    ]
 ];
