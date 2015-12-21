@@ -264,28 +264,57 @@ app.VaraaBusiness = (dom, id, type) ->
             ]),
           ])
         ]),
-        m('.col-sm-9.business-list', [
+        m('.col-sm-9.businesses', [
           if (ctrl.businesses().length > 0)
             ctrl.businesses().map((business, index) ->
-              m('.business-item',[
-                m('h3.venue-title', [ 
-                  m('a', { href: business.businessUrl }, [
-                    business.name,
-                    m.trust('&nbsp;'), 
-                    if (business.hasDiscount)
-                      m('i.fa.fa-tags.orange')
-                  ]) 
-                ]),
-                m('span.venue-desc', [
-                  m.trust(business.address),
-                  m.trust(',&nbsp;'),
-                  m.trust(business.city),
-                  m.trust('&nbsp;'),
-                  m('a[href=#]', { onclick: ctrl.showMap.bind(ctrl, business) }, [
-                    __('show_map'),
-                    m.trust('&nbsp;&raquo;')
+              m('.item',[
+                m('.information', [
+                  m('.row', [
+                    m('.col-xs-5',[
+                      m('img', { src: business.image_url , style: 'width: 100%'})
+                    ]),
+                    m('.col-xs-7',[
+                      m('h4.venue-title', [ 
+                        m('a', { href: business.businessUrl }, [
+                          business.name,
+                          m.trust('&nbsp;'), 
+                          if (business.hasDiscount)
+                            m('i.fa.fa-tags.orange')
+                        ]) 
+                      ]),
+                      m('span.venue-description', [
+                        m.trust(business.address),
+                        m.trust(',&nbsp;'),
+                        m.trust(business.city),
+                        m.trust('&nbsp;'),
+                        m('a[href=#]', { onclick: ctrl.showMap.bind(ctrl, business) }, [
+                          __('show_map'),
+                          m.trust('&nbsp;&raquo;')
+                        ])
+                      ]),
+                      m('.row.contact', [
+                        m('.col-xs-8', [
+                          m('div', [
+                             m('strong', [ __('phone')]),
+                             m('span', [business.phone])
+                          ]),
+                          m('div', [
+                             m('strong', [ __('email')]),
+                             m('span', [business.user_email])
+                          ])
+                        ]),
+                        m('.col-xs-4', [
+                           m('strong', [ __('payment_methods') ]),
+                           m('ul', [
+                            business.payment_options.map((option, index) ->
+                                m('li', [option])
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
                   ])
-                ]),
+                ])
                 m('.popular-services', [
                   business.services.map((service) ->
                     m('.row popular-service',  [
