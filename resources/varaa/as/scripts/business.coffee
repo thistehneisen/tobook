@@ -12,12 +12,15 @@ app.VaraaBusiness = (dom, id, type) ->
   BusinessList.controller = ->
     @dataStore = m.prop { id: id, type: type, keyword: '', search_type: '', city: '', show_discount: false, page: 1, count: 1, min_price: 0, max_price: 500}
     
-    @data       = m.prop {}
-    @businesses = m.prop []
+    @data        = m.prop {}
+    @businesses  = m.prop []
+    @environment = m.prop ''
     @count = m.prop 1
     @page = m.prop 1
     @cache = []
     @append = true
+
+    @environment(app.initData.environment)
 
     @search = ->
       $('#show-more-spin').show()
@@ -176,7 +179,7 @@ app.VaraaBusiness = (dom, id, type) ->
       if (@count() == 1 || @page() == @count())
         return 'display:none'
 
-    @init = ->
+    @init = () =>
       $("#slider-range").slider
         range: true,
         min: 0,
@@ -190,7 +193,10 @@ app.VaraaBusiness = (dom, id, type) ->
           @append = false
           @search()
 
-       $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $( "#slider-range" ).slider("values", 1));
+      $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $( "#slider-range" ).slider("values", 1));
+      businesses = @businesses()
+      markers    = @makeMarkers(businesses)
+      @renderMap('gmap', businesses[0].lat, businesses[0].lng, markers)
 
     # Kickstart
     @search()
@@ -198,16 +204,23 @@ app.VaraaBusiness = (dom, id, type) ->
     return
 
   BusinessList.view = (ctrl) ->
-    m('.container', [
+    m('.container.business-container', [
+      if (ctrl.environment() == 'tobook')
+        m('.row', [
+          m('.col-sm-12', [
+            m('#topmap', { class: 'dialog', id: 'gmap', style: "height: 300px; width: 100%" } )
+          ])
+        ])
       m('.row',[
         m('.col-sm-3.search-panel', [
-          m('.row', [
-            m('i.fa.fa-map-marker.fa-2x.orange'),
-            m.trust('&nbsp;'),
-            m('a[href=#]', { onclick: ctrl.viewOnMap.bind(ctrl, ctrl.businesses()) }, [
-                __('view_on_map'),
+          if(ctrl.environment() != 'tobook')
+            m('.row', [
+              m('i.fa.fa-map-marker.fa-2x.orange'),
+              m.trust('&nbsp;'),
+              m('a[href=#]', { onclick: ctrl.viewOnMap.bind(ctrl, ctrl.businesses()) }, [
+                  __('view_on_map'),
+              ])
             ])
-          ]),
           m('.row', [
             m('hr'),
             m('label[for=show_discount]',[

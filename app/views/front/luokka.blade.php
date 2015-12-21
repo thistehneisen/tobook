@@ -45,6 +45,10 @@
           " - $" + $( "#slider-range" ).slider( "values", 1 ) );
         });
         var app = app || {};
+
+        app.initData = {
+            environment : '{{ App::environment() }}'
+        }
         app.i18n = {
             'select': '@lang('as.embed.cp.select')',
             'pl_service': '@lang('as.embed.cp.pl_service')',
