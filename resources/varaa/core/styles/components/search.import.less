@@ -70,10 +70,30 @@
         padding: 0 25px;
     }
 
-    .business-list {
+    .businesses {
         min-height: 640px;
         padding: 15px;
         border-left: 1px solid #ccc;
+        
+        .item {
+            border-bottom: 1px solid #ccc;
+            padding-top: 15px;
+            padding-bottom: 5px;
+        }
+
+        .contact {
+            margin-top: 10px;
+            strong {
+                margin-right: 5px;
+                margin-bottom: 10px;
+            }
+        }
+
+        .information {
+            img {
+                max-height: 120px;
+            }
+        }
     }
 
     .show-more-panel {
@@ -90,7 +110,7 @@
         }
 
         .popular-service {
-            border: 1px dotted #ccc;
+            border: 1px solid @primary_color;
             padding: 10px 0;
 
             .service-name { 

@@ -75,6 +75,10 @@
             'show_map': '@lang('home.show_map')',
             'view_on_map': '@lang('home.view_on_map')',
             'no_record_found': '@lang('common.err.no_record_found')',
+            'payment_methods': '@lang('home.business.payment_methods')',
+            'payment.venue' : '@lang('user.payment_options.venue')',
+            'payment.full' : '@lang('user.payment_options.full')',
+            'payment.deposit' : '@lang('user.payment_options.deposit')',
         };
 
         app.routes = {
