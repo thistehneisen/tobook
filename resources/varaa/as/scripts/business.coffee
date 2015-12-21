@@ -270,10 +270,10 @@ app.VaraaBusiness = (dom, id, type) ->
               m('.item',[
                 m('.information', [
                   m('.row', [
-                    m('.col-xs-5',[
+                    m('.col-xs-4',[
                       m('img', { src: business.image_url , style: 'width: 100%'})
                     ]),
-                    m('.col-xs-7',[
+                    m('.col-xs-8',[
                       m('h4.venue-title', [ 
                         m('a', { href: business.businessUrl }, [
                           business.name,
@@ -307,7 +307,7 @@ app.VaraaBusiness = (dom, id, type) ->
                            m('strong', [ __('payment_methods') ]),
                            m('ul', [
                             business.payment_options.map((option, index) ->
-                                m('li', [option])
+                                m('li', [ __('payment.' + option) ])
                             )
                           ])
                         ])
