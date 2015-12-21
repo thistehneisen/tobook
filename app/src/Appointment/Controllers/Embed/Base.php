@@ -72,7 +72,7 @@ class Base extends AsBase
      */
     protected function getEmployeesOfService(Service $service)
     {
-        return $service->employees()->where('is_active', true)->get();
+        return $service->employees()->where('is_active', true)->orderBy('order')->get();
     }
 
     /**
