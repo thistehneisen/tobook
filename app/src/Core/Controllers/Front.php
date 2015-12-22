@@ -349,7 +349,7 @@ class Front extends Base
      * 
      * @return View
      */
-    public function luokka($id, $slug)
+    public function businessList($id, $slug)
     {   
         // Get the correct model based on first URL segment
         $isMasterCategory = strpos(Request::path(), 'categories') !== false;
@@ -358,7 +358,7 @@ class Front extends Base
         // Master categories
         $masterCategories = MasterCategory::getAll();
 
-        return $this->render('luokka',[
+        return $this->render('business-list',[
             'id'   => $id,
             'type' => $type,
             'mcs'  => $masterCategories
