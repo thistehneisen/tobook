@@ -290,8 +290,8 @@ app.VaraaBusiness = (dom, id, type) ->
                         ])
                       ]),
                       m('.row.contact', [
-                        m('.col-xs-8', [
-                          m('div', [
+                        m('.col-xs-6', [
+                          m('div.contact-item', [
                              m('strong', [ __('phone')]),
                              m('span', [business.phone])
                           ]),
