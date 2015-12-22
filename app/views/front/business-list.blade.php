@@ -1,12 +1,16 @@
 @extends ('layouts.default')
 
-@section('title')
-    
+@section ('title')
+    {{ $title }}
 @stop
 
-@section('meta')
-
+@if (!empty($meta))
+@section ('meta')
+    @foreach ($meta as $name => $content)
+    <meta name="{{ $name }}" content="{{{ $content }}}">
+    @endforeach
 @stop
+@endif
 
 @section('styles')
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}

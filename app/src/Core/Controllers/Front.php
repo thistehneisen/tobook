@@ -355,13 +355,26 @@ class Front extends Base
         $isMasterCategory = strpos(Request::path(), 'categories') !== false;
         $type = $isMasterCategory ? 'mc' : 'tm';
 
+        $model = ($type === 'mc')
+            ? '\App\Appointment\Models\MasterCategory'
+            : '\App\Appointment\Models\TreatmentType';
+        $instance = $model::findOrFail($id);
+
         // Master categories
         $masterCategories = MasterCategory::getAll();
+
+                // Add meta data to this page
+        $meta['description'] = $instance->description;
+
+        // Change page title
+        $title = $instance->name;
 
         return $this->render('business-list',[
             'id'   => $id,
             'type' => $type,
-            'mcs'  => $masterCategories
+            'mcs'  => $masterCategories,
+            'title'=> $title,
+            'meta' => $meta
         ]);
     }
 
