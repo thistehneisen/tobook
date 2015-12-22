@@ -83,6 +83,7 @@
             'payment.venue' : '@lang('user.payment_options.venue')',
             'payment.full' : '@lang('user.payment_options.full')',
             'payment.deposit' : '@lang('user.payment_options.deposit')',
+            'online_booking' : '@lang('intro.online_booking')',
         };
 
         app.routes = {
