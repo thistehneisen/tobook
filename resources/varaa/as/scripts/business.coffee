@@ -119,24 +119,19 @@ app.VaraaBusiness = (dom, id, type) ->
       return gmap
 
     @makeMarker =  (business) ->
-      markers = []
-      markers.push
+      return {
         lat: business.lat
         lng: business.lng
         title: business.name
         infoWindow:
-          content: "<p><strong>#{business.name}</strong></p><p>#{business.full_address}</p>"
-      return markers
+          content: "<table><tr><td><img src='" + business.image_url + "' style='width: 100px' /></td><td><p><strong>#{business.name}</strong></p><p>#{business.full_address}</p></td></tr></table>"
+      }
 
     @makeMarkers =  (businesses) ->
       markers = []
-      for business in businesses    
-        markers.push
-          lat: business.lat
-          lng: business.lng
-          title: business.name
-          infoWindow:
-            content: "<p><strong>#{business.name}</strong></p><p>#{business.full_address}</p>"
+      for business in businesses
+        marker = @makeMarker(business)    
+        markers.push marker
       return markers
 
     @makeMapContainer = (width = '500px', height = '500px') ->
@@ -145,9 +140,11 @@ app.VaraaBusiness = (dom, id, type) ->
       gmap = $('<div>', { class: 'dialog', id: 'gmap', style: "height: #{height}; width: #{width}" })
       gmap.appendTo($('body'));
 
-    @showMap = (business, e) ->
+    @showMap = (business, e) =>
       e.preventDefault()
+      markers = []
       marker = @makeMarker(business)
+      markers.push marker
       @makeMapContainer()
       $(".dialog").dialog({
             height: 500,
@@ -156,7 +153,7 @@ app.VaraaBusiness = (dom, id, type) ->
             title: ""
       });
       $('.dialog').dialog('open');
-      @renderMap('gmap', business.lat, business.lng, marker)
+      @renderMap('gmap', business.lat, business.lng, markers)
       $('#gmap').trigger('click');
 
     @viewOnMap = (businesses, e) ->
