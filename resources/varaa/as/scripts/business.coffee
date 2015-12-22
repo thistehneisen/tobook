@@ -124,7 +124,7 @@ app.VaraaBusiness = (dom, id, type) ->
         lng: business.lng
         title: business.name
         infoWindow:
-          content: "<table><tr><td><img src='" + business.image_url + "' style='width: 100px' /></td><td><p><strong>#{business.name}</strong></p><p>#{business.full_address}</p><span class=\"label label-success\"><i class=\"fa fa-ticket\"></i>" + __('online_booking') + "</span></td></tr></table>"
+          content: "<table class=\"map-marker-table\"><tr><td><img src='" + business.image_url + "' style='width: 100px' /></td><td><p><strong>#{business.name}</strong></p><p>#{business.full_address}</p><span class=\"label label-success\"><i class=\"fa fa-ticket\"></i>" + __('online_booking') + "</span></td></tr></table>"
       }
 
     @makeMarkers =  (businesses) ->
