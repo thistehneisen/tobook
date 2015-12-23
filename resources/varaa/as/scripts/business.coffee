@@ -219,7 +219,7 @@ app.VaraaBusiness = (dom, id, type) ->
               ])
             ])
           m('.row', [
-            m('hr'),
+            m('hr', { class : ctrl.environment() }),
             m('label[for=show_discount]',[
               m('input[type=checkbox][name=show_discount]', { onclick: ctrl.setShowDiscount.bind(ctrl), value: true }),
               m.trust('&nbsp;'),
