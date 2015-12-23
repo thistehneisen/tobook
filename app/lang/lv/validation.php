@@ -74,18 +74,18 @@ return [
             'rule-name' => 'custom-message',
         ),
         'username' => [
-            'required' => 'Username is required',
+            'required' => 'Lietotājvārds ir nepieciešama',
         ],
         'password' => [
-            'required' => 'Password is required',
-            'confirmed' => 'Password does not match',
+            'required' => 'Parole ir nepieciešama',
+            'confirmed' => 'Paroles nesakrīt',
         ],
         'password_confirmation' => [
-            'required' => 'Password is required',
+            'required' => 'Parole ir nepieciešama',
         ],
         'email' => [
-            'required' => 'Email is required',
-            'email' => 'Email form is incorrect',
+            'required' => 'E-pasts ir nepieciešama',
+            'email' => 'E-pasts nav pieņemts',
         ],
     ),
 

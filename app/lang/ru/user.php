@@ -32,7 +32,7 @@ return [
     'accept_terms'           => 'При нажатии на &quot;Зарегистрироваться&quot; вы принимаете',
     'terms'                  => 'Условтя',
     'register_already'       => 'Уже зарегистрированы?',
-    'new_customers'          => 'Новые пользователи',
+    'new_customers'          => 'Новый пользователь',
     'register_here'          => 'Зарегистрируйтесь здесь',
     'forgot_password'        => 'Забыли пароль?',
     'forgot_password_title'  => 'Забыли пароль?',
