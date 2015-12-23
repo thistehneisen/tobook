@@ -72,6 +72,10 @@ return [
         'bank_account'     => 'Tilinumero',
         'is_hidden'        => 'Piilotettu sivustolta',
         'preview'          => 'Esikatsele',
+        'payment_methods'     => 'Maksutavat',
+        'credit_card'         => 'Korttimaksu',
+        'cash'                => 'Käteismaksu',
+        'online'              => 'Nettimaksu',
         'is_booking_disabled' => 'Varausnäkymä piilossa',
         'sizes'            => [
             '1',

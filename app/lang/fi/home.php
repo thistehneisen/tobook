@@ -124,6 +124,7 @@ return [
         'phone'          => 'Puh.',
         'email'          => 'Sähköposti',
         'online_booking' => 'Varaa aika',
+        'payment_methods'=> 'Maksutavat',
         'request'        => [
             'link'    => 'Toivo sähköistä kalenteria',
             'info'    => 'Yrittäjälle lähtee pyyntö ottaa ajanvarausjärjestelmä käyttöön',
