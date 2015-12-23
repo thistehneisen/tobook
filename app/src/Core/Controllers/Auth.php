@@ -191,11 +191,19 @@ class Auth extends Base
     public function register()
     {
         $typeform = [
-            'prod' => 'https://varaa.typeform.com/to/q6wEUx',
-            'tobook' => 'https://varaa.typeform.com/to/VbW85p',
+            'prod'     => 'https://varaa.typeform.com/to/q6wEUx',
+            'tobook'   => 'https://varaa.typeform.com/to/VbW85p',
+            'tobook.ru'=> 'https://varaa.typeform.com/to/yiscWX',
         ];
 
-        $typeformUrl = array_get($typeform, App::environment(), $typeform['prod']);
+        $env = App::environment();
+        $key = $env;
+
+        if (App::getLocale() === 'ru') {
+            $key .= '.ru';
+        }
+
+        $typeformUrl = array_get($typeform, $key, $typeform[$env]);
 
         return View::make('auth.register', [
             'iframe' => $typeformUrl,
