@@ -112,7 +112,7 @@ app.VaraaBusiness = (dom, id, type) ->
         div: domId
         lat: lat
         lng: lng
-        zoom: 13
+        zoom: 9
 
       if markers?
         @addMarkers gmap, markers
@@ -169,7 +169,17 @@ app.VaraaBusiness = (dom, id, type) ->
             title: ""
       });
       $('.dialog').dialog('open');
-      @renderMap('gmap', businesses[0].lat, businesses[0].lng, markers)
+
+      allLat = businesses.reduce (keeper, business) ->
+        return sum + Number(business.lat)
+
+      allLng = businesses.reduce (keeper, business) ->
+        return sum + Number(business.lng)
+
+      avgLng = allLng / businesses.length
+      avgLat = allLat / businesses.length
+
+      @renderMap('gmap', avgLat, avgLng, markers)
       $('#gmap').trigger('click');
 
     @getShowMoreStyle = () ->
