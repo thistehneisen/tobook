@@ -37,7 +37,7 @@ class PopularServicesForSearch extends ScheduledCommand {
      */
     public function schedule(Schedulable $scheduler)
     {
-        return $scheduler->daily()->hours(3)->minutes(15);
+        return $scheduler->everyMinutes(30);
     }
 
 	/**
