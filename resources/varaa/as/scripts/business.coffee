@@ -112,7 +112,7 @@ app.VaraaBusiness = (dom, id, type) ->
         div: domId
         lat: lat
         lng: lng
-        zoom: 9
+        zoom: 11
 
       if markers?
         @addMarkers gmap, markers
@@ -301,10 +301,10 @@ app.VaraaBusiness = (dom, id, type) ->
                       ]),
                       m('.row.contact', [
                         m('.col-xs-6', [
-                          m('div.contact-item', [
-                             m('strong', [ __('phone')]),
-                             m('span', [business.phone])
-                          ]),
+                          # m('div.contact-item', [
+                          #    m('strong', [ __('phone')]),
+                          #    m('span', [business.phone])
+                          # ]),
                           m('div', [
                              m('strong', [ __('email')]),
                              m('span', [business.user_email])
