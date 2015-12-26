@@ -213,7 +213,7 @@ app.VaraaBusiness = (dom, id, type) ->
   BusinessList.view = (ctrl) ->
     m('.container.business-container', [
       if (ctrl.environment() == 'tobook')
-        m('.row', [
+        m('.row.hidden-xs', [
           m('.col-sm-12', [
             m('#topmap', { style: "height: 300px; width: 100%" } )
           ])
@@ -277,10 +277,10 @@ app.VaraaBusiness = (dom, id, type) ->
               m('.item',[
                 m('.information', [
                   m('.row', [
-                    m('.col-xs-4',[
+                    m('.col-sm-4.hidden-xs',[
                       m('img', { src: business.image_url , style: 'width: 100%'})
                     ]),
-                    m('.col-xs-8',[
+                    m('.col-xs-12.col-sm-8',[
                       m('h4.venue-title', [ 
                         m('a', { href: business.businessUrl }, [
                           business.name,
@@ -299,7 +299,7 @@ app.VaraaBusiness = (dom, id, type) ->
                           m.trust('&nbsp;&raquo;')
                         ])
                       ]),
-                      m('.row.contact', [
+                      m('.row.contact.hidden-xs', [
                         m('.col-xs-6', [
                           # m('div.contact-item', [
                           #    m('strong', [ __('phone')]),
@@ -322,7 +322,7 @@ app.VaraaBusiness = (dom, id, type) ->
                     ])
                   ])
                 ])
-                m('.popular-services', [
+                m('.popular-services.hidden-xs', [
                   business.services.map((service) ->
                     m('.row popular-service',  [
                       m('.col-xs-8', [
