@@ -161,7 +161,7 @@ app.VaraaBusiness = (dom, id, type) ->
       if (businesses.length == 0)
         return
       markers = @makeMarkers(businesses)
-      @makeMapContainer('800px', '500px');
+      @makeMapContainer('topmap', '800px', '500px');
       $(".dialog").dialog({
             height: 500,
             width: 800,
@@ -203,7 +203,7 @@ app.VaraaBusiness = (dom, id, type) ->
       $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $( "#slider-range" ).slider("values", 1));
       businesses = @businesses()
       markers    = @makeMarkers(businesses)
-      @renderMap('gmap', businesses[0].lat, businesses[0].lng, markers)
+      @renderMap('topmap', businesses[0].lat, businesses[0].lng, markers)
 
     # Kickstart
     @search()
@@ -215,7 +215,7 @@ app.VaraaBusiness = (dom, id, type) ->
       if (ctrl.environment() == 'tobook')
         m('.row', [
           m('.col-sm-12', [
-            m('#topmap', { class: 'dialog', id: 'gmap', style: "height: 300px; width: 100%" } )
+            m('#topmap', { style: "height: 300px; width: 100%" } )
           ])
         ])
       m('.row',[
