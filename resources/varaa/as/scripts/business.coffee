@@ -188,6 +188,11 @@ app.VaraaBusiness = (dom, id, type) ->
       if (@count() == 1 || @page() == @count())
         return 'display:none'
 
+    @goTo = (business) ->
+      if ($(document).width() >= 400)
+        return
+      window.location.href = business.businessUrl
+
     @init = () =>
       $("#slider-range").slider
         range: true,
@@ -294,7 +299,7 @@ app.VaraaBusiness = (dom, id, type) ->
                     m('.col-sm-4.hidden-xs',[
                       m('img', { src: business.image_url , style: 'width: 100%'})
                     ]),
-                    m('.col-xs-12.col-sm-8',[
+                    m('.col-xs-12.col-sm-8.mobile-item', { onclick: ctrl.goTo.bind(ctrl, business) }, [
                       m('h4.venue-title', [ 
                         m('a', { href: business.businessUrl }, [
                           business.name,
