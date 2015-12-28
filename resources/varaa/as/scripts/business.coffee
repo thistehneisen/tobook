@@ -15,12 +15,14 @@ app.VaraaBusiness = (dom, id, type) ->
     @data        = m.prop {}
     @businesses  = m.prop []
     @environment = m.prop ''
+    @assetPath = m.prop ''
     @count = m.prop 1
     @page = m.prop 1
     @cache = []
     @append = true
 
     @environment(app.initData.environment)
+    @assetPath(app.initData.assetPath)
 
     @search = ->
       $('#show-more-spin').show()
@@ -200,6 +202,18 @@ app.VaraaBusiness = (dom, id, type) ->
           @append = false
           @search()
 
+      $('.raty').raty
+        scoreName: () =>
+          return $(this).data('name')
+        score: () =>
+          return $(this).data('score')
+        starOff: @assetPath() + '/star-off.png'
+        starOn: @assetPath() + '/star-on.png'
+        starHalf: @assetPath() + '/star-half.png'
+        readOnly: true
+
+      $('.raty').raty('reload');
+
       $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $( "#slider-range" ).slider("values", 1));
       businesses = @businesses()
       markers    = @makeMarkers(businesses)
@@ -287,18 +301,38 @@ app.VaraaBusiness = (dom, id, type) ->
                           m.trust('&nbsp;'), 
                           if (business.hasDiscount)
                             m('i.fa.fa-tags.orange')
-                        ]) 
+                        ])
                       ]),
                       m('span.venue-description', [
                         m.trust(business.address),
                         m.trust(',&nbsp;'),
                         m.trust(business.city),
                         m.trust('&nbsp;'),
-                        m('a[href=#]', { onclick: ctrl.showMap.bind(ctrl, business) }, [
+                        m('a.hidden-xs[href=#]', { onclick: ctrl.showMap.bind(ctrl, business) }, [
                           __('show_map'),
                           m.trust('&nbsp;&raquo;')
                         ])
                       ]),
+                      if(parseInt(business.review_count, 10) > 0)
+                        m('table.venue-review', [
+                          m('tr',[
+                            m('td', [
+                              m('.raty', { 'data-score' : business.avg_total }),
+                            ]),
+                            m('td', [
+                              m('span', [ 
+                                business.review_count, 
+                                m.trust('&nbsp;'),
+                                if(parseInt(business.review_count, 10) > 1)
+                                  __('reviews')
+                                else
+                                  __('review')
+                              ]) 
+                            ])
+                          ])
+                        ])
+                      else
+                        m('div', [ __('no_review') ])
                       m('.row.contact.hidden-xs', [
                         m('.col-xs-6', [
                           # m('div.contact-item', [

@@ -442,6 +442,8 @@ class Front extends Base
             $item['payment_options'] = $item->paymentOptions;
             $item['businessUrl']     = $item->businessUrl;
             $item['hasDiscount']     = $item->hasDiscount;
+            $item['avg_total']       = $item->reviewScore;
+            $item['review_count']    = $item->reviewCount;
             $businesses[] = $item;
         }
 

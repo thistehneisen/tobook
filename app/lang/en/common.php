@@ -114,6 +114,7 @@ return [
     'export_csv'            => 'Export to CSV',
     'info'                  => 'Information',
     'empty'                 => 'Empty',
+    'no_review'             => 'No review',
     'review'                => 'Review',
     'reviews'               => 'Reviews',
     'hour'                  => 'Hour',

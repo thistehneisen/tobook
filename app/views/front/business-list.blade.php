@@ -20,6 +20,7 @@
     {{ HTML::style(asset('packages/alertify/css/themes/bootstrap.min.css')) }}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
+    {{ HTML::style(asset('packages/jquery.raty/jquery.raty.css')) }}
 @stop
 
 @section('scripts')
@@ -32,6 +33,7 @@
     @endif
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js') }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
+    {{ HTML::script(asset('packages/jquery.raty/jquery.raty.js')) }}
     {{ HTML::script(asset_path('as/scripts/business.js')) }}
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
@@ -51,7 +53,8 @@
         var app = app || {};
 
         app.initData = {
-            environment : '{{ App::environment() }}'
+            environment : '{{ App::environment() }}',
+            assetPath : '{{ asset('packages/jquery.raty/images') }}'
         }
         app.i18n = {
             'select': '@lang('as.embed.cp.select')',
@@ -88,6 +91,9 @@
             'payment.full' : '@lang('user.payment_options.full')',
             'payment.deposit' : '@lang('user.payment_options.deposit')',
             'online_booking' : '@lang('intro.online_booking')',
+            'reviews'    : '@lang('common.reviews')',
+            'review'     : '@lang('common.review')',
+            'no_review'  : '@lang('common.no_review')',
         };
 
         app.routes = {
