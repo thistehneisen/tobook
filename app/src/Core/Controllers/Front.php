@@ -437,7 +437,7 @@ class Front extends Base
             }
             
             $item['price_range']     = $priceRanges;
-            $item['image_url']       = $item->images->first()->getPublicUrl();
+            $item['image_url']       = (!empty($item->images->first())) ? $item->images->first()->getPublicUrl() : '';
             $item['user_email']      = $item->user->email;
             $item['payment_options'] = $item->paymentOptions;
             $item['businessUrl']     = $item->businessUrl;
