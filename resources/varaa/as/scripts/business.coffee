@@ -218,6 +218,13 @@ app.VaraaBusiness = (dom, id, type) ->
         readOnly: true
 
       $('.raty').raty('reload');
+      $("[name='show_discount']").bootstrapSwitch();
+      $('input[name="show_discount"]').on 'switchChange.bootstrapSwitch', (event, state) =>
+        console.log(state)
+        @dataStore().show_discount = state
+        @dataStore().page = 1
+        @append = false
+        @search()
 
       $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $( "#slider-range" ).slider("values", 1));
       businesses = @businesses()
