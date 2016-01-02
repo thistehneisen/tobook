@@ -387,6 +387,14 @@ class Front extends Base
     {
         $id   = Input::get('id');
         $type = Input::get('type');
+        
+        $lat = Input::get('lat');
+        $lng = Input::get('lng');
+
+        if (!empty($lat) && !empty($lng)) {
+            Session::set('lat', $lat);
+            Session::set('lng', $lng);
+        }
 
         $categoryKeyword = $type . '_' . $id;
 

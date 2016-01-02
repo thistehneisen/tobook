@@ -24,7 +24,27 @@ app.VaraaBusiness = (dom, id, type) ->
     @environment(app.initData.environment)
     @assetPath(app.initData.assetPath)
 
-    @search = ->
+    @bigbang = () ->
+      $body = $ 'body'
+      lat = $body.data 'lat'
+      lng = $body.data 'lng'
+
+      if (lat? and lng? and lat != '' and lng != '')
+        @search()
+      else
+        # Ask for location
+        VARAA.getLocation()
+          .then (lat, lng) ->
+            $.ajax
+              url: $body.data 'geo-url'
+              type: 'POST'
+              data:
+                lat: lat
+                lng: lng
+            .done -> @search()
+          .fail -> @search()
+
+    @search = (lat=0, lng=0) ->
       $('#show-more-spin').show()
       m.request
         method: 'GET'
@@ -38,7 +58,9 @@ app.VaraaBusiness = (dom, id, type) ->
           show_discount: @dataStore().show_discount
           min_price: @dataStore().min_price
           max_price: @dataStore().max_price
-          page: @dataStore().page
+          page: @dataStore().page,
+          lat: lat,
+          lng: lng
       .then (data) =>
         if (@append)
           for business in data.businesses
@@ -232,7 +254,7 @@ app.VaraaBusiness = (dom, id, type) ->
       @renderMap('topmap', businesses[0].lat, businesses[0].lng, markers)
 
     # Kickstart
-    @search()
+    @bigbang()
 
     return
 
