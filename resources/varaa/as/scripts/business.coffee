@@ -10,21 +10,34 @@ app.VaraaBusiness = (dom, id, type) ->
 
   BusinessList = {}
   BusinessList.controller = ->
-    @dataStore = m.prop { id: id, type: type, keyword: '', search_type: '', city: '', show_discount: false, page: 1, count: 1, min_price: 0, max_price: 500}
+    @dataStore = m.prop { id: id, type: type, keyword: '', search_type: '', city: '', show_discount: false, page: 1, count: 0, min_price: 0, max_price: 500}
     
     @data        = m.prop {}
     @businesses  = m.prop []
     @environment = m.prop ''
     @assetPath = m.prop ''
-    @count = m.prop 1
+    @count = m.prop 0
     @page = m.prop 1
     @cache = []
     @append = true
+    @lat = m.prop 0
+    @lng = m.prop 0
 
     @environment(app.initData.environment)
     @assetPath(app.initData.assetPath)
 
-    @bigbang = () ->
+    @setGeolocation = (position) =>
+      lat = position.coords.latitude
+      lng = position.coords.longitude
+      @lat(lat)
+      @lng(lng)
+      @search()      
+      return 
+
+    @showError = (error) ->
+      console.log(error) 
+
+    @bigbang = () =>
       $body = $ 'body'
       lat = $body.data 'lat'
       lng = $body.data 'lng'
@@ -33,19 +46,11 @@ app.VaraaBusiness = (dom, id, type) ->
         @search()
       else
         # Ask for location
-        VARAA.getLocation()
-          .then (lat, lng) ->
-            $.ajax
-              url: $body.data 'geo-url'
-              type: 'POST'
-              data:
-                lat: lat
-                lng: lng
-            .done -> @search()
-          .fail -> @search()
+        navigator.geolocation.getCurrentPosition @setGeolocation, @showError, timeout: 10000
 
-    @search = (lat=0, lng=0) ->
+    @search = () ->
       $('#show-more-spin').show()
+
       m.request
         method: 'GET'
         url: app.routes['business.search']
@@ -59,8 +64,8 @@ app.VaraaBusiness = (dom, id, type) ->
           min_price: @dataStore().min_price
           max_price: @dataStore().max_price
           page: @dataStore().page,
-          lat: lat,
-          lng: lng
+          lat: @lat(),
+          lng: @lng()
       .then (data) =>
         if (@append)
           for business in data.businesses
@@ -260,7 +265,7 @@ app.VaraaBusiness = (dom, id, type) ->
 
   BusinessList.view = (ctrl) ->
     m('.container.business-container', [
-      if (ctrl.environment() == 'tobook')
+      if (ctrl.environment() == 'tobook' and ctrl.count() >= 1)
         m('.row.hidden-xs', [
           m('.col-sm-12', [
             m('#topmap', { style: "height: 300px; width: 100%" } )

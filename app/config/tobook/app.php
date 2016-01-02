@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'debug' => false,
+    'debug' => true,
     'url' => 'http://tobook.lv',
     'key' => $_ENV['SECRET_KEY'],
     'timezone' => 'Europe/Riga',

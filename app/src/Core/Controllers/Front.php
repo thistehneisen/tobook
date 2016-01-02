@@ -19,6 +19,7 @@ use Input;
 use Request;
 use Response;
 use Redirect;
+use Session;
 use Settings;
 use Util;
 use View;
