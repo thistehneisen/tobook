@@ -5,6 +5,7 @@ use Input;
 use Session;
 use Util;
 use App\Haku\Searchers\BusinessesByName;
+use Response;
 
 class Search extends Front
 {
