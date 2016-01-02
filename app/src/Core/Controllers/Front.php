@@ -2,6 +2,7 @@
 
 use App;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\Service;
 use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\TreatmentType;
 use App\Core\Models\Business;
@@ -9,9 +10,11 @@ use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
 use App\Core\Models\Review;
 use App\Haku\Searchers\BusinessesByCategory;
+use App\Haku\Searchers\BusinessesByCategoryAdvanced;
 use App\Haku\Searchers\BusinessesByDistrict;
-use Cookie;
+use App\Haku\Searchers\BusinessesByCity;
 use Illuminate\Support\Collection;
+use Cookie;
 use Input;
 use Request;
 use Response;
@@ -340,4 +343,115 @@ class Front extends Base
         return Redirect::route('businesses.review', ['id' => $user->id, 'slug' => $user->business->slug])
             ->with('showSuccess', true);
     }
+
+    /**
+     * Test new layout
+     * 
+     * @return View
+     */
+    public function businessList($id, $slug)
+    {   
+        // Get the correct model based on first URL segment
+        $isMasterCategory = strpos(Request::path(), 'categories') !== false;
+        $type = $isMasterCategory ? 'mc' : 'tm';
+
+        $model = ($type === 'mc')
+            ? '\App\Appointment\Models\MasterCategory'
+            : '\App\Appointment\Models\TreatmentType';
+        $instance = $model::findOrFail($id);
+
+        // Master categories
+        $masterCategories = MasterCategory::getAll();
+
+                // Add meta data to this page
+        $meta['description'] = $instance->description;
+
+        // Change page title
+        $title = $instance->name;
+
+        return $this->render('business-list',[
+            'id'   => $id,
+            'type' => $type,
+            'mcs'  => $masterCategories,
+            'title'=> $title,
+            'meta' => $meta
+        ]);
+    }
+
+    /**
+     * Handle request from new business list layout 
+     * 
+     * @return json
+     */
+    public function search()
+    {
+        $id   = Input::get('id');
+        $type = Input::get('type');
+
+        $categoryKeyword = $type . '_' . $id;
+
+        $model = ($type === 'mc')
+            ? '\App\Appointment\Models\MasterCategory'
+            : '\App\Appointment\Models\TreatmentType';
+        $instance = $model::findOrFail($id);
+
+        $perPage = 15;
+        $params = [
+            'location' => Util::getCoordinates(),
+            'from' => (Input::get('page', 1) - 1) * $perPage,
+            'size' => $perPage
+        ];
+
+        $searchType = Input::get('search_type');
+        
+        $params['category']     = $categoryKeyword;
+        $params['has_discount'] = (Input::get('show_discount') == 'true') ? true : false;
+        $params['min_price']    = (int)Input::get('min_price');
+        $params['max_price']    = (int)Input::get('max_price');
+
+        if ( !empty(Input::get('city')) || !empty(Input::get('keyword')) ) {
+            $params['keyword']      = Input::get('keyword');
+            $params['category']     = $categoryKeyword;
+            $params['city']         = Input::get('city');
+            $s = new BusinessesByCategoryAdvanced($params);
+        } else {
+            $params['keyword'] = $categoryKeyword;
+            $s = new BusinessesByCategory($params);
+        }
+
+        $paginator = $s->search();
+
+        $items = $paginator->getItems();
+
+        $businesses = [];
+        $services = [];
+
+        foreach ($items as $item) {
+            //TODO
+            $services = Service::getMostPopularServices($item->user->id);
+            $item['services'] = $services;
+
+            $priceRanges = [];
+            foreach ($services as $service) {
+                $priceRanges[$service->id] = $service->priceRange;
+            }
+            
+            $item['price_range']     = $priceRanges;
+            $item['image_url']       = (!empty($item->images->first())) ? $item->images->first()->getPublicUrl() : '';
+            $item['user_email']      = $item->user->email;
+            $item['payment_options'] = $item->paymentOptions;
+            $item['businessUrl']     = $item->businessUrl;
+            $item['hasDiscount']     = $item->hasDiscount;
+            $item['avg_total']       = $item->reviewScore;
+            $item['review_count']    = $item->reviewCount;
+            $businesses[] = $item;
+        }
+
+        return Response::json([
+            'businesses' => $businesses,
+            'current'    => $paginator->getCurrentPage(),
+            'count'      => $paginator->getLastPage(),
+        ]);
+    }
+
 }

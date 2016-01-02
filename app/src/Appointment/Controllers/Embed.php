@@ -31,7 +31,7 @@ class Embed extends AsBase
      */
     public function preview()
     {
-        return Redirect::route('as.embed.embed', ['hash' =>  $this->user->hash]);
+        return Redirect::route('as.embed.embed', ['hash' =>  $this->user->hash, 'l' => 2]);
     }
 
 }

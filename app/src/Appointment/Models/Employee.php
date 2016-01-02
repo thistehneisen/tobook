@@ -804,6 +804,9 @@ class Employee extends \App\Appointment\Models\Base
         return $this->hasMany('App\Appointment\Models\EmployeeFreetime');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function employeeCustomTimes()
     {
         return $this->hasMany('App\Appointment\Models\EmployeeCustomTime');

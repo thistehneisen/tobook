@@ -7,6 +7,8 @@ use App\Core\Models\Multilanguage;
 use App\Appointment\Models\Discount;
 use App\Appointment\Models\DiscountLastMinute;
 use Carbon\Carbon;
+use Redis;
+use Log;
 
 class Service extends \App\Core\Models\Base
 {
@@ -157,6 +159,12 @@ class Service extends \App\Core\Models\Base
         return boolval((int)$this->employees()->count());
     }
 
+    /**
+     * Get price range of current service inlucding all service times
+     * 
+     * @author hung@varaa.com
+     * @return string
+     */ 
     public function getPriceRangeAttribute()
     {   
         // m for multiple
@@ -185,6 +193,16 @@ class Service extends \App\Core\Models\Base
         }
 
         return $result;
+    }
+
+    public static function getMostPopularServices($user_id)
+    {
+        $redis =  Redis::connection();
+        $key = sprintf('popular_services_%s', $user_id);
+        $ids = json_decode($redis->get($key));
+        $services = Service::whereIn('id', $ids)->get();
+
+        return $services;
     }
 
     //--------------------------------------------------------------------------

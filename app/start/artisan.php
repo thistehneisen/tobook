@@ -38,6 +38,7 @@ Artisan::add(new App\Core\Commands\FixWorkshiftDuplicates());
 Artisan::add(new App\Core\Commands\CopyServicesCommand());
 Artisan::add(new App\Core\Commands\FixConsumerStatusTobook());
 Artisan::add(new App\Core\Commands\GenerateDeploymentInfo());
+Artisan::add(new App\Core\Commands\PopularServicesForSearch());
 
 Artisan::add(new App\Cart\Commands\UnlockCartItemsCommand());
 

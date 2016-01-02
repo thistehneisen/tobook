@@ -20,6 +20,7 @@ $(function () {
     var originalContent = $('div.description').html();
     var truncateDescription = function() {
         var originalContent = $('div.description').html();
+        //Normalize the content, there are usually a lot of p tags inside the html content
         if (ps > 1) {
             var firstP = $("p", $('div.description')).first().text();
             $('div.description').find("p").remove();
@@ -29,7 +30,8 @@ $(function () {
         }
        
         var rows = countRows();
-        if (rows > 3) {
+        //For some reasons the rows can be 3.4
+        if (Math.floor(rows) > 3) {
             $('a.readmore').show();
             $("#business-description").dotdotdot({
                 ellipsis : '',

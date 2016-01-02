@@ -36,6 +36,8 @@ class BusinessIndexer extends AbstractIndexer
             $keywords = array_merge($keywords, $item->keywords);
         }
 
+        $services = $document->getAllServiceNames();
+
         if (empty($document->user->id)) {
             //User is deleted
             return;
@@ -57,6 +59,7 @@ class BusinessIndexer extends AbstractIndexer
             'categories'        => $categories,
             'master_categories' => array_keys($masterCategories),
             'keywords'          => $keywords,
+            'services'          => $services,
             'address'           => $document->address ?: '',
             'district'          => $document->district ?: '',
             'postcode'          => $document->postcode ?: '',
@@ -64,6 +67,9 @@ class BusinessIndexer extends AbstractIndexer
             'country'           => $document->country ?: '',
             'phone'             => $document->phone ?: '',
             'description'       => $document->description ?: '',
+            'has_discount'      => $document->hasDiscount ?: false,
+            'min_price'         => intval($document->minServicePrice) ?: 0,
+            'max_price'         => intval($document->maxServicePrice) ?: 0,
             'location'          => [
                 'lat' => $document->lat ?: 0,
                 'lon' => $document->lng ?: 0
@@ -85,6 +91,9 @@ class BusinessIndexer extends AbstractIndexer
             'country'           => ['type' => 'string'],
             'phone'             => ['type' => 'string'],
             'description'       => ['type' => 'string'],
+            'has_discount'      => ['type' => 'boolean'],
+            'min_price'         => ['type' => 'integer'],
+            'max_price'         => ['type' => 'integer'],
             'location'          => ['type' => 'geo_point'],
         ];
     }
