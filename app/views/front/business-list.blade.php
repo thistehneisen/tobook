@@ -17,11 +17,11 @@
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.6/css/swiper.min.css') }}
     {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css') }}
-    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css') }}
     {{ HTML::style(asset('packages/alertify/css/themes/bootstrap.min.css')) }}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
     {{ HTML::style(asset('packages/jquery.raty/jquery.raty.css')) }}
+    {{ HTML::style(asset('packages/switchery/switchery.min.css')) }}
 @stop
 
 @section('scripts')
@@ -33,9 +33,9 @@
     @if (App::getLocale() !== 'en') {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
     @endif
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js') }}
-    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js') }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     {{ HTML::script(asset('packages/jquery.raty/jquery.raty.js')) }}
+    {{ HTML::script(asset('packages/switchery/switchery.min.js')) }}
     {{ HTML::script(asset_path('as/scripts/business.js')) }}
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
