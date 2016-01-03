@@ -108,56 +108,6 @@ class Front extends Base
     }
 
     /**
-     * Auxilary method to render the list of businesses, AJAX pagination supported
-     *
-     * @param Illuminate\Pagination\Paginator $paginator  The paginator containing
-     *                                                    list of businesses
-     * @param array                           $businesses The list of businesses extrated from paginator
-     * @param string                          $heading    The heading used in the page
-     *
-     * @return Response|View
-     */
-    protected function renderBusinesses($paginator, $businesses, $heading, $title = '', $meta = [])
-    {
-        // Calculate next page
-        $nextPageUrl = $this->getNextPageUrl($paginator);
-
-        $viewData = [
-            'businesses' => $businesses,
-            'nextPageUrl' => $nextPageUrl,
-        ];
-
-        // If this is a Show more request, return the view only
-        if (Request::ajax()) {
-            return Response::json([
-                'businesses' => $businesses,
-                'html'       => $this->render('el.sidebar', $viewData)->render()
-            ]);
-        }
-
-        // Get lat and lng to show the map
-        list($lat, $lng) = Util::getCoordinates();
-
-        $viewData['lat']     = $lat;
-        $viewData['lng']     = $lng;
-        $viewData['heading'] = $heading;
-        $viewData['meta']    = (array) $meta;
-        $viewData['title']   = $title ?: trans('common.home');
-
-        // @see: https://github.com/varaa/varaa/issues/662
-        $iframeUrl = null;
-        Cookie::queue('shown_business_modal', true, 60*24*14); // 14 days
-
-        if ((bool) Settings::get('enable_business_modal', false)
-            && Cookie::get('shown_business_modal') !== true) {
-            $iframeUrl = Settings::get('business_modal_url');
-        }
-        $viewData['iframeUrl'] = $iframeUrl;
-
-        return $this->render('businesses', $viewData);
-    }
-
-    /**
      * Get URL for the next page in pagination
      *
      * @param Illuminate\Pagination\Paginator $businesses
@@ -173,69 +123,6 @@ class Front extends Base
         }
 
         return '';
-    }
-
-    /**
-     * Show businesses of a category
-     *
-     * @param int    $id
-     * @param string $slug
-     *
-     * @return View
-     */
-    public function category($id, $slug)
-    {
-        // Get the correct model based on first URL segment
-        $isMasterCategory = strpos(Request::path(), 'categories') !== false;
-        $categoryKeyword = $isMasterCategory ? 'mc_'.$id : 'tm_'.$id;
-
-        $model = $isMasterCategory
-            ? '\App\Appointment\Models\MasterCategory'
-            : '\App\Appointment\Models\TreatmentType';
-        $instance = $model::findOrFail($id);
-
-        $perPage = 15;
-        $params = [
-            'location' => Util::getCoordinates(),
-            'from' => (Input::get('page', 1) - 1) * $perPage,
-            'size' => $perPage
-        ];
-        $searchType = Input::get('type');
-        if (!empty($searchType) && $searchType === 'district') {
-            $params['keyword'] = Input::get('location');
-            $params['category'] = $categoryKeyword;
-
-            $s = new BusinessesByDistrict($params);
-        } else {
-            $params['keyword'] = $categoryKeyword;
-
-            $s = new BusinessesByCategory($params);
-        }
-
-        $paginator = $s->search();
-
-        // Extract list of businesses
-        $items = $paginator->getCollection();
-
-        $heading = $instance->name;
-
-        $q = Input::get('q');
-
-        if (strpos(Request::path(), 'treatments') !== false
-            || strpos(Request::path(), 'categories') !== false) {
-            $keyword = $instance->keywords()->where('keyword', '=', $q)->get();
-            if ($keyword->count()) {
-                $heading = $q;
-            }
-        }
-
-        // Add meta data to this page
-        $meta['description'] = $instance->description;
-
-        // Change page title
-        $title = $instance->name;
-
-        return $this->renderBusinesses($paginator, $items, $heading, $title, $meta);
     }
 
     public function about()
