@@ -245,13 +245,17 @@ app.VaraaBusiness = (dom, id, type) ->
         readOnly: true
 
       $('.raty').raty('reload');
-      $("[name='show_discount']").bootstrapSwitch();
-      $('input[name="show_discount"]').on 'switchChange.bootstrapSwitch', (event, state) =>
-        console.log(state)
-        @dataStore().show_discount = state
-        @dataStore().page = 1
-        @append = false
-        @search()
+
+      checkbox = document.querySelector('.js-switch')
+      if (checkbox.getAttribute('data-switchery') == null)
+        init = new Switchery(checkbox);
+        checkbox.onchange = () =>
+          state = checkbox.checked;
+          console.log(state)
+          @dataStore().show_discount = state
+          @dataStore().page = 1
+          @append = false
+          @search()
 
       $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $( "#slider-range" ).slider("values", 1));
       businesses = @businesses()
@@ -283,8 +287,8 @@ app.VaraaBusiness = (dom, id, type) ->
             ])
           m('.row', [
             m('hr', { class : ctrl.environment() }),
+            m('input.js-switch[type=checkbox]', { value: true }),
             m('label[for=show_discount]',[
-              m('input[type=checkbox][name=show_discount]', { onclick: ctrl.setShowDiscount.bind(ctrl), value: true }),
               m.trust('&nbsp;'),
               m.trust('Only off-peak discounts'),
             ])
