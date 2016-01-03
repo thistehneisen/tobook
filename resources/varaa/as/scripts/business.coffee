@@ -153,7 +153,7 @@ app.VaraaBusiness = (dom, id, type) ->
         lng: business.lng
         title: business.name
         infoWindow:
-          content: "<table class=\"map-marker-table\"><tr><td><img src='" + business.image_url + "' style='width: 100px' /></td><td><p><a href='#{business.businessUrl}'><strong>#{business.name}</strong></a></p><p>#{business.full_address}</p><span class=\"label label-success\"><i class=\"fa fa-ticket\"></i>" + __('online_booking') + "</span></td></tr></table>"
+          content: "<a href='#{business.businessUrl}'><table class=\"map-marker-table\"><tr><td><img src='" + business.image_url + "' style='width: 100px' /></td><td><p><strong>#{business.name}</strong></p><p>#{business.full_address}</p><span class=\"label label-success\"><i class=\"fa fa-ticket\"></i>" + __('online_booking') + "</span></td></tr></table></a>"
       }
 
     @makeMarkers =  (businesses) ->
@@ -199,15 +199,15 @@ app.VaraaBusiness = (dom, id, type) ->
       });
       $('.dialog').dialog('open');
 
-      allLat = businesses.reduce (keeper, business) ->
-        return sum + Number(business.lat)
+      allLat = 0
+      allLng = 0
 
-      allLng = businesses.reduce (keeper, business) ->
-        return sum + Number(business.lng)
+      for business in businesses
+        allLat += parseFloat(business.lat, 10)
+        allLng += parseFloat(business.lng, 10)
 
       avgLng = allLng / businesses.length
       avgLat = allLat / businesses.length
-
       @renderMap('gmap', avgLat, avgLng, markers)
       $('#gmap').trigger('click');
 
