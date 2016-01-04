@@ -506,6 +506,13 @@ class Business extends Base
             ? (bool) $this->attributes['is_hidden']
             : false ;
     }
+    
+    public function getIsBookingDisabledAttribute()
+    {
+        return isset($this->attributes['is_booking_disabled'])
+            ? (bool) $this->attributes['is_booking_disabled']
+            : false ;
+    }
 
     public function getTotalCommissionAttribute()
     {

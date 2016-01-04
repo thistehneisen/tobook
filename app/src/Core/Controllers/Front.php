@@ -323,18 +323,21 @@ class Front extends Base
         $services = [];
 
         foreach ($items as $item) {
-            //TODO
             if ($item->isHidden) {
                 continue;
             }
-            $services = Service::getMostPopularServices($item->user->id);
-            $item['services'] = $services;
 
+            $services = [];
             $priceRanges = [];
-            foreach ($services as $service) {
-                $priceRanges[$service->id] = $service->priceRange;
+
+            if (!$item->isBookingDisabled) {
+                $services = Service::getMostPopularServices($item->user->id);
+                foreach ($services as $service) {
+                    $priceRanges[$service->id] = $service->priceRange;
+                }
             }
-            
+
+            $item['services']        = $services;
             $item['price_range']     = $priceRanges;
             $item['image_url']       = (!empty($item->images->first())) ? $item->images->first()->getPublicUrl() : '';
             $item['user_email']      = $item->user->email;
