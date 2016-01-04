@@ -58,6 +58,9 @@ return [
         'current_location' => 'Sijaintisi',
         'results'         => '<span class="keyword">&ldquo;:keyword&rdquo;</span>, <span class="location">:location</span>, :date, :time, <span class="results">:total hakutulosta</span>',
         'force_selection' => 'Valitse palvelutyyppi jatkaaksesi.',
+        'filters'               => 'Tarkenna hakua',
+        'filter_search_results' => 'Tarkenna hakutuloksia',
+        'only_offpeak_discounts'=> 'Näytä pelkkiä tarjouksia',
         'validation'      => [
             'q'        => 'Etsi palveluita',
             'location' => 'Valitse sijainti',
@@ -97,7 +100,7 @@ return [
     'companies_offers'    => 'Vain yritykset joilla on tarjouksia',
     'categories'          => 'Kategoriat',
     'best_offers'         => 'Parhaat tarjoukset',
-    'no_offers'           => 'Tarjouksia ei ole saatavilla.',
+    'no_offers'           => 'Tarjouksia ei saatavilla.',
     'map'                 => 'Kartta',
     'show_more'           => 'Näytä lisää',
     // How it works?
@@ -120,6 +123,8 @@ return [
         'about'          => 'Yrityksestä',
         'openning_hours' => 'Aukioloajat',
         'map'            => 'Osoite',
+        'show_map'       => 'Näytä kartalla',
+        'view_on_map'    => 'Näytä kartalla',
         'address'        => 'Osoite',
         'phone'          => 'Puh.',
         'email'          => 'Sähköposti',
