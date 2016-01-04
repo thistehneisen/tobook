@@ -39,4 +39,154 @@
     .pagination {
         padding-top: 10px;
     }
+    .range {
+        margin-right: 10px;
+    }
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* New Business List                                                          */
+/* -------------------------------------------------------------------------- */
+
+.business-container 
+{
+    min-height: 640px;
+    margin-top: 10px;
+    
+    #topmap {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    a {
+        color: @primary_color
+    }
+
+    a.btn {
+        color: #ffffff;
+    }
+
+    a#show-more {
+        color: @primary_color
+    }
+
+    .search-panel {
+        padding: 0 25px;
+    }
+    
+    hr.tobook {
+        border: 1px solid #fff;
+    }
+
+    .businesses {
+        min-height: 640px;
+        padding: 15px;
+        border-left: 1px solid #ccc;
+        
+        .item {
+            border-bottom: 1px solid #ccc;
+            padding-top: 15px;
+            padding-bottom: 5px;
+        }
+
+        .contact {
+            margin-top: 10px;
+            strong {
+                display: block;
+            }
+
+            .contact-item {
+                margin-bottom: 10px;
+            }
+        }
+
+        .information {
+            img {
+                max-height: 120px;
+            }
+        }
+
+        .venue-review  {
+            td {
+                padding: 5px;
+            }
+        }
+    }
+
+    .show-more-panel {
+        padding: 15px;
+        border-left: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+
+    .popular-services {
+        padding: 10px;
+        
+        .popular-service:first-child {
+            border-bottom: none;
+        }
+
+        .popular-service:last-child {
+            border-bottom: 1px solid @primary_color;
+        }
+
+        .popular-service {
+            border: 1px solid @primary_color;
+            padding: 10px 0;
+
+            .service-name { 
+                display: inline-block;
+                padding: 6px 12px;
+            }
+        }
+    }
+
+}
+
+@media(max-width:767px) {
+    .container {
+        padding-left: 10px; 
+        padding-right: 10px; 
+    }
+    
+    .business-container {
+        .businesses {
+            border: none;
+        }
+
+        .show-more-panel {
+            border: none;
+        }
+    }
+}
+
+@media(max-width:400px) {
+    .mobile-item:hover {
+        background: #ccc;
+        cursor: pointer;
+    }
+
+    .business-container 
+    {
+        .businesses {
+            .item {
+                padding-top: 5px;
+            }
+        }
+    }
+}
+
+.ui-widget-header {
+    border: none!important;
+    background: #ffffff!important;
+}
+.map-marker-table {
+    td {
+        padding: 5px;
+
+        p {
+            margin: 0px;
+        }   
+    }
 }

@@ -2,6 +2,7 @@
 
 use App;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\Service;
 use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\TreatmentType;
 use App\Core\Models\Business;
@@ -9,13 +10,16 @@ use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
 use App\Core\Models\Review;
 use App\Haku\Searchers\BusinessesByCategory;
+use App\Haku\Searchers\BusinessesByCategoryAdvanced;
 use App\Haku\Searchers\BusinessesByDistrict;
-use Cookie;
+use App\Haku\Searchers\BusinessesByCity;
 use Illuminate\Support\Collection;
+use Cookie;
 use Input;
 use Request;
 use Response;
 use Redirect;
+use Session;
 use Settings;
 use Util;
 use View;
@@ -104,56 +108,6 @@ class Front extends Base
     }
 
     /**
-     * Auxilary method to render the list of businesses, AJAX pagination supported
-     *
-     * @param Illuminate\Pagination\Paginator $paginator  The paginator containing
-     *                                                    list of businesses
-     * @param array                           $businesses The list of businesses extrated from paginator
-     * @param string                          $heading    The heading used in the page
-     *
-     * @return Response|View
-     */
-    protected function renderBusinesses($paginator, $businesses, $heading, $title = '', $meta = [])
-    {
-        // Calculate next page
-        $nextPageUrl = $this->getNextPageUrl($paginator);
-
-        $viewData = [
-            'businesses' => $businesses,
-            'nextPageUrl' => $nextPageUrl,
-        ];
-
-        // If this is a Show more request, return the view only
-        if (Request::ajax()) {
-            return Response::json([
-                'businesses' => $businesses,
-                'html'       => $this->render('el.sidebar', $viewData)->render()
-            ]);
-        }
-
-        // Get lat and lng to show the map
-        list($lat, $lng) = Util::getCoordinates();
-
-        $viewData['lat']     = $lat;
-        $viewData['lng']     = $lng;
-        $viewData['heading'] = $heading;
-        $viewData['meta']    = (array) $meta;
-        $viewData['title']   = $title ?: trans('common.home');
-
-        // @see: https://github.com/varaa/varaa/issues/662
-        $iframeUrl = null;
-        Cookie::queue('shown_business_modal', true, 60*24*14); // 14 days
-
-        if ((bool) Settings::get('enable_business_modal', false)
-            && Cookie::get('shown_business_modal') !== true) {
-            $iframeUrl = Settings::get('business_modal_url');
-        }
-        $viewData['iframeUrl'] = $iframeUrl;
-
-        return $this->render('businesses', $viewData);
-    }
-
-    /**
      * Get URL for the next page in pagination
      *
      * @param Illuminate\Pagination\Paginator $businesses
@@ -169,69 +123,6 @@ class Front extends Base
         }
 
         return '';
-    }
-
-    /**
-     * Show businesses of a category
-     *
-     * @param int    $id
-     * @param string $slug
-     *
-     * @return View
-     */
-    public function category($id, $slug)
-    {
-        // Get the correct model based on first URL segment
-        $isMasterCategory = strpos(Request::path(), 'categories') !== false;
-        $categoryKeyword = $isMasterCategory ? 'mc_'.$id : 'tm_'.$id;
-
-        $model = $isMasterCategory
-            ? '\App\Appointment\Models\MasterCategory'
-            : '\App\Appointment\Models\TreatmentType';
-        $instance = $model::findOrFail($id);
-
-        $perPage = 15;
-        $params = [
-            'location' => Util::getCoordinates(),
-            'from' => (Input::get('page', 1) - 1) * $perPage,
-            'size' => $perPage
-        ];
-        $searchType = Input::get('type');
-        if (!empty($searchType) && $searchType === 'district') {
-            $params['keyword'] = Input::get('location');
-            $params['category'] = $categoryKeyword;
-
-            $s = new BusinessesByDistrict($params);
-        } else {
-            $params['keyword'] = $categoryKeyword;
-
-            $s = new BusinessesByCategory($params);
-        }
-
-        $paginator = $s->search();
-
-        // Extract list of businesses
-        $items = $paginator->getCollection();
-
-        $heading = $instance->name;
-
-        $q = Input::get('q');
-
-        if (strpos(Request::path(), 'treatments') !== false
-            || strpos(Request::path(), 'categories') !== false) {
-            $keyword = $instance->keywords()->where('keyword', '=', $q)->get();
-            if ($keyword->count()) {
-                $heading = $q;
-            }
-        }
-
-        // Add meta data to this page
-        $meta['description'] = $instance->description;
-
-        // Change page title
-        $title = $instance->name;
-
-        return $this->renderBusinesses($paginator, $items, $heading, $title, $meta);
     }
 
     public function about()
@@ -340,4 +231,123 @@ class Front extends Base
         return Redirect::route('businesses.review', ['id' => $user->id, 'slug' => $user->business->slug])
             ->with('showSuccess', true);
     }
+
+    /**
+     * Test new layout
+     * 
+     * @return View
+     */
+    public function businessList($id, $slug)
+    {   
+        // Get the correct model based on first URL segment
+        $isMasterCategory = strpos(Request::path(), 'categories') !== false;
+        $type = $isMasterCategory ? 'mc' : 'tm';
+
+        $model = ($type === 'mc')
+            ? '\App\Appointment\Models\MasterCategory'
+            : '\App\Appointment\Models\TreatmentType';
+        $instance = $model::findOrFail($id);
+
+        // Master categories
+        $masterCategories = MasterCategory::getAll();
+
+                // Add meta data to this page
+        $meta['description'] = $instance->description;
+
+        // Change page title
+        $title = $instance->name;
+
+        return $this->render('business-list',[
+            'id'   => $id,
+            'type' => $type,
+            'mcs'  => $masterCategories,
+            'title'=> $title,
+            'meta' => $meta
+        ]);
+    }
+
+    /**
+     * Handle request from new business list layout 
+     * 
+     * @return json
+     */
+    public function search()
+    {
+        $id   = Input::get('id');
+        $type = Input::get('type');
+        
+        $lat = Input::get('lat');
+        $lng = Input::get('lng');
+
+        if (!empty($lat) && !empty($lng)) {
+            Session::set('lat', $lat);
+            Session::set('lng', $lng);
+        }
+
+        $categoryKeyword = $type . '_' . $id;
+
+        $model = ($type === 'mc')
+            ? '\App\Appointment\Models\MasterCategory'
+            : '\App\Appointment\Models\TreatmentType';
+        $instance = $model::findOrFail($id);
+
+        $perPage = 15;
+        $params = [
+            'location' => Util::getCoordinates(),
+            'from' => (Input::get('page', 1) - 1) * $perPage,
+            'size' => $perPage
+        ];
+
+        $searchType = Input::get('search_type');
+        
+        $params['category']     = $categoryKeyword;
+        $params['has_discount'] = (Input::get('show_discount') == 'true') ? true : false;
+        $params['min_price']    = (int)Input::get('min_price');
+        $params['max_price']    = (int)Input::get('max_price');
+
+        if ( !empty(Input::get('city')) || !empty(Input::get('keyword')) ) {
+            $params['keyword']      = Input::get('keyword');
+            $params['category']     = $categoryKeyword;
+            $params['city']         = Input::get('city');
+            $s = new BusinessesByCategoryAdvanced($params);
+        } else {
+            $params['keyword'] = $categoryKeyword;
+            $s = new BusinessesByCategory($params);
+        }
+
+        $paginator = $s->search();
+
+        $items = $paginator->getItems();
+
+        $businesses = [];
+        $services = [];
+
+        foreach ($items as $item) {
+            //TODO
+            $services = Service::getMostPopularServices($item->user->id);
+            $item['services'] = $services;
+
+            $priceRanges = [];
+            foreach ($services as $service) {
+                $priceRanges[$service->id] = $service->priceRange;
+            }
+            
+            $item['price_range']     = $priceRanges;
+            $item['image_url']       = (!empty($item->images->first())) ? $item->images->first()->getPublicUrl() : '';
+            $item['user_email']      = $item->user->email;
+            $item['payment_options'] = $item->paymentOptions;
+            $item['businessUrl']     = $item->businessUrl;
+            $item['hasDiscount']     = $item->hasDiscount;
+            $item['avg_total']       = $item->reviewScore;
+            $item['review_count']    = $item->reviewCount;
+            $businesses[] = $item;
+        }
+
+        return Response::json([
+            'businesses' => $businesses,
+            'current'    => $paginator->getCurrentPage(),
+            'count'      => $paginator->getLastPage(),
+        ]);
+    }
+
 }

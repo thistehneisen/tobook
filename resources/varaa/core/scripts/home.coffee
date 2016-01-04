@@ -181,29 +181,29 @@ do ($ = jQuery) ->
           $danger.show()
 
     # When user clicks on navbar, we'll ask for the current location
-    $ '#js-navbar'
-      .find 'a'
-      .on 'click', (e) ->
-        e.preventDefault()
-        $$ = $ @
-        $body = $ 'body'
-        lat = $body.data 'lat'
-        lng = $body.data 'lng'
+    # $ '#js-navbar'
+    #   .find 'a'
+    #   .on 'click', (e) ->
+    #     e.preventDefault()
+    #     $$ = $ @
+    #     $body = $ 'body'
+    #     lat = $body.data 'lat'
+    #     lng = $body.data 'lng'
 
-        if (lat? and lng? and lat != '' and lng != '')
-          window.location = $$.prop 'href'
-        else
-          # Ask for location
-          VARAA.getLocation()
-            .then (lat, lng) ->
-              $.ajax
-                url: $body.data 'geo-url'
-                type: 'POST'
-                data:
-                  lat: lat
-                  lng: lng
-              .done -> window.location = $$.prop 'href'
-            .fail -> window.location = $$.prop 'href'
+    #     if (lat? and lng? and lat != '' and lng != '')
+    #       window.location = $$.prop 'href'
+    #     else
+    #       # Ask for location
+    #       VARAA.getLocation()
+    #         .then (lat, lng) ->
+    #           $.ajax
+    #             url: $body.data 'geo-url'
+    #             type: 'POST'
+    #             data:
+    #               lat: lat
+    #               lng: lng
+    #           .done -> window.location = $$.prop 'href'
+    #         .fail -> window.location = $$.prop 'href'
 
     # If user clicks on "Choose category" in navigation, scroll to the list of
     # categories

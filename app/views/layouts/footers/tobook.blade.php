@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 col-xs-12">
                         <h2 class="heading">@lang('home.footer.about', ['site' => 'ToBook.lv'])</h2>
                         @lang('home.footer.about_content')
                     </div>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-xs-12 col-sm-3">
                 <div class="contact-form">
                     <h2 class="heading">@lang('home.footer.contact')</h2>
                     {{ Form::open(['route' => 'contact', 'id' => 'form-contact']) }}

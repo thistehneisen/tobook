@@ -109,6 +109,13 @@ return [
     'submit'                => 'Hyväksy',
     'placeholders'          => 'Placeholders',//@todo
     'captcha'               => 'Captcha',
+    'info'                  => 'Info',
+    'empty'                 => 'Tyhjä',
+    'no_review'             => 'Ei arvosteluja',
+    'review'                => 'Arvostelu',
+    'reviews'               => 'Arvostelut',
+    'hour'                  => 'Hour',
+    'day'                   => 'Day',
     'short' => [
         'week'  => 'vko',
         'hour'  => 'tunti',
