@@ -324,6 +324,9 @@ class Front extends Base
 
         foreach ($items as $item) {
             //TODO
+            if ($item->isHidden) {
+                continue;
+            }
             $services = Service::getMostPopularServices($item->user->id);
             $item['services'] = $services;
 
