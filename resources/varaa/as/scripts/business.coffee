@@ -220,6 +220,11 @@ app.VaraaBusiness = (dom, id, type) ->
         return
       window.location.href = business.businessUrl
 
+    @showFilters = () ->
+      $('#filters').toggleClass('hidden-xs');
+      # $('#filters').slideToggle('slow');
+      return
+
     @init = () =>
       $("#slider-range").slider
         range: true,
@@ -285,34 +290,39 @@ app.VaraaBusiness = (dom, id, type) ->
                   __('view_on_map'),
               ])
             ])
-          m('.row', [
-            m('hr', { class : ctrl.environment() }),
-            m('input.js-switch[type=checkbox]', { value: true }),
-            m('label[for=show_discount]',[
-              m.trust('&nbsp;'),
-              m.trust('Only off-peak discounts'),
-            ])
+          m('.row.visible-xs', [
+            m('a.btn.btn-orange.pull-right[href=#]', { onclick: ctrl.showFilters.bind(ctrl) }, __('filters'))
           ]),
-          m('.row', [
-            m('hr'),
-            m('h4', [m.trust('Filter search result')]),
-            m('form', { class : 'form-horizontal'}, [
-              m('.form-group', [
-                m('.col-sm-12', [
-                  m('input#query[type=text]', { 
-                    class : 'form-control', 
-                    placeholder: __('query_placeholder'),
-                    onkeyup: ctrl.setKeyword.bind(ctrl)
-                  })
-                ])
-              ]),
-              m('.form-group', [
-                m('.col-sm-12', [
-                  m('input#city[type=text]', { 
-                    class : 'form-control', 
-                    placeholder: __('location_placeholder'),
-                    onkeyup: ctrl.setCity.bind(ctrl)
-                  })
+          m('#filters.hidden-xs',[
+            m('.row', [
+              m('hr', { class : ctrl.environment() }),
+              m('input.js-switch[type=checkbox]', { value: true }),
+              m('label[for=show_discount]',[
+                m.trust('&nbsp;'),
+                __('only_offpeak_discounts'),
+              ])
+            ]),
+            m('.row', [
+              m('hr'),
+              m('h4', [m.trust(__('filter_search_results')) ]),
+              m('form', { class : 'form-horizontal'}, [
+                m('.form-group', [
+                  m('.col-sm-12', [
+                    m('input#query[type=text]', { 
+                      class : 'form-control', 
+                      placeholder: __('query_placeholder'),
+                      onkeyup: ctrl.setKeyword.bind(ctrl)
+                    })
+                  ])
+                ]),
+                m('.form-group', [
+                  m('.col-sm-12', [
+                    m('input#city[type=text]', { 
+                      class : 'form-control', 
+                      placeholder: __('location_placeholder'),
+                      onkeyup: ctrl.setCity.bind(ctrl)
+                    })
+                  ])
                 ])
               ])
             ])
