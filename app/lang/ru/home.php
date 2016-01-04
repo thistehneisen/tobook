@@ -135,10 +135,10 @@ return [
     // Business
     'business' => [
         'about'          => 'о нас',
-        'openning_hours' => 'время работы',
+        'openning_hours' => 'Время работы',
         'map'            => 'карта',
         'address'        => 'Адрес',
-        'phone'          => 'телефон',
+        'phone'          => 'Телефон',
         'email'          => 'Электронная Почта',
         'online_booking' => 'онлайн бронирование',
         'payment_methods'=> 'Oплата',
@@ -174,11 +174,11 @@ return [
     ],
     'footer' => [
         'subscribe' => 'Подписаться на новости',
-        'email' => 'Ваш e-mail',
+        'email' => 'Ваша эл.почта',
         'btn_subscribe' => 'ПОДПИСАТЬСЯ',
         'about' => 'O :site',
         'about_content' => $footerAbout,
-        'info' => 'Информация для покупателей',
+        'info' => 'Информация для пользователей',
         'terms' => 'Правила и условия',
         'policy' => 'Использование cookies',
         'contact' => 'Контактная форма',

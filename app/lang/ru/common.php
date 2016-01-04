@@ -15,7 +15,7 @@ return [
     'help'                  => 'Помощь',
     'sign_out'              => 'Выйти',
     'sign_in_header'        => 'Войти',
-    'sign_in'               => 'Войти',
+    'sign_in'               => 'Поставщикам услуг',
     'select'                => 'Выбрать',
     'options_select'        => '-- Выбрать -- ',
     'options_all'           => '-- Все -- ',
