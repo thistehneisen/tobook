@@ -74,14 +74,14 @@ return [
             'rule-name' => 'custom-message',
         ),
         'username' => [
-            'required' => 'Пароль',
+            'required' => 'Имя пользователя',
         ],
         'password' => [
-            'required' => 'Пароль',
+            'required' => 'Имя пользователя',
             'confirmed' => 'Пароль не совпадает',
         ],
         'password_confirmation' => [
-            'required' => 'Пароль',
+            'required' => 'Имя пользователя',
         ],
         'email' => [
             'required' => 'Требуется е-мейл',
