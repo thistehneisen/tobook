@@ -232,7 +232,7 @@ app.VaraaBusiness = (dom, id, type) ->
         max: 500,
         values: [@dataStore().min_price, @dataStore().max_price],
         slide: (event, ui) ->
-          $("#amount").val( "€" + ui.values[0] + " - €" + ui.values[1]);
+          $("#amount").val(ui.values[0] + "€" + " - " + ui.values[1] + "€");
         stop: (event, ui) =>
           @dataStore().min_price = ui.values[0]
           @dataStore().max_price = ui.values[1]
@@ -262,7 +262,7 @@ app.VaraaBusiness = (dom, id, type) ->
           @append = false
           @search()
 
-      $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $( "#slider-range" ).slider("values", 1));
+      $("#amount").val($("#slider-range" ).slider( "values", 0 ) + "€ - " + $( "#slider-range" ).slider( "values", 1 ) + "€");
       businesses = @businesses()
       markers    = @makeMarkers(businesses)
       @renderMap('topmap', businesses[0].lat, businesses[0].lng, markers)
