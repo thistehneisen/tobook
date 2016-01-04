@@ -317,7 +317,7 @@ app.VaraaBusiness = (dom, id, type) ->
               ])
             ])
           ]),
-          m('.row', [
+          m('.row.hidden-xs', [
             m('hr'),
             m('h4', [__('price_range')]),
             m('p', [
