@@ -239,17 +239,15 @@ app.VaraaBusiness = (dom, id, type) ->
           @append = false
           @search()
 
-      $('.raty').raty
-        scoreName: () =>
-          return $(this).data('name')
-        score: () =>
-          return $(this).data('score')
-        starOff: @assetPath() + '/star-off.png'
-        starOn: @assetPath() + '/star-on.png'
-        starHalf: @assetPath() + '/star-half.png'
-        readOnly: true
+      # $('.raty').raty('reload');
 
-      $('.raty').raty('reload');
+      $('.raty').raty
+        score: () ->
+          return $(this).data('score')
+        starOff: '/packages/jquery.raty/images/' + '/star-off.png'
+        starOn: '/packages/jquery.raty/images/' + '/star-on.png'
+        starHalf: '/packages/jquery.raty/images/' + '/star-half.png'
+        readOnly: true
 
       checkbox = document.querySelector('.js-switch')
       if (checkbox.getAttribute('data-switchery') == null)
