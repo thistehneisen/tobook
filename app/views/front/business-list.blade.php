@@ -96,6 +96,9 @@
             'reviews'    : '@lang('common.reviews')',
             'review'     : '@lang('common.review')',
             'no_review'  : '@lang('common.no_review')',
+            'filters'  : '@lang('home.search.filters')',
+            'filter_search_results'  : '@lang('home.search.filter_search_results')',
+            'only_offpeak_discounts'  : '@lang('home.search.only_offpeak_discounts')',
         };
 
         app.routes = {
