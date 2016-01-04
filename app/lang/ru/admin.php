@@ -9,6 +9,7 @@ return [
         'modules'           => 'Модули',
         'stats'             => 'Статистика',
         'flash_deals'       => 'Flash Deals',
+        'pages'             => 'Статические страницы',
         'reviews'           => 'Отзывы',
         'misc'              => 'Разное',
         'coupons'           => 'Coupons',
