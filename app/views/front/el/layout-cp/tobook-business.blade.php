@@ -66,8 +66,8 @@
             <div class="col-sm-6 col-md-6">
                 <h3 class="sub-heading">{{ trans('home.business.contact.index') }}</h3>
 
-                <p><strong>{{ trans('home.business.phone') }}</strong></p>
-                <p>{{{ $business->phone }}}</p>
+                {{-- <p><strong>{{ trans('home.business.phone') }}</strong></p>
+                <p>{{{ $business->phone }}}</p> --}}
 
                 <p><strong>{{ trans('home.business.email') }}</strong></p>
                 <p>{{{ $business->user->email }}}</p>
