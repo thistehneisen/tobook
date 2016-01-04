@@ -103,6 +103,8 @@ return [
     'no_offers'           => 'Tarjouksia ei saatavilla.',
     'map'                 => 'Kartta',
     'show_more'           => 'Näytä lisää',
+    'show_map'            => 'Näytä kartta',
+    'view_on_map'         => 'Näytä hakutulokset kartalla',
     // How it works?
     'hiw' => [
         'heading' => 'Kuinka Varaa.com toimii?',

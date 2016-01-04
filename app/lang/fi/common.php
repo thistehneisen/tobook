@@ -169,6 +169,7 @@ return [
         'invalid'      => 'Antamasi tiedot ova väärin. Kokeile uudestaan.',
         'unauthorized' => 'Sinulla ei ole oikeuksia tälle sivulle.',
         'not_business' => 'Tiliäsi ei ole vielä aktivoitu. Ole yhteydessä meihin <a href="mailto:yritys@varaa.com">yritys@varaa.com</a> to activate your account.',
+        'no_record_found' => 'Ei hakutuloksia',
     ],
     'with_selected' => 'Valitse toiminto',
     'per_page'      => 'Yksiköitä yhteensä',
