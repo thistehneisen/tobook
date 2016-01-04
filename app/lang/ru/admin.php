@@ -131,4 +131,41 @@ return [
         'mapped'          => 'Mapping to',// @todo
         'duplicated'      => 'The keyword has already existed. Keyword must be unique.',// @todo
     ],
+    'coupon' => [
+        'title'           => 'Coupons',
+        'setting'         => 'Установка',
+        'settings'        => 'Settings',
+        'campaigns'       => 'Акции',
+        'index'           => 'Main',
+        'create'          => 'Создать акцию',
+        'is_used'         => 'Is Used',
+        'code'            => 'Code',
+        'consumer_name'   => 'Consumer name',
+        'datetime'        => 'Date',
+        'discount_amount' => 'Discount',
+        'salon'           => 'Business',
+        'reusable_usage'  => 'Usage',
+        'reusable' => 'Reusable',
+        'campaign' => [
+            'all'           => 'Все акции',
+            'add'           => 'Добавить новую акцию',
+            'edit'          => 'Modify campaign',
+            'name'          => 'Название',
+            'bar_chart'     => 'Used / Unused coupons',
+            'discount'      => 'Скидка',
+            'discount_type' => 'Вид скидки',
+            'amount'        => 'Сумма',
+            'is_reusable'   => 'Многоразовая',
+            'is_disposable' => 'Diposable',
+            'reusable_code' => 'Многоразовый код',
+            'begin_at'      => 'Начало',
+            'expire_at'     => 'До',
+            'used'          => 'Used',
+            'not_used'      => 'Not used',
+            'stats'         => 'Statistics',
+            'errors' => [
+                'duplicated_code' => 'This reusable code must be unique for each campaign!'
+            ]
+        ]
+    ],
 ];
