@@ -5,7 +5,7 @@ return [
     'id'                => 'ID',
     'first_name'        => 'Имя',
     'last_name'         => 'Фамилия',
-    'email'             => 'Е-мейл',
+    'email'             => 'Эл.почта',
     'employee'          => 'Работник',
     'phone'             => 'Телефон',
     'city'              => 'Город',

@@ -81,7 +81,7 @@ return [
     'select_module'         => 'Выбрать модуль',
     'first_name'            => 'Имя',
     'last_name'             => 'Фамилия',
-    'email'                 => 'Е-мейл',
+    'email'                 => 'Эл.почта',
     'password'              => 'Пароль',
     'phone'                 => 'Телефон',
     'address'               => 'Адрес',

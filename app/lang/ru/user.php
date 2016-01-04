@@ -22,7 +22,7 @@ return [
     'username'               => 'Имя пользователя',
     'first_name'             => 'Имя',
     'last_name'              => 'Фамилия',
-    'email'                  => 'Е-мейл',
+    'email'                  => 'Эл.почта',
     'name'                   => 'Имя',
     'phone'                  => 'Телефон',
     'address'                => 'Адрес',
