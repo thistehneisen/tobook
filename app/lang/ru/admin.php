@@ -87,22 +87,36 @@ return [
         'force_pay_at_venue'     => 'Force pay at venue',
     ],
     'master-cats' => [
-        'all'         => 'All master category',// @todo
-        'edit'        => 'Edit',// @todo
-        'add'         => 'Add',// @todo
-        'name'        => 'Name',// @todo
-        'description' => 'Description',// @todo
-        'language'    => 'Language',// @todo
+        'all'                   => 'Все главные категории',
+        'edit'                  => 'Edit',// @todo
+        'add'                   => 'Добавить',
+        'name'                  => 'Название',
+        'description'           => 'Description',// @todo
+        'language'              => 'Language',// @todo
         'translation_not_found' => 'Not available in current language',// @todo
     ],
     'treatment-types' => [
-        'all'             => 'All treatment types',// @todo
-        'edit'            => 'Edit',// @todo
-        'add'             => 'Add',// @todo
-        'name'            => 'Name',// @todo
-        'description'     => 'Description',// @todo
-        'language'        => 'Language',// @todo
-        'master_category' => 'Master category',// @todo
+        'all'                   => 'Все виды процедур',
+        'edit'                  => 'Edit',// @todo
+        'add'                   => 'Добавить',
+        'name'                  => 'Название',
+        'description'           => 'Описание',
+        'language'              => 'Language',// @todo
+        'master_category'       => 'Главная категория',
         'translation_not_found' => 'Not available in current language',// @todo
+    ],
+    'keywords' => [
+        'all'             => 'All keywords',// @todo
+        'edit'            => 'Edit',// @todo
+        'add'             => 'Добавить',
+        'name'            => 'Название',
+        'description'     => 'Описание',
+        'language'        => 'Language',// @todo
+        'treatment_type'  => 'Виды процедур',
+        'master_category' => 'Главные категории',
+        'keyword'         => 'Keyword',// @todo
+        'keywords'        => 'Ключевые слова',
+        'mapped'          => 'Mapping to',// @todo
+        'duplicated'      => 'The keyword has already existed. Keyword must be unique.',// @todo
     ],
 ];

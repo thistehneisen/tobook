@@ -43,9 +43,10 @@ return [
     'business_name'          => 'Название предприятия',
     'activation'             => 'Активировано?',
     'payments'               => 'Платежи',
-    'business_id'            => 'Busienss ID',
-    'account'                => 'Bank account',
+    'business_id'            => 'Регистрационный номер',
+    'account'                => 'Банковский счет',
     'business' => [
+        'auto_confirm'     => 'Автоматически подтвердить этот бизнес?',
         'is_activated'     => 'Активировано',
         'name'             => 'Название предприятия',
         'description'      => 'Описание',
