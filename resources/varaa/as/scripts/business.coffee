@@ -232,7 +232,7 @@ app.VaraaBusiness = (dom, id, type) ->
         max: 500,
         values: [@dataStore().min_price, @dataStore().max_price],
         slide: (event, ui) ->
-          $("#amount").val( "€" + ui.values[0] + " - €" + ui.values[1]);
+          $("#amount").val(ui.values[0] + "€" + " - " + ui.values[1] + "€");
         stop: (event, ui) =>
           @dataStore().min_price = ui.values[0]
           @dataStore().max_price = ui.values[1]
