@@ -9,6 +9,7 @@ use App\Appointment\Models\Slot\Strategy;
 use App\Appointment\Models\Slot\Context;
 use App\Appointment\Models\Slot\Backend;
 use App\Appointment\Models\Slot\Next;
+use Log;
 
 class Employee extends \App\Appointment\Models\Base
 {
@@ -335,8 +336,11 @@ class Employee extends \App\Appointment\Models\Base
         }
 
         $customTime = $empCustomTime->customTime;
+        
+        $startAt = new Carbon(sprintf('%s %s', $date, $customTime->start_at));
+        $endAt   = new Carbon(sprintf('%s %s', $date, $customTime->end_at));
 
-        if ($startTime->lt($customTime->getStartAt()) || $endTime->gt($customTime->getEndAt())) {
+        if ($startTime->lt($startAt) || $endTime->gt($endAt)) {
             return true;
         }
 
