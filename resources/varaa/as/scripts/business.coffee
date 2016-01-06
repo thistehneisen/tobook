@@ -356,6 +356,10 @@ app.VaraaBusiness = (dom, id, type) ->
                       ]),
                       m('span.venue-description', [
                         m.trust(business.address),
+                        if (business.district != '')
+                          m.trust(', ' + business.district)
+                        if (business.postcode != '')
+                          m.trust(', ' + business.postcode)
                         m.trust(',&nbsp;'),
                         m.trust(business.city),
                         m.trust('&nbsp;'),
