@@ -56,7 +56,8 @@
 
         app.initData = {
             environment : '{{ App::environment() }}',
-            assetPath : '{{ asset('packages/jquery.raty/images') }}'
+            assetPath : '{{ asset('packages/jquery.raty/images') }}',
+            categories : {{ $mctcs }}
         }
         app.i18n = {
             'select': '@lang('as.embed.cp.select')',

@@ -16,6 +16,7 @@ app.VaraaBusiness = (dom, id, type) ->
     @businesses  = m.prop []
     @environment = m.prop ''
     @assetPath = m.prop ''
+    @categories = m.prop []
     @count = m.prop 0
     @page = m.prop 1
     @cache = []
@@ -25,6 +26,7 @@ app.VaraaBusiness = (dom, id, type) ->
 
     @environment(app.initData.environment)
     @assetPath(app.initData.assetPath)
+    @categories(app.initData.categories)
 
     @setGeolocation = (position) =>
       lat = position.coords.latitude
@@ -239,7 +241,18 @@ app.VaraaBusiness = (dom, id, type) ->
           @append = false
           @search()
 
-      # $('.raty').raty('reload');
+      $('.categories-list ul').hide()
+
+      $('.category-item').click((e) -> 
+        console.log(e.originalEvent.detail)
+        if(e.originalEvent.detail > 1) 
+          return
+        $(this).next('ul').slideToggle("slow");
+      )
+
+      $('.category-item').dblclick((e) ->
+        window.location.href = $(this).data('url');
+      )
 
       $('.raty').raty
         score: () ->
@@ -334,6 +347,25 @@ app.VaraaBusiness = (dom, id, type) ->
               m('input#amount[type=text]', { readonly: true, style: 'border:0; color:#f6931f; font-weight:bold;'} ),
               m('#slider-range')
             ]),
+          ]),
+          m('.row', [
+            m('hr')
+            if (ctrl.categories().length > 0)
+              m('ul.categories-list', [
+                ctrl.categories().map((category, index) ->
+                  m('li', [
+                    m('strong.category-item', { 'data-url': category.url }, [category.name])
+                    if (category.treatments.length > 0)
+                      m('ul', [
+                        category.treatments.map((treatment, index) ->
+                          m('li', [
+                            m('a', { href: treatment.url }, [treatment.name ])
+                          ])
+                        )
+                      ])
+                  ])
+                )
+              ])
           ])
         ]),
         m('.col-sm-9.businesses', [

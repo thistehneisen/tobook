@@ -253,6 +253,21 @@ class Front extends Base
 
                 // Add meta data to this page
         $meta['description'] = $instance->description;
+        $categoriesTypes = [];
+
+        foreach ($masterCategories as $_category) {
+            $category = [];
+            $category['name'] = $_category->name;
+            $category['url']  = $_category->url;
+            $category['treatments'] = [];
+            foreach ($_category->treatments as $_treatment) {
+                $treatment = [];
+                $treatment['name'] = $_treatment->name; 
+                $treatment['url']  = $_treatment->url;
+                $category['treatments'][] = $treatment;
+            }
+            $categoriesTypes[] = $category;
+        }
 
         // Change page title
         $title = $instance->name;
@@ -261,6 +276,7 @@ class Front extends Base
             'id'   => $id,
             'type' => $type,
             'mcs'  => $masterCategories,
+            'mctcs'=> json_encode($categoriesTypes),
             'title'=> $title,
             'meta' => $meta
         ]);
