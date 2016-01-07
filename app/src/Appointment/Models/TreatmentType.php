@@ -110,6 +110,6 @@ class TreatmentType extends \App\Core\Models\Base
 
     public function masterCategory()
     {
-        return $this->belongsTo('App\Appointment\Models\Service');
+        return $this->belongsTo('App\Appointment\Models\MasterCategory');
     }
 }

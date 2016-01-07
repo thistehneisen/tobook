@@ -250,6 +250,8 @@ app.VaraaBusiness = (dom, id, type) ->
         $(this).next('ul').slideToggle("slow");
       )
 
+      $("ul").find("[data-id='" + app.initData.mcId + "']").slideToggle("slow");
+
       $('.category-item').dblclick((e) ->
         window.location.href = $(this).data('url');
       )
@@ -356,7 +358,7 @@ app.VaraaBusiness = (dom, id, type) ->
                   m('li', [
                     m('strong.category-item', { 'data-url': category.url }, [category.name])
                     if (category.treatments.length > 0)
-                      m('ul', [
+                      m('ul', { 'data-id' : category.id } , [
                         category.treatments.map((treatment, index) ->
                           m('li', [
                             m('a', { href: treatment.url }, [treatment.name ])

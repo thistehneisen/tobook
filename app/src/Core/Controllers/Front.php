@@ -248,6 +248,9 @@ class Front extends Base
             : '\App\Appointment\Models\TreatmentType';
         $instance = $model::findOrFail($id);
 
+        $mcId = null;
+        $mcId = ($type === 'mc') ? $id : $instance->master_category_id;
+
         // Master categories
         $masterCategories = MasterCategory::getAll();
 
@@ -257,6 +260,7 @@ class Front extends Base
 
         foreach ($masterCategories as $_category) {
             $category = [];
+            $category['id']   = $_category->id;
             $category['name'] = $_category->name;
             $category['url']  = $_category->url;
             $category['treatments'] = [];
@@ -274,6 +278,7 @@ class Front extends Base
 
         return $this->render('business-list',[
             'id'   => $id,
+            'mcId' => $mcId,
             'type' => $type,
             'mcs'  => $masterCategories,
             'mctcs'=> json_encode($categoriesTypes),
