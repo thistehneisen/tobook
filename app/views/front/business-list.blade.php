@@ -58,7 +58,8 @@
             environment : '{{ App::environment() }}',
             assetPath : '{{ asset('packages/jquery.raty/images') }}',
             categories : {{ $mctcs }},
-            mcId : {{ $mcId }}
+            mcId : {{ $mcId }},
+            discountBusiness : {{ $discountBusiness }},
         }
 
         app.i18n = {

@@ -273,17 +273,35 @@ class Front extends Base
             $categoriesTypes[] = $category;
         }
 
+        // Get 1 random busiensses which have discount #718
+        $collection = Business::getRamdomBusinesesHasDiscount(1);
+        $_randomBusiness = $collection->first();
+        $randomBusiness = [];
+        $randomBusiness['id'] = $_randomBusiness->id;
+        $randomBusiness['name'] = $_randomBusiness->name;
+        $randomBusiness['image'] = $_randomBusiness->image;
+        $randomBusiness['businessUrl'] = $_randomBusiness->businessUrl;
+        $randomBusiness['serviceName'] = $_randomBusiness->randomMostDiscountedService->name;
+        $randomBusiness['discountPrice'] = $_randomBusiness->randomMostDiscountedService->price;
+        $randomBusiness['discountPercent'] = $_randomBusiness->discountPercent;
+        $randomBusiness['businessUrlWithService'] = route('business.index', [
+            'id' => $_randomBusiness->user_id, 
+            'slug' => $_randomBusiness->slug, 
+            'serviceId' => $_randomBusiness->randomMostDiscountedService->id
+        ]);
+
         // Change page title
         $title = $instance->name;
 
         return $this->render('business-list',[
-            'id'   => $id,
-            'mcId' => $mcId,
-            'type' => $type,
-            'mcs'  => $masterCategories,
-            'mctcs'=> json_encode($categoriesTypes),
-            'title'=> $title,
-            'meta' => $meta
+            'id'              => $id,
+            'mcId'            => $mcId,
+            'type'            => $type,
+            'mcs'             => $masterCategories,
+            'mctcs'           => json_encode($categoriesTypes),
+            'discountBusiness'=> json_encode($randomBusiness),
+            'title'           => $title,
+            'meta'            => $meta
         ]);
     }
 

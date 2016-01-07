@@ -17,6 +17,7 @@ app.VaraaBusiness = (dom, id, type) ->
     @environment = m.prop ''
     @assetPath = m.prop ''
     @categories = m.prop []
+    @discountBusiness = m.prop []
     @count = m.prop 0
     @page = m.prop 1
     @cache = []
@@ -27,6 +28,7 @@ app.VaraaBusiness = (dom, id, type) ->
     @environment(app.initData.environment)
     @assetPath(app.initData.assetPath)
     @categories(app.initData.categories)
+    @discountBusiness(app.initData.discountBusiness)
 
     @setGeolocation = (position) =>
       lat = position.coords.latitude
@@ -379,6 +381,38 @@ app.VaraaBusiness = (dom, id, type) ->
                   ])
                 )
               ])
+          ]),
+          m('.row', [
+            m('.discount-widget-containter', [
+                if (ctrl.discountBusiness().discountPercent > 0)
+                  m('.ribbon-wrapper', [
+                    m('.ribbon-red', [
+                      m.trust('-'),
+                      ctrl.discountBusiness().discountPercent,
+                      m.trust('%')
+                    ])
+                  ])
+                m('a', { href: ctrl.discountBusiness().businessUrl }, [
+                  m('img',{ 
+                      style: 'height: 180px; width: 100%; display: block;',
+                      alt: ctrl.discountBusiness().name,
+                      src: ctrl.discountBusiness().image
+                  },[])
+                ]),
+                m('.discount-info', [
+                  ctrl.discountBusiness().serviceName ,
+                  m.trust('&nbsp;'), 
+                  m('span.price', [ 
+                    ctrl.discountBusiness().discountPrice, 
+                    m.trust('&euro;') 
+                  ])
+                ]),
+                m('.discount-action', [
+                  m('a.btn.btn-square.btn-success', { href : ctrl.discountBusiness().businessUrlWithService }, [
+                    __('select')
+                  ])
+                ])
+            ])
           ])
         ]),
         m('.col-sm-9.businesses', [
