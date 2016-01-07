@@ -62,7 +62,7 @@ class PopularServicesForSearch extends ScheduledCommand {
 				->where('user_id', '=', $business->user->id)
 				->groupBy('service_id')
 				->orderBy('total')
-				->limit(2)
+				->limit(5)
 				->get();
 			$bucket = [];
 
