@@ -11,6 +11,7 @@ use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
 use Exception;
 use Carbon\Carbon;
+use Log;
 
 class BackendReceptionist extends Receptionist
 {
@@ -155,26 +156,33 @@ class BackendReceptionist extends Receptionist
             : new ConfirmationReminder();
 
         $this->setReminderEmailAt()->setReminderSmsAt();
-        
-        $confirmationReminder->fill([
-            'is_reminder_sms'          => $this->isReminderSms,
-            'reminder_sms_before'      => $this->reminderSmsBefore,
-            'reminder_sms_at'          => $this->reminderSmsAt,
-            'is_reminder_email'        => $this->isReminderEmail,
-            'reminder_email_before'    => $this->reminderEmailBefore,
-            'reminder_email_at'        => $this->reminderEmailAt,
-            'is_confirmation_email'    => $this->isConfirmationEmail,
-            'is_confirmation_sms'      => $this->isConfirmationSms,
-            'reminder_email_time_unit' => $this->reminderEmailTimeUnit,
-            'reminder_sms_time_unit'   => $this->reminderSmsTimeUnit,
-        ]);
 
-        if ((bool)$this->isReminderEmail || (bool)$this->isReminderSms) {
-            $now = Carbon::now();
-            if ($this->reminderSmsAt->lt($now) || $this->reminderEmailAt->lt($now)) {
-                throw new Exception(trans('as.bookings.error.invalid_reminder_time'), 1);
+        // Reminder info may be missing when user change booking status
+        if (!empty($this->reminderEmailBefore) && !empty($this->reminderSmsBefore)) {
+            $confirmationReminder->fill([
+                'is_reminder_sms'          => $this->isReminderSms,
+                'reminder_sms_before'      => $this->reminderSmsBefore,
+                'reminder_sms_at'          => $this->reminderSmsAt,
+                'is_reminder_email'        => $this->isReminderEmail,
+                'reminder_email_before'    => $this->reminderEmailBefore,
+                'reminder_email_at'        => $this->reminderEmailAt,
+                'is_confirmation_email'    => $this->isConfirmationEmail,
+                'is_confirmation_sms'      => $this->isConfirmationSms,
+                'reminder_email_time_unit' => $this->reminderEmailTimeUnit,
+                'reminder_sms_time_unit'   => $this->reminderSmsTimeUnit,
+            ]);
+
+            if ((bool)$this->isReminderEmail || (bool)$this->isReminderSms) {
+                $now = Carbon::now();
+                if ($this->reminderSmsAt->lt($now) || $this->reminderEmailAt->lt($now)) {
+                    throw new Exception(trans('as.bookings.error.invalid_reminder_time'), 1);
+                }
             }
+
+        } else {
+            Log::info('Reminder info is empty ', [ $this->bookingId ]);
         }
+
 
         $booking->fill([
             'date'        => $date,
