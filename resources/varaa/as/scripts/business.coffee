@@ -228,11 +228,9 @@ app.VaraaBusiness = (dom, id, type) ->
       return
 
     @getServiceClass = (index, length, businessId) ->
-      serivce_class = if (index > 1) then 'hidden' else 'show' 
-      serivce_class = if (index > 1) then serivce_class +  ' hidden-service-' +  businessId else serivce_class 
-      serivce_class = if (index == length - 1 || index == 1) then serivce_class + ' popular-service-last' else serivce_class
+      serivce_class = if (index > 1) then ('hidden'  + ' hidden-service-' +  businessId)  else 'show'
       serivce_class = if (index == 1) then serivce_class + ' service-second-' + businessId  else serivce_class
-      serivce_class = serivce_class + ' service-business-'  + businessId
+      serivce_class = if (index == 1 || index == length - 1) then serivce_class + ' popular-service-last' else serivce_class
       return { class : serivce_class }
 
     @showMoreServices = (businessId) ->
