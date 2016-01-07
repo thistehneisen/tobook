@@ -28,6 +28,8 @@ return array(
 
     'pagination' => 'el.pagination',
 
-    'perPage' => 50
+    'perPage' => 50,
+
+    'employeePerPage' => 10
 
 );

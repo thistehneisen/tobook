@@ -450,7 +450,10 @@ class Employees extends AsBase
             ? carbon_date(Input::get('end'))
             : $current->copy()->endOfMonth();
 
-        $employees    = Employee::ofCurrentUser()->get();
+        //10 employees perpage
+        $perPage = (int) Config::get('view.employeePerPage');
+
+        $employees    = Employee::ofCurrentUser()->paginate($perPage);
         $planner      = new Workshift($startDate, $endDate);
         $customTimes  = $planner->getDisplayCustomTimes();
         $monthSummary = $planner->getMonthSummary();
