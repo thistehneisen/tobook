@@ -277,18 +277,21 @@ class Front extends Base
         $collection = Business::getRamdomBusinesesHasDiscount(1);
         $_randomBusiness = $collection->first();
         $randomBusiness = [];
-        $randomBusiness['id'] = $_randomBusiness->id;
-        $randomBusiness['name'] = $_randomBusiness->name;
-        $randomBusiness['image'] = $_randomBusiness->image;
-        $randomBusiness['businessUrl'] = $_randomBusiness->businessUrl;
-        $randomBusiness['serviceName'] = $_randomBusiness->randomMostDiscountedService->name;
-        $randomBusiness['discountPrice'] = $_randomBusiness->randomMostDiscountedService->price;
-        $randomBusiness['discountPercent'] = $_randomBusiness->discountPercent;
-        $randomBusiness['businessUrlWithService'] = route('business.index', [
-            'id' => $_randomBusiness->user_id, 
-            'slug' => $_randomBusiness->slug, 
-            'serviceId' => $_randomBusiness->randomMostDiscountedService->id
-        ]);
+        
+        if (!empty($_randomBusiness->id)) { 
+            $randomBusiness['id'] = $_randomBusiness->id;
+            $randomBusiness['name'] = $_randomBusiness->name;
+            $randomBusiness['image'] = $_randomBusiness->image;
+            $randomBusiness['businessUrl'] = $_randomBusiness->businessUrl;
+            $randomBusiness['serviceName'] = $_randomBusiness->randomMostDiscountedService->name;
+            $randomBusiness['discountPrice'] = $_randomBusiness->randomMostDiscountedService->price;
+            $randomBusiness['discountPercent'] = $_randomBusiness->discountPercent;
+            $randomBusiness['businessUrlWithService'] = route('business.index', [
+                'id' => $_randomBusiness->user_id, 
+                'slug' => $_randomBusiness->slug, 
+                'serviceId' => $_randomBusiness->randomMostDiscountedService->id
+            ]);
+        }
 
         // Change page title
         $title = $instance->name;
