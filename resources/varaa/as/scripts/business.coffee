@@ -435,7 +435,7 @@ app.VaraaBusiness = (dom, id, type) ->
                         ]),
                         m('.col-xs-4', [
                            m('strong', [ __('payment_methods') ]),
-                           m('ul', [
+                           m('ul.payment_methods', [
                             business.payment_options.map((option, index) ->
                                 m('li', [ __('payment.' + option) ])
                             )
