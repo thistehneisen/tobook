@@ -127,22 +127,29 @@
     .popular-services {
         padding: 10px;
         
-        .popular-service:first-child {
-            border-bottom: none;
-        }
-
         .popular-service:last-child {
             border-bottom: 1px solid @primary_color;
         }
-
+        
+        .popular-service-last {
+            border-bottom: 1px solid @primary_color!important;
+        }
         .popular-service {
             border: 1px solid @primary_color;
+            border-bottom: none;
             padding: 10px 0;
 
             .service-name { 
                 display: inline-block;
                 padding: 6px 12px;
             }
+
+        }
+    }
+    .show-more-services {
+        margin-top: 10px;
+        a {
+            color: #000!important;
         }
     }
 
@@ -216,4 +223,11 @@ table.map-marker-table {
             color: #000!important;
         }   
     }
+}
+
+.row-no-padding {
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 }

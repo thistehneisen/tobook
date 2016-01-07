@@ -81,6 +81,7 @@ return [
         'filters'               => 'Filters',
         'filter_search_results' => 'Filter search results',
         'only_offpeak_discounts'=> 'Only off-peak discounts',
+        'learn_more'            => 'Learn more &raquo;',
         'validation'      => [
             'q'        => 'Please enter or select a service',
             'location' => 'Please enter or select a location',

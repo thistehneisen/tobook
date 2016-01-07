@@ -60,7 +60,7 @@
             categories : {{ $mctcs }},
             mcId : {{ $mcId }}
         }
-        
+
         app.i18n = {
             'select': '@lang('as.embed.cp.select')',
             'pl_service': '@lang('as.embed.cp.pl_service')',
@@ -102,6 +102,7 @@
             'filters'  : '@lang('home.search.filters')',
             'filter_search_results'  : '@lang('home.search.filter_search_results')',
             'only_offpeak_discounts'  : '@lang('home.search.only_offpeak_discounts')',
+            'learn_more'  : '@lang('home.search.learn_more')',
         };
 
         app.routes = {

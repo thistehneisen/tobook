@@ -227,6 +227,18 @@ app.VaraaBusiness = (dom, id, type) ->
       # $('#filters').slideToggle('slow');
       return
 
+    @getServiceClass = (index, length, businessId) ->
+      serivce_class = if (index > 1) then 'hidden' else 'show' 
+      serivce_class = if (index == length - 1 || index == 1) then serivce_class + ' popular-service-last' else serivce_class
+      serivce_class = if (index == 1) then serivce_class + ' service-second-' + businessId  else serivce_class
+      serivce_class = serivce_class + ' service-business-'  + businessId
+      return { class : serivce_class }
+
+    @showMoreServices = (businessId) ->
+      $('.service-second-' + businessId).removeClass('popular-service-last')
+      $('.service-business-' + businessId).removeClass('hidden').show('slow');
+      return
+
     @init = () =>
       $("#slider-range").slider
         range: true,
@@ -429,16 +441,19 @@ app.VaraaBusiness = (dom, id, type) ->
                           #    m('span', [business.phone])
                           # ]),
                           m('div', [
-                             m('strong', [ __('email')]),
-                             m('span', [business.user_email])
+                            m('strong', [ __('email')]),
+                            m('span', [business.user_email]),
                           ])
                         ]),
-                        m('.col-xs-4', [
-                           m('strong', [ __('payment_methods') ]),
-                           m('ul.payment_methods', [
+                        m('.col-xs-6', [
+                          m('strong', [ __('payment_methods') ]),
+                          m('ul.payment_methods', [
                             business.payment_options.map((option, index) ->
                                 m('li', [ __('payment.' + option) ])
                             )
+                          ]),
+                          m('a.pull-right', { href: business.businessUrl }, [
+                             m.trust(__('learn_more'))
                           ])
                         ])
                       ])
@@ -446,8 +461,8 @@ app.VaraaBusiness = (dom, id, type) ->
                   ])
                 ])
                 m('.popular-services.hidden-xs', [
-                  business.services.map((service) ->
-                    m('.row popular-service',  [
+                  business.services.map((service, index) ->
+                    m('.row.popular-service', ctrl.getServiceClass(index, business.services.length, business.id) , [
                       m('.col-xs-8', [
                         m('span.orange.service-name', [service.name]) 
                       ]),
@@ -461,6 +476,14 @@ app.VaraaBusiness = (dom, id, type) ->
                       ])
                     ])
                   )
+                  if (business.services.length > 2)
+                    m('.row.row-no-padding', [
+                      m('.col-xs-12.show-more-services', [
+                        m('a.btn.btn-default.pull-right', { onclick: ctrl.showMoreServices.bind(ctrl, business.id) } ,[
+                            __('show_more')
+                        ])
+                      ])
+                    ])
                 ])
               ])
             )

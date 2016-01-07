@@ -77,6 +77,7 @@ return [
         'time'            => 'Izvēlēties laiku',
         'current_location' => 'Atrašanās vieta',
         'force_selection' => 'Lūdzu, izvēlieties no ieteikumu saraksta.',
+        'learn_more'      => 'Parādīt vairāk &raquo;',
         'validation'      => [
             'q'        => 'Lūdzu ievadiet uzņēmumu, vai pakalpojumu',
             'location' => 'Lūdzu izvēlieties vietu',
