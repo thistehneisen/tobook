@@ -127,14 +127,15 @@ do ($ = jQuery) ->
       return if emptyLocation or emptyQ
 
       # Should ask for location
-      if $location.data('current-location') is 1
-        VARAA.getLocation()
-          .then (lat, lng) ->
-            $formSearch.find('[name=lat]').val(lat)
-            $formSearch.find('[name=lng]').val(lng)
-            bypassAndSubmit()
-      else
-        bypassAndSubmit()
+      # if $location.data('current-location') is 1
+      #   VARAA.getLocation()
+      #     .then (lat, lng) ->
+      #       $formSearch.find('[name=lat]').val(lat)
+      #       $formSearch.find('[name=lng]').val(lng)
+      #       bypassAndSubmit()
+      # else
+      #   bypassAndSubmit()
+      bypassAndSubmit()
 
     # When user clicks on an option in location dropdown list
     $ '#big-cities-dropdown'
