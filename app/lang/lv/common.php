@@ -110,6 +110,7 @@ return [
     'history'               => 'Arhīvs',
     'placeholders'          => 'Placeholders',//@todo
     'captcha'               => 'Captcha',
+    'no_review'             => 'Nav atsauksmes',
     'review'                => 'Atsauksme',
     'reviews'               => 'Atsauksmes',
     'hour'                  => 'Stundas',

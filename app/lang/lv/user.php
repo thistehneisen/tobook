@@ -157,7 +157,7 @@ return [
     'payment_options' => [
         'disable'     => 'Disable payments',
         'index'       => 'Payment options',
-        'venue'       => 'Pay at the venue',
+        'venue'       => 'Samaksa uz vietas',
         'deposit'     => 'Deposit payment',
         'full'        => 'Full payment',
         'rate'        => 'Deposit rate',

@@ -273,11 +273,11 @@ class Front extends Base
             $categoriesTypes[] = $category;
         }
 
-        // Get 1 random busiensses which have discount #718
+        // Get 1 random busienss which have discount #718
         $collection = Business::getRamdomBusinesesHasDiscount(1);
         $_randomBusiness = $collection->first();
         $randomBusiness = [];
-        
+
         if (!empty($_randomBusiness->id)) { 
             $randomBusiness['id'] = $_randomBusiness->id;
             $randomBusiness['name'] = $_randomBusiness->name;

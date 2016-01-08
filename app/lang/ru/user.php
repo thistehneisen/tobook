@@ -158,7 +158,7 @@ return [
     'payment_options' => [
         'disable'     => 'Disable payments',
         'index'       => 'Payment options',
-        'venue'       => 'Pay at the venue',
+        'venue'       => 'Оплата на месте',
         'deposit'     => 'Deposit payment',
         'full'        => 'Full payment',
         'rate'        => 'Deposit rate',

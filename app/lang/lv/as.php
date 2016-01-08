@@ -418,6 +418,7 @@ return [
             'reminder_email_unit'                            => 'E-pastu vienība',
             'reminder_sms_time_unit'                         => 'Stundas / dienas pirms',
             'reminder_email_time_unit'                       => 'Stundas / dienas pirms',
+            'price_range'                                    => 'Cenu diapazons',
         ],
         'style' => [
             'heading'                           => '',
