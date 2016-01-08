@@ -78,7 +78,8 @@ return [
         'current_location'       => 'Atrašanās vieta',
         'force_selection'        => 'Lūdzu, izvēlieties no ieteikumu saraksta.',
         'learn_more'             => 'Parādīt vairāk &raquo;',
-        'only_offpeak_discounts' => 'Atlaides min. noslodzes laikā (Off-peak)',
+        'only_offpeak_discounts' => 'Atlaides min. noslodzes laikā',
+        'filter_search_results'  => 'Filtrēšanas rezultāts',
         'validation'      => [
             'q'        => 'Lūdzu ievadiet uzņēmumu, vai pakalpojumu',
             'location' => 'Lūdzu izvēlieties vietu',

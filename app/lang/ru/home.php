@@ -75,7 +75,8 @@ return [
         'date'                   => 'Любая дата',
         'time'                   => 'любое время',
         'current_location'       => 'Ваше местонахождение',
-        'only_offpeak_discounts' => 'Скидки в период мин. нагрузки (Off-peak)',
+        'only_offpeak_discounts' => 'Скидки в период мин. нагрузки',
+        'filter_search_results'  => 'Результат фильтрования',
         'validation'      => [
             'q'        => 'Пожалуйста, введите бизнес или услугу',
             'location' => 'Пожалуйста, введите местоположение',
