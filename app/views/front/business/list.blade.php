@@ -56,6 +56,8 @@
 
         app.initData = {
             environment : '{{ App::environment() }}',
+            cities: {{ json_encode($cities) }},
+            distrists: {{ json_encode($districts) }},
             assetPath : '{{ asset('packages/jquery.raty/images') }}',
             categories : {{ $mctcs }},
             mcId : {{ $mcId }},

@@ -140,7 +140,7 @@ class Front extends Base
 
     public function business()
     {
-        return $this->render('business-page');
+        return $this->render('business.page');
     }
 
     public function intro()
@@ -296,7 +296,7 @@ class Front extends Base
         // Change page title
         $title = $instance->name;
 
-        return $this->render('business-list',[
+        return $this->render('business.list',[
             'id'              => $id,
             'mcId'            => $mcId,
             'type'            => $type,
