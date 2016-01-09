@@ -279,6 +279,16 @@ app.VaraaBusiness = (dom, id, type) ->
       
       @locations(locations);
 
+      $('#query').bind 'typeahead:selected', (e, selection) =>
+        if selection.type is 'category' or selection.type is 'treatment'
+          @dataStore().type = selection.type
+          @dataStore().id = selection.id
+          @dataStore().keyword = selection.name
+          @append = false
+          @search()
+        else
+          window.location.href = selection.url if typeof selection.url isnt 'undefined'
+
       $('.raty').raty
         score: () ->
           return $(this).data('score')

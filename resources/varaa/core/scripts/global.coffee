@@ -91,4 +91,3 @@ VARAA.initTypeahead = (selector, name) ->
     templates:
       suggestion: (item) ->
         "<div data-url=#{item.url}>#{item.name}</div>"
-

@@ -72,7 +72,7 @@ do ($ = jQuery) ->
     VARAA.initTypeahead $q, 'services' if $q.length > 0
     $q.bind 'typeahead:selected', (e, selection) ->
       $formSearch.data 'disableSubmission', false
-      if selection.type is 'category'
+      if selection.type is 'category' or selection.type is 'treatment'
         $formSearch.data 'suggestion', $q.val()
         $formSearch.data('old-action', $formSearch.attr('action'))
         $formSearch.attr('action', selection.url)

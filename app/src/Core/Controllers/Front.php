@@ -241,15 +241,15 @@ class Front extends Base
     {   
         // Get the correct model based on first URL segment
         $isMasterCategory = strpos(Request::path(), 'categories') !== false;
-        $type = $isMasterCategory ? 'mc' : 'tm';
+        $type = $isMasterCategory ? 'category' : 'treatment';
 
-        $model = ($type === 'mc')
+        $model = ($type === 'category')
             ? '\App\Appointment\Models\MasterCategory'
             : '\App\Appointment\Models\TreatmentType';
         $instance = $model::findOrFail($id);
 
         $mcId = null;
-        $mcId = ($type === 'mc') ? $id : $instance->master_category_id;
+        $mcId = ($type === 'category') ? $id : $instance->master_category_id;
 
         // Master categories
         $masterCategories = MasterCategory::getAll();
@@ -328,7 +328,7 @@ class Front extends Base
 
         $categoryKeyword = $type . '_' . $id;
 
-        $model = ($type === 'mc')
+        $model = ($type === 'category')
             ? '\App\Appointment\Models\MasterCategory'
             : '\App\Appointment\Models\TreatmentType';
         $instance = $model::findOrFail($id);
@@ -339,23 +339,16 @@ class Front extends Base
             'from' => (Input::get('page', 1) - 1) * $perPage,
             'size' => $perPage
         ];
-
-        $searchType = Input::get('search_type');
         
         $params['category']     = $categoryKeyword;
         $params['has_discount'] = (Input::get('show_discount') == 'true') ? true : false;
         $params['min_price']    = (int)Input::get('min_price');
         $params['max_price']    = (int)Input::get('max_price');
+        $params['keyword']      = $categoryKeyword;
+        $params['city']         = Input::get('city');
 
-        if ( !empty(Input::get('city')) || !empty(Input::get('keyword')) ) {
-            $params['keyword']      = Input::get('keyword');
-            $params['category']     = $categoryKeyword;
-            $params['city']         = Input::get('city');
-            $s = new BusinessesByCategoryAdvanced($params);
-        } else {
-            $params['keyword'] = $categoryKeyword;
-            $s = new BusinessesByCategory($params);
-        }
+        $s = new BusinessesByCategory($params);
+        
 
         $paginator = $s->search();
 

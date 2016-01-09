@@ -64,6 +64,20 @@
             discountBusiness : {{ $discountBusiness }},
         }
 
+        if(window.location.hash.length > 1) {
+            entries = location.hash.split('|');
+            for(i = 0; i<entries.length; i++) {
+              parts = entries[i].split('=');
+              name = decodeURIComponent(parts[0]);
+              value = decodeURIComponent(parts[1]);
+              if(name == 'type') {
+                app.initData.type = value;
+              } else if (name == 'id') {
+                app.initData.mcId = value;
+              }
+            }
+        }
+
         app.i18n = {
             'select': '@lang('as.embed.cp.select')',
             'pl_service': '@lang('as.embed.cp.pl_service')',
@@ -113,7 +127,7 @@
             'business.search': '{{ route('business.search') }}',
             'business.services': '{{ route('ajax.services') }}'
         };
-        app.VaraaBusiness(document.getElementById('business-container'), {{ $id }}, '{{ $type }}');
+        app.VaraaBusiness(document.getElementById('business-container'), app.initData.mcId, app.initData.type);
     </script>
 @stop
 
