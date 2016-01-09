@@ -45,11 +45,11 @@ class BusinessIndexer extends AbstractIndexer
         
         foreach ($document->user->asServices as $asService) {
             if (!empty($asService->masterCategory->id)) {
-                $masterCategories['mc_'.$asService->masterCategory->id] = true;
+                $masterCategories['category_'.$asService->masterCategory->id] = true;
             }
 
             if (!empty($asService->treatmentType->id)) {
-                $masterCategories['tm_'.$asService->treatmentType->id] = true;
+                $masterCategories['treatment_'.$asService->treatmentType->id] = true;
             }
         }
 

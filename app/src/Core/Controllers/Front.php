@@ -332,7 +332,6 @@ class Front extends Base
             'size' => $perPage
         ];
         
-        $params['category']     = $categoryKeyword;
         $params['has_discount'] = (Input::get('show_discount') == 'true') ? true : false;
         $params['min_price']    = (int)Input::get('min_price');
         $params['max_price']    = (int)Input::get('max_price');

@@ -127,7 +127,7 @@
             'business.search': '{{ route('business.search') }}',
             'business.services': '{{ route('ajax.services') }}'
         };
-        app.VaraaBusiness(document.getElementById('business-container'), app.initData.mcId, app.initData.type);
+        app.VaraaBusiness(document.getElementById('business-container'), {{ $mcId }}, '{{  $type }}' );
     </script>
 @stop
 
