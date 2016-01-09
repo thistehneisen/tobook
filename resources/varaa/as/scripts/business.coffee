@@ -25,35 +25,11 @@ app.VaraaBusiness = (dom, id, type) ->
     @page = m.prop 1
     @cache = []
     @append = true
-    @lat = m.prop 0
-    @lng = m.prop 0
 
     @environment(app.initData.environment)
     @assetPath(app.initData.assetPath)
     @categories(app.initData.categories)
     @discountBusiness(app.initData.discountBusiness)
-
-    @setGeolocation = (position) =>
-      lat = position.coords.latitude
-      lng = position.coords.longitude
-      @lat(lat)
-      @lng(lng)
-      @search()      
-      return 
-
-    @showError = (error) ->
-      console.log(error) 
-
-    @bigbang = () =>
-      $body = $ 'body'
-      lat = $body.data 'lat'
-      lng = $body.data 'lng'
-
-      if (lat? and lng? and lat != '' and lng != '')
-        @search()
-      else
-        # Ask for location
-        navigator.geolocation.getCurrentPosition @setGeolocation, @showError, timeout: 10000
 
     @search = () ->
       $('#show-more-spin').show()
@@ -71,8 +47,6 @@ app.VaraaBusiness = (dom, id, type) ->
           min_price: @dataStore().min_price
           max_price: @dataStore().max_price
           page: @dataStore().page,
-          lat: @lat(),
-          lng: @lng()
       .then (data) =>
         if (@append)
           for business in data.businesses
@@ -314,7 +288,7 @@ app.VaraaBusiness = (dom, id, type) ->
       @renderMap('topmap', businesses[0].lat, businesses[0].lng, markers)
 
     # Kickstart
-    @bigbang()
+    @search()
 
     return
 
