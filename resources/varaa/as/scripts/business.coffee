@@ -353,8 +353,6 @@ app.VaraaBusiness = (dom, id, type) ->
                         'data-target': '#'
                       }),
                       m('ul#big-cities-dropdown.dropdown-menu.big-cities-dropdown', { role : 'menu'}, [
-                        m('li[role=presentation]', [m('a.form-search-city[data-current-location=1][href=#]', [m('strong', __('home.search.current_location'))])])
-                        m('li.divider[role=presentation]')
                         m('li[role=presentation]', {class: if ctrl.locations().length then 'soft-hidden' else 'disabled'}, [m('a[href=#]', [m('em', 'Empty')])])
                         ctrl.locations().map (location) ->
                           return m 'li[role=presentation]',
