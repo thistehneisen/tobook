@@ -18,6 +18,9 @@ app.VaraaBusiness = (dom, id, type) ->
     @assetPath = m.prop ''
     @categories = m.prop []
     @discountBusiness = m.prop []
+    @engine = m.prop []
+    @locations = m.prop []
+    @visible = m.prop []
     @count = m.prop 0
     @page = m.prop 1
     @cache = []
@@ -106,10 +109,12 @@ app.VaraaBusiness = (dom, id, type) ->
       @dataStore().page = 1
       @append = false
 
-      setTimeout( =>
-        if (el.value == init)
-          @search()
-      , 300)
+      if (e.which == 13 || e.keyCode == 13)
+        @search()
+    
+    @selectCity = (e) ->
+      e.preventDefault()
+      $('#location').val e.target.text
 
     @setKeyword = (e) ->
       el = e.target
@@ -119,10 +124,8 @@ app.VaraaBusiness = (dom, id, type) ->
       @dataStore().page = 1
       @append = false
 
-      setTimeout( =>
-        if (el.value == init)
-          @search()
-      , 300)
+      if (e.which == 13 || e.keyCode == 13)
+        @search()
 
     @setShowDiscount = (e) ->
       el = e.target
@@ -269,6 +272,13 @@ app.VaraaBusiness = (dom, id, type) ->
         window.location.href = $(this).data('url');
       )
 
+      VARAA.initTypeahead $('#query'), 'services' if $('#query').length > 0
+
+      locations = app.initData.districts.map (name) -> type: 'district', name: name
+        .concat app.initData.cities.map (name) -> type: 'city', name: name
+      
+      @locations(locations);
+
       $('.raty').raty
         score: () ->
           return $(this).data('score')
@@ -335,19 +345,40 @@ app.VaraaBusiness = (dom, id, type) ->
                 m('.form-group', [
                   m('.col-sm-12', [
                     m('input#query[type=text]', { 
-                      class : 'form-control', 
+                      class : 'form-control input-keyword', 
                       placeholder: __('query_placeholder'),
-                      onkeyup: ctrl.setKeyword.bind(ctrl)
+                      onkeydown: ctrl.setKeyword.bind(ctrl),
+                      'data-data-source' : app.routes['business.services'],
+                      'autocomplete' : 'off',
+                      'data-trigger' : 'manual',
+                      'data-placement': 'bottom',
                     })
                   ])
                 ]),
                 m('.form-group', [
                   m('.col-sm-12', [
-                    m('input#city[type=text]', { 
-                      class : 'form-control', 
-                      placeholder: __('location_placeholder'),
-                      onkeyup: ctrl.setCity.bind(ctrl)
-                    })
+                    m('div.dropdown#location-dropdown-wrapper', [
+                      m('input#location[type=text]', { 
+                        class : 'form-control input-keyword dropdown-toggle', 
+                        placeholder: __('location_placeholder'),
+                        onkeydown: ctrl.setCity.bind(ctrl),
+                        'autocomplete' : 'off',
+                        'data-toggle' : 'dropdown',
+                        'data-trigger' : 'manual',
+                        'data-placement': 'bottom',
+                        'data-target': '#'
+                      }),
+                      m('ul#big-cities-dropdown.dropdown-menu.big-cities-dropdown', { role : 'menu'}, [
+                        m('li[role=presentation]', [m('a.form-search-city[data-current-location=1][href=#]', [m('strong', __('home.search.current_location'))])])
+                        m('li.divider[role=presentation]')
+                        m('li[role=presentation]', {class: if ctrl.locations().length then 'soft-hidden' else 'disabled'}, [m('a[href=#]', [m('em', 'Empty')])])
+                        ctrl.locations().map (location) ->
+                          return m 'li[role=presentation]',
+                            m("a.form-search-city[href=#][data-current-location=0][data-type=#{location.type}]", {
+                              onclick : ctrl.selectCity.bind(ctrl)
+                            }, location.name)
+                      ])
+                    ])
                   ])
                 ])
               ])

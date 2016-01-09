@@ -57,7 +57,7 @@
         app.initData = {
             environment : '{{ App::environment() }}',
             cities: {{ json_encode($cities) }},
-            distrists: {{ json_encode($districts) }},
+            districts: {{ json_encode($districts) }},
             assetPath : '{{ asset('packages/jquery.raty/images') }}',
             categories : {{ $mctcs }},
             mcId : {{ $mcId }},
@@ -106,10 +106,12 @@
             'filter_search_results'  : '@lang('home.search.filter_search_results')',
             'only_offpeak_discounts'  : '@lang('home.search.only_offpeak_discounts')',
             'learn_more'  : '@lang('home.search.learn_more')',
+            'home.search.current_location' : '@lang('home.search.current_location')',
         };
 
         app.routes = {
             'business.search': '{{ route('business.search') }}',
+            'business.services': '{{ route('ajax.services') }}'
         };
         app.VaraaBusiness(document.getElementById('business-container'), {{ $id }}, '{{ $type }}');
     </script>
