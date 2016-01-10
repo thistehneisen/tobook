@@ -107,7 +107,7 @@ app.VaraaBusiness = (dom, id, type) ->
               window.location.href = selection.url if typeof selection.url isnt 'undefined'
               break
           else
-            score = (new Levenshtein(el.value, service.name)).distance
+            score = (new Levenshtein(el.value, service.name.substring(0, el.value.length))).distance
             similarScore.push { score : score, name : service.name, type : service.type, id : service.id, url : service.url }
 
 
