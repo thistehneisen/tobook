@@ -36,6 +36,7 @@
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     {{ HTML::script(asset('packages/jquery.raty/jquery.raty.js')) }}
     {{ HTML::script(asset('packages/switchery/switchery.min.js')) }}
+    {{ HTML::script(asset('packages/utils/levenshtein.js')) }}
     {{ HTML::script(asset_path('as/scripts/business.js')) }}
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
@@ -55,14 +56,15 @@
         var app = app || {};
 
         app.initData = {
+            mcId        : {{ $mcId }},
+            type        : '{{ $type }}',
+            cities      : {{ json_encode($cities) }},
+            services    : {{ $services }},
+            business    : {{ $business }},
+            districts   : {{ json_encode($districts) }},
+            assetPath   : '{{ asset('packages/jquery.raty/images') }}',
+            categories  : {{ $mctcs }},
             environment : '{{ App::environment() }}',
-            cities: {{ json_encode($cities) }},
-            districts: {{ json_encode($districts) }},
-            assetPath : '{{ asset('packages/jquery.raty/images') }}',
-            categories : {{ $mctcs }},
-            mcId : {{ $mcId }},
-            type : '{{ $type }}',
-            discountBusiness : {{ $discountBusiness }},
         }
 
         app.i18n = {
@@ -108,6 +110,8 @@
             'only_offpeak_discounts'  : '@lang('home.search.only_offpeak_discounts')',
             'learn_more'  : '@lang('home.search.learn_more')',
             'home.search.current_location' : '@lang('home.search.current_location')',
+            'keyword_not_exists' : '@lang('home.search.keyword_not_exists')',
+            'please_try' : '@lang('home.search.please_try')',
         };
 
         app.routes = {

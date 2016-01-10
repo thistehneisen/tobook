@@ -17,6 +17,8 @@ app.VaraaBusiness = (dom, id, type) ->
     @environment = m.prop ''
     @assetPath = m.prop ''
     @categories = m.prop []
+    @services = m.prop []
+    @suggestion = m.prop []
     @discountBusiness = m.prop []
     @engine = m.prop []
     @locations = m.prop []
@@ -29,7 +31,8 @@ app.VaraaBusiness = (dom, id, type) ->
     @environment(app.initData.environment)
     @assetPath(app.initData.assetPath)
     @categories(app.initData.categories)
-    @discountBusiness(app.initData.discountBusiness)
+    @services(app.initData.services)
+    @discountBusiness(app.initData.business)
 
     @search = () ->
       $('#show-more-spin').show()
@@ -90,16 +93,47 @@ app.VaraaBusiness = (dom, id, type) ->
       e.preventDefault()
       $('#location').val e.target.text
 
-    @setKeyword = (e) ->
+    @setKeyword = (e) =>
       el = e.target
       init = el.value
-      @dataStore().keyword = el.value
-      @dataStore().search_type = 'keyword'
-      @dataStore().page = 1
-      @append = false
-
+      similarScore = []
       if (e.which == 13 || e.keyCode == 13)
-        @search()
+        for service in @services()
+          if el.value == service.name
+            if service.type is 'category' or service.type is 'treatment'
+              @typeHeadSelect(service)
+              break
+            else
+              window.location.href = selection.url if typeof selection.url isnt 'undefined'
+              break
+          else
+            score = (new Levenshtein(el.value, service.name)).distance
+            similarScore.push { score : score, name : service.name, type : service.type, id : service.id, url : service.url }
+
+
+        similarScore.sort (a, b) ->
+            if (a.score < b.score)
+              return -1
+            else if (a.score > b.score)
+              return 1
+            else 
+              return 0
+
+        suggestion = []
+        count = 0
+        for item in similarScore
+          count++
+          suggestion.push(item)
+          if (count == 5) then break
+
+        @suggestion(suggestion)
+
+        m.redraw.strategy("diff")
+        m.redraw()
+
+        alertify.alert(__('keyword_not_exists'), $('#suggestion').html())
+        
+            
 
     @setShowDiscount = (e) ->
       el = e.target
@@ -239,6 +273,26 @@ app.VaraaBusiness = (dom, id, type) ->
       # Change upper url
       @changeUrl(selection)
 
+    @selectSuggestion = (suggestion, e) =>
+      e.preventDefault()
+      console.log(e)
+      @dataStore().type = suggestion.type
+      @dataStore().id = suggestion.id
+      @dataStore().keyword = suggestion.name
+      @append = false
+      @businesses([])
+      @count(0)
+      # Change initData to make sure UI is rendered correctly
+      app.initData.mcId = suggestion.id
+      app.initData.type = suggestion.type
+      # Rerender UI to view loading indicator
+      m.redraw.strategy("diff")
+      m.redraw()
+      # Perform real search
+      @search()
+      # Change upper url
+      @changeUrl(suggestion)
+
     @init = () =>
       $("#slider-range").slider
         range: true,
@@ -353,7 +407,19 @@ app.VaraaBusiness = (dom, id, type) ->
                       'autocomplete' : 'off',
                       'data-trigger' : 'manual',
                       'data-placement': 'bottom',
-                    })
+                    }),
+                    m('div.hidden#suggestion', [
+                      m('p', [__('please_try')]),
+                      m('ul', [
+                        ctrl.suggestion().map((suggestion, index) ->
+                          m('li', [
+                            m('a', {
+                                href : suggestion.url
+                            }, [suggestion.name])
+                          ])
+                        )
+                      ])
+                    ])
                   ])
                 ]),
                 m('.form-group', [
