@@ -442,19 +442,19 @@ class Business extends Base
         $categories = MasterCategory::getAll();
 
         foreach ($categories as $category) {
-            $data[] = ['type' => 'category', 'id' => $category->id, 'name' => $category->name, 'url' => $category->url];
+            $data[] = ['type' => 'category', 'id' => $category->id, 'mcId' => $category->id,'name' => $category->name, 'url' => $category->url];
 
             foreach ($category->treatments as $treament) {
-                $data[] = ['type' => 'treatment', 'id' => $treament->id, 'name' => $treament->name, 'url' => $treament->url];
+                $data[] = ['type' => 'treatment', 'id' => $treament->id, 'mcId' => $category->id, 'name' => $treament->name, 'url' => $treament->url];
 
                 //Append keyword<->treatment to typehead json
                 foreach ($treament->keywords as $keyword) {
-                    $data[] = ['type' => 'treatment', 'id' => $treament->id, 'name' => $keyword->keyword, 'url' => $treament->url];
+                    $data[] = ['type' => 'treatment', 'id' => $treament->id, 'mcId' => $category->id, 'name' => $keyword->keyword, 'url' => $treament->url];
                 }
             }
 
             foreach ($category->keywords as $keyword) {
-                $data[] = ['type' => 'category', 'id' => $category->id, 'name' => $keyword->keyword, 'url' => $category->url];
+                $data[] = ['type' => 'category', 'id' => $category->id, 'mcId' => $category->id, 'name' => $keyword->keyword, 'url' => $category->url];
             }
         }
 

@@ -263,7 +263,9 @@ app.VaraaBusiness = (dom, id, type) ->
       @businesses([])
       @count(0)
       # Change initData to make sure UI is rendered correctly
-      app.initData.mcId = selection.id
+      console.log(selection)
+      app.initData.mcId = selection.mcId
+      app.initData.id = selection.id
       app.initData.type = selection.type
       # Rerender UI to view loading indicator
       m.redraw.strategy("diff")
@@ -275,7 +277,6 @@ app.VaraaBusiness = (dom, id, type) ->
 
     @selectSuggestion = (suggestion, e) =>
       e.preventDefault()
-      console.log(e)
       @dataStore().type = suggestion.type
       @dataStore().id = suggestion.id
       @dataStore().keyword = suggestion.name
@@ -283,7 +284,8 @@ app.VaraaBusiness = (dom, id, type) ->
       @businesses([])
       @count(0)
       # Change initData to make sure UI is rendered correctly
-      app.initData.mcId = suggestion.id
+      app.initData.id = suggestion.id
+      app.initData.mcId = suggestion.mcId
       app.initData.type = suggestion.type
       # Rerender UI to view loading indicator
       m.redraw.strategy("diff")

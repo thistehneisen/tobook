@@ -57,6 +57,7 @@
 
         app.initData = {
             mcId        : {{ $mcId }},
+            id          : {{ $id }},
             type        : '{{ $type }}',
             cities      : {{ json_encode($cities) }},
             services    : {{ $services }},
@@ -119,7 +120,7 @@
             'business.services': '{{ route('ajax.services') }}',
             'baseUrl' : '{{ url() }}'
         };
-        app.VaraaBusiness(document.getElementById('business-container'), app.initData.mcId, app.initData.type );
+        app.VaraaBusiness(document.getElementById('business-container'), app.initData.id, app.initData.type );
     </script>
 @stop
 
