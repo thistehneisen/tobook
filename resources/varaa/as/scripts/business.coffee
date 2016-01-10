@@ -243,7 +243,7 @@ app.VaraaBusiness = (dom, id, type) ->
       $("#slider-range").slider
         range: true,
         min: 0,
-        max: 500,
+        max: 300,
         values: [@dataStore().min_price, @dataStore().max_price],
         slide: (event, ui) ->
           $("#amount").val(ui.values[0] + "€" + " - " + ui.values[1] + "€");
