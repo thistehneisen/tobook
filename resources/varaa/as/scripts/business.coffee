@@ -10,7 +10,7 @@ app.VaraaBusiness = (dom, id, type) ->
 
   BusinessList = {}
   BusinessList.controller = ->
-    @dataStore = m.prop { id: id, type: type, keyword: '', search_type: '', city: '', show_discount: false, page: 1, count: 0, min_price: 0, max_price: 500}
+    @dataStore = m.prop { id: id, type: type, city: '', show_discount: false, page: 1, count: 0, min_price: 0, max_price: 500}
     
     @data        = m.prop {}
     @businesses  = m.prop []

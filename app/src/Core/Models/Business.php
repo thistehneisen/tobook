@@ -6,6 +6,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\Discount\DiscountBusiness;
 use App\Appointment\Models\Discount;
 use App\Appointment\Models\DiscountLastMinute;
+use App\Appointment\Models\MasterCategory;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Haku\Indexers\BusinessIndexer;
 use App\Core\Models\Review;
@@ -426,6 +427,48 @@ class Business extends Base
             })
             ->with('user.images')
             ->paginate();
+    }
+
+    /**
+     * Get all searchable items including master categories / treatment types / business names
+     * @see app/src/Core/Controllers/Ajax/Search.php
+     * 
+     * @return  Array
+     */
+    public static function getSearchableServices()
+    {
+        $data = [];
+
+        $categories = MasterCategory::getAll();
+
+        foreach ($categories as $category) {
+            $data[] = ['type' => 'category', 'id' => $category->id, 'name' => $category->name, 'url' => $category->url];
+
+            foreach ($category->treatments as $treament) {
+                $data[] = ['type' => 'treatment', 'id' => $treament->id, 'name' => $treament->name, 'url' => $treament->url];
+
+                //Append keyword<->treatment to typehead json
+                foreach ($treament->keywords as $keyword) {
+                    $data[] = ['type' => 'treatment', 'id' => $treament->id, 'name' => $keyword->keyword, 'url' => $treament->url];
+                }
+            }
+
+            foreach ($category->keywords as $keyword) {
+                $data[] = ['type' => 'category', 'id' => $category->id, 'name' => $keyword->keyword, 'url' => $category->url];
+            }
+        }
+
+        $businesses = Business::notHidden()
+            ->whereHas('user', function ($query) {
+                $query->whereNull('deleted_at');
+            })
+            ->where('name', '!=', '')
+            ->get();
+        foreach ($businesses as $business) {
+            $data[] = ['type' => 'business', 'name' => $business->name, 'url' => $business->business_url];
+        }
+
+        return $data;
     }
 
     //--------------------------------------------------------------------------
