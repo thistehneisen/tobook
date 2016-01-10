@@ -217,6 +217,28 @@ app.VaraaBusiness = (dom, id, type) ->
       $('.hidden-service-' + businessId).toggleClass('hidden')
       return
 
+    @changeUrl = (selection) =>
+      replaceUrl = selection.url.replace(app.routes['baseUrl'], '')
+      window.history.pushState({}, selection.name, replaceUrl)
+
+    @typeHeadSelect = (selection) =>
+      @dataStore().type = selection.type
+      @dataStore().id = selection.id
+      @dataStore().keyword = selection.name
+      @append = false
+      @businesses([])
+      @count(0)
+      # Change initData to make sure UI is rendered correctly
+      app.initData.mcId = selection.id
+      app.initData.type = selection.type
+      # Rerender UI to view loading indicator
+      m.redraw.strategy("diff")
+      m.redraw()
+      # Perform real search
+      @search()
+      # Change upper url
+      @changeUrl(selection)
+
     @init = () =>
       $("#slider-range").slider
         range: true,
@@ -234,9 +256,6 @@ app.VaraaBusiness = (dom, id, type) ->
       $('.categories-list ul').hide()
 
       $('.category-item').click((e) -> 
-        console.log(e.originalEvent.detail)
-        if(e.originalEvent.detail > 1) 
-          return
         $(this).next('ul').slideToggle("slow");
       )
 
@@ -252,14 +271,12 @@ app.VaraaBusiness = (dom, id, type) ->
         .concat app.initData.cities.map (name) -> type: 'city', name: name
       
       @locations(locations);
+      
+      $('#query').unbind('typeahead:selected')
 
       $('#query').bind 'typeahead:selected', (e, selection) =>
         if selection.type is 'category' or selection.type is 'treatment'
-          @dataStore().type = selection.type
-          @dataStore().id = selection.id
-          @dataStore().keyword = selection.name
-          @append = false
-          @search()
+          @typeHeadSelect(selection)
         else
           window.location.href = selection.url if typeof selection.url isnt 'undefined'
 

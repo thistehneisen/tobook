@@ -61,21 +61,8 @@
             assetPath : '{{ asset('packages/jquery.raty/images') }}',
             categories : {{ $mctcs }},
             mcId : {{ $mcId }},
+            type : '{{ $type }}',
             discountBusiness : {{ $discountBusiness }},
-        }
-
-        if(window.location.hash.length > 1) {
-            entries = location.hash.split('|');
-            for(i = 0; i<entries.length; i++) {
-              parts = entries[i].split('=');
-              name = decodeURIComponent(parts[0]);
-              value = decodeURIComponent(parts[1]);
-              if(name == 'type') {
-                app.initData.type = value;
-              } else if (name == 'id') {
-                app.initData.mcId = value;
-              }
-            }
         }
 
         app.i18n = {
@@ -125,9 +112,10 @@
 
         app.routes = {
             'business.search': '{{ route('business.search') }}',
-            'business.services': '{{ route('ajax.services') }}'
+            'business.services': '{{ route('ajax.services') }}',
+            'baseUrl' : '{{ url() }}'
         };
-        app.VaraaBusiness(document.getElementById('business-container'), {{ $mcId }}, '{{  $type }}' );
+        app.VaraaBusiness(document.getElementById('business-container'), app.initData.mcId, app.initData.type );
     </script>
 @stop
 
