@@ -360,7 +360,7 @@ class Front extends Base
             $priceRanges = [];
 
             if (!$item->isBookingDisabled) {
-                $services = Service::getMostPopularServices($item->user->id);
+                $services = Service::getMostPopularServices($item->user->id, $type, $id);
                 foreach ($services as $service) {
                     $priceRanges[$service->id] = $service->priceRange;
                 }
