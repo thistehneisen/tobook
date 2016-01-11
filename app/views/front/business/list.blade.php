@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
     {{ HTML::style(asset('packages/jquery.raty/jquery.raty.css')) }}
     {{ HTML::style(asset('packages/switchery/switchery.min.css')) }}
+    {{ HTML::style(asset('packages/nouislider/nouislider.min.css')) }}
 @stop
 
 @section('scripts')
@@ -37,22 +38,10 @@
     {{ HTML::script(asset('packages/jquery.raty/jquery.raty.js')) }}
     {{ HTML::script(asset('packages/switchery/switchery.min.js')) }}
     {{ HTML::script(asset('packages/utils/levenshtein.js')) }}
+    {{ HTML::script(asset('packages/nouislider/nouislider.min.js')) }}
     {{ HTML::script(asset_path('as/scripts/business.js')) }}
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
-      $(function() {
-        $("#slider-range").slider({
-          range: true,
-          min: 0,
-          max: 300,
-          values: [ 0, 300 ],
-          slide: function(event, ui) {
-            $( "#amount" ).val(ui.values[0] + "€ - " + ui.values[1] + "€");
-          },
-        });
-        $("#amount" ).val($("#slider-range" ).slider( "values", 0 ) + "€ - " + $( "#slider-range" ).slider( "values", 1 ) + "€");
-        });
-
         var app = app || {};
 
         app.initData = {
