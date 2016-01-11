@@ -375,7 +375,7 @@ class Front extends Base
                                 ->where('price', '<=', $maxPrice);
                 });
                 
-                $services = $query->orderBy('price')->limit(5)->get();
+                $services = $query->orderBy('price', 'desc')->limit(5)->get();
 
 
                 foreach ($services as $service) {
