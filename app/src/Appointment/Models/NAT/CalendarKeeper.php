@@ -182,6 +182,15 @@ class CalendarKeeper
                 $workingTimes[$i] = range(0, 45, 15);
             }
             if ($i === $endHour) {
+                if ($endMinute > 45) {
+                    $endMinute = 45;
+                } else if ($endMinute > 30){
+                    $endMinute = 45;
+                } else if ($endMinute > 15) {
+                    $endMinute = 30;
+                } else {
+                    $endMinute = 15;
+                }
                 $workingTimes[$i] = range(0, $endMinute, 15);
             }
         }
