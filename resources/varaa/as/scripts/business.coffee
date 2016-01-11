@@ -327,7 +327,7 @@ app.VaraaBusiness = (dom, id, type) ->
       
       priceSlider.noUiSlider.on 'end', ( values, handle ) =>
           @dataStore().min_price = parseInt(values[0], 10)
-          @dataStore().max_price = parseInt((values[1], 10)
+          @dataStore().max_price = parseInt(values[1], 10)
           @append = false
           @search() 
 
