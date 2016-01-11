@@ -437,17 +437,17 @@ return [
             'index' => 'Календарь',
         ],
         'discount' => [
-            'discount'            => 'Discount',
-            'last-minute'         => 'Last minute discount',
-            'business-hour'       => 'business hour',
-            'business-hours'      => 'business hours',
-            'full-price'          => 'Full price',
-            'afternoon_starts_at' => 'Afternoon starts at',
-            'evening_starts_at'   => 'Evening starts at',
-            'is_active'           => 'Is Enabled',
-            'before'              => 'Before',
+            'discount'            => 'скидка',
+            'last-minute'         => 'Горячие скидки',
+            'business-hour'       => 'бизнес час или рабочий час',
+            'business-hours'      => 'бизнес часы или рабочие часы',
+            'full-price'          => 'Полная цена',
+            'afternoon_starts_at' => 'Aпосле полудня начинается',
+            'evening_starts_at'   => 'Вечер начинается',
+            'is_active'           => 'включен',
+            'before'              => 'до',
             'error' => [
-                'evening_starts_before_afternoon' => 'Afternoon must starts before evening starts'
+                'evening_starts_before_afternoon' => 'Послеобеденное время должно начинаться до начала вечера'
             ],
         ]
     ],
