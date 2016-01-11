@@ -334,10 +334,12 @@ class Front extends Base
             'from' => (Input::get('page', 1) - 1) * $perPage,
             'size' => $perPage
         ];
-        
+        $minPrice = (int)Input::get('min_price');
+        $maxPrice = (int)Input::get('max_price');
+
         $params['has_discount'] = (Input::get('show_discount') == 'true') ? true : false;
-        $params['min_price']    = (int)Input::get('min_price');
-        $params['max_price']    = (int)Input::get('max_price');
+        $params['min_price']    = $minPrice;
+        $params['max_price']    = $maxPrice;
         $params['keyword']      = $categoryKeyword;
         $params['city']         = Input::get('city');
 
@@ -360,22 +362,39 @@ class Front extends Base
             $priceRanges = [];
 
             if (!$item->isBookingDisabled) {
-                $services = Service::getMostPopularServices($item->user->id, $type, $id);
+                // $services = Service::getMostPopularServices($item->user->id, $type, $id);
+                $query = Service::where('user_id', $item->user_id);
+                if ($type === 'category') {
+                    $query = $query->where('master_category_id', $id);
+                } else {
+                    $query = $query->where('treatment_type_id', $id);
+                }
+
+                $query = $query->where(function($query) use($minPrice, $maxPrice) {
+                    return $query->where('price', '>=', $minPrice)
+                                ->where('price', '<=', $maxPrice);
+                });
+                
+                $services = $query->orderBy('price')->limit(5)->get();
+
+
                 foreach ($services as $service) {
                     $priceRanges[$service->id] = $service->priceRange;
                 }
             }
 
-            $item['services']        = $services;
-            $item['price_range']     = $priceRanges;
-            $item['image_url']       = (!empty($item->images->first())) ? $item->images->first()->getPublicUrl() : '';
-            $item['user_email']      = $item->user->email;
-            $item['payment_options'] = $item->paymentOptions;
-            $item['businessUrl']     = $item->businessUrl;
-            $item['hasDiscount']     = $item->hasDiscount;
-            $item['avg_total']       = $item->reviewScore;
-            $item['review_count']    = $item->reviewCount;
-            $businesses[] = $item;
+            if (count($services)) {
+                $item['services']        = $services;
+                $item['price_range']     = $priceRanges;
+                $item['image_url']       = (!empty($item->images->first())) ? $item->images->first()->getPublicUrl() : '';
+                $item['user_email']      = $item->user->email;
+                $item['payment_options'] = $item->paymentOptions;
+                $item['businessUrl']     = $item->businessUrl;
+                $item['hasDiscount']     = $item->hasDiscount;
+                $item['avg_total']       = $item->reviewScore;
+                $item['review_count']    = $item->reviewCount;
+                $businesses[] = $item;
+            }
         }
 
         return Response::json([
