@@ -296,18 +296,53 @@ app.VaraaBusiness = (dom, id, type) ->
       @changeUrl(suggestion)
 
     @init = () =>
-      $("#slider-range").slider
-        range: true,
-        min: 0,
-        max: 300,
-        values: [@dataStore().min_price, @dataStore().max_price],
-        slide: (event, ui) ->
-          $("#amount").val(ui.values[0] + "€" + " - " + ui.values[1] + "€");
-        stop: (event, ui) =>
-          @dataStore().min_price = ui.values[0]
-          @dataStore().max_price = ui.values[1]
+
+      priceSlider = document.getElementById('slider-range');
+
+      noUiSlider.create(priceSlider, {
+        start: [ @dataStore().min_price, @dataStore().max_price ],
+        snap: true,
+        behaviour: 'drag',
+        connect: true,
+        range: {
+          'min':  0,
+          '10%': 5,
+          '15%': 10,
+          '20%': 15,
+          '25%': 25,
+          '30%': 50,
+          '40%': 75,
+          '45%': 100,
+          '50%': 125,
+          '55%': 150,
+          '60%': 175,
+          '80%': 200,
+          '90%': 250,
+          'max': 300
+        }
+      });
+
+      priceSlider.noUiSlider.on 'update', ( values, handle ) -> 
+        $("#amount").val(values[0] + "€" + " - " + values[1]+ "€");
+      
+      priceSlider.noUiSlider.on 'end', ( values, handle ) =>
+          @dataStore().min_price = values[0]
+          @dataStore().max_price = values[1]
           @append = false
-          @search()
+          @search() 
+
+      # $("#slider-range").slider
+      #   range: true,
+      #   min: 0,
+      #   max: 300,
+      #   values: [@dataStore().min_price, @dataStore().max_price],
+      #   slide: (event, ui) ->
+      #     $("#amount").val(ui.values[0] + "€" + " - " + ui.values[1] + "€");
+      #   stop: (event, ui) =>
+      #     @dataStore().min_price = ui.values[0]
+      #     @dataStore().max_price = ui.values[1]
+      #     @append = false
+      #     @search()
 
       $('.categories-list ul').hide()
 
@@ -355,7 +390,6 @@ app.VaraaBusiness = (dom, id, type) ->
           @append = false
           @search()
 
-      $("#amount").val($("#slider-range" ).slider( "values", 0 ) + "€ - " + $( "#slider-range" ).slider( "values", 1 ) + "€");
       businesses = @businesses()
       markers    = @makeMarkers(businesses)
       @renderMap('topmap', businesses[0].lat, businesses[0].lng, markers)
