@@ -323,11 +323,11 @@ app.VaraaBusiness = (dom, id, type) ->
       });
 
       priceSlider.noUiSlider.on 'update', ( values, handle ) -> 
-        $("#amount").val(values[0] + "€" + " - " + values[1]+ "€");
+        $("#amount").val(parseInt(values[0], 10) + "€" + " - " + parseInt(values[1], 10) + "€");
       
       priceSlider.noUiSlider.on 'end', ( values, handle ) =>
-          @dataStore().min_price = values[0]
-          @dataStore().max_price = values[1]
+          @dataStore().min_price = parseInt(values[0], 10)
+          @dataStore().max_price = parseInt((values[1], 10)
           @append = false
           @search() 
 
