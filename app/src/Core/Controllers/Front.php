@@ -140,7 +140,7 @@ class Front extends Base
 
     public function business()
     {
-        return $this->render('business-page');
+        return $this->render('business.page');
     }
 
     public function intro()
@@ -241,28 +241,73 @@ class Front extends Base
     {   
         // Get the correct model based on first URL segment
         $isMasterCategory = strpos(Request::path(), 'categories') !== false;
-        $type = $isMasterCategory ? 'mc' : 'tm';
+        $type = $isMasterCategory ? 'category' : 'treatment';
 
-        $model = ($type === 'mc')
+        $model = ($type === 'category')
             ? '\App\Appointment\Models\MasterCategory'
             : '\App\Appointment\Models\TreatmentType';
         $instance = $model::findOrFail($id);
+
+        $mcId = null;
+        $mcId = ($type === 'category') ? $id : $instance->master_category_id;
 
         // Master categories
         $masterCategories = MasterCategory::getAll();
 
                 // Add meta data to this page
         $meta['description'] = $instance->description;
+        $categoriesTypes = [];
+
+        foreach ($masterCategories as $_category) {
+            $category = [];
+            $category['id']   = $_category->id;
+            $category['name'] = $_category->name;
+            $category['url']  = $_category->url;
+            $category['treatments'] = [];
+            foreach ($_category->treatments as $_treatment) {
+                $treatment = [];
+                $treatment['name'] = $_treatment->name; 
+                $treatment['url']  = $_treatment->url;
+                $category['treatments'][] = $treatment;
+            }
+            $categoriesTypes[] = $category;
+        }
+
+        // Get 1 random busienss which have discount #718
+        $collection = Business::getRamdomBusinesesHasDiscount(1);
+        $_randomBusiness = $collection->first();
+        $randomBusiness = [];
+
+        if (!empty($_randomBusiness->id)) { 
+            $randomBusiness['id']                     = $_randomBusiness->id;
+            $randomBusiness['name']                   = $_randomBusiness->name;
+            $randomBusiness['image']                  = $_randomBusiness->image;
+            $randomBusiness['businessUrl']            = $_randomBusiness->businessUrl;
+            $randomBusiness['serviceName']            = $_randomBusiness->randomMostDiscountedService->name;
+            $randomBusiness['discountPrice']          = $_randomBusiness->randomMostDiscountedService->price;
+            $randomBusiness['discountPercent']        = $_randomBusiness->discountPercent;
+            $randomBusiness['businessUrlWithService'] = route('business.index', [
+                'id' => $_randomBusiness->user_id, 
+                'slug' => $_randomBusiness->slug, 
+                'serviceId' => $_randomBusiness->randomMostDiscountedService->id
+            ]);
+        }
 
         // Change page title
         $title = $instance->name;
+        
+        $services = Business::getSearchableServices();
 
-        return $this->render('business-list',[
-            'id'   => $id,
-            'type' => $type,
-            'mcs'  => $masterCategories,
-            'title'=> $title,
-            'meta' => $meta
+        return $this->render('business.list',[
+            'id'              => $id,
+            'mcId'            => $mcId,
+            'type'            => $type,
+            'mcs'             => $masterCategories,
+            'mctcs'           => json_encode($categoriesTypes),
+            'business'        => json_encode($randomBusiness),
+            'services'        => json_encode($services),
+            'title'           => $title,
+            'meta'            => $meta
         ]);
     }
 
@@ -276,44 +321,30 @@ class Front extends Base
         $id   = Input::get('id');
         $type = Input::get('type');
         
-        $lat = Input::get('lat');
-        $lng = Input::get('lng');
-
-        if (!empty($lat) && !empty($lng)) {
-            Session::set('lat', $lat);
-            Session::set('lng', $lng);
-        }
-
         $categoryKeyword = $type . '_' . $id;
 
-        $model = ($type === 'mc')
+        $model = ($type === 'category')
             ? '\App\Appointment\Models\MasterCategory'
             : '\App\Appointment\Models\TreatmentType';
         $instance = $model::findOrFail($id);
 
         $perPage = 15;
         $params = [
-            'location' => Util::getCoordinates(),
+            // 'location' => Util::getCoordinates(),
             'from' => (Input::get('page', 1) - 1) * $perPage,
             'size' => $perPage
         ];
+        $minPrice = (int)Input::get('min_price');
+        $maxPrice = (int)Input::get('max_price');
 
-        $searchType = Input::get('search_type');
-        
-        $params['category']     = $categoryKeyword;
         $params['has_discount'] = (Input::get('show_discount') == 'true') ? true : false;
-        $params['min_price']    = (int)Input::get('min_price');
-        $params['max_price']    = (int)Input::get('max_price');
+        $params['min_price']    = $minPrice;
+        $params['max_price']    = $maxPrice;
+        $params['keyword']      = $categoryKeyword;
+        $params['city']         = Input::get('city');
 
-        if ( !empty(Input::get('city')) || !empty(Input::get('keyword')) ) {
-            $params['keyword']      = Input::get('keyword');
-            $params['category']     = $categoryKeyword;
-            $params['city']         = Input::get('city');
-            $s = new BusinessesByCategoryAdvanced($params);
-        } else {
-            $params['keyword'] = $categoryKeyword;
-            $s = new BusinessesByCategory($params);
-        }
+        $s = new BusinessesByCategory($params);
+        
 
         $paginator = $s->search();
 
@@ -331,22 +362,39 @@ class Front extends Base
             $priceRanges = [];
 
             if (!$item->isBookingDisabled) {
-                $services = Service::getMostPopularServices($item->user->id);
+                // $services = Service::getMostPopularServices($item->user->id, $type, $id);
+                $query = Service::where('user_id', $item->user_id);
+                if ($type === 'category') {
+                    $query = $query->where('master_category_id', $id);
+                } else {
+                    $query = $query->where('treatment_type_id', $id);
+                }
+
+                $query = $query->where(function($query) use($minPrice, $maxPrice) {
+                    return $query->where('price', '>=', $minPrice)
+                                ->where('price', '<=', $maxPrice);
+                });
+                
+                $services = $query->orderBy('price', 'desc')->limit(5)->get();
+
+
                 foreach ($services as $service) {
                     $priceRanges[$service->id] = $service->priceRange;
                 }
             }
 
-            $item['services']        = $services;
-            $item['price_range']     = $priceRanges;
-            $item['image_url']       = (!empty($item->images->first())) ? $item->images->first()->getPublicUrl() : '';
-            $item['user_email']      = $item->user->email;
-            $item['payment_options'] = $item->paymentOptions;
-            $item['businessUrl']     = $item->businessUrl;
-            $item['hasDiscount']     = $item->hasDiscount;
-            $item['avg_total']       = $item->reviewScore;
-            $item['review_count']    = $item->reviewCount;
-            $businesses[] = $item;
+            if (count($services)) {
+                $item['services']        = $services;
+                $item['price_range']     = $priceRanges;
+                $item['image_url']       = (!empty($item->images->first())) ? $item->images->first()->getPublicUrl() : '';
+                $item['user_email']      = $item->user->email;
+                $item['payment_options'] = $item->paymentOptions;
+                $item['businessUrl']     = $item->businessUrl;
+                $item['hasDiscount']     = $item->hasDiscount;
+                $item['avg_total']       = $item->reviewScore;
+                $item['review_count']    = $item->reviewCount;
+                $businesses[] = $item;
+            }
         }
 
         return Response::json([

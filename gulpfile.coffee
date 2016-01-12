@@ -50,16 +50,16 @@ gulp.task 'coffee', ->
     .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
     .pipe gulpif production, gulp.dest(__dirname)
 
-gulp.task 'es6', ->
-  gulp.src paths.es6
-    .pipe cached 'es6'
-    .pipe babel()
-    .pipe remember 'es6'
-    .pipe gulpif production, uglify()
-    .pipe gulpif production, rev()
-    .pipe gulp.dest paths.dest
-    .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
-    .pipe gulpif production, gulp.dest(__dirname)
+# gulp.task 'es6', ->
+#   gulp.src paths.es6
+#     .pipe cached 'es6'
+#     .pipe babel()
+#     .pipe remember 'es6'
+#     .pipe gulpif production, uglify()
+#     .pipe gulpif production, rev()
+#     .pipe gulp.dest paths.dest
+#     .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
+#     .pipe gulpif production, gulp.dest(__dirname)
 
 gulp.task 'less', ->
   gulp.src paths.less
@@ -72,7 +72,8 @@ gulp.task 'less', ->
     .pipe gulpif production, rev.manifest(path: paths.rev, merge: true)
     .pipe gulpif production, gulp.dest(__dirname)
 
-gulp.task 'default', ['coffee', 'js', 'es6', 'less', 'static']
+# gulp.task 'default', ['coffee', 'js', 'es6', 'less', 'static']
+gulp.task 'default', ['coffee', 'js', 'less', 'static']
 
 gulp.task 'watch', ['default'], ->
   # Special rule for LESS files

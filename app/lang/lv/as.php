@@ -159,6 +159,7 @@ return [
         'reminder_email_before' => 'Sūtīt atgādinājuma e-pastu pirms',
         'reminder_sms_time_unit'   => 'Stundas/diena',
         'reminder_email_time_unit' => 'Stundas/diena',
+        'price_range'              => 'Cenu diapazons',
         'error'             => [
             'add_overlapped_booking'      => 'Rezervācijas laiki pārklājas!',
             'insufficient_slots'          => 'Kalendārā nav pieejams izvēlētajai rezervācijai atbilstošs brīvais laiks!',

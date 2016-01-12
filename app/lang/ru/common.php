@@ -109,6 +109,7 @@ return [
     'decline'               => 'Не Согласен',
     'history'               => 'История',
     'captcha'               => 'Captcha',
+    'no_review'             => 'Отзывов нет',
     'review'                => 'Обзор',
     'reviews'               => 'Отзывы',
     'hour'                  => 'час',

@@ -195,10 +195,14 @@ class Service extends \App\Core\Models\Base
         return $result;
     }
 
-    public static function getMostPopularServices($user_id)
+    public static function getMostPopularServices($user_id, $type, $id)
     {
         $redis =  Redis::connection();
-        $key = sprintf('popular_services_%s', $user_id);
+        $key = ($type === 'category')
+            ? 'ps_%s_mc_%s' 
+            : 'ps_%s_tc_%s';
+
+        $key = sprintf($key, $user_id, $id);
         $ids = json_decode($redis->get($key));
         $services = Service::whereIn('id', $ids)->get();
 

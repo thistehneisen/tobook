@@ -88,6 +88,10 @@
             border-bottom: 1px solid #ccc;
             padding-top: 15px;
             padding-bottom: 5px;
+
+            .payment_methods {
+                padding-left: 15px;
+            }
         }
 
         .contact {
@@ -123,22 +127,29 @@
     .popular-services {
         padding: 10px;
         
-        .popular-service:first-child {
-            border-bottom: none;
-        }
-
         .popular-service:last-child {
             border-bottom: 1px solid @primary_color;
         }
-
+        
+        .popular-service-last {
+            border-bottom: 1px solid @primary_color!important;
+        }
         .popular-service {
             border: 1px solid @primary_color;
+            border-bottom: none;
             padding: 10px 0;
 
             .service-name { 
                 display: inline-block;
                 padding: 6px 12px;
             }
+
+        }
+    }
+    .show-more-services {
+        margin-top: 10px;
+        a {
+            color: #000!important;
         }
     }
 
@@ -177,16 +188,72 @@
     }
 }
 
+#slider-range {
+    width: 95%!important;
+}
+
+.noUi-connect {
+    background: @primary_color;
+}
+
+.noUi-horizontal {
+    height: 14px;
+}
+
+.noUi-horizontal .noUi-handle {
+    height: 24px;
+    width: 30px;
+}
+
+.noUi-handle:before  {
+    top: 4px;
+    left: 11px;
+}
+.noUi-handle:after{
+    top: 4px;
+    left: 15px;
+}
+
 .ui-widget-header {
     border: none!important;
     background: #ffffff!important;
 }
-.map-marker-table {
+
+.categories-list {
+    list-style-type: none;
+    padding-left: 0px;
+    strong {
+        cursor: pointer;
+    }
+    a {
+        color: #000;
+    }
+    ul {
+        list-style-type: none;
+        padding-left: 20px;
+    }
+}
+
+table.map-marker-table {
+    max-width: 305px;
+    
+    .img-wrapper {
+        padding: 0 5px 0 0;
+    }
+
     td {
-        padding: 5px;
+        padding: 0 0 0 5px;
 
         p {
             margin: 0px;
+            color: #000!important;
         }   
     }
+}
+
+.row-no-padding {
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 }

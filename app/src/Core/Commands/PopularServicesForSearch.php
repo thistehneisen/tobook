@@ -8,6 +8,7 @@ use Indatus\Dispatcher\Scheduling\Schedulable;
 use Indatus\Dispatcher\Drivers\DateTime\Scheduler;
 use App\Core\Models\Users;
 use App\Core\Models\Business;
+use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\Service;
 use DB;
 use Redis;
@@ -48,36 +49,79 @@ class PopularServicesForSearch extends ScheduledCommand {
 	public function fire()
 	{
 		$businesses = Business::all();
-		$redis = Redis::connection();
-
+		
 		printf('Business count: %d', $businesses->count());
+
+		$categories = MasterCategory::getAll();
 
 		foreach ($businesses as $business) {
 			// There are some deleted users
 			if (empty($business->user->id)) 
 				continue;
 			
-			$items = DB::table('as_booking_services')
-				->select(['service_id', DB::raw('count(*) as total')])
-				->where('user_id', '=', $business->user->id)
-				->groupBy('service_id')
-				->orderBy('total')
-				->limit(2)
-				->get();
-			$bucket = [];
+			foreach ($categories as $category) {
+				$this->saveCategoryPopularServices($category->id, $business->user->id);
 
-			$key = sprintf('popular_services_%s', $business->user->id);
-        	$redis->del($key);
-
-			foreach ($items as $item) {
-				if (!empty($item)) {
-					$bucket[] = $item->service_id;
+				foreach ($category->treatments as $treament) {
+					$this->saveTreatmentPopularServices($treament->id, $business->user->id);
 				}
 			}
 
-			$redis->set($key, json_encode($bucket));
-
 			print('.');
 		}
+	}
+
+	private function saveTreatmentPopularServices($treatment_type_id, $user_id)
+	{
+		$redis = Redis::connection();
+
+		$items = DB::table('as_booking_services')
+					->select(['as_booking_services.service_id', DB::raw('count(*) as total')])
+					->join('as_services', 'as_services.id', '=', 'as_booking_services.service_id')
+					->where('as_booking_services.user_id', '=', $user_id)
+					->where('as_services.treatment_type_id', '=', $treatment_type_id)
+					->groupBy('as_booking_services.service_id')
+					->orderBy('total')
+					->limit(5)
+					->get();
+		$bucket = [];
+
+		$key = sprintf('ps_%s_tc_%s', $user_id, $treatment_type_id);
+    	$redis->del($key);
+
+		foreach ($items as $item) {
+			if (!empty($item)) {
+				$bucket[] = $item->service_id;
+			}
+		}
+
+		$redis->set($key, json_encode($bucket));
+	}
+
+	private function saveCategoryPopularServices($category_id, $user_id)
+	{
+		$redis = Redis::connection();
+
+		$items = DB::table('as_booking_services')
+					->select(['as_booking_services.service_id', DB::raw('count(*) as total')])
+					->join('as_services', 'as_services.id', '=', 'as_booking_services.service_id')
+					->where('as_booking_services.user_id', '=', $user_id)
+					->where('as_services.master_category_id', '=', $category_id)
+					->groupBy('as_booking_services.service_id')
+					->orderBy('total')
+					->limit(5)
+					->get();
+		$bucket = [];
+
+		$key = sprintf('ps_%s_mc_%s', $user_id, $category_id);
+    	$redis->del($key);
+
+		foreach ($items as $item) {
+			if (!empty($item)) {
+				$bucket[] = $item->service_id;
+			}
+		}
+
+		$redis->set($key, json_encode($bucket));
 	}
 }

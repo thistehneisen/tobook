@@ -81,6 +81,9 @@ return [
         'filters'               => 'Filters',
         'filter_search_results' => 'Filter search results',
         'only_offpeak_discounts'=> 'Only off-peak discounts',
+        'learn_more'            => 'Learn more &raquo;',
+        'keyword_not_exists'    => 'Keyword does not exist',
+        'please_try'            => 'Please try with one of these keywords',
         'validation'      => [
             'q'        => 'Please enter or select a service',
             'location' => 'Please enter or select a location',

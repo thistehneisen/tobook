@@ -10,43 +10,29 @@ app.VaraaBusiness = (dom, id, type) ->
 
   BusinessList = {}
   BusinessList.controller = ->
-    @dataStore = m.prop { id: id, type: type, keyword: '', search_type: '', city: '', show_discount: false, page: 1, count: 0, min_price: 0, max_price: 500}
+    @dataStore = m.prop { id: id, type: type, city: '', show_discount: false, page: 1, count: 0, min_price: 0, max_price: 500}
     
     @data        = m.prop {}
     @businesses  = m.prop []
     @environment = m.prop ''
     @assetPath = m.prop ''
+    @categories = m.prop []
+    @services = m.prop []
+    @suggestion = m.prop []
+    @discountBusiness = m.prop []
+    @engine = m.prop []
+    @locations = m.prop []
+    @visible = m.prop []
     @count = m.prop 0
     @page = m.prop 1
     @cache = []
     @append = true
-    @lat = m.prop 0
-    @lng = m.prop 0
 
     @environment(app.initData.environment)
     @assetPath(app.initData.assetPath)
-
-    @setGeolocation = (position) =>
-      lat = position.coords.latitude
-      lng = position.coords.longitude
-      @lat(lat)
-      @lng(lng)
-      @search()      
-      return 
-
-    @showError = (error) ->
-      console.log(error) 
-
-    @bigbang = () =>
-      $body = $ 'body'
-      lat = $body.data 'lat'
-      lng = $body.data 'lng'
-
-      if (lat? and lng? and lat != '' and lng != '')
-        @search()
-      else
-        # Ask for location
-        navigator.geolocation.getCurrentPosition @setGeolocation, @showError, timeout: 10000
+    @categories(app.initData.categories)
+    @services(app.initData.services)
+    @discountBusiness(app.initData.business)
 
     @search = () ->
       $('#show-more-spin').show()
@@ -64,8 +50,6 @@ app.VaraaBusiness = (dom, id, type) ->
           min_price: @dataStore().min_price
           max_price: @dataStore().max_price
           page: @dataStore().page,
-          lat: @lat(),
-          lng: @lng()
       .then (data) =>
         if (@append)
           for business in data.businesses
@@ -87,7 +71,6 @@ app.VaraaBusiness = (dom, id, type) ->
 
     @showMore = (e) ->
       e.preventDefault()
-      # window.location.hash = 'show-more'
       if (@dataStore().page < @dataStore().count)
         @dataStore().page += 1
         @search()
@@ -102,24 +85,65 @@ app.VaraaBusiness = (dom, id, type) ->
       @dataStore().page = 1
       @append = false
 
-      setTimeout( =>
-        if (el.value == init)
-          @search()
-      , 300)
+      if (e.which == 13 || e.keyCode == 13)
+        @search()
+    
+    @selectCity = (e) ->
+      e.preventDefault()
+      $('#location').val e.target.text
 
-    @setKeyword = (e) ->
+    @suggestLocation = (e) =>
+      e.preventDefault()
+      keyword = e.target.value
+      if keyword.length is 0
+        @visible(@locations())
+        m.redraw()
+        return
+
+      @engine().get keyword, (results) =>
+        @visible(results)
+        m.redraw()
+
+    @setKeyword = (e) =>
       el = e.target
       init = el.value
-      @dataStore().keyword = el.value
-      @dataStore().search_type = 'keyword'
-      @dataStore().page = 1
-      @append = false
+      similarScore = []
+      if (e.which == 13 || e.keyCode == 13)
+        for service in @services()
+          if el.value == service.name
+            if service.type is 'category' or service.type is 'treatment'
+              @typeHeadSelect(service)
+            else
+              window.location.href = selection.url if typeof selection.url isnt 'undefined'
+            return
+          else
+            score = (new Levenshtein(el.value, service.name.substring(0, el.value.length))).distance
+            similarScore.push { score : score, name : service.name, type : service.type, id : service.id, url : service.url }
 
-      setTimeout( =>
-        if (el.value == init)
-          @search()
-      , 300)
 
+        similarScore.sort (a, b) ->
+            if (a.score < b.score)
+              return -1
+            else if (a.score > b.score)
+              return 1
+            else 
+              return 0
+
+        suggestion = []
+        count = 0
+        for item in similarScore
+          count++
+          suggestion.push(item)
+          if (count == 5) then break
+
+        @suggestion(suggestion)
+
+        m.redraw.strategy("diff")
+        m.redraw()
+
+        alertify.alert(__('keyword_not_exists'), $('#suggestion').html())
+        
+            
     @setShowDiscount = (e) ->
       el = e.target
       @dataStore().show_discount = el.checked
@@ -153,7 +177,7 @@ app.VaraaBusiness = (dom, id, type) ->
         lng: business.lng
         title: business.name
         infoWindow:
-          content: "<a href='#{business.businessUrl}'><table class=\"map-marker-table\"><tr><td><img src='" + business.image_url + "' style='width: 100px' /></td><td><p><strong>#{business.name}</strong></p><p>#{business.full_address}</p><span class=\"label label-success\"><i class=\"fa fa-ticket\"></i>" + __('online_booking') + "</span></td></tr></table></a>"
+          content: "<a href='#{business.businessUrl}'><table class=\"map-marker-table\"><tr><td class=\"img-wrapper\"><img src='" + business.image_url + "' style='width: 100px' /></td><td><p><strong>#{business.name}</strong></p><p>#{business.full_address}</p><span class=\"label label-success\"><i class=\"fa fa-ticket\"></i>" + __('online_booking') + "</span></td></tr></table></a>"
       }
 
     @makeMarkers =  (businesses) ->
@@ -225,21 +249,129 @@ app.VaraaBusiness = (dom, id, type) ->
       # $('#filters').slideToggle('slow');
       return
 
-    @init = () =>
-      $("#slider-range").slider
-        range: true,
-        min: 0,
-        max: 500,
-        values: [@dataStore().min_price, @dataStore().max_price],
-        slide: (event, ui) ->
-          $("#amount").val(ui.values[0] + "€" + " - " + ui.values[1] + "€");
-        stop: (event, ui) =>
-          @dataStore().min_price = ui.values[0]
-          @dataStore().max_price = ui.values[1]
-          @append = false
-          @search()
+    @getServiceClass = (index, length, businessId) ->
+      serivce_class = if (index > 1) then ('hidden'  + ' hidden-service-' +  businessId)  else 'show'
+      serivce_class = if (index == 1) then serivce_class + ' service-second-' + businessId  else serivce_class
+      serivce_class = if (index == 1 || index == length - 1) then serivce_class + ' popular-service-last' else serivce_class
+      return { class : serivce_class }
 
-      # $('.raty').raty('reload');
+    @showMoreServices = (businessId) ->
+      $('.service-second-' + businessId).toggleClass('popular-service-last')
+      $('.hidden-service-' + businessId).toggleClass('hidden')
+      return
+
+    @changeUrl = (selection) =>
+      replaceUrl = selection.url.replace(app.routes['baseUrl'], '')
+      window.history.pushState({}, selection.name, replaceUrl)
+
+    @typeHeadSelect = (selection) =>
+      @dataStore().type = selection.type
+      @dataStore().id = selection.id
+      @dataStore().keyword = selection.name
+      @append = false
+      @businesses([])
+      @count(0)
+      # Change initData to make sure UI is rendered correctly
+      app.initData.mcId = selection.mcId
+      app.initData.id = selection.id
+      app.initData.type = selection.type
+      # Rerender UI to view loading indicator
+      m.redraw.strategy("diff")
+      m.redraw()
+      # Perform real search
+      @search()
+      # Change upper url
+      @changeUrl(selection)
+
+    @selectSuggestion = (suggestion, e) =>
+      e.preventDefault()
+      @dataStore().type = suggestion.type
+      @dataStore().id = suggestion.id
+      @dataStore().keyword = suggestion.name
+      @append = false
+      @businesses([])
+      @count(0)
+      # Change initData to make sure UI is rendered correctly
+      app.initData.id = suggestion.id
+      app.initData.mcId = suggestion.mcId
+      app.initData.type = suggestion.type
+      # Rerender UI to view loading indicator
+      m.redraw.strategy("diff")
+      m.redraw()
+      # Perform real search
+      @search()
+      # Change upper url
+      @changeUrl(suggestion)
+
+    @init = () =>      
+      priceSlider = document.getElementById('slider-range');
+      if (!$('#slider-range').hasClass('noUi-target'))
+        noUiSlider.create(priceSlider, {
+          start: [ @dataStore().min_price, @dataStore().max_price ],
+          snap: true,
+          behaviour: 'drag',
+          connect: true,
+          range: {
+            'min':  0,
+            '10%': 5,
+            '15%': 10,
+            '20%': 15,
+            '25%': 25,
+            '30%': 50,
+            '40%': 75,
+            '45%': 100,
+            '50%': 125,
+            '55%': 150,
+            '60%': 175,
+            '80%': 200,
+            '90%': 250,
+            'max': 300
+          }
+        });
+
+        priceSlider.noUiSlider.on 'update', ( values, handle ) -> 
+          $("#amount").val(parseInt(values[0], 10) + "€" + " - " + parseInt(values[1], 10) + "€");
+        
+        priceSlider.noUiSlider.on 'end', ( values, handle ) =>
+            @dataStore().min_price = parseInt(values[0], 10)
+            @dataStore().max_price = parseInt(values[1], 10)
+            @append = false
+            @search() 
+
+      $('.categories-list ul').hide()
+
+      $('.category-item').click((e) -> 
+        $(this).next('ul').slideToggle("slow");
+      )
+
+      $("ul").find("[data-id='" + app.initData.mcId + "']").slideToggle("slow");
+
+      $('.category-item').dblclick((e) ->
+        window.location.href = $(this).data('url');
+      )
+      
+      VARAA.initTypeahead $('#query'), 'services' if $('#query').length > 0
+
+      locations = app.initData.districts.map (name) -> type: 'district', name: name
+        .concat app.initData.cities.map (name) -> type: 'city', name: name
+
+      @locations(locations);
+      @visible(locations);
+
+      engine = new Bloodhound
+        queryTokenizer: Bloodhound.tokenizers.whitespace
+        local: locations
+        datumTokenizer: (i) -> Bloodhound.tokenizers.whitespace i.name
+      engine.initialize()
+      @engine(engine)
+
+      $('#query').unbind('typeahead:selected')
+
+      $('#query').bind 'typeahead:selected', (e, selection) =>
+        if selection.type is 'category' or selection.type is 'treatment'
+          @typeHeadSelect(selection)
+        else
+          window.location.href = selection.url if typeof selection.url isnt 'undefined'
 
       $('.raty').raty
         score: () ->
@@ -260,13 +392,12 @@ app.VaraaBusiness = (dom, id, type) ->
           @append = false
           @search()
 
-      $("#amount").val($("#slider-range" ).slider( "values", 0 ) + "€ - " + $( "#slider-range" ).slider( "values", 1 ) + "€");
       businesses = @businesses()
       markers    = @makeMarkers(businesses)
       @renderMap('topmap', businesses[0].lat, businesses[0].lng, markers)
 
     # Kickstart
-    @bigbang()
+    @search()
 
     return
 
@@ -274,7 +405,7 @@ app.VaraaBusiness = (dom, id, type) ->
     m('.container.business-container', [
       if (ctrl.environment() == 'tobook' and ctrl.count() >= 1)
         m('.row.hidden-xs', [
-          m('.col-sm-12', [
+          m('.col-sm-12#topmap-container', [
             m('#topmap', { style: "height: 300px; width: 100%" } )
           ])
         ])
@@ -307,19 +438,51 @@ app.VaraaBusiness = (dom, id, type) ->
                 m('.form-group', [
                   m('.col-sm-12', [
                     m('input#query[type=text]', { 
-                      class : 'form-control', 
+                      class : 'form-control input-keyword', 
                       placeholder: __('query_placeholder'),
-                      onkeyup: ctrl.setKeyword.bind(ctrl)
-                    })
+                      onkeydown: ctrl.setKeyword.bind(ctrl),
+                      'data-data-source' : app.routes['business.services'],
+                      'autocomplete' : 'off',
+                      'data-trigger' : 'manual',
+                      'data-placement': 'bottom',
+                    }),
+                    m('div.hidden#suggestion', [
+                      m('p', [__('please_try')]),
+                      m('ul', [
+                        ctrl.suggestion().map((suggestion, index) ->
+                          m('li', [
+                            m('a', {
+                                href : suggestion.url
+                            }, [suggestion.name])
+                          ])
+                        )
+                      ])
+                    ])
                   ])
                 ]),
                 m('.form-group', [
                   m('.col-sm-12', [
-                    m('input#city[type=text]', { 
-                      class : 'form-control', 
-                      placeholder: __('location_placeholder'),
-                      onkeyup: ctrl.setCity.bind(ctrl)
-                    })
+                    m('div.dropdown#location-dropdown-wrapper', [
+                      m('input#location[type=text]', { 
+                        class : 'form-control input-keyword dropdown-toggle', 
+                        placeholder: __('location_placeholder'),
+                        onkeydown: ctrl.setCity.bind(ctrl),
+                        onkeyup: ctrl.suggestLocation.bind(ctrl),
+                        'autocomplete' : 'off',
+                        'data-toggle' : 'dropdown',
+                        'data-trigger' : 'manual',
+                        'data-placement': 'bottom',
+                        'data-target': '#'
+                      }),
+                      m('ul#big-cities-dropdown.dropdown-menu.big-cities-dropdown', { role : 'menu'}, [
+                        m('li[role=presentation]', {class: if ctrl.visible().length then 'soft-hidden' else 'disabled'}, [m('a[href=#]', [m('em', 'Empty')])])
+                        ctrl.visible().map (location) ->
+                          return m 'li[role=presentation]',
+                            m("a.form-search-city[href=#][data-current-location=0][data-type=#{location.type}]", {
+                              onclick : ctrl.selectCity.bind(ctrl)
+                            }, location.name)
+                      ])
+                    ])
                   ])
                 ])
               ])
@@ -334,6 +497,58 @@ app.VaraaBusiness = (dom, id, type) ->
               m('input#amount[type=text]', { readonly: true, style: 'border:0; color:#f6931f; font-weight:bold;'} ),
               m('#slider-range')
             ]),
+          ]),
+          m('.row', [
+            m('hr')
+            if (ctrl.categories().length > 0)
+              m('ul.categories-list', [
+                ctrl.categories().map((category, index) ->
+                  m('li', [
+                    m('strong.category-item', { 'data-url': category.url }, [category.name])
+                    if (category.treatments.length > 0)
+                      m('ul', { 'data-id' : category.id } , [
+                        category.treatments.map((treatment, index) ->
+                          m('li', [
+                            m('a', { href: treatment.url }, [treatment.name ])
+                          ])
+                        )
+                      ])
+                  ])
+                )
+              ])
+          ]),
+          m('.row', [
+            if (Object.keys(ctrl.discountBusiness()).length)
+              m('.discount-widget-containter', [
+                  if (ctrl.discountBusiness().discountPercent > 0)
+                    m('.ribbon-wrapper', [
+                      m('.ribbon-red', [
+                        m.trust('-'),
+                        ctrl.discountBusiness().discountPercent,
+                        m.trust('%')
+                      ])
+                    ])
+                  m('a', { href: ctrl.discountBusiness().businessUrl }, [
+                    m('img',{ 
+                        style: 'height: 180px; width: 100%; display: block;',
+                        alt: ctrl.discountBusiness().name,
+                        src: ctrl.discountBusiness().image
+                    },[])
+                  ]),
+                  m('.discount-info', [
+                    ctrl.discountBusiness().serviceName ,
+                    m.trust('&nbsp;'), 
+                    m('span.price', [ 
+                      ctrl.discountBusiness().discountPrice, 
+                      m.trust('&euro;') 
+                    ])
+                  ]),
+                  m('.discount-action', [
+                    m('a.btn.btn-square.btn-success', { href : ctrl.discountBusiness().businessUrlWithService }, [
+                      __('select')
+                    ])
+                  ])
+              ])
           ])
         ]),
         m('.col-sm-9.businesses', [
@@ -356,6 +571,10 @@ app.VaraaBusiness = (dom, id, type) ->
                       ]),
                       m('span.venue-description', [
                         m.trust(business.address),
+                        if (business.district != '')
+                          m.trust(', ' + business.district)
+                        if (business.postcode != '')
+                          m.trust(', ' + business.postcode)
                         m.trust(',&nbsp;'),
                         m.trust(business.city),
                         m.trust('&nbsp;'),
@@ -391,16 +610,19 @@ app.VaraaBusiness = (dom, id, type) ->
                           #    m('span', [business.phone])
                           # ]),
                           m('div', [
-                             m('strong', [ __('email')]),
-                             m('span', [business.user_email])
+                            m('strong', [ __('email')]),
+                            m('span', [business.user_email]),
                           ])
                         ]),
-                        m('.col-xs-4', [
-                           m('strong', [ __('payment_methods') ]),
-                           m('ul', [
+                        m('.col-xs-6', [
+                          m('strong', [ __('payment_methods') ]),
+                          m('ul.payment_methods', [
                             business.payment_options.map((option, index) ->
                                 m('li', [ __('payment.' + option) ])
                             )
+                          ]),
+                          m('a.pull-right', { href: business.businessUrl }, [
+                             m.trust(__('learn_more'))
                           ])
                         ])
                       ])
@@ -408,8 +630,8 @@ app.VaraaBusiness = (dom, id, type) ->
                   ])
                 ])
                 m('.popular-services.hidden-xs', [
-                  business.services.map((service) ->
-                    m('.row popular-service',  [
+                  business.services.map((service, index) ->
+                    m('.row.popular-service', ctrl.getServiceClass(index, business.services.length, business.id) , [
                       m('.col-xs-8', [
                         m('span.orange.service-name', [service.name]) 
                       ]),
@@ -423,6 +645,14 @@ app.VaraaBusiness = (dom, id, type) ->
                       ])
                     ])
                   )
+                  if (business.services.length > 2)
+                    m('.row.row-no-padding', [
+                      m('.col-xs-12.show-more-services', [
+                        m('a.btn.btn-default.pull-right', { onclick: ctrl.showMoreServices.bind(ctrl, business.id) } ,[
+                            __('show_more')
+                        ])
+                      ])
+                    ])
                 ])
               ])
             )

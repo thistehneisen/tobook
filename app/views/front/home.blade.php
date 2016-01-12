@@ -79,7 +79,7 @@
         <div class="col-sm-3">
             <div class="discount-widget-containter">
                 @if($business->discountPercent> 0)<div class="ribbon-wrapper"><div class="ribbon-red">-{{ $business->discountPercent }}%</div></div>@endif
-                <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug]) }}" class="offer-title action-uri"><img alt="100%x180" style="height: 180px; width: 100%; display: block;" src="{{ $business->image }}" alt="{{ $business->name }}"></a>
+                <a href="{{ route('business.index', ['id' => $business->user_id, 'slug' => $business->slug]) }}" class="offer-title action-uri"><img style="height: 180px; width: 100%; display: block;" src="{{ $business->image }}" alt="{{ $business->name }}"></a>
                 {{-- <div class="discount-service-rating">
                     <span class="raty" data-score="{{ $business->reviewScore }}"></span><span class="pull-right">{{ $business->reviewCount }} {{ trans('common.review') }}</span>
                 </div> --}}

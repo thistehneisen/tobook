@@ -37,6 +37,10 @@
     </div>
 {{ Form::close() }}
 <br/>
+@if($employees->getLastPage() > 1)
+<div class="pull-right">{{ $employees->links() }}</div>
+@endif
+<br/>
 <table id="workshift-summary" class="table table-striped table-bordered">
     <thead>
         <th>{{ trans('as.employees.weekday')}}</th>
@@ -92,5 +96,8 @@
         @endforeach
     </tbody>
 </table>
+@if($employees->getLastPage() > 1)
+<div class="pull-right">{{ $employees->links() }}</div>
+@endif
 <input type="hidden" id="update_workshift_url" value="{{ route('as.employees.employeeCustomTime.updateWorkshift') }}"/>
 @stop

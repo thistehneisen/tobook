@@ -30,37 +30,7 @@ class Search extends Base
      */
     public function getServices()
     {
-        $data = [];
-
-        $categories = MasterCategory::getAll();
-
-        foreach ($categories as $category) {
-            $data[] = ['type' => 'category', 'name' => $category->name, 'url' => $category->url];
-
-            foreach ($category->treatments as $treament) {
-                $data[] = ['type' => 'category', 'name' => $treament->name, 'url' => $treament->url];
-
-                //Append keyword<->treatment to typehead json
-                foreach ($treament->keywords as $keyword) {
-                    $data[] = ['type' => 'category', 'name' => $keyword->keyword, 'url' => $treament->url];
-                }
-            }
-
-            foreach ($category->keywords as $keyword) {
-                $data[] = ['type' => 'category', 'name' => $keyword->keyword, 'url' => $category->url];
-            }
-        }
-
-        $businesses = Business::notHidden()
-            ->whereHas('user', function ($query) {
-                $query->whereNull('deleted_at');
-            })
-            ->where('name', '!=', '')
-            ->get();
-        foreach ($businesses as $business) {
-            $data[] = ['type' => 'business', 'name' => $business->name, 'url' => $business->business_url];
-        }
-
+        $data = Business::getSearchableServices();
         return $data;
     }
 
