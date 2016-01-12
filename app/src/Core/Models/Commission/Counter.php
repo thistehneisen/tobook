@@ -40,7 +40,7 @@ class Counter
         );
 
         $fields = [
-            'created_at', 'booking_date', 'employee', 'name', 'price', 'commission_status', 'booking_status', 'notes'
+            'created_at', 'booking_date', 'employee', 'name', 'price', 'commission_status', 'consumer_status', 'booking_status', 'notes'
         ];
 
         //in freelancer tab, hide employee column and change to customer name

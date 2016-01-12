@@ -89,6 +89,13 @@ $(function () {
                 @if(!empty($item->commission_status)) {{ trans($langPrefix . '.status.'. $item->commission_status) }} @endif
             </td>
             <td>
+                @if(!empty($item->consumer_status) && $item->consumer_status == 'new') 
+                    <span class="label label-success">{{ trans($langPrefix . '.status.'. $item->consumer_status) }}</span>
+                @elseif(!empty($item->consumer_status) && $item->consumer_status == 'exist')
+                     <span class="label label-danger">{{ trans($langPrefix . '.status.'. $item->consumer_status) }}</span>
+                @endif
+            </td>
+            <td>
                 {{ trans($langPrefix . '.status.'. $item->commisionStatus) }}
             </td>
             <td>{{ nl2br($item->ingress) }}</td>

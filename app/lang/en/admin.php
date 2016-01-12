@@ -73,6 +73,7 @@ return [
         'employees'                            => 'Employees',
         'booking_status'                       => 'Paid/Booked/Deposit',
         'commission_status'                    => 'Commission Status',
+        'consumer_status'                      => 'New Consumer',
         'notes'                                => 'Notes',
         'paid_this_month'                      => 'Paid this month',
         'created_at'                           => 'Created At',
@@ -103,6 +104,8 @@ return [
             'cancelled' => 'Cancelled',
             'initial'   => 'Initial',
             'pending'   => 'Pending',
+            'new'       => 'Yes',
+            'exist'     => 'No',
         ]
     ],
     'settings' => [
