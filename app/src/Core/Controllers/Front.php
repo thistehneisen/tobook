@@ -139,8 +139,15 @@ class Front extends Base
     }
 
     public function business()
-    {
-        return $this->render('business-page');
+    {   
+        $support = ['en', 'fi', 'lv', 'ru'];
+        $lang = App::getLocale();
+
+        if (!in_array($lang, $support)) {
+            $lang = (is_tobook()) ? 'lv' : 'fi';
+        }
+        
+        return $this->render('business.'. $lang);
     }
 
     public function intro()
