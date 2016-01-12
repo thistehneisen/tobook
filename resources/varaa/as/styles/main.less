@@ -423,20 +423,25 @@ div.tooltip-inner {
   width: auto;
 
   .popover_form {
-    width: 350px;
+    min-width: 350px;
     height: auto;
-    
-    .lv {
-      width: 390px!important;
-    }
 
-    .ru {
-      width: 460px!important;
-    }
-    
     .form-group {
       margin: 0 0 15px 0;
     }
+  }
+  .popover_form.en {
+    width: 350px;
+  }
+  .popover_form.fi {
+    width: 350px;
+  }
+  .popover_form.lv {
+    width: 390px!important;
+  }
+
+  .popover_form.ru {
+    width: 460px!important;
   }
 }
 

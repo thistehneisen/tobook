@@ -15,9 +15,9 @@
             @if ($booking->isShowModifyPopup())
                 <?php $tooltip = $booking->getCalendarTooltip();?>
                 @if(strpos($slotClass, 'slot-booked-head') !== false)
-                <a href="{{ route('as.bookings.modify-form') }}" style="max-height: {{ $maxHeight }}px;" class="btn-plus btn-popover popup-ajax backend-tooltip" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}">{{ $booking->getIcons() }} @if (!empty($booking->source_icon)) <i class="fa {{ $booking->source_icon }}"></i> @endif {{ $booking->getConsumerName() }} {{ $booking->getServiceDescription() }}</a>
+                <a href="{{ route('as.bookings.modify-form') }}" style="max-height: {{ $maxHeight }}px;" class="btn-plus btn-popover popup-ajax backend-tooltip" data-lang="{{ App::getLocale() }}" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}">{{ $booking->getIcons() }} @if (!empty($booking->source_icon)) <i class="fa {{ $booking->source_icon }}"></i> @endif {{ $booking->getConsumerName() }} {{ $booking->getServiceDescription() }}</a>
                 @else
-                <a href="{{ route('as.bookings.modify-form') }}" class="btn-popover popup-ajax hidden-print" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>
+                <a href="{{ route('as.bookings.modify-form') }}" data-lang="{{ App::getLocale() }}" class="btn-popover popup-ajax hidden-print" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>
                 @endif
             @else
                 @if(strpos($slotClass, 'slot-booked-head') !== false)
