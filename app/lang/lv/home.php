@@ -78,6 +78,8 @@ return [
         'current_location'       => 'Atrašanās vieta',
         'force_selection'        => 'Lūdzu, izvēlieties no ieteikumu saraksta.',
         'learn_more'             => 'Parādīt vairāk &raquo;',
+        'keyword_not_exists'     => 'Atslēgas vārds neeksistē',
+        'please_try'             => 'Lūdzu lietojiet kādu no šiem atslēgas vārdiem',
         'only_offpeak_discounts' => 'Atlaides min. noslodzes laikā',
         'filter_search_results'  => 'Filtrēšanas rezultāts',
         'validation'      => [
