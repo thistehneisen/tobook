@@ -70,6 +70,7 @@ return [
         'about'                  => 'Darba laiks',
         'locations_hours'        => 'Atrašanās vieta &amp; darba laiks',
         'business_hours'         => 'Darba laiks',
+        'force_selection'        => 'Lūdzu, izvēlieties no saraksta',
         'buy'                    => 'Pirkt',
         'book'                   => 'Rezervēt',
         'button'                 => 'Meklēt',
