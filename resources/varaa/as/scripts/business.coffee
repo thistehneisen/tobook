@@ -102,10 +102,9 @@ app.VaraaBusiness = (dom, id, type) ->
           if el.value == service.name
             if service.type is 'category' or service.type is 'treatment'
               @typeHeadSelect(service)
-              break
             else
               window.location.href = selection.url if typeof selection.url isnt 'undefined'
-              break
+            return
           else
             score = (new Levenshtein(el.value, service.name.substring(0, el.value.length))).distance
             similarScore.push { score : score, name : service.name, type : service.type, id : service.id, url : service.url }
@@ -263,7 +262,6 @@ app.VaraaBusiness = (dom, id, type) ->
       @businesses([])
       @count(0)
       # Change initData to make sure UI is rendered correctly
-      console.log(selection)
       app.initData.mcId = selection.mcId
       app.initData.id = selection.id
       app.initData.type = selection.type
@@ -379,6 +377,7 @@ app.VaraaBusiness = (dom, id, type) ->
 
       businesses = @businesses()
       markers    = @makeMarkers(businesses)
+      @makeMapContainer('topmap', '800px', '500px');
       @renderMap('topmap', businesses[0].lat, businesses[0].lng, markers)
 
     # Kickstart
