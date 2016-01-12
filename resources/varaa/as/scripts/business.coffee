@@ -92,6 +92,18 @@ app.VaraaBusiness = (dom, id, type) ->
       e.preventDefault()
       $('#location').val e.target.text
 
+    @suggestLocation = (e) =>
+      e.preventDefault()
+      keyword = e.target.value
+      if keyword.length is 0
+        @visible(@locations())
+        m.redraw()
+        return
+
+      @engine().get keyword, (results) =>
+        @visible(results)
+        m.redraw()
+
     @setKeyword = (e) =>
       el = e.target
       init = el.value
@@ -344,6 +356,14 @@ app.VaraaBusiness = (dom, id, type) ->
         .concat app.initData.cities.map (name) -> type: 'city', name: name
 
       @locations(locations);
+      @visible(locations);
+
+      engine = new Bloodhound
+        queryTokenizer: Bloodhound.tokenizers.whitespace
+        local: locations
+        datumTokenizer: (i) -> Bloodhound.tokenizers.whitespace i.name
+      engine.initialize()
+      @engine(engine)
 
       $('#query').unbind('typeahead:selected')
 
@@ -447,6 +467,7 @@ app.VaraaBusiness = (dom, id, type) ->
                         class : 'form-control input-keyword dropdown-toggle', 
                         placeholder: __('location_placeholder'),
                         onkeydown: ctrl.setCity.bind(ctrl),
+                        onkeyup: ctrl.suggestLocation.bind(ctrl),
                         'autocomplete' : 'off',
                         'data-toggle' : 'dropdown',
                         'data-trigger' : 'manual',
@@ -454,8 +475,8 @@ app.VaraaBusiness = (dom, id, type) ->
                         'data-target': '#'
                       }),
                       m('ul#big-cities-dropdown.dropdown-menu.big-cities-dropdown', { role : 'menu'}, [
-                        m('li[role=presentation]', {class: if ctrl.locations().length then 'soft-hidden' else 'disabled'}, [m('a[href=#]', [m('em', 'Empty')])])
-                        ctrl.locations().map (location) ->
+                        m('li[role=presentation]', {class: if ctrl.visible().length then 'soft-hidden' else 'disabled'}, [m('a[href=#]', [m('em', 'Empty')])])
+                        ctrl.visible().map (location) ->
                           return m 'li[role=presentation]',
                             m("a.form-search-city[href=#][data-current-location=0][data-type=#{location.type}]", {
                               onclick : ctrl.selectCity.bind(ctrl)
