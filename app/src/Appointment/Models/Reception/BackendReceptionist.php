@@ -169,9 +169,17 @@ class BackendReceptionist extends Receptionist
             'reminder_sms_time_unit'   => $this->reminderSmsTimeUnit,
         ]);
 
-        if ((bool)$this->isReminderEmail || (bool)$this->isReminderSms) {
+
+        if ((bool)$this->isReminderEmail) {
             $now = Carbon::now();
-            if ($this->reminderSmsAt->lt($now) || $this->reminderEmailAt->lt($now)) {
+            if ($this->reminderEmailAt->lt($now)) {
+                throw new Exception(trans('as.bookings.error.invalid_reminder_time'), 1);
+            }
+        }
+
+        if ((bool)$this->isReminderSms) {
+            $now = Carbon::now();
+            if ($this->reminderSmsAt->lt($now)) {
                 throw new Exception(trans('as.bookings.error.invalid_reminder_time'), 1);
             }
         }
