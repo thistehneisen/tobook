@@ -1366,17 +1366,15 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $businessCommission->save();
     }
 
-    public function updateNewConsumerCommision()
+    public function updateNewConsumerCommision($consumer_status)
     {
         if (!is_tobook()) {
             return;
         }
 
-        $isNew = (!empty($this->consumer->id) && (bool)$this->consumer->created_at->gte($this->created_at))
-            ? true : false;
+        $isNew = ($consumer_status === 'new') ? true : false;
 
-        $consumerStatus = $isNew ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST;
-
+        $consumerStatus        = $isNew ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST;
         $newConsumerRate       = Settings::get('new_consumer_commission_rate');
         $constantCommission    = Settings::get('constant_commission');
         $newConsumerCommission = ($isNew) ? ($newConsumerRate * $this->total_price) : 0;
