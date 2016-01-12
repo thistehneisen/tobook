@@ -71,7 +71,6 @@ app.VaraaBusiness = (dom, id, type) ->
 
     @showMore = (e) ->
       e.preventDefault()
-      # window.location.hash = 'show-more'
       if (@dataStore().page < @dataStore().count)
         @dataStore().page += 1
         @search()
@@ -133,7 +132,6 @@ app.VaraaBusiness = (dom, id, type) ->
         alertify.alert(__('keyword_not_exists'), $('#suggestion').html())
         
             
-
     @setShowDiscount = (e) ->
       el = e.target
       @dataStore().show_discount = el.checked
@@ -293,41 +291,40 @@ app.VaraaBusiness = (dom, id, type) ->
       # Change upper url
       @changeUrl(suggestion)
 
-    @init = () =>
-
+    @init = () =>      
       priceSlider = document.getElementById('slider-range');
+      if (!$('#slider-range').hasClass('noUi-target'))
+        noUiSlider.create(priceSlider, {
+          start: [ @dataStore().min_price, @dataStore().max_price ],
+          snap: true,
+          behaviour: 'drag',
+          connect: true,
+          range: {
+            'min':  0,
+            '10%': 5,
+            '15%': 10,
+            '20%': 15,
+            '25%': 25,
+            '30%': 50,
+            '40%': 75,
+            '45%': 100,
+            '50%': 125,
+            '55%': 150,
+            '60%': 175,
+            '80%': 200,
+            '90%': 250,
+            'max': 300
+          }
+        });
 
-      noUiSlider.create(priceSlider, {
-        start: [ @dataStore().min_price, @dataStore().max_price ],
-        snap: true,
-        behaviour: 'drag',
-        connect: true,
-        range: {
-          'min':  0,
-          '10%': 5,
-          '15%': 10,
-          '20%': 15,
-          '25%': 25,
-          '30%': 50,
-          '40%': 75,
-          '45%': 100,
-          '50%': 125,
-          '55%': 150,
-          '60%': 175,
-          '80%': 200,
-          '90%': 250,
-          'max': 300
-        }
-      });
-
-      priceSlider.noUiSlider.on 'update', ( values, handle ) -> 
-        $("#amount").val(parseInt(values[0], 10) + "€" + " - " + parseInt(values[1], 10) + "€");
-      
-      priceSlider.noUiSlider.on 'end', ( values, handle ) =>
-          @dataStore().min_price = parseInt(values[0], 10)
-          @dataStore().max_price = parseInt(values[1], 10)
-          @append = false
-          @search() 
+        priceSlider.noUiSlider.on 'update', ( values, handle ) -> 
+          $("#amount").val(parseInt(values[0], 10) + "€" + " - " + parseInt(values[1], 10) + "€");
+        
+        priceSlider.noUiSlider.on 'end', ( values, handle ) =>
+            @dataStore().min_price = parseInt(values[0], 10)
+            @dataStore().max_price = parseInt(values[1], 10)
+            @append = false
+            @search() 
 
       $('.categories-list ul').hide()
 
@@ -340,14 +337,14 @@ app.VaraaBusiness = (dom, id, type) ->
       $('.category-item').dblclick((e) ->
         window.location.href = $(this).data('url');
       )
-
+      
       VARAA.initTypeahead $('#query'), 'services' if $('#query').length > 0
 
       locations = app.initData.districts.map (name) -> type: 'district', name: name
         .concat app.initData.cities.map (name) -> type: 'city', name: name
-      
+
       @locations(locations);
-      
+
       $('#query').unbind('typeahead:selected')
 
       $('#query').bind 'typeahead:selected', (e, selection) =>
@@ -377,7 +374,6 @@ app.VaraaBusiness = (dom, id, type) ->
 
       businesses = @businesses()
       markers    = @makeMarkers(businesses)
-      @makeMapContainer('topmap', '800px', '500px');
       @renderMap('topmap', businesses[0].lat, businesses[0].lng, markers)
 
     # Kickstart
@@ -389,7 +385,7 @@ app.VaraaBusiness = (dom, id, type) ->
     m('.container.business-container', [
       if (ctrl.environment() == 'tobook' and ctrl.count() >= 1)
         m('.row.hidden-xs', [
-          m('.col-sm-12', [
+          m('.col-sm-12#topmap-container', [
             m('#topmap', { style: "height: 300px; width: 100%" } )
           ])
         ])
