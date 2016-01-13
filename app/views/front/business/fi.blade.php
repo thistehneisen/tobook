@@ -92,7 +92,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 image-holder">
-                <img class="img-responsive" src="{{ asset_path('core/img/front/figure0.jpg') }}">
+                <img class="img-responsive" src="{{ asset_path('core/img/front/varaa/figure0.jpg') }}">
             </div>
             <div class="col-md-6">
                 <h3>Räätälöitävä ulkoasu</h3>
@@ -118,12 +118,12 @@
                 </p>
             </div>
             <div class="col-md-6 image-holder">
-                <img class="img-responsive" src="{{ asset_path('core/img/front/figure1.jpg') }}">
+                <img class="img-responsive" src="{{ asset_path('core/img/front/varaa/figure1.jpg') }}">
             </div>
         </div>
         <div class="row">
             <div class="col-md-6 image-holder">
-                <img class="img-responsive" src="{{ asset_path('core/img/front/figure2.jpg') }}">
+                <img class="img-responsive" src="{{ asset_path('core/img/front/varaa/figure2.jpg') }}">
             </div>
             <div class="col-md-6">
                 <h3>Huone, resurssit ja tekijäkohtaiset kestot</h3>
@@ -149,7 +149,7 @@
                 </p>
             </div>
             <div class="col-md-6 image-holder">
-                <img class="img-responsive" src="{{ asset_path('core/img/front/figure3.jpg') }}">
+                <img class="img-responsive" src="{{ asset_path('core/img/front/varaa/figure3.jpg') }}">
             </div>
         </div>
     </div>
