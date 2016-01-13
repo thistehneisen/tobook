@@ -5,7 +5,7 @@
 @stop
 
 @section('styles')
-{{ HTML::style(asset_path('core/styles/business.css')) }}
+{{ HTML::style(asset_path('core/styles/business.ru.css')) }}
 @stop
 
 
@@ -14,74 +14,47 @@
 @section('content')
  <div class="nova-header">
     <div class="header-content">
-        <h1><span class="varaa">varaa</span><span class="com">.com</span> ajanvarausjärjestelmä</h1>
-        <p>Meidän ilmainen ja helppokäyttöinen järjestelmä tulee mullistamaan liiketoimintasi</p>
+        <h1>Вы хотите привлечь новых клиентов?</h1>
+        <p>Присоединяйтесь к первой в Латвии платформе по резервации услуг в салонах красоты Tobook.lv.</p>
     </div>
-    <p><a class="btn btn-lg btn-orange" href="{{ route('auth.register') }}" role="button">Rekisteröidy</a></p>
+    <p><a class="btn btn-lg btn-orange" href="{{ route('auth.register') }}" role="button">Зарегистрируйте свое предприятие бесплатно.
+</a></p>
 </div>
 
 <div class="jan">
     <div class="jan-content">
-        <h2>Tee elämästäsi helpompaa kuin koskaan!</h2>
-        <p>Oli yrityksesi kauneushoitola, kampaamo tai muu hyvinvointialan yritys meidän palvelumme sopii sinulle!</p>
+        <h2>Tobook.lv – новые возможности для вашего удобства</h2>
+        <p>Мы создали платформу, разработанную для вашего салона красоты, чтобы улучшить его работу и сделать более удобной систему записи для ваших клиентов.</p>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-4">
                 <div class="jan-cell">
-                    <h2>Varaa aikoja</h2>
+                    <h2>Система резервирования</h2>
                     <p>
-                        Varaa.com ajanvarausjärjestelmä
-                        on helppokäyttöinen, mutta erittäin
-                        monipuolinen ajanvarausjärjestelmä.
+                        Удобная в использовании и разносторонняя система Tobook.lv создана в сотрудничестве с салонами красоты. Платформа отвечает всем бизнес-требованиям, поэтому предназначена для облегчения и развития вашего дела.
                     </p>
                     <p>
-                        Varausjärjestelmä on rakennettu
-                        yhteistyössä Suomen johtavien kauneus
-                        ja kampaamoalan yritysten kanssa.
-                    </p>
-                    <p>
-                        Järjestelmä sopii erinomaisesti niin yhden
-                        hengen yritykselle kuin isolle ketjulle!
+                       Систему Tobook.lv можно использовать как для малых, так и для крупных предприятий. Вдобавок она доступна бесплатно.
                     </p>
               </div>
             </div>
             <div class="col-lg-4 col-md-4">
                 <div class="jan-cell">
-                    <h2>Hallinnoi asiakkaita</h2>
+                    <h2>Администрирование клиентов</h2>
                     <p>
-                        Sähköinen asiakasrekisteri pitää
-                        asiakastietosi helposti ajantasalla.
-                    </p>
-                    <p>
-                        Järjestelmän kautta seuraat asiakkaiden
-                        edellisiä käyntejä sekä voit tehdä
-                        käynneistä muistiinpanoja.
-                    </p>
-                    <p>
-                    Järjestelmän kautta voit lähettää
-                    asiakkaillesi markkinointiviestejä
-                    sähköpostiin tai suoraan puhelimeen
+                        Хороший сервис по обслуживанию клиентов является одним из важнейших элементов успешного бизнеса по оказанию услуг. Используя систему Tobook.lv, вы можете быть уверены, что ваши клиенты почувствуют настоящую заботу. И это окупится их лояльностью.
                     </p>
                 </div>
            </div>
             <div class="col-lg-4 col-md-4">
                 <div class="jan-cell">
-                    <h2>Kasvata myyntiä</h2>
+                    <h2>Эффективное привлечение</h2>
                     <p>
-                        Ajanvarauksen avulla asiakkaasi
-                        voivat varata aikoja myös kotisuviltasi
-                        <strong>24/7</strong>!
+                        С помощью системы регистрации Tobook.lv клиенты могут записаться на предлагаемые вами услуги в удобное время (24/7) и любом месте. Поэтому свободное время приема в вашем салоне будет заполнено быстро и эффективно. 
                     </p>
                     <p>
-                        Sähköisen ajanvarauksen kautta pystyt
-                        myös helposti mittamaan kuinka moni
-                        asiakas on reagoinut eri kampanjoihisi.
-                    </p>
-                    <p>
-                        Varaa.com tekee kaikkensa tuodakseen
-                        sinulla uusia asiakkaita portaalinsa
-                        kautta!
+                        Команда Tobook.lv регулярно работает над узнаваемостью портала. Поэтому мы предлагаем уникальную возможность для привлечения новых клиентов.
                     </p>
                 </div>
             </div>
@@ -92,78 +65,93 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 image-holder">
-                <img class="img-responsive" src="{{ asset_path('core/img/front/figure0.jpg') }}">
+                <img class="img-responsive" src="{{ asset_path('core/img/front/tobook/lv/figure1.jpg') }}">
             </div>
             <div class="col-md-6">
-                <h3>Räätälöitävä ulkoasu</h3>
+                <h3>Предлагайте ваши услуги</h3>
                 <p class="text">
-                    Voimme helposti luoda ajanvarauksesta yrityksesi näköisen!
-                    Me tiedämme kuinka paljon arvostat yrityksesi brändi, jonka vuoksi
-                    olemme tehneet ulkoasusta helposti täysin räätälöitävän!</p>
+                    Вы можете просто и быстро разместить удобное для изучения клиентами описание вашего предприятия – предлагаемые услуги, их стоимость, фотографии и особые предложения. Все изменения автоматически будут доступны любому пользователю, который посещает страничку вашего салона на платформе Tobook.lv. 
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Планируйте работу</h3>
+                <p class="text">
+                    Бесплатная система Tobook.lv создана специально для салонов красоты и с учетом специфики их работы, чтобы легко и наглядно планировать рабочий график, запись, отпускной сезон и выходные дни именно тогда, когда вам необходимо. К тому же система также позволяет просматривать загруженность в конкретный период и получать ежемесячный отчет о работе салона красоты.
+                </p>
 
-                <p class="text">Meillä on 3 eri asettelua jos voit valita omasta mielestäsi sinun yrityksellesi
-                    parhaan vaihtoehdon!
+                <p class="text">
+                    Если вы пожелаете, мы также можем интегрировать форму резервации на вашей домашней странице, чтобы существующие клиенты могли быстро и просто записаться на услуги.
+                </p>
+            </div>
+            <div class="col-md-6 image-holder">
+                <img class="img-responsive" src="{{ asset_path('core/img/front/tobook/lv/figure2.jpg') }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 image-holder">
+                <img class="img-responsive" src="{{ asset_path('core/img/front/tobook/lv/figure3.jpg') }}">
+            </div>
+            <div class="col-md-6">
+                <h3>Позаботьтесь о клиентах</h3>
+                <p class="text">
+                    Система Tobook.lv обеспечивает возможность упорядочить и просто управлять базой данных ваших клиентов, обеспечивая хранение всей информации в одном месте. Вы легко можете проследить историю резервации услуг и особенности клиента, что облегчит работу и улучшить сервис ваших услуг.
                 </p>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <h3>Monipuoliset raportoinnit</h3>
+                <h3>Облегчите свою работу и будни клиентов</h3>
                 <p class="text">
-                    Monipuolisten raportointityökalujen ansioista sinun on mahdollista
-                    saada ensimmäistä kertaa liiketoimintasi tunnuslukuja. </p>
+                    Добавив свое предприятие в систему Tobook.lv, запись на ваши услуги для клиентов станет доступной в удобное время и любом месте. Клиентам более не потребуется звонить или писать вам, чтобы выяснить наличие свободного места, так как они смогут сами это видеть в системе. Это поможет быстрее и эффективнее заполнить свободное время в вашей резервации.
+                </p>
                 <p class="text">
-                    Niiden avullanäet budjetoidun liikevaihtosisekä varaustilanteesi
-                    joiden avulla voit suunnitella markkinointiasi.
+                    Система отправит вам короткое сообщение (sms), как только клиент сделает онлайн-резервацию, а все изменения будут отражены в вашем профиле на платформе Toook.lv.
                 </p>
             </div>
             <div class="col-md-6 image-holder">
-                <img class="img-responsive" src="{{ asset_path('core/img/front/figure1.jpg') }}">
+                <img class="img-responsive" src="{{ asset_path('core/img/front/tobook/lv/figure4.jpg') }}">
             </div>
         </div>
         <div class="row">
             <div class="col-md-6 image-holder">
-                <img class="img-responsive" src="{{ asset_path('core/img/front/figure2.jpg') }}">
+                <img class="img-responsive" src="{{ asset_path('core/img/front/tobook/lv/figure5.jpg') }}">
             </div>
             <div class="col-md-6">
-                <h3>Huone, resurssit ja tekijäkohtaiset kestot</h3>
+                <h3>Используйте маркетинговые возможности</h3>
                 <p class="text">
-                Onko yritykselläsi eri mittaiset kestot eri tekijöillä tai onko hoitolassasi vain
-                2 huonetta, mutta 3 tekijää? Ei huolta.</p>
-
-                <p class="text">Me olemme saaneet palautetta yli 200 asiakkaalta kuinka kalenterin tulisi
-                toimia ja olemme rakentaneet sen asiakkaidemme toivoiden ja tarpeiden
-                pohjalta!
+                    Портал Tobook.lv ежемесячно посещает свыше 12 тысяч пользователей, которые интересуются услугами салонов красоты. Поэтому Tobook – великолепное место, где вы можете знакомить клиентов со своими услугами. К тому же система Tobook.lv предлагает инструмент по рассылке коротких сообщений (sms) и э-писем, позволяющий удобно и просто сообщать клиентам о ваших особых предложениях.
+                </p>
+                <p class="text">
+                    Эффективность любой акции вы можете изучить в разделе «Отчет», то есть узнать, как и насколько эффективно она сработала.
                 </p>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <h3>Työaikasuunnittelu</h3>
+                <h3>Оплата только по результатам</h3>
                 <p class="text">
-                    Järjestelmään on helppo määrittää oletustyöaikoja
-                    joita voit helposti muokata tilanteen mukaan.</p>
-                <p class="text">
-                    Sinulla on mahdollisuus räätälöidä
-                    epäsäännöllisiä työaikoja kolmen kuukauden päähän.
+                    Мы работаем, чтобы помочь вам развивать бизнес, поэтому за использование системы Tobook.lv надо платить только по результатам! Все инструменты платформы Tobook.lv предоставляются бесплатно, и вы платите разовые комиссионные только в тот момент, когда мы привлекли для вас нового клиента. 
                 </p>
             </div>
             <div class="col-md-6 image-holder">
-                <img class="img-responsive" src="{{ asset_path('core/img/front/figure3.jpg') }}">
+                <img class="img-responsive" src="{{ asset_path('core/img/front/tobook/lv/figure6.jpg') }}">
             </div>
         </div>
     </div>
 </div>
 <div class="mar">
     <div class="mar-content">
-        <h2>missä vaan, milloin vaan</h2>
-        <p>Varaa.comiin sinun ei tarvitse osata asentaa ohjelmia käyttääksesi
-        kalenteria. Sinun tarvitsee vain omistaa laite jolla pääset internettiin</p>
+        <h2>Всегда и везде</h2>
+        <p>
+            Для того, чтобы использовать систему Tobook.lv, не требуется специальной программы. Клиент может просмотреть и зарезервировать услугу в удобное время и месте на любом устройстве с доступным интернетом.
+        </p>
     </div>
 </div>
 <div class="apr">
     <div class="apr-content">
-        <h2>Näin pääset mukaan!</h2>
+        <h2>Что надо сделать, чтобы присоединиться к системе Tobook.lv?</h2>
         <div class="container">
             <div class="row">
                 <div class="col-md-offset-2 col-md-2">
@@ -190,15 +178,15 @@
             </div>
             <div class="row">
                 <div class="col-md-offset-2 col-md-2">
-                    <h3 class="text">Rekisteröidy ja esittele yrityksesi</h3>
+                    <h3 class="text">Заполнить регистрационную форму</h3>
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-2">
-                    <h3 class="text">Luo palvelut, tekijät ja lisää varauksesi</h3>
+                    <h3 class="text">Мы создадим вашу бесплатную учебную запись</h3>
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-2">
-                    <h3 class="text">Ilmoita meille, kunolet valmis!</h3>
+                    <h3 class="text">Добавить информацию о вашем предприятии, и вы сможете начать использовать преимущества Tobook.lv</h3>
                 </div>
             </div>
         </div>
@@ -206,17 +194,14 @@
 </div>
 <div class="may">
     <div class="may-content">
-        <h1>Liity satojen edelläkävijöiden joukkoon!</h1>
+        <h1>Присоединяйтесь к системе Tobook.lv и повышайте эффективность вашего предприятия уже сейчас!</h1>
     </div>
 </div>
 
 <div class="jun">
     <div class="jun-content">
-        <h1>Ole edelläkävijä ja elä unelmaasi!</h1>
-        <p>
-            Olla edelläkävijä on itsensä haastamista, uuden oppimista ja tietoisten, mutta kannattavien riskien ottamista. Varaa.comin koko henkilökunta on sitoutunut olemaan tukenasi.
-        </p>
-        <a class="btn btn-lg btn-orange" role="button">Rekisteröidy</a>
+        <h2>Присоединяйтесь к системе Tobook.lv и повышайте эффективность вашего предприятия уже сейчас!</h2>
+        <a class="btn btn-lg btn-orange" role="button">Зарегистрируйте свое предприятие бесплатно</a>
     </div>
 </div>
 @stop

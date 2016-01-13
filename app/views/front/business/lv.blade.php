@@ -50,7 +50,7 @@
                 <div class="jan-cell">
                     <h2>Efektivitātes palielināšana</h2>
                     <p>
-                        zmantojot Tobook.lv reģistrācijas sistēmu, klienti var pierakstīties jūsu pakalpojumiem jebkurā laikāun vietā <storng>24/7</storng>, tādējādi brīvie rezervāciju laiki aizpildīsies ātrāk un efektīvāk.  
+                        Izmantojot Tobook.lv reģistrācijas sistēmu, klienti var pierakstīties jūsu pakalpojumiem jebkurā laikāun vietā <storng>24/7</storng>, tādējādi brīvie rezervāciju laiki aizpildīsies ātrāk un efektīvāk.  
                     </p>
                     <p>
                         Tobook.lv komanda regulāri strādā pie portāla atpazīstamības veicināšanas, tādēļ esam lieliska platforma jaunu klientu piesaistīšanai.
@@ -69,7 +69,7 @@
             <div class="col-md-6">
                 <h3>Pievienojiet savus pakalpojumus</h3>
                 <p class="text">
-                    zveidojiet klientam ērti pārskatāmu informāciju par savu uzņēmumu - pievienojiet jūsu sniegtos pakalpojumus, to aprakstus, cenas, bildes un pat īpašus piedāvājumus, ērti un ātri. Visas izmaiņas jūsu uzņēmuma konta lapā automātiski būs redzamas ikvienam, kurš to apmeklē. 
+                    Izveidojiet klientam ērti pārskatāmu informāciju par savu uzņēmumu - pievienojiet jūsu sniegtos pakalpojumus, to aprakstus, cenas, bildes un pat īpašus piedāvājumus, ērti un ātri. Visas izmaiņas jūsu uzņēmuma konta lapā automātiski būs redzamas ikvienam, kurš to apmeklē. 
                 </p>
             </div>
         </div>
@@ -148,7 +148,7 @@
 </div>
 <div class="apr">
     <div class="apr-content">
-        <h2>Kas jādara, lai pievienotos Tobook.lv? </h2>
+        <h2>Kas jādara, lai pievienotos Tobook.lv?</h2>
         <div class="container">
             <div class="row">
                 <div class="col-md-offset-2 col-md-2">
@@ -191,13 +191,13 @@
 </div>
 <div class="may">
     <div class="may-content">
-        <h1>Pievienojieties Tobook.lv un palieliniet sava uzņēmuma efektivitāti jau tagad! </h1>
+        <h1>Pievienojieties Tobook.lv un palieliniet sava uzņēmuma efektivitāti jau tagad!</h1>
     </div>
 </div>
 
 <div class="jun">
     <div class="jun-content">
-        <h2>Pievienojieties Tobook.lv un palieliniet sava uzņēmuma efektivitāti jau tagad! </h2>
+        <h2>Pievienojieties Tobook.lv un palieliniet sava uzņēmuma efektivitāti jau tagad!</h2>
         <a class="btn btn-lg btn-orange" role="button">Reģistrējiet savu uzņēmumu bez maksas</a>
     </div>
 </div>
