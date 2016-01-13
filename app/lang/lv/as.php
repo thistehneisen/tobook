@@ -438,17 +438,17 @@ return [
             'index' => 'Kalendāra skats',
         ],
         'discount' => [
-            'discount'            => 'Discount',
-            'last-minute'         => 'Last minute discount',
-            'business-hour'       => 'business hour',
-            'business-hours'      => 'business hours',
-            'full-price'          => 'Full price',
-            'afternoon_starts_at' => 'Afternoon starts at',
-            'evening_starts_at'   => 'Evening starts at',
-            'is_active'           => 'Is Enabled',
-            'before'              => 'Before',
+            'discount'            => 'Atlaide',
+            'last-minute'         => 'Karstie piedāvājumi',
+            'business-hour'       => 'darba stunda',
+            'business-hours'      => 'darba laiks',
+            'full-price'          => 'Pilna cena',
+            'afternoon_starts_at' => 'Pēcpusdiena sākas',
+            'evening_starts_at'   => 'Vakars sākas',
+            'is_active'           => 'Iekļauts',
+            'before'              => 'Līdz',
             'error' => [
-                'evening_starts_before_afternoon' => 'Afternoon must starts before evening starts'// @todo
+                'evening_starts_before_afternoon' => 'Pēcpusdienā jāsakas pirms vakara sākuma'
             ],
         ]
     ],

@@ -101,8 +101,6 @@ def _deploy(environment, host, build_env):
             run('supervisorctl restart all')
             # optimize the framework file loading
             run('php artisan optimize')
-            # build popular services
-            run('php artisan varaa:build-popular-services')
             # set it to live mode again
             run('php artisan up')
             # notify everyone for fun

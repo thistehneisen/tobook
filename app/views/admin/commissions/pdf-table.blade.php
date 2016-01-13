@@ -24,6 +24,9 @@
                 @if(!empty($item->commission_status)) {{ trans($langPrefix . '.status.'. $item->commission_status) }} @endif
             </td>
             <td>
+                @if(!empty($item->consumer_status)) {{ trans($langPrefix . '.status.'. $item->consumer_status) }} @endif
+            </td>
+            <td>
                 {{ trans($langPrefix . '.status.'. $item->commisionStatus) }}
             </td>
             <td>{{ nl2br($item->ingress) }}</td>

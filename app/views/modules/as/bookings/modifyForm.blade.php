@@ -1,4 +1,4 @@
-<form id="modify_booking_form_{{ $booking->id }}" class="popover_form form-horizontal @if (!empty($extraServices)) { has-extra-services @endif" action="">
+<form id="modify_booking_form_{{ $booking->id }}" class="popover_form form-horizontal @if (!empty($extraServices)) has-extra-services @endif {{ App::getLocale() }}" action="">
     <div class="form-group">
         <label for="booking_status" class="col-sm-4">{{ trans('as.bookings.status') }}</label>
         <div class="col-sm-8">
