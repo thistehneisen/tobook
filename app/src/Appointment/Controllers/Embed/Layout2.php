@@ -45,6 +45,10 @@ class Layout2 extends Base
         if ($date->lt($start)) {
             $date = $start->copy();
         }
+        // max distance
+        if($date->gt($final)) {
+            $date = $final->copy();
+        }
 
         // Move to the start of week, so that Monday is always shown
         $date->startOfWeek();
@@ -58,10 +62,13 @@ class Layout2 extends Base
 
         while ($i++ <= $maxWeeks) {
             $j = 0;
+            if ($start->gte($final)) {
+                break;
+            }
             while ($j++ <= 5) {
                 $end = $start->copy()->addDays($j);
             }
-            
+
             $nav[] = [
                 'start' => Util::preformatDate($start),
                 'end'   => Util::preformatDate($end),
