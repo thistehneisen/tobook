@@ -69,6 +69,7 @@ return [
         'about'                  => 'Подробнее',
         'locations_hours'        => 'Места &amp; время',
         'business_hours'         => 'Время работы',
+        'force_selection'        => 'Пожалуйста, выберите из списка',
         'buy'                    => 'Купить',
         'book'                   => 'Записаться',
         'button'                 => 'поиск',
