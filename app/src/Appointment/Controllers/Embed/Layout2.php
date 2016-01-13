@@ -60,11 +60,8 @@ class Layout2 extends Base
             $j = 0;
             while ($j++ <= 5) {
                 $end = $start->copy()->addDays($j);
-                // Show all date but don't show any timeslot
-                if ($end >= $final) {
-                    break;
-                }
             }
+            
             $nav[] = [
                 'start' => Util::preformatDate($start),
                 'end'   => Util::preformatDate($end),
