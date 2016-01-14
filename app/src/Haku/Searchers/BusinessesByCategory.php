@@ -44,10 +44,8 @@ class BusinessesByCategory extends Businesses
                     ],
                     [
                         'range' => [
-                            'max_price' => [
-                                'lte' => $this->params['max_price']
-                            ],
-                            'min_price' => [
+                            'prices' => [
+                                'lte' => $this->params['max_price'],
                                 'gte' => $this->params['min_price']
                             ]
                         ]

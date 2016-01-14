@@ -859,6 +859,28 @@ class Business extends Base
         return (!empty($minPrice)) ? $minPrice : 0;
     }
 
+
+     /**
+     * Find the price range belong to this business
+     *
+     * @return array
+     */
+    public function getServicePricesAttribute()
+    {
+        $services = Service::where('user_id', '=', $this->user_id)
+            ->where('is_active', '=', true)->orderBy('price', 'asc')->get();
+
+        $prices = [];
+
+        foreach ($services as $service) {
+            if (!in_array($service->price, $prices)) {
+                $prices[] = $service->price;
+            }
+        }
+
+        return $prices;
+    }
+
      /**
      * Find the max service price belong to this business
      *
