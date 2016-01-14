@@ -112,6 +112,7 @@ app.VaraaBusiness = (dom, id, type) ->
         for service in @services()
           if el.value == service.name
             if service.type is 'category' or service.type is 'treatment'
+              $('#query').typeahead('close');
               @typeHeadSelect(service)
             else
               window.location.href = selection.url if typeof selection.url isnt 'undefined'
@@ -341,7 +342,7 @@ app.VaraaBusiness = (dom, id, type) ->
       $('.categories-list ul').hide()
 
       $('.category-item').unbind('click');
-      
+
       $('.category-item').click((e) ->
         e.preventDefault() 
         $(this).next('ul').slideToggle("slow");
