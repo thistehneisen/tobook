@@ -159,7 +159,7 @@ return [
         'reminder_email_before' => 'Отправить напоминание электронной почты до',
         'reminder_sms_time_unit'   => 'час/День',
         'reminder_email_time_unit' => 'час/День',
-        'price_range'              => 'Диапазон цен',
+        'price_range'              => 'Стоимость услуги',
         'error'             => [
             'add_overlapped_booking'      => 'Время заказа перекрывается!',
             'insufficient_slots'          => 'Для этого заказа не хватает свободных "окон"!',

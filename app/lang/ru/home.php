@@ -77,7 +77,8 @@ return [
         'time'                   => 'любое время',
         'current_location'       => 'Ваше местонахождение',
         'only_offpeak_discounts' => 'Скидки в период мин. нагрузки',
-        'filter_search_results'  => 'Результат фильтрования',
+        'filter_search_results'  => 'Поиск услуги',
+        'learn_more'             => 'Узнать побольше',
         'validation'      => [
             'q'        => 'Пожалуйста, введите бизнес или услугу',
             'location' => 'Пожалуйста, введите местоположение',
