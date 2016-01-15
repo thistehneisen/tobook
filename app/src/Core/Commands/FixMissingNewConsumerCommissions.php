@@ -45,7 +45,7 @@ class FixMissingNewConsumerCommissions extends Command {
 
         foreach ($commissions as $item) {
             if(!empty($item->booking->id)) {
-                $item->booking->updateNewConsumerCommision($item);
+                $item->booking->updateNewConsumerCommision($item->consumer_status);
                 print('.');
             }
         }
