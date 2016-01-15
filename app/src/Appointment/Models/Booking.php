@@ -1086,6 +1086,12 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                     });
                 });
 
+        if(is_tobook()) {
+          $query = $query->where(function ($query) {
+                $query->where('as_bookings.source', '=', 'inhouse')->orWhere('as_bookings.source', '=', 'cp');
+            });
+        }
+
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
             ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.commission),0) as commision_total')])
@@ -1121,19 +1127,32 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public static function totalCommission($userId, $status, $employeeId, $start, $end)
     {
-        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
-        $query = $query->where(function ($query) {
-                    $query->where('business_commissions.booking_status', '=', self::STATUS_PAID)->orWhere(function ($query) {
-                        $query->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
+        $queryPayment = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+        $queryPayment = $queryPayment->where(function ($queryPayment) {
+                    $queryPayment->where('business_commissions.booking_status', '=', self::STATUS_PAID)->orWhere(function ($queryPayment) {
+                        $queryPayment->where('business_commissions.booking_status', '=', self::STATUS_CONFIRM);
                     });
                 });
 
-        $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+        $items = $queryPayment->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
-            ->select([DB::raw('COUNT(varaa_business_commissions.id) as total'), DB::raw('COALESCE(SUM(varaa_business_commissions.new_consumer_commission+varaa_business_commissions.commission+varaa_business_commissions.constant_commission),0) as commision_total')])
-            ->first();
+            ->get();
 
-        return $result;
+        $result = [
+            'total'           => 0,
+            'commision_total' => 0
+        ];
+
+        foreach ($items as $item) {
+            $result['total']++;
+            $result['commision_total'] += $item->new_consumer_commission + $item->constant_commission;
+
+            if ($item->source =='inhouse' && $item->source =='cp') {
+                $result['commision_total'] += $item->commission;
+            }
+        }
+
+        return (object) $result;
     }
 
     /**
