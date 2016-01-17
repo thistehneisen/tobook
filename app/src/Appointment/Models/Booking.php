@@ -1409,7 +1409,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         if (!empty($businessCommission->id)) {
             $businessCommission->consumer_status = $consumerStatus;
-            $businessCommission->new_consumer_commission = $newConsumerCommission;
+            if ($isNew) {
+                $businessCommission->new_consumer_commission = $newConsumerCommission;
+            } else {
+                $businessCommission->new_consumer_commission = 0;
+            }
             return $businessCommission->save();
         }
     }
