@@ -45,11 +45,10 @@ class FixMissingNewConsumerCommissions extends Command {
 		$commissions = BusinessCommission::withTrashed()->orderBy('booking_id')->get();
 
         foreach ($commissions as $item) {
+            $this->updateNewConsumerCommision($item);
             if(!empty($item->booking->id)) {
-                $item->booking->updateNewConsumerCommision($item->consumer_status);
                 print('.');
             } else {
-            	$this->updateNewConsumerCommision($item);
             	print('_');
             }
         }
@@ -67,7 +66,7 @@ class FixMissingNewConsumerCommissions extends Command {
         $consumerStatus        = $isNew ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST;
         $newConsumerRate       = Settings::get('new_consumer_commission_rate');
         $constantCommission    = Settings::get('constant_commission');
-        $newConsumerCommission = ($isNew) ? ($newConsumerRate * $booking->total_price) : 0;
+        $newConsumerCommission = ($isNew) ? ($newConsumerRate * $item->total_price) : 0;
 
         if (!empty($item->id)) {
             $item->consumer_status = $consumerStatus;
