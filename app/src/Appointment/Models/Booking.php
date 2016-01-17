@@ -1398,7 +1398,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             return;
         }
 
-        $isNew = ($consumer_status === 'new') ? true : false;
+        $isNew = ($consumer_status == 'new') ? true : false;
 
         $consumerStatus        = $isNew ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST;
         $newConsumerRate       = Settings::get('new_consumer_commission_rate');
