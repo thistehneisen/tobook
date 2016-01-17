@@ -91,8 +91,7 @@ class BusinessIndexer extends AbstractIndexer
             'phone'             => ['type' => 'string'],
             'description'       => ['type' => 'string'],
             'has_discount'      => ['type' => 'boolean'],
-            'min_price'         => ['type' => 'integer'],
-            'max_price'         => ['type' => 'integer'],
+            'prices'            => ['type' => 'integer'],
             'location'          => ['type' => 'geo_point'],
         ];
     }
