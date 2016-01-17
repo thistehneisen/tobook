@@ -874,7 +874,7 @@ class Business extends Base
 
         foreach ($services as $service) {
             if (!in_array($service->price, $prices)) {
-                $prices[] = $service->price;
+                $prices[] = intval($service->price);
             }
         }
 
