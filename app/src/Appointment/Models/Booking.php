@@ -1148,7 +1148,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $result['commision_total'] += $item->new_consumer_commission + $item->constant_commission;
 
             if ($item->source =='inhouse' && $item->source =='cp') {
-                $result['commision_total'] += $item->commission;
+                if ($item->payment_type === BusinessCommission::PAYMENT_VENUE || empty($item->payment_type)) {
+                    $result['commision_total'] += $item->commission;
+                }
             }
         }
 
@@ -1179,6 +1181,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     /**
      * For holy Latvia
+     * 
      * Sum all total money receive from paygate
      */
     public static function totalReceiveFromPaygate($userId, $status, $employeeId, $start, $end)
@@ -1198,12 +1201,16 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $result = $query->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->join('as_employees', 'as_employees.id', '=', 'business_commissions.employee_id')
-            ->select(['business_commissions.total_price', 'business_commissions.commission', 'as_bookings.deposit'])->get();
+            ->select(['business_commissions.total_price', 'business_commissions.commission', 'as_bookings.deposit','business_commissions.payment_type'])->get();
 
         $receivedFromPaygate = 0;
         foreach ($result as $row) {
             //pay at venue
             if (empty($row->commission)) {
+                continue;
+            }
+
+            if ($row->payment_type === BusinessCommission::PAYMENT_VENUE || empty($row->payment_type)) {
                 continue;
             }
 
