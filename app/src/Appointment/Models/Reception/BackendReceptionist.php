@@ -18,7 +18,9 @@ class BackendReceptionist extends Receptionist
     public function validateData()
     {
         $this->validateBookingTotal();
-        $this->validateBookingTime();
+        // Disable past time booking in backend 
+        // @see https://github.com/varaa/varaa/issues/767
+        // $this->validateBookingTime();
     }
 
     public function validateBooking()
