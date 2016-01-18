@@ -9,10 +9,13 @@ return [
         'modules'           => 'Модули',
         'stats'             => 'Статистика',
         'flash_deals'       => 'Flash Deals',
+        'master_categories' => 'Главные категории',
+        'treatment_types'   => 'Виды процедур',
+        'keywords'          => 'Ключевые слова',
         'pages'             => 'Статические страницы',
         'reviews'           => 'Отзывы',
         'misc'              => 'Разное',
-        'coupons'           => 'Coupons',
+        'coupons'           => 'Купоны',
     ],
     'edit_heading'       => 'Edit :model #:id',
     'create_heading'     => 'Создать :model',
@@ -101,13 +104,14 @@ return [
         'new_consumer_commission_rate'          => 'Комиссия от нового клиента, например, 30% = 0,3',
         'contact_email'                         => 'Эл.почта для связи',
         'force_pay_at_venue'                    => 'Оплата на месте',
+        'booking_terms'                         => 'Условия бронирования',
     ],
     'master-cats' => [
         'all'                   => 'Все главные категории',
         'edit'                  => 'Edit',// @todo
         'add'                   => 'Добавить',
         'name'                  => 'Название',
-        'description'           => 'Description',// @todo
+        'description'           => 'Описание',
         'language'              => 'Language',// @todo
         'translation_not_found' => 'Not available in current language',// @todo
     ],
@@ -136,11 +140,11 @@ return [
         'duplicated'      => 'The keyword has already existed. Keyword must be unique.',// @todo
     ],
     'coupon' => [
-        'title'           => 'Coupons',
+        'title'           => 'Купоны',
         'setting'         => 'Установка',
         'settings'        => 'Settings',
         'campaigns'       => 'Акции',
-        'index'           => 'Main',
+        'index'           => 'Главная',
         'create'          => 'Создать акцию',
         'is_used'         => 'Is Used',
         'code'            => 'Code',
