@@ -14,8 +14,8 @@ return [
     'my_account'            => 'Мой профиль',
     'help'                  => 'Помощь',
     'sign_out'              => 'Выйти',
-    'sign_in_header'        => 'Войти',
-    'sign_in'               => 'Поставщикам услуг',
+    'sign_in_header'        => 'Поставщикам услуг',
+    'sign_in'               => 'Войти',
     'select'                => 'Выбрать',
     'options_select'        => '-- Выбрать -- ',
     'options_all'           => '-- Все -- ',
@@ -108,6 +108,7 @@ return [
     'accept'                => 'Согласен',
     'decline'               => 'Не Согласен',
     'history'               => 'История',
+    'placeholders'          => 'Заполнители',//@todo
     'captcha'               => 'Captcha',
     'no_review'             => 'Отзывов нет',
     'review'                => 'Обзор',
