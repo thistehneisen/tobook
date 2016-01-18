@@ -174,15 +174,15 @@ class BackendReceptionist extends Receptionist
                 'reminder_sms_time_unit'   => $this->reminderSmsTimeUnit,
             ]);
 
-            if ((bool)$this->isReminderEmail) {
-                $now = Carbon::now();
+            $now = Carbon::now();
+            // Don't check invalid reminder time if booking is made in the past
+            if ((bool)$this->isReminderEmail && $this->startTime->gte($now)) {
                 if ($this->reminderEmailAt->lt($now)) {
                     throw new Exception(trans('as.bookings.error.invalid_reminder_time'), 1);
                 }
             }
 
-            if ((bool)$this->isReminderSms) {
-                $now = Carbon::now();
+            if ((bool)$this->isReminderSms  && $this->startTime->gte($now)) {
                 if ($this->reminderSmsAt->lt($now)) {
                     throw new Exception(trans('as.bookings.error.invalid_reminder_time'), 1);
                 }
