@@ -27,7 +27,7 @@ $(function () {
             {{ Form::open(['route' => ['admin.pages'], 'class' => 'form-horizontal well']) }}
 
             <div class="form-group">
-                <label for="{{ $id }}" class="col-sm-1 control-label">Content</label>
+                <label for="{{ $id }}" class="col-sm-1 control-label">{{ trans('common.content') }}</label>
                 <div class="col-sm-11">
                     <input type="hidden" name="name" value="{{ $id }}">
                     <ul class="nav nav-tabs" role="tablist">

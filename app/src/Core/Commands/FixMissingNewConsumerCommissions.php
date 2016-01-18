@@ -4,6 +4,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use App\Core\Models\BusinessCommission;
+use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Booking;
 use App, Config, Settings;
 use DB;
@@ -41,14 +42,41 @@ class FixMissingNewConsumerCommissions extends Command {
 	 */
 	public function fire()
 	{
-		$commissions = BusinessCommission::all();
+		$commissions = BusinessCommission::withTrashed()->orderBy('booking_id')->get();
 
         foreach ($commissions as $item) {
+            $this->updateNewConsumerCommision($item);
             if(!empty($item->booking->id)) {
-                $item->booking->updateNewConsumerCommision($item->consumer_status);
                 print('.');
+            } else {
+            	print('_');
             }
         }
 	}
+
+	private function updateNewConsumerCommision($item)
+    {
+        if (!is_tobook()) {
+            return;
+        }
+
+        $isNew = ($item->consumer_status == 'new') ? true : false;
+        $booking = Booking::withTrashed()->find($item->booking_id);
+
+        $consumerStatus        = $isNew ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST;
+        $newConsumerRate       = Settings::get('new_consumer_commission_rate');
+        $constantCommission    = Settings::get('constant_commission');
+        $newConsumerCommission = ($isNew) ? ($newConsumerRate * $item->total_price) : 0;
+
+        if (!empty($item->id)) {
+            $item->consumer_status = $consumerStatus;
+            if ($isNew) {
+                $item->new_consumer_commission = $newConsumerCommission;
+            } else {
+                $item->new_consumer_commission = 0;
+            }
+            return $item->save();
+        }
+    }
 
 }

@@ -1,7 +1,7 @@
 @extends ('layouts.admin')
 
 @section('content')
-    <h3>{{ trans('admin.create_heading', ['model' => 'admin']) }}</h3>
+    <h3>{{ trans('admin.create_heading', ['model' => Str::lower(trans('common.administrator')) ]) }}</h3>
 
     @include ('el.messages')
 

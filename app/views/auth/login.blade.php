@@ -13,7 +13,7 @@
 @section('content')
 <div class="row">
     <div class="col-xs-12">
-        <h1 class="comfortaa orange text-center">{{ trans('common.sign_in') }}</h1>
+        <h1 class="comfortaa orange text-center">{{ trans('common.sign_in_header') }}</h1>
         <h4 class="comfortaa text-center">{{ trans('user.fill_fields') }}</h4>
 
         @include ('el.messages')

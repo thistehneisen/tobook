@@ -1392,28 +1392,6 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $businessCommission->save();
     }
 
-    public function updateNewConsumerCommision($consumer_status)
-    {
-        if (!is_tobook()) {
-            return;
-        }
-
-        $isNew = ($consumer_status === 'new') ? true : false;
-
-        $consumerStatus        = $isNew ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST;
-        $newConsumerRate       = Settings::get('new_consumer_commission_rate');
-        $constantCommission    = Settings::get('constant_commission');
-        $newConsumerCommission = ($isNew) ? ($newConsumerRate * $this->total_price) : 0;
-
-        $businessCommission = BusinessCommission::where('booking_id', '=', $this->id)->first();
-
-        if (!empty($businessCommission->id)) {
-            $businessCommission->consumer_status = $consumerStatus;
-            $businessCommission->new_consumer_commission = $newConsumerCommission;
-            return $businessCommission->save();
-        }
-    }
-
     /**
      * Return list of extra services exlude the current one
      * @return array;
