@@ -131,7 +131,6 @@ class LayoutCp extends Base
             }
 
             if($s->gt($final)) {
-                $unbookable[] = $s->toDateString();
                 $s->addDay();
                 continue;
             }
@@ -164,7 +163,7 @@ class LayoutCp extends Base
                 'date'        => $i->toDateString(),
                 'niceDate'    => $i->format('j'),
                 'hasDiscount' => $selectedService->hasDiscount($i, $timetable),
-                'disabled'    => ($i->lt($start)) ? true : false
+                'disabled'    => ($i->lt($start) && $i->ne($today)) ? true : false
             ];
             $i->addDay();
         }

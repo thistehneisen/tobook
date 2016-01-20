@@ -11,7 +11,7 @@
 @section ('extra_js')
 {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
 {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
-{{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/mithril/0.2.0/mithril.min.js') }}
+{{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/mithril/0.2.1/mithril.min.js') }}
 <script type="text/javascript">
     var app = app || {}
 app.i18n = {
