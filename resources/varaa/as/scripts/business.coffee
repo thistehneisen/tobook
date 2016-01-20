@@ -574,14 +574,14 @@ app.VaraaBusiness = (dom, id, type) ->
                         ])
                       ]),
                       m('span.venue-description', [
-                        m.trust(business.address),
+                        m('span', [business.address]),
                         if (business.district != '')
-                          m.trust(', ' + business.district)
+                          m('span', [', ' + business.district])
                         if (business.postcode != '')
-                          m.trust(', ' + business.postcode)
-                        m.trust(',&nbsp;'),
-                        m.trust(business.city),
-                        m.trust('&nbsp;'),
+                          m('span', [', ' + business.postcode])
+                        m('span', [
+                          ', ' + business.city + ' '
+                        ]),
                         m('a.hidden-xs[href=#]', { onclick: ctrl.showMap.bind(ctrl, business) }, [
                           __('show_map'),
                           m.trust('&nbsp;&raquo;')

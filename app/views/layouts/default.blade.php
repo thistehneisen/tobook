@@ -191,7 +191,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     {{ HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js') }}
-    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/mithril/0.2.0/mithril.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/mithril/0.2.1/mithril.min.js') }}
     <script>
 var VARAA = VARAA || {}
 VARAA.routes = VARAA.routes || {}
