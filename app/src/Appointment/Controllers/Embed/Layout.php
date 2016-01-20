@@ -107,10 +107,13 @@ trait Layout
             }
         }
 
+        //TODO Filter out service without employee
         $categories = ServiceCategory::OfUser($user->id)
             ->orderBy('order')
             ->with(['services' => function ($query) {
-                return $query->where('is_active', true)->with('serviceTimes');
+                return $query->where('is_active', true)
+                    ->with('serviceTimes')
+                    ->has('employees');
             }])
             ->where('is_show_front', true)
             ->get();
