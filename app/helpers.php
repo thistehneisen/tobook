@@ -127,3 +127,14 @@ if (!function_exists('sms_normalize')) {
             return $str; 
     }
 }
+
+if (!function_exists('make_validation_exception')) {
+    function make_validation_exception($key, $msg = '')
+    {
+        $messageBag = new \Illuminate\Support\MessageBag;
+        $messageBag->add($key, $msg);
+        $exception = new \Watson\Validating\ValidationException;
+        $exception->setErrors($messageBag);
+        return $exception;
+    }
+}

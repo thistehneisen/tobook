@@ -100,13 +100,22 @@ class TreatmentTypes extends Base
      */
     public function upsertHandler($treatmentType)
     {
-        $names = Input::get('name');
-        $descriptions = Input::get('description');
+        $names            = Input::get('name');
+        $descriptions     = Input::get('description');
         $masterCategoryId = Input::get('master_category_id');
         $default_language = Config::get('varaa.default_language');
 
         try {
-            $masterCategory = MasterCategory::find($masterCategoryId);
+            if (empty($masterCategoryId)) {
+                throw make_validation_exception('empty_master_category', trans('admin.treatment-types.errors.empty_master_category'));
+            }
+
+            if (empty($names[$default_language])) {
+                throw make_validation_exception('empty_name', trans('admin.treatment-types.errors.empty_name'));
+            }
+
+            $masterCategory = MasterCategory::findOrFail($masterCategoryId);
+
             $treatmentType->fill([
                 'order'       => 1,
                 'name'        => $names[$default_language],
