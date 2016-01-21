@@ -1,5 +1,5 @@
 # global m, app
-app.VaraaBusiness = (dom, id, type) ->
+app.VaraaBusiness = (dom, id, type, upperKeyword) ->
   'use strict'
   # Translation helper
   __ = (key) -> if app.i18n[key]? then app.i18n[key] else ''
@@ -79,7 +79,6 @@ app.VaraaBusiness = (dom, id, type) ->
 
     @setCity = (e) ->
       el = e.target
-      init = el.value
       @dataStore().city = el.value
       @dataStore().search_type = 'city'
       @dataStore().page = 1
@@ -376,6 +375,9 @@ app.VaraaBusiness = (dom, id, type) ->
           @typeHeadSelect(selection)
         else
           window.location.href = selection.url if typeof selection.url isnt 'undefined'
+
+      if $('#query').val() == ''
+        $('#query').val(upperKeyword)
 
       $('.raty').raty
         score: () ->

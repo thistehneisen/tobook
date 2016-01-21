@@ -51,6 +51,31 @@ abstract class AbstractIndexer implements IndexerInterface
         }
     }
 
+    public function updateSingleField($field, $value)
+    {
+         $params = [
+            'id' => $this->getId(),
+            'body' => [
+                'doc' => [
+                    $field => $value
+                ]
+            ],
+            'type' => $this->getType(),
+            'index' => $this->getIndexName(),
+        ];
+
+        try {
+            Log::info('Update index', [
+                'id' => $this->getId(),
+                'endpoint' => $this->getIndexName().'/'.$this->getType() . '/' . $this->getId(),
+            ]);
+
+            return $this->client->update($params);
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage(), $params);
+        }
+    }
+
     public function delete()
     {
         $params = [

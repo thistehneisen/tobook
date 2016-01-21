@@ -1,11 +1,13 @@
 <?php namespace App\Appointment\Controllers;
 
 use App, View, Confide, Redirect, Input, Config, NAT, Closure;
-use Util, Entrust, Session;
+use App\Core\Models\Business;
+use App\Haku\Indexers\BusinessIndexer;
 use App\Lomake\FieldFactory;
 use App\Appointment\Models\Option;
 use App\Appointment\Models\Discount;
 use App\Appointment\Models\DiscountLastMinute;
+use Util, Entrust, Session;
 
 class Options extends AsBase
 {
@@ -222,6 +224,11 @@ class Options extends AsBase
 
         try {
             $obj->upsert($data);
+
+            // Update business index
+            $business = Business::where('user_id', '=', $this->user->id)->first();
+            $indexer  = new BusinessIndexer($business);
+            $indexer->updateSingleField('has_discount', $business->hasDiscount);
         } catch(\Exception $ex){
             return Redirect::back()->withErrors($ex->getMessage());
         }

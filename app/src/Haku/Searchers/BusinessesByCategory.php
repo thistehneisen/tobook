@@ -1,11 +1,11 @@
 <?php namespace App\Haku\Searchers;
 
-use App\Haku\Transformers\BusinessTransformer;
+use App\Core\Models\Business;
+use Paginator;
 use App;
 
 class BusinessesByCategory extends Businesses
 {
-    use BusinessTransformer;
 
      /**
      * Perform search on ES with provided parameters
@@ -32,6 +32,33 @@ class BusinessesByCategory extends Businesses
         return $this->transformResults($results);
     }
 
+    public function transformResults($results)
+    {
+        $items = [];
+        $location = $this->getParam('city');
+
+        foreach ($results['hits']['hits'] as $item) {
+            $business = null;
+
+            if (empty($location)) {
+                $business = Business::ofUser($item['_id'])->first();
+            } else {
+                $business = Business::ofUser($item['_id'])->where('city', '=', $location)
+                        ->orWhere('district', '=', $location)->first();
+            }
+            
+            if ($business !== null) {
+                $items[] = $business;
+            }
+        }
+
+        return Paginator::make(
+            $items,
+            $results['hits']['total'],
+            array_get($this->params, 'size')
+        );
+    }
+
     public function getPostFilter()
     {
         return [
@@ -39,7 +66,7 @@ class BusinessesByCategory extends Businesses
                 'must' =>[
                     [
                         'term' => [
-                            'has_discount' =>  $this->getParam('has_discount')
+                            'has_discount' =>  $this->getParam('has_discount'),
                         ]
                     ],
                     [
@@ -56,20 +83,35 @@ class BusinessesByCategory extends Businesses
     }
 
     public function getQuery()
-    {
-        return [
+    {   
+        $query = [ 
             'bool' => [
-                'should' => [
-                    ['match' => ['city' => $this->getParam('city')]]
-                ],
                 'must' => [
                     [
                         'match' => [
-                            'master_categories' => $this->getParam('keyword')
-                        ],
+                            'master_categories' => $this->getParam('keyword'),
+                        ]
                     ]
                 ]
             ]
         ];
+
+        if (!empty($this->getParam('city'))) {
+            $query = [ 
+                'bool' => [
+                    'must' => [
+                        [
+                            'match' => [
+                                'master_categories' => $this->getParam('keyword'),
+                            ],
+                            'match' => [
+                                'city_district' => $this->getParam('city')
+                            ],
+                        ]
+                    ]
+                ]
+            ];
+        }
+        return $query;
     }
 }
