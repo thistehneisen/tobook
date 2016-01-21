@@ -438,15 +438,15 @@ return [
             'index' => 'Календарь',
         ],
         'discount' => [
-            'discount'            => 'скидка',
+            'discount'            => 'Скидка',
             'last-minute'         => 'Горячие скидки',
             'business-hour'       => 'бизнес час или рабочий час',
-            'business-hours'      => 'бизнес часы или рабочие часы',
+            'business-hours'      => 'рабочий(-х) час(-ов)',
             'full-price'          => 'Полная цена',
             'afternoon_starts_at' => 'Aпосле полудня начинается',
             'evening_starts_at'   => 'Вечер начинается',
-            'is_active'           => 'включен',
-            'before'              => 'до',
+            'is_active'           => 'Применить',
+            'before'              => 'До начала',
             'error' => [
                 'evening_starts_before_afternoon' => 'Послеобеденное время должно начинаться до начала вечера'
             ],

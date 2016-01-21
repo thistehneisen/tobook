@@ -441,12 +441,12 @@ return [
             'discount'            => 'Atlaide',
             'last-minute'         => 'Karstie piedāvājumi',
             'business-hour'       => 'darba stunda',
-            'business-hours'      => 'darba laiks',
+            'business-hours'      => 'darba stundas',
             'full-price'          => 'Pilna cena',
             'afternoon_starts_at' => 'Pēcpusdiena sākas',
             'evening_starts_at'   => 'Vakars sākas',
-            'is_active'           => 'Iekļauts',
-            'before'              => 'Līdz',
+            'is_active'           => 'Aktivizēt',
+            'before'              => 'Līdz sākumam',
             'error' => [
                 'evening_starts_before_afternoon' => 'Pēcpusdienā jāsakas pirms vakara sākuma'
             ],
