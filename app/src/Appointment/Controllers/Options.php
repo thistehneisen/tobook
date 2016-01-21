@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
 use App, View, Confide, Redirect, Input, Config, NAT, Closure;
+use App\Core\Models\Business;
 use Util, Entrust, Session;
 use App\Lomake\FieldFactory;
 use App\Appointment\Models\Option;
@@ -222,6 +223,11 @@ class Options extends AsBase
 
         try {
             $obj->upsert($data);
+
+            // Update business index
+            $business = Business::where('user_id', '=', $this->user->id)->first();
+            $indexer = new \App\Haku\Indexers\BusinessIndexer($business);
+            $indexer->updateSingleField('has_discount', $business->hasDiscount);
         } catch(\Exception $ex){
             return Redirect::back()->withErrors($ex->getMessage());
         }

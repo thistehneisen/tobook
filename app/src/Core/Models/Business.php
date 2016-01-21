@@ -836,7 +836,8 @@ class Business extends Base
     {  
         $discount = Discount::where('user_id', '=', $this->user_id)
             ->where('is_active', '=', true)->first();
-        $lastMinuteDiscount = DiscountLastMinute::find($this->user_id);
+        $lastMinuteDiscount = DiscountLastMinute::where('is_active', '=', true)
+            ->where('user_id', '=', $this->user_id)->first();
 
         if (!empty($discount) || !empty($lastMinuteDiscount)) {
             return true;
