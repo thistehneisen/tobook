@@ -46,6 +46,7 @@
 
         app.initData = {
             mcId        : {{ $mcId }},
+            upperKeyword: '{{ $keyword }}',
             id          : {{ $id }},
             type        : '{{ $type }}',
             cities      : {{ json_encode($cities) }},
@@ -109,7 +110,7 @@
             'business.services': '{{ route('ajax.services') }}',
             'baseUrl' : '{{ url() }}'
         };
-        app.VaraaBusiness(document.getElementById('business-container'), app.initData.id, app.initData.type );
+        app.VaraaBusiness(document.getElementById('business-container'), app.initData.id, app.initData.type, app.initData.upperKeyword );
     </script>
 @stop
 
