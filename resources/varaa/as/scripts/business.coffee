@@ -79,7 +79,6 @@ app.VaraaBusiness = (dom, id, type) ->
 
     @setCity = (e) ->
       el = e.target
-      init = el.value
       @dataStore().city = el.value
       @dataStore().search_type = 'city'
       @dataStore().page = 1

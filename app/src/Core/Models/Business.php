@@ -845,6 +845,16 @@ class Business extends Base
         return false;
     }
 
+    /**
+     * Return the concatenation of city and district for searching
+     *
+     * @return string
+     */
+    public function getCityDistrictAttribute()
+    {
+        return $this->city . ', ' . $this->district;
+    }
+
      /**
      * Find the min service price belong to this business
      *
