@@ -15,8 +15,8 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
             // do not append locale for testing env
             return $result;
         }
-
         $url = parse_url($result);
+
         if (!isset($url['path'])) {
             $url['path'] = '';
         }
@@ -43,6 +43,11 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
         if (isset($url['query'])) {
             $final = rtrim($final, '/') . '/?' . $url['query'];
         }
+
+        // Dirty hack for tobook
+        if ($_SERVER['HTTP_HOST'] === '178.62.41.125') {
+            $final = str_replace('178.62.41.125', 'delfi.lv/tobook', $final);
+        } 
 
         return $final;
     }
