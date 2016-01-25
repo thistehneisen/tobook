@@ -44,7 +44,8 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
             $final = rtrim($final, '/') . '/?' . $url['query'];
         }
    
-        if (is_tobook()) {
+        if (is_tobook() && in_array($_SERVER['REMOTE_ADDR'], 
+            ['62.63.137.2','62.63.137.4', '62.63.137.6', '62.63.137.205'])) {
             $final = str_replace($_SERVER['HTTP_HOST'], 'www.delfi.lv/tobook', $final);
         }
 
