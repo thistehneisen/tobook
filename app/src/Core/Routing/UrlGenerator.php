@@ -48,11 +48,6 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
             $final = str_replace($_SERVER['HTTP_HOST'], 'www.delfi.lv/tobook', $final);
         }
 
-        // Dirty hack for tobook
-        if ($_SERVER['HTTP_HOST'] === '178.62.41.125') {
-            $final = str_replace('178.62.41.125', 'delfi.lv/tobook', $final);
-        } 
-
         return $final;
     }
 }
