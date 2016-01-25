@@ -23,7 +23,7 @@
 
     {{ HTML::style('//fonts.googleapis.com/css?family=Roboto:400,300,500,600,700&subset=latin,latin-ext') }}
     {{ HTML::style('//fonts.googleapis.com/css?family=Comfortaa:400,300,700&subset=latin,latin-ext') }}
-    {{ HTML::style('//fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=latin,latin-ext') }}
+    {{ HTML::style('//fonts.googleapis.com/css?family=Open+Sans:400,300,500,700&subset=latin,latin-ext') }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css') }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css') }}
     @yield('styles')
