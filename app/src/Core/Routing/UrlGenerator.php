@@ -43,11 +43,9 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
         if (isset($url['query'])) {
             $final = rtrim($final, '/') . '/?' . $url['query'];
         }
-
-        if(!in_array($name, ['business.search', 'ajax.services'])) {     
-            if (in_array($_SERVER['REMOTE_ADDR'], ['62.63.137.2','62.63.137.4', '62.63.137.6', '62.63.137.205'])) {
-                $final = str_replace($_SERVER['HTTP_HOST'], 'delfi.lv/tobook2', $final);
-            }
+   
+        if (is_tobook()) {
+            $final = str_replace($_SERVER['HTTP_HOST'], 'www.delfi.lv/tobook', $final);
         }
 
         return $final;
