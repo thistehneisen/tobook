@@ -15,8 +15,8 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
             // do not append locale for testing env
             return $result;
         }
-
         $url = parse_url($result);
+
         if (!isset($url['path'])) {
             $url['path'] = '';
         }
@@ -44,10 +44,29 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
             $final = rtrim($final, '/') . '/?' . $url['query'];
         }
    
-        if (is_tobook()) {
+        if (is_tobook() && is_delfi_proxy()) { 
             $final = str_replace($_SERVER['HTTP_HOST'], 'www.delfi.lv/tobook', $final);
         }
 
         return $final;
+    }
+
+     /**
+     * {@inheritdoc}
+     */
+    public function asset($path, $secure = null)
+    {
+        if ($this->isValidUrl($path)) return $path;
+
+        // Once we get the root URL, we will check to see if it contains an index.php
+        // file in the paths. If it does, we will remove it since it is not needed
+        // for asset paths, but only for routes to endpoints in the application.
+        $root = $this->getRootUrl($this->getScheme($secure));
+
+        if (is_tobook() && is_delfi_proxy()) {
+            $root = str_replace($_SERVER['HTTP_HOST'], 'www.delfi.lv/tobook', $root);
+        }
+
+        return $this->removeIndex($root).'/'.trim($path, '/');
     }
 }

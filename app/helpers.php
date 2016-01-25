@@ -138,3 +138,10 @@ if (!function_exists('make_validation_exception')) {
         return $exception;
     }
 }
+
+if (!function_exists('is_delfi_proxy')) {
+    function is_delfi_proxy()
+    {
+       return in_array($_SERVER['REMOTE_ADDR'], ['62.63.137.2','62.63.137.4', '62.63.137.6', '62.63.137.205']);
+    }
+}

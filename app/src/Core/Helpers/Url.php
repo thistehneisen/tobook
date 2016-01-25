@@ -14,6 +14,13 @@ class Url
         if (!in_array($locale, $languages)) {
             throw new \InvalidArgumentException('Upsupported locale: '.$locale);
         }
-        return UrlGenerator::to('/'.$locale.Request::getRequestUri());
+
+        $url = UrlGenerator::to('/'.$locale.Request::getRequestUri());
+
+        if (is_tobook() && is_delfi_proxy()) {
+            $url = str_replace($_SERVER['HTTP_HOST'], 'www.delfi.lv/tobook', $url);
+        }
+
+        return $url;
     }
 }

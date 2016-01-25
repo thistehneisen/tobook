@@ -158,6 +158,9 @@ return [
     'october'   => 'Oktobris',
     'november'  => 'Novembris',
     'december'  => 'Decembris',
+    'morning'   => 'Rīts',
+    'afternoon' => 'Pēcpusdiena',
+    'evening'   => 'Vakars',
     'err'            => [
         'unexpected'   => 'Kaut kas nogāja greizi. Lūdzu, mēģiniet vēlāk.',
         'not_found'    => 'Pieprasīto informāciju nevar atrast. Lūdzu, pārbaudiet URL saiti.',

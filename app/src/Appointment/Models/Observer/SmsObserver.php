@@ -112,8 +112,12 @@ class SmsObserver implements \SplObserver
         Log::info('Enqueue to send SMS to consumer', [
             'to' => $subject->consumer->phone,
         ]);
-        Queue::push(function ($job) use ($subject, $msg, $code) {
-            Sms::send(Config::get('sms.from'), $subject->consumer->phone, $msg, $code);
+
+        //@see http://laravel.com/docs/4.2/queues#queueing-closures
+        $phone = $subject->consumer->phone;
+        
+        Queue::push(function ($job) use ($phone, $msg, $code) {
+            Sms::send(Config::get('sms.from'), $phone, $msg, $code);
             $job->delete();
         });
     }
