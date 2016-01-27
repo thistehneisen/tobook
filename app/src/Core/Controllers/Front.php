@@ -373,8 +373,9 @@ class Front extends Base
             $priceRanges = [];
 
             if (!$item->isBookingDisabled) {
-                // $services = Service::getMostPopularServices($item->user->id, $type, $id);
-                $query = Service::where('user_id', $item->user_id);
+                $query = Service::where('user_id', $item->user_id)
+                    ->where('is_active', '=', true);
+
                 if ($type === 'category') {
                     $query = $query->where('master_category_id', $id);
                 } else {
