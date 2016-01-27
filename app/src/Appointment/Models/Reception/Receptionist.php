@@ -540,6 +540,7 @@ abstract class Receptionist implements ReceptionistInterface
      */
     public function isNotValidWithCustomTime()
     {
+        //TODO fix bug which causes unexpected exception in backend
         $employee = (!empty($this->employee->id))
             ? $this->employee
             : $this->bookingService->employee;
