@@ -422,7 +422,6 @@ app.VaraaBusiness = (dom, id, type, upperKeyword) ->
           ]),
           m('#filters.hidden-xs',[
             m('.row', [
-              m('hr', { class : ctrl.environment() }),
               m('input.js-switch[type=checkbox]', { value: true }),
               m('label[for=show_discount]',[
                 m.trust('&nbsp;'),
