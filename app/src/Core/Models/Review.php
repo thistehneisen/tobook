@@ -53,7 +53,10 @@ class Review extends Base
         // Loop thourgh bookings and add to queue
         foreach ($bookings as $booking) {
             Log::info("Send review request to customer", [$booking->consumer->email, $booking->end_at]);
-            $emailSubject = 'Review request from varaaa';
+            $emailSubject = trans('as.review.email.subject', [
+                    'env' => App::environment()
+            ]);
+            
             $body = route('businesses.review', [$booking->user->id, $booking->user->business->slug]);
             $receiver     = $booking->consumer->email;
             $receiverName = $booking->consumer->name;

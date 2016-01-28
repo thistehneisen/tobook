@@ -527,6 +527,9 @@ return [
         'rejected'     => 'Rejected',
         'approve'      => 'Approve',
         'reject'       => 'Reject',
+        'email'        => [
+            'subject' => 'Review request from :env',
+        ]
     ],
     'coupon' => [
         'not_found'    => 'This coupon code is not found in our system!',
