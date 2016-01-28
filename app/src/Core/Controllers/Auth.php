@@ -193,7 +193,7 @@ class Auth extends Base
         $typeform = [
             'prod'     => 'https://varaa.typeform.com/to/q6wEUx',
             'tobook'   => 'https://varaa.typeform.com/to/VbW85p',
-            'tobook.ru'=> 'https://varaa.typeform.com/to/yiscWX',
+            'tobook.ru'=> 'https://varaa.typeform.com/to/Ww76Ku',
         ];
 
         $env = App::environment();
