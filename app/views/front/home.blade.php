@@ -153,20 +153,26 @@
 @endif
 
 @if (App::environment() === 'tobook')
-    <div class="row categories" id="js-home-categories">
-        <?php $counter = 1; ?>
+        <?php $counter = 0; ?>
         @foreach ($masterCategories as $category)
-            @if ($category->treatments->isEmpty() === false)
-            <div class="col-sm-2 col-md-2">
-                <p><img src="{{ $category->icon_url }}" alt=""></p>
-                <h4 class="heading"><a href="{{ $category->url }}">{{{ $category->name }}}</a></h4>
-                <ul class="list-categories">
-                @foreach ($category->treatments as $treatment)
-                    <li><a href="{{ $treatment->url }}">{{{ $treatment->name }}}</a></li>
-                @endforeach
-                    <li class="toggle more"><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
-                    <li class="toggle less"><a href="#">{{ trans('home.less') }} <i class="fa fa-angle-double-up"></i></a></li>
-                </ul>
+            <?php $counter++;?>
+            @if ($counter == 1 or $counter % 7 == 0)
+            <div class="row categories" id="js-home-categories" @if($counter>=7)style="margin-top:-70px"@endif>
+            @endif
+                @if ($category->treatments->isEmpty() === false)
+                <div class="col-sm-2 col-md-2">
+                    <p><img src="{{ $category->icon_url }}" alt=""></p>
+                    <h4 class="heading"><a href="{{ $category->url }}">{{{ $category->name }}}</a></h4>
+                    <ul class="list-categories">
+                    @foreach ($category->treatments as $treatment)
+                        <li><a href="{{ $treatment->url }}">{{{ $treatment->name }}}</a></li>
+                    @endforeach
+                        <li class="toggle more"><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
+                        <li class="toggle less"><a href="#">{{ trans('home.less') }} <i class="fa fa-angle-double-up"></i></a></li>
+                    </ul>
+                </div>
+                @endif
+            @if ($counter % 6 == 0)
             </div>
             @endif
         @endforeach
