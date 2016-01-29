@@ -44,7 +44,7 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
             $final = rtrim($final, '/') . '/?' . $url['query'];
         }
    
-        if (is_tobook() && is_delfi_proxy()) { 
+        if (is_tobook()) { 
             $final = str_replace($_SERVER['HTTP_HOST'], 'www.delfi.lv/tobook', $final);
         }
 
@@ -63,7 +63,7 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
         // for asset paths, but only for routes to endpoints in the application.
         $root = $this->getRootUrl($this->getScheme($secure));
 
-        if (is_tobook() && is_delfi_proxy()) {
+        if (is_tobook()) {
             $root = str_replace($_SERVER['HTTP_HOST'], 'www.delfi.lv/tobook', $root);
         }
 
