@@ -159,6 +159,11 @@ if (!function_exists('session_has')) {
 }
 
 if (!function_exists('session_get')) {
+    /**
+     * Using for tobook under proxy
+     * @param $key string
+     * @return  mix
+     */
     function session_get($key)
     {
         $default = null;
