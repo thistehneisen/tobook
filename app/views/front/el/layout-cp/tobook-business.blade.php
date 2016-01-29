@@ -35,7 +35,35 @@
 
     {{-- right sidebar --}}
     <div class="col-sm-4 col-md-4">
-        <!--End slider-->
+        {{-- start review section --}}
+        <div class="row reviews-summary">
+            <div class="col-sm-4 venue-rating">
+                <div class="title">{{ trans('as.review.venue_rating') }}</div>
+                <div class="rating-value">{{ number_format($review->avg_total, 1) }}</div>
+            </div>
+            <div class="col-sm-8">
+                <table class="table borderless review-table">
+                    <tr>
+                        <td>{{ trans('as.review.environment') }}</td>
+                        <td><div class="raty" data-score="{{ $review->avg_env }}"></div></td>
+                    </tr>
+                    <tr>
+                        <td>{{ trans('as.review.service') }}</td>
+                        <td><div class="raty" data-score="{{ $review->avg_service }}"></div></td>
+                    </tr>
+                    <tr>
+                        <td>{{ trans('as.review.price_ratio') }}</td>
+                        <td><div class="raty" data-score="{{ $review->avg_price_ratio }}"></div></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row review-link">
+            <div class="col-md-offset-4 col-sm-8">
+                <a class="btn btn-success" href="{{ route('businesses.review', [$business->user_id, $business->slug])}}">{{ trans('as.review.leave_review') }}</a>
+            </div>
+        </div>
+        {{-- end review section --}}
         <h3 class="sub-heading">{{ trans('home.business.map') }}</h3>
         <div data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}" id="js-map-{{ $business->user_id }}" class="small-map"></div>
 
