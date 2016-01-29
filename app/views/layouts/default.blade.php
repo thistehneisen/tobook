@@ -101,7 +101,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     @if (Confide::user())
                     <li class="hidden-sm hidden-xs">
                         <p>
-                        @if (Session::get('stealthMode') !== null) {{ trans('common.logged_in_as') }}
+                        @if (session_get('stealthMode') !== null) {{ trans('common.logged_in_as') }}
                             @if (Confide::user()->is_business)
                                 <span class="label label-bg label-success">{{{ Confide::user()->business->name }}}</span>
                             @elseif (Confide::user()->is_consumer)
@@ -123,7 +123,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
                     {{-- Logged in --}}
                     @if (Confide::user()) {{-- Admin --}}
-                        @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
+                        @if (Entrust::hasRole('Admin') || session_get('stealthMode') !== null)
                         <li><a href="{{ route('admin.users.index') }}">
                             <i class="fa fa-rocket"></i>
                             {{ trans('common.admin') }}

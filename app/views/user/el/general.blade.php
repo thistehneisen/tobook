@@ -24,7 +24,7 @@
             {{ Form::errorText('account', $errors) }}
         </div>
     </div>
-@if (Confide::user()->is_admin || Session::has('stealthMode'))
+@if (Confide::user()->is_admin || session_has('stealthMode'))
     <div class="form-group">
         {{ Form::label('payment_options', trans('user.payment_options.index'), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
         <div class="col-sm-6">
