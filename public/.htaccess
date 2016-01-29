@@ -3,6 +3,11 @@
         Options -MultiViews
     </IfModule>
 
+    <IfModule mod_headers.c>
+        Header set Access-Control-Allow-Origin http://www.delfi.lv
+        Header set Access-Control-Allow-Credentials true
+    </IfModule>
+    
     RewriteEngine On
 
     # Redirect Trailing Slashes...

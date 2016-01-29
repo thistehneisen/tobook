@@ -153,24 +153,25 @@
 @endif
 
 @if (App::environment() === 'tobook')
-    <div class="row categories" id="js-home-categories">
-        <?php $counter = 1; ?>
-        @foreach ($masterCategories as $category)
-            @if ($category->treatments->isEmpty() === false)
-            <div class="col-sm-2 col-md-2">
-                <p><img src="{{ $category->icon_url }}" alt=""></p>
-                <h4 class="heading"><a href="{{ $category->url }}">{{{ $category->name }}}</a></h4>
-                <ul class="list-categories">
-                @foreach ($category->treatments as $treatment)
-                    <li><a href="{{ $treatment->url }}">{{{ $treatment->name }}}</a></li>
-                @endforeach
-                    <li class="toggle more"><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
-                    <li class="toggle less"><a href="#">{{ trans('home.less') }} <i class="fa fa-angle-double-up"></i></a></li>
-                </ul>
-            </div>
-            @endif
+    @foreach (array_chunk($masterCategories->all(), 6) as $id => $groupCategories)
+        <div class="row categories" id="js-home-categories" @if($id) style="margin-top:-70px" @endif>
+        @foreach($groupCategories as $category)
+                @if ($category->treatments->isEmpty() === false)
+                <div class="col-sm-2 col-md-2">
+                    <p><img src="{{ $category->icon_url }}" alt=""></p>
+                    <h4 class="heading"><a href="{{ $category->url }}">{{{ $category->name }}}</a></h4>
+                    <ul class="list-categories">
+                    @foreach ($category->treatments as $treatment)
+                        <li><a href="{{ $treatment->url }}">{{{ $treatment->name }}}</a></li>
+                    @endforeach
+                        <li class="toggle more"><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
+                        <li class="toggle less"><a href="#">{{ trans('home.less') }} <i class="fa fa-angle-double-up"></i></a></li>
+                    </ul>
+                </div>
+                @endif
         @endforeach
-    </div>
+        </div>
+    @endforeach
 @endif
 
 </div>

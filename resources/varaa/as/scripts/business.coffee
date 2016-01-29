@@ -417,20 +417,11 @@ app.VaraaBusiness = (dom, id, type, upperKeyword) ->
         ])
       m('.row',[
         m('.col-sm-3.search-panel', [
-          if(ctrl.environment() != 'tobook')
-            m('.row', [
-              m('i.fa.fa-map-marker.fa-2x.orange'),
-              m.trust('&nbsp;'),
-              m('a[href=#]', { onclick: ctrl.viewOnMap.bind(ctrl, ctrl.businesses()) }, [
-                  __('view_on_map'),
-              ])
-            ])
           m('.row.visible-xs', [
             m('a.btn.btn-orange.pull-right[href=#]', { onclick: ctrl.showFilters.bind(ctrl) }, __('filters'))
           ]),
           m('#filters.hidden-xs',[
             m('.row', [
-              m('hr', { class : ctrl.environment() }),
               m('input.js-switch[type=checkbox]', { value: true }),
               m('label[for=show_discount]',[
                 m.trust('&nbsp;'),
