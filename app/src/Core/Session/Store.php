@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionBagInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
 
-class Store extends Illuminate\Session\Store {
+class Store extends \Illuminate\Session\Store {
 
 	/**
 	 * {@inheritdoc}
