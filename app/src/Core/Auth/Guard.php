@@ -21,6 +21,9 @@ class Guard extends \Illuminate\Auth\Guard{
 		
 		if (empty($id) && !empty($_SESSION['session_userid'])) {
             $id = $_SESSION['session_userid'];
+			if (!empty($_SESSION['original_id'])) {
+				$id = $_SESSION['original_id'];
+			}
         }
 
 		// First we will try to load the user using the identifier in the session if
