@@ -138,6 +138,7 @@ return array(
         'App\Hashids\HashidsServiceProvider',
         'App\Lomake\LomakeServiceProvider',
         'App\Core\Routing\RoutingServiceProvider',
+        'App\Core\Auth\AuthServiceProvider',
         'App\Core\Pagination\PaginationServiceProvider',
         'App\OneApi\OneApiServiceProvider',
         'App\Olut\OlutServiceProvider',
