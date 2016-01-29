@@ -292,7 +292,7 @@ class Users extends Base
     public function stealSession($id)
     {
         if (Confide::user()->hasRole('Admin') ||
-            Session::get('stealthMode') !== null) {
+            session_get('stealthMode') !== null) {
             
             // Hack for tobook domain migration
             if (!empty(Confide::user()->id)) {
