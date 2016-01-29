@@ -161,11 +161,12 @@ if (!function_exists('session_has')) {
 if (!function_exists('session_get')) {
     function session_get($key)
     {
+        $default = null;
         if (is_tobook() && $key === 'stealthMode'){
             if (isset($_SESSION) && !empty($_SESSION['stealthMode'])) {
                 $default = $_SESSION['stealthMode'];
             }
         }
-        return Session::get($key);
+        return Session::get($key, $default);
     }
 }

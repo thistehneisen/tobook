@@ -135,7 +135,7 @@ class Users extends Base
         $business = $user->business ?: new Business();
         $data['business'] = $business;
 
-        $isAdmin = Confide::user()->is_admin || Session::has('stealthMode');
+        $isAdmin = Confide::user()->is_admin || session_has('stealthMode');
         $businessLomake = Lomake::make($business, [
             'route'             => ['admin.users.business', $user->id],
             'langPrefix'        => 'user.business',
