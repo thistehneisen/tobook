@@ -17,7 +17,7 @@ class Url
 
         $url = UrlGenerator::to('/'.$locale.Request::getRequestUri());
 
-        if (is_tobook() && is_delfi_proxy()) {
+        if (is_tobook()) {
             $url = str_replace($_SERVER['HTTP_HOST'], 'www.delfi.lv/tobook', $url);
         }
 

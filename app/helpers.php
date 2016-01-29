@@ -145,3 +145,33 @@ if (!function_exists('is_delfi_proxy')) {
        return in_array($_SERVER['REMOTE_ADDR'], ['62.63.137.2','62.63.137.4', '62.63.137.6', '62.63.137.205']);
     }
 }
+
+if (!function_exists('session_has')) {
+    function session_has($key)
+    {
+        if (is_tobook() && $key === 'stealthMode'){
+            if (isset($_SESSION) && !empty($_SESSION['stealthMode'])) {
+                return true;
+            }
+        }
+        return Session::hash($key);
+    }
+}
+
+if (!function_exists('session_get')) {
+    /**
+     * Using for tobook under proxy
+     * @param $key string
+     * @return  mix
+     */
+    function session_get($key)
+    {
+        $default = null;
+        if (is_tobook() && $key === 'stealthMode'){
+            if (isset($_SESSION) && !empty($_SESSION['stealthMode'])) {
+                $default = $_SESSION['stealthMode'];
+            }
+        }
+        return Session::get($key, $default);
+    }
+}

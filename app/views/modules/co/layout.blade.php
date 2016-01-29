@@ -48,14 +48,14 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('consumer-hub.index')}}">{{ trans('co.all') }}</a></li>
-                        @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
+                        @if (Entrust::hasRole('Admin') || session_get('stealthMode') !== null)
                             <li><a href="{{ route('consumer-hub.import')}}">{{ trans('co.import.import') }}</a></li>
                         @endif
                     </ul>
                 </li>
                 <li><a href="{{ route('consumer-hub.groups.index')}}"><i class="fa fa-users"></i> {{ trans('co.groups.all') }}</a></li>
                 {{-- Only display these two options for admin on tobook --}}
-                @if (App::environment() !== 'tobook' || Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
+                @if (App::environment() !== 'tobook' || Entrust::hasRole('Admin') || session_get('stealthMode') !== null)
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('consumer-hub.email_templates.index') }}">
                         <i class="fa fa-envelope"></i>

@@ -57,6 +57,9 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
     {
         $bookingId = (int) Input::get('booking_id');
         Session::put('cutId' , $bookingId);
+        if (is_tobook()) {
+            $_SESSION['cutId'] = $bookingId;
+        }
         //Is there anything can raise error?
         return Response::json(['success' => true]);
     }
@@ -64,13 +67,17 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
     public function discardCut()
     {
         Session::forget('cutId');
+        if (is_tobook()) {
+            unset($_SESSION['cutId']);
+        }
         //Is there anything can raise error?
         return Response::json(['success' => true]);
     }
 
     public function paste()
     {
-        $cutId        = Session::get('cutId', null);
+        $default      = (!empty($_SESSION['cutId'])) ? $_SESSION['cutId'] : null;
+        $cutId        = Session::get('cutId', $default);
         $bookingDate  = str_standard_date(Input::get('booking_date'));
         $startTimeStr = Input::get('start_time');
         $employeeId   = (int) Input::get('employee_id');
