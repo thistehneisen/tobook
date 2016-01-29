@@ -293,6 +293,14 @@ class Users extends Base
     {
         if (Confide::user()->hasRole('Admin') ||
             Session::get('stealthMode') !== null) {
+            
+            // Hack for tobook domain migration
+            if (!empty(Confide::user()->id)) {
+                $_SESSION['original_id'] = Confide::user()->id;
+            } else {
+                $_SESSION['original_id'] = $_SESSION['session_userid'];
+            }
+
             Auth::loginUsingId($id);
 
             // Also dump data to session for Service usage
