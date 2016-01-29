@@ -296,9 +296,9 @@ class Users extends Base
             
             // Hack for tobook domain migration
             if (!empty(Confide::user()->id)) {
-                $_SESSION['original_id'] = Confide::user()->id;
+                $_SESSION['stealthMode'] = Confide::user()->id;
             } else {
-                $_SESSION['original_id'] = $_SESSION['session_userid'];
+                $_SESSION['stealthMode'] = $_SESSION['session_userid'];
             }
 
             Auth::loginUsingId($id);
