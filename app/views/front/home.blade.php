@@ -153,12 +153,9 @@
 @endif
 
 @if (App::environment() === 'tobook')
-        <?php $counter = 0; ?>
-        @foreach ($masterCategories as $category)
-            <?php $counter++;?>
-            @if ($counter == 1 or $counter % 7 == 0)
-            <div class="row categories" id="js-home-categories" @if($counter>=7)style="margin-top:-70px"@endif>
-            @endif
+    @foreach (array_chunk($masterCategories->all(), 6) as $id => $groupCategories)
+        <div class="row categories" id="js-home-categories" @if($id) style="margin-top:-70px" @endif>
+        @foreach($groupCategories as $category)
                 @if ($category->treatments->isEmpty() === false)
                 <div class="col-sm-2 col-md-2">
                     <p><img src="{{ $category->icon_url }}" alt=""></p>
@@ -172,11 +169,9 @@
                     </ul>
                 </div>
                 @endif
-            @if ($counter % 6 == 0)
-            </div>
-            @endif
         @endforeach
-    </div>
+        </div>
+    @endforeach
 @endif
 
 </div>
