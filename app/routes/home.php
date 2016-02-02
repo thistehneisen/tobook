@@ -20,18 +20,24 @@ Route::get('policy', [
 ]);
 
 Route::get('/about', [
-    'as'    => 'home',
+    'as'    => 'about',
     'uses'  => 'App\Core\Controllers\Front@about'
 ]);
 
 Route::get('/business', [
-    'as'    => 'home',
+    'as'    => 'business',
     'uses'  => 'App\Core\Controllers\Front@business'
 ]);
 
 Route::get('/intro', [
-    'as'    => 'home',
+    'as'    => 'intro',
     'uses'  => 'App\Core\Controllers\Front@intro'
+]);
+
+// Home
+Route::get('/sitemap', [
+    'as'    => 'sitemap',
+    'uses'  => 'App\Core\Controllers\SitemapController@index'
 ]);
 
 // Home
