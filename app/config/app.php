@@ -133,6 +133,7 @@ return array(
         'Maknz\Slack\SlackServiceProvider',
         'Barryvdh\DomPDF\ServiceProvider',
         'Greggilbert\Recaptcha\RecaptchaServiceProvider',
+        'Watson\Sitemap\SitemapServiceProvider',
 
         // Homemade
         'App\Hashids\HashidsServiceProvider',
@@ -221,6 +222,7 @@ return array(
         'Raven'    => 'Clowdy\Raven\Facades\Raven',
         'Slack'    => 'Maknz\Slack\Facades\Slack',
         'PDF'      => 'Barryvdh\DomPDF\Facade',
+        'Sitemap'  => 'Watson\Sitemap\Facades\Sitemap',
 
         // Homemade
         'AppController' => 'App\Core\Controllers\Base',
