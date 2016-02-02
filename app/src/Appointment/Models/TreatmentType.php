@@ -94,6 +94,11 @@ class TreatmentType extends \App\Core\Models\Base
         ]);
     }
 
+    public function getSlugAttribute()
+    {
+        return Str::slug($this->getOriginal('name'));
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
