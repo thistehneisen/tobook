@@ -1,3 +1,4 @@
+
 <?php namespace App\Core\Routing;
 
 use Config;
