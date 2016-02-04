@@ -453,7 +453,7 @@ class Employees extends AsBase
         //10 employees perpage
         $perPage = (int) Config::get('view.employeePerPage');
 
-        $employees    = Employee::ofCurrentUser()->paginate($perPage);
+        $employees    = Employee::ofCurrentUser()->orderBy('order')->paginate($perPage);
         $planner      = new Workshift($startDate, $endDate);
         $customTimes  = $planner->getDisplayCustomTimes();
         $monthSummary = $planner->getMonthSummary();
