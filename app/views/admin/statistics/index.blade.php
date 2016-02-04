@@ -26,7 +26,7 @@
 
 @section('content')
 <h3>{{ trans('admin.nav.stats') }}</h3>
-	{{ Form::open(['class' => 'form-inline', 'role' => 'form', 'method' => 'GET']) }}
+    {{ Form::open(['route' => 'admin.statistics', 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form', 'method' => 'GET']) }}
         <div class="form-group">
             <div class="input-daterange input-group date-picker">
                 <input type="text" class="input-sm form-control" name="start" placeholder="{{ trans('as.reports.start') }}" value="{{{ $start }}}">
