@@ -1,3 +1,4 @@
+
 <?php namespace App\Core\Routing;
 
 use Config;
@@ -43,10 +44,6 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
         if (isset($url['query'])) {
             $final = rtrim($final, '/') . '/?' . $url['query'];
         }
-   
-        if (is_tobook()) { 
-            $final = str_replace($_SERVER['HTTP_HOST'], 'www.delfi.lv/tobook', $final);
-        }
 
         return $final;
     }
@@ -62,10 +59,6 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
         // file in the paths. If it does, we will remove it since it is not needed
         // for asset paths, but only for routes to endpoints in the application.
         $root = $this->getRootUrl($this->getScheme($secure));
-
-        if (is_tobook()) {
-            $root = str_replace($_SERVER['HTTP_HOST'], 'www.delfi.lv/tobook', $root);
-        }
 
         return $this->removeIndex($root).'/'.trim($path, '/');
     }

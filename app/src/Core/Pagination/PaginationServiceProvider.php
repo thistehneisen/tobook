@@ -14,9 +14,7 @@ class PaginationServiceProvider extends \Illuminate\Pagination\PaginationService
 
             // Support i18n URLs
             $paginator->setBaseUrl($app->getLocale().'/'.$app['request']->path());
-            if (is_tobook()){
-                $paginator->setBaseUrl('tobook/'.$app->getLocale().'/'.$app['request']->path());
-            }
+
             $app->refresh('request', $paginator, 'setRequest');
 
             return $paginator;

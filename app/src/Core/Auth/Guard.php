@@ -18,10 +18,6 @@ class Guard extends \Illuminate\Auth\Guard{
 		}
 
 		$id = $this->session->get($this->getName());
-		
-		if (empty($id) && !empty($_SESSION['session_userid'])) {
-            $id = $_SESSION['session_userid'];
-        }
 
 		// First we will try to load the user using the identifier in the session if
 		// one exists. Otherwise we will check for a "remember me" cookie in this
