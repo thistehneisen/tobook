@@ -149,12 +149,7 @@ if (!function_exists('is_delfi_proxy')) {
 if (!function_exists('session_has')) {
     function session_has($key)
     {
-        if (is_tobook() && $key === 'stealthMode'){
-            if (isset($_SESSION) && !empty($_SESSION['stealthMode'])) {
-                return true;
-            }
-        }
-        return Session::hash($key);
+        return Session::has($key);
     }
 }
 
@@ -167,11 +162,6 @@ if (!function_exists('session_get')) {
     function session_get($key)
     {
         $default = null;
-        if (is_tobook() && $key === 'stealthMode'){
-            if (isset($_SESSION) && !empty($_SESSION['stealthMode'])) {
-                $default = $_SESSION['stealthMode'];
-            }
-        }
         return Session::get($key, $default);
     }
 }
