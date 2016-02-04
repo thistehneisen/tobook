@@ -1362,14 +1362,14 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $consumerCreatedTime = Util::formatIgnoreSeconds($this->consumer->created_at);
             $bookingCreatedTime  = Util::formatIgnoreSeconds($this->created_at);
 
-            $isNew = (!empty($this->consumer) && $consumerCreatedTime == $bookingCreatedTime)
+            $isNew = ($consumerCreatedTime === $bookingCreatedTime)
                 ? Consumer::STATUS_NEW : Consumer::STATUS_EXIST;
         }
 
         if (is_tobook()) {
             $constantCommission    = Settings::get('constant_commission');
             $newConsumerRate       = Settings::get('new_consumer_commission_rate');
-            $newConsumerCommission = ($isNew === Consumer::STATUS_NEW && $this->source === 'cp') 
+            $newConsumerCommission = ($isNew === Consumer::STATUS_NEW) 
                 ? ($newConsumerRate * $this->total_price) : 0;
         }
 
