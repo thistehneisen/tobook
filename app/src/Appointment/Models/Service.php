@@ -141,17 +141,23 @@ class Service extends \App\Core\Models\Base
 
     public function getHasDiscountAttribute()
     {
-        $hashDiscount = false;
+        $hasDiscount = false;
 
         $discount = Discount::where('user_id', '=', $this->user->id)
             ->where('is_active', '=', true)->first();
         $discountLastMinute = DiscountLastMinute::where('user_id', '=', $this->user->id)
             ->where('is_active', '=', true)->first();
 
-        $hashDiscount = (empty($discount) && empty($discountLastMinute)) ? false : true;
-        $hashDiscount = ($hashDiscount && $service->is_discount_included);
+        $hasDiscount = (empty($discount) && empty($discountLastMinute)) ? false : true;
+        $hasDiscount = ($hasDiscount && $service->is_discount_included);
 
-        return $hashDiscount;
+        return $hasDiscount;
+    }
+
+    public function getDiscountPriceAttribute()
+    {
+        $now = Carbon::now();
+        return $this->getDiscountPrice($now, $now);
     }
 
     public function getHasEmployeeAttribute()
@@ -172,9 +178,9 @@ class Service extends \App\Core\Models\Base
         // o for one
         $oformatted = '%d&euro;';
 
-        $prices[] = $this->price;
+        $prices[] = $this->discountPrice;
         foreach ($this->serviceTimes as $serviceTime) {
-            $prices[] = $serviceTime->price;
+            $prices[] = $serviceTime->discountPrice;
         }
 
         if (count($prices) < 1) {
