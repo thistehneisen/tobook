@@ -166,7 +166,7 @@ return [
         'not_found'    => 'Pieprasīto informāciju nevar atrast. Lūdzu, pārbaudiet URL saiti.',
         'invalid'      => 'Ievadīta nederīga informācija. Lūdzu, mēģiniet vēlreiz.',
         'unauthorized' => 'Šī lapa jums nav pieejama.',
-        'not_business' => 'Jums nav biznesa konts vai jūsu konts nav aktivizēts. Lūdzu, sazinieties ar mūsu atbalsta dienestu, sūtot ziņu uz <a href="mailto:yritys@varaa.com">yritys@varaa.com</a>, lai aktivizētu savu kontu.',
+        'not_business' => 'Jums nav biznesa konts vai jūsu konts nav aktivizēts. Lūdzu, sazinieties ar mūsu atbalsta dienestu, sūtot ziņu uz <a href="mailto:info@tobook.lv">info@tobook.lv</a>, lai aktivizētu savu kontu.',
         'no_record_found' => 'Nekas nav atrasts'
     ],
     'with_selected' => 'Ar izvēlēto',
