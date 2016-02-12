@@ -81,7 +81,7 @@ return [
         'learn_more'             => 'Parādīt vairāk &raquo;',
         'keyword_not_exists'     => 'Atslēgas vārds neeksistē',
         'please_try'             => 'Lūdzu lietojiet kādu no šiem atslēgas vārdiem',
-        'only_offpeak_discounts' => 'Atlaides min. noslodzes laikā',
+        'only_offpeak_discounts' => 'Īpašās stundas',
         'filter_search_results'  => 'Filtrēšanas rezultāts',
         'validation'      => [
             'q'        => 'Lūdzu ievadiet uzņēmumu, vai pakalpojumu',

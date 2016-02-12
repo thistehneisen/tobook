@@ -464,7 +464,7 @@ return [
             'confirmed'   => 'Apstiprināts rezervācijas',
             'unconfirmed' => 'Neapstiprinātas rezervācijas',
             'cancelled'   => 'Atceltās rezervācijas',
-            'inhouse'     => 'Rezervācijas',
+            'inhouse'     => 'Rezervācijas no Tobook.lv',
             'front-end'   => 'Rezervācijas no Jūsu mājas lapas',
         ],
         'statistics'=> 'Statistika',

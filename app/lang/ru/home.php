@@ -76,7 +76,7 @@ return [
         'date'                   => 'Любая дата',
         'time'                   => 'любое время',
         'current_location'       => 'Ваше местонахождение',
-        'only_offpeak_discounts' => 'Скидки в период мин. нагрузки',
+        'only_offpeak_discounts' => 'Особые часы',
         'filter_search_results'  => 'Поиск услуги',
         'learn_more'             => 'Узнать побольше',
         'keyword_not_exists'     => 'Ключевое слово не существует',
