@@ -85,9 +85,17 @@ class EmailObserver implements \SplObserver
 
     public function sendConsumerEmail($subject)
     {
+
         if (empty($subject->consumer->email)
                 || (!empty($subject->consumer->receive_email)
                     && !(bool) $subject->consumer->receive_email)) {
+            return;
+        }
+
+        Log::info('Reminder', [$subject->reminder]);
+
+        if (isset($subject->reminder->isConfirmationEmail)
+        && !(bool)$subject->reminder->isConfirmationEmail) {
             return;
         }
 

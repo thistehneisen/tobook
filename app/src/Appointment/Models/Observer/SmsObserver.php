@@ -94,6 +94,11 @@ class SmsObserver implements \SplObserver
             return;
         }
 
+        if (isset($subject->reminder->isReminderSms)
+        && !(bool)$subject->reminder->isReminderSms) {
+            return;
+        }
+
         $msg = $subject->user->asOptions['confirm_consumer_sms_message'];
         $cancelURL = route('as.bookings.cancel', ['uuid' => $subject->uuid]);
         $address = sprintf('%s, %s %s',
@@ -115,7 +120,7 @@ class SmsObserver implements \SplObserver
 
         //@see http://laravel.com/docs/4.2/queues#queueing-closures
         $phone = $subject->consumer->phone;
-        
+
         Queue::push(function ($job) use ($phone, $msg, $code) {
             Sms::send(Config::get('sms.from'), $phone, $msg, $code);
             $job->delete();
