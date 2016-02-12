@@ -154,7 +154,7 @@ class Bookings extends AsBase
             $limit = (int) $this->user->asOptions['cancel_before_limit'];
 
             $booking = Booking::where('uuid', $uuid)->first();
-            
+
             $now = Carbon::now();
 
             if ($now < $booking->startTime->copy()->subHours($limit)) {
@@ -221,7 +221,7 @@ class Bookings extends AsBase
         if (!empty($couponBooking->coupon->campaign->id) ){
             $couponApplied = true;
         }
-        
+
         return [
             'booking'               => $booking,
             'uuid'                  => $booking->uuid,
@@ -384,7 +384,7 @@ class Bookings extends AsBase
             $isRequestedEmployee = (!empty($booking->bookingServices()->first()->is_requested_employee))
                 ? $booking->bookingServices()->first()->is_requested_employee
                 : false;
-                
+
             $receptionist = new BackendReceptionist();
             $receptionist->setBookingId($bookingId)
                 ->setUUID($booking->uuid)

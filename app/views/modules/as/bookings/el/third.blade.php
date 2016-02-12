@@ -12,8 +12,8 @@
                         <label for="confirmation_sms" class="col-sm-6 control-label">{{ trans('as.bookings.confirmation_sms') }}</label>
                         <div class="col-sm-6">
                             <div class="radio-group">
-                                <?php 
-                                    $is_confirmation_sms = !(empty($booking->reminder->is_confirmation_sms)) 
+                                <?php
+                                    $is_confirmation_sms = (isset($booking->reminder->is_confirmation_sms))
                                      ? (bool) $booking->reminder->is_confirmation_sms
                                      : $user->asOptions['confirm_sms_enable']
                                 ?>
@@ -33,8 +33,8 @@
                         <label for="confirmation_email" class="col-sm-6 control-label">{{ trans('as.bookings.confirmation_email') }}</label>
                           <div class="col-sm-6">
                             <div class="radio-group">
-                                <?php 
-                                    $is_confirmation_email = !(empty($booking->reminder->is_confirmation_email)) 
+                                <?php
+                                    $is_confirmation_email = (isset($booking->reminder->is_confirmation_email))
                                      ? (bool) $booking->reminder->is_confirmation_email
                                      : $user->asOptions['confirm_email_enable']
                                 ?>
@@ -56,8 +56,8 @@
                         <label for="reminder_sms" class="col-sm-6 control-label">{{ trans('as.bookings.reminder_sms') }}</label>
                         <div class="col-sm-6">
                             <div class="radio-group">
-                                <?php 
-                                    $is_reminder_sms = !(empty($booking->reminder->is_reminder_sms)) 
+                                <?php
+                                    $is_reminder_sms = (isset($booking->reminder->is_reminder_sms))
                                      ? (bool) $booking->reminder->is_reminder_sms
                                      : $user->asOptions['reminder_sms']
                                 ?>
@@ -95,8 +95,8 @@
                         <label for="reminder_email" class="col-sm-6 control-label">{{ trans('as.bookings.reminder_email') }}</label>
                         <div class="col-sm-6">
                             <div class="radio-group">
-                                <?php 
-                                    $is_reminder_email = !(empty($booking->reminder->is_reminder_email)) 
+                                <?php
+                                    $is_reminder_email = (isset($booking->reminder->is_reminder_email))
                                      ? (bool) $booking->reminder->is_reminder_email
                                      : $user->asOptions['reminder_email']
                                 ?>

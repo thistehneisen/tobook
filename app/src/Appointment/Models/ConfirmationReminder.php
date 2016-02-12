@@ -48,7 +48,7 @@ class ConfirmationReminder extends \Eloquent
         $datetime = $now->copy()->addMinutes($compensate)
             ->second(0)
             ->toDateTimeString();
-        
+
         Log::info('Reminder check', [$datetime]);
 
         $reminders = self::where(function($query) use ($datetime) {
@@ -61,7 +61,7 @@ class ConfirmationReminder extends \Eloquent
 
         // Loop thourgh bookings and add to queue
         foreach ($reminders as $reminder) {
-            
+
             if ($reminder->isReminderEmail == 1) {
                 self::sendEmailReminder($reminder->booking);
             }
@@ -69,7 +69,7 @@ class ConfirmationReminder extends \Eloquent
             if ($reminder->isReminderSms == 1) {
                 self::sendSmsReminder($reminder->booking);
             }
-            
+
         }
     }
 

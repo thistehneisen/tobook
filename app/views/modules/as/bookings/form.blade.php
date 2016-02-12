@@ -7,15 +7,15 @@
 <form id="booking_form" method="POST" action="{{ route('as.bookings.add') }}">
 <div class="bs-example">
     <div class="panel-group" id="accordion">
-        <!--- Start first tab --> 
+        <!--- Start first tab -->
         @include ('modules.as.bookings.el.first')
         <!--- End first tab -->
 
-        <!--- Start first tab --> 
+        <!--- Start first tab -->
         @include ('modules.as.bookings.el.second')
         <!--- End first tab -->
-        
-        <!--- Start Confirmation and reminder settings tab --> 
+
+        <!--- Start Confirmation and reminder settings tab -->
         @include ('modules.as.bookings.el.third')
         <!--- End confirmation and reminder settings tab -->
 

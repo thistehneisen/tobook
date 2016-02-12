@@ -18,7 +18,7 @@ class BackendReceptionist extends Receptionist
     public function validateData()
     {
         $this->validateBookingTotal();
-        // Disable past time booking in backend 
+        // Disable past time booking in backend
         // @see https://github.com/varaa/varaa/issues/767
         // $this->validateBookingTime();
     }
@@ -153,7 +153,7 @@ class BackendReceptionist extends Receptionist
             $this->setSource($booking->source);
         }
 
-        $confirmationReminder = (!empty($booking->reminder->booking_id)) 
+        $confirmationReminder = (!empty($booking->reminder->booking_id))
             ? $booking->reminder
             : new ConfirmationReminder();
 
