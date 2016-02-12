@@ -88,7 +88,7 @@ class ConfirmationReminder extends \Eloquent
         $body         = $booking->getEmailReminderContent();
         $receiver     = $booking->consumer->email;
         $receiverName = $booking->consumer->name;
-
+		
         // Enque to send email
         Queue::push(function ($job) use ($emailSubject, $body, $receiver, $receiverName) {
             Mail::send('modules.as.emails.reminder', [

@@ -97,6 +97,11 @@ class EmailObserver implements \SplObserver
         $receiver     = $subject->consumer->email;
         $receiverName = $subject->consumer->name;
 
+        if ($subject->updated_at != $subject->created_at) {
+            Log::info('Dont resent email', [$subject])
+            return;
+        }
+
         Queue::push(function ($job) use ($emailSubject, $body, $receiver, $receiverName) {
             Mail::send('modules.as.emails.confirm', [
                 'title' => $emailSubject,
