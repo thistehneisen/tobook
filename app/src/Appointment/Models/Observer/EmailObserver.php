@@ -98,7 +98,7 @@ class EmailObserver implements \SplObserver
         $receiverName = $subject->consumer->name;
 
         if ($subject->updated_at != $subject->created_at) {
-            Log::info('Dont resent email', [$subject])
+            Log::info('Dont resent email', [$subject]);
             return;
         }
 
