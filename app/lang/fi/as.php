@@ -188,7 +188,7 @@ return [
             'before_min_distance'         => 'Valitettavasti et voi tehdä varausta näin lähelle',
             'after_max_distance'          => 'Olet tekemässä varauksen liian kauas tulevaisuuteen',
             'missing_services'            => 'Muista lisätä varaukseen palvelu!<br>(Klikkaa \'Lisää\')',
-            'invalid_reminder_time'       => 'Reminder time cannot be in the past!',
+            'invalid_reminder_time'       => 'Muistutusviestin lähetysajankohta ei voi olla menneisyydessä!',
         ],
         'warning'      => [
             'existing_user'   => 'Järjestelmästä löytyy käyttäjäprofiili antamallesi sähköpostiosoitteelle. Ovatko nämä sinun tietosi?',
